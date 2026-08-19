@@ -2909,11 +2909,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Cumlaude (Foto + Video)</h4>
                         </div>
                         <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">60 Menit</span> Unlimited Foto Around Campus + <span className="text-rose-600 font-bold">1 Video Cinematic / Reels (30-60 detik)</span></p>
+                          <p><span className="text-rose-600 font-bold">75 Menit</span> Unlimited Foto Around Campus + <span className="text-rose-600 font-bold">1 Video Cinematic / Reels (30-60 detik)</span></p>
                           <p>All file via Google Drive | Edit 10 Foto High-Res | Free Transport Kampus</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">455K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">710K</div>
                           <button
                             onClick={() => onSelectPackageForBooking('grad-outdoor-cumlaude')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2930,7 +2930,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Outdoor 3</span>
                         </div>
                         <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Sesi foto wisuda bersama kelompok / sahabat di area kampus outdoor.</p>
+                          <p>Sesi foto wisuda bersama kelompok / sahabat di area kampus outdoor (bisa foto bareng keluarga).</p>
                           <p>All file via Google Drive | Free Transport Area Kampus</p>
                         </div>
 
@@ -2938,11 +2938,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           {/* 2 Orang */}
                           <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 flex flex-col justify-between">
                             <div>
-                              <div className="font-serif font-black text-slate-900 text-sm">Group 2 Orang</div>
-                              <p className="text-[11px] text-slate-600">45 Menit | Edit 10 Foto</p>
+                              <div className="font-serif font-black text-slate-900 text-sm">Group 2 Wisudawan</div>
+                              <p className="text-[11px] text-slate-600">75 Menit | Edit 20 Foto</p>
+                              <p className="text-[10px] text-slate-500 font-medium mt-0.5">255K / wisudawan</p>
                             </div>
                             <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-                              <span className="font-black text-base text-slate-900">390K</span>
+                              <span className="font-black text-base text-slate-900">510K</span>
                               <button
                                 onClick={() => onSelectPackageForBooking('grad-outdoor-group-2')}
                                 className="px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-[11px] cursor-pointer active:scale-95"
@@ -2955,11 +2956,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           {/* 3 Orang */}
                           <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 flex flex-col justify-between">
                             <div>
-                              <div className="font-serif font-black text-slate-900 text-sm">Group 3 Orang</div>
-                              <p className="text-[11px] text-slate-600">45 Menit | Edit 12 Foto</p>
+                              <div className="font-serif font-black text-slate-900 text-sm">Group 3 Wisudawan</div>
+                              <p className="text-[11px] text-slate-600">90 Menit | Edit 30 Foto</p>
+                              <p className="text-[10px] text-slate-500 font-medium mt-0.5">210K / wisudawan</p>
                             </div>
                             <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-                              <span className="font-black text-base text-slate-900">450K</span>
+                              <span className="font-black text-base text-slate-900">630K</span>
                               <button
                                 onClick={() => onSelectPackageForBooking('grad-outdoor-group-3')}
                                 className="px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-[11px] cursor-pointer active:scale-95"
@@ -2972,11 +2974,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           {/* 4-5 Orang */}
                           <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 flex flex-col justify-between">
                             <div>
-                              <div className="font-serif font-black text-slate-900 text-sm">Group 4 - 5 Orang</div>
-                              <p className="text-[11px] text-slate-600">50 Menit | Edit 15 Foto</p>
+                              <div className="font-serif font-black text-slate-900 text-sm">Group 4-5 Wisudawan</div>
+                              <p className="text-[11px] text-slate-600">120 Menit | Edit 40 Foto</p>
+                              <p className="text-[10px] text-slate-500 font-medium mt-0.5">180K / wisudawan</p>
                             </div>
                             <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-                              <span className="font-black text-base text-slate-900">525K</span>
+                              <span className="font-black text-base text-slate-900">900K</span>
                               <button
                                 onClick={() => onSelectPackageForBooking('grad-outdoor-group-4-5')}
                                 className="px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-[11px] cursor-pointer active:scale-95"
