@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1130" width="100%" height="100%">
+  <rect width="800" height="1130" fill="#F2C2CB"/>
+
+  <!-- Header -->
+  <g text-anchor="middle" transform="translate(400, 75)">
+    <text font-family="'Arial Black', sans-serif" font-size="38" font-weight="900" fill="#4C0519">PILIHAN GRID CETAK</text>
+    <text y="48" font-family="'Arial Black', sans-serif" font-size="44" font-weight="900" fill="#4C0519">SELF STUDIO</text>
+  </g>
+
+  <!-- Top Row: Grid 3 A, Grid 3 B, Grid 3 C -->
+  <!-- Grid 3 A -->
+  <g transform="translate(90, 160)">
+    <rect width="180" height="420" fill="#FFFFFF" rx="4"/>
+    <rect x="12" y="12" width="156" height="120" fill="#0284C7"/>
+    <rect x="12" y="140" width="156" height="120" fill="#0369A1"/>
+    <rect x="12" y="268" width="156" height="120" fill="#075985"/>
+    <text x="90" y="450" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="20" font-weight="bold" fill="#4C0519">Grid 3 A</text>
+  </g>
+
+  <!-- Grid 3 B -->
+  <g transform="translate(310, 160)">
+    <rect width="180" height="420" fill="#FBCFE8" rx="4"/>
+    <rect x="12" y="12" width="156" height="120" fill="#F472B6"/>
+    <rect x="12" y="140" width="156" height="120" fill="#E11D48"/>
+    <rect x="12" y="268" width="156" height="120" fill="#111827"/>
+    <text x="90" y="450" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="20" font-weight="bold" fill="#4C0519">Grid 3 B</text>
+  </g>
+
+  <!-- Grid 3 C -->
+  <g transform="translate(530, 160)">
+    <rect width="180" height="420" fill="#FEF3C7" rx="4"/>
+    <rect x="12" y="12" width="156" height="120" fill="#FBBF24"/>
+    <rect x="12" y="140" width="156" height="120" fill="#D97706"/>
+    <rect x="12" y="268" width="156" height="120" fill="#B45309"/>
+    <text x="90" y="450" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="20" font-weight="bold" fill="#4C0519">Grid 3 C</text>
+  </g>
+
+  <!-- Bottom Row: Grid 3 D, Grid 3 E -->
+  <!-- Grid 3 D -->
+  <g transform="translate(200, 640)">
+    <rect width="180" height="390" fill="#0F172A" rx="4"/>
+    <rect x="12" y="12" width="156" height="110" fill="#5EEAD4"/>
+    <rect x="12" y="130" width="156" height="110" fill="#2DD4BF"/>
+    <rect x="12" y="248" width="156" height="110" fill="#14B8A6"/>
+    <text x="90" y="420" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="20" font-weight="bold" fill="#4C0519">Grid 3 D</text>
+  </g>
+
+  <!-- Grid 3 E -->
+  <g transform="translate(420, 640)">
+    <rect width="180" height="390" fill="#18181B" rx="4"/>
+    <rect x="12" y="12" width="156" height="110" fill="#60A5FA"/>
+    <rect x="12" y="130" width="156" height="110" fill="#3B82F6"/>
+    <rect x="12" y="248" width="156" height="110" fill="#2563EB"/>
+    <text x="90" y="420" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="20" font-weight="bold" fill="#4C0519">Grid 3 E</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="400" y="1080" text-anchor="middle" font-family="'Arial Black', sans-serif" font-size="22" font-weight="bold" fill="#881337">FEEL FREE TO EXPRESS YOUR STYLE</text>
+</svg>

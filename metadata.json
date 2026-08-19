@@ -1,0 +1,6 @@
+{
+  "name": "Alviero Self Studio - Pricelist & Booking",
+  "description": "Aplikasi Pricelist, Katalog Paket, & Reservasi Online Self Photo Studio Alviero (Spotlight, Frame Grid, Special Color, Add-ons & Fast WhatsApp Booking)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
