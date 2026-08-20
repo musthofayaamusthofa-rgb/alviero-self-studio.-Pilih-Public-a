@@ -748,15 +748,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </button>
               </div>
 
-              {/* 3. Tombol Hitung & Reservasi (Signature Pastel Sage Pill) */}
-              <button
-                onClick={onOpenBooking}
-                className="w-full min-h-[44px] bg-[#6c8c74] hover:bg-[#57735e] text-white font-extrabold text-xs sm:text-sm py-2.5 px-5 rounded-full shadow-xs hover:shadow-sm flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95"
-              >
-                <Calendar className="w-4 h-4 text-[#d4e6d8]" />
-                <span>Hitung & Reservasi Tanggal</span>
-              </button>
-
               {/* 4. Switcher Mode: Menu Pricelist vs Galeri Hasil Foto (Khusus HP) */}
               <div className="w-full lg:hidden bg-[#f4f3ee] p-1 rounded-full flex items-center gap-1 border border-stone-200 shadow-2xs">
                 <button
