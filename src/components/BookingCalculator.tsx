@@ -57,6 +57,44 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
   return { key: cat, label: pkg.name, badge: '📸 Studio', note: '' };
 };
 
+export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[] }): number => {
+  const id = pkg.id.toLowerCase();
+  const cat = pkg.category.toLowerCase();
+  
+  if (id.includes('self') || cat === 'self-studio' || cat === 'pass-foto' || id.includes('passfoto') || cat === 'sewa-studio' || cat === 'undangan') {
+    return 1;
+  }
+  
+  const desc = (pkg.description || '').toLowerCase();
+  const highlights = (pkg.highlights || []).map(h => h.toLowerCase()).join(' ');
+  const name = (pkg.name || '').toLowerCase();
+
+  // If explicitly mentions 2 background / 2 latar
+  if (desc.includes('2 background') || highlights.includes('2 background') || desc.includes('2 latar') || highlights.includes('2 latar')) {
+    return 2;
+  }
+
+  // Paket 2 keatas di Studio Foto
+  const isPaket2OrHigher = (
+    name.includes(' 2') || name.includes(' 3') || name.includes(' 4') ||
+    name.includes('(birthday 2') || name.includes('(birthday 3') || name.includes('(birthday 4') ||
+    name.includes('(group 2') || name.includes('(group 3') || name.includes('(group 4') ||
+    name.includes('(family 2') || name.includes('(personal 2') || name.includes('(couple 2') ||
+    name.includes('(graduation indoor 2') || name.includes('(graduation indoor 3') || name.includes('(graduation indoor 4') ||
+    name.includes('(graduation 2') || name.includes('(graduation 3') || name.includes('(graduation 4') ||
+    name.includes('(grad outdoor 2') || name.includes('(maternity 2') ||
+    name.includes('(prewed 2') || name.includes('(prewed 3') || name.includes('(prewed 4') ||
+    id.includes('-2') || id.includes('-3') || id.includes('-4') ||
+    name.includes('silver') || name.includes('gold') || name.includes('platinum') ||
+    name.includes('supreme') || name.includes('triumph') || name.includes('apex') ||
+    name.includes('happy nest') || name.includes('opulent shot') || name.includes('glow sweet') ||
+    name.includes('sweet light') || name.includes('ultimate') || name.includes('signature squad') ||
+    name.includes('royal ensemble') || name.includes('imperial union') || name.includes('romantic deluxe')
+  );
+
+  return isPaket2OrHigher ? 2 : 1;
+};
+
 const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
 
 export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
@@ -70,7 +108,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Form State
   const [selectedPackageId, setSelectedPackageId] = useState<string>(preselectedPackageId || PACKAGES[0].id);
-  const [selectedBackdropId, setSelectedBackdropId] = useState<string>(preselectedBackdropId || BACKDROPS[0].id);
+  const [selectedBackdropIds, setSelectedBackdropIds] = useState<string[]>([preselectedBackdropId || BACKDROPS[0].id]);
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: number }>({});
   
@@ -97,6 +135,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
   const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
   const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
+  const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
   const activeTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
@@ -138,7 +177,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
-    if (preselectedBackdropId) setSelectedBackdropId(preselectedBackdropId);
+    if (preselectedBackdropId) setSelectedBackdropIds([preselectedBackdropId]);
     if (preselectedFrameId) setSelectedFrameId(preselectedFrameId);
   }, [preselectedPackageId, preselectedBackdropId, preselectedFrameId]);
 
@@ -146,14 +185,46 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   useEffect(() => {
     // Reset selected backdrop if it's not available in the current category
-    const currentBackdropValid = availableBackdrops.some(b => b.id === selectedBackdropId);
-    if (!currentBackdropValid && availableBackdrops.length > 0) {
-      setSelectedBackdropId(availableBackdrops[0].id);
+    const validIds = selectedBackdropIds.filter(id => availableBackdrops.some(b => b.id === id));
+    if (validIds.length === 0 && availableBackdrops.length > 0) {
+      setSelectedBackdropIds([availableBackdrops[0].id]);
+    } else if (maxBackdrops === 1 && validIds.length > 1) {
+      setSelectedBackdropIds([validIds[0]]);
+    } else if (validIds.length !== selectedBackdropIds.length) {
+      setSelectedBackdropIds(validIds);
     }
-  }, [isSelfStudio, availableBackdrops, selectedBackdropId]);
+  }, [selectedPackageId, isSelfStudio, availableBackdrops, maxBackdrops]);
+
+  const handleSelectBackdrop = (id: string) => {
+    if (maxBackdrops === 1) {
+      setSelectedBackdropIds([id]);
+    } else {
+      // maxBackdrops === 2
+      if (selectedBackdropIds.includes(id)) {
+        if (selectedBackdropIds.length > 1) {
+          setSelectedBackdropIds(selectedBackdropIds.filter(bId => bId !== id));
+        }
+      } else {
+        if (selectedBackdropIds.length < 2) {
+          setSelectedBackdropIds([...selectedBackdropIds, id]);
+        } else {
+          // Replace 2nd backdrop
+          setSelectedBackdropIds([selectedBackdropIds[0], id]);
+        }
+      }
+    }
+  };
 
   if (!isOpen) return null;
-  const currentBackdrop = BACKDROPS.find(b => b.id === selectedBackdropId) || availableBackdrops[0] || BACKDROPS[0];
+
+  const selectedBackdropObjects = selectedBackdropIds
+    .map(id => BACKDROPS.find(b => b.id === id))
+    .filter(Boolean) as BackdropOption[];
+
+  const backdropDisplayName = selectedBackdropObjects.length > 1
+    ? `Latar 1: ${selectedBackdropObjects[0].name} & Latar 2: ${selectedBackdropObjects[1].name}`
+    : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Latar Standar');
+
   const currentFrame = FRAME_TEMPLATES.find(f => f.id === selectedFrameId) || FRAME_TEMPLATES[0];
 
   // Calculate Price Breakdown
@@ -222,7 +293,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     message += `📷 *PAKET & KONSEP STUDIO:*\n`;
     message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
-    message += `• Pencahayaan / Backdrop: ${currentBackdrop.name}\n`;
+    message += `• Pencahayaan / Backdrop: ${backdropDisplayName}\n`;
     if (isSelfStudio) {
       message += `• Grid Template Cetak: ${currentFrame.name}\n`;
     }
@@ -284,7 +355,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         time: timeSlot,
         studio_type: studioTypeKey,
         studio_label: isSelfStudio ? 'Self Studio' : 'Studio Foto Profesional',
-        backdrop: currentBackdrop.name,
+        backdrop: backdropDisplayName,
         frame: isSelfStudio ? currentFrame.name : '-',
         name: customerName || 'Pelanggan',
         phone: customerPhone || '-',
@@ -408,33 +479,86 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* Backdrop selection */}
+              {/* Backdrop selection (1 or 2 backdrops depending on package) */}
               <div>
-                <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-2">
-                  2. Pilih Pencahayaan / Latar Belakang (Backdrop):
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {availableBackdrops.map((backdrop) => (
-                    <button
-                      key={backdrop.id}
-                      onClick={() => setSelectedBackdropId(backdrop.id)}
-                      className={`min-h-[50px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer active:scale-98 ${
-                        selectedBackdropId === backdrop.id
-                          ? 'border-indigo-600 bg-indigo-50/90 ring-2 ring-indigo-500/20 shadow-xs'
-                          : 'border-slate-200 bg-white hover:bg-slate-50'
-                      }`}
-                    >
-                      <div
-                        className="w-7 h-7 rounded-full border border-black/10 shrink-0 shadow-2xs"
-                        style={{ backgroundColor: backdrop.hex }}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <div className="font-bold text-xs text-slate-900 truncate">{backdrop.name}</div>
-                        <div className="text-[10px] text-slate-500 truncate">{backdrop.description}</div>
-                      </div>
-                    </button>
-                  ))}
+                <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
+                  <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                    2. {maxBackdrops > 1 ? 'Pilih 2 Pencahayaan / Latar Belakang (Backdrop):' : 'Pilih Pencahayaan / Latar Belakang (Backdrop):'}
+                  </label>
+                  {maxBackdrops > 1 ? (
+                    <span className="text-[10.5px] bg-emerald-50 text-emerald-800 border border-emerald-300 font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
+                      ✨ Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
+                    </span>
+                  ) : (
+                    <span className="text-[10.5px] bg-slate-100 text-slate-600 border border-slate-200 font-semibold px-2 py-0.5 rounded-full">
+                      1 Background
+                    </span>
+                  )}
                 </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {availableBackdrops.map((backdrop) => {
+                    const isSelected = selectedBackdropIds.includes(backdrop.id);
+                    const selectionIndex = selectedBackdropIds.indexOf(backdrop.id);
+
+                    return (
+                      <button
+                        key={backdrop.id}
+                        type="button"
+                        onClick={() => handleSelectBackdrop(backdrop.id)}
+                        className={`min-h-[52px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer active:scale-98 relative ${
+                          isSelected
+                            ? 'border-indigo-600 bg-indigo-50/90 ring-2 ring-indigo-500/20 shadow-xs'
+                            : 'border-slate-200 bg-white hover:bg-slate-50'
+                        }`}
+                      >
+                        <div
+                          className="w-7 h-7 rounded-full border border-black/10 shrink-0 shadow-2xs flex items-center justify-center text-white text-[11px] font-black"
+                          style={{ backgroundColor: backdrop.hex }}
+                        >
+                          {isSelected && maxBackdrops > 1 && (
+                            <span className="bg-black/40 w-full h-full rounded-full flex items-center justify-center">
+                              {selectionIndex + 1}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="font-bold text-xs text-slate-900 truncate">{backdrop.name}</span>
+                            {isSelected && maxBackdrops > 1 && (
+                              <span className="text-[9px] font-black bg-indigo-600 text-white px-1.5 py-0.2 rounded-md">
+                                Latar {selectionIndex + 1}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-[10px] text-slate-500 truncate">{backdrop.description}</div>
+                        </div>
+                        {isSelected && (
+                          <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 text-xs">
+                            <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Helper notice for 2 backdrops */}
+                {maxBackdrops > 1 && (
+                  <div className={`mt-2.5 p-2.5 rounded-xl border text-xs flex items-center justify-between gap-2 transition-all ${
+                    selectedBackdropIds.length >= 2
+                      ? 'bg-emerald-50/90 border-emerald-200 text-emerald-900'
+                      : 'bg-amber-50/90 border-amber-200 text-amber-900'
+                  }`}>
+                    <span className="font-medium">
+                      {selectedBackdropIds.length >= 2 ? (
+                        <>✅ <strong>2 Latar Terpilih:</strong> {backdropDisplayName}</>
+                      ) : (
+                        <>💡 <strong>Baru 1 Latar Dipilih:</strong> {selectedBackdropObjects[0]?.name || '-'}. <em>Silakan klik 1 background lagi untuk latar ke-2 Anda!</em></>
+                      )}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Frame Grid selection (Hanya untuk Self Studio) */}
