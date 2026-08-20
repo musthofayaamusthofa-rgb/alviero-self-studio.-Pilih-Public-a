@@ -139,6 +139,53 @@ export const BackdropHeroSlider: React.FC = () => {
 };
 
 /**
+ * Konfigurasi Warna Pastel Unik untuk Tiap Cabang
+ */
+const BRANCH_PASTEL_THEMES: Record<string, {
+  cardBg: string;
+  cardBorder: string;
+  cardBorderSelected: string;
+  ringColor: string;
+  iconBg: string;
+  iconText: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+  btnBg: string;
+  btnHover: string;
+  pinColor: string;
+}> = {
+  'cabang-1': {
+    cardBg: 'bg-[#f2f8f4]',
+    cardBorder: 'border-[#c5decb]',
+    cardBorderSelected: 'border-[#4d7557]',
+    ringColor: 'ring-[#4d7557]/25',
+    iconBg: 'bg-[#dbeee0]',
+    iconText: 'text-[#2c4e35]',
+    badgeBg: 'bg-[#dbeee0]',
+    badgeText: 'text-[#2c4e35]',
+    badgeBorder: 'border-[#bad8c2]',
+    btnBg: 'bg-[#4d7557]',
+    btnHover: 'hover:bg-[#3d5e45]',
+    pinColor: 'text-[#4d7557]',
+  },
+  'cabang-2': {
+    cardBg: 'bg-[#fdf6f0]',
+    cardBorder: 'border-[#f2d5c2]',
+    cardBorderSelected: 'border-[#a6623d]',
+    ringColor: 'ring-[#a6623d]/25',
+    iconBg: 'bg-[#fae4d4]',
+    iconText: 'text-[#7a4120]',
+    badgeBg: 'bg-[#fae4d4]',
+    badgeText: 'text-[#7a4120]',
+    badgeBorder: 'border-[#ecc4ab]',
+    btnBg: 'bg-[#a6623d]',
+    btnHover: 'hover:bg-[#8c4f2e]',
+    pinColor: 'text-[#a6623d]',
+  },
+};
+
+/**
  * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Gambar 2 / Halaman Depan)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
@@ -160,6 +207,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           <div className="space-y-3.5">
             {STUDIO_BRANCHES.map((branch) => {
               const isSelected = selectedBranch === branch.id;
+              const theme = BRANCH_PASTEL_THEMES[branch.id] || BRANCH_PASTEL_THEMES['cabang-1'];
 
               return (
                 <div
@@ -167,62 +215,50 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   onClick={() => onSelectBranch(branch.id)}
                   className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative group text-left ${
                     isSelected
-                      ? 'bg-white border-[#6c8c74] ring-2 ring-[#6c8c74]/20 shadow-sm'
-                      : 'bg-white hover:bg-stone-50/80 border-stone-200 hover:border-stone-300 shadow-2xs'
+                      ? `${theme.cardBg} ${theme.cardBorderSelected} ring-2 ${theme.ringColor} shadow-sm`
+                      : `${theme.cardBg}/60 hover:${theme.cardBg} ${theme.cardBorder} hover:shadow-xs`
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3 min-w-0">
-                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${
-                        isSelected
-                          ? 'bg-[#232d38] text-[#9fc4a8] shadow-sm'
-                          : 'bg-[#f4f3ee] text-stone-700 border border-stone-200/70'
-                      }`}>
+                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${theme.iconBg} ${theme.iconText} shadow-2xs`}>
                         {branch.icon}
                       </div>
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
+                          <h3 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
                             {branch.name}
                           </h3>
-                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
-                            isSelected
-                              ? 'bg-[#eef4f0] text-[#3d6345] border-[#c8dacd] font-extrabold'
-                              : 'bg-[#f4f3ee] text-stone-600 border-stone-200/80'
-                          }`}>
+                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}>
                             {branch.badge}
                           </span>
                         </div>
 
                         {/* Alamat Lengkap */}
                         <div className="flex items-start gap-1.5 mt-2 text-xs text-stone-600 leading-relaxed">
-                          <MapPin className="w-3.5 h-3.5 text-[#6c8c74] shrink-0 mt-0.5" />
+                          <MapPin className={`w-3.5 h-3.5 ${theme.pinColor} shrink-0 mt-0.5`} />
                           <span className="font-medium">{branch.address}</span>
                         </div>
                       </div>
                     </div>
 
                     {isSelected && (
-                      <div className="w-6 h-6 rounded-full bg-[#6c8c74] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                      <div className={`w-6 h-6 rounded-full ${theme.btnBg} text-white flex items-center justify-center shrink-0 shadow-2xs`}>
                         <Check className="w-3.5 h-3.5 stroke-[3]" />
                       </div>
                     )}
                   </div>
 
                   {/* Action Button */}
-                  <div className="mt-3.5 pt-3 border-t border-stone-100 flex items-center justify-end">
+                  <div className="mt-3.5 pt-3 border-t border-stone-200/50 flex items-center justify-end">
                     <button
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         onSelectBranch(branch.id);
                       }}
-                      className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
-                        isSelected
-                          ? 'bg-[#6c8c74] text-white hover:bg-[#57735e]'
-                          : 'bg-[#232d38] text-white hover:bg-[#1a222c]'
-                      }`}
+                      className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${theme.btnBg} ${theme.btnHover} text-white`}
                     >
                       <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -242,22 +278,22 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             <div className="space-y-3">
-              {/* Pricelist Wedding Card */}
+              {/* Pricelist Wedding Card (Pastel Mauve / Rose) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl bg-white hover:bg-stone-50/80 border border-stone-200 hover:border-[#dfc3c3] transition-all cursor-pointer shadow-2xs group text-left"
+                className="p-4 sm:p-4.5 rounded-2xl bg-[#faf1f5] hover:bg-[#f6e4ee] border border-[#ebd0df] hover:border-[#dfb8ce] transition-all cursor-pointer shadow-2xs group text-left"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#faf2f2] text-[#8c5252] border border-[#f0dcdc] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-2xl bg-[#f5e0ec] text-[#743358] border border-[#e2bece] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                       💍
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
+                        <h4 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
                           PRICELIST WEDDING
                         </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#faf2f2] text-[#8c5252] border border-[#ebd0d0]">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#f5e0ec] text-[#743358] border border-[#e2bece]">
                           Exclusive
                         </span>
                       </div>
@@ -274,7 +310,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       if (onSelectCategory) onSelectCategory('wedding-package');
                       else onSelectBranch(selectedBranch);
                     }}
-                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#6c8c74] hover:bg-[#57735e] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
+                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#964d74] hover:bg-[#7e3d60] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
                   >
                     <span>Lihat Pricelist</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -282,22 +318,22 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
               </div>
 
-              {/* Pricelist Cetak Card */}
+              {/* Pricelist Cetak Card (Pastel Sky / Periwinkle) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl bg-white hover:bg-stone-50/80 border border-stone-200 hover:border-[#c8dacd] transition-all cursor-pointer shadow-2xs group text-left"
+                className="p-4 sm:p-4.5 rounded-2xl bg-[#f0f5fa] hover:bg-[#e4eef7] border border-[#cbe0f2] hover:border-[#b4d2ec] transition-all cursor-pointer shadow-2xs group text-left"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#f0f6f2] text-[#3e6b48] border border-[#d2e3d7] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-2xl bg-[#dcecf8] text-[#264f77] border border-[#bed7ec] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                       🖼️
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
+                        <h4 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
                           PRICELIST CETAK
                         </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#f0f6f2] text-[#3e6b48] border border-[#c8dacd]">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#dcecf8] text-[#264f77] border border-[#bed7ec]">
                           Cetak Lab
                         </span>
                       </div>
@@ -314,7 +350,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       if (onSelectCategory) onSelectCategory('bingkai-album');
                       else onSelectBranch(selectedBranch);
                     }}
-                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#6c8c74] hover:bg-[#57735e] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
+                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#40709b] hover:bg-[#325a7e] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
                   >
                     <span>Lihat Pricelist</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -379,6 +415,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         <div className="p-4 sm:p-6 space-y-4 bg-[#faf9f6] flex-1">
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
+            const theme = BRANCH_PASTEL_THEMES[branch.id] || BRANCH_PASTEL_THEMES['cabang-1'];
 
             return (
               <div
@@ -386,62 +423,50 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                 onClick={() => handleChoose(branch.id)}
                 className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-white border-[#6c8c74] ring-2 ring-[#6c8c74]/20 shadow-sm'
-                    : 'bg-white hover:bg-stone-50/80 border-stone-200 hover:border-stone-300 shadow-2xs'
+                    ? `${theme.cardBg} ${theme.cardBorderSelected} ring-2 ${theme.ringColor} shadow-sm`
+                    : `${theme.cardBg}/60 hover:${theme.cardBg} ${theme.cardBorder} hover:shadow-xs`
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3 min-w-0">
-                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${
-                      isSelected
-                        ? 'bg-[#232d38] text-[#9fc4a8] shadow-sm'
-                        : 'bg-[#f4f3ee] text-stone-700 border border-stone-200/70'
-                    }`}>
+                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${theme.iconBg} ${theme.iconText} shadow-2xs`}>
                       {branch.icon}
                     </div>
 
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
+                        <h4 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
                           {branch.name}
                         </h4>
-                        <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
-                          isSelected
-                            ? 'bg-[#eef4f0] text-[#3d6345] border-[#c8dacd] font-extrabold'
-                            : 'bg-[#f4f3ee] text-stone-600 border-stone-200/80'
-                        }`}>
+                        <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}>
                           {branch.badge}
                         </span>
                       </div>
 
                       {/* Alamat Lengkap */}
                       <div className="flex items-start gap-1.5 mt-2 text-xs text-stone-600 leading-relaxed">
-                        <MapPin className="w-3.5 h-3.5 text-[#6c8c74] shrink-0 mt-0.5" />
+                        <MapPin className={`w-3.5 h-3.5 ${theme.pinColor} shrink-0 mt-0.5`} />
                         <span className="font-medium">{branch.address}</span>
                       </div>
                     </div>
                   </div>
 
                   {isSelected && (
-                    <div className="w-6 h-6 rounded-full bg-[#6c8c74] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <div className={`w-6 h-6 rounded-full ${theme.btnBg} text-white flex items-center justify-center shrink-0 shadow-2xs`}>
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
                   )}
                 </div>
 
                 {/* Action button */}
-                <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-end">
+                <div className="mt-4 pt-3 border-t border-stone-200/50 flex items-center justify-end">
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleChoose(branch.id);
                     }}
-                    className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
-                      isSelected
-                        ? 'bg-[#6c8c74] text-white hover:bg-[#57735e]'
-                        : 'bg-[#232d38] text-white hover:bg-[#1a222c]'
-                    }`}
+                    className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${theme.btnBg} ${theme.btnHover} text-white`}
                   >
                     <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

@@ -1,45 +1,207 @@
 import React, { useState } from 'react';
 import { PACKAGES, CATEGORIES } from '../data/pricelistData';
-import { PackageItem, PackageCategory } from '../types';
-import { 
-  Camera, Clock, Users, Printer, FileText, CheckCircle2, Sparkles, 
-  ArrowRight, Star, Filter, Scale, X, GraduationCap, Trees, 
-  UserCheck, Home, HeartHandshake, User, Heart, Mail, Sliders
+import {
+  Camera, Clock, Users, Star,
+  CheckCircle2, ArrowRight, Filter, Scale, X, Sparkles, FileText, Printer
 } from 'lucide-react';
 
 interface PackageCatalogProps {
   onSelectPackageForBooking: (packageId: string) => void;
+  initialCategory?: string;
 }
 
-export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageForBooking }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [maxPrice, setMaxPrice] = useState<number>(0); // 0 = all
+// Pastel Theme Definition for Categories
+const CATEGORY_PASTEL_THEMES: Record<string, {
+  bg: string;
+  border: string;
+  text: string;
+  iconBg: string;
+  iconColor: string;
+  badgeBg: string;
+  badgeText: string;
+  activeBg: string;
+  activeText: string;
+}> = {
+  'all': {
+    bg: 'bg-[#f4f3ee]',
+    border: 'border-stone-200',
+    text: 'text-stone-800',
+    iconBg: 'bg-[#ebe7df]',
+    iconColor: 'text-stone-700',
+    badgeBg: 'bg-white',
+    badgeText: 'text-stone-700',
+    activeBg: 'bg-[#232d38]',
+    activeText: 'text-white',
+  },
+  'selfstudio': {
+    bg: 'bg-[#f0f8f3]',
+    border: 'border-[#c5e4cf]',
+    text: 'text-[#204e2e]',
+    iconBg: 'bg-[#d3ede0]',
+    iconColor: 'text-[#204e2e]',
+    badgeBg: 'bg-[#d3ede0]',
+    badgeText: 'text-[#204e2e]',
+    activeBg: 'bg-[#4d7557]',
+    activeText: 'text-white',
+  },
+  'undangan': {
+    bg: 'bg-[#fdf9ee]',
+    border: 'border-[#f6e9c1]',
+    text: 'text-[#735515]',
+    iconBg: 'bg-[#faefcb]',
+    iconColor: 'text-[#735515]',
+    badgeBg: 'bg-[#faefcb]',
+    badgeText: 'text-[#735515]',
+    activeBg: 'bg-[#a37922]',
+    activeText: 'text-white',
+  },
+  'sewa-studio': {
+    bg: 'bg-[#eff7f8]',
+    border: 'border-[#cee6e8]',
+    text: 'text-[#1f575c]',
+    iconBg: 'bg-[#d9eff1]',
+    iconColor: 'text-[#1f575c]',
+    badgeBg: 'bg-[#d9eff1]',
+    badgeText: 'text-[#1f575c]',
+    activeBg: 'bg-[#327a80]',
+    activeText: 'text-white',
+  },
+  'prewedding': {
+    bg: 'bg-[#faf1f5]',
+    border: 'border-[#ebd0df]',
+    text: 'text-[#743358]',
+    iconBg: 'bg-[#f5e0ec]',
+    iconColor: 'text-[#743358]',
+    badgeBg: 'bg-[#f5e0ec]',
+    badgeText: 'text-[#743358]',
+    activeBg: 'bg-[#964d74]',
+    activeText: 'text-white',
+  },
+  'couple': {
+    bg: 'bg-[#fdf3f3]',
+    border: 'border-[#f9d6d6]',
+    text: 'text-[#822f2f]',
+    iconBg: 'bg-[#fde3e3]',
+    iconColor: 'text-[#822f2f]',
+    badgeBg: 'bg-[#fde3e3]',
+    badgeText: 'text-[#822f2f]',
+    activeBg: 'bg-[#a84444]',
+    activeText: 'text-white',
+  },
+  'personal': {
+    bg: 'bg-[#f4f5f7]',
+    border: 'border-[#d8dce2]',
+    text: 'text-[#333e4d]',
+    iconBg: 'bg-[#e6e9ef]',
+    iconColor: 'text-[#333e4d]',
+    badgeBg: 'bg-[#e6e9ef]',
+    badgeText: 'text-[#333e4d]',
+    activeBg: 'bg-[#4b5563]',
+    activeText: 'text-white',
+  },
+  'maternity': {
+    bg: 'bg-[#fdf5ee]',
+    border: 'border-[#f8dac3]',
+    text: 'text-[#82471d]',
+    iconBg: 'bg-[#fae6d7]',
+    iconColor: 'text-[#82471d]',
+    badgeBg: 'bg-[#fae6d7]',
+    badgeText: 'text-[#82471d]',
+    activeBg: 'bg-[#a85e2b]',
+    activeText: 'text-white',
+  },
+  'event': {
+    bg: 'bg-[#fefbe8]',
+    border: 'border-[#f8f0ab]',
+    text: 'text-[#73630f]',
+    iconBg: 'bg-[#fbf5be]',
+    iconColor: 'text-[#73630f]',
+    badgeBg: 'bg-[#fbf5be]',
+    badgeText: 'text-[#73630f]',
+    activeBg: 'bg-[#998112]',
+    activeText: 'text-white',
+  },
+  'family': {
+    bg: 'bg-[#f5f8ee]',
+    border: 'border-[#dbe6c5]',
+    text: 'text-[#435722]',
+    iconBg: 'bg-[#eaf1dc]',
+    iconColor: 'text-[#435722]',
+    badgeBg: 'bg-[#eaf1dc]',
+    badgeText: 'text-[#435722]',
+    activeBg: 'bg-[#617c32]',
+    activeText: 'text-white',
+  },
+  'group': {
+    bg: 'bg-[#f0f4fc]',
+    border: 'border-[#d0ddf7]',
+    text: 'text-[#244983]',
+    iconBg: 'bg-[#dfebfc]',
+    iconColor: 'text-[#244983]',
+    badgeBg: 'bg-[#dfebfc]',
+    badgeText: 'text-[#244983]',
+    activeBg: 'bg-[#3b64b3]',
+    activeText: 'text-white',
+  },
+  'pass-foto': {
+    bg: 'bg-[#ecf9f5]',
+    border: 'border-[#beece0]',
+    text: 'text-[#175f4e]',
+    iconBg: 'bg-[#d2f3eb]',
+    iconColor: 'text-[#175f4e]',
+    badgeBg: 'bg-[#d2f3eb]',
+    badgeText: 'text-[#175f4e]',
+    activeBg: 'bg-[#297f6c]',
+    activeText: 'text-white',
+  },
+  'graduation': {
+    bg: 'bg-[#f3f3fd]',
+    border: 'border-[#d6d6f9]',
+    text: 'text-[#36369c]',
+    iconBg: 'bg-[#e4e4fc]',
+    iconColor: 'text-[#36369c]',
+    badgeBg: 'bg-[#e4e4fc]',
+    badgeText: 'text-[#36369c]',
+    activeBg: 'bg-[#5252be]',
+    activeText: 'text-white',
+  },
+  'graduation-outdoor': {
+    bg: 'bg-[#f2f8f3]',
+    border: 'border-[#cde3d2]',
+    text: 'text-[#2a5936]',
+    iconBg: 'bg-[#ddf0e2]',
+    iconColor: 'text-[#2a5936]',
+    badgeBg: 'bg-[#ddf0e2]',
+    badgeText: 'text-[#2a5936]',
+    activeBg: 'bg-[#407a50]',
+    activeText: 'text-white',
+  },
+};
+
+export const PackageCatalog: React.FC<PackageCatalogProps> = ({
+  onSelectPackageForBooking,
+  initialCategory = 'all'
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
+  const [maxPrice, setMaxPrice] = useState<number>(0);
   const [compareIds, setCompareIds] = useState<string[]>([]);
   const [showCompareModal, setShowCompareModal] = useState<boolean>(false);
 
-  // Helper icon lookup
+  // Helper render icon kategori
   const getCategoryIcon = (iconName: string) => {
     switch (iconName) {
-      case 'GraduationCap': return <GraduationCap className="w-4 h-4" />;
-      case 'Trees': return <Trees className="w-4 h-4" />;
-      case 'UserCheck': return <UserCheck className="w-4 h-4" />;
-      case 'Users': return <Users className="w-4 h-4" />;
-      case 'Home': return <Home className="w-4 h-4" />;
-      case 'HeartHandshake': return <HeartHandshake className="w-4 h-4" />;
-      case 'User': return <User className="w-4 h-4" />;
       case 'Sparkles': return <Sparkles className="w-4 h-4" />;
-      case 'Heart': return <Heart className="w-4 h-4" />;
-      case 'Camera': return <Camera className="w-4 h-4" />;
-      case 'Mail': return <Mail className="w-4 h-4" />;
-      case 'Sliders': return <Sliders className="w-4 h-4" />;
+      case 'Users': return <Users className="w-4 h-4" />;
+      case 'Star': return <Star className="w-4 h-4" />;
       default: return <Camera className="w-4 h-4" />;
     }
   };
 
+  // Filter paket berdasarkan kategori dan harga
   const filteredPackages = PACKAGES.filter((pkg) => {
-    const matchesCategory = selectedCategory === 'all' || pkg.category === selectedCategory;
-    const matchesPrice = maxPrice === 0 || pkg.price <= maxPrice;
-    return matchesCategory && matchesPrice;
+    const matchCategory = selectedCategory === 'all' || pkg.category === selectedCategory;
+    const matchPrice = maxPrice === 0 || pkg.price <= maxPrice;
+    return matchCategory && matchPrice;
   });
 
   const toggleCompare = (id: string) => {
@@ -56,35 +218,36 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
   const comparePackages = PACKAGES.filter(p => compareIds.includes(p.id));
   const activeCategoryInfo = CATEGORIES.find(c => c.id === selectedCategory);
+  const activeTheme = CATEGORY_PASTEL_THEMES[selectedCategory] || CATEGORY_PASTEL_THEMES['all'];
 
   return (
-    <section className="py-4 sm:py-8 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+    <section className="py-4 sm:py-8 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8 animate-fade-in">
       {/* Hero Banner Section */}
-      <div className="relative bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-3xl p-5 sm:p-10 text-white overflow-hidden shadow-2xl border border-indigo-900/50">
-        <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="relative bg-[#232d38] rounded-3xl p-5 sm:p-10 text-white overflow-hidden shadow-xl border border-stone-700/50">
+        <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-[#6c8c74]/20 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute right-20 top-0 w-64 h-64 bg-amber-500/15 rounded-full blur-2xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
+          <div className="inline-flex items-center gap-2 bg-[#6c8c74]/40 text-[#c8e2cf] border border-[#9fc4a8]/30 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>Katalog Resmi Alviero Studio - 12 Kategori Paket Lengkap</span>
+            <span>Katalog Resmi Alviero Studio • 12 Kategori Paket Lengkap</span>
           </div>
 
           <h1 className="text-xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
             Pilihan Paket Foto Lengkap <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-indigo-200 to-white">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-[#d3ebd9] to-white">
               Studio & Outdoor Ter-Aesthetic
             </span>
           </h1>
 
-          <p className="text-slate-300 text-xs sm:text-base leading-relaxed">
+          <p className="text-stone-300 text-xs sm:text-base leading-relaxed">
             Tersedia 12 kategori foto spesial: Graduation (Indoor/Outdoor), Pass Foto, Group, Family, Maternity, Personal, Prewed, Couple, Sewa Studio, Undangan, serta Self Studio (Special, Normal & Spotlight).
           </p>
 
           {/* Feature Badges */}
-          <div className="pt-2 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-slate-200 font-medium">
+          <div className="pt-2 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-stone-200 font-medium">
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10">
-              <Camera className="w-4 h-4 text-indigo-300 shrink-0" />
+              <Camera className="w-4 h-4 text-[#9fc4a8] shrink-0" />
               <span>Studio & Outdoor Pro</span>
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10">
@@ -99,14 +262,14 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
         </div>
       </div>
 
-      {/* Category Grid Overview (12 Categories Quick Jump) */}
-      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200/90 shadow-sm space-y-4">
+      {/* Category Grid Overview (12 Categories Quick Jump with Multi-Pastel Colors) */}
+      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-stone-200 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-extrabold text-slate-900 text-xs sm:text-base flex items-center gap-2">
-            <Filter className="w-4 h-4 text-indigo-600" />
+          <h2 className="font-extrabold text-stone-900 text-xs sm:text-base flex items-center gap-2">
+            <Filter className="w-4 h-4 text-[#6c8c74]" />
             <span>Pilih Kategori Layanan Studio (12 Kategori)</span>
           </h2>
-          <span className="text-xs text-slate-500 font-medium hidden sm:block">
+          <span className="text-xs text-stone-500 font-medium hidden sm:block">
             Total {PACKAGES.length} Sub Paket
           </span>
         </div>
@@ -117,13 +280,13 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
             onClick={() => setSelectedCategory('all')}
             className={`min-h-[56px] p-3 rounded-2xl text-xs font-bold transition-all text-left flex flex-col justify-between border cursor-pointer active:scale-98 ${
               selectedCategory === 'all'
-                ? 'bg-slate-900 text-white border-slate-900 shadow-md'
-                : 'bg-slate-50 text-slate-700 border-slate-200/80 hover:bg-slate-100'
+                ? 'bg-[#232d38] text-white border-[#232d38] shadow-sm'
+                : 'bg-[#f4f3ee] text-stone-700 border-stone-200 hover:bg-[#eae6dd]'
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <Camera className="w-4 h-4 text-indigo-400" />
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${selectedCategory === 'all' ? 'bg-indigo-500 text-white' : 'bg-slate-200 text-slate-600'}`}>
+              <Camera className={`w-4 h-4 ${selectedCategory === 'all' ? 'text-white' : 'text-stone-600'}`} />
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${selectedCategory === 'all' ? 'bg-stone-700 text-white' : 'bg-white text-stone-600 border border-stone-200'}`}>
                 33 Paket
               </span>
             </div>
@@ -132,22 +295,24 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
           {CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat.id;
+            const theme = CATEGORY_PASTEL_THEMES[cat.id] || CATEGORY_PASTEL_THEMES['all'];
+
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`min-h-[56px] p-3 rounded-2xl text-xs transition-all text-left flex flex-col justify-between border cursor-pointer active:scale-98 ${
                   isSelected
-                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-600/25'
-                    : 'bg-white text-slate-800 border-slate-200 hover:border-indigo-300 hover:bg-slate-50'
+                    ? `${theme.activeBg} ${theme.activeText} border-transparent shadow-sm ring-2 ring-stone-900/10`
+                    : `${theme.bg} ${theme.text} ${theme.border} hover:brightness-98 hover:shadow-xs`
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <div className={isSelected ? 'text-white' : 'text-indigo-600'}>
+                  <div className={isSelected ? 'text-white' : theme.iconColor}>
                     {getCategoryIcon(cat.iconName)}
                   </div>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
-                    isSelected ? 'bg-white/20 text-white' : 'bg-indigo-50 text-indigo-700 border border-indigo-100'
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold border ${
+                    isSelected ? 'bg-white/20 text-white border-transparent' : `${theme.badgeBg} ${theme.badgeText} border-stone-200/50`
                   }`}>
                     {cat.subPackageCount} Sub
                   </span>
@@ -162,30 +327,30 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
         {/* Active Category Information Banner */}
         {activeCategoryInfo && (
-          <div className="bg-indigo-50/70 border border-indigo-100 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+          <div className={`${activeTheme.bg} border ${activeTheme.border} rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs animate-in fade-in`}>
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
+              <div className={`w-9 h-9 rounded-xl ${activeTheme.iconBg} ${activeTheme.iconColor} flex items-center justify-center shrink-0 shadow-2xs`}>
                 {getCategoryIcon(activeCategoryInfo.iconName)}
               </div>
               <div>
-                <div className="font-black text-slate-900 text-sm">{activeCategoryInfo.name}</div>
-                <div className="text-slate-600 text-[11px] sm:text-xs">{activeCategoryInfo.description}</div>
+                <div className={`font-black text-sm ${activeTheme.text}`}>{activeCategoryInfo.name}</div>
+                <div className="text-stone-600 text-[11px] sm:text-xs">{activeCategoryInfo.description}</div>
               </div>
             </div>
-            <div className="bg-white border border-indigo-200 text-indigo-700 font-extrabold px-3 py-1.5 rounded-xl shrink-0">
+            <div className={`bg-white border ${activeTheme.border} ${activeTheme.text} font-extrabold px-3 py-1.5 rounded-xl shrink-0 shadow-2xs`}>
               {activeCategoryInfo.subPackageNote}
             </div>
           </div>
         )}
 
         {/* Filter Budget */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-stone-100">
           <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto py-1 scroll-mask-x">
-            <span className="text-xs font-bold text-slate-500 shrink-0">Filter Budget:</span>
+            <span className="text-xs font-bold text-stone-500 shrink-0">Filter Budget:</span>
             <button
               onClick={() => setMaxPrice(0)}
               className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 cursor-pointer transition-all active:scale-95 ${
-                maxPrice === 0 ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                maxPrice === 0 ? 'bg-[#232d38] text-white' : 'bg-[#f4f3ee] text-stone-700 hover:bg-stone-200'
               }`}
             >
               Semua Harga
@@ -193,26 +358,26 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
             <button
               onClick={() => setMaxPrice(100000)}
               className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 cursor-pointer transition-all active:scale-95 ${
-                maxPrice === 100000 ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                maxPrice === 100000 ? 'bg-[#232d38] text-white' : 'bg-[#f4f3ee] text-stone-700 hover:bg-stone-200'
               }`}
             >
-              &le; 100 Ribu
+              ≤ 100 Ribu
             </button>
             <button
               onClick={() => setMaxPrice(200000)}
               className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 cursor-pointer transition-all active:scale-95 ${
-                maxPrice === 200000 ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                maxPrice === 200000 ? 'bg-[#232d38] text-white' : 'bg-[#f4f3ee] text-stone-700 hover:bg-stone-200'
               }`}
             >
-              &le; 200 Ribu
+              ≤ 200 Ribu
             </button>
 
             {compareIds.length > 0 && (
               <button
                 onClick={() => setShowCompareModal(true)}
-                className="min-h-[36px] bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold text-xs px-3.5 py-1.5 rounded-xl flex items-center gap-1 hover:bg-indigo-100 transition-colors shrink-0 ml-auto cursor-pointer"
+                className="min-h-[36px] bg-[#eef4f0] border border-[#c8dacd] text-[#2d5236] font-bold text-xs px-3.5 py-1.5 rounded-xl flex items-center gap-1 hover:bg-[#dfeee3] transition-colors shrink-0 ml-auto cursor-pointer"
               >
-                <Scale className="w-3.5 h-3.5 text-indigo-600" />
+                <Scale className="w-3.5 h-3.5 text-[#4d7557]" />
                 <span>Bandingkan ({compareIds.length})</span>
               </button>
             )}
@@ -222,24 +387,24 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
       {/* Special Sub-Category Toggle for Self Studio */}
       {selectedCategory === 'self-studio' && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="bg-[#fdf8eb] border border-[#f6e5b7] rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
-            <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block">Kategori Self Studio Memiliki 3 Kelompok Sub Paket:</span>
-            <p className="text-xs text-amber-900 font-medium">1. Sub Paket Special (2) • 2. Sub Paket Normal (2) • 3. Sub Paket Color Spotlight (2)</p>
+            <span className="text-xs font-bold text-[#73530f] uppercase tracking-wider block">Kategori Self Studio Memiliki 3 Kelompok Sub Paket:</span>
+            <p className="text-xs text-[#73530f]/80 font-medium">1. Sub Paket Special (2) • 2. Sub Paket Normal (2) • 3. Sub Paket Color Spotlight (2)</p>
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
-            <span className="text-[11px] bg-white border border-amber-300 text-amber-900 font-bold px-2.5 py-1 rounded-lg">Total 6 Sub Paket</span>
+            <span className="text-[11px] bg-white border border-[#ebd696] text-[#73530f] font-bold px-2.5 py-1 rounded-lg">Total 6 Sub Paket</span>
           </div>
         </div>
       )}
 
       {/* Package Cards Grid */}
       {filteredPackages.length === 0 ? (
-        <div className="bg-white rounded-3xl p-8 text-center border border-slate-200 space-y-3">
-          <p className="text-slate-600 font-semibold text-sm">Tidak ditemukan paket sesuai filter kategori atau harga ini.</p>
+        <div className="bg-white rounded-3xl p-8 text-center border border-stone-200 space-y-3">
+          <p className="text-stone-600 font-semibold text-sm">Tidak ditemukan paket sesuai filter kategori atau harga ini.</p>
           <button
             onClick={() => { setSelectedCategory('all'); setMaxPrice(0); }}
-            className="min-h-[40px] inline-flex items-center gap-1 bg-indigo-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-colors cursor-pointer"
+            className="min-h-[40px] inline-flex items-center gap-1 bg-[#6c8c74] hover:bg-[#57735e] text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
           >
             <span>Reset Filter</span>
           </button>
@@ -249,19 +414,20 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
           {filteredPackages.map((pkg) => {
             const isComparing = compareIds.includes(pkg.id);
             const categoryObj = CATEGORIES.find(c => c.id === pkg.category);
+            const cardTheme = CATEGORY_PASTEL_THEMES[pkg.category] || CATEGORY_PASTEL_THEMES['all'];
 
             return (
               <div
                 key={pkg.id}
                 className={`bg-white rounded-3xl border transition-all duration-300 flex flex-col justify-between overflow-hidden group relative ${
                   pkg.popular 
-                    ? 'border-indigo-500 shadow-lg shadow-indigo-100 ring-2 ring-indigo-500/20' 
-                    : 'border-slate-200/90 shadow-xs hover:shadow-md'
+                    ? 'border-[#6c8c74] shadow-md ring-2 ring-[#6c8c74]/20' 
+                    : 'border-stone-200 shadow-2xs hover:shadow-md'
                 }`}
               >
                 {/* Tag Badge */}
                 {pkg.tag && (
-                  <div className="absolute top-3.5 left-3.5 z-10 bg-slate-900/90 backdrop-blur-md text-amber-300 font-extrabold text-[11px] px-3 py-1 rounded-full shadow-md flex items-center gap-1 border border-white/10">
+                  <div className="absolute top-3.5 left-3.5 z-10 bg-[#232d38]/90 backdrop-blur-md text-amber-300 font-extrabold text-[11px] px-3 py-1 rounded-full shadow-md flex items-center gap-1 border border-white/10">
                     <Star className="w-3 h-3 text-amber-300 fill-amber-300" />
                     <span>{pkg.tag}</span>
                   </div>
@@ -273,8 +439,8 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
                   title="Bandingkan paket"
                   className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full backdrop-blur-md text-xs font-bold transition-all shadow-md cursor-pointer flex items-center justify-center ${
                     isComparing 
-                      ? 'bg-indigo-600 text-white' 
-                      : 'bg-white/90 text-slate-700 hover:bg-white border border-slate-200'
+                      ? 'bg-[#6c8c74] text-white' 
+                      : 'bg-white/90 text-stone-700 hover:bg-white border border-stone-200'
                   }`}
                 >
                   <Scale className="w-4 h-4" />
@@ -282,21 +448,21 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
                 <div>
                   {/* Image Banner */}
-                  <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
+                  <div className="relative aspect-[16/10] bg-stone-900 overflow-hidden">
                     <img
                       src={pkg.image}
                       alt={pkg.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-transparent to-transparent"></div>
 
                     {/* Category Label inside Image Overlay */}
                     <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-2">
-                      <span className="bg-indigo-900/80 backdrop-blur-md text-indigo-200 text-[10px] font-bold px-2.5 py-0.5 rounded-md border border-indigo-400/30">
+                      <span className="bg-[#232d38]/80 backdrop-blur-md text-stone-200 text-[10px] font-bold px-2.5 py-0.5 rounded-md border border-white/20">
                         {categoryObj?.name || pkg.category}
                       </span>
                       {pkg.subCategory && (
-                        <span className="bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-md">
+                        <span className="bg-amber-400 text-stone-950 text-[10px] font-black px-2 py-0.5 rounded-md">
                           Sub: {pkg.subCategory}
                         </span>
                       )}
@@ -313,7 +479,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
                           Rp {pkg.price.toLocaleString('id-ID')}
                         </div>
                         {pkg.originalPrice && (
-                          <div className="text-[11px] text-slate-300 line-through">
+                          <div className="text-[11px] text-stone-300 line-through">
                             Rp {pkg.originalPrice.toLocaleString('id-ID')}
                           </div>
                         )}
@@ -323,37 +489,37 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
                   {/* Package Meta Info */}
                   <div className="p-4 sm:p-5 space-y-4">
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    <p className="text-xs text-stone-600 leading-relaxed font-normal">
                       {pkg.description}
                     </p>
 
                     {/* Quick Info Grid */}
-                    <div className="grid grid-cols-2 gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100 text-xs">
-                      <div className="flex items-center gap-2 text-slate-700">
-                        <Clock className="w-4 h-4 text-indigo-600 shrink-0" />
+                    <div className={`grid grid-cols-2 gap-2 ${cardTheme.bg} p-3 rounded-2xl border ${cardTheme.border} text-xs`}>
+                      <div className="flex items-center gap-2 text-stone-700">
+                        <Clock className={`w-4 h-4 ${cardTheme.iconColor} shrink-0`} />
                         <div>
-                          <div className="font-bold text-slate-900">{pkg.durationMinutes} Min Foto</div>
-                          <div className="text-[10px] text-slate-500">+{pkg.selectionTimeMinutes} min pilih</div>
+                          <div className="font-bold text-stone-900">{pkg.durationMinutes} Min Foto</div>
+                          <div className="text-[10px] text-stone-500">+{pkg.selectionTimeMinutes} min pilih</div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 text-slate-700">
-                        <Users className="w-4 h-4 text-indigo-600 shrink-0" />
+                      <div className="flex items-center gap-2 text-stone-700">
+                        <Users className={`w-4 h-4 ${cardTheme.iconColor} shrink-0`} />
                         <div>
-                          <div className="font-bold text-slate-900">{pkg.includedPeople} Orang</div>
-                          <div className="text-[10px] text-slate-500">Sudah termasuk</div>
+                          <div className="font-bold text-stone-900">{pkg.includedPeople} Orang</div>
+                          <div className="text-[10px] text-stone-500">Sudah termasuk</div>
                         </div>
                       </div>
                     </div>
 
                     {/* Highlights checklist */}
                     <div className="space-y-2 pt-1">
-                      <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
                         Fasilitas Terdaftar:
                       </div>
                       {pkg.highlights.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                        <div key={idx} className="flex items-start gap-2 text-xs text-stone-700">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#4d7557] shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -367,8 +533,8 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
                     onClick={() => onSelectPackageForBooking(pkg.id)}
                     className={`w-full min-h-[44px] py-3 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98 ${
                       pkg.popular
-                        ? 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-200'
-                        : 'bg-slate-900 hover:bg-slate-800 text-white'
+                        ? 'bg-[#6c8c74] hover:bg-[#57735e] text-white shadow-sm'
+                        : 'bg-[#232d38] hover:bg-[#1a222c] text-white'
                     }`}
                   >
                     <span>Pilih Paket & Reservasi</span>
@@ -383,16 +549,16 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
       {/* Package Comparison Modal */}
       {showCompareModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 space-y-6 shadow-2xl my-auto">
-            <div className="flex items-center justify-between border-b pb-4">
+        <div className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 space-y-6 shadow-2xl my-auto border border-stone-200">
+            <div className="flex items-center justify-between border-b border-stone-200 pb-4">
               <div className="flex items-center gap-2">
-                <Scale className="w-5 h-5 text-indigo-600" />
-                <h3 className="font-extrabold text-base sm:text-lg text-slate-900">Perbandingan Paket Studio</h3>
+                <Scale className="w-5 h-5 text-[#6c8c74]" />
+                <h3 className="font-extrabold text-base sm:text-lg text-stone-900">Perbandingan Paket Studio</h3>
               </div>
               <button 
                 onClick={() => setShowCompareModal(false)}
-                className="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:text-slate-800 cursor-pointer flex items-center justify-center"
+                className="w-9 h-9 rounded-full bg-stone-100 text-stone-500 hover:text-stone-800 cursor-pointer flex items-center justify-center"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -400,10 +566,10 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {comparePackages.map((pkg) => (
-                <div key={pkg.id} className="border border-slate-200 rounded-2xl p-4 bg-slate-50 space-y-3">
-                  <div className="font-extrabold text-slate-900 text-base">{pkg.name}</div>
-                  <div className="text-xl font-black text-indigo-600">Rp {pkg.price.toLocaleString('id-ID')}</div>
-                  <div className="text-xs text-slate-600 space-y-1.5">
+                <div key={pkg.id} className="border border-stone-200 rounded-2xl p-4 bg-[#faf9f6] space-y-3">
+                  <div className="font-extrabold text-stone-900 text-base">{pkg.name}</div>
+                  <div className="text-xl font-black text-[#4d7557]">Rp {pkg.price.toLocaleString('id-ID')}</div>
+                  <div className="text-xs text-stone-600 space-y-1.5">
                     <div>⏱️ Durasi: <strong>{pkg.durationMinutes} Menit</strong></div>
                     <div>👥 Peserta: <strong>{pkg.includedPeople} Orang</strong></div>
                     <div>🖨️ Cetakan: <strong>{pkg.includedPrints}</strong></div>
@@ -414,7 +580,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({ onSelectPackageF
                       setShowCompareModal(false);
                       onSelectPackageForBooking(pkg.id);
                     }}
-                    className="w-full min-h-[40px] py-2 bg-indigo-600 text-white font-bold text-xs rounded-xl hover:bg-indigo-700 cursor-pointer active:scale-95"
+                    className="w-full min-h-[40px] py-2 bg-[#6c8c74] hover:bg-[#57735e] text-white font-bold text-xs rounded-xl cursor-pointer active:scale-95 shadow-xs"
                   >
                     Pilih Paket Ini
                   </button>

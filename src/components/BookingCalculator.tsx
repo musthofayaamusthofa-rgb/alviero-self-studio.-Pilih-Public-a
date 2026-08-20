@@ -525,41 +525,47 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           </button>
         </div>
 
-        {/* Step Navigation Bar (Minimalist Rounded Pill Design) */}
-        <div className="bg-slate-50 border-b border-slate-200 px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between text-xs font-semibold overflow-x-auto scroll-mask-x shrink-0">
+        {/* Step Navigation Bar (Minimalist Multi-Pastel Pill Design) */}
+        <div className="bg-[#faf9f6] border-b border-stone-200 px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between text-xs font-semibold overflow-x-auto scroll-mask-x shrink-0">
           <div className="flex items-center gap-1.5 w-full justify-between sm:justify-start">
             <button
               onClick={() => setStep(1)}
-              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all ${
-                step === 1 ? 'bg-slate-900 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all border ${
+                step === 1 
+                  ? 'bg-[#eef4f0] text-[#2d5236] border-[#c8dacd] shadow-2xs font-extrabold' 
+                  : 'text-stone-600 border-transparent hover:bg-stone-200/50'
               }`}
             >
               <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                step === 1 ? 'bg-[#6c8c74] text-white' : 'bg-slate-200 text-slate-700'
+                step === 1 ? 'bg-[#4d7557] text-white' : 'bg-stone-200 text-stone-700'
               }`}>1</span>
               <span>Paket & Jadwal</span>
             </button>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
             <button
               onClick={() => setStep(2)}
-              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all ${
-                step === 2 ? 'bg-slate-900 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all border ${
+                step === 2 
+                  ? 'bg-[#fdf8ec] text-[#75591c] border-[#f5e6be] shadow-2xs font-extrabold' 
+                  : 'text-stone-600 border-transparent hover:bg-stone-200/50'
               }`}
             >
               <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                step === 2 ? 'bg-[#6c8c74] text-white' : 'bg-slate-200 text-slate-700'
+                step === 2 ? 'bg-[#b0852a] text-white' : 'bg-stone-200 text-stone-700'
               }`}>2</span>
               <span>Add-ons & Diskon</span>
             </button>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
             <button
               onClick={() => setStep(3)}
-              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all ${
-                step === 3 ? 'bg-slate-900 text-white shadow-xs font-bold' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all border ${
+                step === 3 
+                  ? 'bg-[#faf1f5] text-[#743358] border-[#ebd0df] shadow-2xs font-extrabold' 
+                  : 'text-stone-600 border-transparent hover:bg-stone-200/50'
               }`}
             >
               <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                step === 3 ? 'bg-[#6c8c74] text-white' : 'bg-slate-200 text-slate-700'
+                step === 3 ? 'bg-[#964d74] text-white' : 'bg-stone-200 text-stone-700'
               }`}>3</span>
               <span>Data & Pembayaran</span>
             </button>

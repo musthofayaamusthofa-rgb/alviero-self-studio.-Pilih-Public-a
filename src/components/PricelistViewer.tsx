@@ -65,17 +65,26 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [activeModalPhoto, setActiveModalPhoto] = useState<StudioGalleryPhoto | null>(null);
   const [activeModalSheet, setActiveModalSheet] = useState<PricelistSheet | null>(null);
 
-  // 1. Top-Level Main Menu Buttons (Menu Layanan Khusus Cabang)
+  // 1. Menu Utama (Fokus Layanan Studio Cabang yang Dipilih)
   const mainMenuButtons = [
     {
       id: 'selfstudio',
       title: 'PRICELIST SELFSTUDIO',
-      subtitle: 'Special (55K), Normal (80K) & Colour Spotlight (99K)',
+      subtitle: 'Special Narsis, Normal Narsis & Spotlight (Cabang 1 & 2)',
       icon: '✨',
       sheetCategory: 'Pricelist Selfstudio',
       badge: 'Best Seller',
       specialView: 'selfstudio-special',
       isSubmenuTrigger: false,
+      cardBg: 'bg-[#f0f8f3]',
+      cardBorder: 'border-[#c5e4cf]',
+      hoverBorder: 'hover:border-[#4d7557]',
+      iconBg: 'bg-[#d3ede0]',
+      iconText: 'text-[#204e2e]',
+      badgeBg: 'bg-[#d3ede0]',
+      badgeText: 'text-[#204e2e]',
+      badgeBorder: 'border-[#b0dac0]',
+      btnText: 'text-[#204e2e]',
       targetPackageIds: [
         'self-special-narsis', 'self-special-super-narsis', 'self-normal-narsis',
         'self-normal-super-narsis', 'self-special-spotlight', 'self-normal-spotlight'
@@ -90,6 +99,15 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       badge: '12 Paket ➔',
       specialView: 'studio-foto-hub',
       isSubmenuTrigger: true,
+      cardBg: 'bg-[#f5f2fc]',
+      cardBorder: 'border-[#dbd1f6]',
+      hoverBorder: 'hover:border-[#6f56b5]',
+      iconBg: 'bg-[#e6deff]',
+      iconText: 'text-[#47367c]',
+      badgeBg: 'bg-[#e6deff]',
+      badgeText: 'text-[#47367c]',
+      badgeBorder: 'border-[#ccbef2]',
+      btnText: 'text-[#47367c]',
       targetPackageIds: [
         'personal-bold-statement', 'personal-opulent-shot'
       ]
@@ -103,13 +121,22 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       badge: 'Wardrobe',
       specialView: 'kebayak-gaun-view',
       isSubmenuTrigger: false,
+      cardBg: 'bg-[#fdf1f6]',
+      cardBorder: 'border-[#f5ccdc]',
+      hoverBorder: 'hover:border-[#b04a79]',
+      iconBg: 'bg-[#fbe0ec]',
+      iconText: 'text-[#7d3254]',
+      badgeBg: 'bg-[#fbe0ec]',
+      badgeText: 'text-[#7d3254]',
+      badgeBorder: 'border-[#eeb7cc]',
+      btnText: 'text-[#7d3254]',
       targetPackageIds: [
         'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude'
       ]
     }
   ];
 
-  // 2. Submenu Studio Foto (12 Sub-Paket)
+  // 2. Submenu Studio Foto (12 Sub-Paket dengan Ragam Warna Pastel Harmonis)
   const studioFotoSubButtons = [
     {
       id: 'undangan-paket',
@@ -119,6 +146,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Undangan',
       badge: 'Hemat & Praktis',
       specialView: 'undangan-paket',
+      cardBg: 'bg-[#fdf9ee]',
+      cardBorder: 'border-[#f6e9c1]',
+      hoverBorder: 'hover:border-[#caa33f]',
+      iconBg: 'bg-[#faefcb]',
+      iconText: 'text-[#735515]',
+      badgeBg: 'bg-[#faefcb]',
+      badgeText: 'text-[#735515]',
+      badgeBorder: 'border-[#ebd696]',
       targetPackageIds: [
         'undangan-paket-1', 'undangan-paket-2'
       ]
@@ -131,6 +166,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Sewa Studio',
       badge: 'Rental 175K',
       specialView: 'sewa-studio',
+      cardBg: 'bg-[#eff7f8]',
+      cardBorder: 'border-[#cee6e8]',
+      hoverBorder: 'hover:border-[#4d979e]',
+      iconBg: 'bg-[#d9eff1]',
+      iconText: 'text-[#1f575c]',
+      badgeBg: 'bg-[#d9eff1]',
+      badgeText: 'text-[#1f575c]',
+      badgeBorder: 'border-[#b8dfe2]',
       targetPackageIds: [
         'sewa-studio-hourly'
       ]
@@ -143,6 +186,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Prewedding',
       badge: 'Prewed Hot',
       specialView: 'prewed-paket',
+      cardBg: 'bg-[#f9f2f8]',
+      cardBorder: 'border-[#ecd4ea]',
+      hoverBorder: 'hover:border-[#9c5999]',
+      iconBg: 'bg-[#f3e1f2]',
+      iconText: 'text-[#6b3169]',
+      badgeBg: 'bg-[#f3e1f2]',
+      badgeText: 'text-[#6b3169]',
+      badgeBorder: 'border-[#e2bedf]',
       targetPackageIds: [
         'prewed-sweet-promise', 'prewed-velvet-romance', 'prewed-bundling-1', 'prewed-bundling-2'
       ]
@@ -155,6 +206,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Couple',
       badge: 'Romantis',
       specialView: 'couple-paket',
+      cardBg: 'bg-[#fdf3f3]',
+      cardBorder: 'border-[#f9d6d6]',
+      hoverBorder: 'hover:border-[#b85858]',
+      iconBg: 'bg-[#fde3e3]',
+      iconText: 'text-[#822f2f]',
+      badgeBg: 'bg-[#fde3e3]',
+      badgeText: 'text-[#822f2f]',
+      badgeBorder: 'border-[#f2bebe]',
       targetPackageIds: [
         'couple-eternal-love', 'couple-sweet-memories'
       ]
@@ -167,6 +226,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Personal',
       badge: 'Favorit Solo',
       specialView: 'personal-paket',
+      cardBg: 'bg-[#f4f5f7]',
+      cardBorder: 'border-[#d8dce2]',
+      hoverBorder: 'hover:border-[#64748b]',
+      iconBg: 'bg-[#e6e9ef]',
+      iconText: 'text-[#333e4d]',
+      badgeBg: 'bg-[#e6e9ef]',
+      badgeText: 'text-[#333e4d]',
+      badgeBorder: 'border-[#c7ced9]',
       targetPackageIds: [
         'personal-bold-statement', 'personal-opulent-shot'
       ]
@@ -179,6 +246,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Maternity',
       badge: 'Bunda & Bayi',
       specialView: 'maternity-paket',
+      cardBg: 'bg-[#fdf5ee]',
+      cardBorder: 'border-[#f8dac3]',
+      hoverBorder: 'hover:border-[#b86f3b]',
+      iconBg: 'bg-[#fae6d7]',
+      iconText: 'text-[#82471d]',
+      badgeBg: 'bg-[#fae6d7]',
+      badgeText: 'text-[#82471d]',
+      badgeBorder: 'border-[#f0c7ab]',
       targetPackageIds: [
         'maternity-warm-embrace', 'maternity-golden-motherhood'
       ]
@@ -191,6 +266,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Birthday',
       badge: 'Birthday Hot',
       specialView: 'birthday-paket',
+      cardBg: 'bg-[#fefbe8]',
+      cardBorder: 'border-[#f8f0ab]',
+      hoverBorder: 'hover:border-[#a89622]',
+      iconBg: 'bg-[#fbf5be]',
+      iconText: 'text-[#73630f]',
+      badgeBg: 'bg-[#fbf5be]',
+      badgeText: 'text-[#73630f]',
+      badgeBorder: 'border-[#edd968]',
       targetPackageIds: [
         'birthday-sweet-celebration', 'birthday-glow-sweet', 'birthday-sweet-light', 'birthday-ultimate-sweet-light'
       ]
@@ -203,6 +286,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Family',
       badge: 'Hangat & Ceria',
       specialView: 'family-paket',
+      cardBg: 'bg-[#f5f8ee]',
+      cardBorder: 'border-[#dbe6c5]',
+      hoverBorder: 'hover:border-[#6f8c3d]',
+      iconBg: 'bg-[#eaf1dc]',
+      iconText: 'text-[#435722]',
+      badgeBg: 'bg-[#eaf1dc]',
+      badgeText: 'text-[#435722]',
+      badgeBorder: 'border-[#ccdcab]',
       targetPackageIds: [
         'family-sweet-together', 'family-happy-nest'
       ]
@@ -215,6 +306,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Group',
       badge: 'Rombongan',
       specialView: 'group-paket',
+      cardBg: 'bg-[#f0f4fc]',
+      cardBorder: 'border-[#d0ddf7]',
+      hoverBorder: 'hover:border-[#4d7ad0]',
+      iconBg: 'bg-[#dfebfc]',
+      iconText: 'text-[#244983]',
+      badgeBg: 'bg-[#dfebfc]',
+      badgeText: 'text-[#244983]',
+      badgeBorder: 'border-[#bed3f5]',
       targetPackageIds: [
         'group-friendly-frame', 'group-signature-squad', 'group-royal-ensemble', 'group-imperial-union'
       ]
@@ -227,6 +326,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Pass Foto',
       badge: 'Kilat & Resmi',
       specialView: 'pass-foto',
+      cardBg: 'bg-[#ecf9f5]',
+      cardBorder: 'border-[#beece0]',
+      hoverBorder: 'hover:border-[#389e87]',
+      iconBg: 'bg-[#d2f3eb]',
+      iconText: 'text-[#175f4e]',
+      badgeBg: 'bg-[#d2f3eb]',
+      badgeText: 'text-[#175f4e]',
+      badgeBorder: 'border-[#a4e2d2]',
       targetPackageIds: [
         'passfoto-1', 'passfoto-2', 'passfoto-3'
       ]
@@ -239,6 +346,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Wisuda Indoor',
       badge: 'Wisuda Hot',
       specialView: 'grad-indoor',
+      cardBg: 'bg-[#f3f3fd]',
+      cardBorder: 'border-[#d6d6f9]',
+      hoverBorder: 'hover:border-[#6666d6]',
+      iconBg: 'bg-[#e4e4fc]',
+      iconText: 'text-[#36369c]',
+      badgeBg: 'bg-[#e4e4fc]',
+      badgeText: 'text-[#36369c]',
+      badgeBorder: 'border-[#c2c2f7]',
       targetPackageIds: [
         'grad-indoor-elegant-scholar', 'grad-indoor-supreme-scholar', 'grad-indoor-infinity-scholar',
         'grad-bundling-ultimate-1', 'grad-bundling-ultimate-2'
@@ -252,6 +367,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       sheetCategory: 'Paket Wisuda Outdoor',
       badge: 'Outdoor',
       specialView: 'grad-outdoor',
+      cardBg: 'bg-[#f2f8f3]',
+      cardBorder: 'border-[#cde3d2]',
+      hoverBorder: 'hover:border-[#4b8058]',
+      iconBg: 'bg-[#ddf0e2]',
+      iconText: 'text-[#2a5936]',
+      badgeBg: 'bg-[#ddf0e2]',
+      badgeText: 'text-[#2a5936]',
+      badgeBorder: 'border-[#b9dec2]',
       targetPackageIds: [
         'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude',
         'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'
@@ -631,11 +754,15 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             }}
                             className={`w-full min-h-[46px] px-3.5 py-2.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
                               ? 'bg-[#232d38] text-white border-[#232d38] shadow-sm ring-2 ring-[#232d38]/10'
-                              : 'bg-[#faf9f6] hover:bg-white text-stone-900 border-stone-200 hover:border-[#6c8c74] hover:shadow-xs'
+                              : `${btn.cardBg || 'bg-white'} hover:bg-white text-stone-900 ${btn.cardBorder || 'border-stone-200'} ${btn.hoverBorder || 'hover:border-stone-400'} hover:shadow-xs`
                               }`}
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
-                              <span className="text-base">{btn.icon}</span>
+                              <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs shrink-0 transition-transform ${
+                                isSelected ? 'bg-stone-800 text-white' : `${btn.iconBg || 'bg-stone-100'} ${btn.iconText || 'text-stone-700'}`
+                              }`}>
+                                {btn.icon}
+                              </span>
                               <div className="min-w-0">
                                 <div className="font-extrabold text-xs tracking-wider uppercase truncate">
                                   {btn.title}
@@ -647,7 +774,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </div>
 
                             <div className="flex items-center gap-1.5 shrink-0 pl-1">
-                              <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-full ${isSelected ? 'bg-[#6c8c74] text-white font-bold' : 'bg-[#f4f3ee] text-stone-600 border border-stone-200'
+                              <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-full border ${
+                                isSelected
+                                  ? 'bg-[#6c8c74] text-white font-bold border-transparent'
+                                  : `${btn.badgeBg || 'bg-stone-100'} ${btn.badgeText || 'text-stone-600'} ${btn.badgeBorder || 'border-stone-200'}`
                                 }`}>
                                 {btn.badge}
                               </span>
@@ -676,13 +806,17 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               setIsMobilePopupOpen(true);
                             }
                           }}
-                          className={`w-full min-h-[50px] px-4 py-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
+                          className={`w-full min-h-[52px] px-4 py-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
                             ? 'bg-[#232d38] text-white border-[#232d38] shadow-sm ring-2 ring-[#232d38]/10'
-                            : 'bg-white hover:bg-[#faf9f6] text-stone-900 border-stone-200 hover:border-[#6c8c74] hover:shadow-xs'
+                            : `${btn.cardBg || 'bg-white'} hover:brightness-98 text-stone-900 ${btn.cardBorder || 'border-stone-200'} ${btn.hoverBorder || 'hover:border-stone-400'} hover:shadow-xs`
                             }`}
                         >
                           <div className="flex items-center gap-3 min-w-0">
-                            <span className="text-lg">{btn.icon}</span>
+                            <span className={`w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0 transition-transform ${
+                              isSelected ? 'bg-stone-800 text-white' : `${btn.iconBg || 'bg-stone-100'} ${btn.iconText || 'text-stone-700'} shadow-2xs`
+                            }`}>
+                              {btn.icon}
+                            </span>
                             <div className="min-w-0">
                               <div className="font-extrabold text-xs sm:text-sm tracking-wider uppercase truncate">
                                 {btn.title}
@@ -694,7 +828,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           </div>
 
                           <div className="flex items-center gap-1.5 shrink-0 pl-1">
-                            <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full ${isSelected ? 'bg-[#6c8c74] text-white font-bold' : 'bg-[#f4f3ee] text-stone-600 border border-stone-200'
+                            <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full border ${
+                              isSelected
+                                ? 'bg-[#6c8c74] text-white font-bold border-transparent'
+                                : `${btn.badgeBg || 'bg-stone-100'} ${btn.badgeText || 'text-stone-600'} ${btn.badgeBorder || 'border-stone-200'}`
                               }`}>
                               {btn.badge}
                             </span>
