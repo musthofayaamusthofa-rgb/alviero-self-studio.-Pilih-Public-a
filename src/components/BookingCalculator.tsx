@@ -100,6 +100,18 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
 
 const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
 
+export const normalizeSlotTime = (raw: any): string => {
+  if (!raw) return '';
+  const str = String(raw).trim();
+  const match = str.match(/(\d{1,2})[:.](\d{2})/);
+  if (match) {
+    const hh = match[1].padStart(2, '0');
+    const mm = match[2];
+    return `${hh}:${mm}`;
+  }
+  return str;
+};
+
 export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   isOpen,
   onClose,
@@ -146,20 +158,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
   const activeTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
-  // Fetch Slot Terisi dari Google Sheets secara Real-Time terpisah per tipe studio
+  // Fetch Slot Terisi dari Google Sheets secara Real-Time terpisah per tipe studio & cabang
   useEffect(() => {
     if (!isOpen || !bookingDate) return;
 
     let isMounted = true;
     setIsLoadingSlots(true);
 
-    const typeKey = selectedPackageId.toLowerCase().includes('self') ? 'selfstudio' : 'studio_foto';
+    const typeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
 
     fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?action=check_slots&date=${encodeURIComponent(bookingDate)}&studio_type=${encodeURIComponent(typeKey)}&branch=${encodeURIComponent(selectedBranch)}`)
       .then(res => res.json())
       .then(data => {
         if (isMounted && data && Array.isArray(data.bookedSlots)) {
-          setBookedSlots(data.bookedSlots);
+          const normalized = data.bookedSlots.map(normalizeSlotTime).filter(Boolean);
+          setBookedSlots(normalized);
         }
       })
       .catch(err => {
@@ -172,7 +185,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, bookingDate, selectedPackageId, selectedBranch]);
+  }, [isOpen, bookingDate, selectedPackageId, selectedBranch, isSelfStudio]);
 
   // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata berstatus booked/penuh
   useEffect(() => {
