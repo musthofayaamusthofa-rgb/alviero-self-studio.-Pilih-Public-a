@@ -281,7 +281,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const socialLinks = [
     { label: '@alvierostudiofoto', icon: 'tiktok', url: 'https://tiktok.com/@alvierostudiofoto' },
     { label: '@alvierostudiofoto', icon: 'instagram', url: 'https://instagram.com/alvierostudiofoto' },
-    { label: 'WA: +62 812-3456-7890', icon: 'whatsapp', url: 'https://wa.me/6281234567890' },
     { label: '@alviero.selfstudio', icon: 'instagram', url: 'https://instagram.com/alviero.selfstudio' },
     { label: '@alviero.graduation', icon: 'instagram', url: 'https://instagram.com/alviero.graduation' },
     { label: '@alviero.wedding', icon: 'instagram', url: 'https://instagram.com/alviero.wedding' }
