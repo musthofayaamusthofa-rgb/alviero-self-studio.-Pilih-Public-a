@@ -151,19 +151,6 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Top Hero Banner Slider (Foto Backdrop Bersih Tanpa Tulisan) */}
         <BackdropHeroSlider />
 
-        {/* Header Notice */}
-        <div className="bg-slate-900 text-white px-5 py-3 sm:px-6 sm:py-3.5 relative overflow-hidden border-b border-slate-800 text-left flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span className="font-extrabold text-xs sm:text-sm text-white tracking-tight">
-              Pilih Lokasi Studio Cabang
-            </span>
-          </div>
-          <span className="text-[10px] text-slate-300 font-medium">
-            2 Lokasi di Malang
-          </span>
-        </div>
-
         {/* Content Area */}
         <div className="p-4 sm:p-6 space-y-4 bg-slate-50 flex-1">
           
@@ -372,23 +359,16 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
       <div className="bg-white rounded-3xl max-w-xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col my-auto relative">
         
         {/* Header Modal with Pure Slider */}
-        <BackdropHeroSlider />
-
-        <div className="bg-slate-900 text-white px-5 py-3 sm:px-6 sm:py-3.5 relative overflow-hidden border-b border-slate-800 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-            <h4 className="font-extrabold text-sm text-white">
-              Pilih Lokasi Studio Cabang
-            </h4>
-          </div>
+        <div className="relative">
+          <BackdropHeroSlider />
 
           {canDismiss && onClose && (
             <button
               type="button"
               onClick={onClose}
-              className="w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
+              className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-colors cursor-pointer shadow-md"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>
