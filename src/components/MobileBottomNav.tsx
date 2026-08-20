@@ -19,11 +19,11 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           onClick={() => setActiveTab('katalog')}
           className={`min-h-[48px] flex flex-col items-center justify-center py-1.5 rounded-xl transition-all duration-200 cursor-pointer active:scale-95 ${
             activeTab === 'katalog' || activeTab === 'pricelist-sheets'
-              ? 'text-indigo-600 bg-indigo-50/90 font-extrabold shadow-2xs'
+              ? 'text-slate-900 bg-slate-100 font-extrabold shadow-2xs'
               : 'text-slate-500 hover:text-slate-900 font-medium'
           }`}
         >
-          <Camera className={`w-5 h-5 mb-0.5 ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'scale-110' : ''}`} />
+          <Camera className={`w-5 h-5 mb-0.5 ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'scale-110 text-emerald-600' : ''}`} />
           <span className="text-[10px] leading-none">Katalog</span>
         </button>
 
@@ -31,11 +31,11 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           onClick={() => setActiveTab('strip-builder')}
           className={`min-h-[48px] flex flex-col items-center justify-center py-1.5 rounded-xl transition-all duration-200 cursor-pointer active:scale-95 ${
             activeTab === 'strip-builder'
-              ? 'text-rose-600 bg-rose-50/90 font-extrabold shadow-2xs'
+              ? 'text-slate-900 bg-slate-100 font-extrabold shadow-2xs'
               : 'text-slate-500 hover:text-slate-900 font-medium'
           }`}
         >
-          <Sparkles className={`w-5 h-5 mb-0.5 ${activeTab === 'strip-builder' ? 'scale-110' : ''}`} />
+          <Sparkles className={`w-5 h-5 mb-0.5 ${activeTab === 'strip-builder' ? 'scale-110 text-amber-600' : ''}`} />
           <span className="text-[10px] leading-none font-bold">Photo Strip</span>
         </button>
 
@@ -43,19 +43,19 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           onClick={() => setActiveTab('rules')}
           className={`min-h-[48px] flex flex-col items-center justify-center py-1.5 rounded-xl transition-all duration-200 cursor-pointer active:scale-95 ${
             activeTab === 'rules'
-              ? 'text-emerald-600 bg-emerald-50/90 font-extrabold shadow-2xs'
+              ? 'text-slate-900 bg-slate-100 font-extrabold shadow-2xs'
               : 'text-slate-500 hover:text-slate-900 font-medium'
           }`}
         >
-          <MapPin className={`w-5 h-5 mb-0.5 ${activeTab === 'rules' ? 'scale-110' : ''}`} />
+          <MapPin className={`w-5 h-5 mb-0.5 ${activeTab === 'rules' ? 'scale-110 text-emerald-600' : ''}`} />
           <span className="text-[10px] leading-none">Panduan</span>
         </button>
 
         <button
           onClick={onOpenBooking}
-          className="min-h-[48px] flex flex-col items-center justify-center py-1.5 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-700 to-purple-700 text-white font-extrabold shadow-md active:scale-95 transition-transform cursor-pointer"
+          className="min-h-[48px] flex flex-col items-center justify-center py-1.5 rounded-xl bg-[#78b65d] active:bg-[#5e9e44] text-white font-extrabold shadow-sm active:scale-95 transition-transform cursor-pointer"
         >
-          <Calendar className="w-5 h-5 mb-0.5 text-amber-300 animate-pulse" />
+          <Calendar className="w-5 h-5 mb-0.5 text-white animate-pulse" />
           <span className="text-[10px] leading-none">Booking</span>
         </button>
       </div>
