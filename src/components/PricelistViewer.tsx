@@ -527,43 +527,36 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       </div>
 
       {/* ==================================================================== */}
-      {/* 1. BIO-LINK & MENU VIEW (With Selfstudio Special, Undangan, etc.)    */}
+      {/* 1. BIO-LINK & MENU VIEW (Clean Studio Jakarta Aesthetic)             */}
       {/* ==================================================================== */}
       {activeTab === 'menu' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
 
-          {/* Left Column: The Studio Menu Card */}
-          <div className="lg:col-span-5 max-w-md w-full mx-auto rounded-3xl sm:rounded-[32px] overflow-hidden shadow-2xl border border-slate-700/50 relative">
-            {/* Background Image & Vignette */}
-            <div className="absolute inset-0 bg-[#3a4d39] overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80"
-                alt="Alviero Studio Setting"
-                className="w-full h-full object-cover opacity-85 scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/50 to-slate-950/95" />
-            </div>
+          {/* Left Column: The Studio Menu Card (Minimalist & Elegant) */}
+          <div className="lg:col-span-5 max-w-md w-full mx-auto rounded-3xl sm:rounded-[32px] overflow-hidden shadow-xl border border-slate-200/90 bg-white relative">
+            {/* Subtle Studio Ambient Header Glow */}
+            <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#f0f5fa] via-[#f8fafc]/60 to-transparent pointer-events-none" />
 
             {/* Menu Content */}
-            <div className="relative z-10 p-4 sm:p-7 flex flex-col items-center text-center space-y-3.5 sm:space-y-4">
+            <div className="relative z-10 p-4 sm:p-6 flex flex-col items-center text-center space-y-3.5 sm:space-y-4">
 
               {/* 0. Pilihan Lokasi Studio Cabang 1 vs Cabang 2 */}
               <div
                 onClick={onOpenBranchModal}
-                className="w-full bg-slate-900/90 hover:bg-slate-900 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 text-white flex items-center justify-between gap-2.5 shadow-md border border-indigo-400/40 cursor-pointer transition-all hover:border-indigo-400 active:scale-98 group"
+                className="w-full bg-slate-50/90 hover:bg-slate-100/90 rounded-2xl p-2.5 sm:p-3 text-slate-900 flex items-center justify-between gap-2.5 shadow-2xs border border-slate-200/90 cursor-pointer transition-all hover:border-[#78b65d] active:scale-98 group"
               >
                 <div className="flex items-center gap-2.5 text-left min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                  <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sm font-bold shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                     {currentBranchInfo.icon}
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[9.5px] font-extrabold text-indigo-300 uppercase tracking-wider">Lokasi Studio:</span>
-                      <span className="text-[9px] bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 font-bold px-1.5 py-0.2 rounded-md">
+                      <span className="text-[9.5px] font-extrabold text-slate-500 uppercase tracking-wider">Lokasi Studio:</span>
+                      <span className="text-[9px] bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold px-1.5 py-0.2 rounded-full">
                         {currentBranchInfo.badge}
                       </span>
                     </div>
-                    <div className="font-extrabold text-xs text-white truncate">
+                    <div className="font-extrabold text-xs text-slate-900 truncate">
                       {currentBranchInfo.name}
                     </div>
                   </div>
@@ -575,78 +568,77 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     e.stopPropagation();
                     if (onOpenBranchModal) onOpenBranchModal();
                   }}
-                  className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10.5px] font-black shrink-0 transition-colors shadow-2xs"
+                  className="px-3 py-1 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-[10.5px] font-bold shrink-0 transition-colors shadow-2xs cursor-pointer"
                 >
                   Ganti Cabang 🔄
                 </button>
               </div>
 
               {/* 1. Bar Status Operasional & WA Admin (Pill Kaca Minimalis) */}
-              <div className="w-full bg-slate-900/85 backdrop-blur-md rounded-full px-3.5 py-1.5 text-white flex items-center justify-between text-[11px] shadow-sm border border-white/20">
+              <div className="w-full bg-slate-50/95 rounded-full px-3.5 py-1.5 text-slate-700 flex items-center justify-between text-[11px] border border-slate-200/80 shadow-2xs">
                 <div className="flex items-center gap-1.5 font-bold">
-                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-emerald-300 font-semibold">Buka: 08:00 - 21:00 WIB</span>
+                  <span className="inline-block w-2 h-2 rounded-full bg-[#78b65d] animate-pulse"></span>
+                  <span className="text-slate-800 font-semibold">Buka: 08:00 - 21:00 WIB</span>
                 </div>
                 <a
                   href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20dan%20pricelist"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-amber-300 hover:text-amber-200 flex items-center gap-1 font-bold transition-colors"
+                  className="text-emerald-700 hover:text-emerald-800 flex items-center gap-1 font-bold transition-colors"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  <MessageCircle className="w-3.5 h-3.5 text-[#78b65d]" />
                   <span>WA: +62 877-7753-8164</span>
                 </a>
               </div>
 
-              {/* 2. Logo Utama & Tagline (Satu Kesatuan Elegan) */}
-              <div className="space-y-1 pt-0.5">
+              {/* 2. Logo Utama & Tagline (Minimalist Clean Studio) */}
+              <div className="space-y-1 pt-1">
                 <div className="flex items-center justify-center gap-2.5">
-                  <svg className="w-8 h-8 sm:w-9 sm:h-9 text-slate-950 drop-shadow-sm" viewBox="0 0 48 48" fill="currentColor">
-                    <path d="M24 4L4 38H16L24 22L32 38H44L24 4Z" />
-                    <path d="M24 28L19 38H29L24 28Z" fill="white" />
-                  </svg>
+                  <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-base shadow-sm">
+                    <Camera className="w-5 h-5 text-emerald-400" />
+                  </div>
                   <div className="text-left">
-                    <div className="font-black text-2xl text-slate-950 tracking-wider leading-none uppercase">
+                    <div className="font-black text-xl text-slate-900 tracking-wider leading-none uppercase">
                       ALVIERO
                     </div>
-                    <div className="font-black text-xl text-slate-950 tracking-widest leading-none uppercase">
-                      STUDIO
+                    <div className="font-bold text-xs text-slate-500 tracking-widest leading-none uppercase mt-0.5">
+                      STUDIO & SELFSTUDIO
                     </div>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-800 font-serif italic tracking-wide">
+                <p className="text-xs text-slate-600 font-serif italic tracking-wide">
                   Perfecting Happiness in Every Moment
                 </p>
               </div>
 
-              {/* 3. Tombol Hitung & Reservasi (Aksi Cepat) */}
+              {/* 3. Tombol Hitung & Reservasi (Signature Studio Green Pill) */}
               <button
                 onClick={onOpenBooking}
-                className="w-full min-h-[40px] bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white font-extrabold text-xs py-2 px-4 rounded-xl shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95 border border-white/20"
+                className="w-full min-h-[44px] bg-[#78b65d] hover:bg-[#5e9e44] text-white font-extrabold text-xs sm:text-sm py-2.5 px-5 rounded-full shadow-sm hover:shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-95"
               >
-                <Calendar className="w-4 h-4 text-amber-300" />
+                <Calendar className="w-4 h-4 text-white" />
                 <span>Hitung & Reservasi Tanggal</span>
               </button>
 
               {/* 4. Switcher Mode: Menu Pricelist vs Galeri Hasil Foto (Khusus HP) */}
-              <div className="w-full lg:hidden bg-slate-200/85 backdrop-blur-md p-1 rounded-2xl flex items-center gap-1 border border-white/60 shadow-2xs">
+              <div className="w-full lg:hidden bg-slate-100 p-1 rounded-full flex items-center gap-1 border border-slate-200 shadow-2xs">
                 <button
                   onClick={() => setActiveTab('menu')}
-                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[34px] px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                     activeTab === 'menu'
-                      ? 'bg-slate-900 text-white shadow-md'
-                      : 'text-slate-700 hover:text-slate-900'
+                      ? 'bg-slate-900 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <span>📱 Menu Pricelist</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('gallery')}
-                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[34px] px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                     activeTab === 'gallery'
-                      ? 'bg-slate-900 text-white shadow-md'
-                      : 'text-slate-700 hover:text-slate-900'
+                      ? 'bg-slate-900 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <span>📸 Galeri Foto</span>
@@ -654,7 +646,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
 
               {/* The Menu Buttons (Conditional: Main Menu vs Submenu Studio Foto) */}
-              <div className="w-full space-y-2 pt-1">
+              <div className="w-full space-y-2 pt-0.5">
 
                 {/* A. If Submenu Studio Foto is OPEN */}
                 {isStudioFotoSubmenuOpen ? (
@@ -665,17 +657,17 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         setIsStudioFotoSubmenuOpen(false);
                         setActiveMenuCategory('selfstudio');
                       }}
-                      className="w-full min-h-[42px] px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs flex items-center justify-between shadow-md cursor-pointer hover:bg-slate-800 active:scale-95 transition-all border border-white/30"
+                      className="w-full min-h-[42px] px-3.5 py-2 rounded-2xl bg-slate-900 text-white font-bold text-xs flex items-center justify-between shadow-xs cursor-pointer hover:bg-slate-800 active:scale-95 transition-all"
                     >
                       <div className="flex items-center gap-2">
-                        <ChevronLeft className="w-4 h-4 text-amber-300" />
+                        <ChevronLeft className="w-4 h-4 text-emerald-400" />
                         <span>Kembali ke Menu Utama</span>
                       </div>
-                      <span className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700">5 Menu</span>
+                      <span className="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full border border-slate-700">5 Menu</span>
                     </button>
 
                     <div className="text-left px-1 pt-1 pb-0.5">
-                      <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 bg-white/80 px-2.5 py-0.5 rounded-md backdrop-blur-xs shadow-2xs">
+                      <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
                         🏛️ 12 Pilihan Studio Foto:
                       </span>
                     </div>
@@ -692,29 +684,29 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               setActiveMenuCategory(btn.id);
                               setIsMobilePopupOpen(true);
                             }}
-                            className={`w-full min-h-[44px] px-3 py-2 rounded-xl border-2 transition-all duration-200 cursor-pointer flex items-center justify-between shadow-sm active:scale-98 text-left ${isSelected
-                              ? 'bg-slate-900 text-white border-white ring-2 ring-white/50 shadow-lg'
-                              : 'bg-white/90 hover:bg-white text-slate-900 border-white backdrop-blur-md hover:border-slate-300'
+                            className={`w-full min-h-[46px] px-3.5 py-2.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
+                              ? 'bg-slate-900 text-white border-slate-900 shadow-md ring-2 ring-slate-900/10'
+                              : 'bg-slate-50/60 hover:bg-white text-slate-900 border-slate-200 hover:border-[#78b65d] hover:shadow-xs'
                               }`}
                           >
-                            <div className="flex items-center gap-2 min-w-0">
-                              <span className="text-sm">{btn.icon}</span>
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <span className="text-base">{btn.icon}</span>
                               <div className="min-w-0">
-                                <div className="font-black text-xs tracking-wider uppercase truncate">
+                                <div className="font-extrabold text-xs tracking-wider uppercase truncate">
                                   {btn.title}
                                 </div>
-                                <div className={`text-[9.5px] truncate ${isSelected ? 'text-indigo-200' : 'text-slate-600'}`}>
+                                <div className={`text-[10px] truncate ${isSelected ? 'text-slate-300' : 'text-slate-500'}`}>
                                   {btn.subtitle}
                                 </div>
                               </div>
                             </div>
 
-                            <div className="flex items-center gap-1 shrink-0 pl-1">
-                              <span className={`text-[8.5px] font-extrabold px-1.5 py-0.5 rounded-md ${isSelected ? 'bg-amber-400 text-slate-900 font-black' : 'bg-slate-200/80 text-slate-700'
+                            <div className="flex items-center gap-1.5 shrink-0 pl-1">
+                              <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-full ${isSelected ? 'bg-[#78b65d] text-white font-bold' : 'bg-slate-100 text-slate-600 border border-slate-200'
                                 }`}>
                                 {btn.badge}
                               </span>
-                              <ChevronRight className={`w-3 h-3 ${isSelected ? 'text-amber-300' : 'text-slate-400'}`} />
+                              <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
                             </div>
                           </button>
                         );
@@ -739,29 +731,29 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               setIsMobilePopupOpen(true);
                             }
                           }}
-                          className={`w-full min-h-[48px] px-3.5 py-2.5 rounded-xl border-2 transition-all duration-200 cursor-pointer flex items-center justify-between shadow-md active:scale-98 text-left ${isSelected
-                            ? 'bg-slate-900 text-white border-white ring-2 ring-white/50 shadow-xl'
-                            : 'bg-white/85 hover:bg-white text-slate-900 border-white backdrop-blur-md hover:border-slate-300'
+                          className={`w-full min-h-[50px] px-4 py-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
+                            ? 'bg-slate-900 text-white border-slate-900 shadow-md ring-2 ring-slate-900/10'
+                            : 'bg-white hover:bg-slate-50/90 text-slate-900 border-slate-200 hover:border-[#78b65d] hover:shadow-xs'
                             }`}
                         >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <span className="text-base">{btn.icon}</span>
+                          <div className="flex items-center gap-3 min-w-0">
+                            <span className="text-lg">{btn.icon}</span>
                             <div className="min-w-0">
-                              <div className="font-black text-xs sm:text-sm tracking-wider uppercase truncate">
+                              <div className="font-extrabold text-xs sm:text-sm tracking-wider uppercase truncate">
                                 {btn.title}
                               </div>
-                              <div className={`text-[10px] truncate ${isSelected ? 'text-indigo-200' : 'text-slate-600'}`}>
+                              <div className={`text-[10px] truncate ${isSelected ? 'text-slate-300' : 'text-slate-500'}`}>
                                 {btn.subtitle}
                               </div>
                             </div>
                           </div>
 
                           <div className="flex items-center gap-1.5 shrink-0 pl-1">
-                            <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-md ${isSelected ? 'bg-amber-400 text-slate-900 font-black' : 'bg-slate-200/80 text-slate-700'
+                            <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full ${isSelected ? 'bg-[#78b65d] text-white font-bold' : 'bg-slate-100 text-slate-600 border border-slate-200'
                               }`}>
                               {btn.badge}
                             </span>
-                            <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-amber-300' : 'text-slate-400'}`} />
+                            <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
                           </div>
                         </button>
                       );
@@ -770,8 +762,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 )}
               </div>
 
-              {/* Social Media Links Grid */}
-              <div className="w-full pt-3 border-t border-black/15">
+              {/* Social Media Links Grid (Minimalist & Clean) */}
+              <div className="w-full pt-3 border-t border-slate-200/80">
                 <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-left">
                   {socialLinks.map((s, idx) => (
                     <a
@@ -779,25 +771,25 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       href={s.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1.5 text-[10.5px] font-bold text-blue-600 hover:text-blue-800 transition-colors py-0.5 truncate"
+                      className="flex items-center gap-1.5 text-[10.5px] font-medium text-slate-600 hover:text-[#78b65d] transition-colors py-0.5 truncate"
                     >
-                      {s.icon === 'tiktok' && <Music2 className="w-3 h-3 text-blue-600 shrink-0" />}
-                      {s.icon === 'instagram' && <Instagram className="w-3 h-3 text-blue-600 shrink-0" />}
-                      {s.icon === 'whatsapp' && <MessageCircle className="w-3 h-3 text-blue-600 shrink-0" />}
+                      {s.icon === 'tiktok' && <Music2 className="w-3 h-3 text-slate-500 shrink-0" />}
+                      {s.icon === 'instagram' && <Instagram className="w-3 h-3 text-slate-500 shrink-0" />}
+                      {s.icon === 'whatsapp' && <MessageCircle className="w-3 h-3 text-slate-500 shrink-0" />}
                       <span className="truncate">{s.label}</span>
                     </a>
                   ))}
                 </div>
 
-                {/* Tombol Cepat Buka Popup Rincian di HP */}
+                {/* Tombol Cepat Buka Popup Rincian di HP (Studio Green Pill) */}
                 <div className="lg:hidden w-full pt-3">
                   <button
                     onClick={() => setIsMobilePopupOpen(true)}
-                    className="w-full min-h-[44px] px-4 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-500 active:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg cursor-pointer active:scale-95 transition-all"
+                    className="w-full min-h-[44px] px-4 py-2.5 rounded-full bg-[#78b65d] hover:bg-[#5e9e44] active:bg-[#44ac18] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm cursor-pointer active:scale-95 transition-all"
                   >
-                    <Sparkles className="w-4 h-4 text-slate-900" />
+                    <Sparkles className="w-4 h-4 text-white" />
                     <span>Buka Rincian: {activeMenuInfo.title}</span>
-                    <ArrowRight className="w-4 h-4 text-slate-900" />
+                    <ArrowRight className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </div>
@@ -844,12 +836,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 {activeMenuCategory === 'selfstudio' && (
                   <div className="space-y-5 animate-in fade-in duration-300">
                     {/* Sub-Switcher */}
-                    <div className="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1 border border-slate-200 shadow-2xs overflow-x-auto no-scrollbar">
+                    <div className="bg-slate-100 p-1 rounded-full flex items-center gap-1 border border-slate-200 shadow-2xs overflow-x-auto no-scrollbar">
                       <button
                         onClick={() => setSelfStudioSubTab('special')}
-                        className={`flex-1 min-h-[38px] px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'special'
-                          ? 'bg-amber-800 text-white shadow-md'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'special'
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
                         <span>🏷️ Special (55K)</span>
@@ -857,9 +849,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                       <button
                         onClick={() => setSelfStudioSubTab('normal')}
-                        className={`flex-1 min-h-[38px] px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'normal'
-                          ? 'bg-[#8c6b65] text-white shadow-md'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'normal'
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
                         <span>✨ Normal (80K)</span>
@@ -867,9 +859,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                       <button
                         onClick={() => setSelfStudioSubTab('spotlight')}
-                        className={`flex-1 min-h-[38px] px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'spotlight'
-                          ? 'bg-gradient-to-r from-purple-700 to-pink-600 text-white shadow-md'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'spotlight'
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
                         <span>🌈 Spotlight (99K)</span>
@@ -877,9 +869,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                       <button
                         onClick={() => setSelfStudioSubTab('grid')}
-                        className={`flex-1 min-h-[38px] px-2.5 py-1.5 rounded-xl text-[11px] sm:text-xs font-black transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'grid'
-                          ? 'bg-slate-900 text-white shadow-md'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'grid'
+                          ? 'bg-slate-900 text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
                         <span>🎞️ Pilihan Grid Cetak</span>
