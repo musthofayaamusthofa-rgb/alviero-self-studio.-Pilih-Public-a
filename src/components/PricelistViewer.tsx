@@ -382,7 +382,75 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
-  const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons];
+  const additionalMenuButtons = [
+    {
+      id: 'wedding-package',
+      title: 'PRICELIST WEDDING',
+      subtitle: 'Prewedding, Akad, Resepsi & Engagement',
+      icon: '💍',
+      sheetCategory: 'Paket Prewedding',
+      badge: 'Exclusive',
+      specialView: 'wedding-package',
+      cardBg: 'bg-[#faf1f5]',
+      cardBorder: 'border-[#ebd0df]',
+      hoverBorder: 'hover:border-[#964d74]',
+      iconBg: 'bg-[#f5e0ec]',
+      iconText: 'text-[#743358]',
+      badgeBg: 'bg-[#f5e0ec]',
+      badgeText: 'text-[#743358]',
+      badgeBorder: 'border-[#e2bece]',
+      btnText: 'text-[#743358]',
+      targetPackageIds: ['prewed-bundling-1', 'prewed-bundling-2']
+    },
+    {
+      id: 'bingkai-album',
+      title: 'PRICELIST CETAK',
+      subtitle: 'Cetak Lab, Bingkai Minimalis & Album Eksklusif',
+      icon: '🖼️',
+      sheetCategory: 'Cetak & Frame',
+      badge: 'Cetak Lab',
+      specialView: 'bingkai-album',
+      cardBg: 'bg-[#f0f5fa]',
+      cardBorder: 'border-[#cbe0f2]',
+      hoverBorder: 'hover:border-[#40709b]',
+      iconBg: 'bg-[#dcecf8]',
+      iconText: 'text-[#264f77]',
+      badgeBg: 'bg-[#dcecf8]',
+      badgeText: 'text-[#264f77]',
+      badgeBorder: 'border-[#bed7ec]',
+      btnText: 'text-[#264f77]',
+      targetPackageIds: []
+    }
+  ];
+
+  const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
+
+  // Grid Category Arrays (Sesuai Referensi Gambar 2)
+  const photoStudioGridItems = [
+    { id: 'personal-paket', name: 'Branding Personal', icon: '👩‍💼', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
+    { id: 'couple-paket', name: 'Couple', icon: '💑', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
+    { id: 'group-paket', name: 'Group', icon: '👥', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
+    { id: 'grad-indoor', name: 'Graduation', icon: '🎓', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
+    { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
+    { id: 'maternity-paket', name: 'Maternity', icon: '🤰', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
+    { id: 'event', name: 'Kids', icon: '👶', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
+    { id: 'pass-foto', name: 'Photo ID', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
+    { id: 'event', name: 'Ulang Tahun', icon: '🎂', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
+    { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
+    { id: 'prewed-paket', name: 'Prewedding', icon: '💍', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
+    { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
+    { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' },
+    { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' }
+  ];
+
+  const selfPhotoGridItems = [
+    { id: 'selfstudio', name: 'Self Photo', icon: '✨', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' }
+  ];
+
+  const additionalGridItems = [
+    { id: 'wedding-package', name: 'Wedding', icon: '💍', colorBg: 'bg-[#faf1f5]', colorBorder: 'border-[#ebd0df]', colorText: 'text-[#743358]' },
+    { id: 'bingkai-album', name: 'Cetak Lab', icon: '🖼️', colorBg: 'bg-[#f0f5fa]', colorBorder: 'border-[#cbe0f2]', colorText: 'text-[#264f77]' }
+  ];
 
   // Social Media Links (From Figma Footer)
   const socialLinks = [
@@ -713,135 +781,165 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </button>
               </div>
 
-              {/* The Menu Buttons (Conditional: Main Menu vs Submenu Studio Foto) */}
-              <div className="w-full space-y-2 pt-0.5">
+              {/* Title Section (Matching Image 2: Studio Foto Jogja & Solo style) */}
+              <div className="w-full pt-1 pb-2 text-center border-b border-stone-200/60">
+                <h2 className="text-base sm:text-lg font-black text-stone-900 tracking-tight">
+                  Studio Foto {currentBranchInfo.name}
+                </h2>
+                <p className="text-[11px] text-stone-500 font-medium">
+                  Pilih kategori studio di bawah untuk melihat rincian paket & harga
+                </p>
+              </div>
 
-                {/* A. If Submenu Studio Foto is OPEN */}
-                {isStudioFotoSubmenuOpen ? (
-                  <div className="space-y-2 animate-in fade-in slide-in-from-left duration-200">
-                    {/* Back Button to Main Menu */}
-                    <button
-                      onClick={() => {
-                        setIsStudioFotoSubmenuOpen(false);
-                        setActiveMenuCategory('selfstudio');
-                      }}
-                      className="w-full min-h-[42px] px-3.5 py-2 rounded-2xl bg-[#232d38] text-white font-bold text-xs flex items-center justify-between shadow-xs cursor-pointer hover:bg-[#1a222c] active:scale-95 transition-all"
-                    >
-                      <div className="flex items-center gap-2">
-                        <ChevronLeft className="w-4 h-4 text-[#9fc4a8]" />
-                        <span>Kembali ke Menu Utama</span>
-                      </div>
-                      <span className="text-[10px] bg-stone-800 text-stone-300 px-2 py-0.5 rounded-full border border-stone-700">5 Menu</span>
-                    </button>
+              {/* 1. Photo Studio Package Grid (4 Columns, matching Image 2) */}
+              <div className="w-full text-left space-y-2.5 pt-1">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-black text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
+                    Photo Studio Package
+                  </h3>
+                  <span className="text-[10px] bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
+                    14 Kategori
+                  </span>
+                </div>
 
-                    <div className="text-left px-1 pt-1 pb-0.5">
-                      <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-stone-700 bg-[#f4f3ee] px-2.5 py-0.5 rounded-full border border-stone-200">
-                        🏛️ 12 Pilihan Studio Foto:
-                      </span>
-                    </div>
+                <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
+                  {photoStudioGridItems.map((item) => {
+                    const isSelected = activeMenuCategory === item.id;
 
-                    {/* 12 Submenu Buttons */}
-                    <div className="space-y-2 max-h-[480px] overflow-y-auto pr-1">
-                      {studioFotoSubButtons.map((btn) => {
-                        const isSelected = activeMenuCategory === btn.id;
+                    return (
+                      <button
+                        key={item.id + item.name}
+                        onClick={() => {
+                          setActiveMenuCategory(item.id);
+                          setIsMobilePopupOpen(true);
+                        }}
+                        className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
+                      >
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border ${
+                          isSelected
+                            ? 'bg-[#232d38] text-white border-[#232d38] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
+                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                        }`}>
+                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                        </div>
+                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
+                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                        }`}>
+                          {item.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-                        return (
-                          <button
-                            key={btn.id}
-                            onClick={() => {
-                              setActiveMenuCategory(btn.id);
-                              setIsMobilePopupOpen(true);
-                            }}
-                            className={`w-full min-h-[46px] px-3.5 py-2.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
-                              ? 'bg-[#232d38] text-white border-[#232d38] shadow-sm ring-2 ring-[#232d38]/10'
-                              : `${btn.cardBg || 'bg-white'} hover:bg-white text-stone-900 ${btn.cardBorder || 'border-stone-200'} ${btn.hoverBorder || 'hover:border-stone-400'} hover:shadow-xs`
-                              }`}
-                          >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <span className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs shrink-0 transition-transform ${
-                                isSelected ? 'bg-stone-800 text-white' : `${btn.iconBg || 'bg-stone-100'} ${btn.iconText || 'text-stone-700'}`
-                              }`}>
-                                {btn.icon}
-                              </span>
-                              <div className="min-w-0">
-                                <div className="font-extrabold text-xs tracking-wider uppercase truncate">
-                                  {btn.title}
-                                </div>
-                                <div className={`text-[10px] truncate ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
-                                  {btn.subtitle}
-                                </div>
-                              </div>
-                            </div>
+              {/* 2. Self Photo Package Grid (4 Columns, matching Image 2) */}
+              <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-black text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
+                    Self Photo Package
+                  </h3>
+                  <span className="text-[10px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
+                    Best Seller
+                  </span>
+                </div>
 
-                            <div className="flex items-center gap-1.5 shrink-0 pl-1">
-                              <span className={`text-[9px] font-extrabold px-2 py-0.5 rounded-full border ${
-                                isSelected
-                                  ? 'bg-[#6c8c74] text-white font-bold border-transparent'
-                                  : `${btn.badgeBg || 'bg-stone-100'} ${btn.badgeText || 'text-stone-600'} ${btn.badgeBorder || 'border-stone-200'}`
-                                }`}>
-                                {btn.badge}
-                              </span>
-                              <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-[#9fc4a8]' : 'text-stone-400'}`} />
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  /* B. Main 5 Menu Buttons (Default View) */
-                  <div className="space-y-2.5 animate-in fade-in duration-200">
-                    {mainMenuButtons.map((btn) => {
-                      const isSelected = activeMenuCategory === btn.id;
+                <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
+                  {selfPhotoGridItems.map((item) => {
+                    const isSelected = activeMenuCategory === item.id;
 
-                      return (
-                        <button
-                          key={btn.id}
-                          onClick={() => {
-                            if (btn.isSubmenuTrigger) {
-                              setIsStudioFotoSubmenuOpen(true);
-                              setActiveMenuCategory('undangan-paket');
-                            } else {
-                              setActiveMenuCategory(btn.id);
-                              setIsMobilePopupOpen(true);
-                            }
-                          }}
-                          className={`w-full min-h-[52px] px-4 py-3 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between shadow-2xs active:scale-98 text-left ${isSelected
-                            ? 'bg-[#232d38] text-white border-[#232d38] shadow-sm ring-2 ring-[#232d38]/10'
-                            : `${btn.cardBg || 'bg-white'} hover:brightness-98 text-stone-900 ${btn.cardBorder || 'border-stone-200'} ${btn.hoverBorder || 'hover:border-stone-400'} hover:shadow-xs`
-                            }`}
-                        >
-                          <div className="flex items-center gap-3 min-w-0">
-                            <span className={`w-9 h-9 rounded-xl flex items-center justify-center text-base shrink-0 transition-transform ${
-                              isSelected ? 'bg-stone-800 text-white' : `${btn.iconBg || 'bg-stone-100'} ${btn.iconText || 'text-stone-700'} shadow-2xs`
-                            }`}>
-                              {btn.icon}
-                            </span>
-                            <div className="min-w-0">
-                              <div className="font-extrabold text-xs sm:text-sm tracking-wider uppercase truncate">
-                                {btn.title}
-                              </div>
-                              <div className={`text-[10px] truncate ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
-                                {btn.subtitle}
-                              </div>
-                            </div>
-                          </div>
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setActiveMenuCategory(item.id);
+                          setIsMobilePopupOpen(true);
+                        }}
+                        className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
+                      >
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border ${
+                          isSelected
+                            ? 'bg-[#232d38] text-white border-[#232d38] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
+                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                        }`}>
+                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                        </div>
+                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
+                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                        }`}>
+                          {item.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-                          <div className="flex items-center gap-1.5 shrink-0 pl-1">
-                            <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full border ${
-                              isSelected
-                                ? 'bg-[#6c8c74] text-white font-bold border-transparent'
-                                : `${btn.badgeBg || 'bg-stone-100'} ${btn.badgeText || 'text-stone-600'} ${btn.badgeBorder || 'border-stone-200'}`
-                              }`}>
-                              {btn.badge}
-                            </span>
-                            <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-[#9fc4a8]' : 'text-stone-400'}`} />
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
+              {/* 3. Layanan Tambahan (Wedding & Cetak) */}
+              <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-black text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
+                    Layanan Tambahan
+                  </h3>
+                  <span className="text-[10px] bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
+                    2 Menu
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
+                  {additionalGridItems.map((item) => {
+                    const isSelected = activeMenuCategory === item.id;
+
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setActiveMenuCategory(item.id);
+                          setIsMobilePopupOpen(true);
+                        }}
+                        className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
+                      >
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border ${
+                          isSelected
+                            ? 'bg-[#232d38] text-white border-[#232d38] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
+                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                        }`}>
+                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                        </div>
+                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
+                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                        }`}>
+                          {item.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Customer Service WhatsApp & Actions (Matching Image 2) */}
+              <div className="w-full pt-3 border-t border-stone-200/80 space-y-2.5">
+                <a
+                  href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20informasi%20pricelist%20dan%20booking"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full min-h-[46px] rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95"
+                >
+                  <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
+                  <span>Customer Service (WhatsApp)</span>
+                </a>
+
+                {/* Tombol Cepat Buka Popup Rincian di HP (Pastel Sage Pill) */}
+                <div className="lg:hidden w-full">
+                  <button
+                    onClick={() => setIsMobilePopupOpen(true)}
+                    className="w-full min-h-[42px] px-4 py-2.5 rounded-full bg-[#6c8c74] hover:bg-[#57735e] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-95 transition-all"
+                  >
+                    <Sparkles className="w-4 h-4 text-white" />
+                    <span>Buka Rincian: {activeMenuInfo.title}</span>
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </button>
+                </div>
               </div>
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
