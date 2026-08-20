@@ -573,23 +573,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </button>
               </div>
 
-              {/* 1. Bar Status Operasional & WA Admin (Pill Kaca Minimalis) */}
-              <div className="w-full bg-slate-50/95 rounded-full px-3.5 py-1.5 text-slate-700 flex items-center justify-between text-[11px] border border-slate-200/80 shadow-2xs">
-                <div className="flex items-center gap-1.5 font-bold">
-                  <span className="inline-block w-2 h-2 rounded-full bg-[#78b65d] animate-pulse"></span>
-                  <span className="text-slate-800 font-semibold">Buka: 08:00 - 21:00 WIB</span>
-                </div>
-                <a
-                  href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20dan%20pricelist"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-emerald-700 hover:text-emerald-800 flex items-center gap-1 font-bold transition-colors"
-                >
-                  <MessageCircle className="w-3.5 h-3.5 text-[#78b65d]" />
-                  <span>WA: +62 877-7753-8164</span>
-                </a>
-              </div>
-
               {/* 2. Logo Utama & Tagline (Minimalist Clean Studio) */}
               <div className="space-y-1 pt-1">
                 <div className="flex items-center justify-center gap-2.5">
