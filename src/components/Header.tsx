@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Calendar, Sparkles, MapPin, MessageCircle, Layers } from 'lucide-react';
+import { Camera, Calendar, Sparkles, MapPin, MessageCircle, Layers, Building2 } from 'lucide-react';
+import { StudioBranch } from '../types';
+import { STUDIO_BRANCHES } from '../data/pricelistData';
 
 interface HeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  selectedBranch?: StudioBranch;
+  onOpenBranchModal?: () => void;
   onOpenBooking: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenBooking }) => {
+export const Header: React.FC<HeaderProps> = ({
+  activeTab,
+  setActiveTab,
+  selectedBranch = 'cabang-1',
+  onOpenBranchModal,
+  onOpenBooking,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
   // Check studio open status dynamically (08:00 - 21:00 WIB)
   const checkIsOpen = (): boolean => {
@@ -61,10 +73,16 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenB
               </>
             )}
             <span className="hidden md:inline text-slate-500">|</span>
-            <span className="hidden md:inline text-amber-300 font-semibold flex items-center gap-1">
-              <Sparkles className="w-3 h-3 inline text-amber-300 animate-spin" />
-              Promo Student & Couple Diskon s/d 25%
-            </span>
+            {onOpenBranchModal && (
+              <button
+                type="button"
+                onClick={onOpenBranchModal}
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-600/60 hover:bg-indigo-600 border border-indigo-400/50 text-white font-bold text-[11px] transition-all cursor-pointer"
+              >
+                <span>{currentBranchInfo.icon} {currentBranchInfo.shortName}</span>
+                <span className="underline opacity-80 text-[10px]">[Ganti]</span>
+              </button>
+            )}
           </div>
           <div className="flex items-center gap-4 text-slate-300 text-xs">
             <a 
@@ -141,8 +159,19 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenB
           </button>
         </nav>
 
-        {/* CTA Button */}
-        <div className="flex items-center gap-2">
+        {/* CTA & Branch Switcher */}
+        <div className="flex items-center gap-2.5">
+          {onOpenBranchModal && (
+            <button
+              type="button"
+              onClick={onOpenBranchModal}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-extrabold text-xs border border-slate-300/80 transition-all cursor-pointer active:scale-95"
+            >
+              <span>{currentBranchInfo.icon} {currentBranchInfo.shortName}</span>
+              <span className="text-[10px] text-indigo-600 font-black">Ganti</span>
+            </button>
+          )}
+
           <button
             onClick={onOpenBooking}
             className="relative group bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-md hover:shadow-indigo-500/20 transition-all duration-200 flex items-center gap-2 active:scale-95 cursor-pointer"

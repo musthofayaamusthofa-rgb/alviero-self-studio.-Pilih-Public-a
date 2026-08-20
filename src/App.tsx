@@ -5,6 +5,8 @@ import { PricelistViewer } from './components/PricelistViewer';
 import { PhotoStripCustomizer } from './components/PhotoStripCustomizer';
 import { StudioInfoAndRules } from './components/StudioInfoAndRules';
 import { BookingCalculator } from './components/BookingCalculator';
+import { BranchSelectorModal } from './components/BranchSelectorModal';
+import { StudioBranch } from './types';
 import { useAutoHideScrollbar } from './hooks/useAutoHideScrollbar';
 import { Camera, Heart, MessageCircle, Instagram } from 'lucide-react';
 
@@ -17,6 +19,22 @@ export default function App() {
   const [preselectedBackdropId, setPreselectedBackdropId] = useState<string | undefined>();
   const [preselectedFrameId, setPreselectedFrameId] = useState<string | undefined>();
 
+  // Studio Branch Selection State
+  const [selectedBranch, setSelectedBranch] = useState<StudioBranch>(() => {
+    const saved = localStorage.getItem('alviero_selected_branch');
+    return (saved === 'cabang-2' ? 'cabang-2' : 'cabang-1') as StudioBranch;
+  });
+
+  const [isBranchModalOpen, setIsBranchModalOpen] = useState<boolean>(() => {
+    return !localStorage.getItem('alviero_has_selected_branch');
+  });
+
+  const handleSelectBranch = (branch: StudioBranch) => {
+    setSelectedBranch(branch);
+    localStorage.setItem('alviero_selected_branch', branch);
+    localStorage.setItem('alviero_has_selected_branch', 'true');
+  };
+
   const handleOpenBookingWithPackage = (packageId: string) => {
     setPreselectedPackageId(packageId);
     setIsBookingOpen(true);
@@ -28,6 +46,8 @@ export default function App() {
       <Header
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        selectedBranch={selectedBranch}
+        onOpenBranchModal={() => setIsBranchModalOpen(true)}
         onOpenBooking={() => setIsBookingOpen(true)}
       />
 
@@ -35,6 +55,8 @@ export default function App() {
       <main className="flex-1 pb-2 sm:pb-8">
         {(activeTab === 'katalog' || activeTab === 'pricelist-sheets') && (
           <PricelistViewer
+            selectedBranch={selectedBranch}
+            onOpenBranchModal={() => setIsBranchModalOpen(true)}
             onSelectPackageForBooking={handleOpenBookingWithPackage}
             onNavigateToRules={() => {
               setActiveTab('rules');
@@ -145,9 +167,21 @@ export default function App() {
       <BookingCalculator
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
+        selectedBranch={selectedBranch}
+        onSelectBranch={handleSelectBranch}
+        onOpenBranchModal={() => setIsBranchModalOpen(true)}
         preselectedPackageId={preselectedPackageId}
         preselectedBackdropId={preselectedBackdropId}
         preselectedFrameId={preselectedFrameId}
+      />
+
+      {/* Branch Selector Modal */}
+      <BranchSelectorModal
+        isOpen={isBranchModalOpen}
+        selectedBranch={selectedBranch}
+        onSelectBranch={handleSelectBranch}
+        onClose={() => setIsBranchModalOpen(false)}
+        canDismiss={!!localStorage.getItem('alviero_has_selected_branch')}
       />
     </div>
   );

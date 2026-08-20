@@ -1,4 +1,4 @@
-import { PackageItem, CategoryInfo, BackdropOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem } from '../types';
+import { PackageItem, CategoryInfo, BackdropOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
 
 export const CATEGORIES: CategoryInfo[] = [
   {
@@ -1246,8 +1246,41 @@ export const PACKAGES: PackageItem[] = [
   }
 ];
 
+export const STUDIO_BRANCHES: BranchInfo[] = [
+  {
+    id: 'cabang-1',
+    name: 'Alviero Studio — Cabang 1',
+    shortName: 'Cabang 1 (Studio Utama)',
+    tagline: 'Pusat SelfStudio & Studio Foto Lengkap',
+    address: 'Studio Utama Alviero (Cabang 1)',
+    badge: 'Studio Utama',
+    description: 'Pilihan lengkap SelfStudio Shutter Mandiri, Studio Foto Pro, dan Spotlight Tirai Coklat.',
+    highlights: [
+      'SelfStudio Shutter Mandiri & Tirai Coklat',
+      'Studio Foto Wisuda, Family, Group & Birthday',
+      'Pilihan Backdrop Solid & Spotlight Lengkap'
+    ],
+    icon: '📍'
+  },
+  {
+    id: 'cabang-2',
+    name: 'Alviero Studio — Cabang 2',
+    shortName: 'Cabang 2',
+    tagline: 'Studio Estetik & Konsep Latar Baru',
+    address: 'Studio Alviero (Cabang 2)',
+    badge: 'Cabang Baru',
+    description: 'Studio Foto & SelfStudio dengan koleksi backdrop estetik dan tema pencahayaan khusus Cabang 2.',
+    highlights: [
+      'Bilik SelfStudio Modern Cabang 2',
+      'Koleksi Latar & Pencahayaan Khusus Cabang 2',
+      'Ruang Nyaman & Booking Cepat'
+    ],
+    icon: '🏢'
+  }
+];
+
 export const BACKDROPS: BackdropOption[] = [
-  // Self Studio Backdrops
+  // ==================== CABANG 1 - SELF STUDIO ====================
   {
     id: 'tematik-coklat',
     name: 'Tematik Coklat',
@@ -1255,7 +1288,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#6B4423',
     description: 'Latar bertema coklat elegan yang hangat dan estetik.',
     previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio']
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'abu-abu',
@@ -1264,7 +1298,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#9CA3AF',
     description: 'Latar abu-abu netral yang modern dan menonjolkan subjek foto.',
     previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio', 'pro-studio']
+    applicableTo: ['self-studio', 'pro-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'putih',
@@ -1273,7 +1308,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#F8FAFC',
     description: 'Latar polos putih bersih studio yang cerah dan fleksibel.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio']
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'coklat',
@@ -1282,10 +1318,11 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#D2B48C',
     description: 'Latar coklat klasik untuk kesan natural yang lembut.',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio']
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
   },
   
-  // Studio Foto (Pro Studio) Backdrops
+  // ==================== CABANG 1 - STUDIO FOTO (PRO STUDIO) ====================
   {
     id: 'hitam',
     name: 'Hitam',
@@ -1293,7 +1330,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#111827',
     description: 'Latar hitam elegan untuk kesan profesional dan tajam.',
     previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio']
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'hijau',
@@ -1302,7 +1340,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#A7D7C5',
     description: 'Latar hijau pastel lembut untuk nuansa foto estetik dan segar.',
     previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio']
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'cream',
@@ -1311,7 +1350,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#FEF3C7',
     description: 'Latar cream hangat untuk tone pastel yang lembut.',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio']
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'limbo',
@@ -1320,7 +1360,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#E5E7EB',
     description: 'Latar limbo mulus tanpa sudut untuk efek ruang tak terbatas.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio']
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'putih-tengah',
@@ -1329,7 +1370,8 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#F1F5F9',
     description: 'Latar putih tengah dengan pencahayaan seimbang.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio']
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-1']
   },
   {
     id: 'putih-jendela',
@@ -1338,7 +1380,102 @@ export const BACKDROPS: BackdropOption[] = [
     hex: '#FAFAFA',
     description: 'Latar putih cerah dengan efek pencahayaan jendela natural.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio']
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-1']
+  },
+
+  // ==================== CABANG 2 - SELF STUDIO ====================
+  {
+    id: 'c2-self-sunset-spotlight',
+    name: 'Warm Sunset Spotlight (Cabang 2)',
+    category: 'spotlight-special',
+    hex: '#F97316',
+    description: 'Pencahayaan sorot sunset hangat estetik khusus SelfStudio Cabang 2.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-self-cream-aesthetic',
+    name: 'Aesthetic Cream (Cabang 2)',
+    category: 'solid-color',
+    hex: '#FEF3C7',
+    description: 'Latar cream lembut dan hangat untuk foto selfstudio estetik.',
+    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-self-cool-gray',
+    name: 'Modern Slate Gray (Cabang 2)',
+    category: 'solid-color',
+    hex: '#64748B',
+    description: 'Latar abu-abu modern untuk hasil foto kontras elegan.',
+    previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-self-pure-white',
+    name: 'Pure Studio White (Cabang 2)',
+    category: 'solid-color',
+    hex: '#FFFFFF',
+    description: 'Latar putih bersih minimalis dengan pencahayaan softbox.',
+    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+
+  // ==================== CABANG 2 - STUDIO FOTO (PRO STUDIO) ====================
+  {
+    id: 'c2-pro-seamless-limbo',
+    name: 'Seamless Studio Limbo (Cabang 2)',
+    category: 'solid-color',
+    hex: '#E2E8F0',
+    description: 'Latar limbo lengkung tanpa batas untuk foto wisuda & group megah.',
+    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-pro-terracotta',
+    name: 'Warm Terracotta (Cabang 2)',
+    category: 'solid-color',
+    hex: '#C2410C',
+    description: 'Latar terracotta bernuansa earthy yang mewah dan hangat.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-pro-sage-green',
+    name: 'Sage Mint Green (Cabang 2)',
+    category: 'solid-color',
+    hex: '#86EFAC',
+    description: 'Latar hijau sage mint segar untuk foto potret & maternity cantik.',
+    previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-pro-classic-navy',
+    name: 'Classic Deep Navy (Cabang 2)',
+    category: 'solid-color',
+    hex: '#1E3A8A',
+    description: 'Latar biru navy klasik yang berwibawa untuk wisuda & profil formal.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-pro-midnight-black',
+    name: 'Midnight Black (Cabang 2)',
+    category: 'solid-color',
+    hex: '#0F172A',
+    description: 'Latar hitam pekat dramatis untuk low-key & fashion portrait.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
   }
 ];
 

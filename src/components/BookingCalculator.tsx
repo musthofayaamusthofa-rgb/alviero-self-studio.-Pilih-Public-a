@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { PACKAGES, CATEGORIES, BACKDROPS, FRAME_TEMPLATES, ADD_ONS, TIME_SLOTS, PRO_STUDIO_TIME_SLOTS, SELF_STUDIO_TIME_SLOTS } from '../data/pricelistData';
-import { BookingFormData } from '../types';
-import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon } from 'lucide-react';
+import { PACKAGES, CATEGORIES, BACKDROPS, FRAME_TEMPLATES, ADD_ONS, TIME_SLOTS, PRO_STUDIO_TIME_SLOTS, SELF_STUDIO_TIME_SLOTS, STUDIO_BRANCHES } from '../data/pricelistData';
+import { BookingFormData, StudioBranch } from '../types';
+import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2 } from 'lucide-react';
 
 interface BookingCalculatorProps {
   isOpen: boolean;
   onClose: () => void;
+  selectedBranch?: StudioBranch;
+  onSelectBranch?: (branch: StudioBranch) => void;
+  onOpenBranchModal?: () => void;
   preselectedPackageId?: string;
   preselectedBackdropId?: string;
   preselectedFrameId?: string;
@@ -100,6 +103,9 @@ const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYe
 export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   isOpen,
   onClose,
+  selectedBranch = 'cabang-1',
+  onSelectBranch,
+  onOpenBranchModal,
   preselectedPackageId,
   preselectedBackdropId,
   preselectedFrameId
@@ -134,6 +140,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
   const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
+  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
@@ -148,7 +155,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     const typeKey = selectedPackageId.toLowerCase().includes('self') ? 'selfstudio' : 'studio_foto';
 
-    fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?action=check_slots&date=${encodeURIComponent(bookingDate)}&studio_type=${encodeURIComponent(typeKey)}`)
+    fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?action=check_slots&date=${encodeURIComponent(bookingDate)}&studio_type=${encodeURIComponent(typeKey)}&branch=${encodeURIComponent(selectedBranch)}`)
       .then(res => res.json())
       .then(data => {
         if (isMounted && data && Array.isArray(data.bookedSlots)) {
@@ -165,7 +172,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, bookingDate, selectedPackageId]);
+  }, [isOpen, bookingDate, selectedPackageId, selectedBranch]);
 
   // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata berstatus booked/penuh
   useEffect(() => {
@@ -181,10 +188,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (preselectedFrameId) setSelectedFrameId(preselectedFrameId);
   }, [preselectedPackageId, preselectedBackdropId, preselectedFrameId]);
 
-  const availableBackdrops = BACKDROPS.filter(b => b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio'));
+  const availableBackdrops = BACKDROPS.filter(b => 
+    (b.applicableBranches || ['cabang-1']).includes(selectedBranch) &&
+    b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio')
+  );
 
   useEffect(() => {
-    // Reset selected backdrop if it's not available in the current category
+    // Reset selected backdrop if it's not available in the current category & branch
     const validIds = selectedBackdropIds.filter(id => availableBackdrops.some(b => b.id === id));
     if (validIds.length === 0 && availableBackdrops.length > 0) {
       setSelectedBackdropIds([availableBackdrops[0].id]);
@@ -193,7 +203,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     } else if (validIds.length !== selectedBackdropIds.length) {
       setSelectedBackdropIds(validIds);
     }
-  }, [selectedPackageId, isSelfStudio, availableBackdrops, maxBackdrops]);
+  }, [selectedPackageId, selectedBranch, isSelfStudio, availableBackdrops, maxBackdrops]);
 
   const handleSelectBackdrop = (id: string) => {
     if (maxBackdrops === 1) {
@@ -289,7 +299,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     message += `• No. WhatsApp: ${customerPhone || '-'}\n`;
     message += `• Tanggal Foto: ${bookingDate}\n`;
     message += `• Jam Slot: ${timeSlot} WIB\n`;
-    message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n\n`;
+    message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
+    message += `• *Lokasi Studio:* ${currentBranchInfo.icon} *${currentBranchInfo.name}*\n\n`;
 
     message += `📷 *PAKET & KONSEP STUDIO:*\n`;
     message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
@@ -355,6 +366,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         time: timeSlot,
         studio_type: studioTypeKey,
         studio_label: isSelfStudio ? 'Self Studio' : 'Studio Foto Profesional',
+        branch: selectedBranch,
+        branch_name: currentBranchInfo.name,
         backdrop: backdropDisplayName,
         frame: isSelfStudio ? currentFrame.name : '-',
         name: customerName || 'Pelanggan',
@@ -444,6 +457,38 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           {/* STEP 1: Select Package & Concepts */}
           {step === 1 && (
             <div className="space-y-5">
+              {/* Branch Selector in Step 1 */}
+              <div className="bg-slate-100/90 border border-slate-200/90 p-3 sm:p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shrink-0 shadow-xs">
+                    {currentBranchInfo.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Lokasi Cabang Studio:</div>
+                    <div className="text-xs font-black text-slate-900 truncate">{currentBranchInfo.name}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 shadow-2xs shrink-0">
+                  {STUDIO_BRANCHES.map((b) => (
+                    <button
+                      key={b.id}
+                      type="button"
+                      onClick={() => {
+                        if (onSelectBranch) onSelectBranch(b.id);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+                        selectedBranch === b.id
+                          ? 'bg-indigo-600 text-white shadow-xs'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      }`}
+                    >
+                      {b.id === 'cabang-1' ? 'Cabang 1' : 'Cabang 2'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-2">
                   1. Pilih Paket Foto Utama:

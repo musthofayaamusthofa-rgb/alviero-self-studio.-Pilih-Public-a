@@ -41,6 +41,20 @@ export interface PackageItem {
   image: string;
 }
 
+export type StudioBranch = 'cabang-1' | 'cabang-2';
+
+export interface BranchInfo {
+  id: StudioBranch;
+  name: string;
+  shortName: string;
+  tagline: string;
+  address: string;
+  badge: string;
+  description: string;
+  highlights: string[];
+  icon: string;
+}
+
 export interface BackdropOption {
   id: string;
   name: string;
@@ -50,6 +64,7 @@ export interface BackdropOption {
   description: string;
   previewImage: string;
   applicableTo?: ('self-studio' | 'pro-studio')[];
+  applicableBranches?: StudioBranch[];
 }
 
 export interface FrameTemplate {

@@ -1,15 +1,17 @@
 import React, { useState, useMemo } from 'react';
-import { PRICELIST_SHEETS, PACKAGES } from '../data/pricelistData';
-import { PricelistSheet } from '../types';
+import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES } from '../data/pricelistData';
+import { PricelistSheet, StudioBranch } from '../types';
 import {
   ZoomIn, ArrowRight, Layers, Sparkles, X,
   Search, Camera, Calendar, ChevronRight, MessageCircle,
   Instagram, Music2, CheckCircle2, ChevronLeft, Heart, Image as ImageIcon,
-  Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye
+  Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye, MapPin
 } from 'lucide-react';
 
 interface PricelistViewerProps {
   onSelectPackageForBooking: (packageId: string) => void;
+  selectedBranch?: StudioBranch;
+  onOpenBranchModal?: () => void;
   onNavigateToRules?: () => void;
   onNavigateToTab?: (tab: string) => void;
   onOpenBooking?: () => void;
@@ -30,10 +32,13 @@ interface StudioGalleryPhoto {
 
 export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   onSelectPackageForBooking,
+  selectedBranch = 'cabang-1',
+  onOpenBranchModal,
   onNavigateToRules,
   onNavigateToTab,
   onOpenBooking
 }) => {
+  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   // Mode: 'menu' (Figma Bio-Link Style) or 'gallery' (Contoh Hasil Foto Studio)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery'>('menu');
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>('selfstudio');
@@ -541,6 +546,40 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
             {/* Menu Content */}
             <div className="relative z-10 p-4 sm:p-7 flex flex-col items-center text-center space-y-3.5 sm:space-y-4">
+
+              {/* 0. Pilihan Lokasi Studio Cabang 1 vs Cabang 2 */}
+              <div
+                onClick={onOpenBranchModal}
+                className="w-full bg-slate-900/90 hover:bg-slate-900 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 text-white flex items-center justify-between gap-2.5 shadow-md border border-indigo-400/40 cursor-pointer transition-all hover:border-indigo-400 active:scale-98 group"
+              >
+                <div className="flex items-center gap-2.5 text-left min-w-0">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    {currentBranchInfo.icon}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[9.5px] font-extrabold text-indigo-300 uppercase tracking-wider">Lokasi Studio:</span>
+                      <span className="text-[9px] bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 font-bold px-1.5 py-0.2 rounded-md">
+                        {currentBranchInfo.badge}
+                      </span>
+                    </div>
+                    <div className="font-extrabold text-xs text-white truncate">
+                      {currentBranchInfo.name}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onOpenBranchModal) onOpenBranchModal();
+                  }}
+                  className="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10.5px] font-black shrink-0 transition-colors shadow-2xs"
+                >
+                  Ganti Cabang 🔄
+                </button>
+              </div>
 
               {/* 1. Bar Status Operasional & WA Admin (Pill Kaca Minimalis) */}
               <div className="w-full bg-slate-900/85 backdrop-blur-md rounded-full px-3.5 py-1.5 text-white flex items-center justify-between text-[11px] shadow-sm border border-white/20">
