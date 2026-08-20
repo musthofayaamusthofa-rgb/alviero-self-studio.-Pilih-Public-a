@@ -573,27 +573,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </button>
               </div>
 
-              {/* 2. Logo Utama & Tagline (Minimalist Clean Studio) */}
-              <div className="space-y-1 pt-1">
-                <div className="flex items-center justify-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-base shadow-sm">
-                    <Camera className="w-5 h-5 text-emerald-400" />
-                  </div>
-                  <div className="text-left">
-                    <div className="font-black text-xl text-slate-900 tracking-wider leading-none uppercase">
-                      ALVIERO
-                    </div>
-                    <div className="font-bold text-xs text-slate-500 tracking-widest leading-none uppercase mt-0.5">
-                      STUDIO & SELFSTUDIO
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-xs text-slate-600 font-serif italic tracking-wide">
-                  Perfecting Happiness in Every Moment
-                </p>
-              </div>
-
               {/* 3. Tombol Hitung & Reservasi (Signature Studio Green Pill) */}
               <button
                 onClick={onOpenBooking}
@@ -774,6 +753,27 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <ArrowRight className="w-4 h-4 text-white" />
                   </button>
                 </div>
+              </div>
+
+              {/* Logo Utama & Tagline (Pindah ke Bagian Bawah Kartu) */}
+              <div className="w-full pt-3 mt-1 border-t border-slate-200/80 space-y-1">
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-7 h-7 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-xs shadow-xs">
+                    <Camera className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-extrabold text-xs text-slate-900 tracking-wider leading-none uppercase">
+                      ALVIERO
+                    </div>
+                    <div className="font-bold text-[9px] text-slate-500 tracking-widest leading-none uppercase mt-0.5">
+                      STUDIO & SELFSTUDIO
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-slate-500 font-serif italic tracking-wide">
+                  Perfecting Happiness in Every Moment
+                </p>
               </div>
             </div>
           </div>
