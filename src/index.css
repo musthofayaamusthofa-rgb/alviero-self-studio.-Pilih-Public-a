@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --studio-primary: #78b65d;
-  --studio-primary-dark: #5e9e44;
-  --studio-primary-light: #f0fdf4;
-  --studio-olive: #bfbc27;
-  --studio-dark: #1e293b;
-  --studio-body: #334155;
+  --studio-primary: #6c8c74;
+  --studio-primary-dark: #57735e;
+  --studio-primary-light: #eef4f0;
+  --studio-olive: #9e9746;
+  --studio-dark: #232d38;
+  --studio-body: #475569;
   --studio-subtle: #64748b;
-  --studio-bg: #ffffff;
-  --studio-bg-soft: #f0f5fa;
-  --studio-border: #d1d5db;
+  --studio-bg: #faf9f6;
+  --studio-bg-soft: #f4f3ee;
+  --studio-border: #e2dfd7;
 }
 
 @layer base {
@@ -47,11 +47,11 @@
   body.is-scrolling ::-webkit-scrollbar-thumb,
   .is-scrolling::-webkit-scrollbar-thumb,
   *:hover::-webkit-scrollbar-thumb {
-    background: rgba(120, 182, 93, 0.45);
+    background: rgba(108, 140, 116, 0.45);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(94, 158, 68, 0.85) !important;
+    background: rgba(87, 115, 94, 0.85) !important;
   }
 
   html, body, * {
@@ -64,7 +64,7 @@
   body.is-scrolling,
   *.is-scrolling,
   *:hover {
-    scrollbar-color: rgba(120, 182, 93, 0.45) transparent;
+    scrollbar-color: rgba(108, 140, 116, 0.45) transparent;
   }
 }
 
@@ -85,29 +85,31 @@
 
 /* Glass header with transparent dynamic scroll effect */
 .glass-header {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(250, 249, 246, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-header-scrolled {
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(250, 249, 246, 0.97);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 20px -2px rgba(35, 45, 56, 0.05);
 }
 
-/* Studio Pill Buttons */
-.btn-studio-primary {
-  background-color: #78b65d;
-  color: #ffffff;
-  border-radius: 9999px;
-  font-weight: 700;
-  transition: all 0.2s ease;
+/* Custom animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.btn-studio-primary:hover {
-  background-color: #5e9e44;
-  box-shadow: 0 4px 12px rgba(120, 182, 93, 0.3);
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

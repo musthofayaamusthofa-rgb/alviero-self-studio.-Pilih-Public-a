@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { Check, Sparkles, X, ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Check, X, ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
@@ -77,7 +77,7 @@ export const BackdropHeroSlider: React.FC = () => {
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none bg-slate-950"
+      className="relative w-full overflow-hidden select-none bg-stone-950"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -85,7 +85,7 @@ export const BackdropHeroSlider: React.FC = () => {
       onTouchEnd={handleTouchEnd}
     >
       {/* Full Image Banner Container with Optimal Height for Landscape Backdrop Photos */}
-      <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-slate-950">
+      <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-stone-950">
         <img
           key={activeSlide.id}
           src={activeSlide.image}
@@ -94,14 +94,14 @@ export const BackdropHeroSlider: React.FC = () => {
         />
 
         {/* Subtle Bottom Shadow for Dot Indicators Readability */}
-        <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
 
         {/* Manual Arrow Controls (< and >) */}
         <button
           type="button"
           onClick={handlePrev}
           aria-label="Previous Slide"
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center shadow-lg cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -110,7 +110,7 @@ export const BackdropHeroSlider: React.FC = () => {
           type="button"
           onClick={handleNext}
           aria-label="Next Slide"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center shadow-lg cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -148,13 +148,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 }) => {
   return (
     <div className="max-w-xl w-full mx-auto my-3 sm:my-8 px-2 sm:px-4 animate-in fade-in duration-300">
-      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden flex flex-col relative">
+      <div className="bg-white rounded-3xl border border-stone-200/90 shadow-sm overflow-hidden flex flex-col relative">
         
         {/* Top Hero Banner Slider (Foto Backdrop Bersih Tanpa Tulisan) */}
         <BackdropHeroSlider />
 
         {/* Content Area */}
-        <div className="p-4 sm:p-6 space-y-4 bg-slate-50 flex-1">
+        <div className="p-4 sm:p-6 space-y-4 bg-[#faf9f6] flex-1">
           
           {/* Section 1: Pilihan Cabang Studio */}
           <div className="space-y-3.5">
@@ -167,51 +167,51 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   onClick={() => onSelectBranch(branch.id)}
                   className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative group text-left ${
                     isSelected
-                      ? 'bg-white border-[#78b65d] ring-2 ring-[#78b65d]/20 shadow-md'
-                      : 'bg-white hover:bg-slate-50/90 border-slate-200 hover:border-slate-300 shadow-2xs'
+                      ? 'bg-white border-[#6c8c74] ring-2 ring-[#6c8c74]/20 shadow-sm'
+                      : 'bg-white hover:bg-stone-50/80 border-stone-200 hover:border-stone-300 shadow-2xs'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3 min-w-0">
                       <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${
                         isSelected
-                          ? 'bg-slate-900 text-emerald-400 shadow-sm'
-                          : 'bg-slate-100 text-slate-700 border border-slate-200'
+                          ? 'bg-[#232d38] text-[#9fc4a8] shadow-sm'
+                          : 'bg-[#f4f3ee] text-stone-700 border border-stone-200/70'
                       }`}>
                         {branch.icon}
                       </div>
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-extrabold text-sm sm:text-base text-slate-900 truncate">
+                          <h3 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
                             {branch.name}
                           </h3>
                           <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                             isSelected
-                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200 font-extrabold'
-                              : 'bg-slate-100 text-slate-600 border-slate-200'
+                              ? 'bg-[#eef4f0] text-[#3d6345] border-[#c8dacd] font-extrabold'
+                              : 'bg-[#f4f3ee] text-stone-600 border-stone-200/80'
                           }`}>
                             {branch.badge}
                           </span>
                         </div>
 
                         {/* Alamat Lengkap */}
-                        <div className="flex items-start gap-1.5 mt-2 text-xs text-slate-600 leading-relaxed">
-                          <MapPin className="w-3.5 h-3.5 text-[#78b65d] shrink-0 mt-0.5" />
+                        <div className="flex items-start gap-1.5 mt-2 text-xs text-stone-600 leading-relaxed">
+                          <MapPin className="w-3.5 h-3.5 text-[#6c8c74] shrink-0 mt-0.5" />
                           <span className="font-medium">{branch.address}</span>
                         </div>
                       </div>
                     </div>
 
                     {isSelected && (
-                      <div className="w-6 h-6 rounded-full bg-[#78b65d] text-white flex items-center justify-center shrink-0 shadow-xs">
+                      <div className="w-6 h-6 rounded-full bg-[#6c8c74] text-white flex items-center justify-center shrink-0 shadow-2xs">
                         <Check className="w-3.5 h-3.5 stroke-[3]" />
                       </div>
                     )}
                   </div>
 
                   {/* Action Button */}
-                  <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-end">
+                  <div className="mt-3.5 pt-3 border-t border-stone-100 flex items-center justify-end">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -220,8 +220,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       }}
                       className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
                         isSelected
-                          ? 'bg-[#78b65d] text-white hover:bg-[#5e9e44]'
-                          : 'bg-slate-900 text-white hover:bg-slate-800'
+                          ? 'bg-[#6c8c74] text-white hover:bg-[#57735e]'
+                          : 'bg-[#232d38] text-white hover:bg-[#1a222c]'
                       }`}
                     >
                       <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
@@ -236,7 +236,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           {/* Section 2: Layanan Khusus Wedding & Cetak Foto */}
           <div className="pt-1">
             <div className="text-left px-1 pb-2">
-              <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-500">
+              <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-stone-500">
                 ✨ Layanan Wedding & Cetak Foto:
               </span>
             </div>
@@ -245,23 +245,23 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* Pricelist Wedding Card */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl bg-white hover:bg-slate-50/90 border border-slate-200 hover:border-[#78b65d] transition-all cursor-pointer shadow-2xs group text-left"
+                className="p-4 sm:p-4.5 rounded-2xl bg-white hover:bg-stone-50/80 border border-stone-200 hover:border-[#dfc3c3] transition-all cursor-pointer shadow-2xs group text-left"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-2xl bg-[#faf2f2] text-[#8c5252] border border-[#f0dcdc] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform">
                       💍
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-slate-900 truncate">
+                        <h4 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
                           PRICELIST WEDDING
                         </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#faf2f2] text-[#8c5252] border border-[#ebd0d0]">
                           Exclusive
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 font-medium truncate mt-0.5">
+                      <p className="text-xs text-stone-500 font-medium truncate mt-0.5">
                         Prewedding, Akad, Resepsi & Engagement
                       </p>
                     </div>
@@ -274,7 +274,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       if (onSelectCategory) onSelectCategory('wedding-package');
                       else onSelectBranch(selectedBranch);
                     }}
-                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#78b65d] hover:bg-[#5e9e44] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
+                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#6c8c74] hover:bg-[#57735e] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
                   >
                     <span>Lihat Pricelist</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -285,23 +285,23 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* Pricelist Cetak Card */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl bg-white hover:bg-slate-50/90 border border-slate-200 hover:border-[#78b65d] transition-all cursor-pointer shadow-2xs group text-left"
+                className="p-4 sm:p-4.5 rounded-2xl bg-white hover:bg-stone-50/80 border border-stone-200 hover:border-[#c8dacd] transition-all cursor-pointer shadow-2xs group text-left"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-2xl bg-[#f0f6f2] text-[#3e6b48] border border-[#d2e3d7] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform">
                       🖼️
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-slate-900 truncate">
+                        <h4 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
                           PRICELIST CETAK
                         </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#f0f6f2] text-[#3e6b48] border border-[#c8dacd]">
                           Cetak Lab
                         </span>
                       </div>
-                      <p className="text-xs text-slate-500 font-medium truncate mt-0.5">
+                      <p className="text-xs text-stone-500 font-medium truncate mt-0.5">
                         Cetak Lab, Bingkai Minimalis & Album Eksklusif
                       </p>
                     </div>
@@ -314,7 +314,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       if (onSelectCategory) onSelectCategory('bingkai-album');
                       else onSelectBranch(selectedBranch);
                     }}
-                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#78b65d] hover:bg-[#5e9e44] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
+                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#6c8c74] hover:bg-[#57735e] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
                   >
                     <span>Lihat Pricelist</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -326,7 +326,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="p-3.5 bg-white border-t border-slate-200 text-center text-[11px] text-slate-500 font-medium">
+        <div className="p-3.5 bg-white border-t border-stone-200/80 text-center text-[11px] text-stone-500 font-medium">
           💡 Kamu dapat berganti studio cabang kapan saja lewat tombol <strong>'Ganti Cabang'</strong>.
         </div>
       </div>
@@ -357,8 +357,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
-      <div className="bg-white rounded-3xl max-w-xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col my-auto relative">
+    <div className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
+      <div className="bg-white rounded-3xl max-w-xl w-full border border-stone-200 shadow-xl overflow-hidden flex flex-col my-auto relative">
         
         {/* Header Modal with Pure Slider */}
         <div className="relative">
@@ -376,7 +376,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         </div>
 
         {/* Branch Cards */}
-        <div className="p-4 sm:p-6 space-y-4 bg-slate-50 flex-1">
+        <div className="p-4 sm:p-6 space-y-4 bg-[#faf9f6] flex-1">
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
 
@@ -386,51 +386,51 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                 onClick={() => handleChoose(branch.id)}
                 className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-white border-[#78b65d] ring-2 ring-[#78b65d]/20 shadow-md'
-                    : 'bg-white hover:bg-slate-50/90 border-slate-200 hover:border-slate-300 shadow-2xs'
+                    ? 'bg-white border-[#6c8c74] ring-2 ring-[#6c8c74]/20 shadow-sm'
+                    : 'bg-white hover:bg-stone-50/80 border-stone-200 hover:border-stone-300 shadow-2xs'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3 min-w-0">
                     <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${
                       isSelected
-                        ? 'bg-slate-900 text-emerald-400 shadow-sm'
-                        : 'bg-slate-100 text-slate-700 border border-slate-200'
+                        ? 'bg-[#232d38] text-[#9fc4a8] shadow-sm'
+                        : 'bg-[#f4f3ee] text-stone-700 border border-stone-200/70'
                     }`}>
                       {branch.icon}
                     </div>
 
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-slate-900 truncate">
+                        <h4 className="font-extrabold text-sm sm:text-base text-stone-800 truncate">
                           {branch.name}
                         </h4>
                         <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                           isSelected
-                            ? 'bg-emerald-50 text-emerald-800 border-emerald-200 font-extrabold'
-                            : 'bg-slate-100 text-slate-600 border-slate-200'
+                            ? 'bg-[#eef4f0] text-[#3d6345] border-[#c8dacd] font-extrabold'
+                            : 'bg-[#f4f3ee] text-stone-600 border-stone-200/80'
                         }`}>
                           {branch.badge}
                         </span>
                       </div>
 
                       {/* Alamat Lengkap */}
-                      <div className="flex items-start gap-1.5 mt-2 text-xs text-slate-600 leading-relaxed">
-                        <MapPin className="w-3.5 h-3.5 text-[#78b65d] shrink-0 mt-0.5" />
+                      <div className="flex items-start gap-1.5 mt-2 text-xs text-stone-600 leading-relaxed">
+                        <MapPin className="w-3.5 h-3.5 text-[#6c8c74] shrink-0 mt-0.5" />
                         <span className="font-medium">{branch.address}</span>
                       </div>
                     </div>
                   </div>
 
                   {isSelected && (
-                    <div className="w-6 h-6 rounded-full bg-[#78b65d] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <div className="w-6 h-6 rounded-full bg-[#6c8c74] text-white flex items-center justify-center shrink-0 shadow-2xs">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
                   )}
                 </div>
 
                 {/* Action button */}
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-end">
+                <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-end">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -439,8 +439,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                     }}
                     className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
                       isSelected
-                        ? 'bg-[#78b65d] text-white hover:bg-[#5e9e44]'
-                        : 'bg-slate-900 text-white hover:bg-slate-800'
+                        ? 'bg-[#6c8c74] text-white hover:bg-[#57735e]'
+                        : 'bg-[#232d38] text-white hover:bg-[#1a222c]'
                     }`}
                   >
                     <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
@@ -453,7 +453,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="p-3.5 bg-white border-t border-slate-200 text-center text-[11px] text-slate-500 font-medium">
+        <div className="p-3.5 bg-white border-t border-stone-200/80 text-center text-[11px] text-stone-500 font-medium">
           💡 Kamu dapat berganti studio cabang kapan saja lewat menu di bagian atas.
         </div>
       </div>
