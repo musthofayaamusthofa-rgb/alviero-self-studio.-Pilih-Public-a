@@ -441,7 +441,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             }`}
           >
             <span className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">1</span>
-            Paket & Konsep
+            Paket & Jadwal
           </button>
           <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <button
@@ -461,13 +461,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             }`}
           >
             <span className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">3</span>
-            Jadwal & Payment
+            Data & Pembayaran
           </button>
         </div>
 
         {/* Modal Body Content */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1">
-          {/* STEP 1: Select Package & Concepts */}
+          {/* STEP 1: Select Package, Date, Time & Concepts */}
           {step === 1 && (
             <div className="space-y-5">
               {/* Branch Selector in Step 1 */}
@@ -502,6 +502,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
+              {/* 1. Pilih Paket Foto */}
               <div>
                 <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-2">
                   1. Pilih Paket Foto Utama:
@@ -537,11 +538,132 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* Backdrop selection (1 or 2 backdrops depending on package) */}
-              <div>
+              {/* 2. PILIH TANGGAL & JAM SLOT FOTO TERLEBIH DAHULU */}
+              <div className="space-y-3.5 pt-1">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-indigo-600" />
+                    2. Pilih Tanggal & Waktu Sesi Foto:
+                  </label>
+                  <span className="text-[10.5px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
+                    {bookingDate} • {timeSlot} WIB
+                  </span>
+                </div>
+
+                {/* Date Picker */}
+                <div>
+                  <input
+                    type="date"
+                    min={today}
+                    value={bookingDate}
+                    onChange={(e) => setBookingDate(e.target.value)}
+                    className="w-full min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white"
+                  />
+                </div>
+
+                {/* Room & Studio Type Identifier Banner */}
+                {isSelfStudio ? (
+                  <div className="p-3 bg-purple-50 border border-purple-200 rounded-2xl flex items-center gap-2.5 text-purple-900 text-xs font-semibold">
+                    <div className="w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+                      ✨
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-extrabold text-purple-950 flex items-center gap-1.5">
+                        Jadwal Khusus: Bilik Self Studio (Mandiri)
+                        <span className="text-[9.5px] bg-purple-200/70 text-purple-800 px-1.5 py-0.2 rounded-full font-bold">Bilik Mandiri</span>
+                      </p>
+                      <p className="text-[10.5px] text-purple-700 font-normal">Sesi foto private dengan shutter remote. Jadwal terpisah & tidak bertabrakan dengan Studio Foto.</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-2xl flex items-center gap-2.5 text-indigo-900 text-xs font-semibold">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+                      📸
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-extrabold text-indigo-950 flex items-center gap-1.5">
+                        Jadwal Khusus: Studio Foto Profesional
+                        <span className="text-[9.5px] bg-indigo-200/70 text-indigo-800 px-1.5 py-0.2 rounded-full font-bold">Fotografer Pro</span>
+                      </p>
+                      <p className="text-[10.5px] text-indigo-700 font-normal">Sesi dipandu & diarahkan langsung oleh tim fotografer profesional di panggung studio.</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Time Slots Grid (18 Pilihan) */}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-xs font-bold text-slate-700 uppercase flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-indigo-600" />
+                      Pilih Jam Slot {isSelfStudio ? 'Self Studio' : 'Studio Foto'} ({activeTimeSlots.length} Pilihan):
+                    </label>
+                    <span className="text-[10.5px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
+                      Terpilih: {timeSlot} WIB
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    {activeTimeSlots.map((slot) => {
+                      const isSelected = timeSlot === slot;
+                      const isChargeSlot = slot === '20:45';
+                      const isBooked = bookedSlots.includes(slot);
+
+                      return (
+                        <button
+                          key={slot}
+                          type="button"
+                          data-slot={slot}
+                          data-price={isChargeSlot ? 'surcharge' : 'normal'}
+                          disabled={isBooked}
+                          onClick={() => setTimeSlot(slot)}
+                          className={`min-h-[44px] p-2 rounded-xl text-xs font-black transition-all text-center flex flex-col items-center justify-center border ${
+                            isBooked
+                              ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60 line-through'
+                              : isSelected
+                              ? isSelfStudio
+                                ? 'bg-purple-600 text-white border-purple-600 shadow-md ring-2 ring-purple-400/40 cursor-pointer active:scale-95'
+                                : 'bg-indigo-600 text-white border-indigo-600 shadow-md ring-2 ring-indigo-400/40 cursor-pointer active:scale-95'
+                              : isChargeSlot
+                              ? 'bg-amber-50/80 hover:bg-amber-100/80 text-amber-950 border-amber-300 shadow-2xs cursor-pointer active:scale-95'
+                              : 'bg-slate-100 hover:bg-slate-200/90 text-slate-800 border-slate-200 shadow-2xs cursor-pointer active:scale-95'
+                          }`}
+                        >
+                          <span className="leading-tight">{slot}</span>
+                          {isBooked ? (
+                            <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
+                              Penuh
+                            </span>
+                          ) : isChargeSlot ? (
+                            <span
+                              className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 rounded ${
+                                isSelected ? 'bg-amber-300 text-slate-950' : 'bg-amber-200/80 text-amber-900'
+                              }`}
+                            >
+                              (+25k)
+                            </span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Notifikasi Khusus Slot 20:45 */}
+                  {timeSlot === '20:45' && (
+                    <div className="mt-2.5 p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+                      <span className="text-sm shrink-0">⚡</span>
+                      <span>
+                        Slot jam <strong className="font-bold">20:45 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 25.000</strong>.
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* 3. Backdrop selection (1 or 2 backdrops depending on package) */}
+              <div className="pt-2 border-t border-slate-100">
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                   <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                    2. {maxBackdrops > 1 ? 'Pilih 2 Pencahayaan / Latar Belakang (Backdrop):' : 'Pilih Pencahayaan / Latar Belakang (Backdrop):'}
+                    3. {maxBackdrops > 1 ? 'Pilih 2 Pencahayaan / Latar Belakang (Backdrop):' : 'Pilih Pencahayaan / Latar Belakang (Backdrop):'}
                   </label>
                   {maxBackdrops > 1 ? (
                     <span className="text-[10.5px] bg-emerald-50 text-emerald-800 border border-emerald-300 font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
@@ -790,28 +912,41 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           );
         })()}
 
-          {/* STEP 3: Date, Time & Customer Info */}
+          {/* STEP 3: Customer Info, Notes & Payment Options */}
           {step === 3 && (
             <div className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Date Picker */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1 flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-indigo-600" />
-                    Pilih Tanggal Foto:
-                  </label>
-                  <input
-                    type="date"
-                    min={today}
-                    value={bookingDate}
-                    onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  />
+              {/* Ringkasan Jadwal & Cabang Terpilih */}
+              <div className="bg-indigo-50/80 border border-indigo-200/80 rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-2xs">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
+                    <Calendar className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">
+                      Jadwal & Lokasi Foto:
+                    </div>
+                    <div className="text-xs sm:text-sm font-black text-slate-900 truncate">
+                      {bookingDate} • Jam {timeSlot} WIB
+                    </div>
+                    <div className="text-[10.5px] text-indigo-700 font-medium">
+                      {currentBranchInfo.name} ({isSelfStudio ? 'Bilik Self Studio' : 'Studio Foto Pro'})
+                    </div>
+                  </div>
                 </div>
 
-                {/* Name */}
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="px-2.5 py-1.5 rounded-xl bg-white hover:bg-indigo-100 text-indigo-700 font-extrabold text-xs border border-indigo-200 shrink-0 transition-colors cursor-pointer"
+                >
+                  Ubah 🔄
+                </button>
+              </div>
+
+              {/* Data Pemesan: Nama & WhatsApp */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1 flex items-center gap-1.5">
+                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
                     <User className="w-3.5 h-3.5 text-indigo-600" />
                     Nama Pemesan:
                   </label>
@@ -820,106 +955,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     placeholder="Contoh: Anisa Putri"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white"
                   />
                 </div>
-              </div>
 
-              {/* Room & Studio Type Identifier Banner */}
-              {isSelfStudio ? (
-                <div className="p-3 bg-purple-50 border border-purple-200 rounded-2xl flex items-center gap-2.5 text-purple-900 text-xs font-semibold">
-                  <div className="w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
-                    ✨
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-extrabold text-purple-950 flex items-center gap-1.5">
-                      Jadwal Khusus: Bilik Self Studio (Mandiri)
-                      <span className="text-[9.5px] bg-purple-200/70 text-purple-800 px-1.5 py-0.2 rounded-full font-bold">Room 1</span>
-                    </p>
-                    <p className="text-[10.5px] text-purple-700 font-normal">Sesi foto private dengan shutter remote. Jadwal terpisah & tidak bertabrakan dengan Studio Foto.</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-2xl flex items-center gap-2.5 text-indigo-900 text-xs font-semibold">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
-                    📸
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-extrabold text-indigo-950 flex items-center gap-1.5">
-                      Jadwal Khusus: Studio Foto Profesional
-                      <span className="text-[9.5px] bg-indigo-200/70 text-indigo-800 px-1.5 py-0.2 rounded-full font-bold">Studio Utama</span>
-                    </p>
-                    <p className="text-[10.5px] text-indigo-700 font-normal">Sesi dipandu & diarahkan langsung oleh tim fotografer profesional di panggung studio.</p>
-                  </div>
-                </div>
-              )}
-
-              {/* Time Slots */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="block text-xs font-bold text-slate-700 uppercase flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-indigo-600" />
-                    Pilih Jam Slot {isSelfStudio ? 'Self Studio' : 'Studio Foto'} ({activeTimeSlots.length} Pilihan):
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-indigo-600" />
+                    No. WhatsApp Aktif:
                   </label>
-                  <span className="text-[10.5px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
-                    Terpilih: {timeSlot} WIB
-                  </span>
+                  <input
+                    type="tel"
+                    placeholder="Contoh: 081234567890"
+                    value={customerPhone}
+                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white"
+                  />
                 </div>
-
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {activeTimeSlots.map((slot) => {
-                    const isSelected = timeSlot === slot;
-                    const isChargeSlot = slot === '20:45';
-                    const isBooked = bookedSlots.includes(slot);
-
-                    return (
-                      <button
-                        key={slot}
-                        type="button"
-                        data-slot={slot}
-                        data-price={isChargeSlot ? 'surcharge' : 'normal'}
-                        disabled={isBooked}
-                        onClick={() => setTimeSlot(slot)}
-                        className={`min-h-[44px] p-2 rounded-xl text-xs font-black transition-all text-center flex flex-col items-center justify-center border ${
-                          isBooked
-                            ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60 line-through'
-                            : isSelected
-                            ? isSelfStudio
-                              ? 'bg-purple-600 text-white border-purple-600 shadow-md ring-2 ring-purple-400/40 cursor-pointer active:scale-95'
-                              : 'bg-indigo-600 text-white border-indigo-600 shadow-md ring-2 ring-indigo-400/40 cursor-pointer active:scale-95'
-                            : isChargeSlot
-                            ? 'bg-amber-50/80 hover:bg-amber-100/80 text-amber-950 border-amber-300 shadow-2xs cursor-pointer active:scale-95'
-                            : 'bg-slate-100 hover:bg-slate-200/90 text-slate-800 border-slate-200 shadow-2xs cursor-pointer active:scale-95'
-                        }`}
-                      >
-                        <span className="leading-tight">{slot}</span>
-                        {isBooked ? (
-                          <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
-                            Penuh
-                          </span>
-                        ) : isChargeSlot ? (
-                          <span
-                            className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 rounded ${
-                              isSelected ? 'bg-amber-300 text-slate-950' : 'bg-amber-200/80 text-amber-900'
-                            }`}
-                          >
-                            (+25k)
-                          </span>
-                        ) : null}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Notifikasi Khusus Slot 20:45 */}
-                {timeSlot === '20:45' && (
-                  <div className="mt-2.5 p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
-                    <span className="text-sm shrink-0">⚡</span>
-                    <span>
-                      Slot jam <strong className="font-bold">20:45 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 25.000</strong>.
-                    </span>
-                  </div>
-                )}
               </div>
 
               {/* Payment Option Switcher */}
@@ -930,48 +982,35 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <button
+                    type="button"
                     onClick={() => setPaymentOption('dp')}
                     className={`min-h-[52px] p-3 rounded-xl border text-left font-bold transition-all cursor-pointer active:scale-98 ${
-                      paymentOption === 'dp' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 ring-2 ring-emerald-500/20' : 'border-slate-200 text-slate-700'
+                      paymentOption === 'dp' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 ring-2 ring-emerald-500/20 shadow-xs' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                     }`}
                   >
-                    <div>Bayar DP 50% Sekarang</div>
-                    <div className="text-[10px] font-normal text-slate-500">
+                    <div className="text-xs">Bayar DP 50% Sekarang</div>
+                    <div className="text-[10px] font-normal text-slate-500 mt-0.5">
                       Transfer DP Rp {dpAmount.toLocaleString('id-ID')} untuk kunci jadwal
                     </div>
                   </button>
                   <button
+                    type="button"
                     onClick={() => setPaymentOption('full')}
                     className={`min-h-[52px] p-3 rounded-xl border text-left font-bold transition-all cursor-pointer active:scale-98 ${
-                      paymentOption === 'full' ? 'border-indigo-600 bg-indigo-50 text-indigo-900 ring-2 ring-indigo-500/20' : 'border-slate-200 text-slate-700'
+                      paymentOption === 'full' ? 'border-indigo-600 bg-indigo-50 text-indigo-900 ring-2 ring-indigo-500/20 shadow-xs' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                     }`}
                   >
-                    <div>Bayar Lunas / Full</div>
-                    <div className="text-[10px] font-normal text-slate-500">
+                    <div className="text-xs">Bayar Lunas / Full</div>
+                    <div className="text-[10px] font-normal text-slate-500 mt-0.5">
                       Rp {grandTotal.toLocaleString('id-ID')} bebas ribet pas di studio
                     </div>
                   </button>
                 </div>
               </div>
 
-              {/* WhatsApp Phone Number */}
-              <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1 flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-indigo-600" />
-                  No. WhatsApp Aktif:
-                </label>
-                <input
-                  type="tel"
-                  placeholder="Contoh: 081234567890"
-                  value={customerPhone}
-                  onChange={(e) => setCustomerPhone(e.target.value)}
-                  className="w-full min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                />
-              </div>
-
               {/* Notes */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
                   Catatan Khusus (Opsional):
                 </label>
                 <input
@@ -979,7 +1018,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   placeholder="Misal: Perayaan ulang tahun / minta disiapkan properti topi wisuda"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                  className="w-full min-h-[44px] p-3 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-600 bg-white"
                 />
               </div>
 
