@@ -99,7 +99,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     },
     {
       id: 'bingkai-album',
-      title: 'PRICELIST BINGKAI DAN ALBUM',
+      title: 'PRICELIST CETAK',
       subtitle: 'Cetak Lab, Bingkai Minimalis & Album Eksklusif',
       icon: '🖼️',
       sheetCategory: 'Frame Grid',
