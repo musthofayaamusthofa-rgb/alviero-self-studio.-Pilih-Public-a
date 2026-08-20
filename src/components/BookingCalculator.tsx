@@ -801,14 +801,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 />
               </div>
 
-              {/* Alert Konfirmasi Pembayaran Admin Min Vier */}
+              {/* Alert Konfirmasi Pembayaran Admin */}
               <div className="p-3.5 bg-amber-50/90 border border-amber-300 rounded-2xl flex items-start gap-2.5 shadow-2xs">
                 <div className="w-7 h-7 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs mt-0.5">
                   💬
                 </div>
                 <div className="flex-1 text-xs">
                   <p className="font-extrabold text-amber-950 leading-relaxed">
-                    🔔 Segera kirimkan dan konfirmasikan bukti pembayaran kamu pada <u>"min vier"</u> untuk mengunci jam booking yaaa!
+                    🔔 Segera kirimkan dan konfirmasikan bukti pembayaran kamu untuk mengunci jam booking yaaa!
                   </p>
                   <p className="text-[10.5px] text-amber-800 font-medium mt-0.5">
                     Slot jam baru akan berstatus <strong>"Penuh"</strong> setelah pembayaran diverifikasi oleh admin.
