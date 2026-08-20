@@ -12,14 +12,13 @@ interface BranchSelectorViewProps {
 }
 
 /**
- * Daftar Foto Backdrop Studio untuk Hero Banner Slider (Dapat diganti dengan foto backdrop custom)
+ * Daftar Foto Backdrop Studio untuk Hero Banner Slider
  */
 export const BACKDROP_BANNER_IMAGES = [
-  { id: '1', image: '/images/selfstudio/sample-1.jpg', title: 'Foto Backdrop 1' },
-  { id: '2', image: '/images/selfstudio/sample-2.jpg', title: 'Foto Backdrop 2' },
-  { id: '3', image: '/images/selfstudio/sample-4.jpg', title: 'Foto Backdrop 3' },
-  { id: '4', image: '/images/selfstudio/sample-3.jpg', title: 'Foto Backdrop 4' },
-  { id: '5', image: '/images/selfstudio/sample-6.jpg', title: 'Foto Backdrop 5' },
+  { id: '1', image: '/images/backdrops/backdrop-1.jpg', title: 'Backdrop Black Arch Window' },
+  { id: '2', image: '/images/backdrops/backdrop-2.jpg', title: 'Backdrop Pastel Green Window & Armchair' },
+  { id: '3', image: '/images/backdrops/backdrop-3.jpg', title: 'Backdrop Beige Classic Armchair' },
+  { id: '4', image: '/images/backdrops/backdrop-4.jpg', title: 'Backdrop Luxury Charcoal Chandelier Divan' },
 ];
 
 /**
@@ -75,31 +74,31 @@ export const BackdropHeroSlider: React.FC = () => {
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none bg-slate-900"
+      className="relative w-full overflow-hidden select-none bg-slate-950"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Full Image Banner Container */}
-      <div className="w-full aspect-[16/9] sm:aspect-[21/9] relative overflow-hidden bg-slate-950">
+      {/* Full Image Banner Container with Optimal Height for Backdrop Photos */}
+      <div className="w-full h-64 sm:h-80 md:h-96 relative overflow-hidden bg-slate-950">
         <img
           key={activeSlide.id}
           src={activeSlide.image}
           alt={activeSlide.title}
-          className="w-full h-full object-cover object-center transition-all duration-500 animate-in fade-in"
+          className="w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
         />
 
         {/* Subtle Bottom Shadow for Dot Indicators Readability */}
-        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
         {/* Manual Arrow Controls (< and >) */}
         <button
           type="button"
           onClick={handlePrev}
           aria-label="Previous Slide"
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center shadow-lg cursor-pointer transition-all z-20 active:scale-90"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -108,13 +107,13 @@ export const BackdropHeroSlider: React.FC = () => {
           type="button"
           onClick={handleNext}
           aria-label="Next Slide"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center shadow-lg cursor-pointer transition-all z-20 active:scale-90"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
 
         {/* Dots Pagination Indicators */}
-        <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
           {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
             const isActive = currentIdx === idx;
             return (
@@ -124,8 +123,8 @@ export const BackdropHeroSlider: React.FC = () => {
                 aria-label={`Slide ${idx + 1}`}
                 className={`transition-all rounded-full cursor-pointer ${
                   isActive
-                    ? 'w-6 h-1.5 bg-white shadow-md'
-                    : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/80'
+                    ? 'w-7 h-2 bg-white shadow-md'
+                    : 'w-2 h-2 bg-white/50 hover:bg-white/90'
                 }`}
               />
             );
