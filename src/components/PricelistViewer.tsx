@@ -11,6 +11,7 @@ import {
 interface PricelistViewerProps {
   onSelectPackageForBooking: (packageId: string) => void;
   selectedBranch?: StudioBranch;
+  initialCategory?: string;
   onOpenBranchModal?: () => void;
   onNavigateToRules?: () => void;
   onNavigateToTab?: (tab: string) => void;
@@ -33,6 +34,7 @@ interface StudioGalleryPhoto {
 export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   onSelectPackageForBooking,
   selectedBranch = 'cabang-1',
+  initialCategory,
   onOpenBranchModal,
   onNavigateToRules,
   onNavigateToTab,
@@ -41,13 +43,21 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   // Mode: 'menu' (Figma Bio-Link Style) or 'gallery' (Contoh Hasil Foto Studio)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery'>('menu');
-  const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>('selfstudio');
+  const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(initialCategory || 'selfstudio');
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
   const [selfStudioSubTab, setSelfStudioSubTab] = useState<'special' | 'normal' | 'spotlight' | 'grid'>('special');
   const [selectedGridFilter, setSelectedGridFilter] = useState<'all' | 'grid-1' | 'grid-3' | 'grid-4' | 'grid-6'>('all');
   const [selectedKebayaFilter, setSelectedKebayaFilter] = useState<'all' | 'adat' | 'modern' | 'gaun'>('all');
   const [selectedBingkaiSubTab, setSelectedBingkaiSubTab] = useState<'all' | 'cetak' | 'bingkai' | 'album'>('all');
-  const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(false);
+  const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(!!initialCategory);
+
+  // Sync initialCategory if changed
+  React.useEffect(() => {
+    if (initialCategory) {
+      setActiveMenuCategory(initialCategory);
+      setIsMobilePopupOpen(true);
+    }
+  }, [initialCategory]);
 
   // Gallery Tab State
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('all');
@@ -55,7 +65,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [activeModalPhoto, setActiveModalPhoto] = useState<StudioGalleryPhoto | null>(null);
   const [activeModalSheet, setActiveModalSheet] = useState<PricelistSheet | null>(null);
 
-  // 1. Top-Level Main Menu Buttons (5 Menu Utama Sesuai Mockup Asli)
+  // 1. Top-Level Main Menu Buttons (Menu Layanan Khusus Cabang)
   const mainMenuButtons = [
     {
       id: 'selfstudio',
@@ -82,32 +92,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       isSubmenuTrigger: true,
       targetPackageIds: [
         'personal-bold-statement', 'personal-opulent-shot'
-      ]
-    },
-    {
-      id: 'wedding',
-      title: 'PRICELIST WEDDING',
-      subtitle: 'Prewedding, Akad, Resepsi & Engagement',
-      icon: '💍',
-      sheetCategory: 'Paket Personal',
-      badge: 'Exclusive',
-      specialView: null,
-      isSubmenuTrigger: false,
-      targetPackageIds: [
-        'prewed-sweet-promise', 'prewed-velvet-romance', 'couple-eternal-love', 'passfoto-3'
-      ]
-    },
-    {
-      id: 'bingkai-album',
-      title: 'PRICELIST CETAK',
-      subtitle: 'Cetak Lab, Bingkai Minimalis & Album Eksklusif',
-      icon: '🖼️',
-      sheetCategory: 'Frame Grid',
-      badge: 'Cetak Lab',
-      specialView: 'bingkai-album-view',
-      isSubmenuTrigger: false,
-      targetPackageIds: [
-        'self-special-narsis', 'birthday-glow-sweet'
       ]
     },
     {

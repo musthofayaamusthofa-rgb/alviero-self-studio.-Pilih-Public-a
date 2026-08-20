@@ -20,6 +20,7 @@ export default function App() {
 
   // Controls whether user is on the Branch Landing Page (Gambar 1) or has entered a branch's catalog (Gambar 2)
   const [hasEnteredBranch, setHasEnteredBranch] = useState<boolean>(false);
+  const [initialMenuCategory, setInitialMenuCategory] = useState<string | undefined>();
 
   // Studio Branch Selection State
   const [selectedBranch, setSelectedBranch] = useState<StudioBranch>(() => {
@@ -31,13 +32,21 @@ export default function App() {
 
   const handleSelectBranch = (branch: StudioBranch) => {
     setSelectedBranch(branch);
+    setInitialMenuCategory(undefined);
     localStorage.setItem('alviero_selected_branch', branch);
+    setHasEnteredBranch(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectCategoryFromLanding = (category: string) => {
+    setInitialMenuCategory(category);
     setHasEnteredBranch(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleOpenBranchModal = () => {
     setHasEnteredBranch(false);
+    setInitialMenuCategory(undefined);
     setActiveTab('katalog');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -62,15 +71,17 @@ export default function App() {
       <main className="flex-1 pb-2 sm:pb-8">
         {(activeTab === 'katalog' || activeTab === 'pricelist-sheets') && (
           !hasEnteredBranch ? (
-            /* Gambar 1: Halaman Utama Pilih Lokasi Studio */
+            /* Gambar 1: Halaman Utama Pilih Lokasi Studio & Layanan Khusus */
             <BranchSelectorLanding
               selectedBranch={selectedBranch}
               onSelectBranch={handleSelectBranch}
+              onSelectCategory={handleSelectCategoryFromLanding}
             />
           ) : (
             /* Gambar 2: Menu Pricelist & Bio-Link Cabang Terpilih */
             <PricelistViewer
               selectedBranch={selectedBranch}
+              initialCategory={initialMenuCategory}
               onOpenBranchModal={handleOpenBranchModal}
               onSelectPackageForBooking={handleOpenBookingWithPackage}
               onNavigateToRules={() => {
