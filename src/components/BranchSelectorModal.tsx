@@ -15,10 +15,11 @@ interface BranchSelectorViewProps {
  * Daftar Foto Backdrop Studio untuk Hero Banner Slider
  */
 export const BACKDROP_BANNER_IMAGES = [
-  { id: '1', image: '/images/backdrops/backdrop-1.jpg', title: 'Backdrop Black Arch Window' },
-  { id: '2', image: '/images/backdrops/backdrop-2.jpg', title: 'Backdrop Pastel Green Window & Armchair' },
-  { id: '3', image: '/images/backdrops/backdrop-3.jpg', title: 'Backdrop Beige Classic Armchair' },
-  { id: '4', image: '/images/backdrops/backdrop-4.jpg', title: 'Backdrop Luxury Charcoal Chandelier Divan' },
+  { id: '1', image: '/images/backdrops/backdrop-1.jpg', title: 'Backdrop Mint Modern Sofa' },
+  { id: '2', image: '/images/backdrops/backdrop-2.jpg', title: 'Backdrop Bohemian Rustic Wall' },
+  { id: '3', image: '/images/backdrops/backdrop-3.jpg', title: 'Backdrop Black Arch Window Bar Stool' },
+  { id: '4', image: '/images/backdrops/backdrop-4.jpg', title: 'Backdrop Charcoal Classic Sofa' },
+  { id: '5', image: '/images/backdrops/backdrop-5.jpg', title: 'Backdrop Luxury White Fireplace' },
 ];
 
 /**
@@ -81,8 +82,8 @@ export const BackdropHeroSlider: React.FC = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Full Image Banner Container with Optimal Height for Backdrop Photos */}
-      <div className="w-full h-64 sm:h-80 md:h-96 relative overflow-hidden bg-slate-950">
+      {/* Full Image Banner Container with Optimal Height for Landscape Backdrop Photos */}
+      <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-slate-950">
         <img
           key={activeSlide.id}
           src={activeSlide.image}
@@ -91,7 +92,7 @@ export const BackdropHeroSlider: React.FC = () => {
         />
 
         {/* Subtle Bottom Shadow for Dot Indicators Readability */}
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
         {/* Manual Arrow Controls (< and >) */}
         <button
