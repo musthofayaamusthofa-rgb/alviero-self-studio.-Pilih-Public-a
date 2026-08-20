@@ -100,6 +100,19 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
 
 const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
 
+export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
+  if (!idA || !idB || idA === idB) return false;
+  const a = idA.toLowerCase();
+  const b = idB.toLowerCase();
+  
+  const isLimboA = a.includes('limbo');
+  const isPutihTengahA = a.includes('putih-tengah') || a.includes('putih_tengah');
+  const isLimboB = b.includes('limbo');
+  const isPutihTengahB = b.includes('putih-tengah') || b.includes('putih_tengah');
+  
+  return (isLimboA && isPutihTengahB) || (isPutihTengahA && isLimboB);
+};
+
 export const normalizeSlotTime = (raw: any): string => {
   if (!raw) return '';
   const str = String(raw).trim();
@@ -134,8 +147,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [bookingDate, setBookingDate] = useState<string>(today);
   const [timeSlot, setTimeSlot] = useState<string>('14:00');
   
-  // Real-time Slot Availability from Google Sheets
+  // Real-time Slot & Backdrop Availability from Google Sheets
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
   const [isLoadingSlots, setIsLoadingSlots] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -158,7 +172,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
   const activeTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
-  // Fetch Slot Terisi dari Google Sheets secara Real-Time terpisah per tipe studio & cabang
+  // Fetch Slot Terisi & Backdrop Terpakai dari Google Sheets secara Real-Time
   useEffect(() => {
     if (!isOpen || !bookingDate) return;
 
@@ -170,9 +184,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?action=check_slots&date=${encodeURIComponent(bookingDate)}&studio_type=${encodeURIComponent(typeKey)}&branch=${encodeURIComponent(selectedBranch)}`)
       .then(res => res.json())
       .then(data => {
-        if (isMounted && data && Array.isArray(data.bookedSlots)) {
-          const normalized = data.bookedSlots.map(normalizeSlotTime).filter(Boolean);
-          setBookedSlots(normalized);
+        if (isMounted && data) {
+          if (Array.isArray(data.bookedSlots)) {
+            const normalized = data.bookedSlots.map(normalizeSlotTime).filter(Boolean);
+            setBookedSlots(normalized);
+          }
+          if (data.slotBackdrops && typeof data.slotBackdrops === 'object') {
+            const normalizedSlotBackdrops: { [s: string]: string[] } = {};
+            Object.entries(data.slotBackdrops).forEach(([slotRaw, bds]) => {
+              const sNorm = normalizeSlotTime(slotRaw);
+              if (sNorm && Array.isArray(bds)) {
+                normalizedSlotBackdrops[sNorm] = (bds as string[]).map(b => String(b).trim());
+              }
+            });
+            setSlotBackdrops(normalizedSlotBackdrops);
+          }
         }
       })
       .catch(err => {
@@ -206,19 +232,73 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio')
   );
 
+  // Cek ketersediaan backdrop spesifik berdasarkan slot jam yang dipilih & konflik panggung
+  const getBackdropAvailability = (backdropId: string): { isAvailable: boolean; reason?: string } => {
+    const bdObj = BACKDROPS.find(b => b.id === backdropId);
+    if (!bdObj) return { isAvailable: true };
+
+    const normTime = normalizeSlotTime(timeSlot);
+    const bookedForSlot = (slotBackdrops[normTime] || []).map(b => b.toLowerCase());
+    const bdNameLower = bdObj.name.toLowerCase();
+    const bdIdLower = bdObj.id.toLowerCase();
+
+    // 1. Cek apakah backdrop ini sudah dibooking oleh client lain di jam ini
+    const isDirectlyBooked = bookedForSlot.some(b => b.includes(bdNameLower) || bdNameLower.includes(b) || b.includes(bdIdLower));
+    if (isDirectlyBooked) {
+      return { isAvailable: false, reason: `Sudah terpakai di jam ${normTime} WIB` };
+    }
+
+    // 2. Cek konflik panggung: Limbo vs Putih Tengah pada slot booking dari orang lain
+    if (bdIdLower.includes('limbo')) {
+      const hasPutihTengahBooked = bookedForSlot.some(b => b.includes('putih tengah') || b.includes('putih-tengah'));
+      if (hasPutihTengahBooked) {
+        return { isAvailable: false, reason: `Area panggung sama dengan Putih Tengah (terpakai di jam ${normTime} WIB)` };
+      }
+    } else if (bdIdLower.includes('putih-tengah') || bdIdLower.includes('putih_tengah')) {
+      const hasLimboBooked = bookedForSlot.some(b => b.includes('limbo'));
+      if (hasLimboBooked) {
+        return { isAvailable: false, reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)` };
+      }
+    }
+
+    // 3. Cek konflik panggung dalam 1 sesi jika client memilih 2 backdrop
+    if (maxBackdrops > 1 && selectedBackdropIds.length > 0) {
+      const conflictingSelected = selectedBackdropIds.find(selId => selId !== backdropId && isConflictingBackdrop(selId, backdropId));
+      if (conflictingSelected) {
+        const otherBd = BACKDROPS.find(b => b.id === conflictingSelected);
+        return { isAvailable: false, reason: `Tidak bisa digabung dengan ${otherBd?.name || 'Latar Terpilih'} (area panggung sama)` };
+      }
+    }
+
+    return { isAvailable: true };
+  };
+
   useEffect(() => {
-    // Reset selected backdrop if it's not available in the current category & branch
-    const validIds = selectedBackdropIds.filter(id => availableBackdrops.some(b => b.id === id));
+    // Reset selected backdrop if it's not available in current category, branch, or time slot
+    const validIds = selectedBackdropIds.filter(id => {
+      const isApplicable = availableBackdrops.some(b => b.id === id);
+      const avail = getBackdropAvailability(id);
+      return isApplicable && avail.isAvailable;
+    });
+
     if (validIds.length === 0 && availableBackdrops.length > 0) {
-      setSelectedBackdropIds([availableBackdrops[0].id]);
+      // Cari backdrop pertama yang benar-benar available
+      const firstAvail = availableBackdrops.find(b => getBackdropAvailability(b.id).isAvailable) || availableBackdrops[0];
+      setSelectedBackdropIds([firstAvail.id]);
     } else if (maxBackdrops === 1 && validIds.length > 1) {
       setSelectedBackdropIds([validIds[0]]);
-    } else if (validIds.length !== selectedBackdropIds.length) {
+    } else if (validIds.length !== selectedBackdropIds.length && validIds.length > 0) {
       setSelectedBackdropIds(validIds);
     }
-  }, [selectedPackageId, selectedBranch, isSelfStudio, availableBackdrops, maxBackdrops]);
+  }, [selectedPackageId, selectedBranch, timeSlot, isSelfStudio, availableBackdrops, maxBackdrops, slotBackdrops]);
 
   const handleSelectBackdrop = (id: string) => {
+    const avail = getBackdropAvailability(id);
+    if (!avail.isAvailable) {
+      alert(`Mohon maaf, background ${BACKDROPS.find(b => b.id === id)?.name || ''} ${avail.reason}.`);
+      return;
+    }
+
     if (maxBackdrops === 1) {
       setSelectedBackdropIds([id]);
     } else {
@@ -229,9 +309,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         }
       } else {
         if (selectedBackdropIds.length < 2) {
+          // Pastikan tidak konflik dengan backdrop ke-1
+          if (selectedBackdropIds.length === 1 && isConflictingBackdrop(selectedBackdropIds[0], id)) {
+            alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} dan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} berada di area panggung yang sama sehingga tidak bisa dipilih bersamaan dalam 1 sesi.`);
+            return;
+          }
           setSelectedBackdropIds([...selectedBackdropIds, id]);
         } else {
-          // Replace 2nd backdrop
+          // Replace 2nd backdrop jika tidak konflik dengan yang pertama
+          if (isConflictingBackdrop(selectedBackdropIds[0], id)) {
+            alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} tidak bisa digabung dengan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} (area panggung sama).`);
+            return;
+          }
           setSelectedBackdropIds([selectedBackdropIds[0], id]);
         }
       }
@@ -680,16 +769,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   {availableBackdrops.map((backdrop) => {
                     const isSelected = selectedBackdropIds.includes(backdrop.id);
                     const selectionIndex = selectedBackdropIds.indexOf(backdrop.id);
+                    const availability = getBackdropAvailability(backdrop.id);
+                    const isAvailable = availability.isAvailable;
 
                     return (
                       <button
                         key={backdrop.id}
                         type="button"
+                        disabled={!isAvailable && !isSelected}
                         onClick={() => handleSelectBackdrop(backdrop.id)}
-                        className={`min-h-[52px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer active:scale-98 relative ${
-                          isSelected
-                            ? 'border-indigo-600 bg-indigo-50/90 ring-2 ring-indigo-500/20 shadow-xs'
-                            : 'border-slate-200 bg-white hover:bg-slate-50'
+                        className={`min-h-[54px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all relative ${
+                          !isAvailable && !isSelected
+                            ? 'border-slate-200 bg-slate-100/70 text-slate-400 opacity-60 cursor-not-allowed'
+                            : isSelected
+                            ? 'border-indigo-600 bg-indigo-50/90 ring-2 ring-indigo-500/20 shadow-xs cursor-pointer active:scale-98'
+                            : 'border-slate-200 bg-white hover:bg-slate-50 cursor-pointer active:scale-98'
                         }`}
                       >
                         <div
@@ -704,17 +798,30 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="font-bold text-xs text-slate-900 truncate">{backdrop.name}</span>
+                            <span className={`font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-slate-500 line-through' : 'text-slate-900'}`}>
+                              {backdrop.name}
+                            </span>
                             {isSelected && maxBackdrops > 1 && (
                               <span className="text-[9px] font-black bg-indigo-600 text-white px-1.5 py-0.2 rounded-md">
                                 Latar {selectionIndex + 1}
                               </span>
                             )}
+                            {!isAvailable && !isSelected && (
+                              <span className="text-[8.5px] font-extrabold bg-rose-100 text-rose-700 px-1.5 py-0.2 rounded-md border border-rose-200">
+                                🚫 Tidak Tersedia
+                              </span>
+                            )}
                           </div>
-                          <div className="text-[10px] text-slate-500 truncate">{backdrop.description}</div>
+                          <div className="text-[10px] text-slate-500 truncate">
+                            {!isAvailable && !isSelected ? (
+                              <span className="text-rose-600 font-medium">{availability.reason}</span>
+                            ) : (
+                              backdrop.description
+                            )}
+                          </div>
                         </div>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 text-xs">
+                          <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0 text-xs shadow-2xs">
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         )}
@@ -722,6 +829,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     );
                   })}
                 </div>
+
+                {/* Rule hint for Limbo vs Putih Tengah */}
+                {availableBackdrops.some(b => b.id.includes('limbo')) && availableBackdrops.some(b => b.id.includes('putih-tengah')) && (
+                  <div className="mt-2.5 p-2.5 rounded-xl bg-slate-100/90 border border-slate-200 text-slate-600 text-[11px] flex items-center gap-2">
+                    <span className="text-sm shrink-0">💡</span>
+                    <span>
+                      <strong>Catatan Latar Studio:</strong> Backdrop <em>Limbo</em> dan <em>Putih Tengah</em> berbagi area panggung yang sama, sehingga tidak dapat digunakan bersamaan pada jam yang sama atau dalam 1 sesi foto.
+                    </span>
+                  </div>
+                )}
 
                 {/* Helper notice for 2 backdrops */}
                 {maxBackdrops > 1 && (
