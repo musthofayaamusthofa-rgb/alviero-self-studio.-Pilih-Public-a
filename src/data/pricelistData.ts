@@ -1250,31 +1250,23 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
   {
     id: 'cabang-1',
     name: 'Alviero Studio — Cabang 1',
-    shortName: 'Cabang 1 (Studio Utama)',
-    tagline: 'Pusat SelfStudio & Studio Foto Lengkap',
-    address: 'Studio Utama Alviero (Cabang 1)',
-    badge: 'Studio Utama',
-    description: 'Pilihan lengkap SelfStudio Shutter Mandiri, Studio Foto Pro, dan Spotlight Tirai Coklat.',
-    highlights: [
-      'SelfStudio Shutter Mandiri & Tirai Coklat',
-      'Studio Foto Wisuda, Family, Group & Birthday',
-      'Pilihan Backdrop Solid & Spotlight Lengkap'
-    ],
+    shortName: 'Cabang 1 (Karangploso)',
+    tagline: 'Karangploso, Kab. Malang',
+    address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
+    badge: 'Cabang 1',
+    description: 'Pusat Self Studio & Studio Foto',
+    highlights: [],
     icon: '📍'
   },
   {
     id: 'cabang-2',
     name: 'Alviero Studio — Cabang 2',
-    shortName: 'Cabang 2',
-    tagline: 'Studio Estetik & Konsep Latar Baru',
-    address: 'Studio Alviero (Cabang 2)',
-    badge: 'Cabang Baru',
-    description: 'Studio Foto & SelfStudio dengan koleksi backdrop estetik dan tema pencahayaan khusus Cabang 2.',
-    highlights: [
-      'Bilik SelfStudio Modern Cabang 2',
-      'Koleksi Latar & Pencahayaan Khusus Cabang 2',
-      'Ruang Nyaman & Booking Cepat'
-    ],
+    shortName: 'Cabang 2 (Dinoyo Gajayana)',
+    tagline: 'Dinoyo Gajayana, Kota Malang',
+    address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
+    badge: 'Cabang 2',
+    description: 'Self Studio & Studio Foto',
+    highlights: [],
     icon: '🏢'
   }
 ];

@@ -241,22 +241,26 @@ export const StudioInfoAndRules: React.FC = () => {
             Kunjungi Alviero Studio Foto
           </h3>
 
-          <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-            Studio foto kami berlokasi strategis dengan parkiran luas, ruangan ber-AC dingin, kamar ganti privat, dan berbagai pilihan props foto gratis!
-          </p>
-
-          <div className="space-y-2 text-xs text-slate-200 pt-2">
-            <div className="flex items-start gap-2">
+          <div className="space-y-3 text-xs text-slate-200 pt-2">
+            <div className="flex items-start gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700">
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <span>{addressText}</span>
+              <div>
+                <strong className="text-white block font-bold">Cabang 1 (Karangploso):</strong>
+                <span>Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
+
+            <div className="flex items-start gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700">
+              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-white block font-bold">Cabang 2 (Dinoyo Gajayana):</strong>
+                <span>Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-1">
               <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Buka Setiap Hari: 08:00 - 21:00 WIB (Bisa Request Luar Jam Operasional)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Instagram className="w-4 h-4 text-pink-400 shrink-0" />
-              <span>Instagram: @alvierostudiofoto & @alviero.selfstudio</span>
+              <span>Buka Setiap Hari: 08:00 - 21:00 WIB</span>
             </div>
           </div>
 
