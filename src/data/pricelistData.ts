@@ -1428,52 +1428,52 @@ export const BACKDROPS: BackdropOption[] = [
 
   // ==================== CABANG 2 - STUDIO FOTO (PRO STUDIO) ====================
   {
-    id: 'c2-pro-seamless-limbo',
-    name: 'Seamless Studio Limbo (Cabang 2)',
+    id: 'c2-pro-hitam',
+    name: 'Hitam',
     category: 'solid-color',
-    hex: '#E2E8F0',
-    description: 'Latar limbo lengkung tanpa batas untuk foto wisuda & group megah.',
+    hex: '#111827',
+    description: 'Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-pro-putih-tengah',
+    name: 'Putih Tengah',
+    category: 'solid-color',
+    hex: '#F1F5F9',
+    description: 'Latar putih tengah dengan pencahayaan seimbang dan bersih.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-terracotta',
-    name: 'Warm Terracotta (Cabang 2)',
+    id: 'c2-pro-abu-abu',
+    name: 'Abu-abu',
     category: 'solid-color',
-    hex: '#C2410C',
-    description: 'Latar terracotta bernuansa earthy yang mewah dan hangat.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-pro-sage-green',
-    name: 'Sage Mint Green (Cabang 2)',
-    category: 'solid-color',
-    hex: '#86EFAC',
-    description: 'Latar hijau sage mint segar untuk foto potret & maternity cantik.',
+    hex: '#9CA3AF',
+    description: 'Latar abu-abu netral yang modern dan menonjolkan subjek foto.',
     previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-classic-navy',
-    name: 'Classic Deep Navy (Cabang 2)',
+    id: 'c2-pro-coklat-jendela',
+    name: 'Coklat Jendela',
     category: 'solid-color',
-    hex: '#1E3A8A',
-    description: 'Latar biru navy klasik yang berwibawa untuk wisuda & profil formal.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    hex: '#8D5B4C',
+    description: 'Latar coklat hangat bernuansa natural dengan aksen pencahayaan jendela estetik.',
+    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-midnight-black',
-    name: 'Midnight Black (Cabang 2)',
+    id: 'c2-pro-cream',
+    name: 'Cream',
     category: 'solid-color',
-    hex: '#0F172A',
-    description: 'Latar hitam pekat dramatis untuk low-key & fashion portrait.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    hex: '#FEF3C7',
+    description: 'Latar cream hangat untuk tone pastel lembut dan bersahabat.',
+    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   }
