@@ -35,7 +35,7 @@ export const GRID_DEFINITIONS: Record<GridTypeId, GridDefinition> = {
     prefix: '1',
     description: '1 Foto Utuh Portrait Minimalis dengan Logo Alviero',
     slots: [
-      { x: 75, y: 70, width: 900, height: 1210 }
+      { x: 100, y: 80, width: 850, height: 1200 }
     ]
   },
   'grid-3-4r': {
