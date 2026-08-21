@@ -1,15 +1,172 @@
-export interface ExportOptions {
+export type GridTypeId = 'grid-1-3r' | 'grid-3-4r' | 'grid-4-3r' | 'grid-6-4r';
+export type FrameThemeId = 'A' | 'B' | 'C' | 'D' | 'E';
+
+export interface GridSlotConfig {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface GridDefinition {
+  id: GridTypeId;
+  name: string;
+  shortLabel: string;
+  sizeLabel: string;
+  photoCount: number;
+  aspectRatio: string;
+  canvasWidth: number;
+  canvasHeight: number;
+  prefix: string;
+  description: string;
+  slots: GridSlotConfig[];
+}
+
+export const GRID_DEFINITIONS: Record<GridTypeId, GridDefinition> = {
+  'grid-1-3r': {
+    id: 'grid-1-3r',
+    name: 'Grid 1 (3R)',
+    shortLabel: '1 Foto (3R)',
+    sizeLabel: '3R (8.9 x 12.7 cm)',
+    photoCount: 1,
+    aspectRatio: '7/10',
+    canvasWidth: 1050,
+    canvasHeight: 1500,
+    prefix: '1',
+    description: '1 Foto Utuh Portrait Minimalis dengan Logo Alviero',
+    slots: [
+      { x: 75, y: 70, width: 900, height: 1250 }
+    ]
+  },
+  'grid-3-4r': {
+    id: 'grid-3-4r',
+    name: 'Grid 3 (4R)',
+    shortLabel: '3 Foto (4R Strip)',
+    sizeLabel: '4R (10.2 x 15.2 cm)',
+    photoCount: 3,
+    aspectRatio: '2/3',
+    canvasWidth: 1200,
+    canvasHeight: 1800,
+    prefix: '3',
+    description: 'Photo Strip 4R Twin 3-Cut (2 Kolom Strip Berdampingan)',
+    // Dual strip: left 3 slots + right 3 duplicate slots (twin strips)
+    slots: [
+      { x: 50, y: 40, width: 520, height: 485 },
+      { x: 50, y: 550, width: 520, height: 485 },
+      { x: 50, y: 1060, width: 520, height: 485 },
+      // Twin right strip duplicates
+      { x: 630, y: 40, width: 520, height: 485 },
+      { x: 630, y: 550, width: 520, height: 485 },
+      { x: 630, y: 1060, width: 520, height: 485 }
+    ]
+  },
+  'grid-4-3r': {
+    id: 'grid-4-3r',
+    name: 'Grid 4 (3R)',
+    shortLabel: '4 Foto 2x2 (3R)',
+    sizeLabel: '3R (8.9 x 12.7 cm)',
+    photoCount: 4,
+    aspectRatio: '7/10',
+    canvasWidth: 1050,
+    canvasHeight: 1500,
+    prefix: '4',
+    description: '2x2 Grid Klasik 4 Foto dengan Logo Alviero',
+    slots: [
+      { x: 52, y: 65, width: 460, height: 580 },
+      { x: 538, y: 65, width: 460, height: 580 },
+      { x: 52, y: 670, width: 460, height: 580 },
+      { x: 538, y: 670, width: 460, height: 580 }
+    ]
+  },
+  'grid-6-4r': {
+    id: 'grid-6-4r',
+    name: 'Grid 6 (4R)',
+    shortLabel: '6 Foto 2x3 (4R)',
+    sizeLabel: '4R (10.2 x 15.2 cm)',
+    photoCount: 6,
+    aspectRatio: '2/3',
+    canvasWidth: 1200,
+    canvasHeight: 1800,
+    prefix: '6',
+    description: '2x3 Grid 6 Foto Memanjang Eksklusif',
+    slots: [
+      { x: 50, y: 45, width: 520, height: 475 },
+      { x: 630, y: 45, width: 520, height: 475 },
+      { x: 50, y: 545, width: 520, height: 475 },
+      { x: 630, y: 545, width: 520, height: 475 },
+      { x: 50, y: 1045, width: 520, height: 475 },
+      { x: 630, y: 1045, width: 520, height: 475 }
+    ]
+  }
+};
+
+export interface FrameThemeDefinition {
+  id: FrameThemeId;
+  name: string;
+  badge: string;
+  previewBg: string;
+  previewTextColor: string;
+  borderColor: string;
+  description: string;
+}
+
+export const FRAME_THEMES: FrameThemeDefinition[] = [
+  {
+    id: 'A',
+    name: 'Putih Classic',
+    badge: 'A',
+    previewBg: '#FFFFFF',
+    previewTextColor: '#1E293B',
+    borderColor: '#E2E8F0',
+    description: 'Bingkai putih bersih minimalis elegan dengan logo Alviero'
+  },
+  {
+    id: 'B',
+    name: 'Cute Doodles & Paper',
+    badge: 'B',
+    previewBg: '#F8FAFC',
+    previewTextColor: '#334155',
+    borderColor: '#CBD5E1',
+    description: 'Tekstur kertas grid buku dengan stiker & ornamen pastel lucu'
+  },
+  {
+    id: 'C',
+    name: 'Retro Terracotta',
+    badge: 'C',
+    previewBg: '#EA580C',
+    previewTextColor: '#FFFFFF',
+    borderColor: '#C2410C',
+    description: 'Nuansa warna hangat retro terracotta dengan frame polaroid'
+  },
+  {
+    id: 'D',
+    name: 'Noir Best Moment',
+    badge: 'D',
+    previewBg: '#0F172A',
+    previewTextColor: '#FFFFFF',
+    borderColor: '#334155',
+    description: 'Bingkai hitam pekat Y2K modern beraksen Best Moment'
+  },
+  {
+    id: 'E',
+    name: '35mm Vintage Film',
+    badge: 'E',
+    previewBg: '#18181B',
+    previewTextColor: '#FACC15',
+    borderColor: '#3F3F46',
+    description: 'Klise strip film 35mm berlubang perforasi vintage aesthetic'
+  }
+];
+
+export interface ExportGridOptions {
+  gridType: GridTypeId;
+  frameTheme: FrameThemeId;
   photos: string[];
-  bgColor: string;
-  textColor: string;
-  title: string;
-  subtitle: string;
-  gridStyle: '4-cut' | '2x2' | 'polaroid';
-  filterStyle?: string; // 'none' | 'sepia' | 'grayscale' | 'vintage' | 'vivid'
+  filterStyle?: string;
   sticker?: string;
 }
 
-// Helper to draw image using object-fit: cover logic so aspect ratio is 100% preserved (NEVER stretched/gepeng)
+// Helper to draw image using object-fit: cover logic
 const drawCoverImage = (
   ctx: CanvasRenderingContext2D,
   img: HTMLImageElement,
@@ -38,8 +195,7 @@ const drawCoverImage = (
 };
 
 // Helper to load image safely without canvas CORS tainting
-const loadSafeImage = async (src: string): Promise<HTMLImageElement> => {
-  // If it's already a data URL or blob URL, load directly
+export const loadSafeImage = async (src: string): Promise<HTMLImageElement> => {
   if (src.startsWith('data:') || src.startsWith('blob:')) {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -49,7 +205,6 @@ const loadSafeImage = async (src: string): Promise<HTMLImageElement> => {
     });
   }
 
-  // If it's an external URL (e.g. Unsplash sample), try fetching as Blob first to prevent canvas tainting
   try {
     const res = await fetch(src, { mode: 'cors' });
     if (res.ok) {
@@ -63,7 +218,7 @@ const loadSafeImage = async (src: string): Promise<HTMLImageElement> => {
       });
     }
   } catch {
-    // If fetch failed, proceed to standard Image loading with crossOrigin
+    // Fallback without fetch
   }
 
   return new Promise((resolve, reject) => {
@@ -71,7 +226,6 @@ const loadSafeImage = async (src: string): Promise<HTMLImageElement> => {
     img.crossOrigin = 'anonymous';
     img.onload = () => resolve(img);
     img.onerror = () => {
-      // Fallback without crossOrigin
       const fallbackImg = new Image();
       fallbackImg.onload = () => resolve(fallbackImg);
       fallbackImg.onerror = () => reject(new Error(`Failed to load image: ${src}`));
@@ -81,41 +235,29 @@ const loadSafeImage = async (src: string): Promise<HTMLImageElement> => {
   });
 };
 
-export const downloadPhotoStripAsImage = async (options: ExportOptions): Promise<{ success: boolean; dataUrl?: string; blobUrl?: string }> => {
-  const { photos, bgColor, textColor, title, subtitle, gridStyle, filterStyle = 'none', sticker } = options;
+export const getFrameOverlayUrl = (gridType: GridTypeId, frameTheme: FrameThemeId): string => {
+  const gridDef = GRID_DEFINITIONS[gridType];
+  return `/images/grids/${gridType}/${gridDef.prefix}${frameTheme}.png`;
+};
+
+export const downloadPhotoStripAsImage = async (options: ExportGridOptions): Promise<{ success: boolean; dataUrl?: string; blobUrl?: string }> => {
+  const { gridType, frameTheme, photos, filterStyle = 'none', sticker } = options;
+  const gridDef = GRID_DEFINITIONS[gridType] || GRID_DEFINITIONS['grid-4-3r'];
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
   if (!ctx) return { success: false };
 
-  // Set high-res 300 DPI lab print quality dimensions
-  const width = 600;
-  let height = 1800;
-  if (gridStyle === '2x2') height = 760;
-  if (gridStyle === 'polaroid') height = 780;
+  canvas.width = gridDef.canvasWidth;
+  canvas.height = gridDef.canvasHeight;
 
-  canvas.width = width;
-  canvas.height = height;
-
-  // Background Fill
-  ctx.fillStyle = bgColor;
-  ctx.fillRect(0, 0, width, height);
+  // 1. White / Clean Base Canvas Background
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   try {
+    // Load all user photos
     const loadedImages = await Promise.all(photos.map(p => loadSafeImage(p)));
-
-    // Header Text inside Strip
-    ctx.fillStyle = textColor;
-    ctx.textAlign = 'center';
-    
-    ctx.font = 'bold 28px sans-serif';
-    ctx.fillText((title || 'ALVIERO STUDIO').toUpperCase(), width / 2, 55);
-
-    ctx.font = '15px sans-serif';
-    ctx.fillStyle = textColor;
-    ctx.globalAlpha = 0.85;
-    ctx.fillText(subtitle || 'Self Photo Memories', width / 2, 82);
-    ctx.globalAlpha = 1.0;
 
     const applyFilter = (filter: string) => {
       if (filter === 'grayscale') ctx.filter = 'grayscale(100%)';
@@ -125,79 +267,39 @@ export const downloadPhotoStripAsImage = async (options: ExportOptions): Promise
       else ctx.filter = 'none';
     };
 
-    if (gridStyle === '4-cut') {
-      const startY = 110;
-      const photoWidth = 520;
-      const photoHeight = 390; // Exact 4:3 Aspect Ratio (520 / 390 = 1.333)
-      const gap = 20;
-
-      for (let i = 0; i < Math.min(4, loadedImages.length); i++) {
-        const img = loadedImages[i];
-        const y = startY + i * (photoHeight + gap);
-
+    // 2. Draw user photos into each designated slot
+    gridDef.slots.forEach((slot, index) => {
+      // In Grid 3 (4R Twin strip), slots 3,4,5 duplicate photos 0,1,2
+      let photoIndex = index;
+      if (gridDef.id === 'grid-3-4r' && index >= 3) {
+        photoIndex = index % 3;
+      }
+      
+      const img = loadedImages[photoIndex % loadedImages.length];
+      if (img) {
         ctx.save();
         applyFilter(filterStyle);
-        drawCoverImage(ctx, img, 40, y, photoWidth, photoHeight);
+        drawCoverImage(ctx, img, slot.x, slot.y, slot.width, slot.height);
         ctx.restore();
 
-        // Optional sticker on top right corner of photo frame
+        // Draw optional sticker on top right corner of photo slot
         if (sticker) {
-          ctx.font = '28px sans-serif';
-          ctx.fillText(sticker, 40 + photoWidth - 30, y + 40);
+          ctx.save();
+          ctx.font = `${Math.round(slot.width * 0.09)}px sans-serif`;
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'top';
+          ctx.fillText(sticker, slot.x + slot.width - 25, slot.y + 25);
+          ctx.restore();
         }
       }
-    } else if (gridStyle === '2x2') {
-      const startY = 110;
-      const photoWidth = 250;
-      const photoHeight = 250; // Exact 1:1 Square Ratio
-      const gap = 20;
+    });
 
-      const positions = [
-        { x: 40, y: startY },
-        { x: 310, y: startY },
-        { x: 40, y: startY + photoHeight + gap },
-        { x: 310, y: startY + photoHeight + gap }
-      ];
+    // 3. Draw the official Alviero Studio PNG frame overlay on top
+    const frameOverlaySrc = getFrameOverlayUrl(gridType, frameTheme);
+    const frameOverlayImg = await loadSafeImage(frameOverlaySrc);
+    ctx.drawImage(frameOverlayImg, 0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < Math.min(4, loadedImages.length); i++) {
-        const img = loadedImages[i];
-        const pos = positions[i];
-
-        ctx.save();
-        applyFilter(filterStyle);
-        drawCoverImage(ctx, img, pos.x, pos.y, photoWidth, photoHeight);
-        ctx.restore();
-
-        if (sticker) {
-          ctx.font = '24px sans-serif';
-          ctx.fillText(sticker, pos.x + photoWidth - 25, pos.y + 35);
-        }
-      }
-    } else if (gridStyle === 'polaroid') {
-      const startY = 110;
-      const photoWidth = 520;
-      const photoHeight = 520; // Exact 1:1 Square Ratio
-
-      if (loadedImages.length > 0) {
-        ctx.save();
-        applyFilter(filterStyle);
-        drawCoverImage(ctx, loadedImages[0], 40, startY, photoWidth, photoHeight);
-        ctx.restore();
-
-        if (sticker) {
-          ctx.font = '32px sans-serif';
-          ctx.fillText(sticker, 40 + photoWidth - 35, startY + 45);
-        }
-      }
-    }
-
-    // Footer Text inside Strip
-    ctx.font = 'bold 13px sans-serif';
-    ctx.fillStyle = textColor;
-    ctx.textAlign = 'center';
-    ctx.fillText(`ALVIERO PHOTO STUDIO • ${new Date().toLocaleDateString('id-ID')}`, width / 2, height - 30);
-
-    const filename = `Alviero-PhotoStrip-${Date.now()}.png`;
+    const filename = `Alviero-${gridDef.name.replace(/\s+/g, '-')}-Tema${frameTheme}-${Date.now()}.png`;
 
     // Process Download using Blob (most reliable across mobile & desktop)
     return new Promise<{ success: boolean; dataUrl?: string; blobUrl?: string }>((resolve) => {
@@ -216,7 +318,6 @@ export const downloadPhotoStripAsImage = async (options: ExportOptions): Promise
 
           resolve({ success: true, blobUrl });
         } else {
-          // Fallback to Data URL
           try {
             const dataUrl = canvas.toDataURL('image/png');
             const link = document.createElement('a');
