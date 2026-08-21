@@ -35,7 +35,7 @@ export const GRID_DEFINITIONS: Record<GridTypeId, GridDefinition> = {
     prefix: '1',
     description: '1 Foto Utuh Portrait Minimalis dengan Logo Alviero',
     slots: [
-      { x: 75, y: 70, width: 900, height: 1250 }
+      { x: 75, y: 70, width: 900, height: 1210 }
     ]
   },
   'grid-3-4r': {
@@ -49,15 +49,13 @@ export const GRID_DEFINITIONS: Record<GridTypeId, GridDefinition> = {
     canvasHeight: 1800,
     prefix: '3',
     description: 'Photo Strip 4R Twin 3-Cut (2 Kolom Strip Berdampingan)',
-    // Dual strip: left 3 slots + right 3 duplicate slots (twin strips)
     slots: [
-      { x: 50, y: 40, width: 520, height: 485 },
-      { x: 50, y: 550, width: 520, height: 485 },
-      { x: 50, y: 1060, width: 520, height: 485 },
-      // Twin right strip duplicates
-      { x: 630, y: 40, width: 520, height: 485 },
-      { x: 630, y: 550, width: 520, height: 485 },
-      { x: 630, y: 1060, width: 520, height: 485 }
+      { x: 50, y: 37, width: 520, height: 494 },
+      { x: 50, y: 592, width: 520, height: 494 },
+      { x: 50, y: 1147, width: 520, height: 494 },
+      { x: 630, y: 37, width: 520, height: 494 },
+      { x: 630, y: 592, width: 520, height: 494 },
+      { x: 630, y: 1147, width: 520, height: 494 }
     ]
   },
   'grid-4-3r': {
@@ -72,10 +70,10 @@ export const GRID_DEFINITIONS: Record<GridTypeId, GridDefinition> = {
     prefix: '4',
     description: '2x2 Grid Klasik 4 Foto dengan Logo Alviero',
     slots: [
-      { x: 52, y: 65, width: 460, height: 580 },
-      { x: 538, y: 65, width: 460, height: 580 },
-      { x: 52, y: 670, width: 460, height: 580 },
-      { x: 538, y: 670, width: 460, height: 580 }
+      { x: 52, y: 65, width: 463, height: 566 },
+      { x: 535, y: 65, width: 463, height: 566 },
+      { x: 52, y: 703, width: 463, height: 566 },
+      { x: 535, y: 703, width: 463, height: 566 }
     ]
   },
   'grid-6-4r': {
@@ -90,12 +88,12 @@ export const GRID_DEFINITIONS: Record<GridTypeId, GridDefinition> = {
     prefix: '6',
     description: '2x3 Grid 6 Foto Memanjang Eksklusif',
     slots: [
-      { x: 50, y: 45, width: 520, height: 475 },
-      { x: 630, y: 45, width: 520, height: 475 },
-      { x: 50, y: 545, width: 520, height: 475 },
-      { x: 630, y: 545, width: 520, height: 475 },
-      { x: 50, y: 1045, width: 520, height: 475 },
-      { x: 630, y: 1045, width: 520, height: 475 }
+      { x: 50, y: 37, width: 520, height: 494 },
+      { x: 630, y: 37, width: 520, height: 494 },
+      { x: 50, y: 595, width: 520, height: 494 },
+      { x: 630, y: 595, width: 520, height: 494 },
+      { x: 50, y: 1151, width: 520, height: 494 },
+      { x: 630, y: 1151, width: 520, height: 494 }
     ]
   }
 };
