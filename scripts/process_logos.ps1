@@ -41,20 +41,36 @@ foreach ($file in $files) {
         $h = $img.Height
         $maxDim = 600
         
-        if ($w -gt $h) {
+        if ($folderName -eq "SelfStudio") {
+            $cropDim = $w
+            $startY = [int]($h * 0.02)
+            if ($startY + $cropDim -gt $h) { $cropDim = $h - $startY }
             $newW = $maxDim
-            $newH = [int]($h * ($maxDim / $w))
-        } else {
             $newH = $maxDim
-            $newW = [int]($w * ($maxDim / $h))
+            $bmp = New-Object System.Drawing.Bitmap($newW, $newH)
+            $g = [System.Drawing.Graphics]::FromImage($bmp)
+            $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+            $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+            $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+            $srcRect = New-Object System.Drawing.Rectangle(0, $startY, $w, $cropDim)
+            $destRect = New-Object System.Drawing.Rectangle(0, 0, $newW, $newH)
+            $g.DrawImage($img, $destRect, $srcRect, [System.Drawing.GraphicsUnit]::Pixel)
+        } else {
+            if ($w -gt $h) {
+                $newW = $maxDim
+                $newH = [int]($h * ($maxDim / $w))
+            } else {
+                $newH = $maxDim
+                $newW = [int]($w * ($maxDim / $h))
+            }
+            
+            $bmp = New-Object System.Drawing.Bitmap($newW, $newH)
+            $g = [System.Drawing.Graphics]::FromImage($bmp)
+            $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+            $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
+            $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
+            $g.DrawImage($img, 0, 0, $newW, $newH)
         }
-        
-        $bmp = New-Object System.Drawing.Bitmap($newW, $newH)
-        $g = [System.Drawing.Graphics]::FromImage($bmp)
-        $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
-        $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::HighQuality
-        $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
-        $g.DrawImage($img, 0, 0, $newW, $newH)
         $g.Dispose()
         $img.Dispose()
         
