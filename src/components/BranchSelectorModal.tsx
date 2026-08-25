@@ -218,51 +218,42 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-4 sm:p-6 space-y-5 bg-[#faf9f5] flex-1">
           
-          {/* Section 1: Pilihan Studio (Dengan Tombol Buka Pop-up Opsi Studio 1 & 2) */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between px-1 pb-1">
+          {/* Section 1: Pilihan Studio (Minimalis & Elegan) */}
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between px-1">
               <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-stone-900 uppercase">
                 PILIH STUDIO
               </h3>
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="text-xs font-sans font-bold text-[#55735b] hover:text-[#3d5642] flex items-center gap-1 cursor-pointer transition-colors bg-[#eaf1ea] hover:bg-[#dfeadf] px-3 py-1 rounded-full border border-[#d6ded5] shadow-2xs"
-              >
-                <span>Buka Opsi Pop-up</span>
-                <span className="text-xs">↗</span>
-              </button>
+              <span className="text-[11px] font-sans font-semibold text-[#55735b]">
+                Studio 1 & Studio 2
+              </span>
             </div>
 
-            {/* Tombol Utama Pembuka Pop-up Studio (Studio 1 & Studio 2) */}
-            <div
+            {/* Minimalist Studio Selection Button */}
+            <button
+              type="button"
               onClick={() => setIsModalOpen(true)}
-              className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#7d9b84] bg-white hover:bg-[#fcfdfc] shadow-[0_4px_18px_-2px_rgba(108,140,116,0.16)] hover:shadow-[0_8px_26px_-4px_rgba(108,140,116,0.25)] transition-all duration-300 cursor-pointer relative group text-left flex items-center justify-between gap-3 active:scale-[0.99]"
+              className="w-full px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl bg-white hover:bg-[#fcfdfc] border border-[#d6ded5] hover:border-[#55735b] shadow-2xs hover:shadow-xs transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 text-left group active:scale-[0.99]"
             >
-              <div className="flex items-center gap-3.5 min-w-0">
-                <div className="w-12 h-12 rounded-2xl bg-[#eaf1ea] text-[#55735b] flex items-center justify-center font-bold text-xl shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                  <MapPin className="w-6 h-6 stroke-[2.5]" />
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-8 h-8 rounded-full bg-[#eaf1ea] text-[#55735b] flex items-center justify-center shrink-0 shadow-2xs transition-transform group-hover:scale-105">
+                  <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h4 className="font-sans font-bold text-sm sm:text-base text-stone-900 truncate">
-                      {selectedBranchData.name}
-                    </h4>
-                    <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#e8ece7] text-[#556553] border border-[#d6ded5]">
-                      {selectedBranchData.badge}
-                    </span>
-                  </div>
-                  <p className="text-xs font-sans text-stone-600 font-medium truncate mt-1">
-                    {selectedBranchData.address}
-                  </p>
+                <div className="min-w-0 flex items-center gap-2 flex-wrap">
+                  <span className="font-sans font-bold text-sm text-stone-900 truncate">
+                    {selectedBranchData.shortName || selectedBranchData.name}
+                  </span>
+                  <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#e8ece7] text-[#556553] border border-[#d6ded5] shrink-0">
+                    {selectedBranchData.badge}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#55735b] text-white text-xs font-sans font-bold shadow-2xs group-hover:bg-[#435d48] transition-colors shrink-0">
-                <span>Pilih Studio</span>
-                <span className="text-xs">▾</span>
+              <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-[#55735b] shrink-0 bg-[#eaf1ea] group-hover:bg-[#dfeadf] px-3 py-1.5 rounded-xl transition-colors">
+                <span>Ganti Studio</span>
+                <span className="text-xs transition-transform group-hover:translate-y-0.5">▾</span>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Section 2: Layanan Khusus Wedding & Cetak Foto */}
