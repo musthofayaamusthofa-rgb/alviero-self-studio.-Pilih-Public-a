@@ -433,7 +433,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
     { id: 'maternity-paket', name: 'Maternity', icon: '🤰', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
-    { id: 'event', name: 'Kids', icon: '👶', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
     { id: 'pass-foto', name: 'Photo ID', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
     { id: 'event', name: 'Ulang Tahun', icon: '🎂', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
