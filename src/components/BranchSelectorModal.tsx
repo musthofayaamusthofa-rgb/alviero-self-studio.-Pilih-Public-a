@@ -86,11 +86,17 @@ export const BackdropHeroSlider: React.FC = () => {
     >
       {/* Full Image Banner Container with Optimal Height for Landscape Backdrop Photos */}
       <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-stone-950">
-        {/* Brand Logo Watermark on Top-Left (Haute Couture Luxury Typography) */}
-        <div className="absolute top-3.5 left-4 sm:top-4.5 sm:left-5 z-20 pointer-events-none select-none flex items-center gap-1.5">
-          <span className="font-luxury text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[0.16em] text-stone-900 drop-shadow-[0_1px_3px_rgba(255,255,255,0.85)]">
-            Alviero
-          </span>
+        {/* Brand Logo Watermark on Top-Left (Haute Couture Luxury Frosted Badge) */}
+        <div className="absolute top-3.5 left-4 sm:top-4.5 sm:left-5 z-20 select-none">
+          <div className="bg-white/85 hover:bg-white/95 backdrop-blur-md px-3.5 sm:px-4 py-1.5 rounded-full border border-white/90 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.16)] flex items-center gap-2 transition-all duration-300">
+            <span className="font-luxury text-xl sm:text-2xl font-medium tracking-[0.18em] text-[#1a1917] uppercase leading-none drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
+              Alviero
+            </span>
+            <span className="w-1 h-1 rounded-full bg-[#6c8c74]" />
+            <span className="text-[8.5px] sm:text-[9px] font-sans font-extrabold uppercase tracking-[0.22em] text-[#526a58]">
+              Studio
+            </span>
+          </div>
         </div>
 
         <img
@@ -101,29 +107,29 @@ export const BackdropHeroSlider: React.FC = () => {
         />
 
         {/* Subtle Bottom Shadow for Dot Indicators Readability */}
-        <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/45 via-black/15 to-transparent pointer-events-none" />
 
-        {/* Manual Arrow Controls (< and >) */}
+        {/* Manual Arrow Controls (< and >) with Frosted Glass Styling */}
         <button
           type="button"
           onClick={handlePrev}
           aria-label="Previous Slide"
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/35 hover:bg-black/60 text-white backdrop-blur-xs flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white text-stone-800 backdrop-blur-md flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.15)] border border-white/60 cursor-pointer transition-all z-20 active:scale-90"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
         </button>
 
         <button
           type="button"
           onClick={handleNext}
           aria-label="Next Slide"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/35 hover:bg-black/60 text-white backdrop-blur-xs flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white text-stone-800 backdrop-blur-md flex items-center justify-center shadow-[0_2px_10px_rgba(0,0,0,0.15)] border border-white/60 cursor-pointer transition-all z-20 active:scale-90"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
         </button>
 
         {/* Dots Pagination Indicators */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-black/25 backdrop-blur-xs px-3 py-1 rounded-full">
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 bg-black/25 backdrop-blur-xs px-3 py-1 rounded-full border border-white/10">
           {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
             const isActive = currentIdx === idx;
             return (
@@ -205,7 +211,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 }) => {
   return (
     <div className="max-w-xl w-full mx-auto my-3 sm:my-8 px-2 sm:px-4 animate-in fade-in duration-300">
-      <div className="bg-[#faf9f5] rounded-3xl border border-[#e5ebe4] shadow-sm overflow-hidden flex flex-col relative">
+      <div className="bg-[#faf9f5] rounded-3xl border border-[#e5ebe4] shadow-[0_8px_30px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col relative">
         
         {/* Top Hero Banner Slider (Foto Backdrop Bersih dengan Watermark Alviero) */}
         <BackdropHeroSlider />
@@ -232,29 +238,31 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   <div
                     key={branch.id}
                     onClick={() => onSelectBranch(branch.id)}
-                    className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all cursor-pointer relative group text-left ${
+                    className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
                       isSelected
-                        ? 'bg-[#fcfdfc] border-[#92a895] ring-2 ring-[#6c8c74]/20 shadow-xs'
-                        : 'bg-[#fbfbf9] hover:bg-white border-[#d8dfd8] hover:border-[#b8c8b8] shadow-2xs'
+                        ? 'bg-[#ffffff] border-[#7d9b84] ring-2 ring-[#6c8c74]/25 shadow-[0_6px_24px_-4px_rgba(108,140,116,0.18)] scale-[1.008]'
+                        : 'bg-[#fcfcfa] hover:bg-white border-[#dce3dc] hover:border-[#9db2a3] shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_20px_-4px_rgba(0,0,0,0.08)]'
                     }`}
                   >
                     {/* Top right target/radio indicator */}
                     <div className="absolute top-4 right-4 sm:top-5 sm:right-5">
-                      <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all ${
-                        isSelected ? 'border-[#6c8c74] bg-white shadow-2xs' : 'border-stone-300 bg-transparent'
+                      <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
+                        isSelected ? 'border-[#55735b] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
                       }`}>
-                        {isSelected && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#6c8c74]" />}
+                        {isSelected && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#55735b] animate-in zoom-in-50 duration-200" />}
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3 sm:gap-3.5 pr-8">
-                      {/* Left side: clean sage pin icon and radio circle matching Photo 1 */}
+                      {/* Left side: clean sage pin icon and radio circle */}
                       <div className="flex flex-col items-center gap-3 pt-0.5 shrink-0">
-                        <div className="w-8 h-8 rounded-full bg-[#e8efe8] text-[#55735b] flex items-center justify-center shadow-2xs">
-                          <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-2xs transition-transform group-hover:scale-105 ${
+                          isSelected ? 'bg-[#55735b] text-white' : 'bg-[#eaf1ea] text-[#55735b]'
+                        }`}>
+                          <MapPin className="w-4 h-4 stroke-[2.5]" />
                         </div>
-                        <div className={`w-5 h-5 rounded-full border-2 transition-all ${
-                          isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white'
+                        <div className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                          isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white group-hover:border-stone-400'
                         }`} />
                       </div>
 
@@ -278,7 +286,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           title="Buka lokasi di Google Maps"
                           className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#55735b] transition-colors leading-relaxed group/addr cursor-pointer"
                         >
-                          <MapPin className="w-3.5 h-3.5 text-stone-600 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
+                          <MapPin className="w-3.5 h-3.5 text-stone-500 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
                           <span className="font-medium group-hover/addr:underline underline-offset-2">{branch.address}</span>
                         </a>
                       </div>
@@ -303,19 +311,19 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             <div className="space-y-3">
-              {/* Pricelist Wedding Card (Pastel Mauve / Rose Gradient from Reference Screenshot) */}
+              {/* Pricelist Wedding Card */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#dcd0dc] via-[#ede5de] to-[#f4eee6] hover:from-[#d5c7d5] hover:to-[#efe8de] border border-[#d5c7d5] transition-all cursor-pointer shadow-xs hover:shadow-sm group text-left relative overflow-hidden"
+                className="p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#ded3de] via-[#ece5dc] to-[#f6eee5] hover:from-[#d7cbd7] hover:to-[#efe8dd] border border-[#d5c5d5] hover:border-[#c8b4c8] transition-all duration-300 cursor-pointer shadow-[0_2px_12px_-2px_rgba(150,77,116,0.1)] hover:shadow-[0_6px_20px_-3px_rgba(150,77,116,0.18)] group text-left relative overflow-hidden active:scale-[0.99]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-12 h-12 rounded-2xl bg-white/70 backdrop-blur-xs border-2 border-[#cfb698] shadow-xs flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-xs border-2 border-[#d5be9f] shadow-[0_2px_8px_rgba(213,190,159,0.3)] flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
                       💍
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-editorial font-bold text-sm sm:text-base text-stone-900 tracking-wide truncate">
+                        <h4 className="font-editorial font-bold text-sm sm:text-base text-[#241c22] tracking-wide truncate">
                           PRICELIST WEDDING
                         </h4>
                         <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-white/90 text-stone-700 border border-stone-200/80 shadow-2xs">
@@ -330,24 +338,24 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   <div className="text-xs font-sans font-bold text-stone-900 group-hover:text-black flex items-center gap-1.5 transition-colors shrink-0">
                     <span>Lihat Pricelist</span>
-                    <span className="text-sm">→</span>
+                    <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
 
-              {/* Pricelist Cetak Card (Pastel Mint Sage Gradient from Reference Screenshot) */}
+              {/* Pricelist Cetak Card */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#d0e3d5] via-[#e5ede4] to-[#f4eee6] hover:from-[#c5dcd0] hover:to-[#efe8de] border border-[#c4d9cb] transition-all cursor-pointer shadow-xs hover:shadow-sm group text-left relative overflow-hidden"
+                className="p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#d0e3d5] via-[#e5ede4] to-[#f6eee5] hover:from-[#c5dcd0] hover:to-[#efe8dd] border border-[#c4d9cb] hover:border-[#b0ceba] transition-all duration-300 cursor-pointer shadow-[0_2px_12px_-2px_rgba(64,112,155,0.1)] hover:shadow-[0_6px_20px_-3px_rgba(108,140,116,0.18)] group text-left relative overflow-hidden active:scale-[0.99]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-12 h-12 rounded-2xl bg-white/70 backdrop-blur-xs border-2 border-[#cfb698] shadow-xs flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-xs border-2 border-[#d5be9f] shadow-[0_2px_8px_rgba(213,190,159,0.3)] flex items-center justify-center text-xl shrink-0 group-hover:scale-105 transition-transform">
                       🖼️
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-editorial font-bold text-sm sm:text-base text-stone-900 tracking-wide truncate">
+                        <h4 className="font-editorial font-bold text-sm sm:text-base text-[#18231a] tracking-wide truncate">
                           PRICELIST CETAK
                         </h4>
                         <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-white/90 text-stone-700 border border-stone-200/80 shadow-2xs">
@@ -362,7 +370,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   <div className="text-xs font-sans font-bold text-stone-900 group-hover:text-black flex items-center gap-1.5 transition-colors shrink-0">
                     <span>Lihat Pricelist</span>
-                    <span className="text-sm">→</span>
+                    <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
@@ -435,29 +443,31 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
               <div
                 key={branch.id}
                 onClick={() => handleChoose(branch.id)}
-                className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all cursor-pointer relative group text-left ${
+                className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-[#fcfdfc] border-[#92a895] ring-2 ring-[#6c8c74]/20 shadow-xs'
-                    : 'bg-[#fbfbf9] hover:bg-white border-[#d8dfd8] hover:border-[#b8c8b8] shadow-2xs'
+                    ? 'bg-[#ffffff] border-[#7d9b84] ring-2 ring-[#6c8c74]/25 shadow-[0_6px_24px_-4px_rgba(108,140,116,0.18)] scale-[1.008]'
+                    : 'bg-[#fcfcfa] hover:bg-white border-[#dce3dc] hover:border-[#9db2a3] shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_20px_-4px_rgba(0,0,0,0.08)]'
                 }`}
               >
                 {/* Top right target/radio indicator */}
                 <div className="absolute top-4 right-4 sm:top-5 sm:right-5">
-                  <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all ${
-                    isSelected ? 'border-[#6c8c74] bg-white shadow-2xs' : 'border-stone-300 bg-transparent'
+                  <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
+                    isSelected ? 'border-[#55735b] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
                   }`}>
-                    {isSelected && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#6c8c74]" />}
+                    {isSelected && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#55735b] animate-in zoom-in-50 duration-200" />}
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3 sm:gap-3.5 pr-8">
                   {/* Left side: clean sage pin icon and radio circle */}
                   <div className="flex flex-col items-center gap-3 pt-0.5 shrink-0">
-                    <div className="w-8 h-8 rounded-full bg-[#e8efe8] text-[#55735b] flex items-center justify-center shadow-2xs">
-                      <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-2xs transition-transform group-hover:scale-105 ${
+                      isSelected ? 'bg-[#55735b] text-white' : 'bg-[#eaf1ea] text-[#55735b]'
+                    }`}>
+                      <MapPin className="w-4 h-4 stroke-[2.5]" />
                     </div>
-                    <div className={`w-5 h-5 rounded-full border-2 transition-all ${
-                      isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white'
+                    <div className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
+                      isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white group-hover:border-stone-400'
                     }`} />
                   </div>
 
@@ -481,7 +491,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                       title="Buka Google Maps"
                       className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#55735b] transition-colors leading-relaxed group/addr cursor-pointer"
                     >
-                      <MapPin className="w-3.5 h-3.5 text-stone-600 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
+                      <MapPin className="w-3.5 h-3.5 text-stone-500 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
                       <span className="font-medium break-all group-hover/addr:underline underline-offset-2">{branch.address}</span>
                     </a>
                   </div>
