@@ -1253,11 +1253,11 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
     shortName: 'Studio 1 (Karangploso)',
     tagline: 'Karangploso, Kab. Malang',
     address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
-    mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6',
     badge: 'Studio 1',
     description: 'Pusat Self Studio & Studio Foto',
     highlights: [],
-    icon: '📍'
+    icon: '📍',
+    mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6'
   },
   {
     id: 'cabang-2',
@@ -1265,11 +1265,11 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
     shortName: 'Studio 2 (Dinoyo Gajayana)',
     tagline: 'Dinoyo Gajayana, Kota Malang',
     address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
-    mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9',
     badge: 'Studio 2',
     description: 'Self Studio & Studio Foto',
     highlights: [],
-    icon: '🏢'
+    icon: '🏢',
+    mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9'
   }
 ];
 

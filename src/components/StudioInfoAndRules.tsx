@@ -245,26 +245,28 @@ export const StudioInfoAndRules: React.FC = () => {
             <a
               href="https://maps.app.goo.gl/oxtptpr3RSDL9zCj6"
               target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all group cursor-pointer"
+              rel="noreferrer"
+              title="Buka Studio 1 di Google Maps"
+              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all cursor-pointer group"
             >
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
                 <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 1 (Karangploso) ↗</strong>
-                <span>Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151</span>
+                <span className="text-slate-300">Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151</span>
               </div>
             </a>
 
             <a
               href="https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9"
               target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all group cursor-pointer"
+              rel="noreferrer"
+              title="Buka Studio 2 di Google Maps"
+              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all cursor-pointer group"
             >
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
                 <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 2 (Dinoyo Gajayana) ↗</strong>
-                <span>Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144</span>
+                <span className="text-slate-300">Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144</span>
               </div>
             </a>
 
@@ -276,19 +278,28 @@ export const StudioInfoAndRules: React.FC = () => {
 
           <div className="pt-2 flex flex-wrap gap-2.5">
             <a
-              href="https://maps.google.com"
+              href="https://maps.app.goo.gl/oxtptpr3RSDL9zCj6"
               target="_blank"
               rel="noreferrer"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2 cursor-pointer active:scale-95"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
             >
-              <Navigation className="w-4 h-4" />
-              Buka Google Maps
+              <Navigation className="w-3.5 h-3.5" />
+              Maps Studio 1
+            </a>
+            <a
+              href="https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9"
+              target="_blank"
+              rel="noreferrer"
+              className="bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
+            >
+              <Navigation className="w-3.5 h-3.5" />
+              Maps Studio 2
             </a>
             <button
               onClick={handleCopyAddress}
-              className="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2 border border-slate-700 cursor-pointer active:scale-95"
+              className="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 border border-slate-700 cursor-pointer active:scale-95"
             >
-              {copiedAddress ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+              {copiedAddress ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedAddress ? 'Alamat Tersalin!' : 'Salin Alamat'}</span>
             </button>
           </div>
