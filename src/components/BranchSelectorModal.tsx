@@ -220,13 +220,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           
           {/* Section 1: Pilihan Studio (Minimalis & Elegan) */}
           <div className="space-y-2.5">
-            <div className="flex items-center justify-between px-1">
+            <div className="text-left px-1">
               <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-stone-900 uppercase">
                 PILIH STUDIO
               </h3>
-              <span className="text-[11px] font-sans font-semibold text-[#55735b]">
-                Studio 1 & Studio 2
-              </span>
             </div>
 
             {/* Minimalist Studio Selection Button */}
