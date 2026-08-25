@@ -376,15 +376,27 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
     <div className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
       <div className="bg-[#faf9f5] rounded-3xl max-w-xl w-full border border-[#e5ebe4] shadow-xl overflow-hidden flex flex-col my-auto relative">
         
-        {/* Header Modal with Pure Slider */}
-        <div className="relative">
-          <BackdropHeroSlider />
+        {/* Minimalist Modal Header (Tanpa Foto) */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#e8ece7] bg-white">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-[#eaf1ea] text-[#55735b] flex items-center justify-center shadow-2xs">
+              <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
+            </div>
+            <div>
+              <h3 className="font-editorial text-sm sm:text-base font-bold tracking-wider text-stone-900 uppercase leading-none">
+                PILIH STUDIO ALVIERO
+              </h3>
+              <p className="text-[11px] font-sans text-stone-500 font-medium mt-0.5">
+                Pilih lokasi studio foto yang ingin Anda kunjungi
+              </p>
+            </div>
+          </div>
 
           {canDismiss && onClose && (
             <button
               type="button"
               onClick={onClose}
-              className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-colors cursor-pointer shadow-md"
+              className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 flex items-center justify-center transition-colors cursor-pointer shadow-2xs"
             >
               <X className="w-4 h-4" />
             </button>
@@ -392,12 +404,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         </div>
 
         {/* Branch Cards */}
-        <div className="p-4 sm:p-6 space-y-4 bg-[#faf9f5] flex-1">
-          <div className="text-left px-1 pb-1">
-            <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-stone-900 uppercase">
-              PILIH STUDIO ALVIERO
-            </h3>
-          </div>
+        <div className="p-4 sm:p-5 space-y-3.5 bg-[#faf9f5] flex-1">
 
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
