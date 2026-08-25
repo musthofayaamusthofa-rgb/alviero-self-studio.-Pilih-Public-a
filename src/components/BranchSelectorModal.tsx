@@ -248,13 +248,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
 
                     <div className="flex items-start gap-3 sm:gap-3.5 pr-8">
-                      {/* Left side: green pin icon and radio circle */}
+                      {/* Left side: clean sage pin icon and radio circle matching Photo 1 */}
                       <div className="flex flex-col items-center gap-3 pt-0.5 shrink-0">
-                        <div className="w-8 h-8 rounded-xl bg-[#eaf1ea] text-[#4f6e56] flex items-center justify-center font-bold text-base shadow-2xs">
-                          📍
+                        <div className="w-8 h-8 rounded-full bg-[#e8efe8] text-[#55735b] flex items-center justify-center shadow-2xs">
+                          <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
                         </div>
                         <div className={`w-5 h-5 rounded-full border-2 transition-all ${
-                          isSelected ? 'border-[#6c8c74] bg-[#eef5ee]' : 'border-stone-300 bg-white'
+                          isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white'
                         }`} />
                       </div>
 
@@ -276,9 +276,9 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           rel="noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           title="Buka lokasi di Google Maps"
-                          className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#6c8c74] transition-colors leading-relaxed group/addr cursor-pointer"
+                          className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#55735b] transition-colors leading-relaxed group/addr cursor-pointer"
                         >
-                          <MapPin className="w-3.5 h-3.5 text-stone-700 group-hover/addr:text-[#6c8c74] shrink-0 mt-0.5 transition-colors" />
+                          <MapPin className="w-3.5 h-3.5 text-stone-600 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
                           <span className="font-medium group-hover/addr:underline underline-offset-2">{branch.address}</span>
                         </a>
                       </div>
@@ -451,13 +451,13 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                 </div>
 
                 <div className="flex items-start gap-3 sm:gap-3.5 pr-8">
-                  {/* Left side: green pin icon and radio circle */}
+                  {/* Left side: clean sage pin icon and radio circle */}
                   <div className="flex flex-col items-center gap-3 pt-0.5 shrink-0">
-                    <div className="w-8 h-8 rounded-xl bg-[#eaf1ea] text-[#4f6e56] flex items-center justify-center font-bold text-base shadow-2xs">
-                      📍
+                    <div className="w-8 h-8 rounded-full bg-[#e8efe8] text-[#55735b] flex items-center justify-center shadow-2xs">
+                      <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
                     </div>
                     <div className={`w-5 h-5 rounded-full border-2 transition-all ${
-                      isSelected ? 'border-[#6c8c74] bg-[#eef5ee]' : 'border-stone-300 bg-white'
+                      isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white'
                     }`} />
                   </div>
 
@@ -479,10 +479,10 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                       rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
                       title="Buka Google Maps"
-                      className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#6c8c74] transition-colors leading-relaxed group/addr cursor-pointer"
+                      className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#55735b] transition-colors leading-relaxed group/addr cursor-pointer"
                     >
-                      <MapPin className="w-3.5 h-3.5 text-stone-700 group-hover/addr:text-[#6c8c74] shrink-0 mt-0.5 transition-colors" />
-                      <span className="font-medium group-hover/addr:underline underline-offset-2">{branch.address}</span>
+                      <MapPin className="w-3.5 h-3.5 text-stone-600 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
+                      <span className="font-medium break-all group-hover/addr:underline underline-offset-2">{branch.address}</span>
                     </a>
                   </div>
                 </div>
