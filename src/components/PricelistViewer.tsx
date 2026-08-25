@@ -959,14 +959,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
 
               {/* Logo Utama & Tagline (Logo Resmi Alviero Studio) */}
-              <div className="w-full pt-4 mt-1 border-t border-slate-200/80 space-y-1.5 flex flex-col items-center justify-center">
+              <div className="w-full pt-4 mt-1 border-t border-slate-200/80 space-y-2 flex flex-col items-center justify-center">
                 <img
                   src="/images/alviero-logo-official.png"
                   alt="Alviero Studio"
-                  className="h-11 sm:h-13 w-auto object-contain transition-transform hover:scale-105"
+                  className="h-14 sm:h-16 max-w-[220px] sm:max-w-[260px] w-auto object-contain transition-transform duration-300 hover:scale-105"
                   loading="lazy"
                 />
-                <p className="text-[11px] text-slate-500 font-serif italic tracking-wide">
+                <p className="text-xs text-slate-500 font-serif italic tracking-wide">
                   Perfecting Happiness in Every Moment
                 </p>
               </div>
