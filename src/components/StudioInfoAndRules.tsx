@@ -252,7 +252,7 @@ export const StudioInfoAndRules: React.FC = () => {
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
                 <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 1 (Karangploso) ↗</strong>
-                <span className="text-slate-300">Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151</span>
+                <span className="text-slate-300 break-all underline decoration-slate-500 hover:decoration-emerald-400">https://maps.app.goo.gl/oxtptpr3RSDL9zCj6</span>
               </div>
             </a>
 
@@ -266,7 +266,7 @@ export const StudioInfoAndRules: React.FC = () => {
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
                 <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 2 (Dinoyo Gajayana) ↗</strong>
-                <span className="text-slate-300">Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144</span>
+                <span className="text-slate-300 break-all underline decoration-slate-500 hover:decoration-emerald-400">https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9</span>
               </div>
             </a>
 
