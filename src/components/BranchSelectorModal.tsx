@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { Check, X, ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  User, Heart, Users, GraduationCap, Home, Baby, Cake,
+  UserCheck, Gem, Image as ImageIcon, Sparkles, Building2,
+  MessageCircle, MapPin, Check, X, ArrowRight, ChevronRight,
+  Camera, Sparkle
+} from 'lucide-react';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
@@ -12,364 +17,282 @@ interface BranchSelectorViewProps {
 }
 
 /**
- * Daftar Foto Backdrop Studio untuk Hero Banner Slider
+ * Daftar Kategori Paket Foto untuk Grid Minimalis (Sesuai Referensi Gambar 2)
  */
-export const BACKDROP_BANNER_IMAGES = [
-  { id: '1', image: '/images/backdrops/backdrop-1.jpg', title: 'Backdrop Mint Modern Sofa' },
-  { id: '2', image: '/images/backdrops/backdrop-2.jpg', title: 'Backdrop Bohemian Rustic Wall' },
-  { id: '3', image: '/images/backdrops/backdrop-3.jpg', title: 'Backdrop Black Arch Window Bar Stool' },
-  { id: '4', image: '/images/backdrops/backdrop-4.jpg', title: 'Backdrop Charcoal Classic Sofa' },
-  { id: '5', image: '/images/backdrops/backdrop-5.jpg', title: 'Backdrop Luxury White Fireplace' },
-  { id: '6', image: '/images/backdrops/backdrop-6.jpg', title: 'Backdrop Warm Beige Classic Armchair' },
-  { id: '7', image: '/images/backdrops/backdrop-7.jpg', title: 'Backdrop White Arch Windows Grey Sofa' },
+interface PackageCategoryItem {
+  id: string;
+  name: string;
+  categoryKey: string;
+  icon: React.ReactNode;
+  bgCircle: string;
+  iconColor: string;
+  borderCircle: string;
+}
+
+const PACKAGE_CATEGORIES: PackageCategoryItem[] = [
+  {
+    id: 'personal',
+    name: 'Branding Personal',
+    categoryKey: 'personal-paket',
+    icon: <User className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#eaf5f0]',
+    iconColor: 'text-[#367a5c]',
+    borderCircle: 'border-[#cce8dc]',
+  },
+  {
+    id: 'couple',
+    name: 'Couple',
+    categoryKey: 'couple-paket',
+    icon: <Heart className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#fdf0f0]',
+    iconColor: 'text-[#b34747]',
+    borderCircle: 'border-[#f9d7d7]',
+  },
+  {
+    id: 'group',
+    name: 'Group',
+    categoryKey: 'group-paket',
+    icon: <Users className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#eff4fb]',
+    iconColor: 'text-[#3b6bb0]',
+    borderCircle: 'border-[#d4e2f7]',
+  },
+  {
+    id: 'graduation',
+    name: 'Graduation',
+    categoryKey: 'grad-indoor',
+    icon: <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#f2effb]',
+    iconColor: 'text-[#5d47a4]',
+    borderCircle: 'border-[#dfd7f7]',
+  },
+  {
+    id: 'family',
+    name: 'Family',
+    categoryKey: 'family-paket',
+    icon: <Home className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#f3f7eb]',
+    iconColor: 'text-[#557833]',
+    borderCircle: 'border-[#dce8cc]',
+  },
+  {
+    id: 'maternity',
+    name: 'Maternity',
+    categoryKey: 'maternity-paket',
+    icon: <Baby className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#fdf4ed]',
+    iconColor: 'text-[#b06733]',
+    borderCircle: 'border-[#f8dec8]',
+  },
+  {
+    id: 'kids',
+    name: 'Kids & Birthday',
+    categoryKey: 'event',
+    icon: <Cake className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#fef9e8]',
+    iconColor: 'text-[#9c7d18]',
+    borderCircle: 'border-[#f8ecb5]',
+  },
+  {
+    id: 'photoid',
+    name: 'Photo ID',
+    categoryKey: 'pass-foto',
+    icon: <UserCheck className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#eaf7f5]',
+    iconColor: 'text-[#2a7a6f]',
+    borderCircle: 'border-[#c7ede8]',
+  },
+  {
+    id: 'wedding',
+    name: 'Wedding & Prewed',
+    categoryKey: 'wedding-package',
+    icon: <Gem className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#faf0f5]',
+    iconColor: 'text-[#944473]',
+    borderCircle: 'border-[#edd1e2]',
+  },
+  {
+    id: 'cetak',
+    name: 'Cetak & Bingkai',
+    categoryKey: 'bingkai-album',
+    icon: <ImageIcon className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#eef5fa]',
+    iconColor: 'text-[#386994]',
+    borderCircle: 'border-[#d0e3f2]',
+  },
+  {
+    id: 'selfstudio',
+    name: 'Self Photo Studio',
+    categoryKey: 'selfstudio',
+    icon: <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#eef8f2]',
+    iconColor: 'text-[#2e7d4d]',
+    borderCircle: 'border-[#cbead7]',
+  },
+  {
+    id: 'sewastudio',
+    name: 'Sewa Studio',
+    categoryKey: 'sewa-studio',
+    icon: <Building2 className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.8]" />,
+    bgCircle: 'bg-[#f0f6f7]',
+    iconColor: 'text-[#356d73]',
+    borderCircle: 'border-[#d3e7ea]',
+  },
 ];
 
 /**
- * Hero Slider Banner Backdrop Studio (Bersih Tanpa Tulisan, Full Foto Backdrop)
- * Bergulir otomatis & manual
- */
-export const BackdropHeroSlider: React.FC = () => {
-  const [currentIdx, setCurrentIdx] = useState<number>(0);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
-  const touchStartX = useRef<number | null>(null);
-  const touchEndX = useRef<number | null>(null);
-
-  // Auto-scroll bergulir otomatis setiap 3.5 detik
-  useEffect(() => {
-    if (isPaused) return;
-
-    const interval = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % BACKDROP_BANNER_IMAGES.length);
-    }, 3500);
-
-    return () => clearInterval(interval);
-  }, [isPaused]);
-
-  const handleNext = () => {
-    setCurrentIdx((prev) => (prev + 1) % BACKDROP_BANNER_IMAGES.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIdx((prev) => (prev - 1 + BACKDROP_BANNER_IMAGES.length) % BACKDROP_BANNER_IMAGES.length);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > 40) {
-      handleNext();
-    } else if (distance < -40) {
-      handlePrev();
-    }
-    touchStartX.current = null;
-    touchEndX.current = null;
-  };
-
-  const activeSlide = BACKDROP_BANNER_IMAGES[currentIdx];
-
-  return (
-    <div
-      className="relative w-full overflow-hidden select-none bg-stone-950"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* Full Image Banner Container with Optimal Height for Landscape Backdrop Photos */}
-      <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-stone-950">
-        <img
-          key={activeSlide.id}
-          src={activeSlide.image}
-          alt={activeSlide.title}
-          className="w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
-        />
-
-        {/* Subtle Bottom Shadow for Dot Indicators Readability */}
-        <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" />
-
-        {/* Manual Arrow Controls (< and >) */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous Slide"
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next Slide"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md flex items-center justify-center shadow-md cursor-pointer transition-all z-20 active:scale-90"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-
-        {/* Dots Pagination Indicators */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-          {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
-            const isActive = currentIdx === idx;
-            return (
-              <button
-                key={slide.id}
-                onClick={() => setCurrentIdx(idx)}
-                aria-label={`Slide ${idx + 1}`}
-                className={`transition-all rounded-full cursor-pointer ${
-                  isActive
-                    ? 'w-7 h-2 bg-white shadow-md'
-                    : 'w-2 h-2 bg-white/50 hover:bg-white/90'
-                }`}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-/**
- * Konfigurasi Warna Pastel Unik untuk Tiap Cabang
- */
-const BRANCH_PASTEL_THEMES: Record<string, {
-  cardBg: string;
-  cardBorder: string;
-  cardBorderSelected: string;
-  ringColor: string;
-  iconBg: string;
-  iconText: string;
-  badgeBg: string;
-  badgeText: string;
-  badgeBorder: string;
-  btnBg: string;
-  btnHover: string;
-  pinColor: string;
-}> = {
-  'cabang-1': {
-    cardBg: 'bg-[#f2f8f4]',
-    cardBorder: 'border-[#c5decb]',
-    cardBorderSelected: 'border-[#4d7557]',
-    ringColor: 'ring-[#4d7557]/25',
-    iconBg: 'bg-[#dbeee0]',
-    iconText: 'text-[#2c4e35]',
-    badgeBg: 'bg-[#dbeee0]',
-    badgeText: 'text-[#2c4e35]',
-    badgeBorder: 'border-[#bad8c2]',
-    btnBg: 'bg-[#4d7557]',
-    btnHover: 'hover:bg-[#3d5e45]',
-    pinColor: 'text-[#4d7557]',
-  },
-  'cabang-2': {
-    cardBg: 'bg-[#fdf6f0]',
-    cardBorder: 'border-[#f2d5c2]',
-    cardBorderSelected: 'border-[#a6623d]',
-    ringColor: 'ring-[#a6623d]/25',
-    iconBg: 'bg-[#fae4d4]',
-    iconText: 'text-[#7a4120]',
-    badgeBg: 'bg-[#fae4d4]',
-    badgeText: 'text-[#7a4120]',
-    badgeBorder: 'border-[#ecc4ab]',
-    btnBg: 'bg-[#a6623d]',
-    btnHover: 'hover:bg-[#8c4f2e]',
-    pinColor: 'text-[#a6623d]',
-  },
-};
-
-/**
- * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Gambar 2 / Halaman Depan)
+ * Komponen Tampilan Utama Minimalis & Bersih (Inspired by Gambar 2)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   selectedBranch,
   onSelectBranch,
   onSelectCategory,
 }) => {
+  const currentBranchDef = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+
+  const handleCategoryClick = (categoryKey: string) => {
+    if (onSelectCategory) {
+      onSelectCategory(categoryKey);
+    } else {
+      onSelectBranch(selectedBranch);
+    }
+  };
+
   return (
-    <div className="max-w-xl w-full mx-auto my-3 sm:my-8 px-2 sm:px-4 animate-in fade-in duration-300">
-      <div className="bg-white rounded-3xl border border-stone-200/90 shadow-sm overflow-hidden flex flex-col relative">
+    <div className="max-w-md sm:max-w-xl w-full mx-auto my-2 sm:my-6 px-3 sm:px-4 animate-in fade-in duration-300">
+      <div className="bg-white rounded-3xl border border-stone-200/90 shadow-sm overflow-hidden flex flex-col relative pb-6">
         
-        {/* Top Hero Banner Slider (Foto Backdrop Bersih Tanpa Tulisan) */}
-        <BackdropHeroSlider />
+        {/* 1. TOP HERO BANNER CARD (Minimalist Clean Style like Image 2) */}
+        <div className="p-3 sm:p-5 bg-gradient-to-b from-[#7ca194] to-[#6c8f82] text-white relative">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 text-stone-800 shadow-md border border-white/40 flex items-center justify-between gap-3 sm:gap-5">
+            <div className="flex-1 min-w-0 pr-1">
+              <span className="text-[#4e7d6b] font-serif italic text-xs sm:text-sm font-semibold tracking-wide block">
+                Exclusive Package
+              </span>
+              <h2 className="font-extrabold text-xs sm:text-sm md:text-base text-stone-900 tracking-tight leading-snug uppercase mt-1">
+                ABADIKAN MOMEN SPESIAL, KENANGAN TAK TERLUPAKAN
+              </h2>
+              <p className="text-[10.5px] sm:text-xs text-stone-500 mt-1 leading-relaxed line-clamp-2">
+                Abadikan perjalanan cerita berharga dalam potret studio berkelas & aesthetic di Alviero Studio.
+              </p>
+              
+              <div className="mt-3">
+                <button
+                  onClick={() => onSelectBranch(selectedBranch)}
+                  className="bg-[#232d38] hover:bg-stone-900 text-white font-extrabold text-[10px] sm:text-xs px-4 py-1.5 rounded-md uppercase tracking-wider shadow-xs hover:shadow transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
+                >
+                  <span>Buka Pricelist</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-stone-300" />
+                </button>
+              </div>
+            </div>
 
-        {/* Content Area */}
-        <div className="p-4 sm:p-6 space-y-4 bg-[#faf9f6] flex-1">
-          
-          {/* Section 1: Pilihan Cabang Studio */}
-          <div className="space-y-3.5">
-            {STUDIO_BRANCHES.map((branch) => {
-              const isSelected = selectedBranch === branch.id;
-              const theme = BRANCH_PASTEL_THEMES[branch.id] || BRANCH_PASTEL_THEMES['cabang-1'];
+            {/* Circular Preview Photo Frame (Like Image 2) */}
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-[#7ca194]/30 shadow-md overflow-hidden shrink-0 bg-stone-100 relative group">
+              <img
+                src="/images/backdrops/backdrop-1.jpg"
+                alt="Alviero Studio Preview"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </div>
+        </div>
 
+        {/* 2. STUDIO LOCATION HEADLINE & CLEAN BRANCH SWITCHER */}
+        <div className="px-4 sm:px-6 pt-5 pb-2 text-center">
+          <h1 className="font-extrabold text-base sm:text-lg text-stone-900 tracking-tight">
+            Studio Foto Malang — Cabang 1 & Cabang 2
+          </h1>
+          <p className="text-xs text-stone-500 font-medium mt-0.5">
+            Pilih cabang studio & kategori foto untuk melihat detail paket
+          </p>
+
+          {/* Clean Branch Switcher Pills */}
+          <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto mt-3.5 p-1 bg-stone-100/90 rounded-2xl border border-stone-200">
+            {STUDIO_BRANCHES.map((b) => {
+              const isSelected = selectedBranch === b.id;
               return (
-                <div
-                  key={branch.id}
-                  onClick={() => onSelectBranch(branch.id)}
-                  className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative group text-left ${
+                <button
+                  key={b.id}
+                  onClick={() => onSelectBranch(b.id)}
+                  className={`py-2 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                     isSelected
-                      ? `${theme.cardBg} ${theme.cardBorderSelected} ring-2 ${theme.ringColor} shadow-sm`
-                      : `${theme.cardBg}/60 hover:${theme.cardBg} ${theme.cardBorder} hover:shadow-xs`
+                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200/80 ring-1 ring-black/5'
+                      : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/50'
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3 min-w-0">
-                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${theme.iconBg} ${theme.iconText} shadow-2xs`}>
-                        {branch.icon}
-                      </div>
-
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
-                            {branch.name}
-                          </h3>
-                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}>
-                            {branch.badge}
-                          </span>
-                        </div>
-
-                        {/* Alamat Lengkap */}
-                        <div className="flex items-start gap-1.5 mt-2 text-xs text-stone-600 leading-relaxed">
-                          <MapPin className={`w-3.5 h-3.5 ${theme.pinColor} shrink-0 mt-0.5`} />
-                          <span className="font-medium">{branch.address}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {isSelected && (
-                      <div className={`w-6 h-6 rounded-full ${theme.btnBg} text-white flex items-center justify-center shrink-0 shadow-2xs`}>
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Action Button */}
-                  <div className="mt-3.5 pt-3 border-t border-stone-200/50 flex items-center justify-end">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectBranch(branch.id);
-                      }}
-                      className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${theme.btnBg} ${theme.btnHover} text-white`}
-                    >
-                      <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
+                  <MapPin className={`w-3.5 h-3.5 ${isSelected ? 'text-[#4d7557]' : 'text-stone-400'}`} />
+                  <span className="truncate">{b.name}</span>
+                </button>
               );
             })}
           </div>
 
-          {/* Section 2: Layanan Khusus Wedding & Cetak Foto */}
-          <div className="pt-1">
-            <div className="text-left px-1 pb-2">
-              <span className="text-[10.5px] font-extrabold uppercase tracking-wider text-stone-500">
-                ✨ Layanan Wedding & Cetak Foto:
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              {/* Pricelist Wedding Card (Pastel Mauve / Rose) */}
-              <div
-                onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl bg-[#faf1f5] hover:bg-[#f6e4ee] border border-[#ebd0df] hover:border-[#dfb8ce] transition-all cursor-pointer shadow-2xs group text-left"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#f5e0ec] text-[#743358] border border-[#e2bece] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                      💍
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
-                          PRICELIST WEDDING
-                        </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#f5e0ec] text-[#743358] border border-[#e2bece]">
-                          Exclusive
-                        </span>
-                      </div>
-                      <p className="text-xs text-stone-500 font-medium truncate mt-0.5">
-                        Prewedding, Akad, Resepsi & Engagement
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (onSelectCategory) onSelectCategory('wedding-package');
-                      else onSelectBranch(selectedBranch);
-                    }}
-                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#964d74] hover:bg-[#7e3d60] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
-                  >
-                    <span>Lihat Pricelist</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Pricelist Cetak Card (Pastel Sky / Periwinkle) */}
-              <div
-                onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-4.5 rounded-2xl bg-[#f0f5fa] hover:bg-[#e4eef7] border border-[#cbe0f2] hover:border-[#b4d2ec] transition-all cursor-pointer shadow-2xs group text-left"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#dcecf8] text-[#264f77] border border-[#bed7ec] flex items-center justify-center font-bold text-lg shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                      🖼️
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
-                          PRICELIST CETAK
-                        </h4>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#dcecf8] text-[#264f77] border border-[#bed7ec]">
-                          Cetak Lab
-                        </span>
-                      </div>
-                      <p className="text-xs text-stone-500 font-medium truncate mt-0.5">
-                        Cetak Lab, Bingkai Minimalis & Album Eksklusif
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (onSelectCategory) onSelectCategory('bingkai-album');
-                      else onSelectBranch(selectedBranch);
-                    }}
-                    className="px-4 py-2 rounded-full text-xs font-extrabold bg-[#40709b] hover:bg-[#325a7e] text-white flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
-                  >
-                    <span>Lihat Pricelist</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
+          {/* Selected Branch Address Subtitle */}
+          <div className="text-[11px] text-stone-500 mt-2 font-medium">
+            📍 Lokasi: <span className="text-stone-700 font-semibold">{currentBranchDef.address}</span>
           </div>
         </div>
 
-        {/* Footer info */}
-        <div className="p-3.5 bg-white border-t border-stone-200/80 text-center text-[11px] text-stone-500 font-medium">
-          💡 Kamu dapat berganti studio cabang kapan saja lewat tombol <strong>'Ganti Cabang'</strong>.
+        {/* 3. PHOTO STUDIO PACKAGE SECTION (Grid of Minimalist Circular Icons like Image 2) */}
+        <div className="px-3 sm:px-6 pt-4">
+          <div className="text-left px-2 pb-3">
+            <h3 className="font-extrabold text-sm sm:text-base text-stone-900 tracking-tight">
+              Photo Studio Package
+            </h3>
+            <div className="w-8 h-1 bg-[#4d7557] rounded-full mt-1"></div>
+          </div>
+
+          {/* Circular Category Grid (4 columns) */}
+          <div className="grid grid-cols-4 gap-y-4 gap-x-2 sm:gap-x-4 pt-1">
+            {PACKAGE_CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryClick(cat.categoryKey)}
+                className="flex flex-col items-center justify-start group cursor-pointer text-center focus:outline-none transition-transform active:scale-95"
+              >
+                {/* Minimalist Pastel Circle Icon */}
+                <div
+                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-2xs border ${cat.bgCircle} ${cat.iconColor} ${cat.borderCircle}`}
+                >
+                  {cat.icon}
+                </div>
+
+                {/* Clean Label underneath */}
+                <span className="text-[10.5px] sm:text-xs font-bold text-stone-700 mt-2 line-clamp-2 leading-tight group-hover:text-stone-950 transition-colors">
+                  {cat.name}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
+
+        {/* 4. FLOATING / INLINE WHATSAPP CUSTOMER SERVICE BUTTON (Like Image 2) */}
+        <div className="px-4 sm:px-6 pt-6 flex justify-center">
+          <a
+            href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20informasi%20paket%20foto"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full max-w-xs min-h-[44px] bg-[#42be65] hover:bg-[#38a958] active:bg-[#2f924b] text-white font-extrabold text-xs sm:text-sm py-2.5 px-5 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+          >
+            <MessageCircle className="w-4 h-4 fill-white" />
+            <span>Customer Service</span>
+          </a>
+        </div>
+
+        {/* Footer info note */}
+        <div className="px-4 pt-3 text-center text-[10.5px] text-stone-400 font-medium">
+          💡 Klik kategori di atas untuk melihat rincian paket & harga lengkap di {currentBranchDef.name}.
+        </div>
+
       </div>
     </div>
   );
 };
 
+/**
+ * BranchSelectorModal - Modal Popup Minimalis untuk Ganti Cabang
+ */
 interface BranchSelectorModalProps {
   isOpen: boolean;
   selectedBranch: StudioBranch;
@@ -393,93 +316,76 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
-      <div className="bg-white rounded-3xl max-w-xl w-full border border-stone-200 shadow-xl overflow-hidden flex flex-col my-auto relative">
+    <div className="fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in">
+      <div className="bg-white rounded-3xl max-w-md w-full border border-stone-200 shadow-2xl overflow-hidden flex flex-col my-auto relative p-5 sm:p-6">
         
-        {/* Header Modal with Pure Slider */}
-        <div className="relative">
-          <BackdropHeroSlider />
-
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-[#4d7557]" />
+            <h3 className="font-extrabold text-base text-stone-900">Pilih Cabang Studio Alviero</h3>
+          </div>
           {canDismiss && onClose && (
             <button
-              type="button"
               onClick={onClose}
-              className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-colors cursor-pointer shadow-md"
+              className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center cursor-pointer transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        {/* Branch Cards */}
-        <div className="p-4 sm:p-6 space-y-4 bg-[#faf9f6] flex-1">
+        {/* Branch List */}
+        <div className="space-y-3 pt-4">
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
-            const theme = BRANCH_PASTEL_THEMES[branch.id] || BRANCH_PASTEL_THEMES['cabang-1'];
-
             return (
               <div
                 key={branch.id}
                 onClick={() => handleChoose(branch.id)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer relative group text-left ${
+                className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-start justify-between gap-3 ${
                   isSelected
-                    ? `${theme.cardBg} ${theme.cardBorderSelected} ring-2 ${theme.ringColor} shadow-sm`
-                    : `${theme.cardBg}/60 hover:${theme.cardBg} ${theme.cardBorder} hover:shadow-xs`
+                    ? 'bg-[#f2f8f4] border-[#4d7557] ring-2 ring-[#4d7557]/20 shadow-xs'
+                    : 'bg-stone-50 border-stone-200 hover:bg-white hover:border-stone-300'
                 }`}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3 min-w-0">
-                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-xl shrink-0 transition-transform group-hover:scale-105 ${theme.iconBg} ${theme.iconText} shadow-2xs`}>
-                      {branch.icon}
-                    </div>
-
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-extrabold text-sm sm:text-base text-stone-900 truncate">
-                          {branch.name}
-                        </h4>
-                        <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder}`}>
-                          {branch.badge}
-                        </span>
-                      </div>
-
-                      {/* Alamat Lengkap */}
-                      <div className="flex items-start gap-1.5 mt-2 text-xs text-stone-600 leading-relaxed">
-                        <MapPin className={`w-3.5 h-3.5 ${theme.pinColor} shrink-0 mt-0.5`} />
-                        <span className="font-medium">{branch.address}</span>
-                      </div>
-                    </div>
+                <div className="flex items-start gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-xl shrink-0 shadow-2xs">
+                    {branch.icon}
                   </div>
-
-                  {isSelected && (
-                    <div className={`w-6 h-6 rounded-full ${theme.btnBg} text-white flex items-center justify-center shrink-0 shadow-2xs`}>
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h4 className="font-extrabold text-sm text-stone-900">{branch.name}</h4>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#dbeee0] text-[#2c4e35] border border-[#bad8c2]">
+                        {branch.badge}
+                      </span>
                     </div>
-                  )}
+                    <p className="text-xs text-stone-500 mt-1 line-clamp-2 leading-relaxed">
+                      {branch.address}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Action button */}
-                <div className="mt-4 pt-3 border-t border-stone-200/50 flex items-center justify-end">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleChoose(branch.id);
-                    }}
-                    className={`px-5 py-2 rounded-full text-xs font-extrabold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${theme.btnBg} ${theme.btnHover} text-white`}
-                  >
-                    <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                {isSelected && (
+                  <div className="w-6 h-6 rounded-full bg-[#4d7557] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+                )}
               </div>
             );
           })}
         </div>
 
-        {/* Footer info */}
-        <div className="p-3.5 bg-white border-t border-stone-200/80 text-center text-[11px] text-stone-500 font-medium">
-          💡 Kamu dapat berganti studio cabang kapan saja lewat menu di bagian atas.
+        {/* Footer Action */}
+        <div className="pt-4 mt-2 border-t border-stone-100 flex justify-end">
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="px-5 py-2 rounded-xl text-xs font-extrabold bg-stone-900 text-white hover:bg-stone-800 cursor-pointer shadow-xs"
+            >
+              Tutup
+            </button>
+          )}
         </div>
       </div>
     </div>
