@@ -72,17 +72,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="text-rose-200 font-bold">Studio Tutup • Buka Jam 08:00 - 21:00 WIB</span>
               </>
             )}
-            <span className="hidden md:inline text-stone-500">|</span>
-            {onOpenBranchModal && (
-              <button
-                type="button"
-                onClick={onOpenBranchModal}
-                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#6c8c74]/70 hover:bg-[#6c8c74] border border-[#9fc4a8]/40 text-white font-bold text-[11px] transition-all cursor-pointer"
-              >
-                <span>{currentBranchInfo.icon} {currentBranchInfo.shortName}</span>
-                <span className="underline opacity-80 text-[10px]">[Ganti]</span>
-              </button>
-            )}
           </div>
           <div className="flex items-center gap-4 text-stone-300 text-xs">
             <a 
