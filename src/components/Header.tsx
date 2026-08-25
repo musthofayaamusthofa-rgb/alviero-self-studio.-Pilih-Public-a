@@ -100,24 +100,16 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand Logo */}
+        {/* Brand Logo (Logo Resmi Alviero Studio) */}
         <div 
           onClick={() => setActiveTab('katalog')} 
           className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-[#232d38] flex items-center justify-center text-[#9fc4a8] shadow-sm group-hover:scale-105 transition-all duration-300 border border-stone-700/50">
-            <Camera className="w-5 h-5 group-hover:rotate-6 transition-transform" />
-          </div>
-          <div className="flex flex-col justify-center">
-            <div className="flex items-center gap-1.5 flex-wrap leading-none">
-              <span className="font-black tracking-wider text-xl text-stone-800 uppercase leading-none">
-                ALVIERO
-              </span>
-              <span className="inline-flex items-center h-4.5 text-[8px] sm:text-[9px] bg-[#eef4f0] text-[#3d6345] border border-[#c8dacd] font-extrabold px-2 rounded-full uppercase leading-none align-middle shadow-2xs">
-                Studio Foto & SelfStudio
-              </span>
-            </div>
-          </div>
+          <img
+            src="/images/alviero-logo-official.png"
+            alt="Alviero Studio"
+            className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
+          />
         </div>
 
         {/* Desktop Navigation Tabs */}
