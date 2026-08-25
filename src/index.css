@@ -4,20 +4,24 @@
   --studio-primary: #6c8c74;
   --studio-primary-dark: #57735e;
   --studio-primary-light: #eef4f0;
-  --studio-olive: #9e9746;
+  --studio-gold: #967738;
+  --studio-gold-light: #fbf7ee;
   --studio-dark: #232d38;
   --studio-body: #475569;
   --studio-subtle: #64748b;
-  --studio-bg: #faf9f6;
+  --studio-bg: #faf8f2;
   --studio-bg-soft: #f4f3ee;
-  --studio-border: #e2dfd7;
+  --studio-border: #e8e4db;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Cinzel', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-editorial: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-family: var(--font-sans);
     color: var(--studio-body);
     background-color: var(--studio-bg);
   }
@@ -29,7 +33,6 @@
   h5,
   h6 {
     color: var(--studio-dark);
-    font-weight: 700;
   }
 
   /* Transparent track & auto-hiding thumb */
@@ -75,6 +78,14 @@
   }
 }
 
+.font-serif-luxury {
+  font-family: 'Cinzel', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+}
+
 /* Custom studio utility classes */
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;
@@ -93,14 +104,14 @@
 
 /* Glass header with transparent dynamic scroll effect */
 .glass-header {
-  background: rgba(250, 249, 246, 0.88);
+  background: rgba(250, 248, 242, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-header-scrolled {
-  background: rgba(250, 249, 246, 0.97);
+  background: rgba(250, 248, 242, 0.97);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 20px -2px rgba(35, 45, 56, 0.05);

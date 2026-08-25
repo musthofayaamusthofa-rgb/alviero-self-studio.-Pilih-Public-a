@@ -774,7 +774,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
               {/* Title Section (Matching Image 2: Studio Foto Jogja & Solo style) */}
               <div className="w-full pt-1 pb-2 text-center border-b border-stone-200/60">
-                <h2 className="text-base sm:text-lg font-black text-stone-900 tracking-tight">
+                <h2 className="text-base sm:text-lg font-serif-luxury font-bold text-stone-900 tracking-tight">
                   Studio Foto {currentBranchInfo.name}
                 </h2>
                 <p className="text-[11px] text-stone-500 font-medium">
@@ -785,7 +785,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* 1. Photo Studio Package Grid (4 Columns, matching Image 2) */}
               <div className="w-full text-left space-y-2.5 pt-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-black text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
+                  <h3 className="font-serif-luxury font-bold text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
                     Photo Studio Package
                   </h3>
                   <span className="text-[10px] bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
@@ -827,7 +827,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* 2. Self Photo Package Grid (4 Columns, matching Image 2) */}
               <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-black text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
+                  <h3 className="font-serif-luxury font-bold text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
                     Self Photo Package
                   </h3>
                   <span className="text-[10px] bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
@@ -869,7 +869,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* 3. Layanan Tambahan (Wedding & Cetak) */}
               <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-black text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
+                  <h3 className="font-serif-luxury font-bold text-xs sm:text-sm text-stone-900 uppercase tracking-wider">
                     Layanan Tambahan
                   </h3>
                   <span className="text-[10px] bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
