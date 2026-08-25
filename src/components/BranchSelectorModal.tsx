@@ -288,9 +288,26 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Bottom right arrow button */}
-                    <div className="mt-3 pt-2.5 border-t border-[#e8ece7] flex items-center justify-end">
-                      <span className="text-stone-700 group-hover:text-stone-900 text-sm font-bold transition-transform group-hover:translate-x-1">→</span>
+                    {/* Action Button to open / select catalog */}
+                    <div className="mt-3.5 pt-2.5 border-t border-[#e8ece7] flex items-center justify-between gap-2">
+                      <span className="text-[11px] font-sans font-medium text-stone-500">
+                        {isSelected ? 'Studio sedang aktif' : 'Klik untuk pilih studio'}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectBranch(branch.id);
+                        }}
+                        className={`px-3.5 py-1.5 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#55735b] text-white hover:bg-[#435c48] shadow-xs active:scale-95'
+                            : 'bg-[#eef4ee] text-[#425d48] hover:bg-[#55735b] hover:text-white shadow-2xs active:scale-95'
+                        }`}
+                      >
+                        <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </button>
                     </div>
                   </div>
                 );
@@ -493,9 +510,26 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                   </div>
                 </div>
 
-                {/* Bottom right arrow button */}
-                <div className="mt-3 pt-2.5 border-t border-[#e8ece7] flex items-center justify-end">
-                  <span className="text-stone-700 group-hover:text-stone-900 text-sm font-bold transition-transform group-hover:translate-x-1">→</span>
+                {/* Action Button to open / select studio */}
+                <div className="mt-3.5 pt-2.5 border-t border-[#e8ece7] flex items-center justify-between gap-2">
+                  <span className="text-[11px] font-sans font-medium text-stone-500">
+                    {isSelected ? 'Studio sedang aktif' : 'Klik untuk pilih studio'}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleChoose(branch.id);
+                    }}
+                    className={`px-3.5 py-1.5 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#55735b] text-white hover:bg-[#435c48] shadow-xs active:scale-95'
+                        : 'bg-[#eef4ee] text-[#425d48] hover:bg-[#55735b] hover:text-white shadow-2xs active:scale-95'
+                    }`}
+                  >
+                    <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </button>
                 </div>
               </div>
             );
