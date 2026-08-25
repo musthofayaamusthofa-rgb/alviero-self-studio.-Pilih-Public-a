@@ -28,8 +28,11 @@ foreach ($file in $files) {
         
         Write-Host "Processing $($file.FullName) -> $destPath"
         
-        # Load image without changing rotation
+        # Load image (apply 90 deg rotation for Personal)
         $img = [System.Drawing.Image]::FromFile($file.FullName)
+        if ($folderName -eq "Personal") {
+            $img.RotateFlip([System.Drawing.RotateFlipType]::Rotate90FlipNone)
+        }
         
         $w = $img.Width
         $h = $img.Height
