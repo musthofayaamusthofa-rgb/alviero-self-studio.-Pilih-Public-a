@@ -218,7 +218,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-4 sm:p-6 space-y-5 bg-[#faf9f5] flex-1">
           
-          {/* Section 1: Pilihan Studio (Minimalis & Elegan) */}
+          {/* Section 1: Pilihan Studio (Minimalis, Menarik & Mewah) */}
           <div className="space-y-2.5">
             <div className="text-left px-1">
               <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-stone-900 uppercase">
@@ -226,24 +226,24 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </h3>
             </div>
 
-            {/* Minimalist Studio Selection Button */}
+            {/* Luxury Minimalist Studio Selection Bar */}
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full px-4 py-3 sm:px-5 sm:py-3.5 rounded-2xl bg-white hover:bg-[#fcfdfc] border border-[#d6ded5] hover:border-[#55735b] shadow-2xs hover:shadow-xs transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 text-left group active:scale-[0.99]"
+              className="w-full p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl bg-white hover:bg-[#fafaf8] border border-[#d6ded5] hover:border-[#6c8c74] shadow-[0_4px_18px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_6px_22px_-2px_rgba(108,140,116,0.16)] transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 text-left group active:scale-[0.99]"
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-8 h-8 rounded-full bg-[#eaf1ea] text-[#55735b] flex items-center justify-center shrink-0 shadow-2xs transition-transform group-hover:scale-105">
-                  <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#eaf1ea] to-[#dceadc] text-[#55735b] flex items-center justify-center shrink-0 shadow-2xs border border-[#d2e0d3] transition-transform group-hover:scale-105">
+                  <MapPin className="w-5 h-5 stroke-[2.5]" />
                 </div>
-                <div className="min-w-0 flex items-center gap-2">
-                  <span className="font-sans font-bold text-sm text-stone-900 truncate">
-                    {selectedBranchData.name}
+                <div className="min-w-0">
+                  <span className="font-editorial font-bold text-base sm:text-lg tracking-wide text-stone-900 leading-tight block truncate">
+                    Alviero Studio
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-[#55735b] shrink-0 bg-[#eaf1ea] group-hover:bg-[#dfeadf] px-3 py-1.5 rounded-xl transition-colors">
+              <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-[#3d5642] shrink-0 bg-gradient-to-r from-[#eaf1ea] to-[#dceadc] hover:from-[#dbe8db] hover:to-[#cfe2cf] border border-[#cce0ce] px-3.5 py-2 rounded-xl shadow-2xs transition-all">
                 <span>Pilih Studio</span>
                 <span className="text-xs transition-transform group-hover:translate-y-0.5">▾</span>
               </div>
