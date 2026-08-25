@@ -86,9 +86,9 @@ export const BackdropHeroSlider: React.FC = () => {
     >
       {/* Full Image Banner Container with Optimal Height for Landscape Backdrop Photos */}
       <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-stone-950">
-        {/* Brand Logo Watermark on Top-Left */}
-        <div className="absolute top-4 left-5 z-20 pointer-events-none">
-          <span className="font-editorial text-2xl sm:text-3xl font-normal tracking-wide text-stone-800 drop-shadow-xs">
+        {/* Brand Logo Watermark on Top-Left (Haute Couture Luxury Typography) */}
+        <div className="absolute top-3.5 left-4 sm:top-4.5 sm:left-5 z-20 pointer-events-none select-none flex items-center gap-1.5">
+          <span className="font-luxury text-2xl sm:text-3xl lg:text-4xl font-normal tracking-[0.16em] text-stone-900 drop-shadow-[0_1px_3px_rgba(255,255,255,0.85)]">
             Alviero
           </span>
         </div>

@@ -15,9 +15,18 @@
   --studio-border: #e8e4d8;
 
   /* Font Families */
+  --font-luxury: 'Italiana', 'Cinzel Decorative', 'Bodoni Moda', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   --font-serif: 'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif;
-  --font-editorial: 'Cormorant Garamond', 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-editorial: 'Italiana', 'Cormorant Garamond', 'Cinzel', 'Playfair Display', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-luxury {
+  font-family: var(--font-luxury);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
 }
 
 @layer base {
