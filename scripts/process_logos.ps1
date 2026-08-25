@@ -31,9 +31,9 @@ foreach ($file in $files) {
         
         Write-Host "Processing $($file.FullName) -> $destPath"
         
-        # Load image (Keep rotation as requested, Personal 90 deg clockwise)
+        # Load image (Keep rotation as requested, Personal & SelfStudio 90 deg clockwise)
         $img = [System.Drawing.Image]::FromFile($file.FullName)
-        if ($folderName -eq "Personal") {
+        if ($folderName -eq "Personal" -or $folderName -eq "SelfStudio") {
             $img.RotateFlip([System.Drawing.RotateFlipType]::Rotate90FlipNone)
         }
         
