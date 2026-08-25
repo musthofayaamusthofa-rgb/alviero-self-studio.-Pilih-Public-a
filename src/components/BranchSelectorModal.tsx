@@ -205,7 +205,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   onSelectBranch,
   onSelectCategory,
 }) => {
-  const [isStudioModalOpen, setIsStudioModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
   return (
     <div className="max-w-xl w-full mx-auto my-3 sm:my-8 px-2 sm:px-4 animate-in fade-in duration-300">
@@ -217,7 +218,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-4 sm:p-6 space-y-5 bg-[#faf9f5] flex-1">
           
-          {/* Section 1: Pilihan Studio */}
+          {/* Section 1: Pilihan Studio (Dengan Tombol Buka Pop-up Opsi Studio 1 & 2) */}
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1 pb-1">
               <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-stone-900 uppercase">
@@ -225,84 +226,42 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </h3>
               <button
                 type="button"
-                onClick={() => setIsStudioModalOpen(true)}
-                className="text-xs font-sans font-bold text-stone-800 hover:text-[#55735b] flex items-center gap-1.5 transition-all cursor-pointer bg-white hover:bg-stone-50 px-3.5 py-1.5 rounded-full border border-stone-200/90 shadow-2xs hover:shadow-xs active:scale-95 group"
-                title="Buka pilihan studio dalam jendela pop-up"
+                onClick={() => setIsModalOpen(true)}
+                className="text-xs font-sans font-bold text-[#55735b] hover:text-[#3d5642] flex items-center gap-1 cursor-pointer transition-colors bg-[#eaf1ea] hover:bg-[#dfeadf] px-3 py-1 rounded-full border border-[#d6ded5] shadow-2xs"
               >
-                <span>Buka Katalog Studio</span>
-                <span className="text-xs text-stone-500 group-hover:text-[#55735b] transition-transform group-hover:translate-x-0.5">↗</span>
+                <span>Buka Opsi Pop-up</span>
+                <span className="text-xs">↗</span>
               </button>
             </div>
 
-            <div className="space-y-3.5">
-              {STUDIO_BRANCHES.map((branch) => {
-                const isSelected = selectedBranch === branch.id;
-
-                return (
-                  <div
-                    key={branch.id}
-                    onClick={() => onSelectBranch(branch.id)}
-                    className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
-                      isSelected
-                        ? 'bg-[#ffffff] border-[#7d9b84] ring-2 ring-[#6c8c74]/25 shadow-[0_6px_24px_-4px_rgba(108,140,116,0.18)] scale-[1.008]'
-                        : 'bg-[#fcfcfa] hover:bg-white border-[#dce3dc] hover:border-[#9db2a3] shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_20px_-4px_rgba(0,0,0,0.08)]'
-                    }`}
-                  >
-                    {/* Top right target/radio indicator */}
-                    <div className="absolute top-4 right-4 sm:top-5 sm:right-5">
-                      <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
-                        isSelected ? 'border-[#55735b] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
-                      }`}>
-                        {isSelected && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#55735b] animate-in zoom-in-50 duration-200" />}
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 sm:gap-3.5 pr-8">
-                      {/* Left side: clean sage pin icon and radio circle */}
-                      <div className="flex flex-col items-center gap-3 pt-0.5 shrink-0">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-2xs transition-transform group-hover:scale-105 ${
-                          isSelected ? 'bg-[#55735b] text-white' : 'bg-[#eaf1ea] text-[#55735b]'
-                        }`}>
-                          <MapPin className="w-4 h-4 stroke-[2.5]" />
-                        </div>
-                        <div className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                          isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white group-hover:border-stone-400'
-                        }`} />
-                      </div>
-
-                      {/* Main info */}
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="font-sans font-bold text-sm sm:text-base text-stone-900 truncate">
-                            {branch.name}
-                          </h4>
-                          <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#e8ece7] text-[#556553] border border-[#d6ded5]">
-                            {branch.badge}
-                          </span>
-                        </div>
-
-                        {/* Link Maps Langsung */}
-                        <a
-                          href={branch.mapsUrl || '#'}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          title="Buka lokasi di Google Maps"
-                          className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#55735b] transition-colors leading-relaxed group/addr cursor-pointer"
-                        >
-                          <MapPin className="w-3.5 h-3.5 text-stone-500 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
-                          <span className="font-medium group-hover/addr:underline underline-offset-2">{branch.address}</span>
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Bottom right arrow button */}
-                    <div className="mt-3 pt-2.5 border-t border-[#e8ece7] flex items-center justify-end">
-                      <span className="text-stone-700 group-hover:text-stone-900 text-sm font-bold transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+            {/* Tombol Utama Pembuka Pop-up Studio (Studio 1 & Studio 2) */}
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-[#7d9b84] bg-white hover:bg-[#fcfdfc] shadow-[0_4px_18px_-2px_rgba(108,140,116,0.16)] hover:shadow-[0_8px_26px_-4px_rgba(108,140,116,0.25)] transition-all duration-300 cursor-pointer relative group text-left flex items-center justify-between gap-3 active:scale-[0.99]"
+            >
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-12 h-12 rounded-2xl bg-[#eaf1ea] text-[#55735b] flex items-center justify-center font-bold text-xl shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                  <MapPin className="w-6 h-6 stroke-[2.5]" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h4 className="font-sans font-bold text-sm sm:text-base text-stone-900 truncate">
+                      {selectedBranchData.name}
+                    </h4>
+                    <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#e8ece7] text-[#556553] border border-[#d6ded5]">
+                      {selectedBranchData.badge}
+                    </span>
                   </div>
-                );
-              })}
+                  <p className="text-xs font-sans text-stone-600 font-medium truncate mt-1">
+                    {selectedBranchData.address}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#55735b] text-white text-xs font-sans font-bold shadow-2xs group-hover:bg-[#435d48] transition-colors shrink-0">
+                <span>Pilih Studio</span>
+                <span className="text-xs">▾</span>
+              </div>
             </div>
           </div>
 
@@ -388,15 +347,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         </div>
       </div>
 
-      {/* Pop-up Modal Pilihan Studio Interaktif */}
+      {/* Pop-up Modal Pilihan Studio 1 & Studio 2 */}
       <BranchSelectorModal
-        isOpen={isStudioModalOpen}
+        isOpen={isModalOpen}
         selectedBranch={selectedBranch}
         onSelectBranch={(branch) => {
           onSelectBranch(branch);
-          setIsStudioModalOpen(false);
+          setIsModalOpen(false);
         }}
-        onClose={() => setIsStudioModalOpen(false)}
+        onClose={() => setIsModalOpen(false)}
         canDismiss={true}
       />
     </div>
