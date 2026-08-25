@@ -239,18 +239,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 <div className="w-8 h-8 rounded-full bg-[#eaf1ea] text-[#55735b] flex items-center justify-center shrink-0 shadow-2xs transition-transform group-hover:scale-105">
                   <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
                 </div>
-                <div className="min-w-0 flex items-center gap-2 flex-wrap">
+                <div className="min-w-0 flex items-center gap-2">
                   <span className="font-sans font-bold text-sm text-stone-900 truncate">
-                    {selectedBranchData.shortName || selectedBranchData.name}
-                  </span>
-                  <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#e8ece7] text-[#556553] border border-[#d6ded5] shrink-0">
-                    {selectedBranchData.badge}
+                    {selectedBranchData.name}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-[#55735b] shrink-0 bg-[#eaf1ea] group-hover:bg-[#dfeadf] px-3 py-1.5 rounded-xl transition-colors">
-                <span>Ganti Studio</span>
+                <span>Pilih Studio</span>
                 <span className="text-xs transition-transform group-hover:translate-y-0.5">▾</span>
               </div>
             </button>
