@@ -427,7 +427,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   // Grid Category Arrays (Sesuai Referensi Gambar 2)
   const photoStudioGridItems = [
-    { id: 'personal-paket', name: 'Personal Branding', icon: '👩‍💼', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
+    { id: 'personal-paket', name: 'Personal', icon: '👩‍💼', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
     { id: 'couple-paket', name: 'Couple', icon: '💑', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
     { id: 'group-paket', name: 'Group', icon: '👥', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
