@@ -434,7 +434,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
     { id: 'maternity-paket', name: 'Maternity', icon: '🤰', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
     { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
-    { id: 'event', name: 'Ulang Tahun', icon: '🎂', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
+    { id: 'event', name: 'Birthday', icon: '🎂', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
     { id: 'prewed-paket', name: 'Prewedding', icon: '💍', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
