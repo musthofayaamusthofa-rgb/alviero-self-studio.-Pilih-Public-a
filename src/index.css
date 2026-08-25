@@ -1,16 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --studio-primary: #6c8c74;
-  --studio-primary-dark: #57735e;
-  --studio-primary-light: #eef4f0;
-  --studio-olive: #9e9746;
-  --studio-dark: #232d38;
-  --studio-body: #475569;
-  --studio-subtle: #64748b;
-  --studio-bg: #faf9f6;
-  --studio-bg-soft: #f4f3ee;
-  --studio-border: #e2dfd7;
+  --studio-primary: #947035;
+  --studio-primary-dark: #7c5d2b;
+  --studio-primary-light: #f5eedc;
+  --studio-olive: #6a5e35;
+  --studio-rose: #cda7a7;
+  --studio-sage: #b2c3ad;
+  --studio-dark: #1e1d1a;
+  --studio-body: #57544d;
+  --studio-subtle: #7c776e;
+  --studio-bg: #fbf9f4;
+  --studio-bg-soft: #faf7ee;
+  --studio-border: #e8e4d8;
 
   /* Font Families */
   --font-serif: 'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif;
