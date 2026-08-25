@@ -376,18 +376,18 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
     <div className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
       <div className="bg-[#faf9f5] rounded-3xl max-w-xl w-full border border-[#e5ebe4] shadow-xl overflow-hidden flex flex-col my-auto relative">
         
-        {/* Minimalist Modal Header (Tanpa Foto) */}
+        {/* Minimalist Modal Header (Clean Luxury) */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#e8ece7] bg-white">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#eaf1ea] text-[#55735b] flex items-center justify-center shadow-2xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-2xl bg-[#eaf1ea] text-[#55735b] flex items-center justify-center shadow-2xs">
               <MapPin className="w-4 h-4 text-[#55735b] stroke-[2.5]" />
             </div>
             <div>
               <h3 className="font-editorial text-sm sm:text-base font-bold tracking-wider text-stone-900 uppercase leading-none">
                 PILIH STUDIO ALVIERO
               </h3>
-              <p className="text-[11px] font-sans text-stone-500 font-medium mt-0.5">
-                Pilih lokasi studio foto yang ingin Anda kunjungi
+              <p className="text-[11px] font-sans text-stone-500 font-medium mt-1">
+                Tentukan lokasi studio foto yang ingin Anda kunjungi
               </p>
             </div>
           </div>
@@ -403,9 +403,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
           )}
         </div>
 
-        {/* Branch Cards */}
-        <div className="p-4 sm:p-5 space-y-3.5 bg-[#faf9f5] flex-1">
-
+        {/* Branch Cards (Minimalist & Luxury Layout) */}
+        <div className="p-4 sm:p-5 space-y-3 bg-[#faf9f5] flex-1">
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
 
@@ -413,63 +412,60 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
               <div
                 key={branch.id}
                 onClick={() => handleChoose(branch.id)}
-                className={`p-4 sm:p-5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
+                className={`p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-[#ffffff] border-[#7d9b84] ring-2 ring-[#6c8c74]/25 shadow-[0_6px_24px_-4px_rgba(108,140,116,0.18)] scale-[1.008]'
-                    : 'bg-[#fcfcfa] hover:bg-white border-[#dce3dc] hover:border-[#9db2a3] shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_20px_-4px_rgba(0,0,0,0.08)]'
+                    ? 'bg-white border-[#7d9b84] ring-2 ring-[#6c8c74]/20 shadow-[0_6px_20px_-2px_rgba(108,140,116,0.16)] scale-[1.008]'
+                    : 'bg-[#fcfcfa] hover:bg-white border-[#dce3dc] hover:border-[#9db2a3] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_16px_-4px_rgba(0,0,0,0.08)]'
                 }`}
               >
-                {/* Top right target/radio indicator */}
-                <div className="absolute top-4 right-4 sm:top-5 sm:right-5">
-                  <div className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
-                    isSelected ? 'border-[#55735b] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
-                  }`}>
-                    {isSelected && <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#55735b] animate-in zoom-in-50 duration-200" />}
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 sm:gap-3.5 pr-8">
-                  {/* Left side: clean sage pin icon and radio circle */}
-                  <div className="flex flex-col items-center gap-3 pt-0.5 shrink-0">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shadow-2xs transition-transform group-hover:scale-105 ${
-                      isSelected ? 'bg-[#55735b] text-white' : 'bg-[#eaf1ea] text-[#55735b]'
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3.5 min-w-0 flex-1">
+                    {/* Clean Left Icon Container */}
+                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-2xs transition-all duration-200 ${
+                      isSelected ? 'bg-[#55735b] text-white shadow-sm' : 'bg-[#eaf1ea] text-[#55735b] group-hover:bg-[#dfeadf]'
                     }`}>
-                      <MapPin className="w-4 h-4 stroke-[2.5]" />
-                    </div>
-                    <div className={`w-5 h-5 rounded-full border-2 transition-all duration-200 ${
-                      isSelected ? 'border-[#55735b] bg-[#eef5ee]' : 'border-stone-300 bg-white group-hover:border-stone-400'
-                    }`} />
-                  </div>
-
-                  {/* Main info */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-sans font-bold text-sm sm:text-base text-stone-900 truncate">
-                        {branch.name}
-                      </h4>
-                      <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#e8ece7] text-[#556553] border border-[#d6ded5]">
-                        {branch.badge}
-                      </span>
+                      <MapPin className="w-5 h-5 stroke-[2.5]" />
                     </div>
 
-                    {/* Link Maps Langsung */}
-                    <a
-                      href={branch.mapsUrl || '#'}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      title="Buka Google Maps"
-                      className="flex items-start gap-1.5 mt-2 text-xs font-sans text-stone-700 hover:text-[#55735b] transition-colors leading-relaxed group/addr cursor-pointer"
-                    >
-                      <MapPin className="w-3.5 h-3.5 text-stone-500 group-hover/addr:text-[#55735b] shrink-0 mt-0.5 transition-colors" />
-                      <span className="font-medium break-all group-hover/addr:underline underline-offset-2">{branch.address}</span>
-                    </a>
-                  </div>
-                </div>
+                    {/* Main Studio Info */}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-sans font-bold text-sm sm:text-base text-stone-900">
+                          {branch.name}
+                        </h4>
+                        <span className={`text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full border ${
+                          isSelected ? 'bg-[#eaf1ea] text-[#3d5642] border-[#c8d8c8]' : 'bg-[#f0f3ef] text-stone-600 border-stone-200'
+                        }`}>
+                          {branch.badge}
+                        </span>
+                      </div>
 
-                {/* Bottom right arrow button */}
-                <div className="mt-3 pt-2.5 border-t border-[#e8ece7] flex items-center justify-end">
-                  <span className="text-stone-700 group-hover:text-stone-900 text-sm font-bold transition-transform group-hover:translate-x-1">→</span>
+                      <p className="text-xs font-sans text-stone-600 font-medium leading-relaxed mt-1 line-clamp-2">
+                        {branch.address}
+                      </p>
+
+                      {/* Link Maps */}
+                      <a
+                        href={branch.mapsUrl || '#'}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#55735b] hover:text-[#3d5642] underline underline-offset-2 transition-colors cursor-pointer"
+                      >
+                        <span>Buka di Google Maps</span>
+                        <span className="text-[10px]">↗</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Single Right Target / Radio Indicator */}
+                  <div className="pt-1 shrink-0">
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
+                      isSelected ? 'border-[#55735b] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
+                    }`}>
+                      {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#55735b] animate-in zoom-in-50 duration-200" />}
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -477,8 +473,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="p-3.5 bg-[#f5f8f5] border-t border-[#e2eae2] text-center text-[11px] text-stone-600 font-medium">
-          💡 Kamu dapat berganti studio kapan saja lewat menu di bagian atas.
+        <div className="p-3 bg-[#f5f8f5] border-t border-[#e2eae2] text-center text-[11px] text-stone-500 font-medium">
+          💡 Pilih salah satu studio untuk melihat pricelist dan katalog lengkap.
         </div>
       </div>
     </div>
