@@ -86,15 +86,11 @@ export const BackdropHeroSlider: React.FC = () => {
     >
       {/* Full Image Banner Container with Optimal Height for Landscape Backdrop Photos */}
       <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden bg-stone-950">
-        {/* Brand Logo Watermark on Top-Left (Haute Couture Luxury Frosted Badge) */}
+        {/* Brand Logo Watermark on Top-Left (High Contrast & Luxury) */}
         <div className="absolute top-3.5 left-4 sm:top-4.5 sm:left-5 z-20 select-none">
-          <div className="bg-white/85 hover:bg-white/95 backdrop-blur-md px-3.5 sm:px-4 py-1.5 rounded-full border border-white/90 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.16)] flex items-center gap-2 transition-all duration-300">
-            <span className="font-luxury text-xl sm:text-2xl font-medium tracking-[0.18em] text-[#1a1917] uppercase leading-none drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
+          <div className="bg-white/95 hover:bg-white backdrop-blur-md px-4 sm:px-5 py-1.5 sm:py-2 rounded-full border border-stone-300/80 shadow-[0_4px_16px_rgba(0,0,0,0.2)] flex items-center justify-center transition-all duration-300">
+            <span className="font-serif text-xl sm:text-2xl font-bold tracking-[0.08em] text-[#0f0e0c] leading-none drop-shadow-2xs">
               Alviero
-            </span>
-            <span className="w-1 h-1 rounded-full bg-[#6c8c74]" />
-            <span className="text-[8.5px] sm:text-[9px] font-sans font-extrabold uppercase tracking-[0.22em] text-[#526a58]">
-              Studio
             </span>
           </div>
         </div>
