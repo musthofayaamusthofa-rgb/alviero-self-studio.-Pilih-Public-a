@@ -443,7 +443,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   const selfPhotoGridItems = [
-    { id: 'selfstudio', name: 'Self Photo', icon: '✨', img: '/images/categories/selfphoto.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' }
+    { id: 'selfstudio', name: 'SelfStudio', icon: '✨', img: '/images/categories/selfphoto.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' }
   ];
 
   const additionalGridItems = [
