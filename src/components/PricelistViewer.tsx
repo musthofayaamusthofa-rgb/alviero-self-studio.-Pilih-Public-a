@@ -425,16 +425,16 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
 
-  // Grid Category Arrays (Sesuai Referensi Gambar 2)
+  // Grid Category Arrays (Sesuai Referensi Gambar & Foto Asli dari Folder Logo Paket)
   const photoStudioGridItems = [
-    { id: 'personal-paket', name: 'Personal', icon: '👩‍💼', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
-    { id: 'couple-paket', name: 'Couple', icon: '💑', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
-    { id: 'group-paket', name: 'Group', icon: '👥', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
-    { id: 'grad-indoor', name: 'Graduation', icon: '🎓', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
-    { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
-    { id: 'maternity-paket', name: 'Maternity', icon: '🤰', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
+    { id: 'personal-paket', name: 'Personal', icon: '👩‍💼', imgSrc: '/images/categories/personal.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
+    { id: 'couple-paket', name: 'Couple', icon: '💑', imgSrc: '/images/categories/couple.jpg', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
+    { id: 'group-paket', name: 'Group', icon: '👥', imgSrc: '/images/categories/group.jpg', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
+    { id: 'grad-indoor', name: 'Graduation', icon: '🎓', imgSrc: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
+    { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', imgSrc: '/images/categories/family.jpg', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
+    { id: 'maternity-paket', name: 'Maternity', icon: '🤰', imgSrc: '/images/categories/maternity.jpg', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
     { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
-    { id: 'event', name: 'Birthday', icon: '🎂', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
+    { id: 'event', name: 'Birthday', icon: '🎂', imgSrc: '/images/categories/birthday.jpg', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
     { id: 'prewed-paket', name: 'Prewedding', icon: '💍', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
@@ -805,12 +805,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         }}
                         className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
                       >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border ${
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center mb-1.5 transition-all shadow-2xs border-2 ${
                           isSelected
-                            ? 'bg-[#232d38] text-white border-[#232d38] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                            ? 'border-[#55735b] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
+                            : 'border-white ring-1 ring-stone-200/90 group-hover:scale-105 group-hover:shadow-xs group-hover:border-[#9cb4a0]'
                         }`}>
-                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                          {item.imgSrc ? (
+                            <img
+                              src={item.imgSrc}
+                              alt={item.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className={`w-full h-full flex items-center justify-center text-xl sm:text-2xl ${item.colorBg} ${item.colorText}`}>
+                              <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                            </div>
+                          )}
                         </div>
                         <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
                           isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
@@ -847,12 +858,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         }}
                         className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
                       >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border ${
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center mb-1.5 transition-all shadow-2xs border-2 ${
                           isSelected
-                            ? 'bg-[#232d38] text-white border-[#232d38] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                            ? 'border-[#55735b] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
+                            : 'border-white ring-1 ring-stone-200/90 group-hover:scale-105 group-hover:shadow-xs group-hover:border-[#9cb4a0]'
                         }`}>
-                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                          {item.imgSrc ? (
+                            <img
+                              src={item.imgSrc}
+                              alt={item.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className={`w-full h-full flex items-center justify-center text-xl sm:text-2xl ${item.colorBg} ${item.colorText}`}>
+                              <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                            </div>
+                          )}
                         </div>
                         <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
                           isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
@@ -889,12 +911,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         }}
                         className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
                       >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border ${
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center mb-1.5 transition-all shadow-2xs border-2 ${
                           isSelected
-                            ? 'bg-[#232d38] text-white border-[#232d38] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                            ? 'border-[#55735b] ring-3 ring-[#6c8c74]/40 scale-105 shadow-md'
+                            : 'border-white ring-1 ring-stone-200/90 group-hover:scale-105 group-hover:shadow-xs group-hover:border-[#9cb4a0]'
                         }`}>
-                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                          {item.imgSrc ? (
+                            <img
+                              src={item.imgSrc}
+                              alt={item.name}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className={`w-full h-full flex items-center justify-center text-xl sm:text-2xl ${item.colorBg} ${item.colorText}`}>
+                              <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                            </div>
+                          )}
                         </div>
                         <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
                           isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
