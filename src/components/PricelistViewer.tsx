@@ -919,18 +919,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
                   <span>Customer Service (WhatsApp)</span>
                 </a>
-
-                {/* Tombol Cepat Buka Popup Rincian di HP (Pastel Sage Pill) */}
-                <div className="lg:hidden w-full">
-                  <button
-                    onClick={() => setIsMobilePopupOpen(true)}
-                    className="w-full min-h-[42px] px-4 py-2.5 rounded-full bg-[#6c8c74] hover:bg-[#57735e] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-95 transition-all"
-                  >
-                    <Sparkles className="w-4 h-4 text-white" />
-                    <span>Buka Rincian: {activeMenuInfo.title}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </button>
-                </div>
               </div>
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
@@ -950,18 +938,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       <span className="truncate">{s.label}</span>
                     </a>
                   ))}
-                </div>
-
-                {/* Tombol Cepat Buka Popup Rincian di HP (Pastel Sage Pill) */}
-                <div className="lg:hidden w-full pt-3">
-                  <button
-                    onClick={() => setIsMobilePopupOpen(true)}
-                    className="w-full min-h-[44px] px-4 py-2.5 rounded-full bg-[#6c8c74] hover:bg-[#57735e] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-95 transition-all"
-                  >
-                    <Sparkles className="w-4 h-4 text-white" />
-                    <span>Buka Rincian: {activeMenuInfo.title}</span>
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </button>
                 </div>
               </div>
 
