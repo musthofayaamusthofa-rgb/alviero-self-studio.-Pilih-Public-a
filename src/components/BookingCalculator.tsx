@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PACKAGES, CATEGORIES, BACKDROPS, FRAME_TEMPLATES, ADD_ONS, TIME_SLOTS, PRO_STUDIO_TIME_SLOTS, SELF_STUDIO_TIME_SLOTS, STUDIO_BRANCHES } from '../data/pricelistData';
-import { BookingFormData, StudioBranch } from '../types';
+import { BookingFormData, StudioBranch, BackdropOption } from '../types';
 import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2 } from 'lucide-react';
 
 interface BookingCalculatorProps {
@@ -228,7 +228,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   }, [preselectedPackageId, preselectedBackdropId, preselectedFrameId]);
 
   const availableBackdrops = BACKDROPS.filter(b => 
-    (b.applicableBranches || ['cabang-1']).includes(selectedBranch) &&
+    (b.applicableBranches || (['cabang-1'] as StudioBranch[])).includes(selectedBranch) &&
     b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio')
   );
 
