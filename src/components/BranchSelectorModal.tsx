@@ -205,6 +205,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   onSelectBranch,
   onSelectCategory,
 }) => {
+  const [isStudioModalOpen, setIsStudioModalOpen] = useState<boolean>(false);
+
   return (
     <div className="max-w-xl w-full mx-auto my-3 sm:my-8 px-2 sm:px-4 animate-in fade-in duration-300">
       <div className="bg-[#faf9f5] rounded-3xl border border-[#e5ebe4] shadow-[0_8px_30px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col relative">
@@ -221,9 +223,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-stone-900 uppercase">
                 PILIH STUDIO
               </h3>
-              <span className="text-xs font-sans font-bold text-stone-900">
-                Buka Katalog Studio
-              </span>
+              <button
+                type="button"
+                onClick={() => setIsStudioModalOpen(true)}
+                className="text-xs font-sans font-bold text-stone-800 hover:text-[#55735b] flex items-center gap-1.5 transition-all cursor-pointer bg-white hover:bg-stone-50 px-3.5 py-1.5 rounded-full border border-stone-200/90 shadow-2xs hover:shadow-xs active:scale-95 group"
+                title="Buka pilihan studio dalam jendela pop-up"
+              >
+                <span>Buka Katalog Studio</span>
+                <span className="text-xs text-stone-500 group-hover:text-[#55735b] transition-transform group-hover:translate-x-0.5">↗</span>
+              </button>
             </div>
 
             <div className="space-y-3.5">
@@ -288,26 +296,9 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Action Button to open / select catalog */}
-                    <div className="mt-3.5 pt-2.5 border-t border-[#e8ece7] flex items-center justify-between gap-2">
-                      <span className="text-[11px] font-sans font-medium text-stone-500">
-                        {isSelected ? 'Studio sedang aktif' : 'Klik untuk pilih studio'}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelectBranch(branch.id);
-                        }}
-                        className={`px-3.5 py-1.5 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
-                          isSelected
-                            ? 'bg-[#55735b] text-white hover:bg-[#435c48] shadow-xs active:scale-95'
-                            : 'bg-[#eef4ee] text-[#425d48] hover:bg-[#55735b] hover:text-white shadow-2xs active:scale-95'
-                        }`}
-                      >
-                        <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
-                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                      </button>
+                    {/* Bottom right arrow button */}
+                    <div className="mt-3 pt-2.5 border-t border-[#e8ece7] flex items-center justify-end">
+                      <span className="text-stone-700 group-hover:text-stone-900 text-sm font-bold transition-transform group-hover:translate-x-1">→</span>
                     </div>
                   </div>
                 );
@@ -396,6 +387,18 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           💡 Kamu dapat berganti studio kapan saja lewat tombol <strong>'Ganti Studio'</strong>.
         </div>
       </div>
+
+      {/* Pop-up Modal Pilihan Studio Interaktif */}
+      <BranchSelectorModal
+        isOpen={isStudioModalOpen}
+        selectedBranch={selectedBranch}
+        onSelectBranch={(branch) => {
+          onSelectBranch(branch);
+          setIsStudioModalOpen(false);
+        }}
+        onClose={() => setIsStudioModalOpen(false)}
+        canDismiss={true}
+      />
     </div>
   );
 };
@@ -510,26 +513,9 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                   </div>
                 </div>
 
-                {/* Action Button to open / select studio */}
-                <div className="mt-3.5 pt-2.5 border-t border-[#e8ece7] flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-sans font-medium text-stone-500">
-                    {isSelected ? 'Studio sedang aktif' : 'Klik untuk pilih studio'}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleChoose(branch.id);
-                    }}
-                    className={`px-3.5 py-1.5 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
-                      isSelected
-                        ? 'bg-[#55735b] text-white hover:bg-[#435c48] shadow-xs active:scale-95'
-                        : 'bg-[#eef4ee] text-[#425d48] hover:bg-[#55735b] hover:text-white shadow-2xs active:scale-95'
-                    }`}
-                  >
-                    <span>{isSelected ? `Buka Katalog ${branch.badge}` : `Pilih ${branch.badge}`}</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                  </button>
+                {/* Bottom right arrow button */}
+                <div className="mt-3 pt-2.5 border-t border-[#e8ece7] flex items-center justify-end">
+                  <span className="text-stone-700 group-hover:text-stone-900 text-sm font-bold transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
             );
