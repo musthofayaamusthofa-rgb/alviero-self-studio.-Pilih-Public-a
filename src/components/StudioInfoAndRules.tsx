@@ -245,7 +245,7 @@ export const StudioInfoAndRules: React.FC = () => {
             <div className="flex items-start gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700">
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <strong className="text-white block font-bold">Cabang 1 (Karangploso):</strong>
+                <strong className="text-white block font-bold">Studio 1 (Karangploso):</strong>
                 <span>Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151</span>
               </div>
             </div>
@@ -253,7 +253,7 @@ export const StudioInfoAndRules: React.FC = () => {
             <div className="flex items-start gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700">
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <strong className="text-white block font-bold">Cabang 2 (Dinoyo Gajayana):</strong>
+                <strong className="text-white block font-bold">Studio 2 (Dinoyo Gajayana):</strong>
                 <span>Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144</span>
               </div>
             </div>

@@ -1249,22 +1249,22 @@ export const PACKAGES: PackageItem[] = [
 export const STUDIO_BRANCHES: BranchInfo[] = [
   {
     id: 'cabang-1',
-    name: 'Alviero Studio — Cabang 1',
-    shortName: 'Cabang 1 (Karangploso)',
+    name: 'Alviero Studio — Studio 1',
+    shortName: 'Studio 1 (Karangploso)',
     tagline: 'Karangploso, Kab. Malang',
     address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
-    badge: 'Cabang 1',
+    badge: 'Studio 1',
     description: 'Pusat Self Studio & Studio Foto',
     highlights: [],
     icon: '📍'
   },
   {
     id: 'cabang-2',
-    name: 'Alviero Studio — Cabang 2',
-    shortName: 'Cabang 2 (Dinoyo Gajayana)',
+    name: 'Alviero Studio — Studio 2',
+    shortName: 'Studio 2 (Dinoyo Gajayana)',
     tagline: 'Dinoyo Gajayana, Kota Malang',
     address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
-    badge: 'Cabang 2',
+    badge: 'Studio 2',
     description: 'Self Studio & Studio Foto',
     highlights: [],
     icon: '🏢'
@@ -1272,59 +1272,7 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
 ];
 
 export const BACKDROPS: BackdropOption[] = [
-  // ==================== CABANG 1 - SELF STUDIO ====================
-  {
-    id: 'tematik-coklat',
-    name: 'Tematik Coklat',
-    category: 'solid-color',
-    hex: '#6B4423',
-    description: 'Latar bertema coklat elegan yang hangat dan estetik.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'abu-abu',
-    name: 'Abu-abu',
-    category: 'solid-color',
-    hex: '#9CA3AF',
-    description: 'Latar abu-abu netral yang modern dan menonjolkan subjek foto.',
-    previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio', 'pro-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'putih',
-    name: 'Putih',
-    category: 'solid-color',
-    hex: '#F8FAFC',
-    description: 'Latar polos putih bersih studio yang cerah dan fleksibel.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'coklat',
-    name: 'Coklat',
-    category: 'solid-color',
-    hex: '#D2B48C',
-    description: 'Latar coklat klasik untuk kesan natural yang lembut.',
-    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  
-  // ==================== CABANG 1 - STUDIO FOTO (PRO STUDIO) ====================
-  {
-    id: 'hitam',
-    name: 'Hitam',
-    category: 'solid-color',
-    hex: '#111827',
-    description: 'Latar hitam elegan untuk kesan profesional dan tajam.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-1']
-  },
+  // ==================== STUDIO 1 & 2 - BACKDROPS ====================
   {
     id: 'hijau',
     name: 'Hijau Pastel',
@@ -1376,20 +1324,20 @@ export const BACKDROPS: BackdropOption[] = [
     applicableBranches: ['cabang-1']
   },
 
-  // ==================== CABANG 2 - SELF STUDIO ====================
+  // ==================== STUDIO 2 - SELF STUDIO ====================
   {
     id: 'c2-self-sunset-spotlight',
-    name: 'Warm Sunset Spotlight (Cabang 2)',
+    name: 'Warm Sunset Spotlight (Studio 2)',
     category: 'spotlight-special',
     hex: '#F97316',
-    description: 'Pencahayaan sorot sunset hangat estetik khusus SelfStudio Cabang 2.',
+    description: 'Pencahayaan sorot sunset hangat estetik khusus SelfStudio Studio 2.',
     previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['self-studio'],
     applicableBranches: ['cabang-2']
   },
   {
     id: 'c2-self-cream-aesthetic',
-    name: 'Aesthetic Cream (Cabang 2)',
+    name: 'Aesthetic Cream (Studio 2)',
     category: 'solid-color',
     hex: '#FEF3C7',
     description: 'Latar cream lembut dan hangat untuk foto selfstudio estetik.',
@@ -1399,7 +1347,7 @@ export const BACKDROPS: BackdropOption[] = [
   },
   {
     id: 'c2-self-cool-gray',
-    name: 'Modern Slate Gray (Cabang 2)',
+    name: 'Modern Slate Gray (Studio 2)',
     category: 'solid-color',
     hex: '#64748B',
     description: 'Latar abu-abu modern untuk hasil foto kontras elegan.',
@@ -1409,7 +1357,7 @@ export const BACKDROPS: BackdropOption[] = [
   },
   {
     id: 'c2-self-pure-white',
-    name: 'Pure Studio White (Cabang 2)',
+    name: 'Pure Studio White (Studio 2)',
     category: 'solid-color',
     hex: '#FFFFFF',
     description: 'Latar putih bersih minimalis dengan pencahayaan softbox.',

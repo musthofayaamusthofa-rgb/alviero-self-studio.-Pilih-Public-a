@@ -206,11 +206,11 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-4 sm:p-6 space-y-5 bg-[#fbf9f4] flex-1">
           
-          {/* Section 1: Pilihan Cabang Studio */}
+            {/* Section 1: Pilihan Cabang Studio */}
           <div className="space-y-3">
             <div className="text-left px-1 pb-1">
               <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-[#1e1d1a] uppercase">
-                PILIH CABANG
+                PILIH STUDIO
               </h3>
             </div>
 
@@ -351,7 +351,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
         {/* Footer info */}
         <div className="p-3.5 bg-[#faf7ee] border-t border-[#eae5d9] text-center text-[11px] text-[#7c776e] font-medium">
-          💡 Kamu dapat berganti studio cabang kapan saja lewat tombol <strong>'Ganti Cabang'</strong>.
+          💡 Kamu dapat berganti studio kapan saja lewat tombol <strong>'Ganti Studio'</strong>.
         </div>
       </div>
     </div>
@@ -403,7 +403,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         <div className="p-4 sm:p-6 space-y-4 bg-[#fbf9f4] flex-1">
           <div className="text-left px-1 pb-1">
             <h3 className="font-editorial text-xs sm:text-sm font-bold tracking-wider text-[#1e1d1a] uppercase">
-              PILIH CABANG STUDIO
+              PILIH STUDIO ALVIERO
             </h3>
           </div>
 
@@ -466,7 +466,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
 
         {/* Footer info */}
         <div className="p-3.5 bg-[#faf7ee] border-t border-[#eae5d9] text-center text-[11px] text-[#7c776e] font-medium">
-          💡 Kamu dapat berganti studio cabang kapan saja lewat menu di bagian atas.
+          💡 Kamu dapat berganti studio kapan saja lewat menu di bagian atas.
         </div>
       </div>
     </div>

@@ -70,7 +70,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     {
       id: 'selfstudio',
       title: 'PRICELIST SELFSTUDIO',
-      subtitle: 'Special Narsis, Normal Narsis & Spotlight (Cabang 1 & 2)',
+      subtitle: 'Special Narsis, Normal Narsis & Spotlight (Studio 1 & 2)',
       icon: '✨',
       sheetCategory: 'Pricelist Selfstudio',
       badge: 'Best Seller',
@@ -744,7 +744,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   }}
                   className="px-3 py-1 rounded-full bg-[#232d38] hover:bg-[#1a222c] text-white text-[10.5px] font-bold shrink-0 transition-colors shadow-2xs cursor-pointer"
                 >
-                  Ganti Cabang 🔄
+                  Ganti Studio 🔄
                 </button>
               </div>
 

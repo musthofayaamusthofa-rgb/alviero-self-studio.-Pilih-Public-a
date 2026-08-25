@@ -584,7 +584,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     {currentBranchInfo.icon}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Lokasi Cabang Studio:</div>
+                    <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Lokasi Studio:</div>
                     <div className="text-xs font-black text-slate-900 truncate">{currentBranchInfo.name}</div>
                   </div>
                 </div>
@@ -603,7 +603,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                       }`}
                     >
-                      {b.id === 'cabang-1' ? 'Cabang 1' : 'Cabang 2'}
+                      {b.badge}
                     </button>
                   ))}
                 </div>
