@@ -436,7 +436,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
     { id: 'event', name: 'Birthday', icon: '🎂', img: '/images/categories/birthday.jpg', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
-    { id: 'prewed-paket', name: 'Prewedding', icon: '💍', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
+    { id: 'prewed-paket', name: 'Prewedding', icon: '💍', img: '/images/categories/prewedding.jpg', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
     { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' },
     { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' }
@@ -447,7 +447,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   const additionalGridItems = [
-    { id: 'wedding-package', name: 'Wedding', icon: '💍', colorBg: 'bg-[#faf1f5]', colorBorder: 'border-[#ebd0df]', colorText: 'text-[#743358]' },
+    { id: 'wedding-package', name: 'Wedding', icon: '💍', img: '/images/categories/wedding.jpg', colorBg: 'bg-[#faf1f5]', colorBorder: 'border-[#ebd0df]', colorText: 'text-[#743358]' },
     { id: 'bingkai-album', name: 'Cetak Lab', icon: '🖼️', colorBg: 'bg-[#f0f5fa]', colorBorder: 'border-[#cbe0f2]', colorText: 'text-[#264f77]' }
   ];
 

@@ -16,6 +16,9 @@ $mapping = @{
     "Family"             = "family.jpg"
     "Maternity"          = "maternity.jpg"
     "Birthday"           = "birthday.jpg"
+    "Prewedding"         = "prewedding.jpg"
+    "SelfStudio"         = "selfphoto.jpg"
+    "Wedding"            = "wedding.jpg"
 }
 
 $files = Get-ChildItem -Path $sourceDir -File -Recurse
@@ -28,7 +31,7 @@ foreach ($file in $files) {
         
         Write-Host "Processing $($file.FullName) -> $destPath"
         
-        # Load image (apply 90 deg rotation for Personal)
+        # Load image (Keep rotation as requested, Personal 90 deg clockwise)
         $img = [System.Drawing.Image]::FromFile($file.FullName)
         if ($folderName -eq "Personal") {
             $img.RotateFlip([System.Drawing.RotateFlipType]::Rotate90FlipNone)
