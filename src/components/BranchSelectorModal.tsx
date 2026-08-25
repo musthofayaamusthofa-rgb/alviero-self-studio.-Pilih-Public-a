@@ -245,11 +245,18 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                             </span>
                           </div>
 
-                          {/* Alamat Lengkap */}
-                          <div className="flex items-start gap-1.5 mt-1.5 text-xs font-sans text-[#57544d] leading-relaxed">
-                            <MapPin className="w-3.5 h-3.5 text-[#2b2926] shrink-0 mt-0.5" />
-                            <span className="font-medium">{branch.address}</span>
-                          </div>
+                          {/* Alamat Lengkap dengan Link Google Maps Langsung */}
+                          <a
+                            href={branch.mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="flex items-start gap-1.5 mt-1.5 text-xs font-sans text-[#57544d] hover:text-[#947035] leading-relaxed transition-colors cursor-pointer group/maps"
+                            title="Buka Google Maps"
+                          >
+                            <MapPin className="w-3.5 h-3.5 text-[#2b2926] group-hover/maps:text-[#947035] shrink-0 mt-0.5 transition-colors" />
+                            <span className="font-medium group-hover/maps:underline">{branch.address}</span>
+                          </a>
                         </div>
                       </div>
 
@@ -437,11 +444,18 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         </span>
                       </div>
 
-                      {/* Alamat Lengkap */}
-                      <div className="flex items-start gap-1.5 mt-1.5 text-xs font-sans text-[#57544d] leading-relaxed">
-                        <MapPin className="w-3.5 h-3.5 text-[#2b2926] shrink-0 mt-0.5" />
-                        <span className="font-medium">{branch.address}</span>
-                      </div>
+                      {/* Alamat Lengkap dengan Link Google Maps Langsung */}
+                      <a
+                        href={branch.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-start gap-1.5 mt-1.5 text-xs font-sans text-[#57544d] hover:text-[#947035] leading-relaxed transition-colors cursor-pointer group/maps"
+                        title="Buka Google Maps"
+                      >
+                        <MapPin className="w-3.5 h-3.5 text-[#2b2926] group-hover/maps:text-[#947035] shrink-0 mt-0.5 transition-colors" />
+                        <span className="font-medium group-hover/maps:underline">{branch.address}</span>
+                      </a>
                     </div>
                   </div>
 

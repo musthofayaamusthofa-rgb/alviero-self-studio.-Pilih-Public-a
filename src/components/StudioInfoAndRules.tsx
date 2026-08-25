@@ -242,21 +242,31 @@ export const StudioInfoAndRules: React.FC = () => {
           </h3>
 
           <div className="space-y-3 text-xs text-slate-200 pt-2">
-            <div className="flex items-start gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700">
-              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+            <a
+              href="https://maps.app.goo.gl/oxtptpr3RSDL9zCj6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all group cursor-pointer"
+            >
+              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
-                <strong className="text-white block font-bold">Studio 1 (Karangploso):</strong>
+                <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 1 (Karangploso) ↗</strong>
                 <span>Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151</span>
               </div>
-            </div>
+            </a>
 
-            <div className="flex items-start gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700">
-              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+            <a
+              href="https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all group cursor-pointer"
+            >
+              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
-                <strong className="text-white block font-bold">Studio 2 (Dinoyo Gajayana):</strong>
+                <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 2 (Dinoyo Gajayana) ↗</strong>
                 <span>Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144</span>
               </div>
-            </div>
+            </a>
 
             <div className="flex items-center gap-2 pt-1">
               <Clock className="w-4 h-4 text-emerald-400 shrink-0" />

@@ -49,6 +49,7 @@ export interface BranchInfo {
   shortName: string;
   tagline: string;
   address: string;
+  mapsUrl: string;
   badge: string;
   description: string;
   highlights: string[];
