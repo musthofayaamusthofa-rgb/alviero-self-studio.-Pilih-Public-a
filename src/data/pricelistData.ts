@@ -2,6 +2,22 @@ import { PackageItem, CategoryInfo, BackdropOption, FrameTemplate, AddOnOption, 
 
 export const CATEGORIES: CategoryInfo[] = [
   {
+    id: 'graduation-indoor',
+    name: 'Graduation Indoor',
+    subPackageCount: 4,
+    subPackageNote: '4 Sub Paket (Bronze, Silver, Gold, Platinum)',
+    description: 'Sesi foto wisuda indoor di studio dengan berbagai tema latar, toga, props wisuda, dan bingkai eksklusif.',
+    iconName: 'GraduationCap'
+  },
+  {
+    id: 'graduation-outdoor',
+    name: 'Graduation Outdoor',
+    subPackageCount: 6,
+    subPackageNote: '6 Sub Paket (Smart 30M/60M, Cumlaude, Group Outdoor 2-5 Wisudawan)',
+    description: 'Sesi foto wisuda outdoor di area kampus atau lokasi outdoor favorit lengkap dengan video & free transport.',
+    iconName: 'Trees'
+  },
+  {
     id: 'birthday',
     name: 'Birthday',
     subPackageCount: 4,
@@ -18,14 +34,6 @@ export const CATEGORIES: CategoryInfo[] = [
     iconName: 'Users'
   },
   {
-    id: 'graduation-outdoor',
-    name: 'Graduation Outdoor',
-    subPackageCount: 6,
-    subPackageNote: '6 Sub Paket (Smart 30M/60M, Cumlaude, Group Outdoor 2-5 Wisudawan)',
-    description: 'Sesi foto wisuda outdoor di area kampus atau lokasi outdoor favorit lengkap dengan video & free transport.',
-    iconName: 'Trees'
-  },
-  {
     id: 'family',
     name: 'Family',
     subPackageCount: 2,
@@ -40,14 +48,6 @@ export const CATEGORIES: CategoryInfo[] = [
     subPackageNote: '2 Sub Paket (Bold Statement, Opulent Shot)',
     description: 'Foto profil portrait pribadi, outfit branding, portofolio gaya bebas dengan retouching rapi.',
     iconName: 'User'
-  },
-  {
-    id: 'graduation-indoor',
-    name: 'Graduation Indoor',
-    subPackageCount: 4,
-    subPackageNote: '4 Sub Paket (Bronze, Silver, Gold, Platinum)',
-    description: 'Sesi foto wisuda indoor di studio dengan berbagai tema latar, toga, props wisuda, dan bingkai eksklusif.',
-    iconName: 'GraduationCap'
   },
   {
     id: 'pass-foto',

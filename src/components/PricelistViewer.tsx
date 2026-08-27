@@ -139,6 +139,48 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // 2. Submenu Studio Foto (12 Sub-Paket dengan Ragam Warna Pastel Harmonis)
   const studioFotoSubButtons = [
     {
+      id: 'grad-indoor',
+      title: 'PRICELIST GRADUATION INDOOR',
+      subtitle: 'Elegant Scholar, Supreme, Infinity & Bundling',
+      icon: '🎓',
+      sheetCategory: 'Paket Wisuda Indoor',
+      badge: 'Wisuda Hot',
+      specialView: 'grad-indoor',
+      cardBg: 'bg-[#f3f3fd]',
+      cardBorder: 'border-[#d6d6f9]',
+      hoverBorder: 'hover:border-[#6666d6]',
+      iconBg: 'bg-[#e4e4fc]',
+      iconText: 'text-[#36369c]',
+      badgeBg: 'bg-[#e4e4fc]',
+      badgeText: 'text-[#36369c]',
+      badgeBorder: 'border-[#c2c2f7]',
+      targetPackageIds: [
+        'grad-indoor-elegant-scholar', 'grad-indoor-supreme-scholar', 'grad-indoor-infinity-scholar',
+        'grad-bundling-ultimate-1', 'grad-bundling-ultimate-2'
+      ]
+    },
+    {
+      id: 'grad-outdoor',
+      title: 'PRICELIST GRADUATION OUTDOOR',
+      subtitle: 'Smart (30/60M), Cumlaude Video & Group Outdoor',
+      icon: '🌳',
+      sheetCategory: 'Paket Wisuda Outdoor',
+      badge: 'Outdoor',
+      specialView: 'grad-outdoor',
+      cardBg: 'bg-[#f2f8f3]',
+      cardBorder: 'border-[#cde3d2]',
+      hoverBorder: 'hover:border-[#4b8058]',
+      iconBg: 'bg-[#ddf0e2]',
+      iconText: 'text-[#2a5936]',
+      badgeBg: 'bg-[#ddf0e2]',
+      badgeText: 'text-[#2a5936]',
+      badgeBorder: 'border-[#b9dec2]',
+      targetPackageIds: [
+        'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude',
+        'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'
+      ]
+    },
+    {
       id: 'undangan-paket',
       title: 'PRICELIST UNDANGAN',
       subtitle: 'Paket Undangan 1 (95K) & Paket Undangan 2 (155K)',
@@ -337,48 +379,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       targetPackageIds: [
         'passfoto-1', 'passfoto-2', 'passfoto-3'
       ]
-    },
-    {
-      id: 'grad-indoor',
-      title: 'PRICELIST GRADUATION INDOOR',
-      subtitle: 'Elegant Scholar, Supreme, Infinity & Bundling',
-      icon: '🎓',
-      sheetCategory: 'Paket Wisuda Indoor',
-      badge: 'Wisuda Hot',
-      specialView: 'grad-indoor',
-      cardBg: 'bg-[#f3f3fd]',
-      cardBorder: 'border-[#d6d6f9]',
-      hoverBorder: 'hover:border-[#6666d6]',
-      iconBg: 'bg-[#e4e4fc]',
-      iconText: 'text-[#36369c]',
-      badgeBg: 'bg-[#e4e4fc]',
-      badgeText: 'text-[#36369c]',
-      badgeBorder: 'border-[#c2c2f7]',
-      targetPackageIds: [
-        'grad-indoor-elegant-scholar', 'grad-indoor-supreme-scholar', 'grad-indoor-infinity-scholar',
-        'grad-bundling-ultimate-1', 'grad-bundling-ultimate-2'
-      ]
-    },
-    {
-      id: 'grad-outdoor',
-      title: 'PRICELIST GRADUATION OUTDOOR',
-      subtitle: 'Smart (30/60M), Cumlaude Video & Group Outdoor',
-      icon: '🌳',
-      sheetCategory: 'Paket Wisuda Outdoor',
-      badge: 'Outdoor',
-      specialView: 'grad-outdoor',
-      cardBg: 'bg-[#f2f8f3]',
-      cardBorder: 'border-[#cde3d2]',
-      hoverBorder: 'hover:border-[#4b8058]',
-      iconBg: 'bg-[#ddf0e2]',
-      iconText: 'text-[#2a5936]',
-      badgeBg: 'bg-[#ddf0e2]',
-      badgeText: 'text-[#2a5936]',
-      badgeBorder: 'border-[#b9dec2]',
-      targetPackageIds: [
-        'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude',
-        'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'
-      ]
     }
   ];
 
@@ -425,12 +425,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
 
-  // Grid Category Arrays (Sesuai Foto Paket dari Folder)
+  // Grid Category Arrays (Sesuai Foto Paket dari Folder - Graduation Urutan Utama #1)
   const photoStudioGridItems = [
+    { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
+    { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' },
     { id: 'personal-paket', name: 'Personal', icon: '👩‍💼', img: '/images/categories/personal.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
     { id: 'couple-paket', name: 'Couple', icon: '💑', img: '/images/categories/couple.jpg', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
     { id: 'group-paket', name: 'Group', icon: '👥', img: '/images/categories/group.jpg', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
-    { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', img: '/images/categories/family.jpg', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
     { id: 'maternity-paket', name: 'Maternity', icon: '🤰', img: '/images/categories/maternity.jpg', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
     { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
@@ -438,8 +439,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
     { id: 'prewed-paket', name: 'Prewedding', icon: '💍', img: '/images/categories/prewedding.jpg', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
-    { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' },
-    { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' }
+    { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' }
   ];
 
   const selfPhotoGridItems = [
@@ -463,9 +463,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI 13 PAKET UTAMA ALVIERO STUDIO
   const studioGalleryCategories = [
     { id: 'all', label: 'Semua Paket', icon: '📸' },
-    { id: 'selfstudio', label: 'Paket Self Studio', icon: '✨' },
     { id: 'grad-indoor', label: 'Paket Wisuda Indoor', icon: '🎓' },
     { id: 'grad-outdoor', label: 'Paket Wisuda Outdoor', icon: '🌳' },
+    { id: 'selfstudio', label: 'Paket Self Studio', icon: '✨' },
     { id: 'prewed', label: 'Paket Prewedding', icon: '💍' },
     { id: 'couple', label: 'Paket Couple', icon: '💑' },
     { id: 'personal', label: 'Paket Personal', icon: '👤' },
@@ -479,18 +479,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   const STUDIO_GALLERY_PHOTOS: StudioGalleryPhoto[] = [
-    {
-      id: 'photo-1-selfstudio',
-      title: 'Pose Bebas & Aesthetic Tanpa Fotografer',
-      category: 'selfstudio',
-      packageName: 'Paket Self Studio',
-      icon: '✨',
-      targetPackageId: 'self-special-narsis',
-      imageUrl: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85',
-      description: 'Sesi foto bebas ekspresi menggunakan shutter remote di tangan, dilengkapi berbagai aksesoris, kacamata lucu, dan pilihan lighting spotlight.',
-      conceptNote: 'Bebas berekspresi tanpa canggung dengan remote shutter nirkabel mandiri.',
-      tags: ['#SelfStudio', '#Aesthetic', '#PropsLucu']
-    },
     {
       id: 'photo-2-grad-indoor',
       title: 'Foto Wisuda Toga Resmi & Foto Bersama Keluarga',
@@ -514,6 +502,18 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       description: 'Foto wisuda outdoor di spot-spot ikonik seputar gedung universitas dan taman kampus bersama teman seangkatan.',
       conceptNote: 'Fotografer mendampingi langsung di lokasi kampus favorit Anda.',
       tags: ['#WisudaOutdoor', '#AreaKampus', '#FotoWisuda']
+    },
+    {
+      id: 'photo-1-selfstudio',
+      title: 'Pose Bebas & Aesthetic Tanpa Fotografer',
+      category: 'selfstudio',
+      packageName: 'Paket Self Studio',
+      icon: '✨',
+      targetPackageId: 'self-special-narsis',
+      imageUrl: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85',
+      description: 'Sesi foto bebas ekspresi menggunakan shutter remote di tangan, dilengkapi berbagai aksesoris, kacamata lucu, dan pilihan lighting spotlight.',
+      conceptNote: 'Bebas berekspresi tanpa canggung dengan remote shutter nirkabel mandiri.',
+      tags: ['#SelfStudio', '#Aesthetic', '#PropsLucu']
     },
     {
       id: 'photo-4-prewed',
