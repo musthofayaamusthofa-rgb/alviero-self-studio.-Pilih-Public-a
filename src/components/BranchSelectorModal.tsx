@@ -779,15 +779,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FAF8F5] flex-1">
           
-          {/* 1. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
-          <StudioTourAndEducationShowcase 
-            selectedBranch={selectedBranch}
-            onSelectBranch={onSelectBranch}
-            onSelectCategory={onSelectCategory}
-          />
-
-          {/* 2. Why Choose Alviero Studio? (Grid 4 Kolom di Desktop) */}
-          <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-4">
+          {/* 1. Why Choose Alviero Studio? (Grid 4 Kolom di Desktop, Diposisikan di Atas Tur Edukasi) */}
+          <div className="pb-1 space-y-4">
             <div className="text-center space-y-1">
               <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
                 WHY CHOOSE ALVIERO STUDIO?
@@ -851,6 +844,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* 2. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
+          <div className="pt-4 border-t border-[#E0D9CE]">
+            <StudioTourAndEducationShowcase 
+              selectedBranch={selectedBranch}
+              onSelectBranch={onSelectBranch}
+              onSelectCategory={onSelectCategory}
+            />
           </div>
 
           {/* 3 & 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Grid 3 Kolom Sejajar di Desktop) */}
