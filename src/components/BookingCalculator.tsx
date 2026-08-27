@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PACKAGES, CATEGORIES, BACKDROPS, FRAME_TEMPLATES, ADD_ONS, TIME_SLOTS, PRO_STUDIO_TIME_SLOTS, SELF_STUDIO_TIME_SLOTS, STUDIO_BRANCHES } from '../data/pricelistData';
 import { BookingFormData, StudioBranch, BackdropOption } from '../types';
-import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2 } from 'lucide-react';
+import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2, Layers, Sliders, CheckSquare } from 'lucide-react';
 
 interface BookingCalculatorProps {
   isOpen: boolean;
@@ -19,45 +19,45 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
   const cat = pkg.category.toLowerCase();
   
   if (id.includes('outdoor') || cat.includes('outdoor')) {
-    return { key: 'grad-outdoor', label: 'Wisuda Outdoor', badge: '🌳 Wisuda Outdoor', note: '' };
+    return { key: 'grad-outdoor', label: 'Wisuda Outdoor', badge: 'Wisuda Outdoor', note: '' };
   }
   if (id.includes('grad') || id.includes('wisuda') || cat === 'graduation') {
-    return { key: 'grad-indoor', label: 'Wisuda Indoor', badge: '🎓 Wisuda Indoor', note: '' };
+    return { key: 'grad-indoor', label: 'Wisuda Indoor', badge: 'Wisuda Indoor', note: '' };
   }
   if (id.includes('passfoto') || cat === 'pass-foto' || cat === 'passfoto') {
-    return { key: 'pass-foto', label: 'Pass Foto', badge: '👤 Pass Foto', note: '' };
+    return { key: 'pass-foto', label: 'Pass Foto', badge: 'Pass Foto', note: '' };
   }
   if (id.includes('self-') || id.includes('selfstudio') || cat === 'self-studio' || cat === 'selfstudio') {
-    return { key: 'self-studio', label: 'Self Studio', badge: '✨ Self Studio', note: '' };
+    return { key: 'self-studio', label: 'Self Studio', badge: 'Self Studio', note: '' };
   }
   if (cat === 'group' || id.includes('group')) {
-    return { key: 'group', label: 'Paket Group', badge: '👥 Group', note: '' };
+    return { key: 'group', label: 'Paket Group', badge: 'Group Studio', note: '' };
   }
   if (cat === 'family' || id.includes('family')) {
-    return { key: 'family', label: 'Paket Family', badge: '👨‍👩‍👧‍👦 Family', note: '✨ Khusus untuk paket Family, tersedia diskon potongan Rp 50.000 khusus jika sesi hanya beranggotakan 3 orang keluarga.' };
+    return { key: 'family', label: 'Paket Family', badge: 'Family Studio', note: 'Khusus paket Family, tersedia diskon potongan Rp 50.000 jika sesi hanya beranggotakan 3 orang keluarga.' };
   }
   if (cat === 'birthday' || id.includes('birthday')) {
-    return { key: 'birthday', label: 'Paket Birthday', badge: '🎉 Birthday', note: '🎈 Bisa request konsep / tema ulang tahun custom (silakan konfirmasi konsep ke admin WhatsApp).' };
+    return { key: 'birthday', label: 'Paket Birthday', badge: 'Birthday Studio', note: 'Bisa request konsep / tema ulang tahun custom (silakan konfirmasi konsep ke admin WhatsApp).' };
   }
   if (cat === 'maternity' || id.includes('maternity')) {
-    return { key: 'maternity', label: 'Paket Maternity', badge: '🤰 Maternity', note: '' };
+    return { key: 'maternity', label: 'Paket Maternity', badge: 'Maternity Studio', note: '' };
   }
   if (cat === 'personal' || id.includes('personal')) {
-    return { key: 'personal', label: 'Paket Personal', badge: '👤 Personal', note: '' };
+    return { key: 'personal', label: 'Paket Personal', badge: 'Personal Studio', note: '' };
   }
   if (cat === 'couple' || id.includes('couple')) {
-    return { key: 'couple', label: 'Paket Couple', badge: '💑 Couple', note: '' };
+    return { key: 'couple', label: 'Paket Couple', badge: 'Couple Studio', note: '' };
   }
   if (cat === 'prewedding' || id.includes('prewed')) {
-    return { key: 'prewedding', label: 'Paket Prewedding', badge: '💍 Prewedding', note: '' };
+    return { key: 'prewedding', label: 'Paket Prewedding', badge: 'Prewedding Suite', note: '' };
   }
   if (cat === 'undangan' || id.includes('undangan')) {
-    return { key: 'undangan', label: 'Paket Undangan', badge: '💌 Undangan', note: '' };
+    return { key: 'undangan', label: 'Paket Undangan', badge: 'Undangan Digital', note: '' };
   }
   if (cat === 'sewa-studio' || id.includes('sewa')) {
-    return { key: 'sewa-studio', label: 'Paket Sewa Studio', badge: '🏢 Sewa Studio', note: '' };
+    return { key: 'sewa-studio', label: 'Paket Sewa Studio', badge: 'Sewa Studio', note: '' };
   }
-  return { key: cat, label: pkg.name, badge: '📸 Studio', note: '' };
+  return { key: cat, label: pkg.name, badge: 'Studio Foto', note: '' };
 };
 
 export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[] }): number => {
@@ -402,7 +402,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     message += `• Tanggal Foto: ${bookingDate}\n`;
     message += `• Jam Slot: ${timeSlot} WIB\n`;
     message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
-    message += `• *Lokasi Studio:* ${currentBranchInfo.icon} *${currentBranchInfo.name}*\n\n`;
+    message += `• *Lokasi Studio:* *${currentBranchInfo.name}*\n\n`;
 
     message += `📷 *PAKET & KONSEP STUDIO:*\n`;
     message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
@@ -500,96 +500,98 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-6 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-3xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[95vh] my-auto relative">
-        {/* Modal Header (Clean Slate & Studio Green Accent) */}
-        <div className="bg-slate-900 text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-slate-800">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto animate-in fade-in duration-200">
+      <div className="bg-[#FAF8F5] max-w-3xl w-full border-x-0 sm:border sm:border-[#D5CEC2] shadow-2xl overflow-hidden flex flex-col max-h-screen sm:max-h-[94vh] my-auto relative text-left">
+        
+        {/* Modal Header (Sleek Charcoal & Gold Luxury) */}
+        <div className="bg-[#1C1A17] text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-[#332F2A]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#6c8c74] flex items-center justify-center text-white font-bold shrink-0 shadow-sm">
-              <Calculator className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-[#2D2A26] border border-[#4A453E] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-xs">
+              <Calculator className="w-5 h-5 stroke-[1.8]" />
             </div>
             <div>
-              <h3 className="font-extrabold text-base sm:text-lg text-white leading-tight">
-                Kalkulator & Booking Online
+              <h3 className="font-serif font-bold text-sm sm:text-base md:text-lg text-white uppercase tracking-wider leading-tight">
+                KALKULATOR & RESERVASI JADWAL
               </h3>
-              <p className="text-[11px] sm:text-xs text-slate-300 font-medium">
-                Alviero Studio Foto • Konfirmasi Cepat via WhatsApp
+              <p className="text-[11px] sm:text-xs text-stone-400 font-sans tracking-wide">
+                Alviero Studio Foto • Konfirmasi Cepat & Otomatis via WhatsApp
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            aria-label="Close modal"
+            className="w-9 h-9 bg-[#2D2A26] hover:bg-[#3D3832] text-stone-300 hover:text-white flex items-center justify-center border border-[#4A453E] transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4.5 h-4.5 stroke-[2]" />
           </button>
         </div>
 
-        {/* Step Navigation Bar (Minimalist Multi-Pastel Pill Design) */}
-        <div className="bg-[#faf9f6] border-b border-stone-200 px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between text-xs font-semibold overflow-x-auto scroll-mask-x shrink-0">
-          <div className="flex items-center gap-1.5 w-full justify-between sm:justify-start">
+        {/* Step Navigation Bar (Sharp Architectural Breadcrumb) */}
+        <div className="bg-white border-b border-[#E0D9CE] px-3 py-2.5 sm:px-6 sm:py-3 flex items-center justify-between text-xs font-serif uppercase tracking-wider overflow-x-auto shrink-0">
+          <div className="flex items-center gap-2 w-full justify-between sm:justify-start">
             <button
               onClick={() => setStep(1)}
-              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all border ${
+              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${
                 step === 1 
-                  ? 'bg-[#eef4f0] text-[#2d5236] border-[#c8dacd] shadow-2xs font-extrabold' 
-                  : 'text-stone-600 border-transparent hover:bg-stone-200/50'
+                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold' 
+                  : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
               }`}
             >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                step === 1 ? 'bg-[#4d7557] text-white' : 'bg-stone-200 text-stone-700'
-              }`}>1</span>
+              <span className={`text-[11px] font-bold ${step === 1 ? 'text-[#D4AF37]' : 'text-stone-500'}`}>1.</span>
               <span>Paket & Jadwal</span>
             </button>
+            
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+            
             <button
               onClick={() => setStep(2)}
-              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all border ${
+              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${
                 step === 2 
-                  ? 'bg-[#fdf8ec] text-[#75591c] border-[#f5e6be] shadow-2xs font-extrabold' 
-                  : 'text-stone-600 border-transparent hover:bg-stone-200/50'
+                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold' 
+                  : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
               }`}
             >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                step === 2 ? 'bg-[#b0852a] text-white' : 'bg-stone-200 text-stone-700'
-              }`}>2</span>
-              <span>Add-ons & Diskon</span>
+              <span className={`text-[11px] font-bold ${step === 2 ? 'text-[#D4AF37]' : 'text-stone-500'}`}>2.</span>
+              <span>Add-Ons & Diskon</span>
             </button>
+            
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+            
             <button
               onClick={() => setStep(3)}
-              className={`min-h-[34px] px-3.5 py-1 rounded-full flex items-center gap-1.5 shrink-0 cursor-pointer transition-all border ${
+              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${
                 step === 3 
-                  ? 'bg-[#faf1f5] text-[#743358] border-[#ebd0df] shadow-2xs font-extrabold' 
-                  : 'text-stone-600 border-transparent hover:bg-stone-200/50'
+                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold' 
+                  : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
               }`}
             >
-              <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
-                step === 3 ? 'bg-[#964d74] text-white' : 'bg-stone-200 text-stone-700'
-              }`}>3</span>
+              <span className={`text-[11px] font-bold ${step === 3 ? 'text-[#D4AF37]' : 'text-stone-500'}`}>3.</span>
               <span>Data & Pembayaran</span>
             </button>
           </div>
         </div>
 
         {/* Modal Body Content */}
-        <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 bg-white">
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 bg-[#FAF8F5]">
+          
           {/* STEP 1: Select Package, Date, Time & Concepts */}
           {step === 1 && (
             <div className="space-y-5">
+              
               {/* Branch Selector in Step 1 */}
-              <div className="bg-slate-50 border border-slate-200 p-3 sm:p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow-2xs">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sm font-bold shrink-0 shadow-xs">
-                    {currentBranchInfo.icon}
+              <div className="bg-white border border-[#E0D9CE] p-3.5 flex items-center justify-between gap-3 shadow-2xs">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
+                    <MapPin className="w-4.5 h-4.5 text-[#8C6D46] stroke-[1.8]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Lokasi Studio:</div>
-                    <div className="text-xs font-black text-slate-900 truncate">{currentBranchInfo.name}</div>
+                    <div className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">LOKASI STUDIO:</div>
+                    <div className="text-xs sm:text-sm font-serif font-bold text-[#1C1A17] truncate">{currentBranchInfo.name}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 bg-white p-1 rounded-full border border-slate-200 shadow-2xs shrink-0">
+                <div className="flex items-center gap-1.5 shrink-0">
                   {STUDIO_BRANCHES.map((b) => (
                     <button
                       key={b.id}
@@ -597,13 +599,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       onClick={() => {
                         if (onSelectBranch) onSelectBranch(b.id);
                       }}
-                      className={`px-3 py-1 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                      className={`px-3.5 py-1.5 text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border ${
                         selectedBranch === b.id
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                          ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
+                          : 'bg-[#FAF8F5] text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
                       }`}
                     >
-                      {b.badge}
+                      {b.shortName.replace('Alviero Studio — ', '')}
                     </button>
                   ))}
                 </div>
@@ -611,13 +613,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
               {/* 1. Pilih Paket Foto */}
               <div>
-                <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-2">
-                  1. Pilih Paket Foto Utama:
+                <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider mb-2">
+                  1. PILIH PAKET FOTO UTAMA:
                 </label>
                 <select
                   value={selectedPackageId}
                   onChange={(e) => setSelectedPackageId(e.target.value)}
-                  className="w-full min-h-[44px] p-3 rounded-2xl border border-slate-300 text-xs font-bold text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#6c8c74]"
+                  className="w-full min-h-[44px] p-3 border border-[#D5CEC2] text-xs font-semibold text-[#1C1A17] bg-white focus:outline-none focus:border-[#1C1A17] transition-colors"
                 >
                   {PACKAGES.map((pkg) => (
                     <option key={pkg.id} value={pkg.id}>
@@ -628,31 +630,40 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               </div>
 
               {/* Package Summary Card */}
-              <div className="bg-slate-50/90 border border-slate-200 p-4 rounded-2xl space-y-2">
-                <div className="flex justify-between items-start">
+              <div className="bg-white border border-[#E0D9CE] p-4 space-y-2.5">
+                <div className="flex justify-between items-start gap-2">
                   <div>
-                    <h4 className="font-extrabold text-slate-900 text-sm">{currentPackage.name}</h4>
-                    <p className="text-xs text-slate-600">{currentPackage.description}</p>
+                    <h4 className="font-serif font-bold text-[#1C1A17] text-sm sm:text-base uppercase tracking-wide">{currentPackage.name}</h4>
+                    <p className="text-xs font-sans text-stone-600 mt-0.5 leading-relaxed">{currentPackage.description}</p>
                   </div>
-                  <span className="font-black text-slate-900 text-base shrink-0">
+                  <span className="font-serif font-bold text-[#1C1A17] text-base sm:text-lg shrink-0">
                     Rp {currentPackage.price.toLocaleString('id-ID')}
                   </span>
                 </div>
-                <div className="text-[11px] text-slate-700 pt-1 flex items-center gap-2 flex-wrap">
-                  <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-semibold">⏱️ {currentPackage.durationMinutes} Menit Sesi</span>
-                  <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-semibold">👥 {currentPackage.includedPeople} Peserta</span>
-                  <span className="bg-white px-2.5 py-0.5 rounded-full border border-slate-200 font-semibold">🖨️ {currentPackage.includedPrints}</span>
+                <div className="text-[11px] text-stone-700 pt-2 border-t border-[#EFEAE2] flex items-center gap-2 flex-wrap">
+                  <span className="bg-[#FAF8F5] px-3 py-1 border border-[#E0D9CE] font-sans font-medium flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-[#8C6D46]" />
+                    {currentPackage.durationMinutes} Menit Sesi
+                  </span>
+                  <span className="bg-[#FAF8F5] px-3 py-1 border border-[#E0D9CE] font-sans font-medium flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-[#8C6D46]" />
+                    {currentPackage.includedPeople} Peserta
+                  </span>
+                  <span className="bg-[#FAF8F5] px-3 py-1 border border-[#E0D9CE] font-sans font-medium flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-[#8C6D46]" />
+                    {currentPackage.includedPrints}
+                  </span>
                 </div>
               </div>
 
-              {/* 2. PILIH TANGGAL & JAM SLOT FOTO TERLEBIH DAHULU */}
+              {/* 2. PILIH TANGGAL & JAM SLOT FOTO */}
               <div className="space-y-3.5 pt-1">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-[#6c8c74]" />
-                    2. Pilih Tanggal & Waktu Sesi Foto:
+                  <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-[#8C6D46]" />
+                    2. PILIH TANGGAL & WAKTU SESI FOTO:
                   </label>
-                  <span className="text-[10.5px] font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
+                  <span className="text-[11px] font-sans font-bold text-[#1C1A17] bg-white px-3 py-1 border border-[#E0D9CE]">
                     {bookingDate} • {timeSlot} WIB
                   </span>
                 </div>
@@ -664,47 +675,47 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     min={today}
                     value={bookingDate}
                     onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6c8c74] bg-white"
+                    className="w-full min-h-[44px] p-2.5 border border-[#D5CEC2] text-xs text-[#1C1A17] font-semibold focus:outline-none focus:border-[#1C1A17] bg-white"
                   />
                 </div>
 
                 {/* Room & Studio Type Identifier Banner */}
                 {isSelfStudio ? (
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center gap-2.5 text-slate-900 text-xs font-semibold">
-                    <div className="w-8 h-8 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
-                      ✨
+                  <div className="p-3.5 bg-white border border-[#E0D9CE] flex items-center gap-3 text-xs font-sans">
+                    <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4.5 h-4.5" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-extrabold text-slate-900 flex items-center gap-1.5">
-                        Jadwal Khusus: Bilik Self Studio (Mandiri)
-                        <span className="text-[9.5px] bg-slate-200 text-slate-800 px-2 py-0.2 rounded-full font-bold">Bilik Mandiri</span>
+                      <p className="font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-2">
+                        JADWAL KHUSUS: BILIK SELF STUDIO MANDIRI
+                        <span className="text-[9px] bg-[#FAF8F5] text-stone-700 border border-[#E0D9CE] px-2 py-0.5 font-bold">100% PRIVATE</span>
                       </p>
-                      <p className="text-[10.5px] text-slate-600 font-normal">Sesi foto private dengan shutter remote. Jadwal terpisah & tidak bertabrakan dengan Studio Foto.</p>
+                      <p className="text-[11px] text-stone-600 mt-0.5">Sesi foto private dengan shutter remote wireless. Jadwal terpisah & tidak bertabrakan dengan Studio Foto.</p>
                     </div>
                   </div>
                 ) : (
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center gap-2.5 text-slate-900 text-xs font-semibold">
-                    <div className="w-8 h-8 rounded-xl bg-slate-900 text-emerald-400 flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
-                      📸
+                  <div className="p-3.5 bg-white border border-[#E0D9CE] flex items-center gap-3 text-xs font-sans">
+                    <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                      <Camera className="w-4.5 h-4.5" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-extrabold text-slate-900 flex items-center gap-1.5">
-                        Jadwal Khusus: Studio Foto Profesional
-                        <span className="text-[9.5px] bg-slate-200 text-slate-800 px-2 py-0.2 rounded-full font-bold">Fotografer Pro</span>
+                      <p className="font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-2">
+                        JADWAL KHUSUS: STUDIO FOTO PROFESIONAL
+                        <span className="text-[9px] bg-[#FAF8F5] text-stone-700 border border-[#E0D9CE] px-2 py-0.5 font-bold">FOTOGRAFER PRO</span>
                       </p>
-                      <p className="text-[10.5px] text-slate-600 font-normal">Sesi dipandu & diarahkan langsung oleh tim fotografer profesional di panggung studio.</p>
+                      <p className="text-[11px] text-stone-600 mt-0.5">Sesi dipandu & diarahkan langsung oleh tim fotografer profesional di panggung studio.</p>
                     </div>
                   </div>
                 )}
 
-                {/* Time Slots Grid (18 Pilihan) */}
+                {/* Time Slots Grid */}
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-xs font-bold text-slate-700 uppercase flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5 text-[#6c8c74]" />
-                      Pilih Jam Slot {isSelfStudio ? 'Self Studio' : 'Studio Foto'} ({activeTimeSlots.length} Pilihan):
+                    <label className="text-xs font-serif font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-[#8C6D46]" />
+                      PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN):
                     </label>
-                    <span className="text-[10.5px] font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
+                    <span className="text-[10.5px] font-sans font-bold text-[#1C1A17] bg-white px-2.5 py-0.5 border border-[#E0D9CE]">
                       Terpilih: {timeSlot} WIB
                     </span>
                   </div>
@@ -723,14 +734,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           data-price={isChargeSlot ? 'surcharge' : 'normal'}
                           disabled={isBooked}
                           onClick={() => setTimeSlot(slot)}
-                          className={`min-h-[44px] p-2 rounded-xl text-xs font-black transition-all text-center flex flex-col items-center justify-center border ${
+                          className={`min-h-[46px] p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border ${
                             isBooked
-                              ? 'bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed opacity-60 line-through'
+                              ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
                               : isSelected
-                              ? 'bg-[#6c8c74] text-white border-[#6c8c74] shadow-sm ring-2 ring-[#6c8c74]/20 cursor-pointer active:scale-95'
+                              ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs cursor-pointer active:scale-95'
                               : isChargeSlot
-                              ? 'bg-amber-50 hover:bg-amber-100/80 text-amber-950 border-amber-300 shadow-2xs cursor-pointer active:scale-95'
-                              : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200 shadow-2xs cursor-pointer active:scale-95'
+                              ? 'bg-[#FFFDF7] hover:bg-[#FAF5EE] text-[#6E4E18] border-[#E8DCC4] cursor-pointer active:scale-95'
+                              : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
                           }`}
                         >
                           <span className="leading-tight">{slot}</span>
@@ -740,8 +751,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             </span>
                           ) : isChargeSlot ? (
                             <span
-                              className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 rounded ${
-                                isSelected ? 'bg-amber-300 text-slate-950' : 'bg-amber-200/80 text-amber-900'
+                              className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 ${
+                                isSelected ? 'bg-[#D4AF37] text-black font-bold' : 'bg-[#E8DCC4] text-[#6E4E18]'
                               }`}
                             >
                               (+25k)
@@ -754,8 +765,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                   {/* Notifikasi Khusus Slot 20:45 */}
                   {timeSlot === '20:45' && (
-                    <div className="mt-2.5 p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
-                      <span className="text-sm shrink-0">⚡</span>
+                    <div className="mt-2.5 p-3 bg-amber-50 border border-amber-300 text-amber-900 text-xs font-sans flex items-center gap-2">
+                      <span className="font-bold text-sm shrink-0">⚡</span>
                       <span>
                         Slot jam <strong className="font-bold">20:45 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 25.000</strong>.
                       </span>
@@ -764,18 +775,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* 3. Backdrop selection (1 or 2 backdrops depending on package) */}
-              <div className="pt-2 border-t border-slate-100">
+              {/* 3. Backdrop selection */}
+              <div className="pt-2 border-t border-[#E0D9CE]">
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
-                  <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                    3. {maxBackdrops > 1 ? 'Pilih 2 Pencahayaan / Latar Belakang (Backdrop):' : 'Pilih Pencahayaan / Latar Belakang (Backdrop):'}
+                  <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider">
+                    3. {maxBackdrops > 1 ? 'PILIH 2 LATAR BELAKANG / PENCAHAYAAN (BACKDROP):' : 'PILIH PENCAHAYAAN / LATAR BELAKANG (BACKDROP):'}
                   </label>
                   {maxBackdrops > 1 ? (
-                    <span className="text-[10.5px] bg-emerald-50 text-emerald-800 border border-emerald-200 font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
-                      ✨ Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
+                    <span className="text-[10.5px] bg-[#FAF8F5] text-stone-800 border border-[#E0D9CE] font-bold px-2.5 py-0.5">
+                      Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
                     </span>
                   ) : (
-                    <span className="text-[10.5px] bg-slate-100 text-slate-600 border border-slate-200 font-semibold px-2.5 py-0.5 rounded-full">
+                    <span className="text-[10.5px] bg-white text-stone-600 border border-[#E0D9CE] font-medium px-2.5 py-0.5">
                       1 Background
                     </span>
                   )}
@@ -794,41 +805,41 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         disabled={!isAvailable && !isSelected}
                         onClick={() => handleSelectBackdrop(backdrop.id)}
-                        className={`min-h-[54px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all relative ${
+                        className={`min-h-[56px] p-3 border text-left flex items-center gap-3 transition-all relative ${
                           !isAvailable && !isSelected
-                            ? 'border-slate-200 bg-slate-100/70 text-slate-400 opacity-60 cursor-not-allowed'
+                            ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
                             : isSelected
-                            ? 'border-[#6c8c74] bg-emerald-50/60 ring-2 ring-[#6c8c74]/20 shadow-xs cursor-pointer active:scale-98'
-                            : 'border-slate-200 bg-white hover:bg-slate-50 cursor-pointer active:scale-98'
+                            ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs cursor-pointer active:scale-98'
+                            : 'border-[#E0D9CE] bg-white hover:bg-[#FAF8F5] cursor-pointer active:scale-98'
                         }`}
                       >
                         <div
-                          className="w-7 h-7 rounded-full border border-black/10 shrink-0 shadow-2xs flex items-center justify-center text-white text-[11px] font-black"
+                          className="w-7 h-7 border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold"
                           style={{ backgroundColor: backdrop.hex }}
                         >
                           {isSelected && maxBackdrops > 1 && (
-                            <span className="bg-black/40 w-full h-full rounded-full flex items-center justify-center">
+                            <span className="bg-black/50 w-full h-full flex items-center justify-center font-bold">
                               {selectionIndex + 1}
                             </span>
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className={`font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-slate-500 line-through' : 'text-slate-900'}`}>
+                            <span className={`font-serif font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-stone-400 line-through' : 'text-[#1C1A17]'}`}>
                               {backdrop.name}
                             </span>
                             {isSelected && maxBackdrops > 1 && (
-                              <span className="text-[9px] font-black bg-slate-900 text-white px-2 py-0.2 rounded-full">
+                              <span className="text-[9px] font-bold bg-[#1C1A17] text-white px-2 py-0.2">
                                 Latar {selectionIndex + 1}
                               </span>
                             )}
                             {!isAvailable && !isSelected && (
-                              <span className="text-[8.5px] font-extrabold bg-rose-100 text-rose-700 px-2 py-0.2 rounded-full border border-rose-200">
-                                🚫 Tidak Tersedia
+                              <span className="text-[8.5px] font-bold bg-rose-100 text-rose-700 px-2 py-0.2 border border-rose-200">
+                                Tidak Tersedia
                               </span>
                             )}
                           </div>
-                          <div className="text-[10px] text-slate-500 truncate">
+                          <div className="text-[10.5px] text-stone-500 truncate mt-0.5">
                             {!isAvailable && !isSelected ? (
                               <span className="text-rose-600 font-medium">{availability.reason}</span>
                             ) : (
@@ -837,7 +848,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           </div>
                         </div>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-[#6c8c74] text-white flex items-center justify-center shrink-0 text-xs shadow-2xs">
+                          <div className="w-5 h-5 bg-[#1C1A17] text-white flex items-center justify-center shrink-0 text-xs shadow-2xs">
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         )}
@@ -848,8 +859,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Rule hint for Limbo vs Putih Tengah */}
                 {availableBackdrops.some(b => b.id.includes('limbo')) && availableBackdrops.some(b => b.id.includes('putih-tengah')) && (
-                  <div className="mt-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-[11px] flex items-center gap-2">
-                    <span className="text-sm shrink-0">💡</span>
+                  <div className="mt-2.5 p-3 bg-white border border-[#E0D9CE] text-stone-600 text-[11px] font-sans flex items-center gap-2">
+                    <span className="font-bold text-[#8C6D46]">ℹ️</span>
                     <span>
                       <strong>Catatan Latar Studio:</strong> Backdrop <em>Limbo</em> dan <em>Putih Tengah</em> berbagi area panggung yang sama, sehingga tidak dapat digunakan bersamaan pada jam yang sama atau dalam 1 sesi foto.
                     </span>
@@ -858,16 +869,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Helper notice for 2 backdrops */}
                 {maxBackdrops > 1 && (
-                  <div className={`mt-2.5 p-2.5 rounded-xl border text-xs flex items-center justify-between gap-2 transition-all ${
+                  <div className={`mt-2.5 p-3 border text-xs font-sans flex items-center justify-between gap-2 transition-all ${
                     selectedBackdropIds.length >= 2
-                      ? 'bg-emerald-50/90 border-emerald-200 text-emerald-900'
-                      : 'bg-amber-50/90 border-amber-200 text-amber-900'
+                      ? 'bg-white border-[#1C1A17] text-[#1C1A17]'
+                      : 'bg-amber-50 border-amber-300 text-amber-900'
                   }`}>
                     <span className="font-medium">
                       {selectedBackdropIds.length >= 2 ? (
-                        <>✅ <strong>2 Latar Terpilih:</strong> {backdropDisplayName}</>
+                        <>✓ <strong>2 Latar Terpilih:</strong> {backdropDisplayName}</>
                       ) : (
-                        <>💡 <strong>Baru 1 Latar Dipilih:</strong> {selectedBackdropObjects[0]?.name || '-'}. <em>Silakan klik 1 background lagi untuk latar ke-2 Anda!</em></>
+                        <>ℹ️ <strong>Baru 1 Latar Dipilih:</strong> {selectedBackdropObjects[0]?.name || '-'}. <em>Silakan klik 1 background lagi untuk latar ke-2 Anda!</em></>
                       )}
                     </span>
                   </div>
@@ -878,10 +889,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               {isSelfStudio && (
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                      4. Pilih Template Layout Grid Cetak:
+                    <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider">
+                      4. PILIH TEMPLATE LAYOUT GRID CETAK:
                     </label>
-                    <span className="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded-full border border-slate-200">
+                    <span className="text-[10px] bg-white text-stone-700 font-bold px-2 py-0.5 border border-[#E0D9CE]">
                       Khusus Self Studio
                     </span>
                   </div>
@@ -890,14 +901,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         key={frame.id}
                         onClick={() => setSelectedFrameId(frame.id)}
-                        className={`min-h-[44px] p-3 rounded-2xl border text-left transition-all cursor-pointer active:scale-98 ${
+                        className={`min-h-[46px] p-3 border text-left transition-all cursor-pointer active:scale-98 ${
                           selectedFrameId === frame.id
-                            ? 'border-[#6c8c74] bg-emerald-50/70 text-slate-900 font-bold ring-2 ring-[#6c8c74]/20 shadow-xs'
-                            : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                            ? 'border-[#1C1A17] bg-white text-[#1C1A17] font-bold ring-1 ring-[#1C1A17] shadow-xs'
+                            : 'border-[#E0D9CE] bg-white hover:bg-[#FAF8F5] text-stone-700'
                         }`}
                       >
-                        <div className="font-extrabold text-xs">{frame.name}</div>
-                        <div className="text-[10px] text-slate-500 mt-0.5">{frame.gridType}</div>
+                        <div className="font-serif font-bold text-xs uppercase">{frame.name}</div>
+                        <div className="text-[10px] text-stone-500 mt-0.5">{frame.gridType}</div>
                       </button>
                     ))}
                   </div>
@@ -918,48 +929,50 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               <div className="space-y-4">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
-                    <h4 className="font-extrabold text-slate-900 text-sm">Pilih Biaya / Layanan Tambahan (Add-Ons):</h4>
-                    <span className="text-[10px] bg-slate-100 text-slate-800 font-bold px-2.5 py-0.5 rounded-full border border-slate-200">
+                    <h4 className="font-serif font-bold text-[#1C1A17] text-sm sm:text-base uppercase tracking-wide">
+                      PILIH LAYANAN TAMBAHAN (ADD-ONS):
+                    </h4>
+                    <span className="text-[10.5px] bg-white text-stone-800 font-bold px-2.5 py-0.5 border border-[#E0D9CE]">
                       {Object.values(selectedAddOns).reduce<number>((a, b) => a + (Number(b) || 0), 0)} Item Terpilih
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 mb-3">
-                    Daftar Add-Ons otomatis disesuaikan khusus untuk <strong className="text-slate-800 font-bold">{packageCatInfo.label}</strong>.
+                  <p className="text-xs text-stone-500 mb-3">
+                    Daftar Add-Ons otomatis disesuaikan khusus untuk <strong className="text-stone-800 font-bold">{packageCatInfo.label}</strong>.
                   </p>
 
                   {/* Header Info Paket Terpilih */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 sm:p-3.5 flex items-center justify-between gap-2.5 mb-3">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
-                        <Sparkles className="w-4 h-4 text-emerald-400" />
+                  <div className="bg-white border border-[#E0D9CE] p-3.5 flex items-center justify-between gap-2.5 mb-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                        <Sparkles className="w-4.5 h-4.5" />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                          Kategori Paket:
+                        <div className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">
+                          KATEGORI PAKET:
                         </div>
-                        <div className="text-xs sm:text-sm font-black text-slate-900 truncate">
+                        <div className="text-xs sm:text-sm font-serif font-bold text-[#1C1A17] truncate">
                           {currentPackage.name}
                         </div>
                       </div>
                     </div>
-                    <span className="text-[11px] font-extrabold bg-slate-900 text-white px-3 py-1 rounded-full shrink-0 shadow-2xs">
+                    <span className="text-[11px] font-serif font-bold uppercase bg-[#1C1A17] text-white px-3 py-1 shrink-0">
                       {packageCatInfo.badge}
                     </span>
                   </div>
 
                   {/* Catatan Khusus Kategori (Jika ada) */}
                   {packageCatInfo.note && (
-                    <div className="bg-amber-50 border border-amber-300 rounded-xl p-3 text-amber-900 text-xs font-semibold mb-3.5 flex items-start gap-2 animate-in fade-in">
-                      <span className="text-sm shrink-0">💡</span>
+                    <div className="bg-amber-50 border border-amber-300 p-3 text-amber-900 text-xs font-sans mb-3.5 flex items-start gap-2">
+                      <span className="font-bold text-sm shrink-0">ℹ️</span>
                       <span className="leading-relaxed">{packageCatInfo.note}</span>
                     </div>
                   )}
 
                   {/* List Add-Ons Khusus Kategori yang Dipilih */}
                   {relevantAddOns.length === 0 ? (
-                    <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl text-center space-y-1">
-                      <p className="text-xs font-bold text-slate-600">Tidak ada Add-Ons tambahan khusus untuk paket ini.</p>
-                      <p className="text-[11px] text-slate-400">Paket ini sudah include seluruh fasilitas utama.</p>
+                    <div className="p-6 bg-white border border-[#E0D9CE] text-center space-y-1">
+                      <p className="text-xs font-bold text-stone-600">Tidak ada Add-Ons tambahan khusus untuk paket ini.</p>
+                      <p className="text-[11px] text-stone-400">Paket ini sudah include seluruh fasilitas utama.</p>
                     </div>
                   ) : (
                     <div className="space-y-2.5">
@@ -968,41 +981,41 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         return (
                           <div
                             key={addOn.id}
-                            className={`p-3 sm:p-3.5 rounded-xl border transition-all flex items-center justify-between gap-3 ${
+                            className={`p-3.5 border transition-all flex items-center justify-between gap-3 ${
                               qty > 0
-                                ? 'bg-emerald-50/50 border-[#6c8c74] ring-1 ring-[#6c8c74]/40 shadow-xs'
-                                : 'bg-white hover:border-slate-300 border-slate-200 shadow-2xs'
+                                ? 'bg-white border-[#1C1A17] ring-1 ring-[#1C1A17] shadow-xs'
+                                : 'bg-white hover:border-stone-400 border-[#E0D9CE]'
                             }`}
                           >
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="font-bold text-xs sm:text-sm text-slate-900">{addOn.name}</span>
+                                <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17]">{addOn.name}</span>
                               </div>
-                              <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-snug">
+                              <div className="text-[11px] sm:text-xs text-stone-500 mt-0.5 leading-snug">
                                 {addOn.description}
                               </div>
-                              <div className="text-xs sm:text-sm mt-1 text-[#5e9e44] font-extrabold">
-                                Rp {addOn.price.toLocaleString('id-ID')} <span className="text-[11px] text-slate-400 font-normal">/ {addOn.unit}</span>
+                              <div className="text-xs sm:text-sm mt-1 text-[#8C6D46] font-bold">
+                                Rp {addOn.price.toLocaleString('id-ID')} <span className="text-[11px] text-stone-400 font-normal">/ {addOn.unit}</span>
                               </div>
                             </div>
 
                             {/* Quantity Selector */}
-                            <div className="flex items-center gap-1.5 bg-slate-100 rounded-full border border-slate-200 p-1 shrink-0">
+                            <div className="flex items-center gap-1.5 bg-[#FAF8F5] border border-[#E0D9CE] p-1 shrink-0">
                               <button
                                 type="button"
                                 onClick={() => handleAddOnQtyChange(addOn.id, -1)}
                                 disabled={qty === 0}
-                                className="min-w-[32px] min-h-[32px] rounded-full bg-white hover:bg-slate-200 disabled:opacity-30 text-slate-700 font-bold text-xs flex items-center justify-center transition-colors cursor-pointer active:scale-95 border border-slate-200 shadow-2xs"
+                                className="w-8 h-8 bg-white hover:bg-stone-100 disabled:opacity-30 text-stone-700 font-bold text-xs flex items-center justify-center border border-[#D5CEC2] cursor-pointer active:scale-95"
                               >
-                                <Minus className="w-3.5 h-3.5" />
+                                <Minus className="w-3.5 h-3.5 stroke-[2]" />
                               </button>
-                              <span className="w-6 text-center font-bold text-xs text-slate-800">{qty}</span>
+                              <span className="w-6 text-center font-mono font-bold text-xs text-[#1C1A17]">{qty}</span>
                               <button
                                 type="button"
                                 onClick={() => handleAddOnQtyChange(addOn.id, 1)}
-                                className="min-w-[32px] min-h-[32px] rounded-full bg-[#6c8c74] hover:bg-[#57735e] text-white font-bold text-xs flex items-center justify-center transition-colors cursor-pointer active:scale-95 shadow-xs"
+                                className="w-8 h-8 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-bold text-xs flex items-center justify-center border border-[#1C1A17] cursor-pointer active:scale-95 shadow-xs"
                               >
-                                <Plus className="w-3.5 h-3.5" />
+                                <Plus className="w-3.5 h-3.5 stroke-[2]" />
                               </button>
                             </div>
                           </div>
@@ -1012,56 +1025,57 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   )}
                 </div>
 
-              {/* Promo Voucher Section */}
-              <div className="pt-2 border-t border-slate-100 space-y-2">
-                <label className="text-xs font-bold text-slate-700 uppercase flex items-center gap-1.5">
-                  <Tag className="w-3.5 h-3.5 text-amber-500" />
-                  Gunakan Kode Promo Diskon:
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Masukkan kode promo (STUDENT10, COUPLE15, ALVIERO)"
-                    value={promoCodeInput}
-                    onChange={(e) => setPromoCodeInput(e.target.value)}
-                    className="flex-1 min-h-[44px] p-2.5 rounded-xl border border-slate-300 text-xs font-bold uppercase focus:outline-none focus:ring-2 focus:ring-[#6c8c74]"
-                  />
-                  <button
-                    onClick={handleApplyPromo}
-                    className="min-h-[44px] px-5 py-2.5 bg-slate-900 text-white font-bold text-xs rounded-xl hover:bg-slate-800 cursor-pointer active:scale-95"
-                  >
-                    Gunakan
-                  </button>
+                {/* Promo Voucher Section */}
+                <div className="pt-2 border-t border-[#E0D9CE] space-y-2">
+                  <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-1.5">
+                    <Tag className="w-3.5 h-3.5 text-[#8C6D46]" />
+                    GUNAKAN KODE PROMO DISKON:
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Contoh: STUDENT10, COUPLE15, ALVIERO"
+                      value={promoCodeInput}
+                      onChange={(e) => setPromoCodeInput(e.target.value)}
+                      className="flex-1 min-h-[44px] p-2.5 border border-[#D5CEC2] text-xs font-bold uppercase focus:outline-none focus:border-[#1C1A17] bg-white"
+                    />
+                    <button
+                      onClick={handleApplyPromo}
+                      className="min-h-[44px] px-6 py-2.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#1C1A17] cursor-pointer active:scale-95"
+                    >
+                      Gunakan
+                    </button>
+                  </div>
+                  {promoError && <p className="text-xs text-rose-600 font-medium">{promoError}</p>}
+                  {appliedPromo && (
+                    <p className="text-xs text-emerald-700 font-bold flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5" />
+                      Kode Promo '{appliedPromo.code}' berhasil terpasang!
+                    </p>
+                  )}
                 </div>
-                {promoError && <p className="text-xs text-rose-500 font-medium">{promoError}</p>}
-                {appliedPromo && (
-                  <p className="text-xs text-emerald-600 font-bold flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" />
-                    Kode Promo '{appliedPromo.code}' berhasil terpasang!
-                  </p>
-                )}
               </div>
-            </div>
-          );
-        })()}
+            );
+          })()}
 
           {/* STEP 3: Customer Info, Notes & Payment Options */}
           {step === 3 && (
             <div className="space-y-5">
+              
               {/* Ringkasan Jadwal & Cabang Terpilih */}
-              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-2xs">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-xs">
-                    <Calendar className="w-4 h-4 text-emerald-400" />
+              <div className="bg-white border border-[#E0D9CE] p-4 flex items-center justify-between gap-3 shadow-2xs">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                    <Calendar className="w-4.5 h-4.5" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">
-                      Jadwal & Lokasi Foto:
+                    <div className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">
+                      JADWAL & LOKASI FOTO:
                     </div>
-                    <div className="text-xs sm:text-sm font-black text-slate-900 truncate">
+                    <div className="text-xs sm:text-sm font-serif font-bold text-[#1C1A17] truncate">
                       {bookingDate} • Jam {timeSlot} WIB
                     </div>
-                    <div className="text-[10.5px] text-slate-600 font-medium">
+                    <div className="text-[11px] text-stone-600 font-medium">
                       {currentBranchInfo.name} ({isSelfStudio ? 'Bilik Self Studio' : 'Studio Foto Pro'})
                     </div>
                   </div>
@@ -1070,17 +1084,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-3 py-1.5 rounded-full bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs border border-slate-200 shrink-0 transition-colors cursor-pointer"
+                  className="px-3.5 py-1.5 bg-[#FAF8F5] hover:bg-white text-stone-800 font-serif font-bold text-[11px] uppercase tracking-wider border border-[#D5CEC2] hover:border-[#1C1A17] shrink-0 transition-colors cursor-pointer"
                 >
-                  Ubah 🔄
+                  Ubah
                 </button>
               </div>
 
               {/* Data Pemesan: Nama & WhatsApp */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-[#6c8c74]" />
+                  <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase mb-1.5 flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-[#8C6D46]" />
                     Nama Pemesan:
                   </label>
                   <input
@@ -1088,13 +1102,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     placeholder="Contoh: Anisa Putri"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full min-h-[44px] p-3 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#6c8c74] bg-white"
+                    className="w-full min-h-[44px] p-3 border border-[#D5CEC2] text-xs text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] bg-white"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5 flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-[#6c8c74]" />
+                  <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase mb-1.5 flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5 text-[#8C6D46]" />
                     No. WhatsApp Aktif:
                   </label>
                   <input
@@ -1102,40 +1116,45 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     placeholder="Contoh: 081234567890"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full min-h-[44px] p-3 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#6c8c74] bg-white"
+                    className="w-full min-h-[44px] p-3 border border-[#D5CEC2] text-xs text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] bg-white"
                   />
                 </div>
               </div>
 
               {/* Payment Option Switcher */}
-              <div className="pt-2 border-t border-slate-100 space-y-2">
-                <label className="text-xs font-bold text-slate-700 uppercase flex items-center gap-1.5">
-                  <CreditCard className="w-3.5 h-3.5 text-[#6c8c74]" />
-                  Opsi Pembayaran Booking:
+              <div className="pt-2 border-t border-[#E0D9CE] space-y-2">
+                <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-1.5">
+                  <CreditCard className="w-3.5 h-3.5 text-[#8C6D46]" />
+                  OPSI PEMBAYARAN BOOKING:
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[52px] p-3 rounded-2xl border text-left font-bold transition-all cursor-pointer active:scale-98 ${
-                      paymentOption === 'dp' ? 'border-[#6c8c74] bg-emerald-50 text-slate-900 ring-2 ring-[#6c8c74]/20 shadow-xs' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${
+                      paymentOption === 'dp' 
+                        ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs' 
+                        : 'border-[#E0D9CE] bg-white text-stone-700 hover:bg-[#FAF8F5]'
                     }`}
                   >
-                    <div className="text-xs">Bayar DP 50% Sekarang</div>
-                    <div className="text-[10px] font-normal text-slate-500 mt-0.5">
+                    <div className="font-serif font-bold text-xs uppercase text-[#1C1A17]">Bayar DP 50% Sekarang</div>
+                    <div className="text-[10.5px] font-normal text-stone-500 mt-0.5">
                       Transfer DP Rp {dpAmount.toLocaleString('id-ID')} untuk kunci jadwal
                     </div>
                   </button>
+                  
                   <button
                     type="button"
                     onClick={() => setPaymentOption('full')}
-                    className={`min-h-[52px] p-3 rounded-2xl border text-left font-bold transition-all cursor-pointer active:scale-98 ${
-                      paymentOption === 'full' ? 'border-[#6c8c74] bg-emerald-50 text-slate-900 ring-2 ring-[#6c8c74]/20 shadow-xs' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${
+                      paymentOption === 'full' 
+                        ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs' 
+                        : 'border-[#E0D9CE] bg-white text-stone-700 hover:bg-[#FAF8F5]'
                     }`}
                   >
-                    <div className="text-xs">Bayar Lunas / Full</div>
-                    <div className="text-[10px] font-normal text-slate-500 mt-0.5">
-                      Rp {grandTotal.toLocaleString('id-ID')} bebas ribet pas di studio
+                    <div className="font-serif font-bold text-xs uppercase text-[#1C1A17]">Bayar Lunas / Full</div>
+                    <div className="text-[10.5px] font-normal text-stone-500 mt-0.5">
+                      Rp {grandTotal.toLocaleString('id-ID')} praktis tanpa sisa di studio
                     </div>
                   </button>
                 </div>
@@ -1143,28 +1162,28 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
               {/* Notes */}
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase mb-1.5">
                   Catatan Khusus (Opsional):
                 </label>
                 <input
                   type="text"
-                  placeholder="Misal: Perayaan ulang tahun / minta disiapkan properti topi wisuda"
+                  placeholder="Misal: Perayaan ulang tahun / minta disiapkan properti toga wisuda"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full min-h-[44px] p-3 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#6c8c74] bg-white"
+                  className="w-full min-h-[44px] p-3 border border-[#D5CEC2] text-xs text-[#1C1A17] focus:outline-none focus:border-[#1C1A17] bg-white"
                 />
               </div>
 
               {/* Alert Konfirmasi Pembayaran Admin */}
-              <div className="p-3.5 bg-amber-50/90 border border-amber-300 rounded-2xl flex items-start gap-2.5 shadow-2xs">
-                <div className="w-7 h-7 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs mt-0.5">
-                  💬
+              <div className="p-3.5 bg-white border border-[#E0D9CE] flex items-start gap-3">
+                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 mt-0.5">
+                  <MessageCircle className="w-4 h-4" />
                 </div>
-                <div className="flex-1 text-xs">
-                  <p className="font-extrabold text-amber-950 leading-relaxed">
-                    🔔 Segera kirimkan dan konfirmasikan bukti pembayaran kamu untuk mengunci jam booking yaaa!
+                <div className="flex-1 text-xs font-sans">
+                  <p className="font-bold text-[#1C1A17] leading-relaxed">
+                    Segera kirimkan dan konfirmasikan bukti pembayaran kamu untuk mengunci jam booking!
                   </p>
-                  <p className="text-[10.5px] text-amber-800 font-medium mt-0.5">
+                  <p className="text-[11px] text-stone-600 mt-0.5">
                     Slot jam baru akan berstatus <strong>"Penuh"</strong> setelah pembayaran diverifikasi oleh admin.
                   </p>
                 </div>
@@ -1173,28 +1192,28 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           )}
 
           {/* Rincian Biaya Summary Box */}
-          <div className="bg-slate-900 text-white p-4 sm:p-5 rounded-2xl border border-slate-800 space-y-3">
-            <div className="flex justify-between items-center text-xs text-slate-300 border-b border-slate-800 pb-2">
-              <span className="font-semibold">Rincian Reservasi:</span>
-              <span className="text-amber-300 font-bold">{currentPackage.name}</span>
+          <div className="bg-[#1C1A17] text-white p-4 sm:p-5 border border-[#332F2A] space-y-3">
+            <div className="flex justify-between items-center text-xs text-stone-300 border-b border-[#332F2A] pb-2">
+              <span className="font-serif uppercase tracking-wider text-stone-400">RINCIAN RESERVASI:</span>
+              <span className="text-[#D4AF37] font-serif font-bold uppercase">{currentPackage.name}</span>
             </div>
 
-            <div className="space-y-1 text-xs">
-              <div className="flex justify-between text-slate-300">
+            <div className="space-y-1.5 text-xs font-sans">
+              <div className="flex justify-between text-stone-300">
                 <span>Harga Paket Utama</span>
                 <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
               </div>
               
               {addOnsTotalPrice > 0 && (
-                <div className="flex justify-between text-slate-300">
-                  <span>Total Add-ons</span>
+                <div className="flex justify-between text-stone-300">
+                  <span>Total Add-ons Tambahan</span>
                   <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
                 </div>
               )}
 
               {slotCharge > 0 && (
-                <div className="flex justify-between text-amber-300">
-                  <span>Charge Slot Khusus (20:45)</span>
+                <div className="flex justify-between text-amber-400 font-semibold">
+                  <span>Charge Slot Malam Khusus (20:45)</span>
                   <span>+ Rp {slotCharge.toLocaleString('id-ID')}</span>
                 </div>
               )}
@@ -1206,13 +1225,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               )}
 
-              <div className="flex justify-between text-base font-black text-white pt-2 border-t border-slate-800">
-                <span>Total Estimasi Biaya</span>
-                <span className="text-emerald-400">Rp {grandTotal.toLocaleString('id-ID')}</span>
+              <div className="flex justify-between text-base font-serif font-bold text-white pt-2.5 border-t border-[#332F2A]">
+                <span className="uppercase tracking-wider">TOTAL ESTIMASI BIAYA</span>
+                <span className="text-[#D4AF37]">Rp {grandTotal.toLocaleString('id-ID')}</span>
               </div>
 
               {paymentOption === 'dp' && (
-                <div className="text-[11px] text-amber-300 pt-1 text-right">
+                <div className="text-[11px] text-[#D4AF37] pt-1 text-right font-sans">
                   Minimum Transfer DP 50%: <strong>Rp {dpAmount.toLocaleString('id-ID')}</strong>
                 </div>
               )}
@@ -1220,13 +1239,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           </div>
         </div>
 
-        {/* Modal Footer Controls (Clean Pill Buttons) */}
-        <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-2 shrink-0">
+        {/* Modal Footer Controls */}
+        <div className="p-4 sm:p-5 bg-white border-t border-[#E0D9CE] flex items-center justify-between gap-2 shrink-0">
           <button
             onClick={handleCopySummary}
-            className="min-h-[44px] px-4 py-2 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-2xs"
+            className="min-h-[44px] px-4 py-2 text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#D5CEC2] hover:bg-[#FAF8F5] transition-colors flex items-center gap-2 cursor-pointer active:scale-95"
           >
-            {copiedSummary ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
+            {copiedSummary ? <Check className="w-4 h-4 text-emerald-700" /> : <Copy className="w-4 h-4" />}
             <span className="hidden sm:inline">{copiedSummary ? 'Tersalin' : 'Salin Rincian'}</span>
           </button>
 
@@ -1234,14 +1253,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             {step > 1 ? (
               <button
                 onClick={() => setStep(step - 1)}
-                className="min-h-[44px] px-5 py-2 rounded-full text-xs font-bold bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 transition-colors cursor-pointer active:scale-95 shadow-2xs"
+                className="min-h-[44px] px-5 py-2 text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#D5CEC2] hover:bg-[#FAF8F5] transition-colors cursor-pointer active:scale-95"
               >
                 Kembali
               </button>
             ) : (
               <button
                 onClick={onClose}
-                className="min-h-[44px] px-4 py-2 rounded-full text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors cursor-pointer active:scale-95"
+                className="min-h-[44px] px-4 py-2 text-xs font-serif uppercase tracking-wider text-stone-500 hover:text-stone-800 transition-colors cursor-pointer active:scale-95"
               >
                 Batal
               </button>
@@ -1250,22 +1269,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             {step < 3 ? (
               <button
                 onClick={() => setStep(step + 1)}
-                className="min-h-[44px] px-6 py-2.5 rounded-full text-xs font-extrabold bg-[#6c8c74] hover:bg-[#57735e] text-white shadow-sm flex items-center gap-1.5 transition-colors cursor-pointer active:scale-95"
+                className="min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-xs flex items-center gap-2 transition-colors cursor-pointer active:scale-95"
               >
                 <span>Lanjut</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 stroke-[2]" />
               </button>
             ) : (
               <button
                 onClick={handleSendBookingWA}
-                className="min-h-[44px] px-6 py-3 rounded-full text-xs font-black bg-[#6c8c74] hover:bg-[#57735e] text-white shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95"
+                className="min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95"
               >
-                <MessageCircle className="w-4 h-4 text-white" />
-                <span>Kirim Booking WA</span>
+                <MessageCircle className="w-4 h-4 text-[#D4AF37]" />
+                <span>Kirim Booking WA →</span>
               </button>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
