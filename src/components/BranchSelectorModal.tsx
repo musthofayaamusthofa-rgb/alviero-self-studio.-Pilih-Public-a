@@ -392,19 +392,39 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         tag: 'LIVE MONITOR SETUP'
       },
       {
-        src: '/images/backdrops/backdrop-1.jpg',
-        caption: 'Mint Modern Aesthetic Sofa Theme — Cocok untuk Wisuda & Keluarga',
-        tag: '7+ THEME BACKDROP'
-      },
-      {
         src: '/images/backdrops/backdrop-5.jpg',
         caption: 'European Royal Fireplace & Frame — Set Mewah Formal',
         tag: 'ROYAL FIREPLACE'
       },
       {
+        src: '/images/backdrops/backdrop-1.jpg',
+        caption: 'Mint Modern Aesthetic Sofa Theme — Cocok untuk Wisuda & Keluarga',
+        tag: 'MINT AESTHETIC'
+      },
+      {
         src: '/images/backdrops/backdrop-4.jpg',
-        caption: 'Charcoal Deep Classic Sofa — Elegan & Timeless',
+        caption: 'Charcoal Deep Classic Sofa — Elegan, Formal & Timeless',
         tag: 'TIMELESS CLASSIC'
+      },
+      {
+        src: '/images/backdrops/backdrop-6.jpg',
+        caption: 'Warm Beige Classic Armchair — Cozy Editorial Tone',
+        tag: 'COZY EDITORIAL'
+      },
+      {
+        src: '/images/backdrops/backdrop-2.jpg',
+        caption: 'Bohemian Rustic Texture Wall — Natural & Warm',
+        tag: 'BOHEMIAN RUSTIC'
+      },
+      {
+        src: '/images/backdrops/backdrop-3.jpg',
+        caption: 'Black Arch Window Bar Stool Theme — Bold & Editorial',
+        tag: 'ARCH WINDOW'
+      },
+      {
+        src: '/images/backdrops/backdrop-7.jpg',
+        caption: 'White Arch Windows & Grey Minimalist Set',
+        tag: 'MINIMALIST BRIGHT'
       }
     ],
     dimensions: 'Luas 7m x 5m | Ceiling 3.5m (Lantai Dasar Tanpa Tangga)',
@@ -433,6 +453,11 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         tag: 'EXCLUSIVE SUITE'
       },
       {
+        src: '/images/backdrops/backdrop-5.jpg',
+        caption: 'European Royal Fireplace & Frame — Set Mewah Formal',
+        tag: 'ROYAL FIREPLACE'
+      },
+      {
         src: '/images/backdrops/backdrop-2.jpg',
         caption: 'Bohemian Rustic Texture Wall — Natural & Warm Aesthetic',
         tag: 'BOHEMIAN RUSTIC'
@@ -446,6 +471,21 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         src: '/images/backdrops/backdrop-7.jpg',
         caption: 'White Arch Windows & Grey Minimalist Set',
         tag: 'MINIMALIST BRIGHT'
+      },
+      {
+        src: '/images/backdrops/backdrop-4.jpg',
+        caption: 'Charcoal Deep Classic Sofa — Elegan & Timeless',
+        tag: 'TIMELESS LUXURY'
+      },
+      {
+        src: '/images/backdrops/backdrop-1.jpg',
+        caption: 'Mint Modern Aesthetic Sofa Theme — Fresh & Elegant',
+        tag: 'MINT AESTHETIC'
+      },
+      {
+        src: '/images/backdrops/backdrop-6.jpg',
+        caption: 'Warm Beige Classic Armchair — Cozy Tone',
+        tag: 'COZY EDITORIAL'
       }
     ],
     dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
@@ -477,6 +517,21 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         src: '/images/backdrops/backdrop-1.jpg',
         caption: 'Aesthetic Props & Background Minimalis Tanpa Rasa Canggung',
         tag: 'PROPS COLLECTION'
+      },
+      {
+        src: '/images/backdrops/backdrop-5.jpg',
+        caption: 'European Royal Fireplace & Frame Set',
+        tag: 'ROYAL FIREPLACE'
+      },
+      {
+        src: '/images/backdrops/backdrop-2.jpg',
+        caption: 'Warm Bohemian Texture Setup',
+        tag: 'BOHEMIAN BOOTH'
+      },
+      {
+        src: '/images/backdrops/backdrop-3.jpg',
+        caption: 'Spotlight & Monochrome Aesthetic Set',
+        tag: 'SPOTLIGHT SET'
       }
     ],
     dimensions: 'Luas 5m x 4m (Ruang Tertutup & Terjaga Privasinya)',
