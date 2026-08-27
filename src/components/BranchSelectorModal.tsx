@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { Check, X, ArrowRight, MapPin, ChevronLeft, ChevronRight, Sparkles, Star, ShieldCheck, Clock, Award } from 'lucide-react';
+import { Check, X, ArrowRight, MapPin, ChevronLeft, ChevronRight, Sparkles, Star, ShieldCheck, Clock, Award, Menu, ShoppingBag, Calendar } from 'lucide-react';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
@@ -24,22 +24,26 @@ export const BACKDROP_BANNER_IMAGES = [
   { id: '7', image: '/images/backdrops/backdrop-7.jpg', title: 'White Arch Windows & Grey Sofa', theme: 'Minimalist Bright' },
 ];
 
+interface BackdropHeroSliderProps {
+  onViewPlans?: () => void;
+}
+
 /**
- * Hero Slider Banner Backdrop Studio (Tampilan Mewah, Editorial & Sinematik)
+ * Hero Slider Banner Backdrop Studio (Desain Mewah Sesuai Mockup Truoba)
  */
-export const BackdropHeroSlider: React.FC = () => {
+export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPlans }) => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
-  // Auto-scroll bergulir otomatis setiap 3.8 detik
+  // Auto-scroll bergulir otomatis setiap 4.2 detik
   useEffect(() => {
     if (isPaused) return;
 
     const interval = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % BACKDROP_BANNER_IMAGES.length);
-    }, 3800);
+    }, 4200);
 
     return () => clearInterval(interval);
   }, [isPaused]);
@@ -76,54 +80,79 @@ export const BackdropHeroSlider: React.FC = () => {
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none bg-[#1C1A17] group"
+      className="relative w-full overflow-hidden select-none bg-[#1C1A17] group flex flex-col"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Full Image Banner Container */}
-      <div className="w-full h-72 sm:h-84 md:h-96 relative overflow-hidden bg-[#1C1A17]">
-        {/* Brand Watermark Header */}
-        <div className="absolute top-4 left-4 sm:top-5 sm:left-5 z-20 select-none">
-          <div className="flex flex-col items-start leading-none bg-white/80 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/60 shadow-xs">
-            <span className="font-serif font-black text-sm sm:text-base tracking-[0.25em] text-[#1C1A17]">
-              ALVIERO
-            </span>
-            <span className="font-sans font-bold text-[8px] sm:text-[9px] tracking-[0.3em] text-[#8C6D46] uppercase mt-0.5">
-              CREATIVE SPACE & STUDIO
-            </span>
-          </div>
+      {/* 1. Top Minimalist Navbar (Persis Seperti Mockup Truoba) */}
+      <div className="w-full bg-white px-4 py-3 sm:px-5 flex items-center justify-between border-b border-[#E8E1D5] z-30">
+        <button
+          type="button"
+          onClick={onViewPlans}
+          aria-label="Menu"
+          className="text-stone-800 hover:text-black p-1 cursor-pointer transition-transform active:scale-90"
+        >
+          <Menu className="w-5 h-5 stroke-[2]" />
+        </button>
+
+        {/* Center Brand Name */}
+        <div className="flex items-center gap-1">
+          <span className="font-serif font-black text-lg sm:text-xl tracking-[0.22em] text-[#1C1A17]">
+            ALVIERO
+          </span>
         </div>
 
-        {/* Top Right Luxury Badge */}
-        <div className="absolute top-4 right-4 sm:top-5 sm:right-5 z-20 select-none">
-          <div className="flex items-center gap-1.5 bg-[#1C1A17]/75 backdrop-blur-md text-[#E8DFD1] text-[10px] font-sans font-semibold px-2.5 py-1 rounded-full border border-white/10 shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse"></span>
-            <span>7+ Aesthetic Backdrops</span>
-          </div>
-        </div>
+        {/* Right Action / Shopping Icon */}
+        <button
+          type="button"
+          onClick={onViewPlans}
+          aria-label="Cart / Booking"
+          className="text-teal-800 hover:text-teal-950 p-1 cursor-pointer relative transition-transform active:scale-90"
+        >
+          <ShoppingBag className="w-5 h-5 stroke-[2]" />
+          <span className="absolute 0 top-0.5 right-0.5 w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white"></span>
+        </button>
+      </div>
 
+      {/* 2. Full Image Banner Container with Centered Truoba Typography */}
+      <div className="w-full h-80 sm:h-96 relative overflow-hidden bg-[#1C1A17] flex items-center justify-center text-center px-4">
+        
         {/* Slide Photo with Subtle Zoom Animation */}
         <img
           key={activeSlide.id}
           src={activeSlide.image}
           alt={activeSlide.title}
-          className="w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
+          className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
         />
 
-        {/* Luxury Vignette & Dark Gradient Shield */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30 pointer-events-none" />
+        {/* Dark Vignette Overlay for High Readability */}
+        <div className="absolute inset-0 bg-black/45 bg-gradient-to-t from-black/75 via-black/35 to-black/40 pointer-events-none" />
 
-        {/* Slide Caption at Bottom-Left */}
-        <div className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 z-20 max-w-[70%]">
-          <span className="inline-block text-[9px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/50 backdrop-blur-xs px-2 py-0.5 rounded-md mb-1 border border-[#D4AF37]/30">
-            {activeSlide.theme}
-          </span>
-          <h4 className="font-serif font-bold text-sm sm:text-base text-white leading-tight drop-shadow-md truncate">
-            {activeSlide.title}
-          </h4>
+        {/* Centered Hero Content (Sesuai Persis Teks & Tombol Foto Referensi) */}
+        <div className="relative z-20 max-w-sm sm:max-w-md mx-auto flex flex-col items-center animate-in zoom-in-95 duration-300">
+          <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white leading-tight drop-shadow-lg">
+            Modern Studio Photos
+          </h2>
+          
+          <p className="font-serif font-bold text-sm sm:text-base text-white/95 mt-1 drop-shadow-md">
+            for a Contemporary Lifestyle
+          </p>
+
+          <p className="font-sans text-[11px] sm:text-xs text-white/90 font-medium max-w-[270px] sm:max-w-xs mx-auto mt-2 leading-relaxed drop-shadow-sm">
+            Choose from tried-and-true studio packages designed to capture your best memories. All at your own convenience.
+          </p>
+
+          {/* Big White Pill Button (View Studio Packages) */}
+          <button
+            type="button"
+            onClick={onViewPlans}
+            className="mt-4 px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-white hover:bg-[#FAF8F5] text-stone-900 font-serif font-bold text-xs sm:text-sm tracking-wide shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/80"
+          >
+            View Studio Packages
+          </button>
         </div>
 
         {/* Manual Arrow Controls with Frosted Glass Styling */}
@@ -131,22 +160,22 @@ export const BackdropHeroSlider: React.FC = () => {
           type="button"
           onClick={handlePrev}
           aria-label="Previous Slide"
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white text-[#1C1A17] backdrop-blur-md flex items-center justify-center shadow-[0_4px_14px_rgba(0,0,0,0.18)] border border-white/80 cursor-pointer transition-all z-20 active:scale-90 opacity-90 group-hover:opacity-100"
+          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/35 hover:bg-black/60 text-white backdrop-blur-md flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-3.5 h-3.5 stroke-[2.5]" />
         </button>
 
         <button
           type="button"
           onClick={handleNext}
           aria-label="Next Slide"
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 hover:bg-white text-[#1C1A17] backdrop-blur-md flex items-center justify-center shadow-[0_4px_14px_rgba(0,0,0,0.18)] border border-white/80 cursor-pointer transition-all z-20 active:scale-90 opacity-90 group-hover:opacity-100"
+          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/35 hover:bg-black/60 text-white backdrop-blur-md flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
         >
-          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+          <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
         </button>
 
         {/* Dots Pagination Indicators */}
-        <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 flex items-center gap-1.5 z-20 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
+        <div className="absolute bottom-3 flex items-center gap-1.5 z-20 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
           {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
             const isActive = currentIdx === idx;
             return (
@@ -156,8 +185,8 @@ export const BackdropHeroSlider: React.FC = () => {
                 aria-label={`Slide ${idx + 1}`}
                 className={`transition-all rounded-full cursor-pointer ${
                   isActive
-                    ? 'w-5 h-1.5 bg-[#D4AF37] shadow-xs'
-                    : 'w-1.5 h-1.5 bg-white/50 hover:bg-white'
+                    ? 'w-4 h-1 bg-[#D4AF37] shadow-xs'
+                    : 'w-1 h-1 bg-white/50 hover:bg-white'
                 }`}
               />
             );
@@ -345,8 +374,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
     <div className="max-w-md w-full mx-auto my-2 sm:my-5 px-2 sm:px-3 animate-in fade-in duration-300">
       <div className="bg-[#FAF8F5] rounded-[28px] sm:rounded-[32px] border border-[#E8E1D5] shadow-[0_16px_40px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col relative">
         
-        {/* Top Hero Banner Slider */}
-        <BackdropHeroSlider />
+        {/* Top Hero Banner Slider (Truoba Luxury Design) */}
+        <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
         <div className="p-4 sm:p-5 space-y-4 bg-[#FAF8F5] flex-1">
