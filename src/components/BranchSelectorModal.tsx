@@ -649,22 +649,24 @@ export const StudioTourAndEducationShowcase: React.FC<{
             alt={activeSlide.caption}
             className="absolute inset-0 w-full h-full object-cover object-center animate-in fade-in duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20" />
+          
+          {/* Subtle Bottom Gradient Only for Caption (Foto 100% Jernih & Terang) */}
+          <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none" />
 
           {/* Tag Overlay di Atas */}
-          <div className="relative top-3.5 left-3.5 z-10">
-            <span className="inline-block text-[8.5px] sm:text-[9.5px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/70 px-3 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
+          <div className="relative top-3.5 left-3.5 z-10 pointer-events-none">
+            <span className="inline-block text-[8.5px] sm:text-[9.5px] font-mono font-bold tracking-widest text-[#D4AF37] uppercase bg-black/75 px-3 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
               {activeSlide.tag}
             </span>
           </div>
 
           {/* Caption & Indikator di Bawah */}
           <div className="relative z-10 p-3.5 sm:p-4 flex items-end justify-between gap-3 text-left">
-            <p className="text-xs sm:text-sm font-sans text-white font-medium drop-shadow-md truncate max-w-[80%]">
+            <p className="text-xs sm:text-sm font-sans text-white font-medium drop-shadow-md truncate max-w-[75%] bg-black/60 backdrop-blur-xs px-2.5 py-1 border border-white/15">
               {activeSlide.caption}
             </p>
 
-            <div className="flex items-center gap-1 bg-black/60 px-2 py-1 border border-white/20 shrink-0">
+            <div className="flex items-center gap-1 bg-black/70 backdrop-blur-xs px-2 py-1.5 border border-white/20 shrink-0">
               {activeRoom.images.map((_, idx) => (
                 <button
                   key={idx}
