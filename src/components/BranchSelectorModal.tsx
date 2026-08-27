@@ -87,34 +87,14 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* 1. Top Minimalist Navbar (Persis Seperti Mockup Truoba) */}
-      <div className="w-full bg-white px-4 py-3 sm:px-5 flex items-center justify-between border-b border-[#E8E1D5] z-30">
-        <button
-          type="button"
-          onClick={onViewPlans}
-          aria-label="Menu"
-          className="text-stone-800 hover:text-black p-1 cursor-pointer transition-transform active:scale-90"
-        >
-          <Menu className="w-5 h-5 stroke-[2]" />
-        </button>
-
+      {/* 1. Top Minimalist Navbar (Brand Center Saja) */}
+      <div className="w-full bg-white px-4 py-3 sm:px-5 flex items-center justify-center border-b border-[#E8E1D5] z-30">
         {/* Center Brand Name */}
         <div className="flex items-center gap-1">
-          <span className="font-serif font-black text-lg sm:text-xl tracking-[0.22em] text-[#1C1A17]">
+          <span className="font-serif font-black text-lg sm:text-xl tracking-[0.25em] text-[#1C1A17]">
             ALVIERO
           </span>
         </div>
-
-        {/* Right Action / Shopping Icon */}
-        <button
-          type="button"
-          onClick={onViewPlans}
-          aria-label="Cart / Booking"
-          className="text-teal-800 hover:text-teal-950 p-1 cursor-pointer relative transition-transform active:scale-90"
-        >
-          <ShoppingBag className="w-5 h-5 stroke-[2]" />
-          <span className="absolute 0 top-0.5 right-0.5 w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white"></span>
-        </button>
       </div>
 
       {/* 2. Full Image Banner Container with Centered Truoba Typography */}
