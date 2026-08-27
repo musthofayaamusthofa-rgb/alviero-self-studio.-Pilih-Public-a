@@ -147,7 +147,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       title: 'PRICELIST GRADUATION INDOOR',
       subtitle: 'Elegant Scholar, Supreme, Infinity & Bundling',
       icon: '🎓',
-      sheetCategory: 'Paket Wisuda Indoor',
+      sheetCategory: 'Paket Graduation Indoor',
       badge: 'Wisuda Hot',
       specialView: 'grad-indoor',
       cardBg: 'bg-[#f3f3fd]',
@@ -467,7 +467,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI 13 PAKET UTAMA ALVIERO STUDIO
   const studioGalleryCategories = [
     { id: 'all', label: 'Semua Paket', icon: '📸' },
-    { id: 'grad-indoor', label: 'Paket Wisuda Indoor', icon: '🎓' },
+    { id: 'grad-indoor', label: 'Paket Graduation Indoor', icon: '🎓' },
     { id: 'grad-outdoor', label: 'Paket Wisuda Outdoor', icon: '🌳' },
     { id: 'selfstudio', label: 'Paket Self Studio', icon: '✨' },
     { id: 'prewed', label: 'Paket Prewedding', icon: '💍' },
@@ -487,7 +487,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       id: 'photo-2-grad-indoor',
       title: 'Foto Wisuda Toga Resmi & Foto Bersama Keluarga',
       category: 'grad-indoor',
-      packageName: 'Paket Wisuda Indoor',
+      packageName: 'Paket Graduation Indoor',
       icon: '🎓',
       targetPackageId: 'grad-indoor-elegant-scholar',
       imageUrl: '/images/gallery/graduation-indoor/grad-indoor-1.jpg',

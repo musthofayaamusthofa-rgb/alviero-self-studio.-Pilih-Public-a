@@ -2135,7 +2135,7 @@ export const PRICELIST_SHEETS: PricelistSheet[] = [
     id: 'sheet-grad-indoor',
     title: 'Harga Paket Graduation Indoor',
     subtitle: 'Studio Sessions (Elegant Scholar, Supreme, Infinity & Bundling)',
-    category: 'Paket Wisuda Indoor',
+    category: 'Paket Graduation Indoor',
     imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
     aspectRatio: '3:4',
     description: 'Rincian paket Elegant Scholar (330K), Supreme Scholar (380K), Infinity Scholar (530K), Ultimate Scholar 1 Bundling (630K), dan Ultimate Scholar 2 Bundling (680K) lengkap dengan rincian add-ons & makeup.',
