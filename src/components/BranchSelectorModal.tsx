@@ -460,6 +460,37 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
       'Fitting Gaun / Kebaya Pengantin Lengkap',
       'Asisten Studio Standby'
     ]
+  },
+  {
+    id: 'self-studio',
+    name: 'SELF STUDIO MANDIRI',
+    badge: '100% PRIVATE WIRELESS BOOTH',
+    tagline: 'Sesi Foto Bebas Tanpa Fotografer dengan Remote Shutter Nirkabel & Cetak Instan',
+    branchId: 'cabang-1',
+    images: [
+      {
+        src: '/images/backdrops/backdrop-6.jpg',
+        caption: 'Private Self-Studio Room dengan Remote Nirkabel & Live Display',
+        tag: 'WIRELESS BOOTH'
+      },
+      {
+        src: '/images/backdrops/backdrop-1.jpg',
+        caption: 'Aesthetic Props & Background Minimalis Tanpa Rasa Canggung',
+        tag: 'PROPS COLLECTION'
+      }
+    ],
+    dimensions: 'Luas 5m x 4m (Ruang Tertutup & Terjaga Privasinya)',
+    capacity: '1 - 8 Orang (Sangat seru untuk pasangan, bestie & solo)',
+    lightingSetup: 'Godox Studio Flash + Softbox Diffuser Siap Pakai Tanpa Setting Manual',
+    backdrops: 'Pilihan Background Grey, White, Cream & Pastel Aesthetic',
+    description: 'Konsep foto mandiri 100% private tanpa kehadiran fotografer untuk Anda yang ingin berekspresi bebas dan seru tanpa rasa canggung atau malu. Cukup tekan remote shutter nirkabel di genggaman Anda, hasil foto langsung tampil di layar monitor besar di depan Anda secara instan. Semua file asli resolusi tinggi (HD) langsung dibagikan via Google Drive, lengkap dengan cetakan photo strip eksklusif anti-luntur.',
+    highlights: [
+      'Remote Shutter Nirkabel Responsif',
+      'Monitor Preview Realtime Besar',
+      'Bebas Berekspresi Tanpa Canggung',
+      'Semua File Asli HD via Google Drive',
+      'Cetak Instan Photo Strip Eksklusif'
+    ]
   }
 ];
 
@@ -668,29 +699,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
             ))}
           </div>
 
-          {/* Express Booking Call to Action */}
-          <div className="pt-3 border-t border-[#EFEAE2] flex items-center justify-between flex-wrap gap-2 text-xs font-sans">
-            <div className="flex items-center gap-1.5 text-stone-700">
-              <span className="font-bold text-[#1C1A17] font-serif uppercase tracking-wider">EXPRESS BOOKING</span>
-              <span>|</span>
-              <a
-                href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20booking%20jadwal"
-                target="_blank"
-                rel="noreferrer"
-                className="text-emerald-700 font-bold hover:underline"
-              >
-                0877-7753-8164
-              </a>
-            </div>
 
-            <button
-              type="button"
-              onClick={() => onSelectBranch(activeRoom.branchId)}
-              className="px-5 py-2 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-[#1C1A17] shadow-xs"
-            >
-              Pilih {activeRoom.name.split('—')[0]} →
-            </button>
-          </div>
         </div>
 
       </div>
