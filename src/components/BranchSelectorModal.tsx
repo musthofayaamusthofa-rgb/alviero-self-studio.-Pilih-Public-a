@@ -739,17 +739,6 @@ export const StudioTourAndEducationShowcase: React.FC<{
             </div>
           </div>
 
-          {/* Highlights Checklist */}
-          <div className="pt-2 border-t border-[#EFEAE2] flex items-center gap-1.5 flex-wrap text-[10.5px] font-sans font-medium text-stone-700">
-            {activeRoom.highlights.map((highlight, idx) => (
-              <span key={idx} className="bg-stone-50 px-2 py-0.5 border border-[#E0D9CE] flex items-center gap-1">
-                <span className="text-emerald-700 font-bold">✓</span>
-                {highlight}
-              </span>
-            ))}
-          </div>
-
-
         </div>
 
       </div>
