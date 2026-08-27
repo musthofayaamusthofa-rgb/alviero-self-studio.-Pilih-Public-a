@@ -5,6 +5,7 @@ import {
   Check, 
   X, 
   ArrowRight, 
+  ArrowUpRight,
   MapPin, 
   ChevronLeft, 
   ChevronRight, 
@@ -18,7 +19,8 @@ import {
   HeartHandshake, 
   Sliders, 
   Image as ImageIcon,
-  Camera
+  Camera,
+  MessageCircle
 } from 'lucide-react';
 
 interface BranchSelectorViewProps {
@@ -1003,37 +1005,88 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
           </div>
 
-          {/* Section 5: Trust Badges Bar */}
-          <div className="pt-3 pb-1 border-t border-[#E0D9CE] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
-            <div className="flex flex-col items-center">
-              <span className="font-bold text-[#1C1A17] flex items-center gap-1 uppercase tracking-wider text-[11px]">
-                <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                5.0 STARS
+        </div>
+
+        {/* ==================================================================== */}
+        {/* LUXURY EDITORIAL DARK FOOTER (Sesuai Referensi Asloka.co)           */}
+        {/* ==================================================================== */}
+        <footer className="w-full bg-[#0D0C0B] text-[#EAE2D5] border-t border-[#1C1A17] select-none">
+          {/* Main Footer Row */}
+          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-8 sm:py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Brand Logo / Text */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
+              <span className="font-serif font-black text-xl sm:text-2xl tracking-[0.25em] text-white uppercase">
+                ALVIERO.CO
               </span>
-              <span className="text-[9.5px] text-[#736B63] mt-0.5">20K+ Klien Puas</span>
+              <span className="text-[10px] font-mono tracking-widest text-[#D4AF37] uppercase mt-0.5">
+                EST. MALANG • JAWA TIMUR
+              </span>
             </div>
-            <div className="flex flex-col items-center border-x border-[#E0D9CE]">
-              <span className="font-bold text-[#1C1A17] flex items-center gap-1 uppercase tracking-wider text-[11px]">
-                <ShieldCheck className="w-3 h-3 text-emerald-700" />
-                PRO GEAR
-              </span>
-              <span className="text-[9.5px] text-[#736B63] mt-0.5">Lighting & Kamera HD</span>
+
+            {/* Studio Specialization Services */}
+            <div className="text-center font-sans text-xs text-stone-400 tracking-wider">
+              <p className="font-medium text-stone-300">
+                Photography <span className="text-[#8C6D46] px-1">•</span> Videography <span className="text-[#8C6D46] px-1">•</span> Creative Production
+              </p>
+              <p className="text-[11px] text-stone-500 mt-1">
+                Studio 1 Karangploso & Studio 2 Cabang Eksklusif
+              </p>
             </div>
-            <div className="flex flex-col items-center">
-              <span className="font-bold text-[#1C1A17] flex items-center gap-1 uppercase tracking-wider text-[11px]">
-                <Clock className="w-3 h-3 text-[#8C6D46]" />
-                INSTAN
-              </span>
-              <span className="text-[9.5px] text-[#736B63] mt-0.5">Booking Tanpa Antre</span>
+
+            {/* CTA Button */}
+            <div>
+              <button
+                type="button"
+                onClick={() => onSelectBranch(selectedBranch)}
+                className="font-serif font-bold text-xs sm:text-sm text-[#D4AF37] hover:text-white uppercase tracking-[0.2em] transition-colors flex items-center gap-1.5 cursor-pointer group"
+              >
+                <span>BOOKING NOW</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#D4AF37] group-hover:text-white" />
+              </button>
             </div>
           </div>
 
-        </div>
+          {/* Sub-Footer Row */}
+          <div className="border-t border-white/10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-4 sm:py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-400">
+            {/* Copyright */}
+            <div className="text-center md:text-left">
+              <span>© {new Date().getFullYear()} Alviero.co. All Rights Reserved.</span>
+            </div>
 
-        {/* Footer info note */}
-        <div className="p-3 bg-[#F4EFEA] border-t border-[#E0D9CE] text-center text-[10.5px] text-[#5C5650] font-normal">
-          💡 Anda dapat berganti studio kapan saja melalui tombol <strong>'Ganti'</strong>.
-        </div>
+            {/* Status Live Pill */}
+            <div className="bg-[#1A1816] px-3.5 py-1.5 border border-white/10 flex items-center gap-2 text-[10.5px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="text-stone-300 font-medium tracking-wider uppercase text-[10px]">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
+            </div>
+
+            {/* Quick Text Links */}
+            <div className="flex items-center gap-4 sm:gap-6 font-sans text-[11px] text-stone-400">
+              <a
+                href="https://instagram.com/alvierostudio"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                WhatsApp
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                Lokasi Studio
+              </button>
+            </div>
+          </div>
+        </footer>
       </div>
 
       {/* Pop-up Modal Pilihan Studio 1 & Studio 2 (Desain Tegas & Modern) */}
