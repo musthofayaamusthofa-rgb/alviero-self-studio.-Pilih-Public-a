@@ -547,7 +547,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
                 5.0 Stars
               </span>
-              <span className="text-[9px] text-stone-500">1,200+ Klien Puas</span>
+              <span className="text-[9px] text-stone-500">20K+ Klien Puas</span>
             </div>
             <div className="flex flex-col items-center border-x border-[#E8E1D5]">
               <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
