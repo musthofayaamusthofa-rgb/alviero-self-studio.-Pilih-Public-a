@@ -409,11 +409,6 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     branchId: 'cabang-1',
     images: [
       {
-        src: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=85',
-        caption: 'Setup Studio 1 dengan Dual Monitor Live-View & Lighting Godox High-Speed',
-        tag: 'LIVE MONITOR SETUP'
-      },
-      {
         src: '/images/backdrops/backdrop-5.jpg',
         caption: 'European Royal Fireplace & Frame — Set Mewah Formal',
         tag: 'ROYAL FIREPLACE'
@@ -469,11 +464,6 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     tagline: 'Studio Lebih Luas dengan Private Dressing Suite & Set Prewedding Mewah',
     branchId: 'cabang-2',
     images: [
-      {
-        src: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85',
-        caption: 'Area Shooting Lega dengan Private Suite & Ruang Ganti Ber-AC',
-        tag: 'EXCLUSIVE SUITE'
-      },
       {
         src: '/images/backdrops/backdrop-5.jpg',
         caption: 'European Royal Fireplace & Frame — Set Mewah Formal',
