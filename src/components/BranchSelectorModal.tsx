@@ -515,7 +515,7 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
   },
   {
     id: 'self-studio',
-    name: 'SELF STUDIO MANDIRI',
+    name: 'SELFSTUDIO',
     badge: '100% PRIVATE WIRELESS BOOTH',
     tagline: 'Sesi Foto Bebas Tanpa Fotografer dengan Remote Shutter Nirkabel & Cetak Instan',
     branchId: 'cabang-1',
@@ -613,11 +613,17 @@ export const StudioTourAndEducationShowcase: React.FC<{
           <div className="flex items-center gap-1.5 flex-wrap">
             {STUDIO_ROOMS_DATA.map((room) => {
               const isActive = activeRoomId === room.id;
+              const isSelfStudio = room.id === 'self-studio';
               return (
                 <button
                   key={room.id}
                   type="button"
                   onClick={() => {
+                    if (isSelfStudio && onSelectCategory) {
+                      onSelectBranch('cabang-1');
+                      onSelectCategory('self-studio');
+                      return;
+                    }
                     setActiveRoomId(room.id);
                     setCurrentSlideIdx(0);
                     onSelectBranch(room.branchId);
@@ -628,7 +634,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
                       : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
                   }`}
                 >
-                  {room.name.replace('STUDIO ', 'STUDIO ').split('—')[0]}
+                  {isSelfStudio ? 'SELFSTUDIO' : room.name.replace('STUDIO ', 'STUDIO ').split('—')[0].trim()}
                 </button>
               );
             })}
