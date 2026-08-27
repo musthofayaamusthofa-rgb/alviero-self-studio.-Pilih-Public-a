@@ -764,20 +764,20 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* 0. Pilihan Lokasi Studio Cabang 1 vs Cabang 2 */}
               <div
                 onClick={onOpenBranchModal}
-                className="w-full bg-[#f4f3ee] hover:bg-[#eae6dd] rounded-2xl p-2.5 sm:p-3 text-stone-900 flex items-center justify-between gap-2.5 shadow-2xs border border-stone-200/90 cursor-pointer transition-all hover:border-[#6c8c74] active:scale-98 group"
+                className="w-full bg-white hover:bg-[#FAF8F5] p-3 text-[#1C1A17] flex items-center justify-between gap-2.5 border border-[#E0D9CE] hover:border-[#1C1A17] cursor-pointer transition-all active:scale-98 group shadow-2xs"
               >
                 <div className="flex items-center gap-2.5 text-left min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-[#232d38] text-[#9fc4a8] flex items-center justify-center text-sm font-bold shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    {currentBranchInfo.icon}
+                  <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center text-sm font-bold shrink-0">
+                    <MapPin className="w-4 h-4 stroke-[1.8]" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[9.5px] font-extrabold text-stone-500 uppercase tracking-wider">Lokasi Studio:</span>
-                      <span className="text-[9px] bg-[#eef4f0] text-[#3d6345] border border-[#c8dacd] font-bold px-1.5 py-0.2 rounded-full">
+                      <span className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">LOKASI STUDIO:</span>
+                      <span className="text-[8.5px] bg-[#FAF8F5] text-[#4A433A] border border-[#E0D9CE] font-bold px-1.5 py-0.2 uppercase">
                         {currentBranchInfo.badge}
                       </span>
                     </div>
-                    <div className="font-extrabold text-xs text-stone-900 truncate">
+                    <div className="font-serif font-bold text-xs text-[#1C1A17] truncate">
                       {currentBranchInfo.name}
                     </div>
                   </div>
@@ -789,53 +789,53 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     e.stopPropagation();
                     if (onOpenBranchModal) onOpenBranchModal();
                   }}
-                  className="px-3 py-1 rounded-full bg-[#232d38] hover:bg-[#1a222c] text-white text-[10.5px] font-bold shrink-0 transition-colors shadow-2xs cursor-pointer"
+                  className="px-3 py-1.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white text-[10px] font-serif font-bold uppercase tracking-wider shrink-0 transition-colors cursor-pointer border border-[#1C1A17]"
                 >
-                  Ganti Studio 🔄
+                  Ganti Studio ▾
                 </button>
               </div>
 
-              {/* 4. Switcher Mode: Menu Pricelist vs Galeri Hasil Foto (Khusus HP) */}
-              <div className="w-full lg:hidden bg-[#f4f3ee] p-1 rounded-full flex items-center gap-1 border border-stone-200 shadow-2xs">
+              {/* Switcher Mode: Menu Pricelist vs Galeri Hasil Foto (Khusus HP) */}
+              <div className="w-full lg:hidden bg-[#FAF8F5] p-1 flex items-center gap-1 border border-[#E0D9CE]">
                 <button
                   onClick={() => setActiveTab('menu')}
-                  className={`flex-1 min-h-[34px] px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[34px] px-3 py-1 text-xs font-serif uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                     activeTab === 'menu'
-                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-[#1C1A17] text-white font-bold shadow-xs border border-[#1C1A17]'
+                      : 'text-stone-600 hover:text-[#1C1A17] font-semibold'
                   }`}
                 >
-                  <span>📱 Menu Pricelist</span>
+                  <span>Menu Pricelist</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('gallery')}
-                  className={`flex-1 min-h-[34px] px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[34px] px-3 py-1 text-xs font-serif uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
                     activeTab === 'gallery'
-                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-[#1C1A17] text-white font-bold shadow-xs border border-[#1C1A17]'
+                      : 'text-stone-600 hover:text-[#1C1A17] font-semibold'
                   }`}
                 >
-                  <span>📸 Galeri Foto</span>
+                  <span>Galeri Foto</span>
                 </button>
               </div>
 
-              {/* Title Section (Matching Image 2: Studio Foto Jogja & Solo style) */}
-              <div className="w-full pt-1 pb-2 text-center border-b border-stone-200/60">
-                <h2 className="font-editorial text-lg sm:text-xl font-bold text-stone-900 tracking-wide">
-                  Studio Foto {currentBranchInfo.name}
+              {/* Title Section (Architectural Style) */}
+              <div className="w-full pt-1 pb-2 text-center border-b border-[#E0D9CE]">
+                <h2 className="font-serif text-sm sm:text-base font-bold text-[#1C1A17] uppercase tracking-wide">
+                  STUDIO FOTO {currentBranchInfo.name}
                 </h2>
-                <p className="text-[11px] font-sans text-stone-500 font-medium">
+                <p className="text-[11px] font-sans text-stone-500 font-medium mt-0.5">
                   Pilih kategori studio di bawah untuk melihat rincian paket & harga
                 </p>
               </div>
 
-              {/* 1. Photo Studio Package Grid (4 Columns, matching Image 2) */}
+              {/* 1. Photo Studio Package Grid (4 Columns) */}
               <div className="w-full text-left space-y-2.5 pt-1">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
-                    Photo Studio Package
+                  <h3 className="font-serif text-xs sm:text-xs font-bold text-[#1C1A17] uppercase tracking-[0.15em]">
+                    PHOTO STUDIO PACKAGE
                   </h3>
-                  <span className="text-[10px] font-sans bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
+                  <span className="text-[9.5px] font-serif bg-[#FAF8F5] text-stone-700 font-bold px-2 py-0.5 border border-[#E0D9CE] uppercase tracking-wider">
                     14 Kategori
                   </span>
                 </div>
@@ -853,24 +853,24 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         }}
                         className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
                       >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 border overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs relative ${
                           isSelected
-                            ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                            ? 'bg-[#1C1A17] text-white border-[#1C1A17] ring-2 ring-[#1C1A17] scale-105 shadow-xs'
+                            : 'bg-[#FAF8F5] border-[#E0D9CE] hover:border-[#1C1A17] text-[#1C1A17] group-hover:scale-105'
                         }`}>
                           {item.img ? (
                             <img
                               src={item.img}
                               alt={item.name}
-                              className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                               loading="lazy"
                             />
                           ) : (
                             <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
                           )}
                         </div>
-                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
-                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                        <span className={`text-[10px] sm:text-[10.5px] font-serif uppercase tracking-wider leading-tight line-clamp-2 transition-colors ${
+                          isSelected ? 'text-[#1C1A17] font-bold' : 'font-semibold text-stone-700 group-hover:text-[#1C1A17]'
                         }`}>
                           {item.name}
                         </span>
@@ -880,13 +880,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
               </div>
 
-              {/* 2. Self Photo Package Grid (4 Columns, matching Image 2) */}
-              <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
+              {/* 2. Self Photo Package Grid (4 Columns) */}
+              <div className="w-full text-left space-y-2.5 pt-3 border-t border-[#E0D9CE]">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
-                    Self Photo Package
+                  <h3 className="font-serif text-xs sm:text-xs font-bold text-[#1C1A17] uppercase tracking-[0.15em]">
+                    SELF PHOTO PACKAGE
                   </h3>
-                  <span className="text-[10px] font-sans bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
+                  <span className="text-[9.5px] font-serif bg-[#FAF8F5] text-[#8C6D46] font-bold px-2 py-0.5 border border-[#E0D9CE] uppercase tracking-wider">
                     Best Seller
                   </span>
                 </div>
@@ -904,24 +904,24 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         }}
                         className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
                       >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 border overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs relative ${
                           isSelected
-                            ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                            ? 'bg-[#1C1A17] text-white border-[#1C1A17] ring-2 ring-[#1C1A17] scale-105 shadow-xs'
+                            : 'bg-[#FAF8F5] border-[#E0D9CE] hover:border-[#1C1A17] text-[#1C1A17] group-hover:scale-105'
                         }`}>
                           {item.img ? (
                             <img
                               src={item.img}
                               alt={item.name}
-                              className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                               loading="lazy"
                             />
                           ) : (
                             <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
                           )}
                         </div>
-                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
-                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                        <span className={`text-[10px] sm:text-[10.5px] font-serif uppercase tracking-wider leading-tight line-clamp-2 transition-colors ${
+                          isSelected ? 'text-[#1C1A17] font-bold' : 'font-semibold text-stone-700 group-hover:text-[#1C1A17]'
                         }`}>
                           {item.name}
                         </span>
@@ -932,12 +932,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
 
               {/* 3. Layanan Tambahan (Wedding & Cetak) */}
-              <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
+              <div className="w-full text-left space-y-2.5 pt-3 border-t border-[#E0D9CE]">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
-                    Layanan Tambahan
+                  <h3 className="font-serif text-xs sm:text-xs font-bold text-[#1C1A17] uppercase tracking-[0.15em]">
+                    LAYANAN TAMBAHAN
                   </h3>
-                  <span className="text-[10px] font-sans bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
+                  <span className="text-[9.5px] font-serif bg-[#FAF8F5] text-stone-700 font-bold px-2 py-0.5 border border-[#E0D9CE] uppercase tracking-wider">
                     2 Menu
                   </span>
                 </div>
@@ -955,15 +955,15 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         }}
                         className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
                       >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
+                        <div className={`w-13 h-13 sm:w-15 sm:h-15 border overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs relative ${
                           isSelected
-                            ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                            ? 'bg-[#1C1A17] text-white border-[#1C1A17] ring-2 ring-[#1C1A17] scale-105 shadow-xs'
+                            : 'bg-[#FAF8F5] border-[#E0D9CE] hover:border-[#1C1A17] text-[#1C1A17] group-hover:scale-105'
                         }`}>
                           <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
                         </div>
-                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
-                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                        <span className={`text-[10px] sm:text-[10.5px] font-serif uppercase tracking-wider leading-tight line-clamp-2 transition-colors ${
+                          isSelected ? 'text-[#1C1A17] font-bold' : 'font-semibold text-stone-700 group-hover:text-[#1C1A17]'
                         }`}>
                           {item.name}
                         </span>
@@ -973,21 +973,21 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
               </div>
 
-              {/* Customer Service WhatsApp & Actions (Matching Image 2) */}
-              <div className="w-full pt-3 border-t border-stone-200/80 space-y-2.5">
+              {/* Customer Service WhatsApp & Actions */}
+              <div className="w-full pt-3 border-t border-[#E0D9CE] space-y-2.5">
                 <a
                   href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20informasi%20pricelist%20dan%20booking"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full min-h-[46px] rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95"
+                  className="w-full min-h-[46px] bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-[#1C1A17] shadow-xs transition-all cursor-pointer active:scale-98"
                 >
-                  <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
-                  <span>Customer Service (WhatsApp)</span>
+                  <MessageCircle className="w-4 h-4 text-[#D4AF37]" />
+                  <span>KONSULTASI WHATSAPP →</span>
                 </a>
               </div>
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
-              <div className="w-full pt-3 border-t border-stone-200/80">
+              <div className="w-full pt-3 border-t border-[#E0D9CE]">
                 <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-left">
                   {socialLinks.map((s, idx) => (
                     <a
@@ -995,11 +995,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       href={s.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1.5 text-[10.5px] font-medium text-stone-600 hover:text-[#6c8c74] transition-colors py-0.5 truncate"
+                      className="flex items-center gap-1.5 text-[10.5px] font-sans font-medium text-stone-600 hover:text-[#1C1A17] transition-colors py-0.5 truncate uppercase tracking-wider"
                     >
-                      {s.icon === 'tiktok' && <Music2 className="w-3 h-3 text-stone-500 shrink-0" />}
-                      {s.icon === 'instagram' && <Instagram className="w-3 h-3 text-stone-500 shrink-0" />}
-                      {s.icon === 'whatsapp' && <MessageCircle className="w-3 h-3 text-stone-500 shrink-0" />}
+                      {s.icon === 'tiktok' && <Music2 className="w-3 h-3 text-[#8C6D46] shrink-0" />}
+                      {s.icon === 'instagram' && <Instagram className="w-3 h-3 text-[#8C6D46] shrink-0" />}
+                      {s.icon === 'whatsapp' && <MessageCircle className="w-3 h-3 text-[#8C6D46] shrink-0" />}
                       <span className="truncate">{s.label}</span>
                     </a>
                   ))}
@@ -1007,14 +1007,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
 
               {/* Logo Utama & Tagline (Logo Resmi Alviero Studio) */}
-              <div className="w-full pt-4 mt-1 border-t border-slate-200/80 space-y-2 flex flex-col items-center justify-center">
+              <div className="w-full pt-4 mt-1 border-t border-[#E0D9CE] space-y-1.5 flex flex-col items-center justify-center">
                 <img
                   src="/images/alviero-logo-official.png"
                   alt="Alviero Studio"
-                  className="h-14 sm:h-16 max-w-[220px] sm:max-w-[260px] w-auto object-contain transition-transform duration-300 hover:scale-105"
+                  className="h-12 sm:h-14 max-w-[200px] sm:max-w-[240px] w-auto object-contain transition-transform duration-300 hover:scale-105"
                   loading="lazy"
                 />
-                <p className="text-xs text-slate-500 font-serif italic tracking-wide">
+                <p className="text-[11px] text-stone-500 font-serif italic tracking-wider">
                   Perfecting Happiness in Every Moment
                 </p>
               </div>
