@@ -308,7 +308,74 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
           </div>
 
-          {/* Section 3: Trust Badges Bar */}
+          {/* Section 3: Why Choose Alviero Studio? (Sesuai Referensi Gambar) */}
+          <div className="pt-3 pb-1 border-t border-[#E8E1D5] space-y-3.5">
+            <div className="text-center space-y-0.5">
+              <h3 className="font-serif text-base sm:text-lg font-black tracking-tight text-[#1C1A17]">
+                Why Choose Alviero Studio?
+              </h3>
+              <p className="text-[11px] font-sans text-stone-500">
+                Kenyamanan, kualitas visual premium & pelayanan terpercaya
+              </p>
+            </div>
+
+            {/* 2x2 Grid Fitur Unggulan */}
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 text-center">
+              {/* Item 1: Fast and convenient */}
+              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
+                  🛋️
+                </div>
+                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
+                  Fast and convenient
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                  Booking instan tanpa antre. Dapatkan jadwal pasti & all-file HD via Google Drive.
+                </p>
+              </div>
+
+              {/* Item 2: Style and function */}
+              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#EBF1F6] border border-[#D0DEE9] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
+                  🎨
+                </div>
+                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
+                  Style and function
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                  7+ tema backdrop modern, lighting Godox studio, & arahan pose yang natural.
+                </p>
+              </div>
+
+              {/* Item 3: Reflect your lifestyle */}
+              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
+                  ✨
+                </div>
+                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
+                  Reflect your lifestyle
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                  Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Cetak Lab & Frame.
+                </p>
+              </div>
+
+              {/* Item 4: Continuous support */}
+              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
+                <div className="w-12 h-12 rounded-2xl bg-[#F7EFEF] border border-[#E8D6D5] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
+                  💬
+                </div>
+                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
+                  Continuous support
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                  Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin responsif.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 4: Trust Badges Bar */}
           <div className="pt-2 border-t border-[#E8E1D5] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
             <div className="flex flex-col items-center">
               <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
