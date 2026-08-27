@@ -621,7 +621,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
                   onClick={() => {
                     if (isSelfStudio && onSelectCategory) {
                       onSelectBranch('cabang-1');
-                      onSelectCategory('self-studio');
+                      onSelectCategory('selfstudio');
                       return;
                     }
                     setActiveRoomId(room.id);

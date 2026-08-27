@@ -43,10 +43,56 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   onOpenBooking,
   onBackToLanding
 }) => {
+  // Helper to normalize category keys
+  const normalizeMenuCategory = (cat: string | null | undefined): string => {
+    if (!cat) return 'selfstudio';
+    const c = cat.toLowerCase().trim();
+    if (c === 'self-studio' || c === 'selfstudio' || c === 'self_studio' || c === 'self-photo' || c === 'selfphoto') {
+      return 'selfstudio';
+    }
+    if (c === 'wedding-package' || c === 'prewed' || c === 'wedding') {
+      return 'wedding-package';
+    }
+    if (c === 'bingkai-album' || c === 'cetak' || c === 'bingkai') {
+      return 'bingkai-album';
+    }
+    if (c === 'graduation-indoor' || c === 'grad-indoor') {
+      return 'grad-indoor';
+    }
+    if (c === 'graduation-outdoor' || c === 'grad-outdoor') {
+      return 'grad-outdoor';
+    }
+    if (c === 'kebaya-gaun' || c === 'kebayak-gaun') {
+      return 'kebayak-gaun';
+    }
+    if (c === 'birthday' || c === 'event') {
+      return 'event';
+    }
+    if (c === 'group' || c === 'group-paket') {
+      return 'group-paket';
+    }
+    if (c === 'family' || c === 'family-paket') {
+      return 'family-paket';
+    }
+    if (c === 'couple' || c === 'couple-paket') {
+      return 'couple-paket';
+    }
+    if (c === 'personal' || c === 'personal-paket') {
+      return 'personal-paket';
+    }
+    if (c === 'maternity' || c === 'maternity-paket') {
+      return 'maternity-paket';
+    }
+    if (c === 'undangan' || c === 'undangan-paket') {
+      return 'undangan-paket';
+    }
+    return cat;
+  };
+
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   // Mode: 'menu' (Figma Bio-Link Style) or 'gallery' (Contoh Hasil Foto Studio)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery'>('menu');
-  const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(initialCategory || 'selfstudio');
+  const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
   const [selfStudioSubTab, setSelfStudioSubTab] = useState<'special' | 'normal' | 'spotlight' | 'grid'>('special');
   const [selectedGridFilter, setSelectedGridFilter] = useState<'all' | 'grid-1' | 'grid-3' | 'grid-4' | 'grid-6'>('all');
@@ -57,7 +103,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // Sync initialCategory if changed
   React.useEffect(() => {
     if (initialCategory) {
-      setActiveMenuCategory(initialCategory);
+      const normalized = normalizeMenuCategory(initialCategory);
+      setActiveMenuCategory(normalized);
       setIsMobilePopupOpen(true);
     }
   }, [initialCategory]);
@@ -1047,7 +1094,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               <div className="p-4 sm:p-6 lg:p-7 overflow-y-auto lg:overflow-visible space-y-6 flex-1 bg-white">
 
                 {/* 1. SPECIAL FIGMA VIEW FOR SELF STUDIO */}
-                {activeMenuCategory === 'selfstudio' && (
+                {(activeMenuCategory === 'selfstudio' || activeMenuCategory === 'self-studio') && (
                   <div className="space-y-5 animate-in fade-in duration-300">
                     {/* Sub-Switcher */}
                     <div className="bg-slate-100 p-1 rounded-full flex items-center gap-1 border border-slate-200 shadow-2xs overflow-x-auto no-scrollbar">
