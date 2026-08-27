@@ -189,12 +189,16 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-4 sm:p-5 space-y-4 bg-[#FAF8F5] flex-1">
           
-          {/* Section 1: Pilihan Studio (Minimalis, Elegan & Mewah) */}
-          <div className="space-y-2">
-            <div className="text-left px-0.5">
-              <h3 className="font-serif text-xs font-bold tracking-widest text-[#1C1A17] uppercase">
-                PILIH STUDIO
-              </h3>
+          {/* Section 1: Pilihan Studio Aktif (Luxury Bar) */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between px-0.5">
+              <span className="font-serif text-[11px] font-bold tracking-[0.18em] text-[#1C1A17] uppercase">
+                LOKASI STUDIO AKTIF
+              </span>
+              <span className="text-[10px] font-sans font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                Buka 08:00 - 21:00 WIB
+              </span>
             </div>
 
             {/* Studio Selection Card */}
@@ -208,29 +212,37 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   <MapPin className="w-5 h-5 stroke-[2.2] text-[#8C6D46]" />
                 </div>
                 <div className="min-w-0">
-                  <span className="font-serif font-bold text-base sm:text-lg tracking-wide text-[#1C1A17] leading-tight block truncate">
-                    {selectedBranchData.name}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] leading-tight block truncate">
+                      {selectedBranchData.name}
+                    </span>
+                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-[#F2ECE4] text-[#5C5247] border border-[#E3DBD0] shrink-0">
+                      {selectedBranchData.badge}
+                    </span>
+                  </div>
+                  <p className="text-[11px] font-sans text-stone-500 truncate mt-0.5">
+                    {selectedBranchData.address}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-1 text-xs font-sans font-semibold text-white bg-[#1C1A17] hover:bg-[#2D2A26] px-3.5 py-2 rounded-xl shadow-2xs transition-all shrink-0">
-                <span>Pilih Studio</span>
+                <span>Ganti Studio</span>
                 <span className="text-xs transition-transform group-hover:translate-y-0.5">▾</span>
               </div>
             </button>
           </div>
 
-          {/* Section 2: Layanan Wedding & Cetak Foto */}
+          {/* Section 2: Layanan Khusus Wedding & Cetak Foto */}
           <div className="pt-1 space-y-2">
             <div className="text-left px-0.5">
-              <h3 className="font-serif text-xs font-bold tracking-widest text-[#1C1A17] uppercase">
+              <h3 className="font-serif text-[11px] font-bold tracking-[0.18em] text-[#1C1A17] uppercase">
                 LAYANAN WEDDING & CETAK FOTO:
               </h3>
             </div>
 
             <div className="space-y-2.5">
-              {/* Pricelist Wedding Card */}
+              {/* Pricelist Wedding Card (Clean Warm Minimalist) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
                 className="p-3.5 sm:p-4 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#1C1A17]/40 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
@@ -262,7 +274,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
               </div>
 
-              {/* Pricelist Cetak Card */}
+              {/* Pricelist Cetak Card (Clean Warm Minimalist) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
                 className="p-3.5 sm:p-4 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#1C1A17]/40 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
@@ -295,10 +307,36 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </div>
             </div>
           </div>
+
+          {/* Section 3: Trust Badges Bar */}
+          <div className="pt-2 border-t border-[#E8E1D5] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
+            <div className="flex flex-col items-center">
+              <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
+                <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                5.0 Stars
+              </span>
+              <span className="text-[9px] text-stone-500">1,200+ Klien Puas</span>
+            </div>
+            <div className="flex flex-col items-center border-x border-[#E8E1D5]">
+              <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
+                <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                Kamera & Lighting HD
+              </span>
+              <span className="text-[9px] text-stone-500">Pro Studio Gear</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
+                <Clock className="w-3 h-3 text-[#8C6D46]" />
+                Instan Booking
+              </span>
+              <span className="text-[9px] text-stone-500">Tanpa Antre Lama</span>
+            </div>
+          </div>
+
         </div>
 
         {/* Footer info note */}
-        <div className="p-3.5 bg-[#F5EFEB] border-t border-[#E8E1D5] text-center text-[11px] text-[#5C5650] font-medium">
+        <div className="p-3 bg-[#F5EFEB] border-t border-[#E8E1D5] text-center text-[11px] text-[#5C5650] font-medium">
           💡 Kamu dapat berganti studio kapan saja lewat tombol <strong>'Ganti Studio'</strong>.
         </div>
       </div>
