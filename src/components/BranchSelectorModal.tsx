@@ -169,6 +169,168 @@ export const BackdropHeroSlider: React.FC = () => {
 };
 
 /**
+ * Data Ulasan & Testimonial Klien Alviero Studio
+ */
+export interface ClientReview {
+  id: string;
+  name: string;
+  avatar: string;
+  package: string;
+  stars: number;
+  text: string;
+}
+
+export const CLIENT_REVIEWS: ClientReview[] = [
+  {
+    id: '1',
+    name: 'Eka Yunita & Pasangan',
+    avatar: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=300&q=80',
+    package: 'Paket Wedding & Akad',
+    stars: 5,
+    text: 'Hasil-hasil fotonya buat susah move on bangeeet.. semuanyanya bagus dan keren bngeet. Melebihi ekspektasi banget. Luar biasa deh!! Pelayanannya jga bagus banget. Kakak2nya ramah semuanyanya. Makasih ya Alviero Studio.. TERBAIK! RECOMENDED BANGET!!!!',
+  },
+  {
+    id: '2',
+    name: 'Hawalia Ismi',
+    avatar: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=300&q=80',
+    package: 'Paket Prewedding & Studio',
+    stars: 5,
+    text: 'Terimakasih Alviero Studio! Sudah jadi bagian dalam hari bahagia kami . Sukak sekali sama hasil foto dan videonya kereeen Mass" nyaa juga baikbaik lucu juga aktif kalo foto dikasih tau posenya hahaha . Sukses terus Alviero Studio',
+  },
+  {
+    id: '3',
+    name: 'Nadia Paramitha, S.Ked',
+    avatar: '/images/categories/graduation.jpg',
+    package: 'Paket Graduation Scholar',
+    stars: 5,
+    text: 'Studio wisuda ternyaman! Toga lengkap, lighting juara bikin wajah cerah natural, cetakan foto jernih banget dan bingkainya mewah. Recommended banget buat foto wisuda bareng keluarga!',
+  },
+  {
+    id: '4',
+    name: 'Dinda & Rama',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+    package: 'Paket Self Studio Mandiri',
+    stars: 5,
+    text: 'Self studio ternyaman dan paling seru! Remotenya responsif tanpa delay, backgroundnya aesthetic, dan hasil cetak foto instan stripnya high quality. Pasti bakal balik lagi ke Alviero!',
+  },
+];
+
+/**
+ * Komponen Carousel Testimonial Klien (Sesuai Referensi Gambar Artmospoto)
+ */
+export const ClientReviewCarousel: React.FC = () => {
+  const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
+  const totalPages = Math.ceil(CLIENT_REVIEWS.length / 2);
+
+  const handleNext = () => {
+    setCurrentReviewIdx((prev) => (prev + 1) % totalPages);
+  };
+
+  const handlePrev = () => {
+    setCurrentReviewIdx((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+
+  const visibleReviews = CLIENT_REVIEWS.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
+
+  return (
+    <div className="pt-3 pb-1 border-t border-[#E8E1D5] space-y-3 relative">
+      <div className="text-center space-y-0.5">
+        <h3 className="font-serif text-base sm:text-lg font-black tracking-tight text-[#1C1A17]">
+          What Our Clients Say
+        </h3>
+        <p className="text-[11px] font-sans text-stone-500">
+          Ulasan jujur & kepuasan dari klien Alviero Studio
+        </p>
+      </div>
+
+      {/* Container Slider dengan Tombol Panah Kiri & Kanan */}
+      <div className="relative px-1 sm:px-2">
+        {/* Tombol Panah Kiri (<) */}
+        <button
+          type="button"
+          onClick={handlePrev}
+          aria-label="Previous Reviews"
+          className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white text-[#8C6D46] hover:text-[#5C4526] shadow-md border border-[#E8DFD1] flex items-center justify-center cursor-pointer z-10 transition-transform active:scale-90"
+        >
+          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+        </button>
+
+        {/* Tombol Panah Kanan (>) */}
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Next Reviews"
+          className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white text-[#8C6D46] hover:text-[#5C4526] shadow-md border border-[#E8DFD1] flex items-center justify-center cursor-pointer z-10 transition-transform active:scale-90"
+        >
+          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+        </button>
+
+        {/* 2 Review Cards Sesuai Desain Mockup */}
+        <div className="space-y-3 px-3 sm:px-4">
+          {visibleReviews.map((review) => (
+            <div
+              key={review.id}
+              className="relative bg-white rounded-3xl p-3.5 sm:p-4 border border-[#E8E1D5] shadow-[0_8px_24px_rgba(0,0,0,0.04)] pl-16 sm:pl-20 animate-in fade-in duration-300"
+            >
+              {/* Foto Avatar Melingkar Menempel di Kiri */}
+              <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-900 border-2 border-white shadow-md overflow-hidden shrink-0">
+                <img
+                  src={review.avatar}
+                  alt={review.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Watermark Tanda Kutip (Quote) */}
+              <div className="absolute top-1.5 left-14 sm:left-16 text-3xl font-serif text-[#D8CFBF] select-none leading-none opacity-50">
+                “
+              </div>
+
+              {/* Konten Review */}
+              <div className="space-y-1 text-left">
+                <div className="flex items-center justify-between gap-1 flex-wrap">
+                  <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
+                    {review.name}
+                  </h4>
+                </div>
+
+                {/* Bintang Rating (5 Stars) */}
+                <div className="flex items-center gap-0.5 text-amber-400 text-xs leading-none">
+                  {'★★★★★'}
+                </div>
+
+                <div className="h-px bg-stone-100 my-1" />
+
+                {/* Teks Testimonial */}
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-stone-600 leading-relaxed line-clamp-4">
+                  {review.text}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Dots Indikator Pagination */}
+        <div className="flex items-center justify-center gap-1.5 pt-2">
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentReviewIdx(idx)}
+              aria-label={`Review page ${idx + 1}`}
+              className={`rounded-full transition-all cursor-pointer ${
+                currentReviewIdx === idx
+                  ? 'w-4 h-1.5 bg-amber-500 shadow-2xs'
+                  : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/**
  * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (High-End Luxury Editorial)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
@@ -375,7 +537,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
           </div>
 
-          {/* Section 4: Trust Badges Bar */}
+          {/* Section 4: Client Reviews & Testimonials Carousel (Sesuai Referensi Gambar Artmospoto) */}
+          <ClientReviewCarousel />
+
+          {/* Section 5: Trust Badges Bar */}
           <div className="pt-2 border-t border-[#E8E1D5] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
             <div className="flex flex-col items-center">
               <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
