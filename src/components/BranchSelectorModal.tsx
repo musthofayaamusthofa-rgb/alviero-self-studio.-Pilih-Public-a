@@ -357,6 +357,210 @@ export const ClientReviewCarousel: React.FC = () => {
 };
 
 /**
+ * Fasilitas & Spesifikasi Lighting Studio (Improvisasi dari referensi StudioJakarta)
+ */
+export const StudioSpecAndFacilities: React.FC<{
+  onSelectCategory?: (category: string) => void;
+  onSelectBranch: (branch: StudioBranch) => void;
+  selectedBranch: StudioBranch;
+}> = ({ onSelectCategory, onSelectBranch, selectedBranch }) => {
+  const [currentGearIdx, setCurrentGearIdx] = useState<number>(0);
+
+  const GEAR_SHOWCASE = [
+    {
+      id: '1',
+      image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=85',
+      tag: 'LIGHTING SETUP',
+      headline: 'RGB LIGHT & GODOX PRO NOW STANDARD AT ALL STUDIO',
+      sub: 'Setup pencahayaan studio profesional untuk foto wisuda, wedding, dan self-portrait beresolusi tinggi.'
+    },
+    {
+      id: '2',
+      image: '/images/backdrops/backdrop-1.jpg',
+      tag: 'BACKDROP & PROPS',
+      headline: '7+ AESTHETIC THEMES & PROPS READY TO USE',
+      sub: 'Pilihan sofa mewah, arch window, fireplace, dan tekstur bohemian siap pakai tanpa biaya tambahan.'
+    },
+    {
+      id: '3',
+      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85',
+      tag: 'PRIVATE STUDIO SPACE',
+      headline: 'FULLY AIR-CONDITIONED WITH PRIVATE FITTING ROOM',
+      sub: 'Area studio ber-AC sejuk, fitting room bersih, dan asisten studio standby untuk kenyamanan Anda.'
+    }
+  ];
+
+  const handleNextGear = () => {
+    setCurrentGearIdx((prev) => (prev + 1) % GEAR_SHOWCASE.length);
+  };
+
+  const handlePrevGear = () => {
+    setCurrentGearIdx((prev) => (prev - 1 + GEAR_SHOWCASE.length) % GEAR_SHOWCASE.length);
+  };
+
+  const activeGear = GEAR_SHOWCASE[currentGearIdx];
+
+  return (
+    <div className="space-y-3.5 pt-4 pb-1 border-t border-[#E0D9CE]">
+      {/* Studio Descriptions */}
+      <div className="space-y-3 bg-white p-3.5 sm:p-4.5 border border-[#E0D9CE]">
+        {/* Studio 1 */}
+        <div className="space-y-1">
+          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider">
+            STUDIO 1 — KARANGPLOSO (MAIN STUDIO)
+          </h4>
+          <p className="text-[11px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
+            Studio di lokasi strategis, akses mudah di lantai dasar, untuk produksi foto wisuda, wedding, group family, dan self-studio. Perlengkapan lighting foto standar industri dan dirawat secara profesional.
+          </p>
+        </div>
+
+        {/* Studio 2 */}
+        <div className="space-y-1 pt-2.5 border-t border-[#EFEAE2]">
+          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider">
+            STUDIO 2 — CABANG EKSKLUSIF
+          </h4>
+          <p className="text-[11px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
+            Pilihan studio lebih luas dengan area shooting lega, ruang ganti private ber-AC, dan fasilitas fitting gaun/kebaya lengkap.
+          </p>
+        </div>
+
+        {/* Express Booking & Direct Contact Bar */}
+        <div className="pt-2.5 border-t border-[#EFEAE2] flex items-center justify-between flex-wrap gap-2">
+          <div className="text-[11px] font-sans font-bold text-[#1C1A17] flex items-center gap-1.5">
+            <span className="font-serif uppercase tracking-wider text-xs">EXPRESS BOOKING</span>
+            <span className="text-stone-300">|</span>
+            <a 
+              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20booking" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-emerald-700 hover:text-emerald-800 underline underline-offset-2 font-bold"
+            >
+              0877-7753-8164
+            </a>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <a
+              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20booking"
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-1 bg-emerald-700 hover:bg-emerald-800 text-white font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
+            >
+              WhatsApp
+            </a>
+            <a
+              href="tel:087777538164"
+              className="px-3 py-1 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
+            >
+              Quick Call
+            </a>
+          </div>
+        </div>
+
+        {/* Quick Filter Buttons */}
+        <div className="pt-2.5 flex items-center gap-1.5 flex-wrap">
+          <button
+            type="button"
+            onClick={() => onSelectBranch('branch-1')}
+            className={`px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
+              selectedBranch === 'branch-1'
+                ? 'bg-[#1C1A17] text-white border-[#1C1A17]'
+                : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
+            }`}
+          >
+            Studio 1
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectBranch('branch-2')}
+            className={`px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
+              selectedBranch === 'branch-2'
+                ? 'bg-[#1C1A17] text-white border-[#1C1A17]'
+                : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
+            }`}
+          >
+            Studio 2
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectCategory ? onSelectCategory('selfstudio') : onSelectBranch(selectedBranch)}
+            className="px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider bg-white text-stone-700 border border-[#D5CEC2] hover:border-[#1C1A17] transition-colors cursor-pointer"
+          >
+            Self Studio
+          </button>
+          <button
+            type="button"
+            onClick={() => onSelectCategory ? onSelectCategory('grad-indoor') : onSelectBranch(selectedBranch)}
+            className="px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider bg-white text-stone-700 border border-[#D5CEC2] hover:border-[#1C1A17] transition-colors cursor-pointer"
+          >
+            Graduation
+          </button>
+        </div>
+      </div>
+
+      {/* Pro Gear & Studio Facilities Showcase Banner Slider */}
+      <div className="relative h-56 sm:h-64 md:h-72 bg-[#1C1A17] overflow-hidden border border-[#E0D9CE]">
+        <img
+          key={activeGear.id}
+          src={activeGear.image}
+          alt={activeGear.headline}
+          className="w-full h-full object-cover object-center animate-in fade-in duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/30" />
+
+        {/* Text Overlay */}
+        <div className="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between text-left z-10">
+          <div>
+            <span className="inline-block text-[8.5px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/60 px-2 py-0.5 border border-[#D4AF37]/40">
+              {activeGear.tag}
+            </span>
+          </div>
+
+          <div className="space-y-1 max-w-md">
+            <h4 className="font-serif font-black text-xs sm:text-sm md:text-base text-white leading-tight drop-shadow-md tracking-wide uppercase">
+              {activeGear.headline}
+            </h4>
+            <p className="text-[10px] sm:text-[10.5px] font-sans text-stone-300 leading-relaxed drop-shadow-sm">
+              {activeGear.sub}
+            </p>
+          </div>
+        </div>
+
+        {/* Arrow Navigation */}
+        <button
+          type="button"
+          onClick={handlePrevGear}
+          aria-label="Previous Gear"
+          className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-black/50 hover:bg-black/80 text-white flex items-center justify-center border border-white/20 z-20 cursor-pointer transition-transform active:scale-90"
+        >
+          <ChevronLeft className="w-3.5 h-3.5" />
+        </button>
+
+        <button
+          type="button"
+          onClick={handleNextGear}
+          aria-label="Next Gear"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-black/50 hover:bg-black/80 text-white flex items-center justify-center border border-white/20 z-20 cursor-pointer transition-transform active:scale-90"
+        >
+          <ChevronRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      {/* Facility Highlights Footer (Sesuai Referensi StudioJakarta) */}
+      <div className="p-3 bg-white border border-[#E0D9CE] text-center">
+        <p className="font-sans font-semibold text-[10px] sm:text-[11px] text-[#1C1A17] leading-relaxed">
+          <span className="font-bold">Fully Air-Conditioned</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
+          <span className="font-bold">Professional Godox Lighting</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
+          <span className="font-bold">7+ Props Collection Ready</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
+          <span className="font-bold">Standby Studio Assistant</span>
+        </p>
+        <div className="h-0.5 bg-[#8C6D46]/80 w-20 mx-auto mt-2" />
+      </div>
+    </div>
+  );
+};
+
+/**
  * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Tegas, Rapi, Terpadu & Terstruktur)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
@@ -490,6 +694,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </div>
             </div>
           </div>
+
+          {/* Section 2.5: Spesifikasi Studio & Fasilitas Pro Gear (Improvisasi dari Referensi StudioJakarta) */}
+          <StudioSpecAndFacilities 
+            selectedBranch={selectedBranch}
+            onSelectBranch={onSelectBranch}
+            onSelectCategory={onSelectCategory}
+          />
 
           {/* Section 3: Why Choose Alviero Studio? (Grid Rapi & Proporsional) */}
           <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-3">
