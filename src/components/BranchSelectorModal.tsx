@@ -1029,25 +1029,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             {/* Studio Specialization Services */}
-            <div className="text-center font-sans text-xs text-stone-400 tracking-wider">
+            <div className="text-center md:text-right font-sans text-xs text-stone-400 tracking-wider">
               <p className="font-medium text-stone-300">
                 Photography <span className="text-[#8C6D46] px-1">•</span> Videography <span className="text-[#8C6D46] px-1">•</span> Creative Production
               </p>
               <p className="text-[11px] text-stone-500 mt-1">
                 Studio 1 Karangploso & Studio 2 Cabang Eksklusif
               </p>
-            </div>
-
-            {/* CTA Button */}
-            <div>
-              <button
-                type="button"
-                onClick={() => onSelectBranch(selectedBranch)}
-                className="font-serif font-bold text-xs sm:text-sm text-[#D4AF37] hover:text-white uppercase tracking-[0.2em] transition-colors flex items-center gap-1.5 cursor-pointer group"
-              >
-                <span>BOOKING NOW</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#D4AF37] group-hover:text-white" />
-              </button>
             </div>
           </div>
 
