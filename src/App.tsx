@@ -45,10 +45,7 @@ export default function App() {
   };
 
   const handleOpenBranchModal = () => {
-    setHasEnteredBranch(false);
-    setInitialMenuCategory(undefined);
-    setActiveTab('katalog');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsBranchModalOpen(true);
   };
 
   const handleOpenBookingWithPackage = (packageId: string) => {
