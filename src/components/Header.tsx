@@ -9,6 +9,7 @@ interface HeaderProps {
   selectedBranch?: StudioBranch;
   onOpenBranchModal?: () => void;
   onOpenBooking: () => void;
+  onBackToLanding?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
   selectedBranch = 'cabang-1',
   onOpenBranchModal,
   onOpenBooking,
+  onBackToLanding,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -89,10 +91,17 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Main Header (Sharp Minimalist Layout) */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
-        {/* Brand Logo (Logo Resmi Alviero Studio) */}
+        {/* Brand Logo (Logo Resmi Alviero Studio - Klik untuk kembali ke beranda) */}
         <div 
-          onClick={() => setActiveTab('katalog')} 
+          onClick={() => {
+            if (onBackToLanding) {
+              onBackToLanding();
+            } else {
+              setActiveTab('katalog');
+            }
+          }} 
           className="flex items-center gap-3 cursor-pointer group"
+          title="Klik untuk kembali ke Halaman Awal"
         >
           <img
             src="/images/alviero-logo-official.png"
@@ -103,6 +112,22 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Desktop Navigation Tabs (Sudut Tegas & Modern) */}
         <nav className="hidden lg:flex items-center gap-1 bg-white p-1 border border-[#D5CEC2] shadow-2xs">
+          {/* Tombol Beranda Utama */}
+          <button
+            onClick={() => {
+              if (onBackToLanding) {
+                onBackToLanding();
+              } else {
+                setActiveTab('katalog');
+              }
+            }}
+            className="px-3.5 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold border-r border-[#E0D9CE]/60 mr-0.5"
+            title="Kembali ke Tampilan Awal"
+          >
+            <span className="text-stone-400">←</span>
+            <span>Beranda</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('katalog')}
             className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${

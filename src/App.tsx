@@ -48,6 +48,13 @@ export default function App() {
     setIsBranchModalOpen(true);
   };
 
+  const handleBackToLanding = () => {
+    setHasEnteredBranch(false);
+    setInitialMenuCategory(undefined);
+    setActiveTab('katalog');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleOpenBookingWithPackage = (packageId: string) => {
     setPreselectedPackageId(packageId);
     setIsBookingOpen(true);
@@ -62,6 +69,7 @@ export default function App() {
         selectedBranch={selectedBranch}
         onOpenBranchModal={handleOpenBranchModal}
         onOpenBooking={() => setIsBookingOpen(true)}
+        onBackToLanding={handleBackToLanding}
       />
 
       {/* Main View Area */}
@@ -80,6 +88,7 @@ export default function App() {
               selectedBranch={selectedBranch}
               initialCategory={initialMenuCategory}
               onOpenBranchModal={handleOpenBranchModal}
+              onBackToLanding={handleBackToLanding}
               onSelectPackageForBooking={handleOpenBookingWithPackage}
               onNavigateToRules={() => {
                 setActiveTab('rules');
@@ -108,6 +117,7 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenBooking={() => setIsBookingOpen(true)}
+        onBackToLanding={handleBackToLanding}
       />
 
       {/* Booking Modal */}

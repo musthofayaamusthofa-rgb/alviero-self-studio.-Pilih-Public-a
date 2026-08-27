@@ -16,6 +16,7 @@ interface PricelistViewerProps {
   onNavigateToRules?: () => void;
   onNavigateToTab?: (tab: string) => void;
   onOpenBooking?: () => void;
+  onBackToLanding?: () => void;
 }
 
 interface StudioGalleryPhoto {
@@ -39,7 +40,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   onOpenBranchModal,
   onNavigateToRules,
   onNavigateToTab,
-  onOpenBooking
+  onOpenBooking,
+  onBackToLanding
 }) => {
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   // Mode: 'menu' (Figma Bio-Link Style) or 'gallery' (Contoh Hasil Foto Studio)
@@ -679,41 +681,52 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     <div className="w-full py-2 sm:py-6 px-2 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-3 sm:space-y-6">
 
       {/* Top Segmented Navigation Tabs (Khusus Desktop) */}
-      <div className="hidden lg:flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-xs">
-        <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-amber-300 shadow-md shrink-0">
-            <Sparkles className="w-5 h-5" />
+      <div className="hidden lg:flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3.5 sm:p-4 border border-[#E0D9CE] shadow-xs">
+        <div className="flex items-center gap-3">
+          {onBackToLanding && (
+            <button
+              onClick={onBackToLanding}
+              className="px-4 py-2 bg-[#FAF8F5] hover:bg-[#1C1A17] text-[#1C1A17] hover:text-white font-serif text-xs font-bold uppercase tracking-wider border border-[#D5CEC2] hover:border-[#1C1A17] flex items-center gap-1.5 transition-all cursor-pointer shadow-xs shrink-0"
+              title="Kembali ke Halaman Awal"
+            >
+              <ChevronLeft className="w-4 h-4 stroke-[2]" />
+              <span>Beranda Awal</span>
+            </button>
+          )}
+
+          <div className="w-9 h-9 bg-[#1C1A17] text-[#D4AF37] flex items-center justify-center shrink-0">
+            <Sparkles className="w-4.5 h-4.5" />
           </div>
           <div>
-            <h2 className="font-extrabold text-sm sm:text-base text-slate-900 leading-tight">
+            <h2 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] uppercase tracking-wide leading-tight">
               Katalog Resmi & Galeri Alviero Studio
             </h2>
-            <p className="text-[11px] sm:text-xs text-slate-500">
+            <p className="text-[11px] sm:text-xs text-stone-500 font-sans">
               Lihat pricelist resmi atau jelajahi inspirasi contoh hasil foto asli sesuai paket studio kami.
             </p>
           </div>
         </div>
 
         {/* Tab Switcher */}
-        <div className="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1 w-full sm:w-auto border border-slate-200">
+        <div className="bg-[#FAF8F5] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E0D9CE]">
           <button
             onClick={() => setActiveTab('menu')}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 ${activeTab === 'menu'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'menu'
+              ? 'bg-[#1C1A17] text-white shadow-xs'
+              : 'text-stone-600 hover:text-[#1C1A17] hover:bg-white'
               }`}
           >
-            <span>📱 Menu Pricelist Studio</span>
+            <span>Menu Pricelist</span>
           </button>
 
           <button
             onClick={() => setActiveTab('gallery')}
-            className={`flex-1 sm:flex-initial px-4 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 ${activeTab === 'gallery'
-              ? 'bg-slate-900 text-white shadow-md'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'gallery'
+              ? 'bg-[#1C1A17] text-white shadow-xs'
+              : 'text-stone-600 hover:text-[#1C1A17] hover:bg-white'
               }`}
           >
-            <span>📸 Galeri Hasil Foto Studio</span>
+            <span>Galeri Foto</span>
           </button>
         </div>
       </div>
@@ -725,12 +738,28 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
 
           {/* Left Column: The Studio Menu Card (Minimalist & Elegant) */}
-          <div className="lg:col-span-5 max-w-md w-full mx-auto rounded-3xl sm:rounded-[32px] overflow-hidden shadow-xl border border-slate-200/90 bg-white relative">
+          <div className="lg:col-span-5 max-w-md w-full mx-auto overflow-hidden shadow-md border border-[#E0D9CE] bg-white relative">
             {/* Subtle Studio Ambient Header Glow */}
-            <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-[#f0f5fa] via-[#f8fafc]/60 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-[#FAF8F5] to-transparent pointer-events-none" />
 
             {/* Menu Content */}
             <div className="relative z-10 p-4 sm:p-6 flex flex-col items-center text-center space-y-3.5 sm:space-y-4">
+
+              {/* Tombol Navigasi Kembali ke Beranda Awal */}
+              {onBackToLanding && (
+                <div className="w-full flex items-center justify-between gap-2 pb-2.5 border-b border-[#E0D9CE]">
+                  <button
+                    onClick={onBackToLanding}
+                    className="px-3.5 py-1.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer border border-[#1C1A17] shadow-xs active:scale-95"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5 stroke-[2]" />
+                    <span>Kembali ke Beranda</span>
+                  </button>
+                  <span className="text-[10.5px] font-serif font-bold uppercase tracking-wider text-stone-500">
+                    {currentBranchInfo.shortName}
+                  </span>
+                </div>
+              )}
 
               {/* 0. Pilihan Lokasi Studio Cabang 1 vs Cabang 2 */}
               <div

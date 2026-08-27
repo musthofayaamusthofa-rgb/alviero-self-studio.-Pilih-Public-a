@@ -5,18 +5,26 @@ interface MobileBottomNavProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOpenBooking: () => void;
+  onBackToLanding?: () => void;
 }
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   activeTab,
   setActiveTab,
-  onOpenBooking
+  onOpenBooking,
+  onBackToLanding
 }) => {
   return (
     <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-xl border-t border-[#D5CEC2] px-3 py-1.5 shadow-[0_-8px_30px_rgba(0,0,0,0.06)] pb-safe">
       <div className="grid grid-cols-4 gap-1.5 text-center max-w-md mx-auto">
         <button
-          onClick={() => setActiveTab('katalog')}
+          onClick={() => {
+            if (onBackToLanding) {
+              onBackToLanding();
+            } else {
+              setActiveTab('katalog');
+            }
+          }}
           className={`min-h-[44px] flex flex-col items-center justify-center py-1.5 transition-all duration-200 cursor-pointer ${
             activeTab === 'katalog' || activeTab === 'pricelist-sheets'
               ? 'text-white bg-[#1C1A17] font-bold shadow-xs'
