@@ -810,57 +810,83 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </p>
             </div>
 
-            {/* 4 Kolom di Desktop, 2 Kolom di Mobile */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 text-center">
+            {/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 text-center">
               {/* Item 1: Fast and convenient */}
-              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
-                  <Clock className="w-5 h-5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Clock className="w-4.5 h-4.5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Fast & Convenient
                 </h4>
-                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
-                  Booking instan tanpa antre. Dapatkan jadwal pasti & all-file HD via Google Drive.
+                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Booking instan tanpa antre, jadwal pasti & all-file HD via Google Drive.
                 </p>
               </div>
 
               {/* Item 2: Style and function */}
-              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
-                  <Sliders className="w-5 h-5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Sliders className="w-4.5 h-4.5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Style & Function
                 </h4>
-                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
-                  7+ tema background modern, lighting Godox studio, & arahan pose natural.
+                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  7+ tema background estetik, lighting Godox studio & arahan pose natural.
                 </p>
               </div>
 
-              {/* Item 3: Reflect your lifestyle */}
-              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
-                  <Layers className="w-5 h-5 stroke-[1.6]" />
+              {/* Item 3: Live-View Preview */}
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Camera className="w-4.5 h-4.5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Live-View Preview
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Monitor realtime besar untuk cek hasil jepretan dan pose langsung seketika.
+                </p>
+              </div>
+
+              {/* Item 4: Fasilitas Lengkap */}
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Sparkles className="w-4.5 h-4.5 stroke-[1.6]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Fasilitas Lengkap
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Full AC sejuk, fitting room privat, toga wisuda & aneka properti siap pakai.
+                </p>
+              </div>
+
+              {/* Item 5: Reflect your lifestyle */}
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Layers className="w-4.5 h-4.5 stroke-[1.6]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Reflect Lifestyle
                 </h4>
-                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
-                  Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Cetak Frame kayu.
+                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Paket wisuda, wedding, self studio, family, hingga cetak frame kayu eksklusif.
                 </p>
               </div>
 
-              {/* Item 4: Continuous support */}
-              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
-                  <HeartHandshake className="w-5 h-5 stroke-[1.6]" />
+              {/* Item 6: Continuous support */}
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <HeartHandshake className="w-4.5 h-4.5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Continuous Support
                 </h4>
-                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
-                  Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin responsif.
+                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin ramah.
                 </p>
               </div>
             </div>
