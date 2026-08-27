@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --studio-primary: #947035;
-  --studio-primary-dark: #7c5d2b;
-  --studio-primary-light: #f5eedc;
-  --studio-olive: #6a5e35;
-  --studio-rose: #cda7a7;
-  --studio-sage: #b2c3ad;
-  --studio-dark: #1e1d1a;
-  --studio-body: #57544d;
-  --studio-subtle: #7c776e;
-  --studio-bg: #fbf9f4;
-  --studio-bg-soft: #faf7ee;
-  --studio-border: #e8e4d8;
+  --studio-primary: #C49A99;
+  --studio-primary-dark: #A87D7C;
+  --studio-primary-light: #F7EFEF;
+  --studio-secondary: #8DA4B8;
+  --studio-secondary-dark: #6F889E;
+  --studio-secondary-light: #EBF1F6;
+  --studio-dark: #2D2A26;
+  --studio-body: #4A4641;
+  --studio-subtle: #78726A;
+  --studio-bg: #EFE8DD;
+  --studio-bg-card: #FAF8F5;
+  --studio-border: #E8E1D5;
 
   /* Font Families */
-  --font-luxury: 'Italiana', 'Cinzel Decorative', 'Bodoni Moda', 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-serif: 'Cormorant Garamond', 'Playfair Display', 'Cinzel', Georgia, serif;
-  --font-editorial: 'Italiana', 'Cormorant Garamond', 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-luxury: 'Playfair Display', 'Cormorant Garamond', 'Italiana', Georgia, serif;
+  --font-serif: 'Playfair Display', 'Cormorant Garamond', 'Prata', Georgia, serif;
+  --font-editorial: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -40,6 +40,7 @@
 
   body {
     font-family: var(--font-sans);
+    background-color: var(--studio-bg);
   }
 
   /* Editorial Serif Headings (Matches Reference Image 1) */
