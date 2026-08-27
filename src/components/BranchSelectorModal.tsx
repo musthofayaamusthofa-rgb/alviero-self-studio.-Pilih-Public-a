@@ -896,147 +896,129 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             />
           </div>
 
-          {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Grid 3 Kolom Sejajar & Eye-Catching) */}
-          <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-2">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
-              
-              {/* Kolom 1: Lokasi Studio Aktif (Hero Obsidian Card yang Eye-Catching) */}
-              <div className="space-y-1.5 flex flex-col justify-between">
-                <div className="flex items-center justify-between px-0.5">
-                  <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#8C6D46]" />
-                    LOKASI STUDIO AKTIF
+          {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Eye-Catching Grand Booking & Services Layout) */}
+          <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-4">
+            
+            {/* BIG EYE-CATCHING GRAND CALLOUT BOX: "SEGERA BOOKING DI SINI!" */}
+            <div className="w-full bg-[#1C1A17] text-white p-5 sm:p-7 md:p-8 border border-[#332F2A] shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-6 text-left">
+              {/* Subtle background ambient glow */}
+              <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#8C6D46]/15 rounded-full blur-3xl pointer-events-none" />
+
+              {/* Left Content Column */}
+              <div className="space-y-2.5 max-w-2xl relative z-10">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 bg-[#2A2723] text-[#D4AF37] border border-[#D4AF37]/40 px-3 py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest">
+                    <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
+                    RESERVASI JADWAL ONLINE INSTAN
                   </span>
-                  <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    08:00 - 21:00 WIB
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 px-2.5 py-1 border border-emerald-500/30 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Studio Buka • 08:00 - 21:00 WIB
                   </span>
                 </div>
 
-                <div
+                <h3 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white uppercase tracking-wide leading-tight">
+                  SIAP BEREKSPRESI? SEGERA BOOKING DI SINI!
+                </h3>
+
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-300 font-sans">
+                  <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                  <span>
+                    Studio Terpilih: <strong className="text-white font-serif tracking-wide uppercase">{selectedBranchData.name}</strong> ({selectedBranchData.badge})
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-stone-400 font-sans leading-relaxed">
+                  Pilih paket foto impian Anda, tentukan jam slot tanpa antre, dan konfirmasi jadwal secara otomatis melalui WhatsApp.
+                </p>
+              </div>
+
+              {/* Right Action Column (Big Buttons) */}
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto relative z-10 shrink-0">
+                <button
+                  type="button"
                   onClick={() => setIsModalOpen(true)}
-                  className="w-full p-4 sm:p-4.5 bg-[#1C1A17] hover:bg-[#25221E] text-white border border-[#332F2A] hover:border-[#D4AF37] transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 text-left group flex-1 shadow-md hover:shadow-xl relative overflow-hidden"
+                  className="min-h-[48px] px-5 py-3 bg-[#2A2723] hover:bg-[#38342E] text-stone-200 hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#4A453E] transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shrink-0"
                 >
-                  {/* Gold Left Accent Bar */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#D4AF37]" />
+                  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                  <span>GANTI STUDIO ▾</span>
+                </button>
 
-                  <div className="flex items-center gap-3.5 min-w-0 pl-1.5">
-                    <div className="w-11 h-11 bg-[#2D2A26] border border-[#4A453E] text-[#D4AF37] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 group-hover:border-[#D4AF37] transition-all">
-                      <MapPin className="w-5 h-5 stroke-[2] text-[#D4AF37]" />
-                    </div>
-                    <div className="min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-serif font-bold text-sm sm:text-base text-white leading-tight block truncate group-hover:text-[#D4AF37] transition-colors">
-                          {selectedBranchData.name}
-                        </span>
-                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#D4AF37]/20 text-[#D4AF37] border border-[#D4AF37]/40 shrink-0">
-                          {selectedBranchData.badge}
-                        </span>
-                      </div>
-                      <p className="text-[11.5px] font-sans text-stone-300 truncate">
-                        {selectedBranchData.address}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 text-[11px] font-serif font-bold uppercase tracking-wider text-[#1C1A17] bg-[#D4AF37] hover:bg-white px-3.5 py-2 transition-all shrink-0 shadow-xs group-hover:scale-105">
-                    <span>Ganti</span>
-                    <span className="text-xs">▾</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Kolom 2: Pricelist Wedding & Prewedding (Eye-Catching Luxury Champagne Card) */}
-              <div className="space-y-1.5 flex flex-col justify-between">
-                <div className="flex items-center justify-between px-0.5">
-                  <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#8C6D46]" />
-                    WEDDING & PREWEDDING
-                  </span>
-                  <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-[#8C6D46] bg-[#FAF8F5] px-2.5 py-0.5 border border-[#E0D9CE]">
-                    Special Suite
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                  className="w-full p-4 sm:p-4.5 bg-gradient-to-br from-white to-[#FAF6F0] hover:to-[#F5EFE6] border border-[#D8CEBF] hover:border-[#1C1A17] transition-all duration-300 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 flex-1 shadow-sm hover:shadow-xl"
+                <button
+                  type="button"
+                  onClick={() => onSelectBranch(selectedBranch)}
+                  className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#D4AF37] hover:bg-[#E5C158] text-[#1C1A17] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.18em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#D4AF37]"
                 >
-                  {/* Gold Left Accent Bar */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#8C6D46]" />
-
-                  <div className="flex items-center gap-3.5 min-w-0 pl-1.5">
-                    <div className="w-11 h-11 bg-[#FAF8F5] border border-[#D5CEC2] text-[#8C6D46] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 group-hover:border-[#8C6D46] transition-all">
-                      <Sparkles className="w-5 h-5 stroke-[2] text-[#8C6D46]" />
-                    </div>
-                    <div className="min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate group-hover:text-[#8C6D46] transition-colors">
-                          PRICELIST WEDDING
-                        </h4>
-                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#8C6D46]/10 text-[#8C6D46] border border-[#8C6D46]/30">
-                          Exclusive
-                        </span>
-                      </div>
-                      <p className="text-[11.5px] font-sans text-[#5C5650] font-normal truncate">
-                        Prewedding, Akad, Resepsi & Engagement
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="text-xs font-serif font-bold uppercase tracking-wider text-white bg-[#1C1A17] group-hover:bg-[#8C6D46] px-3.5 py-2 flex items-center gap-1.5 shrink-0 transition-all shadow-xs group-hover:scale-105">
-                    <span>Lihat</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
-                </div>
+                  <span>BOOKING SEKARANG</span>
+                  <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                </button>
               </div>
-
-              {/* Kolom 3: Pricelist Cetak & Bingkai (Eye-Catching Art Frame Card) */}
-              <div className="space-y-1.5 flex flex-col justify-between">
-                <div className="flex items-center justify-between px-0.5">
-                  <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase flex items-center gap-1.5">
-                    <ImageIcon className="w-3.5 h-3.5 text-[#8C6D46]" />
-                    CETAK LAB & BINGKAI
-                  </span>
-                  <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 border border-amber-200">
-                    Lab Quality
-                  </span>
-                </div>
-
-                <div
-                  onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                  className="w-full p-4 sm:p-4.5 bg-gradient-to-br from-white to-[#FAF6F0] hover:to-[#F5EFE6] border border-[#D8CEBF] hover:border-[#1C1A17] transition-all duration-300 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 flex-1 shadow-sm hover:shadow-xl"
-                >
-                  {/* Gold Left Accent Bar */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#8C6D46]" />
-
-                  <div className="flex items-center gap-3.5 min-w-0 pl-1.5">
-                    <div className="w-11 h-11 bg-[#FAF8F5] border border-[#D5CEC2] text-[#8C6D46] flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 group-hover:border-[#8C6D46] transition-all">
-                      <ImageIcon className="w-5 h-5 stroke-[2] text-[#8C6D46]" />
-                    </div>
-                    <div className="min-w-0 space-y-0.5">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate group-hover:text-[#8C6D46] transition-colors">
-                          PRICELIST CETAK
-                        </h4>
-                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#8C6D46]/10 text-[#8C6D46] border border-[#8C6D46]/30">
-                          Anti-Luntur
-                        </span>
-                      </div>
-                      <p className="text-[11.5px] font-sans text-[#5C5650] font-normal truncate">
-                        Cetak Lab, Bingkai Minimalis & Album
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="text-xs font-serif font-bold uppercase tracking-wider text-white bg-[#1C1A17] group-hover:bg-[#8C6D46] px-3.5 py-2 flex items-center gap-1.5 shrink-0 transition-all shadow-xs group-hover:scale-105">
-                    <span>Lihat</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </div>
-                </div>
-              </div>
-
             </div>
+
+            {/* 2 Companion Service Cards (Wedding & Cetak Lab) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Card 1: Pricelist Wedding & Prewedding */}
+              <div
+                onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
+                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-4 shadow-2xs"
+              >
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-11 h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Sparkles className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate">
+                        PRICELIST WEDDING & PREWEDDING
+                      </h4>
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                        Exclusive Suite
+                      </span>
+                    </div>
+                    <p className="text-xs font-sans text-[#736B63] truncate mt-1">
+                      Paket Prewedding, Akad Nikah, Resepsi & Engagement Lengkap
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                  <span className="hidden sm:inline">Lihat Paket</span>
+                  <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+
+              {/* Card 2: Pricelist Cetak Lab & Bingkai */}
+              <div
+                onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
+                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-4 shadow-2xs"
+              >
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-11 h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate">
+                        PRICELIST CETAK LAB & BINGKAI
+                      </h4>
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                        Lab Standard
+                      </span>
+                    </div>
+                    <p className="text-xs font-sans text-[#736B63] truncate mt-1">
+                      Cetak Lab Anti-Luntur, Bingkai Kayu Minimalis & Album Hardcover
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                  <span className="hidden sm:inline">Lihat Katalog</span>
+                  <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
