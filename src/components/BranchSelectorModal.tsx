@@ -1016,7 +1016,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             {/* Brand Logo / Text */}
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
               <span className="font-serif font-black text-xl sm:text-2xl tracking-[0.25em] text-white uppercase">
-                ALVIERO.CO
+                ALVIERO STUDIO
               </span>
               <span className="text-[10px] font-mono tracking-widest text-[#D4AF37] uppercase mt-0.5">
                 EST. MALANG • JAWA TIMUR
@@ -1050,7 +1050,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           <div className="border-t border-white/10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-4 sm:py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-400">
             {/* Copyright */}
             <div className="text-center md:text-left">
-              <span>© {new Date().getFullYear()} Alviero.co. All Rights Reserved.</span>
+              <span>© {new Date().getFullYear()} Alviero Studio. All Rights Reserved.</span>
             </div>
 
             {/* Status Live Pill */}
