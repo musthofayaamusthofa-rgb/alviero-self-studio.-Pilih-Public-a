@@ -176,21 +176,39 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
         </div>
       </div>
 
-      {/* 3. Hero Content Container (Tepat di Bawah Foto, Bersih & Tidak Menutupi Foto) */}
+      {/* 3. Hero Content Container (Penjelasan Singkat Studio & Fasilitas Mewah Lengkap) */}
       <div className="w-full bg-white px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-2.5 sm:space-y-3.5 border-t border-[#E0D9CE]">
-        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#1C1A17] leading-tight tracking-wide uppercase">
-          Modern Studio Photos
+        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#8C6D46] uppercase bg-[#FAF8F5] px-3 py-1 border border-[#E0D9CE]">
+          ALVIERO PHOTO STUDIO
+        </span>
+
+        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#1C1A17] leading-tight tracking-wide uppercase max-w-2xl">
+          Studio Foto Modern dengan Fasilitas Mewah & Terlengkap
         </h2>
         
-        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#8C6D46] tracking-[0.2em] uppercase">
-          For a Contemporary Lifestyle
+        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#8C6D46] tracking-[0.18em] uppercase">
+          Kenyamanan Maksimal • Kualitas Visual Premium
         </p>
 
-        <p className="font-sans text-xs sm:text-sm md:text-base text-[#5C5650] max-w-xl mx-auto leading-relaxed">
-          Choose from tried-and-true studio packages designed to capture your best memories. All at your own convenience.
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#5C5650] max-w-2xl mx-auto leading-relaxed">
+          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema backdrop estetis, tata lampu Godox Studio Pro, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
         </p>
 
-
+        {/* Highlight Fasilitas Mewah */}
+        <div className="pt-2 flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-[10.5px] sm:text-xs font-sans font-medium text-stone-700">
+          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
+            <span className="text-[#D4AF37] font-bold">✦</span> Full AC & Ruang Ganti Privat
+          </span>
+          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
+            <span className="text-[#D4AF37] font-bold">✦</span> Live-View Monitor Realtime
+          </span>
+          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
+            <span className="text-[#D4AF37] font-bold">✦</span> Lighting Godox Studio Pro
+          </span>
+          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
+            <span className="text-[#D4AF37] font-bold">✦</span> Toga Wisuda & Properti Siap Pakai
+          </span>
+        </div>
       </div>
     </div>
   );
