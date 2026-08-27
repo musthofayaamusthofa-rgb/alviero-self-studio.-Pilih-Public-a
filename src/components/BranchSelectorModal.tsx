@@ -1,7 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { Check, X, ArrowRight, MapPin, ChevronLeft, ChevronRight, Sparkles, Star, ShieldCheck, Clock, Award, Menu, ShoppingBag, Calendar } from 'lucide-react';
+import { 
+  Check, 
+  X, 
+  ArrowRight, 
+  MapPin, 
+  ChevronLeft, 
+  ChevronRight, 
+  Sparkles, 
+  Star, 
+  ShieldCheck, 
+  Clock, 
+  Award, 
+  Palette, 
+  Layers, 
+  HeartHandshake, 
+  Sliders, 
+  Image as ImageIcon,
+  Camera
+} from 'lucide-react';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
@@ -29,7 +47,7 @@ interface BackdropHeroSliderProps {
 }
 
 /**
- * Hero Slider Banner Backdrop Studio (Desain Mewah Sesuai Mockup Truoba)
+ * Hero Slider Banner Backdrop Studio (Desain Tegas, Modern, Editorial & Dewasa)
  */
 export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPlans }) => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
@@ -87,18 +105,17 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* 1. Top Minimalist Navbar (Brand Center Saja) */}
-      <div className="w-full bg-white px-4 py-3 sm:px-5 flex items-center justify-center border-b border-[#E8E1D5] z-30">
-        {/* Center Brand Name */}
-        <div className="flex items-center gap-1">
-          <span className="font-serif font-black text-lg sm:text-xl tracking-[0.25em] text-[#1C1A17]">
+      {/* 1. Top Minimalist Navbar (Tegas & Mewah) */}
+      <div className="w-full bg-white px-4 py-3.5 sm:px-6 flex items-center justify-center border-b border-[#E0D9CE] z-30">
+        <div className="flex items-center gap-1.5">
+          <span className="font-serif font-black text-lg sm:text-xl tracking-[0.3em] text-[#1C1A17] uppercase">
             ALVIERO
           </span>
         </div>
       </div>
 
-      {/* 2. Full Image Banner Container with Centered Truoba Typography */}
-      <div className="w-full h-80 sm:h-96 relative overflow-hidden bg-[#1C1A17] flex items-center justify-center text-center px-4">
+      {/* 2. Full Image Banner Container with Architectural Typography */}
+      <div className="w-full h-84 sm:h-96 relative overflow-hidden bg-[#1C1A17] flex items-center justify-center text-center px-4">
         
         {/* Slide Photo with Subtle Zoom Animation */}
         <img
@@ -108,54 +125,54 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
           className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
         />
 
-        {/* Dark Vignette Overlay for High Readability */}
-        <div className="absolute inset-0 bg-black/45 bg-gradient-to-t from-black/75 via-black/35 to-black/40 pointer-events-none" />
+        {/* Dark Vignette Overlay for High Contrast */}
+        <div className="absolute inset-0 bg-black/50 bg-gradient-to-t from-black/80 via-black/40 to-black/40 pointer-events-none" />
 
-        {/* Centered Hero Content (Sesuai Persis Teks & Tombol Foto Referensi) */}
+        {/* Centered Hero Content (Tegas, Elegan & Modern) */}
         <div className="relative z-20 max-w-sm sm:max-w-md mx-auto flex flex-col items-center animate-in zoom-in-95 duration-300">
-          <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white leading-tight drop-shadow-lg">
+          <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white leading-tight drop-shadow-lg tracking-wide uppercase">
             Modern Studio Photos
           </h2>
           
-          <p className="font-serif font-bold text-sm sm:text-base text-white/95 mt-1 drop-shadow-md">
-            for a Contemporary Lifestyle
+          <p className="font-serif font-semibold text-xs sm:text-sm text-[#EAE2D5] mt-1.5 tracking-[0.15em] uppercase">
+            For a Contemporary Lifestyle
           </p>
 
-          <p className="font-sans text-[11px] sm:text-xs text-white/90 font-medium max-w-[270px] sm:max-w-xs mx-auto mt-2 leading-relaxed drop-shadow-sm">
+          <p className="font-sans text-[11px] sm:text-xs text-white/85 font-normal max-w-[280px] sm:max-w-xs mx-auto mt-2 leading-relaxed">
             Choose from tried-and-true studio packages designed to capture your best memories. All at your own convenience.
           </p>
 
-          {/* Big White Pill Button (View Studio Packages) */}
+          {/* Sharp Rectangular CTA Button */}
           <button
             type="button"
             onClick={onViewPlans}
-            className="mt-4 px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-white hover:bg-[#FAF8F5] text-stone-900 font-serif font-bold text-xs sm:text-sm tracking-wide shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/80"
+            className="mt-4 px-8 py-3 bg-white hover:bg-[#1C1A17] text-[#1C1A17] hover:text-white font-serif font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border border-white shadow-lg active:scale-95"
           >
             View Studio Packages
           </button>
         </div>
 
-        {/* Manual Arrow Controls with Frosted Glass Styling */}
+        {/* Manual Arrow Controls (Sudut Tegas) */}
         <button
           type="button"
           onClick={handlePrev}
           aria-label="Previous Slide"
-          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/35 hover:bg-black/60 text-white backdrop-blur-md flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 hover:bg-black/80 text-white backdrop-blur-xs flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
         >
-          <ChevronLeft className="w-3.5 h-3.5 stroke-[2.5]" />
+          <ChevronLeft className="w-4 h-4 stroke-[2]" />
         </button>
 
         <button
           type="button"
           onClick={handleNext}
           aria-label="Next Slide"
-          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/35 hover:bg-black/60 text-white backdrop-blur-md flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/40 hover:bg-black/80 text-white backdrop-blur-xs flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
         >
-          <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+          <ChevronRight className="w-4 h-4 stroke-[2]" />
         </button>
 
-        {/* Dots Pagination Indicators */}
-        <div className="absolute bottom-3 flex items-center gap-1.5 z-20 bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/15">
+        {/* Minimalist Bar Pagination */}
+        <div className="absolute bottom-3.5 flex items-center gap-1.5 z-20 bg-black/50 backdrop-blur-xs px-2.5 py-1 border border-white/15">
           {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
             const isActive = currentIdx === idx;
             return (
@@ -163,10 +180,10 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
                 key={slide.id}
                 onClick={() => setCurrentIdx(idx)}
                 aria-label={`Slide ${idx + 1}`}
-                className={`transition-all rounded-full cursor-pointer ${
+                className={`transition-all cursor-pointer ${
                   isActive
-                    ? 'w-4 h-1 bg-[#D4AF37] shadow-xs'
-                    : 'w-1 h-1 bg-white/50 hover:bg-white'
+                    ? 'w-5 h-0.5 bg-[#D4AF37]'
+                    : 'w-1.5 h-0.5 bg-white/40 hover:bg-white'
                 }`}
               />
             );
@@ -225,7 +242,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
 ];
 
 /**
- * Komponen Carousel Testimonial Klien (Sesuai Referensi Gambar Artmospoto)
+ * Komponen Carousel Testimonial Klien (Desain Tegas, Bersih & Dewasa)
  */
 export const ClientReviewCarousel: React.FC = () => {
   const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
@@ -242,12 +259,12 @@ export const ClientReviewCarousel: React.FC = () => {
   const visibleReviews = CLIENT_REVIEWS.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
 
   return (
-    <div className="pt-3 pb-1 border-t border-[#E8E1D5] space-y-3 relative">
+    <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-3.5 relative">
       <div className="text-center space-y-0.5">
-        <h3 className="font-serif text-base sm:text-lg font-black tracking-tight text-[#1C1A17]">
-          What Our Clients Say
+        <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+          WHAT OUR CLIENTS SAY
         </h3>
-        <p className="text-[11px] font-sans text-stone-500">
+        <p className="text-[11px] font-sans text-[#736B63]">
           Ulasan jujur & kepuasan dari klien Alviero Studio
         </p>
       </div>
@@ -259,9 +276,9 @@ export const ClientReviewCarousel: React.FC = () => {
           type="button"
           onClick={handlePrev}
           aria-label="Previous Reviews"
-          className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white text-[#8C6D46] hover:text-[#5C4526] shadow-md border border-[#E8DFD1] flex items-center justify-center cursor-pointer z-10 transition-transform active:scale-90"
+          className="absolute -left-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white text-[#1C1A17] hover:bg-[#1C1A17] hover:text-white shadow-sm border border-[#D5CEC2] flex items-center justify-center cursor-pointer z-10 transition-colors"
         >
-          <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+          <ChevronLeft className="w-4 h-4 stroke-[2]" />
         </button>
 
         {/* Tombol Panah Kanan (>) */}
@@ -269,20 +286,20 @@ export const ClientReviewCarousel: React.FC = () => {
           type="button"
           onClick={handleNext}
           aria-label="Next Reviews"
-          className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white text-[#8C6D46] hover:text-[#5C4526] shadow-md border border-[#E8DFD1] flex items-center justify-center cursor-pointer z-10 transition-transform active:scale-90"
+          className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-white text-[#1C1A17] hover:bg-[#1C1A17] hover:text-white shadow-sm border border-[#D5CEC2] flex items-center justify-center cursor-pointer z-10 transition-colors"
         >
-          <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+          <ChevronRight className="w-4 h-4 stroke-[2]" />
         </button>
 
-        {/* 2 Review Cards Sesuai Desain Mockup */}
+        {/* 2 Review Cards (Sudut Tegas & Bersih) */}
         <div className="space-y-3 px-3 sm:px-4">
           {visibleReviews.map((review) => (
             <div
               key={review.id}
-              className="relative bg-white rounded-3xl p-3.5 sm:p-4 border border-[#E8E1D5] shadow-[0_8px_24px_rgba(0,0,0,0.04)] pl-16 sm:pl-20 animate-in fade-in duration-300"
+              className="relative bg-white p-4 sm:p-4.5 border border-[#E0D9CE] shadow-2xs pl-16 sm:pl-20 animate-in fade-in duration-300"
             >
-              {/* Foto Avatar Melingkar Menempel di Kiri */}
-              <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-900 border-2 border-white shadow-md overflow-hidden shrink-0">
+              {/* Foto Avatar Melingkar Rapi */}
+              <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-14 h-14 sm:w-16 sm:h-16 bg-stone-900 border-2 border-white shadow-sm overflow-hidden shrink-0">
                 <img
                   src={review.avatar}
                   alt={review.name}
@@ -291,27 +308,27 @@ export const ClientReviewCarousel: React.FC = () => {
               </div>
 
               {/* Watermark Tanda Kutip (Quote) */}
-              <div className="absolute top-1.5 left-14 sm:left-16 text-3xl font-serif text-[#D8CFBF] select-none leading-none opacity-50">
+              <div className="absolute top-2 left-15 sm:left-18 text-3xl font-serif text-[#D8CFBF] select-none leading-none opacity-40">
                 “
               </div>
 
               {/* Konten Review */}
               <div className="space-y-1 text-left">
                 <div className="flex items-center justify-between gap-1 flex-wrap">
-                  <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
+                  <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] uppercase tracking-wider leading-tight">
                     {review.name}
                   </h4>
                 </div>
 
                 {/* Bintang Rating (5 Stars) */}
-                <div className="flex items-center gap-0.5 text-amber-400 text-xs leading-none">
+                <div className="flex items-center gap-0.5 text-amber-500 text-xs leading-none">
                   {'★★★★★'}
                 </div>
 
-                <div className="h-px bg-stone-100 my-1" />
+                <div className="h-px bg-[#EFEAE2] my-1" />
 
                 {/* Teks Testimonial */}
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-stone-600 leading-relaxed line-clamp-4">
+                <p className="text-[10px] sm:text-[11px] font-sans text-[#5C5650] leading-relaxed line-clamp-4">
                   {review.text}
                 </p>
               </div>
@@ -319,17 +336,17 @@ export const ClientReviewCarousel: React.FC = () => {
           ))}
         </div>
 
-        {/* Dots Indikator Pagination */}
+        {/* Bar Indikator Pagination */}
         <div className="flex items-center justify-center gap-1.5 pt-2">
           {Array.from({ length: totalPages }).map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentReviewIdx(idx)}
               aria-label={`Review page ${idx + 1}`}
-              className={`rounded-full transition-all cursor-pointer ${
+              className={`transition-all cursor-pointer ${
                 currentReviewIdx === idx
-                  ? 'w-4 h-1.5 bg-amber-500 shadow-2xs'
-                  : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
+                  ? 'w-5 h-0.5 bg-[#1C1A17]'
+                  : 'w-2 h-0.5 bg-stone-300 hover:bg-stone-500'
               }`}
             />
           ))}
@@ -340,7 +357,7 @@ export const ClientReviewCarousel: React.FC = () => {
 };
 
 /**
- * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (High-End Luxury Editorial)
+ * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Tegas, Modern, Sharp & Editorial)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   selectedBranch,
@@ -351,126 +368,126 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
   return (
-    <div className="max-w-md w-full mx-auto my-2 sm:my-5 px-2 sm:px-3 animate-in fade-in duration-300">
-      <div className="bg-[#FAF8F5] rounded-[28px] sm:rounded-[32px] border border-[#E8E1D5] shadow-[0_16px_40px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col relative">
+    <div className="max-w-md w-full mx-auto my-2 sm:my-6 px-2 sm:px-3 animate-in fade-in duration-300">
+      <div className="bg-[#FAF8F5] border border-[#D5CEC2] shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col relative">
         
-        {/* Top Hero Banner Slider (Truoba Luxury Design) */}
+        {/* Top Hero Banner Slider (Tegas & Luxury) */}
         <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
         <div className="p-4 sm:p-5 space-y-4 bg-[#FAF8F5] flex-1">
           
-          {/* Section 1: Pilihan Studio Aktif (Luxury Bar) */}
+          {/* Section 1: Pilihan Studio Aktif (Tegas & Clean) */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between px-0.5">
-              <span className="font-serif text-[11px] font-bold tracking-[0.18em] text-[#1C1A17] uppercase">
+              <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
                 LOKASI STUDIO AKTIF
               </span>
-              <span className="text-[10px] font-sans font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+              <span className="text-[9.5px] font-sans font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 border border-emerald-200 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Buka 08:00 - 21:00 WIB
+                08:00 - 21:00 WIB
               </span>
             </div>
 
-            {/* Studio Selection Card */}
+            {/* Studio Selection Card (Sudut Tegas) */}
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#1C1A17]/40 shadow-xs hover:shadow-sm transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 text-left group active:scale-[0.99]"
+              className="w-full p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 text-left group"
             >
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] text-[#8C6D46] flex items-center justify-center shrink-0 shadow-2xs transition-transform group-hover:scale-105">
-                  <MapPin className="w-5 h-5 stroke-[2.2] text-[#8C6D46]" />
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
+                  <MapPin className="w-5 h-5 stroke-[1.8] text-[#1C1A17]" />
                 </div>
                 <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] leading-tight block truncate">
                       {selectedBranchData.name}
                     </span>
-                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-[#F2ECE4] text-[#5C5247] border border-[#E3DBD0] shrink-0">
+                    <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8] shrink-0">
                       {selectedBranchData.badge}
                     </span>
                   </div>
-                  <p className="text-[11px] font-sans text-stone-500 truncate mt-0.5">
+                  <p className="text-[11px] font-sans text-[#736B63] truncate mt-0.5">
                     {selectedBranchData.address}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 text-xs font-sans font-semibold text-white bg-[#1C1A17] hover:bg-[#2D2A26] px-3.5 py-2 rounded-xl shadow-2xs transition-all shrink-0">
-                <span>Ganti Studio</span>
-                <span className="text-xs transition-transform group-hover:translate-y-0.5">▾</span>
+              <div className="flex items-center gap-1 text-[11px] font-sans font-bold uppercase tracking-wider text-white bg-[#1C1A17] hover:bg-[#2D2A26] px-3.5 py-2 transition-colors shrink-0">
+                <span>Ganti</span>
+                <span className="text-xs">▾</span>
               </div>
             </button>
           </div>
 
-          {/* Section 2: Layanan Khusus Wedding & Cetak Foto */}
-          <div className="pt-1 space-y-2">
+          {/* Section 2: Layanan Khusus Wedding & Cetak Foto (Tegas & Elegan) */}
+          <div className="pt-2 space-y-2">
             <div className="text-left px-0.5">
-              <h3 className="font-serif text-[11px] font-bold tracking-[0.18em] text-[#1C1A17] uppercase">
+              <h3 className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
                 LAYANAN WEDDING & CETAK FOTO:
               </h3>
             </div>
 
             <div className="space-y-2.5">
-              {/* Pricelist Wedding Card (Clean Warm Minimalist) */}
+              {/* Pricelist Wedding Card (Sharp Architectural Layout) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-3.5 sm:p-4 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#1C1A17]/40 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
+                className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-lg shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                      💍
+                    <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4.5 h-4.5 stroke-[1.8] text-[#8C6D46]" />
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wide truncate">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate">
                           PRICELIST WEDDING
                         </h4>
-                        <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#F2ECE4] text-[#5C5247] border border-[#E3DBD0]">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8]">
                           Exclusive
                         </span>
                       </div>
-                      <p className="text-xs font-sans text-[#6B635B] font-medium truncate mt-0.5">
+                      <p className="text-xs font-sans text-[#736B63] font-normal truncate mt-0.5">
                         Prewedding, Akad, Resepsi & Engagement
                       </p>
                     </div>
                   </div>
 
-                  <div className="text-xs font-sans font-bold text-[#1C1A17] flex items-center gap-1 transition-colors shrink-0 group-hover:text-[#8C6D46]">
+                  <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 transition-colors shrink-0 group-hover:text-[#8C6D46]">
                     <span>Lihat Pricelist</span>
                     <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
 
-              {/* Pricelist Cetak Card (Clean Warm Minimalist) */}
+              {/* Pricelist Cetak Card (Sharp Architectural Layout) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-3.5 sm:p-4 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#1C1A17]/40 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
+                className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-10 h-10 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-lg shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                      🖼️
+                    <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                      <ImageIcon className="w-4.5 h-4.5 stroke-[1.8] text-[#8C6D46]" />
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wide truncate">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate">
                           PRICELIST CETAK
                         </h4>
-                        <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#F2ECE4] text-[#5C5247] border border-[#E3DBD0]">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8]">
                           Cetak Lab
                         </span>
                       </div>
-                      <p className="text-xs font-sans text-[#6B635B] font-medium truncate mt-0.5">
+                      <p className="text-xs font-sans text-[#736B63] font-normal truncate mt-0.5">
                         Cetak Lab, Bingkai Minimalis & Album
                       </p>
                     </div>
                   </div>
 
-                  <div className="text-xs font-sans font-bold text-[#1C1A17] flex items-center gap-1 transition-colors shrink-0 group-hover:text-[#8C6D46]">
+                  <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 transition-colors shrink-0 group-hover:text-[#8C6D46]">
                     <span>Lihat Pricelist</span>
                     <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -479,110 +496,110 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
           </div>
 
-          {/* Section 3: Why Choose Alviero Studio? (Sesuai Referensi Gambar) */}
-          <div className="pt-3 pb-1 border-t border-[#E8E1D5] space-y-3.5">
+          {/* Section 3: Why Choose Alviero Studio? (Grid Minimalist Stroke Icons) */}
+          <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-3.5">
             <div className="text-center space-y-0.5">
-              <h3 className="font-serif text-base sm:text-lg font-black tracking-tight text-[#1C1A17]">
-                Why Choose Alviero Studio?
+              <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+                WHY CHOOSE ALVIERO STUDIO?
               </h3>
-              <p className="text-[11px] font-sans text-stone-500">
+              <p className="text-[11px] font-sans text-[#736B63]">
                 Kenyamanan, kualitas visual premium & pelayanan terpercaya
               </p>
             </div>
 
-            {/* 2x2 Grid Fitur Unggulan */}
-            <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 text-center">
+            {/* 2x2 Grid Fitur Minimalis Dewasa */}
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3 text-center">
               {/* Item 1: Fast and convenient */}
-              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
-                  🛋️
+              <div className="p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Clock className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
-                  Fast and convenient
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Fast & Convenient
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
                   Booking instan tanpa antre. Dapatkan jadwal pasti & all-file HD via Google Drive.
                 </p>
               </div>
 
               {/* Item 2: Style and function */}
-              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-[#EBF1F6] border border-[#D0DEE9] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
-                  🎨
+              <div className="p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Sliders className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
-                  Style and function
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Style & Function
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
                   7+ tema backdrop modern, lighting Godox studio, & arahan pose yang natural.
                 </p>
               </div>
 
               {/* Item 3: Reflect your lifestyle */}
-              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
-                  ✨
+              <div className="p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Layers className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
-                  Reflect your lifestyle
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Reflect Lifestyle
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
                   Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Cetak Lab & Frame.
                 </p>
               </div>
 
               {/* Item 4: Continuous support */}
-              <div className="p-3 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E8E1D5] flex flex-col items-center shadow-2xs hover:shadow-xs transition-all duration-200">
-                <div className="w-12 h-12 rounded-2xl bg-[#F7EFEF] border border-[#E8D6D5] flex items-center justify-center text-2xl shadow-2xs mb-2 transition-transform hover:scale-105">
-                  💬
+              <div className="p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <HeartHandshake className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1C1A17] leading-tight">
-                  Continuous support
+                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Continuous Support
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#6B635B] leading-relaxed mt-1">
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
                   Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin responsif.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Section 4: Client Reviews & Testimonials Carousel (Sesuai Referensi Gambar Artmospoto) */}
+          {/* Section 4: Client Reviews & Testimonials Carousel */}
           <ClientReviewCarousel />
 
-          {/* Section 5: Trust Badges Bar */}
-          <div className="pt-2 border-t border-[#E8E1D5] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
+          {/* Section 5: Trust Badges Bar (Tegas & Minimalis) */}
+          <div className="pt-3 border-t border-[#E0D9CE] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
             <div className="flex flex-col items-center">
-              <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
+              <span className="font-bold text-[#1C1A17] flex items-center gap-1 uppercase tracking-wider">
                 <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                5.0 Stars
+                5.0 STARS
               </span>
-              <span className="text-[9px] text-stone-500">20K+ Klien Puas</span>
+              <span className="text-[9px] text-[#736B63] mt-0.5">20K+ Klien Puas</span>
             </div>
-            <div className="flex flex-col items-center border-x border-[#E8E1D5]">
-              <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
-                <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                Kamera & Lighting HD
+            <div className="flex flex-col items-center border-x border-[#E0D9CE]">
+              <span className="font-bold text-[#1C1A17] flex items-center gap-1 uppercase tracking-wider">
+                <ShieldCheck className="w-3 h-3 text-emerald-700" />
+                PRO GEAR
               </span>
-              <span className="text-[9px] text-stone-500">Pro Studio Gear</span>
+              <span className="text-[9px] text-[#736B63] mt-0.5">Lighting & Kamera HD</span>
             </div>
             <div className="flex flex-col items-center">
-              <span className="font-bold text-[#1C1A17] flex items-center gap-0.5">
+              <span className="font-bold text-[#1C1A17] flex items-center gap-1 uppercase tracking-wider">
                 <Clock className="w-3 h-3 text-[#8C6D46]" />
-                Instan Booking
+                INSTAN
               </span>
-              <span className="text-[9px] text-stone-500">Tanpa Antre Lama</span>
+              <span className="text-[9px] text-[#736B63] mt-0.5">Booking Tanpa Antre</span>
             </div>
           </div>
 
         </div>
 
         {/* Footer info note */}
-        <div className="p-3 bg-[#F5EFEB] border-t border-[#E8E1D5] text-center text-[11px] text-[#5C5650] font-medium">
-          💡 Kamu dapat berganti studio kapan saja lewat tombol <strong>'Ganti Studio'</strong>.
+        <div className="p-3.5 bg-[#F4EFEA] border-t border-[#E0D9CE] text-center text-[11px] text-[#5C5650] font-normal">
+          💡 Anda dapat berganti studio kapan saja melalui tombol <strong>'Ganti'</strong>.
         </div>
       </div>
 
-      {/* Pop-up Modal Pilihan Studio 1 & Studio 2 */}
+      {/* Pop-up Modal Pilihan Studio 1 & Studio 2 (Desain Tegas & Modern) */}
       <BranchSelectorModal
         isOpen={isModalOpen}
         selectedBranch={selectedBranch}
@@ -620,20 +637,20 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
-      <div className="bg-[#FAF8F5] rounded-3xl max-w-xl w-full border border-[#E8E1D5] shadow-2xl overflow-hidden flex flex-col my-auto relative">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
+      <div className="bg-[#FAF8F5] max-w-xl w-full border border-[#D5CEC2] shadow-2xl overflow-hidden flex flex-col my-auto relative">
         
         {/* Minimalist Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8E1D5] bg-white">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E0D9CE] bg-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#FAF5EE] text-[#8C6D46] flex items-center justify-center shadow-2xs border border-[#E8DFD1]">
-              <MapPin className="w-5 h-5 text-[#8C6D46] stroke-[2.2]" />
+            <div className="w-10 h-10 bg-[#FAF8F5] text-[#1C1A17] flex items-center justify-center border border-[#E0D9CE]">
+              <MapPin className="w-5 h-5 stroke-[1.8]" />
             </div>
             <div>
-              <h3 className="font-serif text-sm sm:text-base font-bold tracking-wider text-[#1C1A17] uppercase leading-none">
-                PILIH LOKASI STUDIO ALVIERO
+              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#1C1A17] uppercase leading-none">
+                PILIH LOKASI STUDIO
               </h3>
-              <p className="text-[11px] font-sans text-stone-500 font-medium mt-1">
+              <p className="text-[11px] font-sans text-[#736B63] mt-1">
                 Tentukan cabang studio foto yang ingin Anda kunjungi
               </p>
             </div>
@@ -643,14 +660,14 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 flex items-center justify-center transition-colors cursor-pointer shadow-2xs"
+              className="w-8 h-8 bg-stone-100 hover:bg-[#1C1A17] text-stone-600 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-[#E0D9CE]"
             >
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        {/* Branch Cards (Minimalist & Luxury Layout) */}
+        {/* Branch Cards (Sharp & Luxury Layout) */}
         <div className="p-4 sm:p-5 space-y-3 bg-[#FAF8F5] flex-1">
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
@@ -659,47 +676,47 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
               <div
                 key={branch.id}
                 onClick={() => handleChoose(branch.id)}
-                className={`p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
+                className={`p-4 sm:p-4.5 border transition-all duration-200 cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-white border-[#1C1A17] ring-2 ring-[#1C1A17]/10 shadow-[0_8px_24px_-4px_rgba(28,26,23,0.12)] scale-[1.008]'
-                    : 'bg-[#FCFBF9] hover:bg-white border-[#E8E1D5] hover:border-[#1C1A17]/40 shadow-xs hover:shadow-sm'
+                    ? 'bg-white border-[#1C1A17] ring-1 ring-[#1C1A17] shadow-md'
+                    : 'bg-[#FCFBF9] hover:bg-white border-[#E0D9CE] hover:border-[#1C1A17]'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0 flex-1">
                     {/* Clean Left Icon Container */}
-                    <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-2xs transition-all duration-200 ${
-                      isSelected ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-[#FAF5EE] text-[#8C6D46] group-hover:bg-[#F5EDE1]'
+                    <div className={`w-10 h-10 flex items-center justify-center shrink-0 border transition-colors ${
+                      isSelected ? 'bg-[#1C1A17] text-white border-[#1C1A17]' : 'bg-[#FAF8F5] text-[#1C1A17] border-[#E0D9CE]'
                     }`}>
-                      <MapPin className="w-5 h-5 stroke-[2.2]" />
+                      <MapPin className="w-5 h-5 stroke-[1.8]" />
                     </div>
 
                     {/* Main Studio Info */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17]">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] uppercase tracking-wide">
                           {branch.name}
                         </h4>
-                        <span className={`text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full border ${
-                          isSelected ? 'bg-[#F2ECE4] text-[#5C5247] border-[#E3DBD0]' : 'bg-[#FAF5EE] text-stone-600 border-[#E8DFD1]'
+                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 border ${
+                          isSelected ? 'bg-[#1C1A17] text-white border-[#1C1A17]' : 'bg-[#FAF8F5] text-stone-700 border-[#E0D9CE]'
                         }`}>
                           {branch.badge}
                         </span>
                       </div>
 
-                      <p className="text-xs font-sans text-stone-600 font-medium leading-relaxed mt-1 line-clamp-2">
+                      <p className="text-xs font-sans text-[#736B63] font-normal leading-relaxed mt-1">
                         {branch.address}
                       </p>
 
                       {/* Fasilitas Cabang */}
                       <div className="flex items-center gap-2 mt-2 flex-wrap">
-                        <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-medium">
+                        <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
                           ✓ Pro Godox Lighting
                         </span>
-                        <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-medium">
+                        <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
                           ✓ 7+ Backdrop
                         </span>
-                        <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-medium">
+                        <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
                           ✓ Ruang AC
                         </span>
                       </div>
@@ -710,7 +727,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#8C6D46] hover:text-[#5C4526] underline underline-offset-2 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#8C6D46] hover:text-[#1C1A17] underline underline-offset-2 transition-colors cursor-pointer"
                       >
                         <span>Buka Petunjuk Arah di Google Maps</span>
                         <span className="text-[10px]">↗</span>
@@ -718,12 +735,12 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                     </div>
                   </div>
 
-                  {/* Single Right Target / Radio Indicator */}
+                  {/* Radio Indicator */}
                   <div className="pt-1 shrink-0">
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
-                      isSelected ? 'border-[#1C1A17] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
+                    <div className={`w-5 h-5 border flex items-center justify-center transition-all ${
+                      isSelected ? 'border-[#1C1A17] bg-[#1C1A17]' : 'border-stone-400 bg-transparent'
                     }`}>
-                      {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#1C1A17] animate-in zoom-in-50 duration-200" />}
+                      {isSelected && <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />}
                     </div>
                   </div>
                 </div>
@@ -733,7 +750,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="p-3 bg-[#F5EFEB] border-t border-[#E8E1D5] text-center text-[11px] text-stone-500 font-medium">
+        <div className="p-3.5 bg-[#F4EFEA] border-t border-[#E0D9CE] text-center text-[11px] text-[#736B63] font-medium">
           💡 Pilih salah satu studio untuk melihat pricelist dan katalog lengkap.
         </div>
       </div>
