@@ -26,9 +26,20 @@ export const Header: React.FC<HeaderProps> = ({
 
   // Check studio open status dynamically (08:00 - 21:00 WIB)
   const checkIsOpen = (): boolean => {
-    const now = new Date();
-    const hours = now.getHours();
-    return hours >= 8 && hours < 21;
+    try {
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Jakarta',
+        hour: 'numeric',
+        hour12: false
+      });
+      const hour = parseInt(formatter.format(new Date()), 10);
+      return hour >= 8 && hour < 21;
+    } catch {
+      const now = new Date();
+      const utcHours = now.getUTCHours();
+      const wibHours = (utcHours + 7) % 24;
+      return wibHours >= 8 && wibHours < 21;
+    }
   };
 
   const [isOpen, setIsOpen] = useState<boolean>(checkIsOpen);

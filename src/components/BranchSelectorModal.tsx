@@ -404,8 +404,8 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
   {
     id: 'studio-1',
     name: 'STUDIO 1 — KARANGPLOSO',
-    badge: 'STUDIO 1',
-    tagline: 'Koleksi 7+ Tema Background Lengkap dengan AC Sejuk & Lighting Godox Pro',
+    badge: 'COMPLETE MEDIUM & WISUDA STUDIO',
+    tagline: 'Studio Utama Serbaguna Lantai Dasar dengan Live-View Monitor & Lighting Godox Pro',
     branchId: 'cabang-1',
     images: [
       {
@@ -444,24 +444,24 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         tag: 'MINIMALIST BRIGHT'
       }
     ],
-    dimensions: 'Area Luas & Nyaman (Lantai Dasar Tanpa Tangga)',
-    capacity: '1 - 20 Orang (Sangat nyaman untuk wisuda, keluarga & prewedding)',
-    lightingSetup: 'Lighting Godox Studio Pro + Diffuser Softbox Lengkap',
-    backdrops: '7+ Pilihan Tema Background Studio 1 (Mint, Royal Fireplace, Charcoal, Beige, Rustic, Arch Window, White)',
-    description: 'Studio 1 Karangploso berfasilitas lengkap dengan full AC sejuk, tata lampu Godox Studio Pro, monitor live-view realtime, dan koleksi 7+ pilihan tema background foto.',
+    dimensions: 'Luas 7m x 5m | Ceiling 3.5m (Lantai Dasar Tanpa Tangga)',
+    capacity: '1 - 20 Orang (Sangat nyaman untuk grup wisuda, keluarga & prewedding)',
+    lightingSetup: '4 Set Lampu Studio Godox Highspeed + Octagon 120cm + RGB Tube Lighting',
+    backdrops: '7+ Tema Background Permanen & Varian Seamless Background Paper',
+    description: 'Studio lantai dasar serbaguna dengan full AC, tata lampu Godox Studio Pro, monitor live-view realtime, dan 7+ tema background estetis. Sangat nyaman untuk sesi foto wisuda, keluarga, dan group.',
     highlights: [
       'Akses Lantai Dasar Tanpa Tangga',
       'Monitor Live-View Preview Realtime',
-      'Full AC Sejuk & Ruang Ganti Bersih',
-      'Koleksi Properti Siap Pakai',
+      'Full AC Sejuk & Fitting Room Bersih',
+      'Koleksi Toga Wisuda & Properti Siap Pakai',
       'Parkir Mobil & Motor Luas'
     ]
   },
   {
     id: 'studio-2',
-    name: 'STUDIO 2 — DINOYO GAJAYANA',
-    badge: 'STUDIO 2',
-    tagline: 'Koleksi Tema Background Dinoyo Lengkap dengan AC Sejuk & Lighting Godox Pro',
+    name: 'STUDIO 2 — CABANG EKSKLUSIF',
+    badge: 'PREMIUM SUITE & INTIMATE WEDDING',
+    tagline: 'Studio Lebih Luas dengan Private Dressing Suite & Set Prewedding Mewah',
     branchId: 'cabang-2',
     images: [
       {
@@ -500,17 +500,17 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         tag: 'COZY EDITORIAL'
       }
     ],
-    dimensions: 'Area Luas & Nyaman (Akses Strategis Ruko Gajayana)',
-    capacity: '1 - 20 Orang (Sangat nyaman untuk wisuda, keluarga & prewedding)',
-    lightingSetup: 'Lighting Godox Studio Pro + Diffuser Softbox Lengkap',
-    backdrops: 'Pilihan Tema Background Khusus Studio 2 Dinoyo',
-    description: 'Studio 2 Dinoyo Gajayana berfasilitas lengkap dengan full AC sejuk, tata lampu Godox Studio Pro, monitor live-view realtime, dan varian tema background khusus cabang Dinoyo.',
+    dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
+    capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
+    lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
+    backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Background',
+    description: 'Studio eksklusif berarea luas dan ceiling tinggi dengan private dressing suite ber-AC, vanity mirror Hollywood, dan set background mewah untuk foto wedding, prewedding & keluarga.',
     highlights: [
-      'Lokasi Strategis Dinoyo Kota Malang',
-      'Monitor Live-View Preview Realtime',
-      'Full AC Sejuk & Ruang Ganti Bersih',
-      'Koleksi Properti Siap Pakai',
-      'Parkir Mobil & Motor Luas'
+      'Area Shooting Lebih Luas & Ceiling Tinggi',
+      'Private Dressing Suite Ber-AC',
+      'Cermin Vanity Hollywood Mewah',
+      'Fitting Gaun / Kebaya Pengantin Lengkap',
+      'Asisten Studio Standby'
     ]
   },
   {
@@ -776,6 +776,33 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
+  // Dynamic WIB Studio Open Status (08:00 - 21:00 WIB)
+  const checkIsOpen = (): boolean => {
+    try {
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Jakarta',
+        hour: 'numeric',
+        hour12: false
+      });
+      const hour = parseInt(formatter.format(new Date()), 10);
+      return hour >= 8 && hour < 21;
+    } catch {
+      const now = new Date();
+      const utcHours = now.getUTCHours();
+      const wibHours = (utcHours + 7) % 24;
+      return wibHours >= 8 && wibHours < 21;
+    }
+  };
+
+  const [isOpen, setIsOpen] = useState<boolean>(checkIsOpen);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsOpen(checkIsOpen());
+    }, 15000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="w-full max-w-[1440px] mx-auto my-0 sm:my-4 md:my-6 px-0 sm:px-4 md:px-8 lg:px-12 animate-in fade-in duration-300">
       <div className="bg-[#FAF8F5] border-x-0 sm:border sm:border-[#D5CEC2] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
@@ -909,10 +936,17 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
                     RESERVASI JADWAL ONLINE INSTAN
                   </span>
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 px-2.5 py-1 border border-emerald-500/30 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Studio Buka • 08:00 - 21:00 WIB
-                  </span>
+                  {isOpen ? (
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 px-2.5 py-1 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      Studio Buka • 08:00 - 21:00 WIB
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-rose-300 bg-rose-950/80 px-2.5 py-1 border border-rose-500/30 flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+                      Studio Tutup • Buka Jam 08:00 WIB
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white uppercase tracking-wide leading-tight">
@@ -1055,9 +1089,26 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             {/* Status Live Pill */}
-            <div className="bg-[#1A1816] px-3.5 py-1.5 border border-white/10 flex items-center gap-2 text-[10.5px]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-stone-300 font-medium tracking-wider uppercase text-[10px]">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
+            <div className={`px-3.5 py-1.5 border flex items-center gap-2 text-[10.5px] ${
+              isOpen 
+                ? 'bg-[#1A1816] border-emerald-500/30' 
+                : 'bg-[#1A1816] border-rose-500/30'
+            }`}>
+              {isOpen ? (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span className="text-emerald-300 font-medium tracking-wider uppercase text-[10px]">
+                    Studio Buka Hari Ini • 08:00 - 21:00 WIB
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+                  <span className="text-rose-300 font-medium tracking-wider uppercase text-[10px]">
+                    Studio Tutup • Buka Jam 08:00 - 21:00 WIB
+                  </span>
+                </>
+              )}
             </div>
 
             {/* Quick Text Links */}
@@ -1205,7 +1256,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                           ✓ Pro Godox Lighting
                         </span>
                         <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
-                          ✓ Pilihan Background
+                          ✓ 7+ Backdrop
                         </span>
                         <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
                           ✓ Ruang AC
