@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Calendar, Sparkles, MapPin, MessageCircle } from 'lucide-react';
+import { Camera, Calendar, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 
@@ -112,8 +112,9 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Desktop Navigation Tabs (Sudut Tegas & Modern) */}
         <nav className="hidden lg:flex items-center gap-1 bg-white p-1 border border-[#D5CEC2] shadow-2xs">
-          {/* Tombol Beranda Utama */}
+          {/* Tombol Beranda Utama (Ikon Rumah) */}
           <button
+            type="button"
             onClick={() => {
               if (onBackToLanding) {
                 onBackToLanding();
@@ -121,11 +122,11 @@ export const Header: React.FC<HeaderProps> = ({
                 setActiveTab('katalog');
               }
             }}
-            className="px-3.5 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold border-r border-[#E0D9CE]/60 mr-0.5"
-            title="Kembali ke Tampilan Awal"
+            className="w-8 h-7.5 flex items-center justify-center cursor-pointer text-stone-600 hover:text-[#1C1A17] hover:bg-[#FAF8F5] transition-colors border-r border-[#E0D9CE]/60 mr-0.5 group"
+            title="Kembali ke Beranda Awal"
+            aria-label="Kembali ke Beranda Awal"
           >
-            <span className="text-stone-400">←</span>
-            <span>Beranda</span>
+            <Home className="w-4 h-4 stroke-[1.8] text-[#8C6D46] group-hover:text-[#1C1A17] transition-transform group-hover:scale-110" />
           </button>
 
           <button
