@@ -58,13 +58,13 @@ export const Header: React.FC<HeaderProps> = ({
         : 'glass-header border-b border-stone-200/40'
     }`}>
       {/* Top Banner Notice */}
-      <div className="bg-[#232d38] text-stone-200 text-xs py-1.5 px-4 transition-all border-b border-stone-800/40">
+      <div className="bg-[#141210] text-[#E8DFD1] text-xs py-1.5 px-4 transition-all border-b border-white/10">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center gap-2 font-medium">
             {isOpen ? (
               <>
-                <span className="inline-block w-2 h-2 rounded-full bg-[#9fc4a8] animate-pulse shadow-sm shadow-[#9fc4a8]/50"></span>
-                <span className="text-[#c1dec7] font-bold">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50"></span>
+                <span className="text-emerald-200 font-bold">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
               </>
             ) : (
               <>
@@ -73,15 +73,15 @@ export const Header: React.FC<HeaderProps> = ({
               </>
             )}
           </div>
-          <div className="flex items-center gap-4 text-stone-300 text-xs">
+          <div className="flex items-center gap-4 text-[#D8CFBF] text-xs">
             <a 
               href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20jadwal%20slot%20kosong" 
               target="_blank" 
               rel="noreferrer"
-              className="hover:text-[#c1dec7] flex items-center gap-1.5 transition-colors font-medium"
+              className="hover:text-white flex items-center gap-1.5 transition-colors font-semibold"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-[#9fc4a8]" />
-              <span>Admin WA: +62 877-7753-8164</span>
+              <MessageCircle className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>Admin WA VIP: +62 877-7753-8164</span>
             </a>
           </div>
         </div>
@@ -102,40 +102,40 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Desktop Navigation Tabs */}
-        <nav className="hidden lg:flex items-center gap-1 bg-[#FAF5EE] p-1 rounded-full border border-[#E8E1D5] shadow-2xs">
+        <nav className="hidden lg:flex items-center gap-1 bg-[#F2ECE4] p-1 rounded-full border border-[#E0D6C8] shadow-2xs">
           <button
             onClick={() => setActiveTab('katalog')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'katalog' || activeTab === 'pricelist-sheets'
-                ? 'bg-white text-[#2D2A26] shadow-xs border border-[#E8E1D5] font-extrabold'
-                : 'text-[#5C5650] hover:text-[#2D2A26] hover:bg-stone-200/40'
+                ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
+                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-stone-200/50 font-semibold'
             }`}
           >
-            <Camera className="w-3.5 h-3.5 text-[#8DA4B8]" />
+            <Camera className={`w-3.5 h-3.5 ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
             Katalog & Pricelist
           </button>
 
           <button
             onClick={() => setActiveTab('strip-builder')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'strip-builder'
-                ? 'bg-white text-[#2D2A26] shadow-xs border border-[#E8E1D5] font-extrabold'
-                : 'text-[#5C5650] hover:text-[#2D2A26] hover:bg-stone-200/40'
+                ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
+                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-stone-200/50 font-semibold'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#C49A99]" />
+            <Sparkles className={`w-3.5 h-3.5 ${activeTab === 'strip-builder' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
             Bikin Photo Strip
           </button>
 
           <button
             onClick={() => setActiveTab('rules')}
-            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
               activeTab === 'rules'
-                ? 'bg-white text-[#2D2A26] shadow-xs border border-[#E8E1D5] font-extrabold'
-                : 'text-[#5C5650] hover:text-[#2D2A26] hover:bg-stone-200/40'
+                ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
+                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-stone-200/50 font-semibold'
             }`}
           >
-            <MapPin className="w-3.5 h-3.5 text-[#8DA4B8]" />
+            <MapPin className={`w-3.5 h-3.5 ${activeTab === 'rules' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
             Panduan & Lokasi
           </button>
         </nav>
@@ -146,20 +146,20 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={onOpenBranchModal}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#FAF5EE] hover:bg-[#F3ECE0] text-[#2D2A26] font-extrabold text-xs border border-[#E8E1D5] transition-all cursor-pointer active:scale-95"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-[#FAF8F5] text-[#1C1A17] font-bold text-xs border border-[#E0D6C8] transition-all cursor-pointer active:scale-95 shadow-2xs"
             >
               <span>{currentBranchInfo.icon} {currentBranchInfo.shortName}</span>
-              <span className="text-[10px] text-[#C49A99] font-black">Ganti</span>
+              <span className="text-[10px] text-[#8C6D46] font-black underline underline-offset-2">Ganti</span>
             </button>
           )}
 
           <button
             onClick={onOpenBooking}
-            className="relative group bg-[#8DA4B8] hover:bg-[#7992A8] text-white font-extrabold text-xs px-5 py-2.5 rounded-full shadow-xs hover:shadow-sm transition-all duration-200 flex items-center gap-2 active:scale-95 cursor-pointer"
+            className="relative group bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs px-5 py-2.5 rounded-full shadow-xs hover:shadow-md transition-all duration-200 flex items-center gap-2 active:scale-95 cursor-pointer border border-[#3D3832]"
           >
-            <Calendar className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+            <Calendar className="w-4 h-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
             <span>Hitung & Reservasi</span>
-            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
           </button>
         </div>
       </div>
@@ -168,24 +168,24 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="lg:hidden flex overflow-x-auto border-t border-[#E8E1D5] px-3 py-2 gap-1.5 scroll-mask-x bg-[#FAF8F5]/95 backdrop-blur-md text-xs">
         <button
           onClick={() => setActiveTab('katalog')}
-          className={`shrink-0 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-            activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'bg-[#8DA4B8] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
+          className={`shrink-0 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
+            activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
           }`}
         >
           📷 Katalog & Pricelist
         </button>
         <button
           onClick={() => setActiveTab('strip-builder')}
-          className={`shrink-0 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-            activeTab === 'strip-builder' ? 'bg-[#8DA4B8] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
+          className={`shrink-0 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
+            activeTab === 'strip-builder' ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
           }`}
         >
           ✨ Photo Strip
         </button>
         <button
           onClick={() => setActiveTab('rules')}
-          className={`shrink-0 px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-            activeTab === 'rules' ? 'bg-[#6c8c74] text-white shadow-xs' : 'bg-white text-stone-700 border border-stone-200'
+          className={`shrink-0 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
+            activeTab === 'rules' ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
           }`}
         >
           📍 Lokasi & FAQ

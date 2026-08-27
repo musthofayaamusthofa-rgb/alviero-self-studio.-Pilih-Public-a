@@ -17,7 +17,9 @@
   /* Font Families */
   --font-luxury: 'Playfair Display', 'Cormorant Garamond', 'Italiana', Georgia, serif;
   --font-serif: 'Playfair Display', 'Cormorant Garamond', 'Prata', Georgia, serif;
-  --font-editorial: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-editorial: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-cinzel: 'Cinzel', 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
+  --font-italiana: 'Italiana', 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -27,6 +29,28 @@
 
 .font-editorial {
   font-family: var(--font-editorial);
+}
+
+.font-cinzel {
+  font-family: var(--font-cinzel);
+}
+
+.font-italiana {
+  font-family: var(--font-italiana);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #A8824B 0%, #D4AF37 50%, #8C6D46 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-card-luxury {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 225, 213, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(45, 42, 38, 0.05);
 }
 
 @layer base {
