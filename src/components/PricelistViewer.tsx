@@ -26,6 +26,7 @@ interface StudioGalleryPhoto {
   icon: string;
   targetPackageId: string;
   imageUrl: string;
+  images?: string[];
   description: string;
   conceptNote: string;
   tags: string[];
@@ -59,10 +60,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   }, [initialCategory]);
 
-  // Gallery Tab State
+  // Gallery Tab State & Modal Swipe
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalPhoto, setActiveModalPhoto] = useState<StudioGalleryPhoto | null>(null);
+  const [modalImageIndex, setModalImageIndex] = useState<number>(0);
+  const touchModalStartX = React.useRef<number | null>(null);
+  const touchModalEndX = React.useRef<number | null>(null);
   const [activeModalSheet, setActiveModalSheet] = useState<PricelistSheet | null>(null);
 
   // 1. Menu Utama (Fokus Layanan Studio Cabang yang Dipilih)
@@ -486,8 +490,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       packageName: 'Paket Wisuda Indoor',
       icon: '🎓',
       targetPackageId: 'grad-indoor-elegant-scholar',
-      imageUrl: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85',
-      description: 'Potret wisudawan lengkap dengan jubah toga resmi universitas, map ijazah, serta sesi foto hangat bersama orang tua di studio.',
+      imageUrl: '/images/gallery/graduation-indoor/grad-indoor-1.jpg',
+      images: [
+        '/images/gallery/graduation-indoor/grad-indoor-1.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-2.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-3.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-4.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-5.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-6.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-7.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-8.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-9.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-10.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-11.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-12.jpg',
+        '/images/gallery/graduation-indoor/grad-indoor-13.jpg'
+      ],
+      description: 'Potret wisudawan lengkap dengan jubah toga resmi universitas, map ijazah, serta sesi foto hangat bersama orang tua di studio (13 pilihan foto preview).',
       conceptNote: 'Pengarahan pose resmi dan anggun untuk foto kelulusan pribadi maupun keluarga.',
       tags: ['#WisudaIndoor', '#TogaWisuda', '#StudioWisuda']
     },
@@ -4220,78 +4239,172 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       )}
 
       {/* ==================================================================== */}
-      {/* 3. MODAL PERBESAR FOTO (SEDERHANA & BERSIH)                          */}
+      {/* 3. MODAL PERBESAR FOTO DENGAN FITUR GESER/SLIDER (SWIPEABLE MODAL)   */}
       {/* ==================================================================== */}
-      {activeModalPhoto && (
-        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 text-white rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto">
+      {activeModalPhoto && (() => {
+        const imageList = activeModalPhoto.images && activeModalPhoto.images.length > 0
+          ? activeModalPhoto.images
+          : [activeModalPhoto.imageUrl];
+        const currentImg = imageList[modalImageIndex % imageList.length] || activeModalPhoto.imageUrl;
 
-            {/* Close Button */}
-            <button
-              onClick={() => setActiveModalPhoto(null)}
-              className="absolute top-2.5 right-2.5 z-30 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/90 text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10 active:scale-95"
-              title="Tutup Modal"
-              aria-label="Tutup Modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
+        const handlePrevImg = () => {
+          setModalImageIndex((prev) => (prev > 0 ? prev - 1 : imageList.length - 1));
+        };
 
-            {/* Kolom Kiri: Foto */}
-            <div className="md:w-1/2 bg-black relative flex items-center justify-center overflow-hidden h-[38vh] sm:h-[48vh] md:h-auto shrink-0 select-none p-2">
-              <img
-                src={activeModalPhoto.imageUrl}
-                alt={activeModalPhoto.title}
-                className="w-full h-full object-contain rounded-xl"
-              />
-              <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/20">
-                {activeModalPhoto.packageName}
-              </div>
-            </div>
+        const handleNextImg = () => {
+          setModalImageIndex((prev) => (prev < imageList.length - 1 ? prev + 1 : 0));
+        };
 
-            {/* Kolom Kanan: Detail Foto */}
-            <div className="md:w-1/2 p-5 sm:p-7 flex flex-col justify-between space-y-4 overflow-y-auto max-h-[52vh] md:max-h-full">
-              <div className="space-y-3">
-                <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 text-indigo-300 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md border border-indigo-500/30">
-                  <span>{activeModalPhoto.icon}</span>
-                  <span>{activeModalPhoto.packageName}</span>
-                </div>
+        const handleTouchStart = (e: React.TouchEvent) => {
+          touchModalStartX.current = e.targetTouches[0].clientX;
+        };
 
-                <div>
-                  <h3 className="text-base sm:text-xl font-black text-white leading-snug">
-                    {activeModalPhoto.title}
-                  </h3>
-                </div>
+        const handleTouchMove = (e: React.TouchEvent) => {
+          touchModalEndX.current = e.targetTouches[0].clientX;
+        };
 
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  {activeModalPhoto.description}
-                </p>
+        const handleTouchEnd = () => {
+          if (!touchModalStartX.current || !touchModalEndX.current) return;
+          const diff = touchModalStartX.current - touchModalEndX.current;
+          if (diff > 35) {
+            handleNextImg();
+          } else if (diff < -35) {
+            handlePrevImg();
+          }
+          touchModalStartX.current = null;
+          touchModalEndX.current = null;
+        };
 
-                {/* Catatan Konsep Foto */}
-                <div className="bg-slate-800/80 rounded-xl p-3.5 border border-slate-700/80 space-y-1 text-xs">
-                  <div className="font-bold text-indigo-300 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                    <span>Catatan Konsep:</span>
-                  </div>
-                  <p className="text-slate-300 text-xs leading-relaxed">
-                    {activeModalPhoto.conceptNote}
-                  </p>
-                </div>
-              </div>
+        return (
+          <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
+            <div className="bg-slate-900 border border-slate-800 text-white rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto">
 
-              {/* Footer Modal */}
-              <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                <span>Alviero Studio Foto © 2026</span>
-                <button
-                  onClick={() => setActiveModalPhoto(null)}
-                  className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold transition-colors cursor-pointer active:scale-95"
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveModalPhoto(null)}
+                className="absolute top-2.5 right-2.5 z-30 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md hover:bg-black/90 text-white flex items-center justify-center transition-colors cursor-pointer border border-white/10 active:scale-95 shadow-md"
+                title="Tutup Modal"
+                aria-label="Tutup Modal"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Kolom Kiri: Foto Slider dengan Swipe Gesture */}
+              <div className="md:w-1/2 bg-black relative flex flex-col items-center justify-center overflow-hidden h-[42vh] sm:h-[50vh] md:h-auto shrink-0 select-none p-2">
+                <div
+                  className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-xl"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
                 >
-                  Tutup Tampilan
-                </button>
+                  <img
+                    src={currentImg}
+                    alt={`${activeModalPhoto.title} (${modalImageIndex + 1}/${imageList.length})`}
+                    className="w-full h-full object-contain rounded-xl transition-all duration-300"
+                  />
+
+                  {/* Badge Label Paket */}
+                  <div className="absolute top-2.5 left-2.5 bg-black/75 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/20 z-10 shadow-xs flex items-center gap-1">
+                    <span>{activeModalPhoto.icon}</span>
+                    <span>{activeModalPhoto.packageName}</span>
+                  </div>
+
+                  {/* Tombol Geser / Navigasi (Jika ada lebih dari 1 foto) */}
+                  {imageList.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handlePrevImg}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 transition-all active:scale-90 cursor-pointer shadow-lg"
+                        title="Foto Sebelumnya"
+                      >
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={handleNextImg}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/20 transition-all active:scale-90 cursor-pointer shadow-lg"
+                        title="Foto Selanjutnya"
+                      >
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+
+                      {/* Indikator Nomor Foto & Swipe Hint */}
+                      <div className="absolute bottom-2.5 inset-x-0 mx-auto w-fit bg-black/75 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full border border-white/20 z-10 flex items-center gap-1.5 shadow-md">
+                        <span>{modalImageIndex + 1} / {imageList.length}</span>
+                        <span className="text-white/60 text-[9px]">• Geser Foto ↔️</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Thumbnail Strip (Jika ada lebih dari 1 foto) */}
+                {imageList.length > 1 && (
+                  <div className="w-full pt-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar px-1 shrink-0">
+                    {imageList.map((img, idx) => (
+                      <button
+                        key={img + idx}
+                        type="button"
+                        onClick={() => setModalImageIndex(idx)}
+                        className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden shrink-0 border transition-all cursor-pointer ${
+                          modalImageIndex === idx
+                            ? 'border-indigo-400 ring-2 ring-indigo-400/50 scale-105 opacity-100'
+                            : 'border-white/20 opacity-50 hover:opacity-80'
+                        }`}
+                      >
+                        <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Kolom Kanan: Detail Foto */}
+              <div className="md:w-1/2 p-5 sm:p-7 flex flex-col justify-between space-y-4 overflow-y-auto max-h-[52vh] md:max-h-full">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-1.5 bg-indigo-500/20 text-indigo-300 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md border border-indigo-500/30">
+                    <span>{activeModalPhoto.icon}</span>
+                    <span>{activeModalPhoto.packageName}</span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base sm:text-xl font-black text-white leading-snug">
+                      {activeModalPhoto.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {activeModalPhoto.description}
+                  </p>
+
+                  {/* Catatan Konsep Foto */}
+                  <div className="bg-slate-800/80 rounded-xl p-3.5 border border-slate-700/80 space-y-1 text-xs">
+                    <div className="font-bold text-indigo-300 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                      <span>Catatan Konsep:</span>
+                    </div>
+                    <p className="text-slate-300 text-xs leading-relaxed">
+                      {activeModalPhoto.conceptNote}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Footer Modal */}
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                  <span>Alviero Studio Foto © 2026</span>
+                  <button
+                    onClick={() => setActiveModalPhoto(null)}
+                    className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-bold transition-colors cursor-pointer active:scale-95"
+                  >
+                    Tutup Tampilan
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Standard Poster Modal (If clicked from Menu view) */}
       {activeModalSheet && (
