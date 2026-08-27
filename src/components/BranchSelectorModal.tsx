@@ -404,8 +404,8 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
   {
     id: 'studio-1',
     name: 'STUDIO 1 — KARANGPLOSO',
-    badge: 'COMPLETE MEDIUM & WISUDA STUDIO',
-    tagline: 'Studio Utama Serbaguna Lantai Dasar dengan Live-View Monitor & Lighting Godox Pro',
+    badge: 'STUDIO 1',
+    tagline: 'Koleksi 7+ Tema Background Lengkap dengan AC Sejuk & Lighting Godox Pro',
     branchId: 'cabang-1',
     images: [
       {
@@ -444,24 +444,24 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         tag: 'MINIMALIST BRIGHT'
       }
     ],
-    dimensions: 'Luas 7m x 5m | Ceiling 3.5m (Lantai Dasar Tanpa Tangga)',
-    capacity: '1 - 20 Orang (Sangat nyaman untuk grup wisuda, keluarga & prewedding)',
-    lightingSetup: '4 Set Lampu Studio Godox Highspeed + Octagon 120cm + RGB Tube Lighting',
-    backdrops: '7+ Tema Background Permanen & Varian Seamless Background Paper',
-    description: 'Studio lantai dasar serbaguna dengan full AC, tata lampu Godox Studio Pro, monitor live-view realtime, dan 7+ tema background estetis. Sangat nyaman untuk sesi foto wisuda, keluarga, dan group.',
+    dimensions: 'Area Luas & Nyaman (Lantai Dasar Tanpa Tangga)',
+    capacity: '1 - 20 Orang (Sangat nyaman untuk wisuda, keluarga & prewedding)',
+    lightingSetup: 'Lighting Godox Studio Pro + Diffuser Softbox Lengkap',
+    backdrops: '7+ Pilihan Tema Background Studio 1 (Mint, Royal Fireplace, Charcoal, Beige, Rustic, Arch Window, White)',
+    description: 'Studio 1 Karangploso berfasilitas lengkap dengan full AC sejuk, tata lampu Godox Studio Pro, monitor live-view realtime, dan koleksi 7+ pilihan tema background foto.',
     highlights: [
       'Akses Lantai Dasar Tanpa Tangga',
       'Monitor Live-View Preview Realtime',
-      'Full AC Sejuk & Fitting Room Bersih',
-      'Koleksi Toga Wisuda & Properti Siap Pakai',
+      'Full AC Sejuk & Ruang Ganti Bersih',
+      'Koleksi Properti Siap Pakai',
       'Parkir Mobil & Motor Luas'
     ]
   },
   {
     id: 'studio-2',
-    name: 'STUDIO 2 — CABANG EKSKLUSIF',
-    badge: 'PREMIUM SUITE & INTIMATE WEDDING',
-    tagline: 'Studio Lebih Luas dengan Private Dressing Suite & Set Prewedding Mewah',
+    name: 'STUDIO 2 — DINOYO GAJAYANA',
+    badge: 'STUDIO 2',
+    tagline: 'Koleksi Tema Background Dinoyo Lengkap dengan AC Sejuk & Lighting Godox Pro',
     branchId: 'cabang-2',
     images: [
       {
@@ -500,17 +500,17 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         tag: 'COZY EDITORIAL'
       }
     ],
-    dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
-    capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
-    lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
-    backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Background',
-    description: 'Studio eksklusif berarea luas dan ceiling tinggi dengan private dressing suite ber-AC, vanity mirror Hollywood, dan set background mewah untuk foto wedding, prewedding & keluarga.',
+    dimensions: 'Area Luas & Nyaman (Akses Strategis Ruko Gajayana)',
+    capacity: '1 - 20 Orang (Sangat nyaman untuk wisuda, keluarga & prewedding)',
+    lightingSetup: 'Lighting Godox Studio Pro + Diffuser Softbox Lengkap',
+    backdrops: 'Pilihan Tema Background Khusus Studio 2 Dinoyo',
+    description: 'Studio 2 Dinoyo Gajayana berfasilitas lengkap dengan full AC sejuk, tata lampu Godox Studio Pro, monitor live-view realtime, dan varian tema background khusus cabang Dinoyo.',
     highlights: [
-      'Area Shooting Lebih Luas & Ceiling Tinggi',
-      'Private Dressing Suite Ber-AC',
-      'Cermin Vanity Hollywood Mewah',
-      'Fitting Gaun / Kebaya Pengantin Lengkap',
-      'Asisten Studio Standby'
+      'Lokasi Strategis Dinoyo Kota Malang',
+      'Monitor Live-View Preview Realtime',
+      'Full AC Sejuk & Ruang Ganti Bersih',
+      'Koleksi Properti Siap Pakai',
+      'Parkir Mobil & Motor Luas'
     ]
   },
   {
@@ -1205,7 +1205,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                           ✓ Pro Godox Lighting
                         </span>
                         <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
-                          ✓ 7+ Backdrop
+                          ✓ Pilihan Background
                         </span>
                         <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
                           ✓ Ruang AC
