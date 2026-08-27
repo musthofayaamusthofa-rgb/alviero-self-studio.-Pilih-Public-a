@@ -864,7 +864,12 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
           </div>
 
-          {/* 2. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
+          {/* 2. Client Reviews & Testimonials Carousel (Diposisikan di Atas Tur Edukasi Ruang) */}
+          <div className="pt-4 border-t border-[#E0D9CE]">
+            <ClientReviewCarousel />
+          </div>
+
+          {/* 3. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
           <div className="pt-4 border-t border-[#E0D9CE]">
             <StudioTourAndEducationShowcase 
               selectedBranch={selectedBranch}
@@ -873,7 +878,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             />
           </div>
 
-          {/* 3 & 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Grid 3 Kolom Sejajar di Desktop) */}
+          {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Grid 3 Kolom Sejajar di Desktop) */}
           <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-2">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
               
@@ -997,9 +1002,6 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
             </div>
           </div>
-
-          {/* Section 4: Client Reviews & Testimonials Carousel */}
-          <ClientReviewCarousel />
 
           {/* Section 5: Trust Badges Bar */}
           <div className="pt-3 pb-1 border-t border-[#E0D9CE] grid grid-cols-3 gap-2 text-center text-[10px] text-[#5C5650]">
