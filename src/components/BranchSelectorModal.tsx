@@ -453,7 +453,7 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     capacity: '1 - 20 Orang (Sangat nyaman untuk grup wisuda, keluarga & prewedding)',
     lightingSetup: '4 Set Lampu Studio Godox Highspeed + Octagon 120cm + RGB Tube Lighting',
     backdrops: '7+ Tema Background Permanen & Varian Seamless Background Paper',
-    description: 'Studio di lokasi strategis, akses mudah di lantai dasar, untuk produksi multimedia dan foto wisuda, wedding, keluarga & self studio mengikuti kebutuhan industri kreatif. Perlengkapan lighting foto dan video menjadi standar, dan di-maintain secara profesional. Dilengkapi live-view monitor realtime untuk melihat hasil jepretan seketika, serta 7 pilihan tema background estetik. Fasilitas termasuk ruang ber-AC sejuk, fitting room, toga wisuda lengkap & properti gratis, internet fiber optic, listrik 11.000 Watt, speaker sound system, dan parkir luas hingga 8 mobil. Cocok untuk tim produksi dan keluarga yang membutuhkan kualitas, kemudahan, dan lokasi strategis.',
+    description: 'Studio lantai dasar serbaguna dengan full AC, tata lampu Godox Studio Pro, monitor live-view realtime, dan 7+ tema background estetis. Sangat nyaman untuk sesi foto wisuda, keluarga, dan group.',
     highlights: [
       'Akses Lantai Dasar Tanpa Tangga',
       'Monitor Live-View Preview Realtime',
@@ -514,7 +514,7 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
     lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
     backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Background',
-    description: 'Pilihan studio eksklusif dengan area shooting lebih luas dan ceiling tinggi untuk pilihan studio lebih besar. Dirancang khusus untuk sesi foto intimate wedding, prewedding bergaun panjang, kebaya wisuda nusantara, dan keluarga besar. Dilengkapi private dressing suite ber-AC dengan cermin vanity Hollywood, fitting room khusus busana pengantin, asisten studio standby membantu pose dan kerapian pakaian, sound system Bluetooth, serta konsultasi outfit gratis.',
+    description: 'Studio eksklusif berarea luas dan ceiling tinggi dengan private dressing suite ber-AC, vanity mirror Hollywood, dan set background mewah untuk foto wedding, prewedding & keluarga.',
     highlights: [
       'Area Shooting Lebih Luas & Ceiling Tinggi',
       'Private Dressing Suite Ber-AC',
@@ -560,7 +560,7 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     capacity: '1 - 8 Orang (Sangat seru untuk pasangan, bestie & solo)',
     lightingSetup: 'Godox Studio Flash + Softbox Diffuser Siap Pakai Tanpa Setting Manual',
     backdrops: 'Pilihan Background Grey, White, Cream & Pastel Aesthetic',
-    description: 'Konsep foto mandiri 100% private tanpa kehadiran fotografer untuk Anda yang ingin berekspresi bebas dan seru tanpa rasa canggung atau malu. Cukup tekan remote shutter nirkabel di genggaman Anda, hasil foto langsung tampil di layar monitor besar di depan Anda secara instan. Semua file asli resolusi tinggi (HD) langsung dibagikan via Google Drive, lengkap dengan cetakan photo strip eksklusif anti-luntur.',
+    description: 'Bilik foto 100% private dengan remote shutter nirkabel dan monitor preview realtime. Bebas berekspresi tanpa canggung, langsung dapat cetak photo strip dan all-file HD.',
     highlights: [
       'Remote Shutter Nirkabel Responsif',
       'Monitor Preview Realtime Besar',
