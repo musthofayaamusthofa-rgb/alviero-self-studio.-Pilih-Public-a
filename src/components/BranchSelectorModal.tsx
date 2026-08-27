@@ -588,154 +588,160 @@ export const StudioTourAndEducationShowcase: React.FC<{
         </div>
       </div>
 
-      {/* Interactive Photo Slider Ruang Studio */}
-      <div className="relative h-60 sm:h-72 md:h-80 bg-[#1C1A17] overflow-hidden border border-[#E0D9CE] group">
-        <img
-          key={`${activeRoom.id}-${currentSlideIdx}`}
-          src={activeSlide.src}
-          alt={activeSlide.caption}
-          className="w-full h-full object-cover object-center animate-in fade-in duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20" />
+      {/* Interactive Photo Slider & Edukasi Ruang (Side-by-side 2 Kolom di Desktop, Stack di Mobile) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
+        
+        {/* Kolom Kiri: Photo Slider (7 Kolom di Desktop) */}
+        <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] bg-[#1C1A17] overflow-hidden border border-[#E0D9CE] group flex flex-col justify-between">
+          <img
+            key={`${activeRoom.id}-${currentSlideIdx}`}
+            src={activeSlide.src}
+            alt={activeSlide.caption}
+            className="absolute inset-0 w-full h-full object-cover object-center animate-in fade-in duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20" />
 
-        {/* Tag Overlay di Atas */}
-        <div className="absolute top-3 left-3 z-10">
-          <span className="inline-block text-[8.5px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/70 px-2.5 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
-            {activeSlide.tag}
-          </span>
-        </div>
-
-        {/* Caption Foto di Bawah */}
-        <div className="absolute bottom-3 left-3 right-12 z-10 text-left">
-          <p className="text-[11px] sm:text-xs font-sans text-white font-medium drop-shadow-md truncate">
-            {activeSlide.caption}
-          </p>
-        </div>
-
-        {/* Tombol Panah Kiri (<) */}
-        <button
-          type="button"
-          onClick={handlePrevSlide}
-          aria-label="Previous Photo"
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
-        >
-          <ChevronLeft className="w-4 h-4 stroke-[2]" />
-        </button>
-
-        {/* Tombol Panah Kanan (>) */}
-        <button
-          type="button"
-          onClick={handleNextSlide}
-          aria-label="Next Photo"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
-        >
-          <ChevronRight className="w-4 h-4 stroke-[2]" />
-        </button>
-
-        {/* Indikator Slider */}
-        <div className="absolute bottom-3 right-3 flex items-center gap-1 z-20 bg-black/60 px-2 py-1 border border-white/20">
-          {activeRoom.images.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentSlideIdx(idx)}
-              className={`transition-all cursor-pointer ${
-                currentSlideIdx === idx ? 'w-4 h-0.5 bg-[#D4AF37]' : 'w-1 h-0.5 bg-white/40'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Kartu Informasi & Edukasi Ruang Studio (Sesuai Referensi StudioJakarta) */}
-      <div className="bg-white p-4 sm:p-5 border border-[#E0D9CE] space-y-3 text-left">
-        <div className="flex items-start justify-between gap-2 flex-wrap">
-          <div>
-            <h4 className="font-serif font-bold text-xs sm:text-sm md:text-base text-[#1C1A17] uppercase tracking-wide">
-              {activeRoom.name} <span className="text-stone-400">|</span>{' '}
-              <span className="text-[#8C6D46]">{activeRoom.badge}</span>
-            </h4>
-            <p className="text-[11px] font-sans font-semibold text-stone-600 mt-0.5">
-              {activeRoom.tagline}
-            </p>
-          </div>
-        </div>
-
-        {/* Paragraf Deskripsi Edukasi yang Lengkap */}
-        <p className="text-[11px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
-          {activeRoom.description}
-        </p>
-
-        {/* Spesifikasi Teknis Studio (Grid 2 Kolom) */}
-        <div className="pt-2 border-t border-[#EFEAE2] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10.5px] font-sans text-[#4A433A]">
-          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
-            <span className="font-bold text-[#1C1A17] block">📐 Dimensi & Akses:</span>
-            <span>{activeRoom.dimensions}</span>
-          </div>
-          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
-            <span className="font-bold text-[#1C1A17] block">👥 Kapasitas:</span>
-            <span>{activeRoom.capacity}</span>
-          </div>
-          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
-            <span className="font-bold text-[#1C1A17] block">💡 Lighting Setup:</span>
-            <span>{activeRoom.lightingSetup}</span>
-          </div>
-          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
-            <span className="font-bold text-[#1C1A17] block">🎨 Pilihan Backdrop:</span>
-            <span>{activeRoom.backdrops}</span>
-          </div>
-        </div>
-
-        {/* Highlights Checklist */}
-        <div className="pt-2 border-t border-[#EFEAE2] flex items-center gap-2 flex-wrap text-[10px] font-sans font-medium text-stone-700">
-          {activeRoom.highlights.map((highlight, idx) => (
-            <span key={idx} className="bg-stone-50 px-2 py-0.5 border border-[#E0D9CE] flex items-center gap-1">
-              <span className="text-emerald-700 font-bold">✓</span>
-              {highlight}
+          {/* Tag Overlay di Atas */}
+          <div className="relative top-3.5 left-3.5 z-10">
+            <span className="inline-block text-[8.5px] sm:text-[9.5px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/70 px-3 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
+              {activeSlide.tag}
             </span>
-          ))}
-        </div>
-
-        {/* Express Booking Call to Action */}
-        <div className="pt-2 border-t border-[#EFEAE2] flex items-center justify-between flex-wrap gap-2 text-[11px] font-sans">
-          <div className="flex items-center gap-1.5 text-stone-700">
-            <span className="font-bold text-[#1C1A17] font-serif uppercase tracking-wider">EXPRESS BOOKING</span>
-            <span>|</span>
-            <a
-              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20booking%20jadwal"
-              target="_blank"
-              rel="noreferrer"
-              className="text-emerald-700 font-bold hover:underline"
-            >
-              0877-7753-8164
-            </a>
           </div>
 
+          {/* Caption & Indikator di Bawah */}
+          <div className="relative z-10 p-3.5 sm:p-4 flex items-end justify-between gap-3 text-left">
+            <p className="text-xs sm:text-sm font-sans text-white font-medium drop-shadow-md truncate max-w-[80%]">
+              {activeSlide.caption}
+            </p>
+
+            <div className="flex items-center gap-1 bg-black/60 px-2 py-1 border border-white/20 shrink-0">
+              {activeRoom.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlideIdx(idx)}
+                  className={`transition-all cursor-pointer ${
+                    currentSlideIdx === idx ? 'w-5 h-0.5 bg-[#D4AF37]' : 'w-1.5 h-0.5 bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Tombol Panah Kiri (<) */}
           <button
             type="button"
-            onClick={() => onSelectBranch(activeRoom.branchId)}
-            className="px-4 py-1.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer border border-[#1C1A17]"
+            onClick={handlePrevSlide}
+            aria-label="Previous Photo"
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
           >
-            Pilih {activeRoom.name.split('—')[0]} →
+            <ChevronLeft className="w-4.5 h-4.5 stroke-[2]" />
+          </button>
+
+          {/* Tombol Panah Kanan (>) */}
+          <button
+            type="button"
+            onClick={handleNextSlide}
+            aria-label="Next Photo"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
+          >
+            <ChevronRight className="w-4.5 h-4.5 stroke-[2]" />
           </button>
         </div>
+
+        {/* Kolom Kanan: Kartu Informasi & Edukasi Ruang (5 Kolom di Desktop) */}
+        <div className="lg:col-span-5 bg-white p-4 sm:p-6 border border-[#E0D9CE] flex flex-col justify-between space-y-3.5 text-left">
+          <div className="space-y-2">
+            <div className="flex items-start justify-between gap-2 flex-wrap">
+              <div>
+                <h4 className="font-serif font-bold text-sm sm:text-base md:text-lg text-[#1C1A17] uppercase tracking-wide">
+                  {activeRoom.name} <span className="text-stone-400">|</span>{' '}
+                  <span className="text-[#8C6D46]">{activeRoom.badge}</span>
+                </h4>
+                <p className="text-xs font-sans font-semibold text-stone-600 mt-0.5">
+                  {activeRoom.tagline}
+                </p>
+              </div>
+            </div>
+
+            {/* Paragraf Deskripsi Edukasi yang Lengkap */}
+            <p className="text-[11.5px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
+              {activeRoom.description}
+            </p>
+          </div>
+
+          {/* Spesifikasi Teknis Studio (Grid 2 Kolom) */}
+          <div className="pt-2 border-t border-[#EFEAE2] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-sans text-[#4A433A]">
+            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
+              <span className="font-bold text-[#1C1A17] block">📐 Dimensi & Akses:</span>
+              <span className="text-stone-600">{activeRoom.dimensions}</span>
+            </div>
+            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
+              <span className="font-bold text-[#1C1A17] block">👥 Kapasitas:</span>
+              <span className="text-stone-600">{activeRoom.capacity}</span>
+            </div>
+            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
+              <span className="font-bold text-[#1C1A17] block">💡 Lighting Setup:</span>
+              <span className="text-stone-600">{activeRoom.lightingSetup}</span>
+            </div>
+            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
+              <span className="font-bold text-[#1C1A17] block">🎨 Pilihan Backdrop:</span>
+              <span className="text-stone-600">{activeRoom.backdrops}</span>
+            </div>
+          </div>
+
+          {/* Highlights Checklist */}
+          <div className="pt-2 border-t border-[#EFEAE2] flex items-center gap-1.5 flex-wrap text-[10.5px] font-sans font-medium text-stone-700">
+            {activeRoom.highlights.map((highlight, idx) => (
+              <span key={idx} className="bg-stone-50 px-2 py-0.5 border border-[#E0D9CE] flex items-center gap-1">
+                <span className="text-emerald-700 font-bold">✓</span>
+                {highlight}
+              </span>
+            ))}
+          </div>
+
+          {/* Express Booking Call to Action */}
+          <div className="pt-3 border-t border-[#EFEAE2] flex items-center justify-between flex-wrap gap-2 text-xs font-sans">
+            <div className="flex items-center gap-1.5 text-stone-700">
+              <span className="font-bold text-[#1C1A17] font-serif uppercase tracking-wider">EXPRESS BOOKING</span>
+              <span>|</span>
+              <a
+                href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20booking%20jadwal"
+                target="_blank"
+                rel="noreferrer"
+                className="text-emerald-700 font-bold hover:underline"
+              >
+                0877-7753-8164
+              </a>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => onSelectBranch(activeRoom.branchId)}
+              className="px-5 py-2 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer border border-[#1C1A17] shadow-xs"
+            >
+              Pilih {activeRoom.name.split('—')[0]} →
+            </button>
+          </div>
+        </div>
+
       </div>
 
       {/* Facility Highlights Footer (Sesuai Referensi StudioJakarta) */}
-      <div className="p-3 bg-white border border-[#E0D9CE] text-center">
-        <p className="font-sans font-semibold text-[10px] sm:text-[11.5px] text-[#1C1A17] leading-relaxed">
+      <div className="p-3.5 bg-white border border-[#E0D9CE] text-center">
+        <p className="font-sans font-semibold text-xs sm:text-sm text-[#1C1A17] leading-relaxed">
           <span className="font-bold">Fully Air-Conditioned</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
           <span className="font-bold">Professional Lighting & Equipment</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
           <span className="font-bold">Props Collection Ready to Use</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
           <span className="font-bold">Standby Studio Assistant</span>
         </p>
-        <div className="h-0.5 bg-[#8C6D46] w-24 mx-auto mt-2" />
+        <div className="h-0.5 bg-[#8C6D46] w-28 mx-auto mt-2" />
       </div>
     </div>
   );
 };
 
 /**
- * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Tegas, Rapi, Terpadu & Terstruktur)
+ * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Tegas, Rapi, Full Desktop & Terstruktur)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   selectedBranch,
@@ -746,14 +752,14 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
   return (
-    <div className="w-full max-w-5xl mx-auto my-0 sm:my-4 md:my-6 px-0 sm:px-3 md:px-6 animate-in fade-in duration-300">
-      <div className="bg-[#FAF8F5] border-x-0 sm:border sm:border-[#D5CEC2] shadow-none sm:shadow-md overflow-hidden flex flex-col relative w-full">
+    <div className="w-full max-w-[1440px] mx-auto my-0 sm:my-4 md:my-6 px-0 sm:px-4 md:px-8 lg:px-12 animate-in fade-in duration-300">
+      <div className="bg-[#FAF8F5] border-x-0 sm:border sm:border-[#D5CEC2] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
         
         {/* Top Hero Banner Slider */}
         <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
-        <div className="p-3.5 sm:p-5 md:p-7 space-y-5 md:space-y-6 bg-[#FAF8F5] flex-1">
+        <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FAF8F5] flex-1">
           
           {/* 1. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
           <StudioTourAndEducationShowcase 
@@ -762,184 +768,195 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             onSelectCategory={onSelectCategory}
           />
 
-          {/* 2. Why Choose Alviero Studio? (Grid Rapi & Proporsional) */}
-          <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-3">
-            <div className="text-center space-y-0.5">
-              <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+          {/* 2. Why Choose Alviero Studio? (Grid 4 Kolom di Desktop) */}
+          <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-4">
+            <div className="text-center space-y-1">
+              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
                 WHY CHOOSE ALVIERO STUDIO?
               </h3>
-              <p className="text-[11px] font-sans text-[#736B63]">
+              <p className="text-xs font-sans text-[#736B63]">
                 Kenyamanan, kualitas visual premium & pelayanan terpercaya
               </p>
             </div>
 
             {/* 4 Kolom di Desktop, 2 Kolom di Mobile */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 text-center">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 text-center">
               {/* Item 1: Fast and convenient */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Clock className="w-4 h-4 stroke-[1.6]" />
+              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
+                  <Clock className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Fast & Convenient
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
-                  Booking instan tanpa antre. Dapatkan jadwal pasti & file HD via Google Drive.
+                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Booking instan tanpa antre. Dapatkan jadwal pasti & all-file HD via Google Drive.
                 </p>
               </div>
 
               {/* Item 2: Style and function */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Sliders className="w-4 h-4 stroke-[1.6]" />
+              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
+                  <Sliders className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Style & Function
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
+                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
                   7+ tema backdrop modern, lighting Godox studio, & arahan pose natural.
                 </p>
               </div>
 
               {/* Item 3: Reflect your lifestyle */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Layers className="w-4 h-4 stroke-[1.6]" />
+              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
+                  <Layers className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Reflect Lifestyle
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
-                  Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Frame kayu.
+                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
+                  Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Cetak Frame kayu.
                 </p>
               </div>
 
               {/* Item 4: Continuous support */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <HeartHandshake className="w-4 h-4 stroke-[1.6]" />
+              <div className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2.5">
+                  <HeartHandshake className="w-5 h-5 stroke-[1.6]" />
                 </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
                   Continuous Support
                 </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
+                <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
                   Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin responsif.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 3. Lokasi Studio Aktif (Dipindah ke bawah) */}
-          <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-1.5">
-            <div className="flex items-center justify-between px-0.5">
-              <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
-                LOKASI STUDIO AKTIF
-              </span>
-              <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 border border-emerald-200 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                08:00 - 21:00 WIB
-              </span>
-            </div>
-
-            {/* Studio Selection Card */}
-            <div
-              onClick={() => setIsModalOpen(true)}
-              className="w-full p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 text-left group"
-            >
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
-                  <MapPin className="w-4.5 h-4.5 stroke-[1.8] text-[#1C1A17]" />
+          {/* 3 & 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Grid 3 Kolom Sejajar di Desktop) */}
+          <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-2">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
+              
+              {/* Kolom 1: Lokasi Studio Aktif */}
+              <div className="space-y-1.5 flex flex-col justify-between">
+                <div className="flex items-center justify-between px-0.5">
+                  <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+                    LOKASI STUDIO AKTIF
+                  </span>
+                  <span className="text-[9.5px] font-sans font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 border border-emerald-200 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    08:00 - 21:00 WIB
+                  </span>
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-serif font-bold text-sm text-[#1C1A17] leading-tight block truncate">
-                      {selectedBranchData.name}
-                    </span>
-                    <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8] shrink-0">
-                      {selectedBranchData.badge}
-                    </span>
-                  </div>
-                  <p className="text-[11px] font-sans text-[#736B63] truncate mt-0.5">
-                    {selectedBranchData.address}
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-center gap-1 text-[10.5px] font-sans font-bold uppercase tracking-wider text-white bg-[#1C1A17] hover:bg-[#2D2A26] px-3 py-1.5 transition-colors shrink-0">
-                <span>Ganti</span>
-                <span className="text-xs">▾</span>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. Layanan Khusus Wedding & Cetak Foto (Dipindah ke bawah) */}
-          <div className="space-y-2">
-            <div className="text-left px-0.5">
-              <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
-                LAYANAN WEDDING & CETAK FOTO
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-              {/* Pricelist Wedding Card */}
-              <div
-                onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
-                    <Sparkles className="w-4 h-4 stroke-[1.8] text-[#8C6D46]" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
-                        PRICELIST WEDDING
-                      </h4>
-                      <span className="text-[8.5px] font-sans font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8]">
-                        Exclusive
-                      </span>
+                <div
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 text-left group flex-1"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 stroke-[1.8] text-[#1C1A17]" />
                     </div>
-                    <p className="text-[10.5px] font-sans text-[#736B63] font-normal truncate mt-0.5">
-                      Prewedding, Akad, Resepsi & Engagement
-                    </p>
-                  </div>
-                </div>
-
-                <div className="text-[11px] font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
-                  <span className="hidden sm:inline">Lihat</span>
-                  <span className="text-sm transition-transform group-hover:translate-x-0.5">→</span>
-                </div>
-              </div>
-
-              {/* Pricelist Cetak Card */}
-              <div
-                onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
-                    <ImageIcon className="w-4 h-4 stroke-[1.8] text-[#8C6D46]" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
-                        PRICELIST CETAK
-                      </h4>
-                      <span className="text-[8.5px] font-sans font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8]">
-                        Cetak Lab
-                      </span>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] leading-tight block truncate">
+                          {selectedBranchData.name}
+                        </span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8] shrink-0">
+                          {selectedBranchData.badge}
+                        </span>
+                      </div>
+                      <p className="text-xs font-sans text-[#736B63] truncate mt-0.5">
+                        {selectedBranchData.address}
+                      </p>
                     </div>
-                    <p className="text-[10.5px] font-sans text-[#736B63] font-normal truncate mt-0.5">
-                      Cetak Lab, Bingkai Minimalis & Album
-                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-1 text-[11px] font-sans font-bold uppercase tracking-wider text-white bg-[#1C1A17] hover:bg-[#2D2A26] px-3.5 py-2 transition-colors shrink-0">
+                    <span>Ganti</span>
+                    <span className="text-xs">▾</span>
                   </div>
                 </div>
+              </div>
 
-                <div className="text-[11px] font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
-                  <span className="hidden sm:inline">Lihat</span>
-                  <span className="text-sm transition-transform group-hover:translate-x-0.5">→</span>
+              {/* Kolom 2: Pricelist Wedding */}
+              <div className="space-y-1.5 flex flex-col justify-between">
+                <div className="text-left px-0.5">
+                  <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+                    WEDDING & PREWEDDING
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
+                  className="p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 flex-1"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                      <Sparkles className="w-4.5 h-4.5 stroke-[1.8] text-[#8C6D46]" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-serif font-bold text-xs sm:text-sm md:text-base text-[#1C1A17] tracking-wider uppercase truncate">
+                          PRICELIST WEDDING
+                        </h4>
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8]">
+                          Exclusive
+                        </span>
+                      </div>
+                      <p className="text-xs font-sans text-[#736B63] font-normal truncate mt-0.5">
+                        Prewedding, Akad, Resepsi & Engagement
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                    <span className="hidden sm:inline">Lihat</span>
+                    <span className="text-sm transition-transform group-hover:translate-x-0.5">→</span>
+                  </div>
                 </div>
               </div>
+
+              {/* Kolom 3: Pricelist Cetak */}
+              <div className="space-y-1.5 flex flex-col justify-between">
+                <div className="text-left px-0.5">
+                  <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+                    CETAK LAB & BINGKAI
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
+                  className="p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 flex-1"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0">
+                      <ImageIcon className="w-4.5 h-4.5 stroke-[1.8] text-[#8C6D46]" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-serif font-bold text-xs sm:text-sm md:text-base text-[#1C1A17] tracking-wider uppercase truncate">
+                          PRICELIST CETAK
+                        </h4>
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 bg-[#F2ECE4] text-[#4A433A] border border-[#E0D6C8]">
+                          Cetak Lab
+                        </span>
+                      </div>
+                      <p className="text-xs font-sans text-[#736B63] font-normal truncate mt-0.5">
+                        Cetak Lab, Bingkai Minimalis & Album
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                    <span className="hidden sm:inline">Lihat</span>
+                    <span className="text-sm transition-transform group-hover:translate-x-0.5">→</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
