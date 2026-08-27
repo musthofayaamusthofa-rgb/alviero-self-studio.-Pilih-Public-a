@@ -578,11 +578,85 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Top Hero Banner Slider */}
         <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
-        {/* Content Area (Terstruktur, Rapi & Tidak Berantakan) */}
-        <div className="p-3.5 sm:p-5 md:p-7 space-y-4 md:space-y-6 bg-[#FAF8F5] flex-1">
+        {/* Content Area */}
+        <div className="p-3.5 sm:p-5 md:p-7 space-y-5 md:space-y-6 bg-[#FAF8F5] flex-1">
           
-          {/* Section 1: Lokasi Studio Aktif (Header Terpadu) */}
-          <div className="space-y-1.5">
+          {/* 1. Spesifikasi Studio & Fasilitas Pro Gear (Dari Referensi StudioJakarta) */}
+          <StudioSpecAndFacilities 
+            selectedBranch={selectedBranch}
+            onSelectBranch={onSelectBranch}
+            onSelectCategory={onSelectCategory}
+          />
+
+          {/* 2. Why Choose Alviero Studio? (Grid Rapi & Proporsional) */}
+          <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-3">
+            <div className="text-center space-y-0.5">
+              <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+                WHY CHOOSE ALVIERO STUDIO?
+              </h3>
+              <p className="text-[11px] font-sans text-[#736B63]">
+                Kenyamanan, kualitas visual premium & pelayanan terpercaya
+              </p>
+            </div>
+
+            {/* 4 Kolom di Desktop, 2 Kolom di Mobile */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 text-center">
+              {/* Item 1: Fast and convenient */}
+              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Clock className="w-4 h-4 stroke-[1.6]" />
+                </div>
+                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Fast & Convenient
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
+                  Booking instan tanpa antre. Dapatkan jadwal pasti & file HD via Google Drive.
+                </p>
+              </div>
+
+              {/* Item 2: Style and function */}
+              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Sliders className="w-4 h-4 stroke-[1.6]" />
+                </div>
+                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Style & Function
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
+                  7+ tema backdrop modern, lighting Godox studio, & arahan pose natural.
+                </p>
+              </div>
+
+              {/* Item 3: Reflect your lifestyle */}
+              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <Layers className="w-4 h-4 stroke-[1.6]" />
+                </div>
+                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Reflect Lifestyle
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
+                  Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Frame kayu.
+                </p>
+              </div>
+
+              {/* Item 4: Continuous support */}
+              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
+                  <HeartHandshake className="w-4 h-4 stroke-[1.6]" />
+                </div>
+                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  Continuous Support
+                </h4>
+                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
+                  Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin responsif.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Lokasi Studio Aktif (Dipindah ke bawah) */}
+          <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-1.5">
             <div className="flex items-center justify-between px-0.5">
               <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
                 LOKASI STUDIO AKTIF
@@ -624,7 +698,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
           </div>
 
-          {/* Section 2: Layanan Khusus (Wedding & Cetak Dalam 1 Grup Terpadu) */}
+          {/* 4. Layanan Khusus Wedding & Cetak Foto (Dipindah ke bawah) */}
           <div className="space-y-2">
             <div className="text-left px-0.5">
               <span className="font-serif text-[11px] font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
@@ -691,80 +765,6 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   <span className="hidden sm:inline">Lihat</span>
                   <span className="text-sm transition-transform group-hover:translate-x-0.5">→</span>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Section 2.5: Spesifikasi Studio & Fasilitas Pro Gear (Improvisasi dari Referensi StudioJakarta) */}
-          <StudioSpecAndFacilities 
-            selectedBranch={selectedBranch}
-            onSelectBranch={onSelectBranch}
-            onSelectCategory={onSelectCategory}
-          />
-
-          {/* Section 3: Why Choose Alviero Studio? (Grid Rapi & Proporsional) */}
-          <div className="pt-3 pb-1 border-t border-[#E0D9CE] space-y-3">
-            <div className="text-center space-y-0.5">
-              <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
-                WHY CHOOSE ALVIERO STUDIO?
-              </h3>
-              <p className="text-[11px] font-sans text-[#736B63]">
-                Kenyamanan, kualitas visual premium & pelayanan terpercaya
-              </p>
-            </div>
-
-            {/* 4 Kolom di Desktop, 2 Kolom di Mobile */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 text-center">
-              {/* Item 1: Fast and convenient */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Clock className="w-4 h-4 stroke-[1.6]" />
-                </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
-                  Fast & Convenient
-                </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
-                  Booking instan tanpa antre. Dapatkan jadwal pasti & file HD via Google Drive.
-                </p>
-              </div>
-
-              {/* Item 2: Style and function */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Sliders className="w-4 h-4 stroke-[1.6]" />
-                </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
-                  Style & Function
-                </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
-                  7+ tema backdrop modern, lighting Godox studio, & arahan pose natural.
-                </p>
-              </div>
-
-              {/* Item 3: Reflect your lifestyle */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Layers className="w-4 h-4 stroke-[1.6]" />
-                </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
-                  Reflect Lifestyle
-                </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
-                  Paket lengkap: Wisuda, Wedding, Self Studio, Family, hingga Frame kayu.
-                </p>
-              </div>
-
-              {/* Item 4: Continuous support */}
-              <div className="p-3 sm:p-3.5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-8 h-8 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <HeartHandshake className="w-4 h-4 stroke-[1.6]" />
-                </div>
-                <h4 className="font-serif font-bold text-[11px] sm:text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
-                  Continuous Support
-                </h4>
-                <p className="text-[10px] sm:text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1">
-                  Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin responsif.
-                </p>
               </div>
             </div>
           </div>
