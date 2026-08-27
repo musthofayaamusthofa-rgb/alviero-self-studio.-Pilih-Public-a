@@ -406,7 +406,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     message += `📷 *PAKET & KONSEP STUDIO:*\n`;
     message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
-    message += `• Pencahayaan / Backdrop: ${backdropDisplayName}\n`;
+    message += `• Pencahayaan / Background: ${backdropDisplayName}\n`;
     if (isSelfStudio) {
       message += `• Grid Template Cetak: ${currentFrame.name}\n`;
     }
@@ -775,11 +775,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* 3. Backdrop selection */}
+              {/* 3. Background selection */}
               <div className="pt-2 border-t border-[#E0D9CE]">
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                   <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider">
-                    3. {maxBackdrops > 1 ? 'PILIH 2 LATAR BELAKANG / PENCAHAYAAN (BACKDROP):' : 'PILIH PENCAHAYAAN / LATAR BELAKANG (BACKDROP):'}
+                    3. {maxBackdrops > 1 ? 'PILIH 2 LATAR BELAKANG / PENCAHAYAAN (BACKGROUND):' : 'PILIH PENCAHAYAAN / LATAR BELAKANG (BACKGROUND):'}
                   </label>
                   {maxBackdrops > 1 ? (
                     <span className="text-[10.5px] bg-[#FAF8F5] text-stone-800 border border-[#E0D9CE] font-bold px-2.5 py-0.5">
@@ -862,7 +862,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="mt-2.5 p-3 bg-white border border-[#E0D9CE] text-stone-600 text-[11px] font-sans flex items-center gap-2">
                     <span className="font-bold text-[#8C6D46]">ℹ️</span>
                     <span>
-                      <strong>Catatan Latar Studio:</strong> Backdrop <em>Limbo</em> dan <em>Putih Tengah</em> berbagi area panggung yang sama, sehingga tidak dapat digunakan bersamaan pada jam yang sama atau dalam 1 sesi foto.
+                      <strong>Catatan Latar Studio:</strong> Background <em>Limbo</em> dan <em>Putih Tengah</em> berbagi area panggung yang sama, sehingga tidak dapat digunakan bersamaan pada jam yang sama atau dalam 1 sesi foto.
                     </span>
                   </div>
                 )}

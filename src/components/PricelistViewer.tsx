@@ -652,7 +652,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       icon: '🏢',
       targetPackageId: 'sewa-studio-hourly',
       imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=85',
-      description: 'Fasilitas sewa ruang studio foto ber-AC lengkap dengan lighting profesional, trigger, dan aneka pilihan backdrop.',
+      description: 'Fasilitas sewa ruang studio foto ber-AC lengkap dengan lighting profesional, trigger, dan aneka pilihan background.',
       conceptNote: 'Siap pakai untuk sesi pemotretan mandiri fotografer dan klien.',
       tags: ['#SewaStudio', '#RentalStudio', '#LightingStudio']
     }
@@ -3458,7 +3458,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               price: '230K',
                               type: 'Bingkai Dinding Masterpiece',
                               image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Ukuran kanvas/pigura terbesar untuk backdrop ruang utama'
+                              desc: 'Ukuran kanvas/pigura terbesar untuk background ruang utama'
                             }
                           ].map((item, idx) => (
                             <div
@@ -3694,7 +3694,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           id: 'kebaya-01',
                           number: '01',
                           name: 'Kebaya Adat Jawa Maroon & Beskap Tradisional',
-                          subtitle: 'Adat Jawa Modern • Sunset Backdrop',
+                          subtitle: 'Adat Jawa Modern • Sunset Background',
                           type: 'adat',
                           badge: 'Adat Tradisional',
                           leftImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=85',

@@ -193,7 +193,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
         </p>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#5C5650] max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema backdrop estetis, tata lampu Godox Studio Pro, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
+          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu Godox Studio Pro, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
         </p>
 
         {/* Highlight Fasilitas Mewah */}
@@ -452,8 +452,8 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     dimensions: 'Luas 7m x 5m | Ceiling 3.5m (Lantai Dasar Tanpa Tangga)',
     capacity: '1 - 20 Orang (Sangat nyaman untuk grup wisuda, keluarga & prewedding)',
     lightingSetup: '4 Set Lampu Studio Godox Highspeed + Octagon 120cm + RGB Tube Lighting',
-    backdrops: '7+ Tema Backdrop Permanen & Varian Seamless Background Paper',
-    description: 'Studio di lokasi strategis, akses mudah di lantai dasar, untuk produksi multimedia dan foto wisuda, wedding, keluarga & self studio mengikuti kebutuhan industri kreatif. Perlengkapan lighting foto dan video menjadi standar, dan di-maintain secara profesional. Dilengkapi live-view monitor realtime untuk melihat hasil jepretan seketika, serta 7 pilihan tema backdrop estetik. Fasilitas termasuk ruang ber-AC sejuk, fitting room, toga wisuda lengkap & properti gratis, internet fiber optic, listrik 11.000 Watt, speaker sound system, dan parkir luas hingga 8 mobil. Cocok untuk tim produksi dan keluarga yang membutuhkan kualitas, kemudahan, dan lokasi strategis.',
+    backdrops: '7+ Tema Background Permanen & Varian Seamless Background Paper',
+    description: 'Studio di lokasi strategis, akses mudah di lantai dasar, untuk produksi multimedia dan foto wisuda, wedding, keluarga & self studio mengikuti kebutuhan industri kreatif. Perlengkapan lighting foto dan video menjadi standar, dan di-maintain secara profesional. Dilengkapi live-view monitor realtime untuk melihat hasil jepretan seketika, serta 7 pilihan tema background estetik. Fasilitas termasuk ruang ber-AC sejuk, fitting room, toga wisuda lengkap & properti gratis, internet fiber optic, listrik 11.000 Watt, speaker sound system, dan parkir luas hingga 8 mobil. Cocok untuk tim produksi dan keluarga yang membutuhkan kualitas, kemudahan, dan lokasi strategis.',
     highlights: [
       'Akses Lantai Dasar Tanpa Tangga',
       'Monitor Live-View Preview Realtime',
@@ -513,7 +513,7 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
     capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
     lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
-    backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Backdrop',
+    backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Background',
     description: 'Pilihan studio eksklusif dengan area shooting lebih luas dan ceiling tinggi untuk pilihan studio lebih besar. Dirancang khusus untuk sesi foto intimate wedding, prewedding bergaun panjang, kebaya wisuda nusantara, dan keluarga besar. Dilengkapi private dressing suite ber-AC dengan cermin vanity Hollywood, fitting room khusus busana pengantin, asisten studio standby membantu pose dan kerapian pakaian, sound system Bluetooth, serta konsultasi outfit gratis.',
     highlights: [
       'Area Shooting Lebih Luas & Ceiling Tinggi',
@@ -744,7 +744,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
               <span className="text-stone-600">{activeRoom.lightingSetup}</span>
             </div>
             <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
-              <span className="font-bold text-[#1C1A17] block">🎨 Pilihan Backdrop:</span>
+              <span className="font-bold text-[#1C1A17] block">🎨 Pilihan Background:</span>
               <span className="text-stone-600">{activeRoom.backdrops}</span>
             </div>
           </div>
@@ -834,7 +834,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   Style & Function
                 </h4>
                 <p className="text-[10.5px] sm:text-xs font-sans text-[#736B63] leading-relaxed mt-1.5">
-                  7+ tema backdrop modern, lighting Godox studio, & arahan pose natural.
+                  7+ tema background modern, lighting Godox studio, & arahan pose natural.
                 </p>
               </div>
 

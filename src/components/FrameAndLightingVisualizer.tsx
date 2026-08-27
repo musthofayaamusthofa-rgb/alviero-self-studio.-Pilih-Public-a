@@ -81,7 +81,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
             <div className="flex justify-between items-center">
               <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                1. Pilih Pencahayaan & Backdrop:
+                1. Pilih Pencahayaan & Background:
               </label>
               <span className="text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
                 {selectedBackdrop.name}

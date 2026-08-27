@@ -2003,7 +2003,7 @@ export const ADD_ONS: AddOnOption[] = [
     name: 'Tambahan Background',
     price: 75000,
     unit: 'background',
-    description: 'Ganti / tambah 1 backdrop tema prewedding.',
+    description: 'Ganti / tambah 1 background tema prewedding.',
     category: 'file',
     applicableCategories: ['prewedding']
   },
