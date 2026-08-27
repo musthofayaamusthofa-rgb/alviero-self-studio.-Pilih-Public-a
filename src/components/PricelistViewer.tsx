@@ -683,17 +683,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       {/* Top Segmented Navigation Tabs (Khusus Desktop) */}
       <div className="hidden lg:flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3.5 sm:p-4 border border-[#E0D9CE] shadow-xs">
         <div className="flex items-center gap-3">
-          {onBackToLanding && (
-            <button
-              onClick={onBackToLanding}
-              className="px-4 py-2 bg-[#FAF8F5] hover:bg-[#1C1A17] text-[#1C1A17] hover:text-white font-serif text-xs font-bold uppercase tracking-wider border border-[#D5CEC2] hover:border-[#1C1A17] flex items-center gap-1.5 transition-all cursor-pointer shadow-xs shrink-0"
-              title="Kembali ke Halaman Awal"
-            >
-              <ChevronLeft className="w-4 h-4 stroke-[2]" />
-              <span>Beranda Awal</span>
-            </button>
-          )}
-
           <div className="w-9 h-9 bg-[#1C1A17] text-[#D4AF37] flex items-center justify-center shrink-0">
             <Sparkles className="w-4.5 h-4.5" />
           </div>
