@@ -190,14 +190,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
           Choose from tried-and-true studio packages designed to capture your best memories. All at your own convenience.
         </p>
 
-        {/* Sharp Rectangular CTA Button */}
-        <button
-          type="button"
-          onClick={onViewPlans}
-          className="mt-2 px-8 sm:px-10 py-3 sm:py-3.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs sm:text-sm uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border border-[#1C1A17] shadow-md active:scale-95"
-        >
-          View Studio Packages
-        </button>
+
       </div>
     </div>
   );
