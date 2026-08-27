@@ -233,7 +233,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#C49A99] shadow-xs hover:shadow-sm transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 text-left group active:scale-[0.99]"
+              className="w-full p-3 sm:p-3.5 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#2D2A26]/40 shadow-xs hover:shadow-sm transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 text-left group active:scale-[0.99]"
             >
               <div className="flex items-center gap-3 min-w-0">
                 <div className="w-9 h-9 rounded-full bg-[#FAF5EE] border border-[#E8DFD1] text-[#8C6D46] flex items-center justify-center shrink-0 shadow-2xs transition-transform group-hover:scale-105">
@@ -246,7 +246,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 text-xs font-sans font-semibold text-white bg-[#C49A99] hover:bg-[#B58A89] px-3.5 py-1.5 rounded-xl shadow-2xs transition-all shrink-0">
+              <div className="flex items-center gap-1 text-xs font-sans font-semibold text-white bg-[#2D2A26] hover:bg-[#1A1816] px-3.5 py-1.5 rounded-xl shadow-2xs transition-all shrink-0">
                 <span>Pilih Studio</span>
                 <span className="text-xs transition-transform group-hover:translate-y-0.5">▾</span>
               </div>
@@ -262,64 +262,64 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             <div className="space-y-2.5">
-              {/* Pricelist Wedding Card (Dusty Rose / Mauve Palette) */}
+              {/* Pricelist Wedding Card (Clean Warm Minimalist) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 rounded-2xl sm:rounded-3xl bg-[#CBA3A1] hover:bg-[#C49A98] border border-[#BE9593] transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
+                className="p-3.5 sm:p-4 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#2D2A26]/40 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-xl shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-lg shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
                       💍
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#2E1E21] tracking-wide truncate">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#2D2A26] tracking-wide truncate">
                           PRICELIST WEDDING
                         </h4>
-                        <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-white/40 text-[#2E1E21] border border-white/50">
+                        <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#F2ECE4] text-[#5C5247] border border-[#E3DBD0]">
                           Exclusive
                         </span>
                       </div>
-                      <p className="text-xs font-sans text-[#4A3236] font-medium truncate mt-0.5">
-                        Prewedding, Akad, Resepsi & ...
+                      <p className="text-xs font-sans text-[#6B635B] font-medium truncate mt-0.5">
+                        Prewedding, Akad, Resepsi & Engagement
                       </p>
                     </div>
                   </div>
 
-                  <div className="text-xs font-sans font-bold text-[#2E1E21] flex items-center gap-1 transition-colors shrink-0">
+                  <div className="text-xs font-sans font-bold text-[#2D2A26] flex items-center gap-1 transition-colors shrink-0 group-hover:text-[#8C6D46]">
                     <span>Lihat Pricelist</span>
                     <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
 
-              {/* Pricelist Cetak Card (Dusty Slate Blue / Denim Palette) */}
+              {/* Pricelist Cetak Card (Clean Warm Minimalist) */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 rounded-2xl sm:rounded-3xl bg-[#8DA4B8] hover:bg-[#8299AD] border border-[#7E96AA] transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
+                className="p-3.5 sm:p-4 rounded-2xl bg-white hover:bg-[#FCFBF9] border border-[#E5DFD5] hover:border-[#2D2A26]/40 transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md group text-left relative overflow-hidden active:scale-[0.99]"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center text-xl shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-2xl bg-[#FAF5EE] border border-[#E8DFD1] flex items-center justify-center text-lg shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
                       🖼️
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#152330] tracking-wide truncate">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#2D2A26] tracking-wide truncate">
                           PRICELIST CETAK
                         </h4>
-                        <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-white/40 text-[#152330] border border-white/50">
+                        <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#F2ECE4] text-[#5C5247] border border-[#E3DBD0]">
                           Cetak Lab
                         </span>
                       </div>
-                      <p className="text-xs font-sans text-[#263A4B] font-medium truncate mt-0.5">
-                        Cetak Lab, Bingkai Minimalis &...
+                      <p className="text-xs font-sans text-[#6B635B] font-medium truncate mt-0.5">
+                        Cetak Lab, Bingkai Minimalis & Album
                       </p>
                     </div>
                   </div>
 
-                  <div className="text-xs font-sans font-bold text-[#152330] flex items-center gap-1 transition-colors shrink-0">
+                  <div className="text-xs font-sans font-bold text-[#2D2A26] flex items-center gap-1 transition-colors shrink-0 group-hover:text-[#8C6D46]">
                     <span>Lihat Pricelist</span>
                     <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                   </div>
@@ -414,15 +414,15 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                 onClick={() => handleChoose(branch.id)}
                 className={`p-4 sm:p-4.5 rounded-2xl sm:rounded-3xl border transition-all duration-300 cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-white border-[#C49A99] ring-2 ring-[#C49A99]/20 shadow-[0_6px_20px_-2px_rgba(196,154,153,0.2)] scale-[1.008]'
-                    : 'bg-[#FCFBF9] hover:bg-white border-[#E8E1D5] hover:border-[#C49A99]/60 shadow-xs hover:shadow-sm'
+                    ? 'bg-white border-[#2D2A26] ring-2 ring-[#2D2A26]/10 shadow-[0_6px_20px_-2px_rgba(45,42,38,0.1)] scale-[1.008]'
+                    : 'bg-[#FCFBF9] hover:bg-white border-[#E8E1D5] hover:border-[#2D2A26]/40 shadow-xs hover:shadow-sm'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0 flex-1">
                     {/* Clean Left Icon Container */}
                     <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-2xs transition-all duration-200 ${
-                      isSelected ? 'bg-[#C49A99] text-white shadow-xs' : 'bg-[#FAF5EE] text-[#8C6D46] group-hover:bg-[#F5EDE1]'
+                      isSelected ? 'bg-[#2D2A26] text-white shadow-xs' : 'bg-[#FAF5EE] text-[#8C6D46] group-hover:bg-[#F5EDE1]'
                     }`}>
                       <MapPin className="w-5 h-5 stroke-[2.2]" />
                     </div>
@@ -434,7 +434,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                           {branch.name}
                         </h4>
                         <span className={`text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full border ${
-                          isSelected ? 'bg-[#F7EFEF] text-[#A87D7C] border-[#E8D6D5]' : 'bg-[#FAF5EE] text-stone-600 border-[#E8DFD1]'
+                          isSelected ? 'bg-[#F2ECE4] text-[#5C5247] border-[#E3DBD0]' : 'bg-[#FAF5EE] text-stone-600 border-[#E8DFD1]'
                         }`}>
                           {branch.badge}
                         </span>
@@ -450,7 +450,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#A87D7C] hover:text-[#8C6D46] underline underline-offset-2 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#8C6D46] hover:text-[#5C4526] underline underline-offset-2 transition-colors cursor-pointer"
                       >
                         <span>Buka di Google Maps</span>
                         <span className="text-[10px]">↗</span>
@@ -461,9 +461,9 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                   {/* Single Right Target / Radio Indicator */}
                   <div className="pt-1 shrink-0">
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center p-0.5 transition-all duration-300 ${
-                      isSelected ? 'border-[#C49A99] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
+                      isSelected ? 'border-[#2D2A26] bg-white shadow-2xs' : 'border-stone-300 bg-transparent group-hover:border-stone-400'
                     }`}>
-                      {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#C49A99] animate-in zoom-in-50 duration-200" />}
+                      {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#2D2A26] animate-in zoom-in-50 duration-200" />}
                     </div>
                   </div>
                 </div>
