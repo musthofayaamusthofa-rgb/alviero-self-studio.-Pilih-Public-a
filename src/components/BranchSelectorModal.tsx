@@ -368,14 +368,14 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
   return (
-    <div className="max-w-6xl w-full mx-auto my-2 sm:my-6 md:my-8 px-2 sm:px-4 md:px-6 lg:px-8 animate-in fade-in duration-300">
-      <div className="bg-[#FAF8F5] border border-[#D5CEC2] shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col relative">
+    <div className="w-full max-w-5xl mx-auto my-0 sm:my-4 md:my-6 px-0 sm:px-3 md:px-6 animate-in fade-in duration-300">
+      <div className="bg-[#FAF8F5] border-x-0 sm:border sm:border-[#D5CEC2] shadow-none sm:shadow-md overflow-hidden flex flex-col relative w-full">
         
         {/* Top Hero Banner Slider (Tegas, Responsif & Luxury) */}
         <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
-        <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 bg-[#FAF8F5] flex-1">
+        <div className="p-3 sm:p-6 md:p-8 space-y-5 md:space-y-7 bg-[#FAF8F5] flex-1">
           
           {/* Section 1 & 2: Top Action Grid (3 Kolom Responsif di Desktop) */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-5">
