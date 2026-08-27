@@ -567,24 +567,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
             })}
           </div>
 
-          {/* Express Booking & Direct Call Button */}
-          <div className="flex items-center gap-2 text-[11px] font-sans font-bold">
-            <span className="text-stone-500 text-[10px] hidden sm:inline">EXPRESS:</span>
-            <a
-              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20booking"
-              target="_blank"
-              rel="noreferrer"
-              className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white text-[9.5px] font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1"
-            >
-              <span>WhatsApp</span>
-            </a>
-            <a
-              href="tel:087777538164"
-              className="px-2.5 py-1 bg-[#1C1A17] hover:bg-[#2D2A26] text-white text-[9.5px] font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1"
-            >
-              <span>Call</span>
-            </a>
-          </div>
+
         </div>
       </div>
 
