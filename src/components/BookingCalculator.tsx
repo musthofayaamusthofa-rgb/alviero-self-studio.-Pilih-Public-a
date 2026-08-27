@@ -579,19 +579,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           {step === 1 && (
             <div className="space-y-5">
               
-              {/* Branch Selector in Step 1 */}
-              <div className="bg-white border border-[#E0D9CE] p-3.5 flex items-center justify-between gap-3 shadow-2xs">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
-                    <MapPin className="w-4.5 h-4.5 text-[#8C6D46] stroke-[1.8]" />
+              {/* Branch Selector in Step 1 (Fully Responsive Mobile & Desktop) */}
+              <div className="bg-white border border-[#E0D9CE] p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shadow-2xs">
+                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#8C6D46] stroke-[1.8]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">LOKASI STUDIO:</div>
-                    <div className="text-xs sm:text-sm font-serif font-bold text-[#1C1A17] truncate">{currentBranchInfo.name}</div>
+                    <div className="text-[9px] sm:text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">
+                      LOKASI STUDIO AKTIF:
+                    </div>
+                    <div className="text-xs sm:text-sm font-serif font-bold text-[#1C1A17] truncate">
+                      {currentBranchInfo.name}
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 shrink-0">
+                <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 w-full sm:w-auto shrink-0">
                   {STUDIO_BRANCHES.map((b) => (
                     <button
                       key={b.id}
@@ -599,7 +603,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       onClick={() => {
                         if (onSelectBranch) onSelectBranch(b.id);
                       }}
-                      className={`px-3.5 py-1.5 text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                      className={`px-2.5 sm:px-3.5 py-2 sm:py-1.5 text-[10px] sm:text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border text-center flex items-center justify-center truncate ${
                         selectedBranch === b.id
                           ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
                           : 'bg-[#FAF8F5] text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
