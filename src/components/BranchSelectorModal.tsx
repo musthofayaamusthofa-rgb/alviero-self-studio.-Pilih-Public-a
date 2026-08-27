@@ -105,8 +105,8 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* 1. Top Minimalist Navbar (Tegas & Mewah) */}
-      <div className="w-full bg-white px-4 py-3 sm:px-8 flex items-center justify-center border-b border-[#E0D9CE] z-30">
+      {/* 1. Top Minimalist Navbar (Tegas & Mewah - Hanya Tampil di Mobile, Desktop Menggunakan Header Utama) */}
+      <div className="w-full bg-white px-4 py-3 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E0D9CE] z-30">
         <div className="flex items-center gap-2">
           <span className="font-serif font-black text-base sm:text-xl tracking-[0.3em] text-[#1C1A17] uppercase">
             ALVIERO

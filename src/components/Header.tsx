@@ -54,31 +54,31 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className={`hidden lg:block sticky top-0 z-40 transition-all duration-300 ${
       isScrolled 
-        ? 'glass-header-scrolled border-b border-stone-200/80 shadow-xs' 
-        : 'glass-header border-b border-stone-200/40'
+        ? 'bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#D5CEC2] shadow-xs' 
+        : 'bg-[#FAF8F5] border-b border-[#E0D9CE]'
     }`}>
-      {/* Top Banner Notice */}
-      <div className="bg-[#141210] text-[#E8DFD1] text-xs py-1.5 px-4 transition-all border-b border-white/10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      {/* Top Banner Notice (Sharp & Luxurious) */}
+      <div className="bg-[#141210] text-[#E8DFD1] text-[11px] py-1.5 px-4 sm:px-8 border-b border-white/10">
+        <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center gap-2 font-medium">
             {isOpen ? (
               <>
-                <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50"></span>
-                <span className="text-emerald-200 font-bold">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50"></span>
+                <span className="text-emerald-300 font-bold uppercase tracking-wider text-[10px]">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
               </>
             ) : (
               <>
-                <span className="inline-block w-2 h-2 rounded-full bg-rose-400 animate-pulse shadow-sm shadow-rose-400/50"></span>
-                <span className="text-rose-200 font-bold">Studio Tutup • Buka Jam 08:00 - 21:00 WIB</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse shadow-sm shadow-rose-400/50"></span>
+                <span className="text-rose-300 font-bold uppercase tracking-wider text-[10px]">Studio Tutup • Buka Jam 08:00 - 21:00 WIB</span>
               </>
             )}
           </div>
-          <div className="flex items-center gap-4 text-[#D8CFBF] text-xs">
+          <div className="flex items-center gap-4 text-[#D8CFBF] text-[10.5px]">
             <a 
               href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20jadwal%20slot%20kosong" 
               target="_blank" 
               rel="noreferrer"
-              className="hover:text-white flex items-center gap-1.5 transition-colors font-semibold"
+              className="hover:text-white flex items-center gap-1.5 transition-colors font-semibold uppercase tracking-wider"
             >
               <MessageCircle className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span>Admin WA VIP: +62 877-7753-8164</span>
@@ -87,8 +87,8 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Main Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      {/* Main Header (Sharp Minimalist Layout) */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo (Logo Resmi Alviero Studio) */}
         <div 
           onClick={() => setActiveTab('katalog')} 
@@ -101,95 +101,68 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </div>
 
-        {/* Desktop Navigation Tabs */}
-        <nav className="hidden lg:flex items-center gap-1 bg-[#F2ECE4] p-1 rounded-full border border-[#E0D6C8] shadow-2xs">
+        {/* Desktop Navigation Tabs (Sudut Tegas & Modern) */}
+        <nav className="hidden lg:flex items-center gap-1 bg-white p-1 border border-[#D5CEC2] shadow-2xs">
           <button
             onClick={() => setActiveTab('katalog')}
-            className={`px-4 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'katalog' || activeTab === 'pricelist-sheets'
                 ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
-                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-stone-200/50 font-semibold'
+                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold'
             }`}
           >
-            <Camera className={`w-3.5 h-3.5 ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
+            <Camera className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
             Katalog & Pricelist
           </button>
 
           <button
             onClick={() => setActiveTab('strip-builder')}
-            className={`px-4 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'strip-builder'
                 ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
-                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-stone-200/50 font-semibold'
+                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold'
             }`}
           >
-            <Sparkles className={`w-3.5 h-3.5 ${activeTab === 'strip-builder' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
-            Bikin Photo Strip
+            <Sparkles className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
+            Photo Strip
           </button>
 
           <button
             onClick={() => setActiveTab('rules')}
-            className={`px-4 py-1.5 rounded-full text-xs transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'rules'
                 ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
-                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-stone-200/50 font-semibold'
+                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold'
             }`}
           >
-            <MapPin className={`w-3.5 h-3.5 ${activeTab === 'rules' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
+            <MapPin className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'rules' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
             Panduan & Lokasi
           </button>
         </nav>
 
-        {/* CTA & Branch Switcher */}
+        {/* CTA & Branch Switcher (Sudut Tegas & Elegan) */}
         <div className="flex items-center gap-2.5">
           {onOpenBranchModal && (
             <button
               type="button"
               onClick={onOpenBranchModal}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white hover:bg-[#FAF8F5] text-[#1C1A17] font-bold text-xs border border-[#E0D6C8] transition-all cursor-pointer active:scale-95 shadow-2xs"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#FAF8F5] text-[#1C1A17] font-bold text-xs border border-[#D5CEC2] hover:border-[#1C1A17] transition-all cursor-pointer shadow-2xs uppercase tracking-wider"
             >
-              <span>{currentBranchInfo.icon} {currentBranchInfo.shortName}</span>
-              <span className="text-[10px] text-[#8C6D46] font-black underline underline-offset-2">Ganti</span>
+              <MapPin className="w-3.5 h-3.5 text-[#8C6D46] stroke-[1.8]" />
+              <span>{currentBranchInfo.shortName}</span>
+              <span className="text-[10px] text-[#8C6D46] font-black underline underline-offset-2 ml-0.5">Ganti</span>
             </button>
           )}
 
           <button
             onClick={onOpenBooking}
-            className="relative group bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs px-5 py-2.5 rounded-full shadow-xs hover:shadow-md transition-all duration-200 flex items-center gap-2 active:scale-95 cursor-pointer border border-[#3D3832]"
+            className="relative group bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs px-5 py-2.5 shadow-xs hover:shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer border border-[#1C1A17] uppercase tracking-wider"
           >
-            <Calendar className="w-4 h-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
-            <span>Hitung & Reservasi</span>
+            <Calendar className="w-4 h-4 text-[#D4AF37] stroke-[1.8] group-hover:scale-110 transition-transform" />
+            <span>Reservasi</span>
             <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
           </button>
         </div>
-      </div>
-
-      {/* Mobile Sub-Navigation Bar */}
-      <div className="lg:hidden flex overflow-x-auto border-t border-[#E8E1D5] px-3 py-2 gap-1.5 scroll-mask-x bg-[#FAF8F5]/95 backdrop-blur-md text-xs">
-        <button
-          onClick={() => setActiveTab('katalog')}
-          className={`shrink-0 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-            activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
-          }`}
-        >
-          📷 Katalog & Pricelist
-        </button>
-        <button
-          onClick={() => setActiveTab('strip-builder')}
-          className={`shrink-0 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-            activeTab === 'strip-builder' ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
-          }`}
-        >
-          ✨ Photo Strip
-        </button>
-        <button
-          onClick={() => setActiveTab('rules')}
-          className={`shrink-0 px-3 py-1.5 rounded-xl font-bold transition-all cursor-pointer ${
-            activeTab === 'rules' ? 'bg-[#1C1A17] text-white shadow-xs' : 'bg-white text-stone-700 border border-[#E8E1D5]'
-          }`}
-        >
-          📍 Lokasi & FAQ
-        </button>
       </div>
     </header>
   );
