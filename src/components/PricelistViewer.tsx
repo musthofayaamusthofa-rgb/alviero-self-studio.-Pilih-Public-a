@@ -4186,7 +4186,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     {/* Foto Preview */}
                     <div
                       className="relative aspect-[4/3] bg-slate-950 overflow-hidden cursor-pointer group"
-                      onClick={() => setActiveModalPhoto(photo)}
+                      onClick={() => {
+                        setActiveModalPhoto(photo);
+                        setModalImageIndex(0);
+                      }}
                     >
                       <img
                         src={photo.imageUrl}
@@ -4194,39 +4197,53 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 
                       {/* Label Paket */}
-                      <div className="absolute top-2.5 left-2.5 bg-slate-900/90 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/10 flex items-center gap-1 shadow-xs">
+                      <div className="absolute top-2.5 left-2.5 bg-slate-900/90 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-white/10 flex items-center gap-1 shadow-xs z-10">
                         <span>{photo.icon}</span>
                         <span>{photo.packageName}</span>
                       </div>
 
                       {/* Tombol Perbesar */}
-                      <div className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/30 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-white/50 transition-colors">
+                      <div className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/30 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-white/50 transition-colors z-10">
                         <ZoomIn className="w-3.5 h-3.5" />
                       </div>
 
-                      <div className="absolute bottom-2.5 left-2.5 right-2.5 text-white">
-                        <h4 className="font-bold text-xs sm:text-sm leading-snug drop-shadow-sm line-clamp-1">
+                      {/* Judul & Indikator di Atas Foto dengan Kontras Tinggi */}
+                      <div className="absolute bottom-0 inset-x-0 p-3 pt-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white z-10">
+                        <h4 className="font-extrabold text-xs sm:text-sm text-white leading-snug drop-shadow-md line-clamp-1">
                           {photo.title}
                         </h4>
+                        {photo.images && photo.images.length > 1 && (
+                          <div className="flex items-center gap-1 mt-0.5 text-[10px] text-amber-300 font-bold drop-shadow-xs">
+                            <span>📸 {photo.images.length} Foto Preview • Geser ↔️</span>
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     {/* Konten & Tombol */}
                     <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5">
-                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                        {photo.description}
-                      </p>
+                      <div className="space-y-1">
+                        <h4 className="font-black text-xs sm:text-sm text-slate-900 leading-snug line-clamp-1">
+                          {photo.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                          {photo.description}
+                        </p>
+                      </div>
 
                       <div className="pt-2 border-t border-slate-100">
                         <button
-                          onClick={() => setActiveModalPhoto(photo)}
+                          onClick={() => {
+                            setActiveModalPhoto(photo);
+                            setModalImageIndex(0);
+                          }}
                           className="w-full min-h-[36px] bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
                         >
                           <ZoomIn className="w-3.5 h-3.5 text-amber-300" />
-                          <span>Lihat Foto HD</span>
+                          <span>{photo.images && photo.images.length > 1 ? `Lihat ${photo.images.length} Foto HD (Bisa Digeser)` : 'Lihat Foto HD'}</span>
                         </button>
                       </div>
                     </div>
