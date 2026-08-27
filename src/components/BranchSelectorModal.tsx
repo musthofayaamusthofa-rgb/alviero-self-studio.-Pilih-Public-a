@@ -357,204 +357,378 @@ export const ClientReviewCarousel: React.FC = () => {
 };
 
 /**
- * Fasilitas & Spesifikasi Lighting Studio (Improvisasi dari referensi StudioJakarta)
+ * Data Tur & Informasi Edukasi Lengkap Ruang Studio Alviero (Sesuai Referensi StudioJakarta)
  */
-export const StudioSpecAndFacilities: React.FC<{
+export interface StudioRoomData {
+  id: string;
+  name: string;
+  badge: string;
+  tagline: string;
+  branchId: StudioBranch;
+  images: {
+    src: string;
+    caption: string;
+    tag: string;
+  }[];
+  dimensions: string;
+  capacity: string;
+  lightingSetup: string;
+  backdrops: string;
+  description: string;
+  highlights: string[];
+}
+
+export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
+  {
+    id: 'studio-1',
+    name: 'STUDIO 1 — KARANGPLOSO',
+    badge: 'COMPLETE MEDIUM & WISUDA STUDIO',
+    tagline: 'Studio Utama Serbaguna Lantai Dasar dengan Live-View Monitor & Lighting Godox Pro',
+    branchId: 'cabang-1',
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=85',
+        caption: 'Setup Studio 1 dengan Dual Monitor Live-View & Lighting Godox High-Speed',
+        tag: 'LIVE MONITOR SETUP'
+      },
+      {
+        src: '/images/backdrops/backdrop-1.jpg',
+        caption: 'Mint Modern Aesthetic Sofa Theme — Cocok untuk Wisuda & Keluarga',
+        tag: '7+ THEME BACKDROP'
+      },
+      {
+        src: '/images/backdrops/backdrop-5.jpg',
+        caption: 'European Royal Fireplace & Frame — Set Mewah Formal',
+        tag: 'ROYAL FIREPLACE'
+      },
+      {
+        src: '/images/backdrops/backdrop-4.jpg',
+        caption: 'Charcoal Deep Classic Sofa — Elegan & Timeless',
+        tag: 'TIMELESS CLASSIC'
+      }
+    ],
+    dimensions: 'Luas 7m x 5m | Ceiling 3.5m (Lantai Dasar Tanpa Tangga)',
+    capacity: '1 - 20 Orang (Sangat nyaman untuk grup wisuda, keluarga & prewedding)',
+    lightingSetup: '4 Set Lampu Studio Godox Highspeed + Octagon 120cm + RGB Tube Lighting',
+    backdrops: '7+ Tema Backdrop Permanen & Varian Seamless Background Paper',
+    description: 'Studio di lokasi strategis, akses mudah di lantai dasar, untuk produksi multimedia dan foto wisuda, wedding, keluarga & self studio mengikuti kebutuhan industri kreatif. Perlengkapan lighting foto dan video menjadi standar, dan di-maintain secara profesional. Dilengkapi live-view monitor realtime untuk melihat hasil jepretan seketika, serta 7 pilihan tema backdrop estetik. Fasilitas termasuk ruang ber-AC sejuk, fitting room, toga wisuda lengkap & properti gratis, internet fiber optic, listrik 11.000 Watt, speaker sound system, dan parkir luas hingga 8 mobil. Cocok untuk tim produksi dan keluarga yang membutuhkan kualitas, kemudahan, dan lokasi strategis.',
+    highlights: [
+      'Akses Lantai Dasar Tanpa Tangga',
+      'Monitor Live-View Preview Realtime',
+      'Full AC Sejuk & Fitting Room Bersih',
+      'Koleksi Toga Wisuda & Properti Siap Pakai',
+      'Parkir Mobil & Motor Luas'
+    ]
+  },
+  {
+    id: 'studio-2',
+    name: 'STUDIO 2 — CABANG EKSKLUSIF',
+    badge: 'PREMIUM SUITE & INTIMATE WEDDING',
+    tagline: 'Studio Lebih Luas dengan Private Dressing Suite & Set Prewedding Mewah',
+    branchId: 'cabang-2',
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85',
+        caption: 'Area Shooting Lega dengan Private Suite & Ruang Ganti Ber-AC',
+        tag: 'EXCLUSIVE SUITE'
+      },
+      {
+        src: '/images/backdrops/backdrop-2.jpg',
+        caption: 'Bohemian Rustic Texture Wall — Natural & Warm Aesthetic',
+        tag: 'BOHEMIAN RUSTIC'
+      },
+      {
+        src: '/images/backdrops/backdrop-3.jpg',
+        caption: 'Black Arch Window Bar Stool Theme — Bold & Editorial',
+        tag: 'ARCH WINDOW'
+      },
+      {
+        src: '/images/backdrops/backdrop-7.jpg',
+        caption: 'White Arch Windows & Grey Minimalist Set',
+        tag: 'MINIMALIST BRIGHT'
+      }
+    ],
+    dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
+    capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
+    lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
+    backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Backdrop',
+    description: 'Pilihan studio eksklusif dengan area shooting lebih luas dan ceiling tinggi untuk pilihan studio lebih besar. Dirancang khusus untuk sesi foto intimate wedding, prewedding bergaun panjang, kebaya wisuda nusantara, dan keluarga besar. Dilengkapi private dressing suite ber-AC dengan cermin vanity Hollywood, fitting room khusus busana pengantin, asisten studio standby membantu pose dan kerapian pakaian, sound system Bluetooth, serta konsultasi outfit gratis.',
+    highlights: [
+      'Area Shooting Lebih Luas & Ceiling Tinggi',
+      'Private Dressing Suite Ber-AC',
+      'Cermin Vanity Hollywood Mewah',
+      'Fitting Gaun / Kebaya Pengantin Lengkap',
+      'Asisten Studio Standby'
+    ]
+  },
+  {
+    id: 'self-studio',
+    name: 'SELF STUDIO MANDIRI',
+    badge: '100% PRIVATE WIRELESS BOOTH',
+    tagline: 'Sesi Foto Bebas Tanpa Fotografer dengan Remote Shutter Nirkabel & Cetak Instan',
+    branchId: 'cabang-1',
+    images: [
+      {
+        src: '/images/backdrops/backdrop-6.jpg',
+        caption: 'Private Self-Studio Room dengan Remote Nirkabel & Live Display',
+        tag: 'WIRELESS BOOTH'
+      },
+      {
+        src: '/images/backdrops/backdrop-1.jpg',
+        caption: 'Aesthetic Props & Background Minimalis Tanpa Rasa Canggung',
+        tag: 'PROPS COLLECTION'
+      }
+    ],
+    dimensions: 'Luas 5m x 4m (Ruang Tertutup & Terjaga Privasinya)',
+    capacity: '1 - 8 Orang (Sangat seru untuk pasangan, bestie & solo)',
+    lightingSetup: 'Godox Studio Flash + Softbox Diffuser Siap Pakai Tanpa Setting Manual',
+    backdrops: 'Pilihan Background Grey, White, Cream & Pastel Aesthetic',
+    description: 'Konsep foto mandiri 100% private tanpa kehadiran fotografer untuk Anda yang ingin berekspresi bebas dan seru tanpa rasa canggung atau malu. Cukup tekan remote shutter nirkabel di genggaman Anda, hasil foto langsung tampil di layar monitor besar di depan Anda secara instan. Semua file asli resolusi tinggi (HD) langsung dibagikan via Google Drive, lengkap dengan cetakan photo strip eksklusif anti-luntur.',
+    highlights: [
+      'Remote Shutter Nirkabel Responsif',
+      'Monitor Preview Realtime Besar',
+      'Bebas Berekspresi Tanpa Canggung',
+      'Semua File Asli HD via Google Drive',
+      'Cetak Instan Photo Strip Eksklusif'
+    ]
+  }
+];
+
+/**
+ * Komponen Edukasi Tur Studio & Spesifikasi Lengkap (Improvisasi dari Referensi StudioJakarta)
+ */
+export const StudioTourAndEducationShowcase: React.FC<{
   onSelectCategory?: (category: string) => void;
   onSelectBranch: (branch: StudioBranch) => void;
   selectedBranch: StudioBranch;
 }> = ({ onSelectCategory, onSelectBranch, selectedBranch }) => {
-  const [currentGearIdx, setCurrentGearIdx] = useState<number>(0);
+  const [activeRoomId, setActiveRoomId] = useState<string>('studio-1');
+  const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
 
-  const GEAR_SHOWCASE = [
-    {
-      id: '1',
-      image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=85',
-      tag: 'LIGHTING SETUP',
-      headline: 'RGB LIGHT & GODOX PRO NOW STANDARD AT ALL STUDIO',
-      sub: 'Setup pencahayaan studio profesional untuk foto wisuda, wedding, dan self-portrait beresolusi tinggi.'
-    },
-    {
-      id: '2',
-      image: '/images/backdrops/backdrop-1.jpg',
-      tag: 'BACKDROP & PROPS',
-      headline: '7+ AESTHETIC THEMES & PROPS READY TO USE',
-      sub: 'Pilihan sofa mewah, arch window, fireplace, dan tekstur bohemian siap pakai tanpa biaya tambahan.'
-    },
-    {
-      id: '3',
-      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=85',
-      tag: 'PRIVATE STUDIO SPACE',
-      headline: 'FULLY AIR-CONDITIONED WITH PRIVATE FITTING ROOM',
-      sub: 'Area studio ber-AC sejuk, fitting room bersih, dan asisten studio standby untuk kenyamanan Anda.'
-    }
-  ];
+  const activeRoom = STUDIO_ROOMS_DATA.find((r) => r.id === activeRoomId) || STUDIO_ROOMS_DATA[0];
+  const activeSlide = activeRoom.images[currentSlideIdx] || activeRoom.images[0];
 
-  const handleNextGear = () => {
-    setCurrentGearIdx((prev) => (prev + 1) % GEAR_SHOWCASE.length);
+  const handleNextSlide = () => {
+    setCurrentSlideIdx((prev) => (prev + 1) % activeRoom.images.length);
   };
 
-  const handlePrevGear = () => {
-    setCurrentGearIdx((prev) => (prev - 1 + GEAR_SHOWCASE.length) % GEAR_SHOWCASE.length);
+  const handlePrevSlide = () => {
+    setCurrentSlideIdx((prev) => (prev - 1 + activeRoom.images.length) % activeRoom.images.length);
   };
-
-  const activeGear = GEAR_SHOWCASE[currentGearIdx];
 
   return (
-    <div className="space-y-3.5 pt-4 pb-1 border-t border-[#E0D9CE]">
-      {/* Studio Descriptions */}
-      <div className="space-y-3 bg-white p-3.5 sm:p-4.5 border border-[#E0D9CE]">
-        {/* Studio 1 */}
-        <div className="space-y-1">
-          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider">
-            STUDIO 1 — KARANGPLOSO (MAIN STUDIO)
-          </h4>
-          <p className="text-[11px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
-            Studio di lokasi strategis, akses mudah di lantai dasar, untuk produksi foto wisuda, wedding, group family, dan self-studio. Perlengkapan lighting foto standar industri dan dirawat secara profesional.
-          </p>
+    <div className="space-y-4 pt-4 pb-1 border-t border-[#E0D9CE]">
+      {/* Header Edukasi dengan Garis Aksen Emas */}
+      <div className="space-y-2 text-left">
+        <div className="border-b-2 border-[#8C6D46] pb-2 flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <span className="text-[9.5px] font-sans font-bold tracking-[0.2em] text-[#8C6D46] uppercase block">
+              STUDIO SPECIFICATIONS & FACILITIES
+            </span>
+            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wider text-[#1C1A17] uppercase mt-0.5">
+              EDUKASI RUANG & SPESIFIKASI STUDIO
+            </h3>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="text-[9.5px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#D5CEC2] font-semibold uppercase">
+              Pro Godox Gear
+            </span>
+            <span className="text-[9.5px] bg-emerald-50 text-emerald-800 px-2 py-0.5 border border-emerald-200 font-semibold uppercase">
+              Full AC
+            </span>
+          </div>
         </div>
 
-        {/* Studio 2 */}
-        <div className="space-y-1 pt-2.5 border-t border-[#EFEAE2]">
-          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider">
-            STUDIO 2 — CABANG EKSKLUSIF
-          </h4>
-          <p className="text-[11px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
-            Pilihan studio lebih luas dengan area shooting lega, ruang ganti private ber-AC, dan fasilitas fitting gaun/kebaya lengkap.
-          </p>
-        </div>
+        {/* Tab Pilihan Studio & Express Booking */}
+        <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
+          {/* Tombol Tab Ruang Studio */}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {STUDIO_ROOMS_DATA.map((room) => {
+              const isActive = activeRoomId === room.id;
+              return (
+                <button
+                  key={room.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveRoomId(room.id);
+                    setCurrentSlideIdx(0);
+                    onSelectBranch(room.branchId);
+                  }}
+                  className={`px-3 py-1.5 text-[10px] sm:text-[10.5px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
+                    isActive
+                      ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
+                      : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
+                  }`}
+                >
+                  {room.name.replace('STUDIO ', 'STUDIO ').split('—')[0]}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Express Booking & Direct Contact Bar */}
-        <div className="pt-2.5 border-t border-[#EFEAE2] flex items-center justify-between flex-wrap gap-2">
-          <div className="text-[11px] font-sans font-bold text-[#1C1A17] flex items-center gap-1.5">
-            <span className="font-serif uppercase tracking-wider text-xs">EXPRESS BOOKING</span>
-            <span className="text-stone-300">|</span>
-            <a 
-              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20booking" 
-              target="_blank" 
+          {/* Express Booking & Direct Call Button */}
+          <div className="flex items-center gap-2 text-[11px] font-sans font-bold">
+            <span className="text-stone-500 text-[10px] hidden sm:inline">EXPRESS:</span>
+            <a
+              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20booking"
+              target="_blank"
               rel="noreferrer"
-              className="text-emerald-700 hover:text-emerald-800 underline underline-offset-2 font-bold"
+              className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white text-[9.5px] font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1"
+            >
+              <span>WhatsApp</span>
+            </a>
+            <a
+              href="tel:087777538164"
+              className="px-2.5 py-1 bg-[#1C1A17] hover:bg-[#2D2A26] text-white text-[9.5px] font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-1"
+            >
+              <span>Call</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Interactive Photo Slider Ruang Studio */}
+      <div className="relative h-60 sm:h-72 md:h-80 bg-[#1C1A17] overflow-hidden border border-[#E0D9CE] group">
+        <img
+          key={`${activeRoom.id}-${currentSlideIdx}`}
+          src={activeSlide.src}
+          alt={activeSlide.caption}
+          className="w-full h-full object-cover object-center animate-in fade-in duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20" />
+
+        {/* Tag Overlay di Atas */}
+        <div className="absolute top-3 left-3 z-10">
+          <span className="inline-block text-[8.5px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/70 px-2.5 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
+            {activeSlide.tag}
+          </span>
+        </div>
+
+        {/* Caption Foto di Bawah */}
+        <div className="absolute bottom-3 left-3 right-12 z-10 text-left">
+          <p className="text-[11px] sm:text-xs font-sans text-white font-medium drop-shadow-md truncate">
+            {activeSlide.caption}
+          </p>
+        </div>
+
+        {/* Tombol Panah Kiri (<) */}
+        <button
+          type="button"
+          onClick={handlePrevSlide}
+          aria-label="Previous Photo"
+          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
+        >
+          <ChevronLeft className="w-4 h-4 stroke-[2]" />
+        </button>
+
+        {/* Tombol Panah Kanan (>) */}
+        <button
+          type="button"
+          onClick={handleNextSlide}
+          aria-label="Next Photo"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
+        >
+          <ChevronRight className="w-4 h-4 stroke-[2]" />
+        </button>
+
+        {/* Indikator Slider */}
+        <div className="absolute bottom-3 right-3 flex items-center gap-1 z-20 bg-black/60 px-2 py-1 border border-white/20">
+          {activeRoom.images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlideIdx(idx)}
+              className={`transition-all cursor-pointer ${
+                currentSlideIdx === idx ? 'w-4 h-0.5 bg-[#D4AF37]' : 'w-1 h-0.5 bg-white/40'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Kartu Informasi & Edukasi Ruang Studio (Sesuai Referensi StudioJakarta) */}
+      <div className="bg-white p-4 sm:p-5 border border-[#E0D9CE] space-y-3 text-left">
+        <div className="flex items-start justify-between gap-2 flex-wrap">
+          <div>
+            <h4 className="font-serif font-bold text-xs sm:text-sm md:text-base text-[#1C1A17] uppercase tracking-wide">
+              {activeRoom.name} <span className="text-stone-400">|</span>{' '}
+              <span className="text-[#8C6D46]">{activeRoom.badge}</span>
+            </h4>
+            <p className="text-[11px] font-sans font-semibold text-stone-600 mt-0.5">
+              {activeRoom.tagline}
+            </p>
+          </div>
+        </div>
+
+        {/* Paragraf Deskripsi Edukasi yang Lengkap */}
+        <p className="text-[11px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
+          {activeRoom.description}
+        </p>
+
+        {/* Spesifikasi Teknis Studio (Grid 2 Kolom) */}
+        <div className="pt-2 border-t border-[#EFEAE2] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10.5px] font-sans text-[#4A433A]">
+          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
+            <span className="font-bold text-[#1C1A17] block">📐 Dimensi & Akses:</span>
+            <span>{activeRoom.dimensions}</span>
+          </div>
+          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
+            <span className="font-bold text-[#1C1A17] block">👥 Kapasitas:</span>
+            <span>{activeRoom.capacity}</span>
+          </div>
+          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
+            <span className="font-bold text-[#1C1A17] block">💡 Lighting Setup:</span>
+            <span>{activeRoom.lightingSetup}</span>
+          </div>
+          <div className="bg-[#FAF8F5] p-2 border border-[#E0D9CE]">
+            <span className="font-bold text-[#1C1A17] block">🎨 Pilihan Backdrop:</span>
+            <span>{activeRoom.backdrops}</span>
+          </div>
+        </div>
+
+        {/* Highlights Checklist */}
+        <div className="pt-2 border-t border-[#EFEAE2] flex items-center gap-2 flex-wrap text-[10px] font-sans font-medium text-stone-700">
+          {activeRoom.highlights.map((highlight, idx) => (
+            <span key={idx} className="bg-stone-50 px-2 py-0.5 border border-[#E0D9CE] flex items-center gap-1">
+              <span className="text-emerald-700 font-bold">✓</span>
+              {highlight}
+            </span>
+          ))}
+        </div>
+
+        {/* Express Booking Call to Action */}
+        <div className="pt-2 border-t border-[#EFEAE2] flex items-center justify-between flex-wrap gap-2 text-[11px] font-sans">
+          <div className="flex items-center gap-1.5 text-stone-700">
+            <span className="font-bold text-[#1C1A17] font-serif uppercase tracking-wider">EXPRESS BOOKING</span>
+            <span>|</span>
+            <a
+              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20booking%20jadwal"
+              target="_blank"
+              rel="noreferrer"
+              className="text-emerald-700 font-bold hover:underline"
             >
               0877-7753-8164
             </a>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <a
-              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20booking"
-              target="_blank"
-              rel="noreferrer"
-              className="px-3 py-1 bg-emerald-700 hover:bg-emerald-800 text-white font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
-            >
-              WhatsApp
-            </a>
-            <a
-              href="tel:087777538164"
-              className="px-3 py-1 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-sans text-[10px] font-bold uppercase tracking-wider transition-colors"
-            >
-              Quick Call
-            </a>
-          </div>
-        </div>
-
-        {/* Quick Filter Buttons */}
-        <div className="pt-2.5 flex items-center gap-1.5 flex-wrap">
           <button
             type="button"
-            onClick={() => onSelectBranch('branch-1')}
-            className={`px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
-              selectedBranch === 'branch-1'
-                ? 'bg-[#1C1A17] text-white border-[#1C1A17]'
-                : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
-            }`}
+            onClick={() => onSelectBranch(activeRoom.branchId)}
+            className="px-4 py-1.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-colors cursor-pointer border border-[#1C1A17]"
           >
-            Studio 1
-          </button>
-          <button
-            type="button"
-            onClick={() => onSelectBranch('branch-2')}
-            className={`px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
-              selectedBranch === 'branch-2'
-                ? 'bg-[#1C1A17] text-white border-[#1C1A17]'
-                : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
-            }`}
-          >
-            Studio 2
-          </button>
-          <button
-            type="button"
-            onClick={() => onSelectCategory ? onSelectCategory('selfstudio') : onSelectBranch(selectedBranch)}
-            className="px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider bg-white text-stone-700 border border-[#D5CEC2] hover:border-[#1C1A17] transition-colors cursor-pointer"
-          >
-            Self Studio
-          </button>
-          <button
-            type="button"
-            onClick={() => onSelectCategory ? onSelectCategory('grad-indoor') : onSelectBranch(selectedBranch)}
-            className="px-3 py-1 text-[10px] font-sans font-bold uppercase tracking-wider bg-white text-stone-700 border border-[#D5CEC2] hover:border-[#1C1A17] transition-colors cursor-pointer"
-          >
-            Graduation
+            Pilih {activeRoom.name.split('—')[0]} →
           </button>
         </div>
-      </div>
-
-      {/* Pro Gear & Studio Facilities Showcase Banner Slider */}
-      <div className="relative h-56 sm:h-64 md:h-72 bg-[#1C1A17] overflow-hidden border border-[#E0D9CE]">
-        <img
-          key={activeGear.id}
-          src={activeGear.image}
-          alt={activeGear.headline}
-          className="w-full h-full object-cover object-center animate-in fade-in duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/30" />
-
-        {/* Text Overlay */}
-        <div className="absolute inset-0 p-4 sm:p-5 flex flex-col justify-between text-left z-10">
-          <div>
-            <span className="inline-block text-[8.5px] font-bold tracking-widest text-[#D4AF37] uppercase bg-black/60 px-2 py-0.5 border border-[#D4AF37]/40">
-              {activeGear.tag}
-            </span>
-          </div>
-
-          <div className="space-y-1 max-w-md">
-            <h4 className="font-serif font-black text-xs sm:text-sm md:text-base text-white leading-tight drop-shadow-md tracking-wide uppercase">
-              {activeGear.headline}
-            </h4>
-            <p className="text-[10px] sm:text-[10.5px] font-sans text-stone-300 leading-relaxed drop-shadow-sm">
-              {activeGear.sub}
-            </p>
-          </div>
-        </div>
-
-        {/* Arrow Navigation */}
-        <button
-          type="button"
-          onClick={handlePrevGear}
-          aria-label="Previous Gear"
-          className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-black/50 hover:bg-black/80 text-white flex items-center justify-center border border-white/20 z-20 cursor-pointer transition-transform active:scale-90"
-        >
-          <ChevronLeft className="w-3.5 h-3.5" />
-        </button>
-
-        <button
-          type="button"
-          onClick={handleNextGear}
-          aria-label="Next Gear"
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-black/50 hover:bg-black/80 text-white flex items-center justify-center border border-white/20 z-20 cursor-pointer transition-transform active:scale-90"
-        >
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* Facility Highlights Footer (Sesuai Referensi StudioJakarta) */}
       <div className="p-3 bg-white border border-[#E0D9CE] text-center">
-        <p className="font-sans font-semibold text-[10px] sm:text-[11px] text-[#1C1A17] leading-relaxed">
+        <p className="font-sans font-semibold text-[10px] sm:text-[11.5px] text-[#1C1A17] leading-relaxed">
           <span className="font-bold">Fully Air-Conditioned</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
-          <span className="font-bold">Professional Godox Lighting</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
-          <span className="font-bold">7+ Props Collection Ready</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
+          <span className="font-bold">Professional Lighting & Equipment</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
+          <span className="font-bold">Props Collection Ready to Use</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
           <span className="font-bold">Standby Studio Assistant</span>
         </p>
-        <div className="h-0.5 bg-[#8C6D46]/80 w-20 mx-auto mt-2" />
+        <div className="h-0.5 bg-[#8C6D46] w-24 mx-auto mt-2" />
       </div>
     </div>
   );
@@ -581,8 +755,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         {/* Content Area */}
         <div className="p-3.5 sm:p-5 md:p-7 space-y-5 md:space-y-6 bg-[#FAF8F5] flex-1">
           
-          {/* 1. Spesifikasi Studio & Fasilitas Pro Gear (Dari Referensi StudioJakarta) */}
-          <StudioSpecAndFacilities 
+          {/* 1. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
+          <StudioTourAndEducationShowcase 
             selectedBranch={selectedBranch}
             onSelectBranch={onSelectBranch}
             onSelectCategory={onSelectCategory}
