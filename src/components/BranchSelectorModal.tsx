@@ -98,7 +98,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none bg-[#1C1A17] group flex flex-col"
+      className="relative w-full overflow-hidden select-none bg-white group flex flex-col border-b border-[#E0D9CE]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -114,42 +114,27 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
         </div>
       </div>
 
-      {/* 2. Full Image Banner Container with Architectural Typography */}
-      <div className="w-full h-80 sm:h-96 md:h-[440px] lg:h-[480px] relative overflow-hidden bg-[#1C1A17] flex items-center justify-center text-center px-4 md:px-12">
-        
-        {/* Slide Photo with Subtle Zoom Animation */}
+      {/* 2. Full Image Banner Container (Bersih Tanpa Teks yang Menutupi Foto) */}
+      <div className="w-full h-72 sm:h-84 md:h-[440px] lg:h-[500px] relative overflow-hidden bg-[#1C1A17]">
+        {/* Slide Photo with Smooth Transition */}
         <img
           key={activeSlide.id}
           src={activeSlide.image}
           alt={activeSlide.title}
-          className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
+          className="w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
         />
 
-        {/* Dark Vignette Overlay for High Contrast */}
-        <div className="absolute inset-0 bg-black/50 bg-gradient-to-t from-black/80 via-black/40 to-black/40 pointer-events-none" />
+        {/* Subtle Bottom Gradient for Caption & Controls Only */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-        {/* Centered Hero Content (Tegas, Elegan & Modern) */}
-        <div className="relative z-20 max-w-sm sm:max-w-md md:max-w-2xl mx-auto flex flex-col items-center animate-in zoom-in-95 duration-300">
-          <h2 className="font-serif font-black text-xl sm:text-2xl md:text-4xl lg:text-5xl text-white leading-tight drop-shadow-lg tracking-wide uppercase">
-            Modern Studio Photos
-          </h2>
-          
-          <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#EAE2D5] mt-1.5 md:mt-2.5 tracking-[0.18em] uppercase">
-            For a Contemporary Lifestyle
+        {/* Bottom Left Backdrop Theme Label */}
+        <div className="absolute bottom-3.5 left-3.5 sm:left-6 z-20 text-left pointer-events-none">
+          <span className="inline-block text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#D4AF37] uppercase bg-black/70 px-2.5 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
+            {activeSlide.theme}
+          </span>
+          <p className="text-xs sm:text-sm font-serif text-white font-bold drop-shadow-md mt-1">
+            {activeSlide.title}
           </p>
-
-          <p className="font-sans text-[11px] sm:text-xs md:text-sm text-white/85 font-normal max-w-[280px] sm:max-w-sm md:max-w-lg mx-auto mt-2 md:mt-3 leading-relaxed">
-            Choose from tried-and-true studio packages designed to capture your best memories. All at your own convenience.
-          </p>
-
-          {/* Sharp Rectangular CTA Button */}
-          <button
-            type="button"
-            onClick={onViewPlans}
-            className="mt-4 md:mt-6 px-8 md:px-10 py-3 md:py-3.5 bg-white hover:bg-[#1C1A17] text-[#1C1A17] hover:text-white font-serif font-bold text-xs md:text-sm uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border border-white shadow-xl active:scale-95"
-          >
-            View Studio Packages
-          </button>
         </div>
 
         {/* Manual Arrow Controls (Sudut Tegas) */}
@@ -157,7 +142,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
           type="button"
           onClick={handlePrev}
           aria-label="Previous Slide"
-          className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-black/40 hover:bg-black/80 text-white backdrop-blur-xs flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-black/50 hover:bg-black/85 text-white backdrop-blur-xs flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
         >
           <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
         </button>
@@ -166,13 +151,13 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
           type="button"
           onClick={handleNext}
           aria-label="Next Slide"
-          className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-black/40 hover:bg-black/80 text-white backdrop-blur-xs flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
+          className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-black/50 hover:bg-black/85 text-white backdrop-blur-xs flex items-center justify-center border border-white/20 cursor-pointer transition-all z-20 active:scale-90"
         >
           <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
         </button>
 
         {/* Minimalist Bar Pagination */}
-        <div className="absolute bottom-3 md:bottom-5 flex items-center gap-1.5 z-20 bg-black/50 backdrop-blur-xs px-3 py-1.5 border border-white/15">
+        <div className="absolute bottom-3.5 right-3.5 sm:right-6 flex items-center gap-1.5 z-20 bg-black/60 backdrop-blur-xs px-3 py-1.5 border border-white/15">
           {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
             const isActive = currentIdx === idx;
             return (
@@ -189,6 +174,30 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
             );
           })}
         </div>
+      </div>
+
+      {/* 3. Hero Content Container (Tepat di Bawah Foto, Bersih & Tidak Menutupi Foto) */}
+      <div className="w-full bg-white px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-2.5 sm:space-y-3.5 border-t border-[#E0D9CE]">
+        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#1C1A17] leading-tight tracking-wide uppercase">
+          Modern Studio Photos
+        </h2>
+        
+        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#8C6D46] tracking-[0.2em] uppercase">
+          For a Contemporary Lifestyle
+        </p>
+
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#5C5650] max-w-xl mx-auto leading-relaxed">
+          Choose from tried-and-true studio packages designed to capture your best memories. All at your own convenience.
+        </p>
+
+        {/* Sharp Rectangular CTA Button */}
+        <button
+          type="button"
+          onClick={onViewPlans}
+          className="mt-2 px-8 sm:px-10 py-3 sm:py-3.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs sm:text-sm uppercase tracking-[0.2em] transition-all duration-300 cursor-pointer border border-[#1C1A17] shadow-md active:scale-95"
+        >
+          View Studio Packages
+        </button>
       </div>
     </div>
   );
