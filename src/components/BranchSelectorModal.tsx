@@ -460,37 +460,6 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
       'Fitting Gaun / Kebaya Pengantin Lengkap',
       'Asisten Studio Standby'
     ]
-  },
-  {
-    id: 'self-studio',
-    name: 'SELF STUDIO MANDIRI',
-    badge: '100% PRIVATE WIRELESS BOOTH',
-    tagline: 'Sesi Foto Bebas Tanpa Fotografer dengan Remote Shutter Nirkabel & Cetak Instan',
-    branchId: 'cabang-1',
-    images: [
-      {
-        src: '/images/backdrops/backdrop-6.jpg',
-        caption: 'Private Self-Studio Room dengan Remote Nirkabel & Live Display',
-        tag: 'WIRELESS BOOTH'
-      },
-      {
-        src: '/images/backdrops/backdrop-1.jpg',
-        caption: 'Aesthetic Props & Background Minimalis Tanpa Rasa Canggung',
-        tag: 'PROPS COLLECTION'
-      }
-    ],
-    dimensions: 'Luas 5m x 4m (Ruang Tertutup & Terjaga Privasinya)',
-    capacity: '1 - 8 Orang (Sangat seru untuk pasangan, bestie & solo)',
-    lightingSetup: 'Godox Studio Flash + Softbox Diffuser Siap Pakai Tanpa Setting Manual',
-    backdrops: 'Pilihan Background Grey, White, Cream & Pastel Aesthetic',
-    description: 'Konsep foto mandiri 100% private tanpa kehadiran fotografer untuk Anda yang ingin berekspresi bebas dan seru tanpa rasa canggung atau malu. Cukup tekan remote shutter nirkabel di genggaman Anda, hasil foto langsung tampil di layar monitor besar di depan Anda secara instan. Semua file asli resolusi tinggi (HD) langsung dibagikan via Google Drive, lengkap dengan cetakan photo strip eksklusif anti-luntur.',
-    highlights: [
-      'Remote Shutter Nirkabel Responsif',
-      'Monitor Preview Realtime Besar',
-      'Bebas Berekspresi Tanpa Canggung',
-      'Semua File Asli HD via Google Drive',
-      'Cetak Instan Photo Strip Eksklusif'
-    ]
   }
 ];
 
