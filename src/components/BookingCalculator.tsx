@@ -386,9 +386,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return sum + (addOn ? addOn.price * numQty : 0);
   }, 0);
 
-  const slotCharge = timeSlot === '20:30' ? 35000 : 0;
-
-  const subtotal = packagePrice + addOnsTotalPrice + slotCharge;
+  const subtotal = packagePrice + addOnsTotalPrice;
 
   // Calculate Discount
   let discountValue = 0;
@@ -462,10 +460,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       message += `\n`;
     }
 
-    if (slotCharge > 0) {
-      message += `⚡ *CHARGE SLOT MALAM (20:30):* Rp 35.000\n\n`;
-    }
-
     if (appliedPromo) {
       message += `🎟️ *KODE PROMO:* ${appliedPromo.code} (Hemat Rp ${discountValue.toLocaleString('id-ID')})\n`;
     }
@@ -517,7 +511,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal.toString(),
         dp: dpAmount.toString(),
         paymentMethod: paymentOption,
-        surcharge: slotCharge.toString(),
         notes: notes || '-',
         status: 'PENDING'
       }).toString();
@@ -761,7 +754,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2">
                     {activeTimeSlots.map((slot) => {
                       const isSelected = timeSlot === slot;
-                      const isChargeSlot = slot === '20:30';
                       const isBooked = bookedSlots.includes(slot);
 
                       return (
@@ -769,31 +761,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           key={slot}
                           type="button"
                           data-slot={slot}
-                          data-price={isChargeSlot ? 'surcharge' : 'normal'}
                           disabled={isBooked}
                           onClick={() => setTimeSlot(slot)}
                           className={`min-h-[46px] p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border ${isBooked
                             ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
                             : isSelected
                               ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs cursor-pointer active:scale-95'
-                              : isChargeSlot
-                                ? 'bg-[#FFFDF7] hover:bg-[#FAF5EE] text-[#6E4E18] border-[#E8DCC4] cursor-pointer active:scale-95'
-                                : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
+                              : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
                             }`}
                         >
                           <span className="leading-tight">{slot}</span>
-                          {isBooked ? (
+                          {isBooked && (
                             <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
                               Penuh
                             </span>
-                          ) : isChargeSlot ? (
-                            <span
-                              className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 ${isSelected ? 'bg-[#D4AF37] text-black font-bold' : 'bg-[#E8DCC4] text-[#6E4E18]'
-                                }`}
-                            >
-                              (+35k)
-                            </span>
-                          ) : null}
+                          )}
                         </button>
                       );
                     })}
@@ -807,20 +789,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         Pemberitahuan Jam Tutup & Keterlambatan:
                       </p>
                       <p className="text-amber-800 text-[11px] sm:text-xs leading-snug">
-                        Jika telat akan dikenakan biaya tambahan <strong className="font-bold text-amber-950">Rp. 25.000</strong> dan melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
+                        Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan atau difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-amber-950">Rp. 25.000</strong> atau dipindahkan ke hari berikutnya dan jika melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
                       </p>
                     </div>
                   </div>
-
-                  {/* Notifikasi Khusus Slot Terakhir 20:30 */}
-                  {timeSlot === '20:30' && (
-                    <div className="mt-2 p-2.5 bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-sans flex items-center gap-2">
-                      <span className="font-bold text-sm shrink-0 text-amber-800">⚡</span>
-                      <span>
-                        Slot jam <strong className="font-bold">20:30 WIB</strong> adalah slot malam terakhir sebelum jam tutup studio dan otomatis dikenakan biaya operasional tambahan <strong className="font-bold">Rp 35.000</strong>.
-                      </span>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -1269,13 +1241,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <div className="flex justify-between text-stone-300">
                   <span>Total Add-ons Tambahan</span>
                   <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
-                </div>
-              )}
-
-              {slotCharge > 0 && (
-                <div className="flex justify-between text-amber-400 font-semibold">
-                  <span>Charge Slot Malam Khusus (20:30)</span>
-                  <span>+ Rp {slotCharge.toLocaleString('id-ID')}</span>
                 </div>
               )}
 
