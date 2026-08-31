@@ -478,7 +478,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
 
-  // Grid Category Arrays (Sesuai Urutan Permintaan: 1.Graduation Indoor, 2.Graduation Outdoor, 3.Group, 4.Family, 5.Maternity, 6.Personal, 7.Couple, 8.Birthday, 9.Undangan, 10.Prewed, 11.Pass Foto, 12.Sewa Studio, 13.Kebaya & Gaun)
+  // Grid Category Arrays (Sesuai Urutan 12 Paket Utama Photo Studio)
   const photoStudioGridItems = [
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
     { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' },
@@ -491,8 +491,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
     { id: 'prewed-paket', name: 'Prewedding', icon: '💍', img: '/images/categories/prewedding.jpg', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
     { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
-    { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
-    { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' }
+    { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' }
   ];
 
   const selfPhotoGridItems = [
@@ -500,6 +499,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   const additionalGridItems = [
+    { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' },
     { id: 'wedding-package', name: 'Wedding', icon: '💍', img: '/images/categories/wedding.jpg', colorBg: 'bg-[#faf1f5]', colorBorder: 'border-[#ebd0df]', colorText: 'text-[#743358]' },
     { id: 'bingkai-album', name: 'Cetak Lab', icon: '🖼️', colorBg: 'bg-[#f0f5fa]', colorBorder: 'border-[#cbe0f2]', colorText: 'text-[#264f77]' }
   ];
@@ -967,14 +967,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
               </div>
 
-              {/* 3. Layanan Tambahan (Wedding & Cetak) */}
+              {/* 3. Layanan Tambahan (Kebaya & Gaun, Wedding, Cetak Lab) */}
               <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
                 <div className="flex items-center justify-between">
                   <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
                     Layanan Tambahan
                   </h3>
                   <span className="text-[10px] font-sans bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
-                    2 Menu
+                    {additionalGridItems.length} Layanan
                   </span>
                 </div>
 
@@ -996,7 +996,16 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
                             : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
                         }`}>
-                          <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                          {item.img ? (
+                            <img
+                              src={item.img}
+                              alt={item.name}
+                              className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                          )}
                         </div>
                         <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
                           isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'

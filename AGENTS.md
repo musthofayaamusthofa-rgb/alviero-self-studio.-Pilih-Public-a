@@ -46,6 +46,7 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 ## 🖼️ 5. Standar Menu Kategori & Thumbnail Foto Paket
 Daftar kategori pada grid menu studio foto dan aset fotonya di `public/images/categories/`:
 
+### A. Photo Studio Package (12 Kategori Utama):
 1. **Graduation** 🎓 ➔ `graduation.jpg` *(Foto `DSCF0573.jpg`)*
 2. **Grad Outdoor** 🌳 ➔ `grad-outdoor.jpg` *(Foto `XH2A6894.jpg`)*
 3. **Group** 👥 ➔ `group.jpg` *(Foto `DSCF2569.jpg`)*
@@ -58,8 +59,12 @@ Daftar kategori pada grid menu studio foto dan aset fotonya di `public/images/ca
 10. **Prewedding** 💍 ➔ `prewedding.jpg` *(Foto `ALVR9962.JPG`)*
 11. **Pass photo** 🪪 ➔ Icon Pass Foto (Photo ID)
 12. **Sewa Studio** 🏛️ ➔ `sewa-studio.jpg`
-13. **Kebaya & Gaun** 👗 ➔ Icon Kebaya & Gaun
-14. **SelfStudio** ✨ ➔ `selfphoto.jpg` *(Foto `DSCF9063.JPG`, rotasi diputar 90° & framing square fokus kepala/headroom)*
+
+### B. Self Photo Package:
+13. **SelfStudio** ✨ ➔ `selfphoto.jpg` *(Foto `DSCF9063.JPG`, rotasi diputar 90° & framing square fokus kepala/headroom)*
+
+### C. Layanan Tambahan:
+14. **Kebaya & Gaun** 👗 ➔ Icon Kebaya & Gaun
 15. **Wedding** 💍 ➔ `wedding.jpg` *(Foto `DSCF7401 copy.jpg`)*
 16. **Cetak Lab** 🖼️ ➔ Icon / Image Cetak Lab
 
