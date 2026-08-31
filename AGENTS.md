@@ -41,6 +41,10 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 | **Studio 1** | Alviero Studio — Studio 1 (Karangploso) | Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151 | [https://maps.app.goo.gl/oxtptpr3RSDL9zCj6](https://maps.app.goo.gl/oxtptpr3RSDL9zCj6) | Hijau Pastel, Cream, Limbo, Putih Tengah, Putih Jendela |
 | **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream** |
 
+> ⚠️ **Aturan Panggung & Konflik Background dalam 1 Waktu:**
+> - **Studio 1**: Background *Limbo* dan *Putih Tengah* tidak bisa dipilih bersamaan dalam 1 waktu / sesi.
+> - **Studio 2**: Background *Putih*, *Abu-abu*, dan *Tematik Cream* tidak bisa bertemu / dipilih bersamaan dalam 1 waktu / sesi (berada di area panggung yang sama).
+
 ---
 
 ## 🖼️ 5. Standar Menu Kategori & Thumbnail Foto Paket

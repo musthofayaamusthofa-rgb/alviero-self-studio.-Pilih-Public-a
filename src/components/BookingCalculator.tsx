@@ -105,12 +105,32 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   const a = idA.toLowerCase();
   const b = idB.toLowerCase();
   
+  // 1. Studio 1: Limbo vs Putih Tengah (area panggung yang sama)
   const isLimboA = a.includes('limbo');
-  const isPutihTengahA = a.includes('putih-tengah') || a.includes('putih_tengah');
+  const isPutihTengahA = a.includes('putih-tengah') || a.includes('putih_tengah') || (a.includes('putih') && !a.includes('c2'));
   const isLimboB = b.includes('limbo');
-  const isPutihTengahB = b.includes('putih-tengah') || b.includes('putih_tengah');
+  const isPutihTengahB = b.includes('putih-tengah') || b.includes('putih_tengah') || (b.includes('putih') && !b.includes('c2'));
   
-  return (isLimboA && isPutihTengahB) || (isPutihTengahA && isLimboB);
+  if ((isLimboA && isPutihTengahB) || (isPutihTengahA && isLimboB)) {
+    return true;
+  }
+
+  // 2. Studio 2: Putih, Abu-abu, Tematik Cream tidak bisa bertemu dalam 1 waktu (area panggung yang sama)
+  const isC2WhiteA = a === 'c2-putih' || a.includes('c2-putih') || a.includes('c2-pro-putih');
+  const isC2GrayA = a === 'c2-abu-abu' || a.includes('c2-abu');
+  const isC2TematikA = a === 'c2-tematik-cream' || a.includes('c2-tematik') || a.includes('c2-pro-cream');
+  const isC2GroupA = isC2WhiteA || isC2GrayA || isC2TematikA;
+
+  const isC2WhiteB = b === 'c2-putih' || b.includes('c2-putih') || b.includes('c2-pro-putih');
+  const isC2GrayB = b === 'c2-abu-abu' || b.includes('c2-abu');
+  const isC2TematikB = b === 'c2-tematik-cream' || b.includes('c2-tematik') || b.includes('c2-pro-cream');
+  const isC2GroupB = isC2WhiteB || isC2GrayB || isC2TematikB;
+
+  if (isC2GroupA && isC2GroupB) {
+    return true;
+  }
+
+  return false;
 };
 
 export const normalizeSlotTime = (raw: any): string => {
@@ -258,6 +278,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       const hasLimboBooked = bookedForSlot.some(b => b.includes('limbo'));
       if (hasLimboBooked) {
         return { isAvailable: false, reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)` };
+      }
+    }
+
+    // Studio 2: Putih, Abu-abu, Tematik Cream tidak bisa bertemu dalam 1 waktu pada slot booking orang lain
+    const isC2White = bdIdLower === 'c2-putih' || bdIdLower.includes('c2-putih') || bdIdLower.includes('c2-pro-putih');
+    const isC2Gray = bdIdLower === 'c2-abu-abu' || bdIdLower.includes('c2-abu');
+    const isC2Tematik = bdIdLower === 'c2-tematik-cream' || bdIdLower.includes('c2-tematik') || bdIdLower.includes('c2-pro-cream');
+
+    if (isC2White || isC2Gray || isC2Tematik) {
+      const hasConflictInSlot = bookedForSlot.some(b => {
+        const bLower = b.toLowerCase();
+        return (
+          bLower.includes('c2-putih') || bLower.includes('c2-abu') || bLower.includes('c2-tematik') ||
+          (selectedBranch === 'cabang-2' && (bLower.includes('putih') || bLower.includes('abu') || bLower.includes('tematik')))
+        );
+      });
+      if (hasConflictInSlot) {
+        return { isAvailable: false, reason: `Area panggung sama dengan Putih / Abu-abu / Tematik Cream Studio 2 (terpakai di jam ${normTime} WIB)` };
       }
     }
 
@@ -795,6 +833,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </span>
                   )}
                 </div>
+
+                {/* Conflict Notice Banner */}
+                {selectedBranch === 'cabang-2' && (
+                  <div className="mb-2.5 p-2.5 bg-amber-50/90 border border-amber-300 text-amber-900 text-[11px] font-sans flex items-center gap-2">
+                    <span className="font-bold text-xs shrink-0">⚠️</span>
+                    <span>
+                      <strong>Catatan Khusus Studio 2:</strong> Background <strong>Putih</strong>, <strong>Abu-abu</strong>, dan <strong>Tematik Cream</strong> berada di area panggung yang sama dan <em>tidak dapat dipilih bersamaan dalam 1 waktu / sesi</em>.
+                    </span>
+                  </div>
+                )}
+                {selectedBranch === 'cabang-1' && (
+                  <div className="mb-2.5 p-2.5 bg-stone-100 border border-stone-200 text-stone-700 text-[11px] font-sans flex items-center gap-2">
+                    <span className="font-bold text-xs shrink-0">ℹ️</span>
+                    <span>
+                      <strong>Catatan Khusus Studio 1:</strong> Background <strong>Limbo</strong> dan <strong>Putih Tengah</strong> berada di area panggung yang sama dan <em>tidak dapat dipilih bersamaan dalam 1 waktu / sesi</em>.
+                    </span>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {availableBackdrops.map((backdrop) => {
