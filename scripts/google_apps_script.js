@@ -1,13 +1,19 @@
 /**
  * =========================================================================
  * ALVIERO STUDIO — GOOGLE APPS SCRIPT FOR GOOGLE SHEETS
- * Versi: 2.0 (Support Kapasitas 3 Klien per Slot & Filter Status BOOKED)
+ * Versi: 3.0 (Support Kapasitas 3 Klien, Filter BOOKED, & Upload Bukti Bayar ke Drive/Sheet)
  * =========================================================================
+ * 
+ * FITUR VERSI 3.0:
+ * 1. Menerima upload foto bukti pembayaran dari web secara otomatis.
+ * 2. Foto disimpan ke folder Google Drive "Bukti Pembayaran Alviero Studio".
+ * 3. Link foto bukti transfer & formula hyperlink otomatis dimasukkan ke kolom Spreadsheet.
+ * 4. Filter ketersediaan slot jam berdasarkan status 'BOOKED'.
  * 
  * CARA MEMASANG / UPDATE DI GOOGLE SHEETS:
  * 1. Buka Google Spreadsheet Anda.
  * 2. Klik menu "Ekstensi" (Extensions) > "Apps Script".
- * 3. Hapus seluruh isi kode lama di editor, lalu paste (tempel) kode di bawah ini.
+ * 3. Hapus seluruh isi kode lama di editor, lalu paste (tempel) seluruh kode di bawah ini.
  * 4. Klik icon "Simpan" (Ctrl+S / Cmd+S).
  * 5. Klik tombol "Terapkan" (Deploy) di kanan atas > "Kelola penerapan" (Manage deployments).
  * 6. Klik icon Pensil (Edit) pada penerapan aktif > pilih Versi: "Baru" (New version).
@@ -24,10 +30,22 @@ function doPost(e) {
 
 function handleRequest(e) {
   var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
+  lock.tryLock(15000);
 
   try {
-    var params = e ? e.parameter : {};
+    var params = {};
+
+    // Baca parameter dari POST body JSON jika ada
+    if (e && e.postData && e.postData.contents) {
+      try {
+        params = JSON.parse(e.postData.contents);
+      } catch (err) {
+        params = e.parameter || {};
+      }
+    } else if (e && e.parameter) {
+      params = e.parameter;
+    }
+
     var action = params.action || '';
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
@@ -43,7 +61,6 @@ function handleRequest(e) {
       var sheet = ss.getSheetByName(sheetName);
 
       if (!sheet) {
-        // Jika sheet belum ada, buat sheet baru
         sheet = ss.insertSheet(sheetName);
         setupSheetHeaders(sheet);
       }
@@ -53,7 +70,6 @@ function handleRequest(e) {
       var slotCounts = {};
       var slotBackdrops = {};
 
-      // Filter baris (mulai dari baris ke-2 / index 1 karena index 0 adalah Header)
       for (var i = 1; i < data.length; i++) {
         var row = data[i];
         if (!row || row.length < 2) continue;
@@ -64,9 +80,7 @@ function handleRequest(e) {
         var rowBackdrop = String(row[8] || '').trim(); // Kolom I: Backdrop
         var rowStatus = String(row[15] || '').trim().toUpperCase(); // Kolom P: Status
 
-        // ATURAN STATUS:
-        // Hanya status 'BOOKED', 'CONFIRMED', 'LUNAS', 'DP', 'PAID', 'SUCCESS' yang dihitung mengunci slot!
-        // Status 'PENDING', 'CANCELLED', 'BATAL', atau kosong TIDAK DIHITUNG mengunci slot.
+        // ATURAN STATUS: Hanya status 'BOOKED', 'CONFIRMED', 'LUNAS', 'DP', 'PAID', 'SUCCESS' yang mengunci slot
         var isConfirmedBooking = (
           rowStatus === 'BOOKED' ||
           rowStatus === 'CONFIRMED' ||
@@ -77,13 +91,11 @@ function handleRequest(e) {
         );
 
         if (!isConfirmedBooking) {
-          continue; // Lewati baris yang masih PENDING atau CANCELLED
+          continue; // PENDING & CANCELLED OTOMATIS DILEWATI
         }
 
-        // Cocokkan Tanggal & Tipe Studio
         if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam)) {
           if (rowSlot) {
-            // Hitung jumlah klien confirmed di slot ini
             slotCounts[rowSlot] = (slotCounts[rowSlot] || 0) + 1;
 
             if (!slotBackdrops[rowSlot]) {
@@ -93,7 +105,6 @@ function handleRequest(e) {
               slotBackdrops[rowSlot].push(rowBackdrop);
             }
 
-            // Jika sudah mencapai kapasitas maksimal (>= 3 klien), tandai sebagai PENUH
             if (slotCounts[rowSlot] >= 3 && bookedSlots.indexOf(rowSlot) === -1) {
               bookedSlots.push(rowSlot);
             }
@@ -116,7 +127,7 @@ function handleRequest(e) {
     }
 
     // =========================================================================
-    // 2. ACTION: BOOK SLOT (Simpan Reservasi Baru ke Spreadsheet)
+    // 2. ACTION: BOOK SLOT (Simpan Data Reservasi & Foto Bukti Bayar)
     // =========================================================================
     if (action === 'book_slot') {
       var branch = params.branch || 'cabang-1';
@@ -146,7 +157,38 @@ function handleRequest(e) {
       var notes = params.notes || '-';
       var status = (params.status || 'PENDING').toUpperCase();
 
-      // Tambahkan baris baru di spreadsheet
+      // UPLOAD FOTO BUKTI PEMBAYARAN KE GOOGLE DRIVE
+      var proofUrl = '-';
+      if (params.image_base64 && typeof params.image_base64 === 'string' && params.image_base64.length > 50) {
+        try {
+          var folderName = 'Bukti Pembayaran Alviero Studio';
+          var folders = DriveApp.getFoldersByName(folderName);
+          var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
+
+          var base64Data = params.image_base64;
+          var contentType = 'image/png';
+          if (base64Data.indexOf('data:') === 0) {
+            var parts = base64Data.split(';base64,');
+            contentType = parts[0].replace('data:', '');
+            base64Data = parts[1];
+          }
+
+          var decoded = Utilities.base64Decode(base64Data);
+          var cleanCustName = customerName.replace(/[^a-zA-Z0-9]/g, '_') || 'Klien';
+          var cleanSlot = timeSlot.replace(':', '');
+          var rawName = params.image_name || 'bukti_bayar.png';
+          var fileName = cleanCustName + '_' + cleanSlot + '_' + rawName;
+
+          var blob = Utilities.newBlob(decoded, contentType, fileName);
+          var file = folder.createFile(blob);
+          file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+          proofUrl = file.getUrl();
+        } catch (imgErr) {
+          proofUrl = 'Gagal upload: ' + imgErr.toString();
+        }
+      }
+
+      // Tambahkan baris baru ke Google Sheets
       sheet.appendRow([
         bookingDate,       // A: Tanggal Booking (YYYY-MM-DD)
         timeSlot,          // B: Jam Slot (HH:MM)
@@ -164,12 +206,14 @@ function handleRequest(e) {
         paymentMethod,     // N: Metode Pembayaran
         notes,             // O: Catatan
         status,            // P: Status (PENDING / BOOKED)
-        timestamp          // Q: Timestamp Waktu Submit
+        proofUrl,          // Q: Link Bukti Pembayaran (Google Drive)
+        timestamp          // R: Timestamp Submit
       ]);
 
       return ContentService.createTextOutput(JSON.stringify({
         status: 'SUCCESS',
-        message: 'Reservasi berhasil disimpan ke Google Spreadsheet'
+        message: 'Reservasi & Bukti Transfer berhasil disimpan ke Spreadsheet',
+        proofUrl: proofUrl
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -194,7 +238,7 @@ function setupSheetHeaders(sheet) {
     'Tanggal Booking', 'Jam Slot', 'Tipe Studio', 'Label Studio', 'Cabang',
     'Nama Klien', 'No. WhatsApp', 'Paket Utama', 'Backdrop', 'Frame Template',
     'Add-ons', 'Total Biaya (Rp)', 'DP Dibayar (Rp)', 'Metode Pembayaran',
-    'Catatan', 'Status', 'Timestamp Submit'
+    'Catatan', 'Status', 'Link Bukti Pembayaran (Drive)', 'Timestamp Submit'
   ];
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#EFEFEF');

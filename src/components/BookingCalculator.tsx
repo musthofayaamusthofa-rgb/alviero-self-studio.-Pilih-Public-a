@@ -514,7 +514,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const message = generateWhatsAppMessageText();
     const waUrl = `https://wa.me/6287777538164?text=${encodeURIComponent(message)}`;
 
-    // Kirim reservasi ke Google Apps Script Spreadsheet
+    // Kirim reservasi & foto bukti pembayaran ke Google Apps Script Spreadsheet via POST
     try {
       const selectedAddOnsSummary = Object.entries(selectedAddOns)
         .map(([id, qty]) => {
@@ -524,7 +524,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         .filter(Boolean)
         .join(', ') || '-';
 
-      const queryParams = new URLSearchParams({
+      const payload = {
         action: 'book_slot',
         date: bookingDate,
         time: timeSlot,
@@ -538,16 +538,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         phone: customerPhone || '-',
         package: currentPackage.name,
         addons: selectedAddOnsSummary,
-        total: grandTotal.toString(),
-        dp: dpAmount.toString(),
+        total: grandTotal,
+        dp: dpAmount,
         paymentMethod: paymentOption,
-        notes: `[Bukti Bayar: Terlampir via Web (${paymentProofFileName || 'Ada'})] ${notes || '-'}`,
-        status: 'PENDING'
-      }).toString();
+        notes: notes || '-',
+        status: 'PENDING',
+        image_base64: paymentProofImage || '',
+        image_name: paymentProofFileName || `bukti_${Date.now()}.png`
+      };
 
-      fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?${queryParams}`, {
-        method: 'GET',
-        mode: 'no-cors'
+      fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(payload)
       }).catch(err => console.log('GAS background sync note:', err));
     } catch (e) {
       console.log('GAS sync error:', e);
