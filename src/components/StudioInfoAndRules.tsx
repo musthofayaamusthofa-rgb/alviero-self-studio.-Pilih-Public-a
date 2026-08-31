@@ -33,7 +33,7 @@ export const StudioInfoAndRules: React.FC = () => {
     },
     {
       q: 'Apakah bisa request foto di luar jam operasional?',
-      a: 'Bisa! Jam operasional normal adalah setiap hari 08:00 - 21:00. Request di luar jam operasional dikenakan charge 25K (kecuali wisuda outdoor tanpa biaya charge).'
+      a: 'Bisa! Jam operasional normal adalah setiap hari 08:00 - 21:00. Request di luar jam operasional dikenakan charge 35K (kecuali wisuda outdoor tanpa biaya charge).'
     },
     {
       q: 'Apakah saya bisa membawa binatang peliharaan (Pet-friendly)?',
@@ -76,10 +76,10 @@ export const StudioInfoAndRules: React.FC = () => {
             </h3>
             <ol className="space-y-2 pl-4 list-decimal text-slate-700">
               <li>
-                Jam operasional setiap hari 08:00 - 21:00, <span className="text-red-600 font-bold">bisa request diluar jam operasional</span> dengan ada charge 25K (kecuali wisuda outdoor tanpa biaya charge)
+                Jam operasional setiap hari 08:00 - 21:00, <span className="text-red-600 font-bold">bisa request diluar jam operasional</span> dengan ada charge 35K (kecuali wisuda outdoor tanpa biaya charge)
               </li>
               <li>
-                Apabila reservasi mendekati jam tutup dan ada keterlambatan dan waktu selesai lewat jam operasional dikenakan charge 25K
+                Jika telat atau melebihi jam 21.00 akan dikenakan tambahan biaya sebesar <span className="text-red-600 font-bold">Rp. 35.000</span>
               </li>
               <li>
                 Link allfile via googledrive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio ramai

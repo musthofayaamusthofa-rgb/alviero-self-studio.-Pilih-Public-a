@@ -47,8 +47,7 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 
 > ⏰ **Jam Operasional & Format Slot Waktu:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**
-> - Interval Sesi Foto: **25 Menit per sesi** (Total 32 slot mulai dari `08:00` s.d. `20:55`).
-> - Biaya Keterlambatan / Melewati Jam Operasional: Jika sesi foto telat atau melebihi jam 21.00 WIB, dikenakan charge tambahan sebesar **Rp 35.000**.
+> - Interval Sesi Foto: **25 Menit per sesi** (Total 31 slot mulai dari `08:00` s.d. `20:30`).
 
 ---
 

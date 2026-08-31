@@ -799,12 +799,25 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     })}
                   </div>
 
-                  {/* Notifikasi Khusus Slot 20:30 */}
+                  {/* Pemberitahuan Keterlambatan / Melebihi Jam 21.00 */}
+                  <div className="mt-2.5 p-3 bg-amber-50/95 border border-amber-300/90 text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                    <span className="font-bold text-sm shrink-0 mt-0.5 text-amber-700">⚠️</span>
+                    <div className="space-y-0.5">
+                      <p className="font-bold text-amber-900 leading-tight">
+                        Pemberitahuan Jam Tutup & Keterlambatan:
+                      </p>
+                      <p className="text-amber-800 text-[11px] sm:text-xs leading-snug">
+                        Jika telat atau melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Notifikasi Khusus Slot Terakhir 20:30 */}
                   {timeSlot === '20:30' && (
-                    <div className="mt-2.5 p-3 bg-amber-50 border border-amber-300 text-amber-900 text-xs font-sans flex items-center gap-2">
-                      <span className="font-bold text-sm shrink-0">⚡</span>
+                    <div className="mt-2 p-2.5 bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-sans flex items-center gap-2">
+                      <span className="font-bold text-sm shrink-0 text-amber-800">⚡</span>
                       <span>
-                        Slot jam <strong className="font-bold">20:30 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 35.000</strong>.
+                        Slot jam <strong className="font-bold">20:30 WIB</strong> adalah slot malam terakhir sebelum jam tutup studio dan otomatis dikenakan biaya operasional tambahan <strong className="font-bold">Rp 35.000</strong>.
                       </span>
                     </div>
                   )}
