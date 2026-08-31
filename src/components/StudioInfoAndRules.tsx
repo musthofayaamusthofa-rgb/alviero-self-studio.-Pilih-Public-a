@@ -79,7 +79,7 @@ export const StudioInfoAndRules: React.FC = () => {
                 Jam operasional setiap hari 08:00 - 21:00, <span className="text-red-600 font-bold">bisa request diluar jam operasional</span> dengan ada charge 35K (kecuali wisuda outdoor tanpa biaya charge)
               </li>
               <li>
-                Jika telat atau melebihi jam 21.00 akan dikenakan tambahan biaya sebesar <span className="text-red-600 font-bold">Rp. 35.000</span>
+                Jika telat akan dikenakan biaya tambahan <span className="text-red-600 font-bold">Rp. 25.000</span> dan melebihi jam 21.00 akan dikenakan tambahan biaya sebesar <span className="text-red-600 font-bold">Rp. 35.000</span>
               </li>
               <li>
                 Link allfile via googledrive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio ramai

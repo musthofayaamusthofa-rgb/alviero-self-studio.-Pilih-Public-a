@@ -807,7 +807,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         Pemberitahuan Jam Tutup & Keterlambatan:
                       </p>
                       <p className="text-amber-800 text-[11px] sm:text-xs leading-snug">
-                        Jika telat atau melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
+                        Jika telat akan dikenakan biaya tambahan <strong className="font-bold text-amber-950">Rp. 25.000</strong> dan melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
                       </p>
                     </div>
                   </div>

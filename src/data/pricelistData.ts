@@ -2273,7 +2273,7 @@ export const STUDIO_DISCLAIMER = [
         suffix: ' dengan ada charge 35K (kecuali wisuda outdoor tanpa biaya charge)'
       },
       {
-        text: 'Jika telat atau melebihi jam 21.00 akan dikenakan tambahan biaya sebesar Rp. 35000',
+        text: 'Jika telat akan dikenakan biaya tambahan Rp. 25.000 dan melebihi jam 21.00 akan dikenakan tambahan biaya sebesar Rp. 35.000',
         highlight: '',
         suffix: ''
       },
