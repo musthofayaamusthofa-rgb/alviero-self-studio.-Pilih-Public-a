@@ -139,6 +139,22 @@ export const normalizeSlotTime = (raw: any): string => {
   return str;
 };
 
+// Helper untuk menghitung jam selesai berdasarkan durasi (misal: 12:35 + 50 menit = 13:25)
+export const calculateEndTime = (startTimeStr: string, durationMinutes: number): string => {
+  const norm = normalizeSlotTime(startTimeStr);
+  const [hhStr, mmStr] = norm.split(':');
+  const hh = Number(hhStr);
+  const mm = Number(mmStr);
+  if (isNaN(hh) || isNaN(mm)) return startTimeStr;
+
+  const totalStartMinutes = hh * 60 + mm;
+  const totalEndMinutes = totalStartMinutes + durationMinutes;
+  const endHh = Math.floor(totalEndMinutes / 60);
+  const endMm = totalEndMinutes % 60;
+
+  return `${String(endHh).padStart(2, '0')}:${String(endMm).padStart(2, '0')}`;
+};
+
 export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   isOpen,
   onClose,
@@ -240,6 +256,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     };
   }, [isOpen, bookingDate, selectedPackageId, selectedBranch, isSelfStudio]);
 
+  // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 50 Menit (2 slot berturut-turut)
+  const sessionDurationMinutes = maxBackdrops > 1 ? 50 : 25;
+  const sessionSlotsCount = maxBackdrops > 1 ? 2 : 1;
+
+  // Mendapatkan slot-slot yang terpakai oleh durasi sesi foto
+  const getOccupiedSlotsForStart = (startSlot: string): string[] => {
+    const startIndex = activeTimeSlots.indexOf(normalizeSlotTime(startSlot));
+    if (startIndex === -1) return [startSlot];
+    return activeTimeSlots.slice(startIndex, startIndex + sessionSlotsCount);
+  };
+
   // Helper untuk menghitung jumlah klien per slot (Kapasitas Maksimal: 3 Klien per Slot Jam)
   const getSlotClientCount = (slotTimeStr: string): number => {
     const sNorm = normalizeSlotTime(slotTimeStr);
@@ -255,14 +282,44 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return 0;
   };
 
-  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata benar-benar PENUH (>= 3 klien)
+  // Mengecek apakah suatu slot valid untuk dijadikan jam mulai reservasi
+  const isSlotAvailableForBooking = (startSlot: string): { isAvailable: boolean; reason?: string } => {
+    const startIndex = activeTimeSlots.indexOf(normalizeSlotTime(startSlot));
+    if (startIndex === -1) return { isAvailable: false, reason: 'Slot tidak valid' };
+
+    // Jika durasi 50 menit, pastikan ada slot berikutnya dan tidak melebihi jam tutup studio (21:00 WIB)
+    if (sessionSlotsCount === 2) {
+      if (startIndex + 1 >= activeTimeSlots.length) {
+        return { isAvailable: false, reason: 'Durasi 50 menit melebihi jam tutup studio (21:00 WIB)' };
+      }
+    }
+
+    const neededSlots = activeTimeSlots.slice(startIndex, startIndex + sessionSlotsCount);
+    for (let i = 0; i < neededSlots.length; i++) {
+      const s = neededSlots[i];
+      const count = getSlotClientCount(s);
+      if (count >= 3) {
+        return {
+          isAvailable: false,
+          reason: i === 0 ? 'Penuh' : `Slot lanjutan (${s}) penuh`
+        };
+      }
+    }
+
+    return { isAvailable: true };
+  };
+
+  const formattedSessionTime = `${timeSlot} - ${calculateEndTime(timeSlot, sessionDurationMinutes)}`;
+  const currentOccupiedSlots = getOccupiedSlotsForStart(timeSlot);
+
+  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / penuh
   useEffect(() => {
-    const isCurrentFull = getSlotClientCount(timeSlot) >= 3;
-    if (isCurrentFull) {
-      const firstAvailable = activeTimeSlots.find(s => getSlotClientCount(s) < 3);
+    const currentAvailability = isSlotAvailableForBooking(timeSlot);
+    if (!currentAvailability.isAvailable) {
+      const firstAvailable = activeTimeSlots.find(s => isSlotAvailableForBooking(s).isAvailable);
       if (firstAvailable) setTimeSlot(firstAvailable);
     }
-  }, [slotClientCounts, slotBackdrops, activeTimeSlots, timeSlot]);
+  }, [slotClientCounts, slotBackdrops, activeTimeSlots, timeSlot, sessionSlotsCount]);
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
@@ -451,7 +508,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     message += `• Nama: ${customerName || '-'}\n`;
     message += `• No. WhatsApp: ${customerPhone || '-'}\n`;
     message += `• Tanggal Foto: ${bookingDate}\n`;
-    message += `• Jam Slot: ${timeSlot} WIB\n`;
+    message += `• Jam Sesi Foto: *${formattedSessionTime} WIB* (Durasi: ${sessionDurationMinutes} Menit / ${maxBackdrops} Background)\n`;
     message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
     message += `• *Lokasi Studio:* *${currentBranchInfo.name}*\n\n`;
 
@@ -527,7 +584,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       const payload = {
         action: 'book_slot',
         date: bookingDate,
-        time: timeSlot,
+        time: formattedSessionTime,
         studio_type: studioTypeKey,
         studio_label: isSelfStudio ? 'Self Studio' : 'Studio Foto Profesional',
         branch: selectedBranch,
@@ -541,7 +598,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: paymentOption,
-        notes: notes || '-',
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -759,7 +816,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     2. PILIH TANGGAL & WAKTU SESI FOTO:
                   </label>
                   <span className="text-[11px] font-sans font-bold text-[#1C1A17] bg-white px-3 py-1 border border-[#E0D9CE]">
-                    {bookingDate} • {timeSlot} WIB
+                    {bookingDate} • {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                   </span>
                 </div>
 
@@ -803,42 +860,73 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
                 )}
 
+                {/* 50 Minutes Duration Badge Notice for 2 Background Packages */}
+                {maxBackdrops > 1 && (
+                  <div className="p-2.5 bg-[#FAF8F5] border border-[#D5CEC2] flex items-center justify-between gap-2 text-xs font-sans shadow-2xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-5 h-5 bg-[#1C1A17] text-[#D4AF37] text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
+                        2x
+                      </span>
+                      <p className="text-[11px] text-[#1C1A17] font-medium">
+                        Paket 2 Background: Durasi sesi foto dialokasikan <strong>50 Menit (2 Slot Berturut-turut)</strong>.
+                      </p>
+                    </div>
+                    <span className="text-[10.5px] font-mono font-bold bg-white border border-[#E0D9CE] px-2 py-0.5 text-stone-800 shrink-0">
+                      {formattedSessionTime} WIB
+                    </span>
+                  </div>
+                )}
+
                 {/* Time Slots Grid */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                     <label className="text-xs font-serif font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[#8C6D46]" />
                       PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN):
                     </label>
                     <span className="text-[10.5px] font-sans font-bold text-[#1C1A17] bg-white px-2.5 py-0.5 border border-[#E0D9CE]">
-                      Terpilih: {timeSlot} WIB
+                      Terpilih: {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                     </span>
                   </div>
 
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2">
                     {activeTimeSlots.map((slot) => {
-                      const isSelected = timeSlot === slot;
+                      const isStartSlot = timeSlot === slot;
+                      const isSecondSlot = sessionSlotsCount === 2 && currentOccupiedSlots.length > 1 && currentOccupiedSlots[1] === slot;
                       const clientCount = getSlotClientCount(slot);
-                      const isBooked = clientCount >= 3;
+                      const availability = isSlotAvailableForBooking(slot);
+                      const isSlotFull = clientCount >= 3;
+                      const isDisabled = !availability.isAvailable;
 
                       return (
                         <button
                           key={slot}
                           type="button"
                           data-slot={slot}
-                          disabled={isBooked}
+                          disabled={isDisabled}
                           onClick={() => setTimeSlot(slot)}
-                          className={`min-h-[46px] p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border ${isBooked
+                          className={`min-h-[48px] p-1.5 sm:p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border relative ${isDisabled
                             ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
-                            : isSelected
-                              ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs cursor-pointer active:scale-95'
-                              : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
+                            : isStartSlot
+                              ? 'bg-[#1C1A17] text-white border-[#1C1A17] ring-2 ring-[#D4AF37] shadow-sm cursor-pointer active:scale-95 z-10'
+                              : isSecondSlot
+                                ? 'bg-[#2D2A26] text-white border-[#D4AF37] ring-1 ring-[#D4AF37]/50 shadow-xs cursor-pointer active:scale-95'
+                                : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
                             }`}
+                          title={!availability.isAvailable ? availability.reason : `Mulai sesi foto jam ${slot} WIB`}
                         >
                           <span className="leading-tight">{slot}</span>
-                          {isBooked ? (
+                          {isSlotFull ? (
                             <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
                               Penuh
+                            </span>
+                          ) : isStartSlot ? (
+                            <span className="text-[8px] font-bold text-[#D4AF37] uppercase mt-0.5 no-underline">
+                              {sessionSlotsCount === 2 ? 'Mulai (1/2)' : 'Terpilih'}
+                            </span>
+                          ) : isSecondSlot ? (
+                            <span className="text-[8px] font-bold text-[#D4AF37] uppercase mt-0.5 no-underline">
+                              Sesi 2
                             </span>
                           ) : clientCount > 0 ? (
                             <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
