@@ -189,7 +189,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
-  // 2. Submenu Studio Foto (12 Sub-Paket dengan Ragam Warna Pastel Harmonis)
+  // 2. Submenu Studio Foto (12 Sub-Paket dengan Ragam Warna Pastel Harmonis Sesuai Urutan Resmi)
   const studioFotoSubButtons = [
     {
       id: 'grad-indoor',
@@ -234,143 +234,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       ]
     },
     {
-      id: 'undangan-paket',
-      title: 'PRICELIST UNDANGAN',
-      subtitle: 'Paket Undangan 1 (95K) & Paket Undangan 2 (155K)',
-      icon: '💌',
-      sheetCategory: 'Paket Undangan',
-      badge: 'Hemat & Praktis',
-      specialView: 'undangan-paket',
-      cardBg: 'bg-[#fdf9ee]',
-      cardBorder: 'border-[#f6e9c1]',
-      hoverBorder: 'hover:border-[#caa33f]',
-      iconBg: 'bg-[#faefcb]',
-      iconText: 'text-[#735515]',
-      badgeBg: 'bg-[#faefcb]',
-      badgeText: 'text-[#735515]',
-      badgeBorder: 'border-[#ebd696]',
+      id: 'group-paket',
+      title: 'PRICELIST GROUP',
+      subtitle: 'Friendly Frame, Signature, Royal & Imperial (3-75 Org)',
+      icon: '👥',
+      sheetCategory: 'Paket Group',
+      badge: 'Rombongan',
+      specialView: 'group-paket',
+      cardBg: 'bg-[#f0f4fc]',
+      cardBorder: 'border-[#d0ddf7]',
+      hoverBorder: 'hover:border-[#4d7ad0]',
+      iconBg: 'bg-[#dfebfc]',
+      iconText: 'text-[#244983]',
+      badgeBg: 'bg-[#dfebfc]',
+      badgeText: 'text-[#244983]',
+      badgeBorder: 'border-[#bed3f5]',
       targetPackageIds: [
-        'undangan-paket-1', 'undangan-paket-2'
-      ]
-    },
-    {
-      id: 'sewa-studio',
-      title: 'PRICELIST SEWA STUDIO',
-      subtitle: '2 Background, Maks 60 Menit, 2 Lighting & Trigger',
-      icon: '🏢',
-      sheetCategory: 'Sewa Studio',
-      badge: 'Rental 175K',
-      specialView: 'sewa-studio',
-      cardBg: 'bg-[#eff7f8]',
-      cardBorder: 'border-[#cee6e8]',
-      hoverBorder: 'hover:border-[#4d979e]',
-      iconBg: 'bg-[#d9eff1]',
-      iconText: 'text-[#1f575c]',
-      badgeBg: 'bg-[#d9eff1]',
-      badgeText: 'text-[#1f575c]',
-      badgeBorder: 'border-[#b8dfe2]',
-      targetPackageIds: [
-        'sewa-studio-hourly'
-      ]
-    },
-    {
-      id: 'prewed-paket',
-      title: 'PRICELIST PREWEDD',
-      subtitle: 'Sweet Promise, Velvet Romance & Bundling 1-2',
-      icon: '💍',
-      sheetCategory: 'Paket Prewedding',
-      badge: 'Prewed Hot',
-      specialView: 'prewed-paket',
-      cardBg: 'bg-[#f9f2f8]',
-      cardBorder: 'border-[#ecd4ea]',
-      hoverBorder: 'hover:border-[#9c5999]',
-      iconBg: 'bg-[#f3e1f2]',
-      iconText: 'text-[#6b3169]',
-      badgeBg: 'bg-[#f3e1f2]',
-      badgeText: 'text-[#6b3169]',
-      badgeBorder: 'border-[#e2bedf]',
-      targetPackageIds: [
-        'prewed-sweet-promise', 'prewed-velvet-romance', 'prewed-bundling-1', 'prewed-bundling-2'
-      ]
-    },
-    {
-      id: 'couple-paket',
-      title: 'PRICELIST COUPLE',
-      subtitle: 'Eternal Love & Sweet Memories (Pasangan Romantis)',
-      icon: '💑',
-      sheetCategory: 'Paket Couple',
-      badge: 'Romantis',
-      specialView: 'couple-paket',
-      cardBg: 'bg-[#fdf3f3]',
-      cardBorder: 'border-[#f9d6d6]',
-      hoverBorder: 'hover:border-[#b85858]',
-      iconBg: 'bg-[#fde3e3]',
-      iconText: 'text-[#822f2f]',
-      badgeBg: 'bg-[#fde3e3]',
-      badgeText: 'text-[#822f2f]',
-      badgeBorder: 'border-[#f2bebe]',
-      targetPackageIds: [
-        'couple-eternal-love', 'couple-sweet-memories'
-      ]
-    },
-    {
-      id: 'personal-paket',
-      title: 'PRICELIST PERSONAL',
-      subtitle: 'Bold Statement & Opulent Shot (Solo / Portofolio)',
-      icon: '👤',
-      sheetCategory: 'Paket Personal',
-      badge: 'Favorit Solo',
-      specialView: 'personal-paket',
-      cardBg: 'bg-[#f4f5f7]',
-      cardBorder: 'border-[#d8dce2]',
-      hoverBorder: 'hover:border-[#64748b]',
-      iconBg: 'bg-[#e6e9ef]',
-      iconText: 'text-[#333e4d]',
-      badgeBg: 'bg-[#e6e9ef]',
-      badgeText: 'text-[#333e4d]',
-      badgeBorder: 'border-[#c7ced9]',
-      targetPackageIds: [
-        'personal-bold-statement', 'personal-opulent-shot'
-      ]
-    },
-    {
-      id: 'maternity-paket',
-      title: 'PRICELIST MATERNITY',
-      subtitle: 'Warm Embrace & Golden Motherhood',
-      icon: '🤰',
-      sheetCategory: 'Paket Maternity',
-      badge: 'Bunda & Bayi',
-      specialView: 'maternity-paket',
-      cardBg: 'bg-[#fdf5ee]',
-      cardBorder: 'border-[#f8dac3]',
-      hoverBorder: 'hover:border-[#b86f3b]',
-      iconBg: 'bg-[#fae6d7]',
-      iconText: 'text-[#82471d]',
-      badgeBg: 'bg-[#fae6d7]',
-      badgeText: 'text-[#82471d]',
-      badgeBorder: 'border-[#f0c7ab]',
-      targetPackageIds: [
-        'maternity-warm-embrace', 'maternity-golden-motherhood'
-      ]
-    },
-    {
-      id: 'event',
-      title: 'PRICELIST BIRTHDAY',
-      subtitle: 'Sweet Celebration, Glow, Sweet Light & Ultimate',
-      icon: '🎉',
-      sheetCategory: 'Paket Birthday',
-      badge: 'Birthday Hot',
-      specialView: 'birthday-paket',
-      cardBg: 'bg-[#fefbe8]',
-      cardBorder: 'border-[#f8f0ab]',
-      hoverBorder: 'hover:border-[#a89622]',
-      iconBg: 'bg-[#fbf5be]',
-      iconText: 'text-[#73630f]',
-      badgeBg: 'bg-[#fbf5be]',
-      badgeText: 'text-[#73630f]',
-      badgeBorder: 'border-[#edd968]',
-      targetPackageIds: [
-        'birthday-sweet-celebration', 'birthday-glow-sweet', 'birthday-sweet-light', 'birthday-ultimate-sweet-light'
+        'group-friendly-frame', 'group-signature-squad', 'group-royal-ensemble', 'group-imperial-union'
       ]
     },
     {
@@ -394,23 +274,123 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       ]
     },
     {
-      id: 'group-paket',
-      title: 'PRICELIST GROUP',
-      subtitle: 'Friendly Frame, Signature, Royal & Imperial (3-75 Org)',
-      icon: '👥',
-      sheetCategory: 'Paket Group',
-      badge: 'Rombongan',
-      specialView: 'group-paket',
-      cardBg: 'bg-[#f0f4fc]',
-      cardBorder: 'border-[#d0ddf7]',
-      hoverBorder: 'hover:border-[#4d7ad0]',
-      iconBg: 'bg-[#dfebfc]',
-      iconText: 'text-[#244983]',
-      badgeBg: 'bg-[#dfebfc]',
-      badgeText: 'text-[#244983]',
-      badgeBorder: 'border-[#bed3f5]',
+      id: 'maternity-paket',
+      title: 'PRICELIST MATERNITY',
+      subtitle: 'Warm Embrace & Golden Motherhood',
+      icon: '🤰',
+      sheetCategory: 'Paket Maternity',
+      badge: 'Bunda & Bayi',
+      specialView: 'maternity-paket',
+      cardBg: 'bg-[#fdf5ee]',
+      cardBorder: 'border-[#f8dac3]',
+      hoverBorder: 'hover:border-[#b86f3b]',
+      iconBg: 'bg-[#fae6d7]',
+      iconText: 'text-[#82471d]',
+      badgeBg: 'bg-[#fae6d7]',
+      badgeText: 'text-[#82471d]',
+      badgeBorder: 'border-[#f0c7ab]',
       targetPackageIds: [
-        'group-friendly-frame', 'group-signature-squad', 'group-royal-ensemble', 'group-imperial-union'
+        'maternity-warm-embrace', 'maternity-golden-motherhood'
+      ]
+    },
+    {
+      id: 'personal-paket',
+      title: 'PRICELIST PERSONAL',
+      subtitle: 'Bold Statement & Opulent Shot (Solo / Portofolio)',
+      icon: '👤',
+      sheetCategory: 'Paket Personal',
+      badge: 'Favorit Solo',
+      specialView: 'personal-paket',
+      cardBg: 'bg-[#f4f5f7]',
+      cardBorder: 'border-[#d8dce2]',
+      hoverBorder: 'hover:border-[#64748b]',
+      iconBg: 'bg-[#e6e9ef]',
+      iconText: 'text-[#333e4d]',
+      badgeBg: 'bg-[#e6e9ef]',
+      badgeText: 'text-[#333e4d]',
+      badgeBorder: 'border-[#c7ced9]',
+      targetPackageIds: [
+        'personal-bold-statement', 'personal-opulent-shot'
+      ]
+    },
+    {
+      id: 'couple-paket',
+      title: 'PRICELIST COUPLE',
+      subtitle: 'Eternal Love & Sweet Memories (Pasangan Romantis)',
+      icon: '💑',
+      sheetCategory: 'Paket Couple',
+      badge: 'Romantis',
+      specialView: 'couple-paket',
+      cardBg: 'bg-[#fdf3f3]',
+      cardBorder: 'border-[#f9d6d6]',
+      hoverBorder: 'hover:border-[#b85858]',
+      iconBg: 'bg-[#fde3e3]',
+      iconText: 'text-[#822f2f]',
+      badgeBg: 'bg-[#fde3e3]',
+      badgeText: 'text-[#822f2f]',
+      badgeBorder: 'border-[#f2bebe]',
+      targetPackageIds: [
+        'couple-eternal-love', 'couple-sweet-memories'
+      ]
+    },
+    {
+      id: 'event',
+      title: 'PRICELIST BIRTHDAY',
+      subtitle: 'Sweet Celebration, Glow, Sweet Light & Ultimate',
+      icon: '🎉',
+      sheetCategory: 'Paket Birthday',
+      badge: 'Birthday Hot',
+      specialView: 'birthday-paket',
+      cardBg: 'bg-[#fefbe8]',
+      cardBorder: 'border-[#f8f0ab]',
+      hoverBorder: 'hover:border-[#a89622]',
+      iconBg: 'bg-[#fbf5be]',
+      iconText: 'text-[#73630f]',
+      badgeBg: 'bg-[#fbf5be]',
+      badgeText: 'text-[#73630f]',
+      badgeBorder: 'border-[#edd968]',
+      targetPackageIds: [
+        'birthday-sweet-celebration', 'birthday-glow-sweet', 'birthday-sweet-light', 'birthday-ultimate-sweet-light'
+      ]
+    },
+    {
+      id: 'undangan-paket',
+      title: 'PRICELIST UNDANGAN',
+      subtitle: 'Paket Undangan 1 (95K) & Paket Undangan 2 (155K)',
+      icon: '💌',
+      sheetCategory: 'Paket Undangan',
+      badge: 'Hemat & Praktis',
+      specialView: 'undangan-paket',
+      cardBg: 'bg-[#fdf9ee]',
+      cardBorder: 'border-[#f6e9c1]',
+      hoverBorder: 'hover:border-[#caa33f]',
+      iconBg: 'bg-[#faefcb]',
+      iconText: 'text-[#735515]',
+      badgeBg: 'bg-[#faefcb]',
+      badgeText: 'text-[#735515]',
+      badgeBorder: 'border-[#ebd696]',
+      targetPackageIds: [
+        'undangan-paket-1', 'undangan-paket-2'
+      ]
+    },
+    {
+      id: 'prewed-paket',
+      title: 'PRICELIST PREWEDD',
+      subtitle: 'Sweet Promise, Velvet Romance & Bundling 1-2',
+      icon: '💍',
+      sheetCategory: 'Paket Prewedding',
+      badge: 'Prewed Hot',
+      specialView: 'prewed-paket',
+      cardBg: 'bg-[#f9f2f8]',
+      cardBorder: 'border-[#ecd4ea]',
+      hoverBorder: 'hover:border-[#9c5999]',
+      iconBg: 'bg-[#f3e1f2]',
+      iconText: 'text-[#6b3169]',
+      badgeBg: 'bg-[#f3e1f2]',
+      badgeText: 'text-[#6b3169]',
+      badgeBorder: 'border-[#e2bedf]',
+      targetPackageIds: [
+        'prewed-sweet-promise', 'prewed-velvet-romance', 'prewed-bundling-1', 'prewed-bundling-2'
       ]
     },
     {
@@ -431,6 +411,26 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       badgeBorder: 'border-[#a4e2d2]',
       targetPackageIds: [
         'passfoto-1', 'passfoto-2', 'passfoto-3'
+      ]
+    },
+    {
+      id: 'sewa-studio',
+      title: 'PRICELIST SEWA STUDIO',
+      subtitle: '2 Background, Maks 60 Menit, 2 Lighting & Trigger',
+      icon: '🏢',
+      sheetCategory: 'Sewa Studio',
+      badge: 'Rental 175K',
+      specialView: 'sewa-studio',
+      cardBg: 'bg-[#eff7f8]',
+      cardBorder: 'border-[#cee6e8]',
+      hoverBorder: 'hover:border-[#4d979e]',
+      iconBg: 'bg-[#d9eff1]',
+      iconText: 'text-[#1f575c]',
+      badgeBg: 'bg-[#d9eff1]',
+      badgeText: 'text-[#1f575c]',
+      badgeBorder: 'border-[#b8dfe2]',
+      targetPackageIds: [
+        'sewa-studio-hourly'
       ]
     }
   ];
@@ -478,19 +478,19 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
 
-  // Grid Category Arrays (Sesuai Foto Paket dari Folder - Graduation Urutan Utama #1)
+  // Grid Category Arrays (Sesuai Urutan Permintaan: 1.Graduation Indoor, 2.Graduation Outdoor, 3.Group, 4.Family, 5.Maternity, 6.Personal, 7.Couple, 8.Birthday, 9.Undangan, 10.Prewed, 11.Pass Foto, 12.Sewa Studio, 13.Kebaya & Gaun)
   const photoStudioGridItems = [
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
     { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' },
-    { id: 'personal-paket', name: 'Personal', icon: '👩‍💼', img: '/images/categories/personal.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
-    { id: 'couple-paket', name: 'Couple', icon: '💑', img: '/images/categories/couple.jpg', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
     { id: 'group-paket', name: 'Group', icon: '👥', img: '/images/categories/group.jpg', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', img: '/images/categories/family.jpg', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
     { id: 'maternity-paket', name: 'Maternity', icon: '🤰', img: '/images/categories/maternity.jpg', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
-    { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
+    { id: 'personal-paket', name: 'Personal', icon: '👩‍💼', img: '/images/categories/personal.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' },
+    { id: 'couple-paket', name: 'Couple', icon: '💑', img: '/images/categories/couple.jpg', colorBg: 'bg-[#fdf3f3]', colorBorder: 'border-[#f8d4d4]', colorText: 'text-[#822f2f]' },
     { id: 'event', name: 'Birthday', icon: '🎂', img: '/images/categories/birthday.jpg', colorBg: 'bg-[#fefbe8]', colorBorder: 'border-[#f8f0ab]', colorText: 'text-[#73630f]' },
     { id: 'undangan-paket', name: 'Undangan', icon: '💌', colorBg: 'bg-[#fdf9ee]', colorBorder: 'border-[#f6e9c1]', colorText: 'text-[#735515]' },
     { id: 'prewed-paket', name: 'Prewedding', icon: '💍', img: '/images/categories/prewedding.jpg', colorBg: 'bg-[#f9f2f8]', colorBorder: 'border-[#ecd4ea]', colorText: 'text-[#6b3169]' },
+    { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' },
     { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' }
   ];
@@ -513,22 +513,22 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { label: '@alviero.wedding', icon: 'instagram', url: 'https://instagram.com/alviero.wedding' }
   ];
 
-  // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI 13 PAKET UTAMA ALVIERO STUDIO
+  // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA
   const studioGalleryCategories = [
     { id: 'all', label: 'Semua Paket', icon: '📸' },
     { id: 'grad-indoor', label: 'Paket Graduation Indoor', icon: '🎓' },
     { id: 'grad-outdoor', label: 'Paket Wisuda Outdoor', icon: '🌳' },
-    { id: 'selfstudio', label: 'Paket Self Studio', icon: '✨' },
-    { id: 'prewed', label: 'Paket Prewedding', icon: '💍' },
-    { id: 'couple', label: 'Paket Couple', icon: '💑' },
-    { id: 'personal', label: 'Paket Personal', icon: '👤' },
-    { id: 'maternity', label: 'Paket Maternity', icon: '🤰' },
-    { id: 'birthday', label: 'Paket Birthday', icon: '🎉' },
-    { id: 'family', label: 'Paket Family', icon: '👨‍👩‍👧‍👦' },
     { id: 'group', label: 'Paket Group', icon: '👥' },
-    { id: 'pass-foto', label: 'Paket Pass Foto', icon: '👤' },
+    { id: 'family', label: 'Paket Family', icon: '👨‍👩‍👧‍👦' },
+    { id: 'maternity', label: 'Paket Maternity', icon: '🤰' },
+    { id: 'personal', label: 'Paket Personal', icon: '👤' },
+    { id: 'couple', label: 'Paket Couple', icon: '💑' },
+    { id: 'birthday', label: 'Paket Birthday', icon: '🎉' },
     { id: 'undangan', label: 'Paket Undangan', icon: '💌' },
-    { id: 'sewa-studio', label: 'Paket Sewa Studio', icon: '🏢' }
+    { id: 'prewed', label: 'Paket Prewedding', icon: '💍' },
+    { id: 'pass-foto', label: 'Paket Pass Foto', icon: '🪪' },
+    { id: 'sewa-studio', label: 'Paket Sewa Studio', icon: '🏢' },
+    { id: 'selfstudio', label: 'Paket Self Studio', icon: '✨' }
   ];
 
   const STUDIO_GALLERY_PHOTOS: StudioGalleryPhoto[] = [
@@ -872,7 +872,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     Photo Studio Package
                   </h3>
                   <span className="text-[10px] font-sans bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
-                    14 Kategori
+                    {photoStudioGridItems.length} Kategori
                   </span>
                 </div>
 

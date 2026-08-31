@@ -46,17 +46,17 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 ## 🖼️ 5. Standar Menu Kategori & Thumbnail Foto Paket
 Daftar kategori pada grid menu studio foto dan aset fotonya di `public/images/categories/`:
 
-1. **Personal** 👩‍💼 ➔ `personal.jpg` *(Foto `DSCF2857.jpg`, rotasi diputar 90° searah jarum jam agar tegak)*
-2. **Couple** 💑 ➔ `couple.jpg` *(Foto `ALVR0641 copy.jpg`)*
+1. **Graduation** 🎓 ➔ `graduation.jpg` *(Foto `DSCF0573.jpg`)*
+2. **Grad Outdoor** 🌳 ➔ `grad-outdoor.jpg` *(Foto `XH2A6894.jpg`)*
 3. **Group** 👥 ➔ `group.jpg` *(Foto `DSCF2569.jpg`)*
-4. **Graduation** 🎓 ➔ `graduation.jpg` *(Foto `DSCF0573.jpg`)*
-5. **Grad Outdoor** 🌳 ➔ `grad-outdoor.jpg` *(Foto `XH2A6894.jpg`)*
-6. **Family** 👨‍👩‍👧‍👦 ➔ `family.jpg` *(Foto `DSCF4415 copy.jpg`)*
-7. **Maternity** 🤰 ➔ `maternity.jpg` *(Foto `DSCF0022 10Rs.jpg`)*
-8. **Pass photo** 🪪 ➔ Icon Pass Foto (Photo ID)
-9. **Birthday** 🎂 ➔ `birthday.jpg` *(Foto `DSCF9358 copy.jpg`)*
-10. **Undangan** 💌 ➔ Icon Undangan
-11. **Prewedding** 💍 ➔ `prewedding.jpg` *(Foto `ALVR9962.JPG`)*
+4. **Family** 👨‍👩‍👧‍👦 ➔ `family.jpg` *(Foto `DSCF4415 copy.jpg`)*
+5. **Maternity** 🤰 ➔ `maternity.jpg` *(Foto `DSCF0022 10Rs.jpg`)*
+6. **Personal** 👩‍💼 ➔ `personal.jpg` *(Foto `DSCF2857.jpg`, rotasi diputar 90° searah jarum jam agar tegak)*
+7. **Couple** 💑 ➔ `couple.jpg` *(Foto `ALVR0641 copy.jpg`)*
+8. **Birthday** 🎂 ➔ `birthday.jpg` *(Foto `DSCF9358 copy.jpg`)*
+9. **Undangan** 💌 ➔ Icon Undangan
+10. **Prewedding** 💍 ➔ `prewedding.jpg` *(Foto `ALVR9962.JPG`)*
+11. **Pass photo** 🪪 ➔ Icon Pass Foto (Photo ID)
 12. **Sewa Studio** 🏛️ ➔ `sewa-studio.jpg`
 13. **Kebaya & Gaun** 👗 ➔ Icon Kebaya & Gaun
 14. **SelfStudio** ✨ ➔ `selfphoto.jpg` *(Foto `DSCF9063.JPG`, rotasi diputar 90° & framing square fokus kepala/headroom)*
