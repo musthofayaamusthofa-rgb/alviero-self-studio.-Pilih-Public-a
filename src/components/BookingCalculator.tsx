@@ -228,13 +228,27 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     };
   }, [isOpen, bookingDate, selectedPackageId, selectedBranch, isSelfStudio]);
 
-  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata berstatus booked/penuh
+  // Helper untuk menghitung jumlah klien per slot (Kapasitas Maksimal: 3 Klien per Slot Jam)
+  const getSlotClientCount = (slotTimeStr: string): number => {
+    const sNorm = normalizeSlotTime(slotTimeStr);
+    if (slotClientCounts[sNorm] !== undefined) {
+      return slotClientCounts[sNorm];
+    }
+    if (slotBackdrops[sNorm] && slotBackdrops[sNorm].length > 0) {
+      return Math.min(3, Math.ceil(slotBackdrops[sNorm].length / 2));
+    }
+    // Jika ada di bookedSlots dari Google Sheets, ini adalah data booking existing
+    return 0;
+  };
+
+  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata benar-benar PENUH (>= 3 klien)
   useEffect(() => {
-    if (bookedSlots.includes(timeSlot)) {
-      const firstAvailable = activeTimeSlots.find(s => !bookedSlots.includes(s));
+    const isCurrentFull = getSlotClientCount(timeSlot) >= 3;
+    if (isCurrentFull) {
+      const firstAvailable = activeTimeSlots.find(s => getSlotClientCount(s) < 3);
       if (firstAvailable) setTimeSlot(firstAvailable);
     }
-  }, [bookedSlots, activeTimeSlots, timeSlot]);
+  }, [slotClientCounts, slotBackdrops, activeTimeSlots, timeSlot]);
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
@@ -769,8 +783,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2">
                     {activeTimeSlots.map((slot) => {
                       const isSelected = timeSlot === slot;
-                      const clientCount = slotClientCounts[slot] || 0;
-                      const isBooked = bookedSlots.includes(slot) || clientCount >= 3;
+                      const clientCount = getSlotClientCount(slot);
+                      const isBooked = clientCount >= 3;
 
                       return (
                         <button
