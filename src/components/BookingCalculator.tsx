@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PACKAGES, CATEGORIES, BACKDROPS, FRAME_TEMPLATES, ADD_ONS, TIME_SLOTS, PRO_STUDIO_TIME_SLOTS, SELF_STUDIO_TIME_SLOTS, STUDIO_BRANCHES } from '../data/pricelistData';
-import { BookingFormData, StudioBranch, BackdropOption } from '../types';
-import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2, Layers, Sliders, CheckSquare } from 'lucide-react';
+import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2, Layers, Sliders, CheckSquare, Download, Upload, Trash2, AlertCircle } from 'lucide-react';
 
 interface BookingCalculatorProps {
   isOpen: boolean;
@@ -176,9 +175,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Promo Code & Payment Option
   const [promoCodeInput, setPromoCodeInput] = useState<string>('');
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discountPercent?: number; discountAmount?: number } | null>(null);
-  const [promoError, setPromoError] = useState<string>('');
   const [paymentOption, setPaymentOption] = useState<'dp' | 'full'>('dp');
   const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
+
+  // Bukti Pembayaran QRIS & Salin Nominal
+  const [paymentProofImage, setPaymentProofImage] = useState<string | null>(null);
+  const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
+  const [copiedNominal, setCopiedNominal] = useState<boolean>(false);
 
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
   const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
@@ -481,8 +484,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : 'LUNAS FULL'}\n`;
+    message += `🧾 *STATUS BUKTI TRANSFER:* ✅ Sudah Diunggah (${paymentProofFileName || 'Bukti Transfer QRIS'})\n`;
     message += `💰 *TOTAL BIAYA:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n`;
-    message += `Mohon info ketersediaan slot jam ini & petunjuk QRIS ya min. Terima kasih! 🙏`;
+    message += `Bukti transfer QRIS sudah terlampir bersama chat ini ya min. Mohon dikonfirmasi jadwalnya. Terima kasih! 🙏`;
 
     return message;
   };
@@ -493,10 +497,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setTimeout(() => setCopiedSummary(false), 2000);
   };
 
-  const handleSendBookingWA = async () => {
-    setIsSubmitting(true);
+  const handleSendBookingWA = () => {
+    if (!customerName.trim()) {
+      alert('Mohon masukkan Nama Pemesan terlebih dahulu.');
+      return;
+    }
+    if (!customerPhone.trim()) {
+      alert('Mohon masukkan Nomor WhatsApp aktif terlebih dahulu.');
+      return;
+    }
+    if (!paymentProofImage) {
+      alert('Mohon unggah / upload foto bukti transfer pembayaran QRIS terlebih dahulu sebelum mengirim booking WhatsApp.');
+      return;
+    }
 
-    // Kirim data reservasi ke Google Sheets di background
+    const message = generateWhatsAppMessageText();
+    const waUrl = `https://wa.me/6287777538164?text=${encodeURIComponent(message)}`;
+
+    // Kirim reservasi ke Google Apps Script Spreadsheet
     try {
       const selectedAddOnsSummary = Object.entries(selectedAddOns)
         .map(([id, qty]) => {
@@ -523,24 +541,52 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal.toString(),
         dp: dpAmount.toString(),
         paymentMethod: paymentOption,
-        notes: notes || '-',
+        notes: `[Bukti Bayar: Terlampir via Web (${paymentProofFileName || 'Ada'})] ${notes || '-'}`,
         status: 'PENDING'
       }).toString();
 
-      // Kirim ke Google Apps Script di background
       fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?${queryParams}`, {
         method: 'GET',
         mode: 'no-cors'
       }).catch(err => console.log('GAS background sync note:', err));
     } catch (e) {
-      console.warn('GAS Submit Error:', e);
-    } finally {
-      setIsSubmitting(false);
+      console.log('GAS sync error:', e);
     }
 
-    const waUrl = `https://wa.me/6287777538164?text=${encodeURIComponent(generateWhatsAppMessageText())}`;
     window.open(waUrl, '_blank');
   };
+
+  const handleProofUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Ukuran file foto maksimal 5 MB.');
+        return;
+      }
+      setPaymentProofFileName(file.name);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPaymentProofImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveProof = () => {
+    setPaymentProofImage(null);
+    setPaymentProofFileName('');
+  };
+
+  const handleCopyNominal = () => {
+    const amount = paymentOption === 'dp' ? dpAmount : grandTotal;
+    navigator.clipboard.writeText(amount.toString());
+    setCopiedNominal(true);
+    setTimeout(() => setCopiedNominal(false), 2000);
+  };
+
+  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && !!paymentProofImage;
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto animate-in fade-in duration-200">
@@ -1195,6 +1241,165 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
+              {/* QRIS PAYMENT BOX & DOWNLOAD */}
+              <div className="pt-2 border-t border-[#E0D9CE] space-y-3">
+                <div className="bg-[#FAF8F5] border border-[#E0D9CE] p-4 sm:p-5 space-y-3.5 shadow-2xs">
+                  <div className="flex items-center justify-between flex-wrap gap-2 border-b border-[#E0D9CE] pb-2.5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 bg-[#1C1A17] text-[#D4AF37] flex items-center justify-center text-xs shrink-0">
+                        <QrCode className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wide">
+                          Scan Pembayaran QRIS Resmi Alviero Studio
+                        </h4>
+                        <p className="text-[10.5px] text-stone-500 font-sans">
+                          Mendukung BCA, Mandiri, BRI, BNI, GoPay, OVO, Dana, ShopeePay
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider bg-white text-emerald-800 border border-emerald-300 px-2 py-0.5">
+                      QRIS Nasional
+                    </span>
+                  </div>
+
+                  {/* Nominal Box */}
+                  <div className="bg-white border border-[#D5CEC2] p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
+                    <div>
+                      <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
+                        Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
+                      </span>
+                      <span className="text-base sm:text-lg font-mono font-black text-[#1C1A17]">
+                        Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}
+                      </span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleCopyNominal}
+                      className="px-3 py-1.5 bg-[#FAF8F5] hover:bg-[#F2ECE1] text-stone-800 border border-[#D5CEC2] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0"
+                    >
+                      {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
+                    </button>
+                  </div>
+
+                  {/* QRIS Display & Download Button */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center pt-1">
+                    <div className="sm:col-span-5 flex flex-col items-center">
+                      <div className="w-full max-w-[210px] bg-white p-2.5 border border-[#1C1A17] shadow-sm flex flex-col items-center">
+                        <img
+                          src="/images/qris-alviero.png"
+                          alt="QRIS Resmi Alviero Studio"
+                          className="w-full h-auto object-contain"
+                        />
+                      </div>
+                      <a
+                        href="/images/qris-alviero.png"
+                        download="QRIS-Alviero-Studio.png"
+                        className="mt-2.5 w-full max-w-[210px] py-2 px-3 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                      >
+                        <Download className="w-3.5 h-3.5 text-[#D4AF37]" />
+                        <span>Unduh Kode QRIS 📥</span>
+                      </a>
+                    </div>
+
+                    <div className="sm:col-span-7 space-y-2 text-xs font-sans text-stone-700 leading-relaxed">
+                      <p className="font-bold text-[#1C1A17] uppercase tracking-wide text-[11px] font-serif">
+                        Petunjuk Pembayaran QRIS:
+                      </p>
+                      <ol className="list-decimal list-inside space-y-1.5 text-[11px] text-stone-600">
+                        <li>Klik tombol <strong>"Unduh Kode QRIS 📥"</strong> di atas atau tangkap layar (screenshot).</li>
+                        <li>Buka aplikasi <strong>M-Banking (BCA, Mandiri, BRImo, dll)</strong> atau <strong>E-Wallet (GoPay, OVO, Dana, ShopeePay)</strong>.</li>
+                        <li>Pilih menu <strong>QRIS ➔ Scan dari Galeri</strong> ➔ pilih gambar QRIS tadi.</li>
+                        <li>Ketik nominal transfer: <strong className="text-[#1C1A17] font-mono">Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}</strong>.</li>
+                        <li>Simpan screenshot bukti transfer dan <strong>unggah pada form di bawah</strong> untuk mengaktifkan tombol kirim.</li>
+                      </ol>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* UPLOAD BUKTI PEMBAYARAN (WAJIB) */}
+              <div className="pt-2 border-t border-[#E0D9CE] space-y-2">
+                <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Camera className="w-3.5 h-3.5 text-[#8C6D46]" />
+                    UNGGAH BUKTI TRANSFER / BAYAR QRIS: <span className="text-rose-600">*</span>
+                  </span>
+                  {paymentProofImage ? (
+                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5">
+                      ✅ Bukti Terlampir
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5">
+                      Wajib Diunggah
+                    </span>
+                  )}
+                </label>
+
+                {!paymentProofImage ? (
+                  <label className="block border-2 border-dashed border-[#D4AF37]/90 bg-[#FFFDF7] hover:bg-[#FAF5EE] transition-all p-4 text-center cursor-pointer relative group">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleProofUpload}
+                      className="hidden"
+                    />
+                    <div className="flex flex-col items-center justify-center space-y-1.5">
+                      <div className="w-10 h-10 rounded-full bg-[#1C1A17] text-[#D4AF37] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                        <Upload className="w-5 h-5" />
+                      </div>
+                      <p className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wide">
+                        Klik Di Sini Untuk Memilih Foto Bukti Transfer
+                      </p>
+                      <p className="text-[10.5px] text-stone-500 font-sans">
+                        Mendukung format JPG, PNG, WebP atau Screenshot Struk Pembayaran (Maks. 5MB)
+                      </p>
+                    </div>
+                  </label>
+                ) : (
+                  <div className="bg-emerald-50/70 border border-emerald-300 p-3 flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <img
+                        src={paymentProofImage}
+                        alt="Preview Bukti Bayar"
+                        className="w-14 h-14 object-cover border border-emerald-300 bg-white shrink-0 shadow-2xs"
+                      />
+                      <div className="min-w-0">
+                        <p className="text-xs font-bold text-emerald-950 truncate">
+                          {paymentProofFileName || 'Bukti-Transfer-QRIS.png'}
+                        </p>
+                        <p className="text-[10.5px] text-emerald-700 flex items-center gap-1 font-sans">
+                          <Check className="w-3.5 h-3.5 shrink-0" />
+                          Foto bukti transfer siap dikirimkan
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <label className="px-2.5 py-1.5 bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 text-[10.5px] font-serif font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all shadow-2xs">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleProofUpload}
+                          className="hidden"
+                        />
+                        Ganti Foto
+                      </label>
+                      <button
+                        type="button"
+                        onClick={handleRemoveProof}
+                        className="p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer active:scale-95"
+                        title="Hapus Bukti"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               {/* Notes */}
               <div>
                 <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase mb-1.5">
@@ -1216,10 +1421,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
                 <div className="flex-1 text-xs font-sans">
                   <p className="font-bold text-[#1C1A17] leading-relaxed">
-                    Segera kirimkan dan konfirmasikan bukti pembayaran kamu untuk mengunci jam booking!
+                    Bukti pembayaran akan otomatis diverifikasi oleh admin untuk mengunci slot jadwal Anda.
                   </p>
                   <p className="text-[11px] text-stone-600 mt-0.5">
-                    Slot jam baru akan berstatus <strong>"Penuh"</strong> setelah pembayaran diverifikasi oleh admin.
+                    Pastikan nominal transfer sesuai dan lampiran bukti bayar sudah jelas.
                   </p>
                 </div>
               </div>
@@ -1304,10 +1509,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               </button>
             ) : (
               <button
+                type="button"
                 onClick={handleSendBookingWA}
-                className="min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95"
+                disabled={!canSubmitBooking}
+                className={`min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${
+                  canSubmitBooking
+                    ? 'bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-md cursor-pointer active:scale-95'
+                    : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
+                }`}
+                title={!canSubmitBooking ? 'Lengkapi Nama, WhatsApp, dan Unggah Bukti Bayar' : 'Kirim Booking ke WhatsApp Admin'}
               >
-                <MessageCircle className="w-4 h-4 text-[#D4AF37]" />
+                <MessageCircle className={`w-4 h-4 ${canSubmitBooking ? 'text-[#D4AF37]' : 'text-stone-400'}`} />
                 <span>Kirim Booking WA →</span>
               </button>
             )}
