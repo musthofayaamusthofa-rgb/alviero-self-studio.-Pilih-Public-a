@@ -114,7 +114,17 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
     return true;
   }
 
-  // 2. Studio 2: Pasangan Putih dan Abu-abu TIDAK BOLEH dipilih sekaligus oleh 1 klien yang sama (paket 2 BG)
+  // 2. Studio 2:
+  // a. Coklat vs Cream bentrok panggung yang sama (mutually exclusive)
+  const isC2CoklatA = a.includes('coklat') || a.includes('cokelat');
+  const isC2CreamA = a.includes('cream') || a.includes('krem');
+  const isC2CoklatB = b.includes('coklat') || b.includes('cokelat');
+  const isC2CreamB = b.includes('cream') || b.includes('krem');
+  if ((isC2CoklatA && isC2CreamB) || (isC2CreamA && isC2CoklatB)) {
+    return true;
+  }
+
+  // b. Pasangan Putih dan Abu-abu TIDAK BOLEH dipilih sekaligus oleh 1 klien yang sama (paket 2 BG)
   const isC2WhiteA = a === 'c2-putih' || a.includes('c2-putih') || a.includes('c2-pro-putih');
   const isC2GrayA = a === 'c2-abu-abu' || a.includes('c2-abu');
   const isC2WhiteB = b === 'c2-putih' || b.includes('c2-putih') || b.includes('c2-pro-putih');
@@ -125,6 +135,102 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   }
 
   return false;
+};
+
+export interface Studio2BackdropAvailabilityResult {
+  availableIds: string[];
+  availableNames: string[];
+  lockedReasons: { [id: string]: string };
+}
+
+/**
+ * Logika Pengecekan Ketersediaan Background Studio 2 (Paket 1 / 1 Background per Klien)
+ * 
+ * Aturan:
+ * 1. Kapasitas: Maksimal 3 klien dalam 1 slot jam.
+ * 2. Kuota per Background: 1 background hanya bisa dipilih maksimal 1 kali per jam slot (tidak bisa dipakai 2 klien berbeda).
+ * 3. Bentrok Posisi: Coklat & Cream saling bertabrakan (mutually exclusive).
+ *    - Jika Coklat terisi -> Cream otomatis tidak tersedia.
+ *    - Jika Cream terisi -> Coklat otomatis tidak tersedia.
+ */
+export const getAvailableBackgroundsStudio2 = (
+  existingBookings: string[] = []
+): Studio2BackdropAvailabilityResult => {
+  const STUDIO_2_BGS = [
+    { id: 'c2-hitam', name: 'Hitam' },
+    { id: 'c2-putih', name: 'Putih' },
+    { id: 'c2-abu-abu', name: 'Abu-abu' },
+    { id: 'c2-coklat-jendela', name: 'Coklat Jendela' },
+    { id: 'c2-tematik-cream', name: 'Tematik Cream' }
+  ];
+
+  const bookedSet = new Set<string>();
+  let hasBookedHitam = false;
+  let hasBookedPutih = false;
+  let hasBookedAbu = false;
+  let hasBookedCoklat = false;
+  let hasBookedCream = false;
+
+  existingBookings.forEach(raw => {
+    const str = String(raw || '').toLowerCase();
+    if (str.includes('hitam')) {
+      hasBookedHitam = true;
+      bookedSet.add('c2-hitam');
+    }
+    if (str.includes('putih')) {
+      hasBookedPutih = true;
+      bookedSet.add('c2-putih');
+    }
+    if (str.includes('abu')) {
+      hasBookedAbu = true;
+      bookedSet.add('c2-abu-abu');
+    }
+    if (str.includes('coklat') || str.includes('cokelat')) {
+      hasBookedCoklat = true;
+      bookedSet.add('c2-coklat-jendela');
+    }
+    if (str.includes('cream') || str.includes('krem')) {
+      hasBookedCream = true;
+      bookedSet.add('c2-tematik-cream');
+    }
+  });
+
+  const availableIds: string[] = [];
+  const availableNames: string[] = [];
+  const lockedReasons: { [id: string]: string } = {};
+
+  STUDIO_2_BGS.forEach(bg => {
+    const isDirectlyBooked = bookedSet.has(bg.id);
+    let isClashed = false;
+    let clashReason = '';
+
+    if (isDirectlyBooked) {
+      lockedReasons[bg.id] = `Sudah dipilih oleh klien lain di jam ini`;
+      return;
+    }
+
+    // Bentrok Posisi Panggung Coklat vs Cream
+    if (bg.id === 'c2-tematik-cream' && hasBookedCoklat) {
+      isClashed = true;
+      clashReason = 'Tidak tersedia (bentrok panggung dengan Coklat Jendela yang sedang terpakai)';
+    } else if (bg.id === 'c2-coklat-jendela' && hasBookedCream) {
+      isClashed = true;
+      clashReason = 'Tidak tersedia (bentrok panggung dengan Tematik Cream yang sedang terpakai)';
+    }
+
+    if (isClashed) {
+      lockedReasons[bg.id] = clashReason;
+    } else {
+      availableIds.push(bg.id);
+      availableNames.push(bg.name);
+    }
+  });
+
+  return {
+    availableIds,
+    availableNames,
+    lockedReasons
+  };
 };
 
 export const normalizeSlotTime = (raw: any): string => {
@@ -338,13 +444,38 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (!bdObj) return { isAvailable: true };
 
     const normTime = normalizeSlotTime(timeSlot);
-    const bookedForSlot = (slotBackdrops[normTime] || []).map(b => b.toLowerCase());
+    const bookedForSlot = (slotBackdrops[normTime] || []).map(b => String(b).toLowerCase());
     const bdIdLower = bdObj.id.toLowerCase();
 
     // =========================================================================
-    // 1. Validasi Khusus Studio 1 (Cabang 1) — Limbo vs Putih Tengah
+    // 1. Validasi Studio 2 (Cabang 2):
+    //    - Kuota 1x per Background di jam yang sama (tidak bisa dipakai 2 klien)
+    //    - Bentrok Posisi Coklat vs Cream (mutually exclusive)
+    // =========================================================================
+    if (selectedBranch === 'cabang-2') {
+      const studio2Availability = getAvailableBackgroundsStudio2(bookedForSlot);
+      if (!studio2Availability.availableIds.includes(backdropId)) {
+        return {
+          isAvailable: false,
+          reason: studio2Availability.lockedReasons[backdropId] || `Tidak tersedia di jam ${normTime} WIB`
+        };
+      }
+    }
+
+    // =========================================================================
+    // 2. Validasi Studio 1 (Cabang 1):
+    //    - Limbo vs Putih Tengah antar Klien Berbeda
+    //    - Kuota 1x per Background di jam yang sama
     // =========================================================================
     if (selectedBranch === 'cabang-1') {
+      const isAlreadyBooked = bookedForSlot.some(b => b.includes(bdObj.name.toLowerCase()) || b.includes(bdIdLower));
+      if (isAlreadyBooked) {
+        return {
+          isAvailable: false,
+          reason: `Sudah dipilih oleh klien lain di jam ${normTime} WIB`
+        };
+      }
+
       if (bdIdLower.includes('limbo')) {
         const hasPutihTengahBooked = bookedForSlot.some(b => b.includes('putih tengah') || b.includes('putih-tengah'));
         if (hasPutihTengahBooked) {
@@ -365,9 +496,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     // =========================================================================
-    // 2. Pembatasan Khusus 1 Klien yang Mengambil Paket 2 Background
-    // - Studio 2: 1 Klien TIDAK BOLEH memilih kombinasi Putih + Abu-abu sekaligus
-    // - Studio 1: 1 Klien TIDAK BOLEH memilih kombinasi Limbo + Putih Tengah sekaligus
+    // 3. Pembatasan Khusus 1 Klien yang Mengambil Paket 2 Background
     // =========================================================================
     if (maxBackdrops > 1 && selectedBackdropIds.length > 0) {
       const conflictingSelected = selectedBackdropIds.find(selId => selId !== backdropId && isConflictingBackdrop(selId, backdropId));
