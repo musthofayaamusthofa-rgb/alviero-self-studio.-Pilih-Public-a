@@ -89,9 +89,10 @@ Daftar kategori pada grid menu studio foto dan aset fotonya di `public/images/ca
 - [`src/components/BranchSelectorModal.tsx`](src/components/BranchSelectorModal.tsx): Berisi Landing Page (`BranchSelectorLanding`) dengan bar pilihan studio mewah, hero banner carousel, dan Pop-Up Modal (`BranchSelectorModal`).
 - [`src/components/PricelistViewer.tsx`](src/components/PricelistViewer.tsx): Komponen utama katalog harga, grid paket, filter kategori, switcher studio, dan preview detail paket.
 - [`src/components/Header.tsx`](src/components/Header.tsx): Bilah navigasi atas dengan logo resmi Alviero Studio dan jam operasional.
-- [`src/components/BookingCalculator.tsx`](src/components/BookingCalculator.tsx): Kalkulator simulasi booking dan invoice WhatsApp.
+- [`src/components/BookingCalculator.tsx`](src/components/BookingCalculator.tsx): Kalkulator simulasi booking, pembayaran QRIS Nasional resmi (`/images/qris-alviero.png`), fitur unduh QRIS, salin nominal, unggah wajib bukti transfer, dan invoice WhatsApp.
 - [`src/components/PhotoStripCustomizer.tsx`](src/components/PhotoStripCustomizer.tsx): Fitur kustomisasi photo strip self studio.
 - [`src/data/pricelistData.ts`](src/data/pricelistData.ts): Sumber data paket, cabang studio, backdrop, dan opsi add-on.
+- [`scripts/google_apps_script.js`](scripts/google_apps_script.js): Kode Google Apps Script v2 untuk Google Spreadsheet (mendukung kapasitas 3 klien per slot jam & filter hanya status `BOOKED`).
 
 ---
 
