@@ -45,7 +45,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 }) => {
   // Helper to normalize category keys
   const normalizeMenuCategory = (cat: string | null | undefined): string => {
-    if (!cat) return 'selfstudio';
+    if (!cat) return 'grad-indoor';
     const c = cat.toLowerCase().trim();
     if (c === 'self-studio' || c === 'selfstudio' || c === 'self_studio' || c === 'self-photo' || c === 'selfphoto') {
       return 'selfstudio';
@@ -56,10 +56,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     if (c === 'bingkai-album' || c === 'cetak' || c === 'bingkai') {
       return 'bingkai-album';
     }
-    if (c === 'graduation-indoor' || c === 'grad-indoor') {
+    if (c === 'graduation-indoor' || c === 'grad-indoor' || c === 'graduation' || c === 'wisuda' || c === 'wisuda-indoor' || c === 'wisuda-wisudawan') {
       return 'grad-indoor';
     }
-    if (c === 'graduation-outdoor' || c === 'grad-outdoor') {
+    if (c === 'graduation-outdoor' || c === 'grad-outdoor' || c === 'wisuda-outdoor') {
       return 'grad-outdoor';
     }
     if (c === 'kebaya-gaun' || c === 'kebayak-gaun') {
@@ -719,7 +719,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     });
   }, [selectedGalleryCategory, searchQuery]);
 
-  const activeMenuInfo = allCategoryButtons.find(m => m.id === activeMenuCategory) || mainMenuButtons[0];
+  const activeMenuInfo = allCategoryButtons.find(m => m.id === activeMenuCategory) || studioFotoSubButtons[0] || mainMenuButtons[0];
   const activeMenuPackages = useMemo(() => {
     return PACKAGES.filter(p => activeMenuInfo.targetPackageIds.includes(p.id));
   }, [activeMenuInfo]);
