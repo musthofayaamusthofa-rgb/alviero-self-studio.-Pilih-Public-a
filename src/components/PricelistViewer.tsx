@@ -771,10 +771,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       {/* 1. BIO-LINK & MENU VIEW (Clean Studio Jakarta Aesthetic)             */}
       {/* ==================================================================== */}
       {activeTab === 'menu' && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-8 items-start w-full">
 
           {/* Left Column: The Studio Menu Card (Minimalist & Elegant) */}
-          <div className="lg:col-span-5 max-w-md w-full mx-auto overflow-hidden shadow-md border border-[#E0D9CE] bg-white relative">
+          <div className="md:col-span-5 lg:col-span-4 xl:col-span-4 max-w-md w-full mx-auto md:sticky md:top-20 overflow-hidden shadow-md border border-[#E0D9CE] bg-white relative rounded-2xl">
             {/* Subtle Studio Ambient Header Glow */}
             <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-[#FAF8F5] to-transparent pointer-events-none" />
 
@@ -1070,14 +1070,34 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           <div
             className={
               isMobilePopupOpen
-                ? 'fixed inset-0 z-50 lg:static lg:col-span-7 bg-slate-950/85 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none flex items-end sm:items-center justify-center p-0 sm:p-4 lg:p-0 overflow-y-auto lg:overflow-visible animate-in fade-in duration-200'
-                : 'hidden lg:block lg:col-span-7'
+                ? 'fixed inset-0 z-50 md:static md:col-span-7 lg:col-span-8 xl:col-span-8 bg-slate-950/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none flex items-end md:block justify-center p-0 md:p-0 overflow-y-auto md:overflow-visible animate-in fade-in duration-200'
+                : 'hidden md:block md:col-span-7 lg:col-span-8 xl:col-span-8'
             }
           >
-            <div className="bg-white text-slate-900 w-full max-h-[92vh] sm:max-h-[90vh] lg:max-h-none rounded-t-[32px] sm:rounded-3xl shadow-2xl lg:shadow-md flex flex-col lg:block overflow-hidden lg:overflow-visible border border-slate-200 relative my-auto lg:my-0 animate-in slide-in-from-bottom lg:animate-none duration-300">
+            <div className="bg-white text-slate-900 w-full max-h-[92vh] md:max-h-none rounded-t-[32px] md:rounded-2xl shadow-2xl md:shadow-md flex flex-col md:block overflow-hidden md:overflow-visible border border-slate-200 relative my-auto md:my-0 animate-in slide-in-from-bottom md:animate-none duration-300">
+
+              {/* Header Khusus Tampilan Desktop & Tablet (Selalu Tampil di PC) */}
+              <div className="hidden md:flex bg-[#FAF8F5] px-6 py-4 border-b border-[#E0D9CE] items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-2xl shrink-0">{activeMenuInfo.icon}</span>
+                  <div className="min-w-0">
+                    <h3 className="font-serif font-black text-base lg:text-lg text-slate-900 uppercase tracking-wide truncate">
+                      {activeMenuInfo.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 font-sans truncate">
+                      {activeMenuInfo.subtitle}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-[10.5px] font-serif font-bold uppercase tracking-wider bg-white text-stone-700 px-3 py-1 border border-[#E0D9CE] rounded-full">
+                    {currentBranchInfo.shortName}
+                  </span>
+                </div>
+              </div>
 
               {/* Sticky Header Khusus Penggunaan HP / Mobile */}
-              <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-200 flex lg:hidden items-center justify-between shadow-2xs">
+              <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-200 flex md:hidden items-center justify-between shadow-2xs">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="text-base sm:text-lg">{activeMenuInfo.icon}</span>
                   <div className="min-w-0">
@@ -4133,7 +4153,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 )}
 
                 {/* Tombol Tutup di Bagian Bawah Pop-up Khusus HP */}
-                <div className="pt-4 pb-2 border-t border-slate-200 text-center lg:hidden">
+                <div className="pt-4 pb-2 border-t border-slate-200 text-center md:hidden">
                   <button
                     onClick={() => setIsMobilePopupOpen(false)}
                     className="w-full min-h-[44px] bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95"
