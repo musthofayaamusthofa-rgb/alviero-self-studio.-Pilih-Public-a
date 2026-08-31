@@ -153,8 +153,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [bookingDate, setBookingDate] = useState<string>(today);
   const [timeSlot, setTimeSlot] = useState<string>('14:00');
 
-  // Real-time Slot & Backdrop Availability from Google Sheets
+  // Real-time Slot & Backdrop Availability from Google Sheets (Maksimal 3 Klien per Slot)
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [slotClientCounts, setSlotClientCounts] = useState<{ [slot: string]: number }>({});
   const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
   const [isLoadingSlots, setIsLoadingSlots] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -194,6 +195,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           if (Array.isArray(data.bookedSlots)) {
             const normalized = data.bookedSlots.map(normalizeSlotTime).filter(Boolean);
             setBookedSlots(normalized);
+          }
+          if (data.slotCounts && typeof data.slotCounts === 'object') {
+            const counts: { [s: string]: number } = {};
+            Object.entries(data.slotCounts).forEach(([slotRaw, count]) => {
+              const sNorm = normalizeSlotTime(slotRaw);
+              if (sNorm) counts[sNorm] = Number(count) || 0;
+            });
+            setSlotClientCounts(counts);
           }
           if (data.slotBackdrops && typeof data.slotBackdrops === 'object') {
             const normalizedSlotBackdrops: { [s: string]: string[] } = {};
@@ -760,7 +769,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2">
                     {activeTimeSlots.map((slot) => {
                       const isSelected = timeSlot === slot;
-                      const isBooked = bookedSlots.includes(slot);
+                      const clientCount = slotClientCounts[slot] || 0;
+                      const isBooked = bookedSlots.includes(slot) || clientCount >= 3;
 
                       return (
                         <button
@@ -777,11 +787,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             }`}
                         >
                           <span className="leading-tight">{slot}</span>
-                          {isBooked && (
+                          {isBooked ? (
                             <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
                               Penuh
                             </span>
-                          )}
+                          ) : clientCount > 0 ? (
+                            <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
+                              {clientCount}/3 Terisi
+                            </span>
+                          ) : null}
                         </button>
                       );
                     })}
