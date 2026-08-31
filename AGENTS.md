@@ -49,9 +49,13 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 >   4. **Pembatasan Khusus:** Pasangan background *Putih* dan *Abu-abu* **TIDAK BOLEH dipilih sekaligus oleh 1 klien yang sama** (1 klien dilarang mengambil kombinasi 2 BG: Putih + Abu-abu dalam 1 sesi reservasi).
 > - **B. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi oleh 1 klien.
 
-> ⏰ **Jam Operasional & Format Slot Waktu:**
+> ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**
-> - Interval Sesi Foto: **25 Menit per sesi** (Total 31 slot mulai dari `08:00` s.d. `20:30`).
+> - Interval Slot Dasar: **25 Menit per slot** (Total 31 slot mulai dari `08:00` s.d. `20:30`).
+> - **Aturan Durasi Paket (50 Menit untuk 2 Background):**
+>   - Paket 1 Background (Paket 1 / Standar): Durasi **25 Menit** (1 slot).
+>   - Paket 2 Background ke atas (Paket 2, 3, 4 / 2 Background): Durasi otomatis **50 Menit** (mengalokasikan 2 slot waktu berturut-turut, contoh: `12:35 - 13:25 WIB`).
+>   - Slot jam `20:30` hanya bisa untuk paket 25 menit (karena jam tutup studio 21:00 WIB). Sesi 50 menit maksimal mulai jam `20:05` (selesai `20:55`).
 
 ---
 
