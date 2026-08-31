@@ -105,7 +105,7 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   const a = idA.toLowerCase();
   const b = idB.toLowerCase();
 
-  // 1. Studio 1: Limbo vs Putih Tengah (area panggung yang sama)
+  // Studio 1: Limbo vs Putih Tengah tidak bisa dipilih bersamaan oleh 1 klien (area panggung yang sama)
   const isLimboA = a.includes('limbo');
   const isPutihTengahA = a.includes('putih-tengah') || a.includes('putih_tengah') || (a.includes('putih') && !a.includes('c2'));
   const isLimboB = b.includes('limbo');
@@ -115,21 +115,7 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
     return true;
   }
 
-  // 2. Studio 2: Putih, Abu-abu, Tematik Cream tidak bisa bertemu dalam 1 waktu (area panggung yang sama)
-  const isC2WhiteA = a === 'c2-putih' || a.includes('c2-putih') || a.includes('c2-pro-putih');
-  const isC2GrayA = a === 'c2-abu-abu' || a.includes('c2-abu');
-  const isC2TematikA = a === 'c2-tematik-cream' || a.includes('c2-tematik') || a.includes('c2-pro-cream');
-  const isC2GroupA = isC2WhiteA || isC2GrayA || isC2TematikA;
-
-  const isC2WhiteB = b === 'c2-putih' || b.includes('c2-putih') || b.includes('c2-pro-putih');
-  const isC2GrayB = b === 'c2-abu-abu' || b.includes('c2-abu');
-  const isC2TematikB = b === 'c2-tematik-cream' || b.includes('c2-tematik') || b.includes('c2-pro-cream');
-  const isC2GroupB = isC2WhiteB || isC2GrayB || isC2TematikB;
-
-  if (isC2GroupA && isC2GroupB) {
-    return true;
-  }
-
+  // Studio 2: 1 klien yang sama DIIZINKAN memilih kombinasi Putih & Abu-abu atau kombinasi lainnya secara bebas
   return false;
 };
 
@@ -262,40 +248,60 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const bdNameLower = bdObj.name.toLowerCase();
     const bdIdLower = bdObj.id.toLowerCase();
 
-    // 1. Cek apakah backdrop ini sudah dibooking oleh client lain di jam ini
-    const isDirectlyBooked = bookedForSlot.some(b => b.includes(bdNameLower) || bdNameLower.includes(b) || b.includes(bdIdLower));
-    if (isDirectlyBooked) {
-      return { isAvailable: false, reason: `Sudah terpakai di jam ${normTime} WIB` };
-    }
+    // =========================================================================
+    // A. Aturan Studio 2 (Cabang 2) — Background Putih vs Abu-abu antar Klien Berbeda
+    // 1. Background Putih dan Abu-abu TIDAK BOLEH dipesan oleh dua klien berbeda di slot jam yang sama.
+    // 2. Background Putih dan Abu-abu HANYA boleh aktif bersamaan jika dipesan oleh 1 klien yang sama (opsi 2 background).
+    // =========================================================================
+    if (selectedBranch === 'cabang-2') {
+      const isCheckingWhite = bdIdLower === 'c2-putih' || bdIdLower.includes('c2-putih') || bdNameLower === 'putih';
+      const isCheckingGray = bdIdLower === 'c2-abu-abu' || bdIdLower.includes('c2-abu') || bdNameLower === 'abu-abu' || bdNameLower === 'abu';
 
-    // 2. Cek konflik panggung: Limbo vs Putih Tengah pada slot booking dari orang lain
-    if (bdIdLower.includes('limbo')) {
-      const hasPutihTengahBooked = bookedForSlot.some(b => b.includes('putih tengah') || b.includes('putih-tengah'));
-      if (hasPutihTengahBooked) {
-        return { isAvailable: false, reason: `Area panggung sama dengan Putih Tengah (terpakai di jam ${normTime} WIB)` };
-      }
-    } else if (bdIdLower.includes('putih-tengah') || bdIdLower.includes('putih_tengah')) {
-      const hasLimboBooked = bookedForSlot.some(b => b.includes('limbo'));
-      if (hasLimboBooked) {
-        return { isAvailable: false, reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)` };
-      }
-    }
-
-    // Studio 2: Putih, Abu-abu, Tematik Cream tidak bisa bertemu dalam 1 waktu pada slot booking orang lain
-    const isC2White = bdIdLower === 'c2-putih' || bdIdLower.includes('c2-putih') || bdIdLower.includes('c2-pro-putih');
-    const isC2Gray = bdIdLower === 'c2-abu-abu' || bdIdLower.includes('c2-abu');
-    const isC2Tematik = bdIdLower === 'c2-tematik-cream' || bdIdLower.includes('c2-tematik') || bdIdLower.includes('c2-pro-cream');
-
-    if (isC2White || isC2Gray || isC2Tematik) {
-      const hasConflictInSlot = bookedForSlot.some(b => {
-        const bLower = b.toLowerCase();
-        return (
-          bLower.includes('c2-putih') || bLower.includes('c2-abu') || bLower.includes('c2-tematik') ||
-          (selectedBranch === 'cabang-2' && (bLower.includes('putih') || bLower.includes('abu') || bLower.includes('tematik')))
+      if (isCheckingWhite) {
+        // Cek apakah ada klien lain di slot jam ini yang sudah memesan Abu-abu
+        const hasOtherClientBookedGray = bookedForSlot.some(b => 
+          b.includes('c2-abu') || b.includes('abu-abu') || b.includes('abu')
         );
-      });
-      if (hasConflictInSlot) {
-        return { isAvailable: false, reason: `Area panggung sama dengan Putih / Abu-abu / Tematik Cream Studio 2 (terpakai di jam ${normTime} WIB)` };
+        if (hasOtherClientBookedGray) {
+          return { 
+            isAvailable: false, 
+            reason: `Tidak tersedia (slot jam ${normTime} WIB sudah terisi background Abu-abu oleh klien lain)` 
+          };
+        }
+      } else if (isCheckingGray) {
+        // Cek apakah ada klien lain di slot jam ini yang sudah memesan Putih
+        const hasOtherClientBookedWhite = bookedForSlot.some(b => 
+          b.includes('c2-putih') || b.includes('putih')
+        );
+        if (hasOtherClientBookedWhite) {
+          return { 
+            isAvailable: false, 
+            reason: `Tidak tersedia (slot jam ${normTime} WIB sudah terisi background Putih oleh klien lain)` 
+          };
+        }
+      }
+    }
+
+    // =========================================================================
+    // B. Aturan Studio 1 (Cabang 1) — Background Limbo vs Putih Tengah antar Klien Berbeda
+    // =========================================================================
+    if (selectedBranch === 'cabang-1') {
+      if (bdIdLower.includes('limbo')) {
+        const hasPutihTengahBooked = bookedForSlot.some(b => b.includes('putih tengah') || b.includes('putih-tengah'));
+        if (hasPutihTengahBooked) {
+          return { 
+            isAvailable: false, 
+            reason: `Area panggung sama dengan Putih Tengah (terpakai di jam ${normTime} WIB)` 
+          };
+        }
+      } else if (bdIdLower.includes('putih-tengah') || bdIdLower.includes('putih_tengah')) {
+        const hasLimboBooked = bookedForSlot.some(b => b.includes('limbo'));
+        if (hasLimboBooked) {
+          return { 
+            isAvailable: false, 
+            reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)` 
+          };
+        }
       }
     }
 
@@ -789,7 +795,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         Pemberitahuan Jam Tutup & Keterlambatan:
                       </p>
                       <p className="text-amber-800 text-[11px] sm:text-xs leading-snug">
-                        Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan atau difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-amber-950">Rp. 25.000</strong> atau dipindahkan ke hari berikutnya dan jika melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
+                        1. Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan<br />
+                        2. Difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-amber-950">Rp. 25.000</strong><br />
+                        3. Dipindahkan ke hari berikutnya<br />
+                        4. Jika melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-amber-950">Rp. 35.000</strong>.
                       </p>
                     </div>
                   </div>
@@ -813,21 +822,31 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   )}
                 </div>
 
-                {/* Conflict Notice Banner */}
+                {/* Rule Notice Banner Studio 2 & Studio 1 */}
                 {selectedBranch === 'cabang-2' && (
-                  <div className="mb-2.5 p-2.5 bg-amber-50/90 border border-amber-300 text-amber-900 text-[11px] font-sans flex items-center gap-2">
-                    <span className="font-bold text-xs shrink-0">⚠️</span>
-                    <span>
-                      <strong>Catatan Khusus Studio 2:</strong> Background <strong>Putih</strong>, <strong>Abu-abu</strong>, dan <strong>Tematik Cream</strong> berada di area panggung yang sama dan <em>tidak dapat dipilih bersamaan dalam 1 waktu / sesi</em>.
-                    </span>
+                  <div className="mb-2.5 p-2.5 bg-amber-50/90 border border-amber-300 text-amber-900 text-[11px] font-sans flex items-start gap-2 shadow-2xs">
+                    <span className="font-bold text-xs shrink-0 mt-0.5 text-amber-700">⚠️</span>
+                    <div className="space-y-0.5 leading-snug">
+                      <p>
+                        <strong>Aturan Background Studio 2:</strong> Background <strong>Putih</strong> dan <strong>Abu-abu</strong> tidak boleh dipesan oleh dua klien berbeda di slot jam yang sama (hanya boleh aktif bersamaan jika dipesan oleh 1 klien yang sama yang mengambil 2 background).
+                      </p>
+                      <p className="text-amber-800 text-[10.5px]">
+                        ℹ️ Rotasi Slot Foto: Maksimal 3 klien per slot jam (penggunaan background dilakukan secara bergantian).
+                      </p>
+                    </div>
                   </div>
                 )}
                 {selectedBranch === 'cabang-1' && (
-                  <div className="mb-2.5 p-2.5 bg-stone-100 border border-stone-200 text-stone-700 text-[11px] font-sans flex items-center gap-2">
-                    <span className="font-bold text-xs shrink-0">ℹ️</span>
-                    <span>
-                      <strong>Catatan Khusus Studio 1:</strong> Background <strong>Limbo</strong> dan <strong>Putih Tengah</strong> berada di area panggung yang sama dan <em>tidak dapat dipilih bersamaan dalam 1 waktu / sesi</em>.
-                    </span>
+                  <div className="mb-2.5 p-2.5 bg-stone-100 border border-stone-200 text-stone-700 text-[11px] font-sans flex items-start gap-2 shadow-2xs">
+                    <span className="font-bold text-xs shrink-0 mt-0.5 text-stone-600">ℹ️</span>
+                    <div className="space-y-0.5 leading-snug">
+                      <p>
+                        <strong>Aturan Background Studio 1:</strong> Background <strong>Limbo</strong> dan <strong>Putih Tengah</strong> berada di area panggung yang sama dan tidak dapat dipilih bersamaan dalam 1 waktu / sesi.
+                      </p>
+                      <p className="text-stone-600 text-[10.5px]">
+                        ℹ️ Rotasi Slot Foto: Maksimal 3 klien per slot jam (penggunaan background dilakukan secara bergantian).
+                      </p>
+                    </div>
                   </div>
                 )}
 

@@ -41,9 +41,18 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 | **Studio 1** | Alviero Studio — Studio 1 (Karangploso) | Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151 | [https://maps.app.goo.gl/oxtptpr3RSDL9zCj6](https://maps.app.goo.gl/oxtptpr3RSDL9zCj6) | Hijau Pastel, Cream, Limbo, Putih Tengah, Putih Jendela |
 | **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream** |
 
-> ⚠️ **Aturan Panggung & Konflik Background dalam 1 Waktu:**
-> - **Studio 1**: Background *Limbo* dan *Putih Tengah* tidak bisa dipilih bersamaan dalam 1 waktu / sesi.
-> - **Studio 2**: Background *Putih*, *Abu-abu*, dan *Tematik Cream* tidak bisa bertemu / dipilih bersamaan dalam 1 waktu / sesi (berada di area panggung yang sama).
+> ⚠️ **Sistem Logika Pemesanan & Validasi Background (Booking Validation Rules):**
+> - **A. Aturan Studio 2 (Background Putih & Abu-abu):**
+>   1. Background *Putih* dan *Abu-abu* **TIDAK BOLEH** dipesan oleh dua klien berbeda di slot jam yang sama.
+>   2. Background *Putih* dan *Abu-abu* **HANYA boleh aktif bersamaan** di slot jam yang sama jika dipesan oleh **1 klien yang sama** (klien mengambil paket opsi 2 background sekaligus).
+> - **B. Aturan Kapasitas & Rotasi Slot Waktu:**
+>   1. Setiap 1 slot waktu reservasi dapat menerima **maksimal 3 klien sekaligus**.
+>   2. Setiap klien diizinkan memilih hingga 2 background dalam satu sesi reservasi karena penggunaan background dilakukan secara bergantian (rotasi).
+>   3. Contoh validasi slot bersamaan yang diizinkan:
+>      - Klien 1: Hitam & Putih
+>      - Klien 2: Putih & Coklat
+>      - Klien 3: Coklat & Hitam
+> - **C. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi.
 
 > ⏰ **Jam Operasional & Format Slot Waktu:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**
