@@ -987,64 +987,94 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </div>
             </div>
 
-            {/* 2 Companion Service Cards (Wedding & Cetak Lab) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Card 1: Pricelist Wedding & Prewedding */}
+            {/* 3 Companion Service Cards (MUA & Kebaya, Wedding, Cetak Lab) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+              {/* Card 1: Pricelist MUA & Kebaya */}
               <div
-                onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-4 shadow-2xs"
+                onClick={() => onSelectCategory ? onSelectCategory('kebayak-gaun') : onSelectBranch(selectedBranch)}
+                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-11 h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Sparkles className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Palette className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate">
-                        PRICELIST WEDDING & PREWEDDING
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
+                        PRICELIST MUA & KEBAYA
                       </h4>
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
-                        Exclusive Suite
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                        Wardrobe
                       </span>
                     </div>
-                    <p className="text-xs font-sans text-[#736B63] truncate mt-1">
-                      Paket Prewedding, Akad Nikah, Resepsi & Engagement Lengkap
+                    <p className="text-[11px] sm:text-xs font-sans text-[#736B63] truncate mt-1">
+                      Sewa Kebaya Modern, Gaun Wisuda & Paket MUA
                     </p>
                   </div>
                 </div>
 
                 <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
-                  <span className="hidden sm:inline">Lihat Paket</span>
+                  <span className="hidden lg:inline text-[11px]">Lihat Koleksi</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
 
-              {/* Card 2: Pricelist Cetak Lab & Bingkai */}
+              {/* Card 2: Pricelist Wedding & Prewedding */}
               <div
-                onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-4 shadow-2xs"
+                onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
+                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-11 h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Sparkles className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
                   </div>
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] tracking-wider uppercase truncate">
-                        PRICELIST CETAK LAB & BINGKAI
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
+                        PRICELIST WEDDING & PREWEDDING
                       </h4>
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
-                        Lab Standard
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                        Suite
                       </span>
                     </div>
-                    <p className="text-xs font-sans text-[#736B63] truncate mt-1">
-                      Cetak Lab Anti-Luntur, Bingkai Kayu Minimalis & Album Hardcover
+                    <p className="text-[11px] sm:text-xs font-sans text-[#736B63] truncate mt-1">
+                      Paket Prewedding, Akad Nikah, Resepsi & Engagement
                     </p>
                   </div>
                 </div>
 
                 <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
-                  <span className="hidden sm:inline">Lihat Katalog</span>
+                  <span className="hidden lg:inline text-[11px]">Lihat Paket</span>
+                  <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+
+              {/* Card 3: Pricelist Cetak Lab & Bingkai */}
+              <div
+                onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
+                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
+              >
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
+                        PRICELIST CETAK LAB & BINGKAI
+                      </h4>
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                        Lab
+                      </span>
+                    </div>
+                    <p className="text-[11px] sm:text-xs font-sans text-[#736B63] truncate mt-1">
+                      Cetak Lab Anti-Luntur, Bingkai Kayu & Album Hardcover
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                  <span className="hidden lg:inline text-[11px]">Lihat Katalog</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
