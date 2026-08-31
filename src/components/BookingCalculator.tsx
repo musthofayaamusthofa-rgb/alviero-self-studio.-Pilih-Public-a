@@ -17,7 +17,7 @@ interface BookingCalculatorProps {
 export const getPackageCategoryInfo = (pkg: { id: string; category: string; name: string }) => {
   const id = pkg.id.toLowerCase();
   const cat = pkg.category.toLowerCase();
-  
+
   if (id.includes('outdoor') || cat.includes('outdoor')) {
     return { key: 'grad-outdoor', label: 'Wisuda Outdoor', badge: 'Wisuda Outdoor', note: '' };
   }
@@ -63,11 +63,11 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
 export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[] }): number => {
   const id = pkg.id.toLowerCase();
   const cat = pkg.category.toLowerCase();
-  
+
   if (id.includes('self') || cat === 'self-studio' || cat === 'pass-foto' || id.includes('passfoto') || cat === 'sewa-studio' || cat === 'undangan') {
     return 1;
   }
-  
+
   const desc = (pkg.description || '').toLowerCase();
   const highlights = (pkg.highlights || []).map(h => h.toLowerCase()).join(' ');
   const name = (pkg.name || '').toLowerCase();
@@ -104,13 +104,13 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   if (!idA || !idB || idA === idB) return false;
   const a = idA.toLowerCase();
   const b = idB.toLowerCase();
-  
+
   // 1. Studio 1: Limbo vs Putih Tengah (area panggung yang sama)
   const isLimboA = a.includes('limbo');
   const isPutihTengahA = a.includes('putih-tengah') || a.includes('putih_tengah') || (a.includes('putih') && !a.includes('c2'));
   const isLimboB = b.includes('limbo');
   const isPutihTengahB = b.includes('putih-tengah') || b.includes('putih_tengah') || (b.includes('putih') && !b.includes('c2'));
-  
+
   if ((isLimboA && isPutihTengahB) || (isPutihTengahA && isLimboB)) {
     return true;
   }
@@ -162,11 +162,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [selectedBackdropIds, setSelectedBackdropIds] = useState<string[]>([preselectedBackdropId || BACKDROPS[0].id]);
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: number }>({});
-  
+
   const today = new Date().toISOString().split('T')[0];
   const [bookingDate, setBookingDate] = useState<string>(today);
   const [timeSlot, setTimeSlot] = useState<string>('14:00');
-  
+
   // Real-time Slot & Backdrop Availability from Google Sheets
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
@@ -247,7 +247,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (preselectedFrameId) setSelectedFrameId(preselectedFrameId);
   }, [preselectedPackageId, preselectedBackdropId, preselectedFrameId]);
 
-  const availableBackdrops = BACKDROPS.filter(b => 
+  const availableBackdrops = BACKDROPS.filter(b =>
     (b.applicableBranches || ['cabang-1']).includes((selectedBranch as StudioBranch) || 'cabang-1') &&
     b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio')
   );
@@ -379,14 +379,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Calculate Price Breakdown
   const packagePrice = currentPackage.price;
-  
+
   const addOnsTotalPrice = Object.entries(selectedAddOns).reduce((sum, [id, qty]) => {
     const addOn = ADD_ONS.find(a => a.id === id);
     const numQty = typeof qty === 'number' ? qty : Number(qty) || 0;
     return sum + (addOn ? addOn.price * numQty : 0);
   }, 0);
 
-  const slotCharge = timeSlot === '20:30' ? 25000 : 0;
+  const slotCharge = timeSlot === '20:30' ? 35000 : 0;
 
   const subtotal = packagePrice + addOnsTotalPrice + slotCharge;
 
@@ -463,7 +463,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     if (slotCharge > 0) {
-      message += `⚡ *CHARGE SLOT MALAM (20:30):* Rp 25.000\n\n`;
+      message += `⚡ *CHARGE SLOT MALAM (20:30):* Rp 35.000\n\n`;
     }
 
     if (appliedPromo) {
@@ -540,7 +540,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto animate-in fade-in duration-200">
       <div className="bg-[#FAF8F5] max-w-3xl w-full border-x-0 sm:border sm:border-[#D5CEC2] shadow-2xl overflow-hidden flex flex-col max-h-screen sm:max-h-[94vh] my-auto relative text-left">
-        
+
         {/* Modal Header (Sleek Charcoal & Gold Luxury) */}
         <div className="bg-[#1C1A17] text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-[#332F2A]">
           <div className="flex items-center gap-3">
@@ -570,39 +570,36 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           <div className="flex items-center gap-2 w-full justify-between sm:justify-start">
             <button
               onClick={() => setStep(1)}
-              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${
-                step === 1 
-                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold' 
-                  : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
-              }`}
+              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 1
+                ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold'
+                : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
+                }`}
             >
               <span className={`text-[11px] font-bold ${step === 1 ? 'text-[#D4AF37]' : 'text-stone-500'}`}>1.</span>
               <span>Paket & Jadwal</span>
             </button>
-            
+
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-            
+
             <button
               onClick={() => setStep(2)}
-              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${
-                step === 2 
-                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold' 
-                  : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
-              }`}
+              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 2
+                ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold'
+                : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
+                }`}
             >
               <span className={`text-[11px] font-bold ${step === 2 ? 'text-[#D4AF37]' : 'text-stone-500'}`}>2.</span>
               <span>Add-Ons & Diskon</span>
             </button>
-            
+
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-            
+
             <button
               onClick={() => setStep(3)}
-              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${
-                step === 3 
-                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold' 
-                  : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
-              }`}
+              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 3
+                ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold'
+                : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
+                }`}
             >
               <span className={`text-[11px] font-bold ${step === 3 ? 'text-[#D4AF37]' : 'text-stone-500'}`}>3.</span>
               <span>Data & Pembayaran</span>
@@ -612,11 +609,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
         {/* Modal Body Content */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 bg-[#FAF8F5]">
-          
+
           {/* STEP 1: Select Package, Date, Time & Concepts */}
           {step === 1 && (
             <div className="space-y-5">
-              
+
               {/* Branch Selector in Step 1 (Fully Responsive Mobile & Desktop) */}
               <div className="bg-white border border-[#E0D9CE] p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shadow-2xs">
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
@@ -641,11 +638,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       onClick={() => {
                         if (onSelectBranch) onSelectBranch(b.id);
                       }}
-                      className={`px-2.5 sm:px-3.5 py-2 sm:py-1.5 text-[10px] sm:text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border text-center flex items-center justify-center truncate ${
-                        selectedBranch === b.id
-                          ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
-                          : 'bg-[#FAF8F5] text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
-                      }`}
+                      className={`px-2.5 sm:px-3.5 py-2 sm:py-1.5 text-[10px] sm:text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border text-center flex items-center justify-center truncate ${selectedBranch === b.id
+                        ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
+                        : 'bg-[#FAF8F5] text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
+                        }`}
                     >
                       {b.shortName.replace('Alviero Studio — ', '')}
                     </button>
@@ -776,15 +772,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           data-price={isChargeSlot ? 'surcharge' : 'normal'}
                           disabled={isBooked}
                           onClick={() => setTimeSlot(slot)}
-                          className={`min-h-[46px] p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border ${
-                            isBooked
-                              ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
-                              : isSelected
+                          className={`min-h-[46px] p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border ${isBooked
+                            ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
+                            : isSelected
                               ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs cursor-pointer active:scale-95'
                               : isChargeSlot
-                              ? 'bg-[#FFFDF7] hover:bg-[#FAF5EE] text-[#6E4E18] border-[#E8DCC4] cursor-pointer active:scale-95'
-                              : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
-                          }`}
+                                ? 'bg-[#FFFDF7] hover:bg-[#FAF5EE] text-[#6E4E18] border-[#E8DCC4] cursor-pointer active:scale-95'
+                                : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
+                            }`}
                         >
                           <span className="leading-tight">{slot}</span>
                           {isBooked ? (
@@ -793,11 +788,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             </span>
                           ) : isChargeSlot ? (
                             <span
-                              className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 ${
-                                isSelected ? 'bg-[#D4AF37] text-black font-bold' : 'bg-[#E8DCC4] text-[#6E4E18]'
-                              }`}
+                              className={`text-[8.5px] font-extrabold uppercase mt-0.5 px-1 py-0.2 ${isSelected ? 'bg-[#D4AF37] text-black font-bold' : 'bg-[#E8DCC4] text-[#6E4E18]'
+                                }`}
                             >
-                              (+25k)
+                              (+35k)
                             </span>
                           ) : null}
                         </button>
@@ -810,7 +804,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <div className="mt-2.5 p-3 bg-amber-50 border border-amber-300 text-amber-900 text-xs font-sans flex items-center gap-2">
                       <span className="font-bold text-sm shrink-0">⚡</span>
                       <span>
-                        Slot jam <strong className="font-bold">20:30 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 25.000</strong>.
+                        Slot jam <strong className="font-bold">20:30 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 35.000</strong>.
                       </span>
                     </div>
                   )}
@@ -865,13 +859,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         disabled={!isAvailable && !isSelected}
                         onClick={() => handleSelectBackdrop(backdrop.id)}
-                        className={`min-h-[56px] p-3 border text-left flex items-center gap-3 transition-all relative ${
-                          !isAvailable && !isSelected
-                            ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
-                            : isSelected
+                        className={`min-h-[56px] p-3 border text-left flex items-center gap-3 transition-all relative ${!isAvailable && !isSelected
+                          ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
+                          : isSelected
                             ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs cursor-pointer active:scale-98'
                             : 'border-[#E0D9CE] bg-white hover:bg-[#FAF8F5] cursor-pointer active:scale-98'
-                        }`}
+                          }`}
                       >
                         <div
                           className="w-7 h-7 border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold"
@@ -929,11 +922,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Helper notice for 2 backdrops */}
                 {maxBackdrops > 1 && (
-                  <div className={`mt-2.5 p-3 border text-xs font-sans flex items-center justify-between gap-2 transition-all ${
-                    selectedBackdropIds.length >= 2
-                      ? 'bg-white border-[#1C1A17] text-[#1C1A17]'
-                      : 'bg-amber-50 border-amber-300 text-amber-900'
-                  }`}>
+                  <div className={`mt-2.5 p-3 border text-xs font-sans flex items-center justify-between gap-2 transition-all ${selectedBackdropIds.length >= 2
+                    ? 'bg-white border-[#1C1A17] text-[#1C1A17]'
+                    : 'bg-amber-50 border-amber-300 text-amber-900'
+                    }`}>
                     <span className="font-medium">
                       {selectedBackdropIds.length >= 2 ? (
                         <>✓ <strong>2 Latar Terpilih:</strong> {backdropDisplayName}</>
@@ -961,11 +953,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         key={frame.id}
                         onClick={() => setSelectedFrameId(frame.id)}
-                        className={`min-h-[46px] p-3 border text-left transition-all cursor-pointer active:scale-98 ${
-                          selectedFrameId === frame.id
-                            ? 'border-[#1C1A17] bg-white text-[#1C1A17] font-bold ring-1 ring-[#1C1A17] shadow-xs'
-                            : 'border-[#E0D9CE] bg-white hover:bg-[#FAF8F5] text-stone-700'
-                        }`}
+                        className={`min-h-[46px] p-3 border text-left transition-all cursor-pointer active:scale-98 ${selectedFrameId === frame.id
+                          ? 'border-[#1C1A17] bg-white text-[#1C1A17] font-bold ring-1 ring-[#1C1A17] shadow-xs'
+                          : 'border-[#E0D9CE] bg-white hover:bg-[#FAF8F5] text-stone-700'
+                          }`}
                       >
                         <div className="font-serif font-bold text-xs uppercase">{frame.name}</div>
                         <div className="text-[10px] text-stone-500 mt-0.5">{frame.gridType}</div>
@@ -1041,11 +1032,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         return (
                           <div
                             key={addOn.id}
-                            className={`p-3.5 border transition-all flex items-center justify-between gap-3 ${
-                              qty > 0
-                                ? 'bg-white border-[#1C1A17] ring-1 ring-[#1C1A17] shadow-xs'
-                                : 'bg-white hover:border-stone-400 border-[#E0D9CE]'
-                            }`}
+                            className={`p-3.5 border transition-all flex items-center justify-between gap-3 ${qty > 0
+                              ? 'bg-white border-[#1C1A17] ring-1 ring-[#1C1A17] shadow-xs'
+                              : 'bg-white hover:border-stone-400 border-[#E0D9CE]'
+                              }`}
                           >
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center gap-1.5 flex-wrap">
@@ -1121,7 +1111,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           {/* STEP 3: Customer Info, Notes & Payment Options */}
           {step === 3 && (
             <div className="space-y-5">
-              
+
               {/* Ringkasan Jadwal & Cabang Terpilih */}
               <div className="bg-white border border-[#E0D9CE] p-4 flex items-center justify-between gap-3 shadow-2xs">
                 <div className="flex items-center gap-3 min-w-0">
@@ -1191,26 +1181,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${
-                      paymentOption === 'dp' 
-                        ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs' 
-                        : 'border-[#E0D9CE] bg-white text-stone-700 hover:bg-[#FAF8F5]'
-                    }`}
+                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${paymentOption === 'dp'
+                      ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs'
+                      : 'border-[#E0D9CE] bg-white text-stone-700 hover:bg-[#FAF8F5]'
+                      }`}
                   >
                     <div className="font-serif font-bold text-xs uppercase text-[#1C1A17]">Bayar DP 50% Sekarang</div>
                     <div className="text-[10.5px] font-normal text-stone-500 mt-0.5">
                       Transfer DP Rp {dpAmount.toLocaleString('id-ID')} untuk kunci jadwal
                     </div>
                   </button>
-                  
+
                   <button
                     type="button"
                     onClick={() => setPaymentOption('full')}
-                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${
-                      paymentOption === 'full' 
-                        ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs' 
-                        : 'border-[#E0D9CE] bg-white text-stone-700 hover:bg-[#FAF8F5]'
-                    }`}
+                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${paymentOption === 'full'
+                      ? 'border-[#1C1A17] bg-white ring-1 ring-[#1C1A17] shadow-xs'
+                      : 'border-[#E0D9CE] bg-white text-stone-700 hover:bg-[#FAF8F5]'
+                      }`}
                   >
                     <div className="font-serif font-bold text-xs uppercase text-[#1C1A17]">Bayar Lunas / Full</div>
                     <div className="text-[10.5px] font-normal text-stone-500 mt-0.5">
@@ -1263,7 +1251,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <span>Harga Paket Utama</span>
                 <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
               </div>
-              
+
               {addOnsTotalPrice > 0 && (
                 <div className="flex justify-between text-stone-300">
                   <span>Total Add-ons Tambahan</span>

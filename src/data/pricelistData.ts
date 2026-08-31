@@ -2222,24 +2222,24 @@ export const REVIEWS: ReviewItem[] = [
   }
 ];
 
-// 31 Slot Jadwal untuk Studio Foto Profesional (08:00 - 21:00 WIB, Interval 25 Menit/Sesi)
+// 32 Slot Jadwal untuk Studio Foto Profesional (08:00 - 21:00 WIB, Interval 25 Menit/Sesi s.d. 20:55)
 export const PRO_STUDIO_TIME_SLOTS = [
   '08:00', '08:25', '08:50', '09:15', '09:40', '10:05',
   '10:30', '10:55', '11:20', '11:45', '12:10', '12:35',
   '13:00', '13:25', '13:50', '14:15', '14:40', '15:05',
   '15:30', '15:55', '16:20', '16:45', '17:10', '17:35',
   '18:00', '18:25', '18:50', '19:15', '19:40', '20:05',
-  '20:30'
+  '20:30', '20:55'
 ];
 
-// 31 Slot Jadwal untuk Ruang Bilik Self Studio (08:00 - 21:00 WIB, Interval 25 Menit/Sesi)
+// 32 Slot Jadwal untuk Ruang Bilik Self Studio (08:00 - 21:00 WIB, Interval 25 Menit/Sesi s.d. 20:55)
 export const SELF_STUDIO_TIME_SLOTS = [
   '08:00', '08:25', '08:50', '09:15', '09:40', '10:05',
   '10:30', '10:55', '11:20', '11:45', '12:10', '12:35',
   '13:00', '13:25', '13:50', '14:15', '14:40', '15:05',
   '15:30', '15:55', '16:20', '16:45', '17:10', '17:35',
   '18:00', '18:25', '18:50', '19:15', '19:40', '20:05',
-  '20:30'
+  '20:30', '20:55'
 ];
 
 export const TIME_SLOTS = PRO_STUDIO_TIME_SLOTS;
