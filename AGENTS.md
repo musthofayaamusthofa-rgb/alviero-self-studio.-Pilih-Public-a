@@ -42,17 +42,12 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 | **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream** |
 
 > ⚠️ **Sistem Logika Pemesanan & Validasi Background (Booking Validation Rules):**
-> - **A. Aturan Studio 2 (Background Putih & Abu-abu):**
->   1. Background *Putih* dan *Abu-abu* **TIDAK BOLEH** dipesan oleh dua klien berbeda di slot jam yang sama.
->   2. Background *Putih* dan *Abu-abu* **HANYA boleh aktif bersamaan** di slot jam yang sama jika dipesan oleh **1 klien yang sama** (klien mengambil paket opsi 2 background sekaligus).
-> - **B. Aturan Kapasitas & Rotasi Slot Waktu:**
->   1. Setiap 1 slot waktu reservasi dapat menerima **maksimal 3 klien sekaligus**.
->   2. Setiap klien diizinkan memilih hingga 2 background dalam satu sesi reservasi karena penggunaan background dilakukan secara bergantian (rotasi).
->   3. Contoh validasi slot bersamaan yang diizinkan:
->      - Klien 1: Hitam & Putih
->      - Klien 2: Putih & Coklat
->      - Klien 3: Coklat & Hitam
-> - **C. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi.
+> - **A. Aturan Studio 2 (Kapasitas, Rotasi & Pembatasan Khusus):**
+>   1. Dalam 1 slot jam, Studio 2 dapat menerima **maksimal 3 klien sekaligus**.
+>   2. Setiap klien diizinkan memilih hingga 2 background yang dipakai secara bergantian (rotasi).
+>   3. Background *Putih* dan *Abu-abu* **BOLEH dipilih oleh klien berbeda di jam yang sama** (contoh: Klien 1 pakai Hitam & Putih, Klien 2 pakai Putih & Coklat). Ini valid karena sesi foto berjalan bergiliran.
+>   4. **Pembatasan Khusus:** Pasangan background *Putih* dan *Abu-abu* **TIDAK BOLEH dipilih sekaligus oleh 1 klien yang sama** (1 klien dilarang mengambil kombinasi 2 BG: Putih + Abu-abu dalam 1 sesi reservasi).
+> - **B. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi oleh 1 klien.
 
 > ⏰ **Jam Operasional & Format Slot Waktu:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**
