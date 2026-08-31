@@ -833,36 +833,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   )}
                 </div>
 
-                {/* Rule Notice Banner Studio 2 & Studio 1 */}
-                {selectedBranch === 'cabang-2' && (
-                  <div className="mb-2.5 p-2.5 bg-amber-50/90 border border-amber-300 text-amber-900 text-[11px] font-sans flex items-start gap-2 shadow-2xs">
-                    <span className="font-bold text-xs shrink-0 mt-0.5 text-amber-700">⚠️</span>
-                    <div className="space-y-0.5 leading-snug">
-                      <p className="font-bold text-amber-950">
-                        Aturan Pemilihan Background Studio 2:
-                      </p>
-                      <ul className="text-amber-900 text-[10.5px] sm:text-[11px] list-disc list-inside space-y-0.5">
-                        <li>Maksimal <strong>3 klien per slot jam</strong> (penggunaan background dilakukan secara bergantian/rotasi).</li>
-                        <li>Klien berbeda <strong>boleh memilih Putih & Abu-abu di jam yang sama</strong> karena sesi foto berjalan bergiliran.</li>
-                        <li><strong>Pembatasan:</strong> 1 klien yang mengambil paket 2 background <strong className="text-rose-900">dilarang memilih kombinasi Putih + Abu-abu sekaligus</strong> dalam 1 sesi reservasi.</li>
-                      </ul>
-                    </div>
-                  </div>
-                )}
-                {selectedBranch === 'cabang-1' && (
-                  <div className="mb-2.5 p-2.5 bg-stone-100 border border-stone-200 text-stone-700 text-[11px] font-sans flex items-start gap-2 shadow-2xs">
-                    <span className="font-bold text-xs shrink-0 mt-0.5 text-stone-600">ℹ️</span>
-                    <div className="space-y-0.5 leading-snug">
-                      <p>
-                        <strong>Aturan Background Studio 1:</strong> Background <strong>Limbo</strong> dan <strong>Putih Tengah</strong> berada di area panggung yang sama dan tidak dapat dipilih bersamaan dalam 1 waktu / sesi.
-                      </p>
-                      <p className="text-stone-600 text-[10.5px]">
-                        ℹ️ Rotasi Slot Foto: Maksimal 3 klien per slot jam (penggunaan background dilakukan secara bergantian).
-                      </p>
-                    </div>
-                  </div>
-                )}
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {availableBackdrops.map((backdrop) => {
                     const isSelected = selectedBackdropIds.includes(backdrop.id);
