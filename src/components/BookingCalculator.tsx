@@ -243,10 +243,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (slotClientCounts[sNorm] !== undefined) {
       return slotClientCounts[sNorm];
     }
-    if (slotBackdrops[sNorm] && slotBackdrops[sNorm].length > 0) {
-      return Math.min(3, Math.ceil(slotBackdrops[sNorm].length / 2));
+    if (slotBackdrops[sNorm] && Array.isArray(slotBackdrops[sNorm])) {
+      return slotBackdrops[sNorm].length;
     }
-    // Jika ada di bookedSlots dari Google Sheets, ini adalah data booking existing
+    if (bookedSlots.includes(sNorm)) {
+      return 1;
+    }
     return 0;
   };
 
