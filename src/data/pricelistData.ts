@@ -1326,97 +1326,55 @@ export const BACKDROPS: BackdropOption[] = [
     applicableBranches: ['cabang-1']
   },
 
-  // ==================== STUDIO 2 - SELF STUDIO ====================
+  // ==================== STUDIO 2 (DINOYO) - 5 BACKGROUND RESMI ====================
   {
-    id: 'c2-self-sunset-spotlight',
-    name: 'Warm Sunset Spotlight (Studio 2)',
-    category: 'spotlight-special',
-    hex: '#F97316',
-    description: 'Pencahayaan sorot sunset hangat estetik khusus SelfStudio Studio 2.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-self-cream-aesthetic',
-    name: 'Aesthetic Cream (Studio 2)',
-    category: 'solid-color',
-    hex: '#FEF3C7',
-    description: 'Latar cream lembut dan hangat untuk foto selfstudio estetik.',
-    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-self-cool-gray',
-    name: 'Modern Slate Gray (Studio 2)',
-    category: 'solid-color',
-    hex: '#64748B',
-    description: 'Latar abu-abu modern untuk hasil foto kontras elegan.',
-    previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-self-pure-white',
-    name: 'Pure Studio White (Studio 2)',
-    category: 'solid-color',
-    hex: '#FFFFFF',
-    description: 'Latar putih bersih minimalis dengan pencahayaan softbox.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-
-  // ==================== CABANG 2 - STUDIO FOTO (PRO STUDIO) ====================
-  {
-    id: 'c2-pro-hitam',
+    id: 'c2-hitam',
     name: 'Hitam',
     category: 'solid-color',
     hex: '#111827',
     description: 'Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.',
     previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-putih-tengah',
-    name: 'Putih Tengah',
+    id: 'c2-putih',
+    name: 'Putih',
     category: 'solid-color',
-    hex: '#F1F5F9',
-    description: 'Latar putih tengah dengan pencahayaan seimbang dan bersih.',
+    hex: '#FFFFFF',
+    description: 'Latar putih bersih minimalis dengan pencahayaan seimbang dan terang.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-abu-abu',
+    id: 'c2-abu-abu',
     name: 'Abu-abu',
     category: 'solid-color',
     hex: '#9CA3AF',
     description: 'Latar abu-abu netral yang modern dan menonjolkan subjek foto.',
     previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-coklat-jendela',
+    id: 'c2-coklat-jendela',
     name: 'Coklat Jendela',
     category: 'solid-color',
     hex: '#8D5B4C',
     description: 'Latar coklat hangat bernuansa natural dengan aksen pencahayaan jendela estetik.',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-pro-cream',
-    name: 'Cream',
+    id: 'c2-tematik-cream',
+    name: 'Tematik Cream',
     category: 'solid-color',
     hex: '#FEF3C7',
-    description: 'Latar cream hangat untuk tone pastel lembut dan bersahabat.',
+    description: 'Latar tematik cream hangat untuk tone pastel lembut, estetik dan bersahabat.',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   }
 ];

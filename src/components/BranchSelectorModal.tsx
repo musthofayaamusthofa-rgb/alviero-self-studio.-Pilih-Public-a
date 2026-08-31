@@ -503,7 +503,7 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
     dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
     capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
     lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
-    backdrops: 'Set Arch Window Luxury, Bohemian Wall & Seamless Background',
+    backdrops: '5 Pilihan Background: Hitam, Putih, Abu-abu, Coklat Jendela & Tematik Cream',
     description: 'Studio eksklusif berarea luas dan ceiling tinggi dengan private dressing suite ber-AC, vanity mirror Hollywood, dan set background mewah untuk foto wedding, prewedding & keluarga.',
     highlights: [
       'Area Shooting Lebih Luas & Ceiling Tinggi',
