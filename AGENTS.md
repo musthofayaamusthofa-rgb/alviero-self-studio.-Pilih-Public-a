@@ -45,6 +45,10 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 > - **Studio 1**: Background *Limbo* dan *Putih Tengah* tidak bisa dipilih bersamaan dalam 1 waktu / sesi.
 > - **Studio 2**: Background *Putih*, *Abu-abu*, dan *Tematik Cream* tidak bisa bertemu / dipilih bersamaan dalam 1 waktu / sesi (berada di area panggung yang sama).
 
+> ⏰ **Jam Operasional & Format Slot Waktu:**
+> - Buka Setiap Hari: **08:00 - 21:00 WIB**
+> - Interval Sesi Foto: **25 Menit per sesi** (Total 31 slot mulai dari `08:00` s.d. `20:30`).
+
 ---
 
 ## 🖼️ 5. Standar Menu Kategori & Thumbnail Foto Paket

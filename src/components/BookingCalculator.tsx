@@ -386,7 +386,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return sum + (addOn ? addOn.price * numQty : 0);
   }, 0);
 
-  const slotCharge = timeSlot === '20:45' ? 25000 : 0;
+  const slotCharge = timeSlot === '20:30' ? 25000 : 0;
 
   const subtotal = packagePrice + addOnsTotalPrice + slotCharge;
 
@@ -463,7 +463,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     if (slotCharge > 0) {
-      message += `⚡ *CHARGE SLOT MALAM (20:45):* Rp 25.000\n\n`;
+      message += `⚡ *CHARGE SLOT MALAM (20:30):* Rp 25.000\n\n`;
     }
 
     if (appliedPromo) {
@@ -762,10 +762,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2">
                     {activeTimeSlots.map((slot) => {
                       const isSelected = timeSlot === slot;
-                      const isChargeSlot = slot === '20:45';
+                      const isChargeSlot = slot === '20:30';
                       const isBooked = bookedSlots.includes(slot);
 
                       return (
@@ -805,12 +805,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     })}
                   </div>
 
-                  {/* Notifikasi Khusus Slot 20:45 */}
-                  {timeSlot === '20:45' && (
+                  {/* Notifikasi Khusus Slot 20:30 */}
+                  {timeSlot === '20:30' && (
                     <div className="mt-2.5 p-3 bg-amber-50 border border-amber-300 text-amber-900 text-xs font-sans flex items-center gap-2">
                       <span className="font-bold text-sm shrink-0">⚡</span>
                       <span>
-                        Slot jam <strong className="font-bold">20:45 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 25.000</strong>.
+                        Slot jam <strong className="font-bold">20:30 WIB</strong> adalah slot malam mendekati jam tutup studio dan dikenakan biaya operasional tambahan <strong className="font-bold">Rp 25.000</strong>.
                       </span>
                     </div>
                   )}
@@ -1273,7 +1273,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
               {slotCharge > 0 && (
                 <div className="flex justify-between text-amber-400 font-semibold">
-                  <span>Charge Slot Malam Khusus (20:45)</span>
+                  <span>Charge Slot Malam Khusus (20:30)</span>
                   <span>+ Rp {slotCharge.toLocaleString('id-ID')}</span>
                 </div>
               )}
