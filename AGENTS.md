@@ -42,11 +42,17 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 | **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream** |
 
 > ⚠️ **Sistem Logika Pemesanan & Validasi Background (Booking Validation Rules):**
-> - **A. Aturan Studio 2 (Kapasitas, Rotasi & Pembatasan Khusus):**
->   1. Dalam 1 slot jam, Studio 2 dapat menerima **maksimal 3 klien sekaligus**.
->   2. Setiap klien diizinkan memilih hingga 2 background yang dipakai secara bergantian (rotasi).
->   3. Background *Putih* dan *Abu-abu* **BOLEH dipilih oleh klien berbeda di jam yang sama** (contoh: Klien 1 pakai Hitam & Putih, Klien 2 pakai Putih & Coklat). Ini valid karena sesi foto berjalan bergiliran.
->   4. **Pembatasan Khusus:** Pasangan background *Putih* dan *Abu-abu* **TIDAK BOLEH dipilih sekaligus oleh 1 klien yang sama** (1 klien dilarang mengambil kombinasi 2 BG: Putih + Abu-abu dalam 1 sesi reservasi).
+> - **A. Aturan Studio 2 (Kapasitas, Kuota Background & Bentrok Posisi):**
+>   1. **Kapasitas**: Dalam 1 slot jam, Studio 2 dapat menerima **maksimal 3 klien sekaligus**.
+>   2. **Kuota per Background (Single-Use per Slot)**: Setiap background (*Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream*) hanya bisa dipilih **maksimal 1 kali** dalam 1 slot jam yang sama (1 background tidak bisa dipakai bersamaan oleh 2 klien berbeda).
+>   3. **Aturan Khusus Bentrok Posisi (*Mutual Exclusion: Coklat vs Cream*)**:
+>      - Background **Coklat Jendela** dan **Tematik Cream** saling bertabrakan (berada pada posisi panggung fisik yang sama).
+>      - Jika *Coklat* dipilih oleh klien mana pun di jam tersebut ➔ *Cream* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut.
+>      - Jika *Cream* dipilih oleh klien mana pun di jam tersebut ➔ *Coklat* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut.
+>   4. **Skenario Validasi Studio 2**:
+>      - Klien 1 pilih *Hitam* ➔ *Hitam* terkunci. Tersedia untuk Klien 2: *Putih, Abu-abu, Coklat, Cream*.
+>      - Klien 2 pilih *Coklat* ➔ *Coklat* terkunci & *Cream* otomatis ikut terkunci.
+>      - Klien 3 masuk ➔ Pilihan yang tersedia HANYA: ***Putih*** atau ***Abu-abu***.
 > - **B. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi oleh 1 klien.
 
 > ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
