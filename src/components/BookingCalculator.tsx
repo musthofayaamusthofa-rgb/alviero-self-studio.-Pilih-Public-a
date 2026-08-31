@@ -296,6 +296,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Promo Code & Payment Option
   const [promoCodeInput, setPromoCodeInput] = useState<string>('');
+  const [promoError, setPromoError] = useState<string>('');
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discountPercent?: number; discountAmount?: number } | null>(null);
   const [paymentOption, setPaymentOption] = useState<'dp' | 'full'>('dp');
   const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
