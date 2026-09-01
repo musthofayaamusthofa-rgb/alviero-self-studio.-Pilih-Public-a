@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StudioBranch } from '../types';
 import {
   PACKAGES,
@@ -789,6 +789,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   preselectedFrameId
 }) => {
   const [step, setStep] = useState<number>(1);
+  const modalBodyRef = useRef<HTMLDivElement>(null);
+
+  // Fungsi navigasi step yang otomatis scroll modal ke bagian paling atas
+  const goToStep = (newStep: number) => {
+    setStep(newStep);
+    if (modalBodyRef.current) {
+      modalBodyRef.current.scrollTop = 0;
+    }
+  };
+
+  // Scroll otomatis ke puncak modal setiap kali step berubah
+  useEffect(() => {
+    if (modalBodyRef.current) {
+      modalBodyRef.current.scrollTop = 0;
+    }
+  }, [step]);
 
   // Form State
   const [selectedPackageId, setSelectedPackageId] = useState<string>(preselectedPackageId || PACKAGES[0].id);
@@ -1314,7 +1330,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         <div className="bg-white border-b border-[#E0D9CE] px-3 py-2.5 sm:px-6 sm:py-3 flex items-center justify-between text-xs font-serif uppercase tracking-wider overflow-x-auto shrink-0">
           <div className="flex items-center gap-2 w-full justify-between sm:justify-start">
             <button
-              onClick={() => setStep(1)}
+              onClick={() => goToStep(1)}
               className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 1
                 ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
@@ -1327,7 +1343,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
 
             <button
-              onClick={() => setStep(2)}
+              onClick={() => goToStep(2)}
               className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 2
                 ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
@@ -1340,7 +1356,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
 
             <button
-              onClick={() => setStep(3)}
+              onClick={() => goToStep(3)}
               className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 3
                 ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E0D9CE] hover:border-[#1C1A17]'
@@ -1353,7 +1369,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         </div>
 
         {/* Modal Body Content */}
-        <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 bg-[#FAF8F5]">
+        <div ref={modalBodyRef} className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 bg-[#FAF8F5]">
 
           {/* ================================================================= */}
           {/* STEP 1: PILIH PAKET, CABANG, JADWAL & LATAR                       */}
@@ -2261,7 +2277,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           <div className="flex items-center gap-2">
             {step > 1 ? (
               <button
-                onClick={() => setStep(step - 1)}
+                onClick={() => goToStep(step - 1)}
                 className="min-h-[44px] px-5 py-2 text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#D5CEC2] hover:bg-[#FAF8F5] transition-colors cursor-pointer active:scale-95"
               >
                 Kembali
@@ -2277,7 +2293,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
             {step < 3 ? (
               <button
-                onClick={() => setStep(step + 1)}
+                onClick={() => goToStep(step + 1)}
                 className="min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-xs flex items-center gap-2 transition-colors cursor-pointer active:scale-95"
               >
                 <span>Lanjut</span>
