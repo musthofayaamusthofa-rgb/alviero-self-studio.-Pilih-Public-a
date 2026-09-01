@@ -660,9 +660,124 @@ export const calculateEndTime = (startTimeStr: string, durationMinutes: number):
   return `${String(endHh).padStart(2, '0')}:${String(endMm).padStart(2, '0')}`;
 };
 
-// =============================================================================
-// KOMPONEN UTAMA BOOKING CALCULATOR
-// =============================================================================
+export interface TimeSlotStatus {
+  slot: string;
+  isAvailable: boolean;
+  disabled: boolean;
+  reason: string;
+  occupiedSlots: string[];
+  durationMinutes: number;
+  isOvertime?: boolean;
+}
+
+export interface CheckTimeSlotAvailabilityResult {
+  packageInfo: {
+    name: string;
+    isPaket2OrHigher: boolean;
+    requiredSlotsCount: number;
+    durationMinutes: number;
+  };
+  slots: TimeSlotStatus[];
+}
+
+/**
+ * Logika Validasi Ketersediaan "Jam Slot Studio Foto" untuk Studio 1 & Studio 2 (Durasi Dinamis)
+ * 
+ * Aturan:
+ * 1. Jika Paket 1 (1 Background): Durasi 30 Menit (1 slot). Hanya cek slot tersebut.
+ * 2. Jika Paket 2 ke atas (2 Background / Durasi 1 Jam):
+ *    - Membutuhkan 2 slot berurutan (misal: 10:00 & 10:30).
+ *    - Tombol jam (10:00) HANYA BISA AKTIF jika jam 10:00 DAN jam 10:30 keduanya tersedia.
+ *    - Jika jam 10:30 sudah penuh, jam 10:00 otomatis DISABLED (disabled: true).
+ */
+export const checkTimeSlotAvailability = (
+  allSlots: string[],
+  selectedPackage: { id: string; name: string; category: string; maxBackdrops?: number; description?: string; highlights?: string[] },
+  existingBookings: { [slot: string]: number } = {},
+  selectedBranch: StudioBranch = 'cabang-1'
+): CheckTimeSlotAvailabilityResult => {
+  const maxBackdrops = getPackageMaxBackdrops(selectedPackage);
+  const isPaket2OrHigher = maxBackdrops > 1;
+  const requiredSlotsCount = isPaket2OrHigher ? 2 : 1;
+  const durationMinutes = requiredSlotsCount * 30;
+  const maxCapacityPerSlot = selectedBranch === 'cabang-2' ? 3 : 1;
+
+  const slots: TimeSlotStatus[] = allSlots.map((slot, index) => {
+    const sNorm = normalizeSlotTime(slot);
+    const currentOccupancy = existingBookings[sNorm] || 0;
+    const isCurrentSlotFull = currentOccupancy >= maxCapacityPerSlot;
+
+    if (isCurrentSlotFull) {
+      return {
+        slot,
+        isAvailable: false,
+        disabled: true,
+        reason: 'Slot jam ini sudah penuh',
+        occupiedSlots: [slot],
+        durationMinutes
+      };
+    }
+
+    if (requiredSlotsCount === 1) {
+      return {
+        slot,
+        isAvailable: true,
+        disabled: false,
+        reason: 'Tersedia (30 Menit)',
+        occupiedSlots: [slot],
+        durationMinutes: 30
+      };
+    }
+
+    // Kasus khusus slot terakhir (20:30) diperbolehkan dengan overtime fee Rp 35.000
+    if (index === allSlots.length - 1) {
+      return {
+        slot,
+        isAvailable: true,
+        disabled: false,
+        reason: 'Tersedia (+Rp 35.000 Overtime Melebihi 21.00 WIB)',
+        occupiedSlots: [slot],
+        durationMinutes: 60,
+        isOvertime: true
+      };
+    }
+
+    const nextSlot = allSlots[index + 1];
+    const nextNorm = normalizeSlotTime(nextSlot);
+    const nextOccupancy = existingBookings[nextNorm] || 0;
+    const isNextSlotFull = nextOccupancy >= maxCapacityPerSlot;
+
+    if (isNextSlotFull) {
+      return {
+        slot,
+        isAvailable: false,
+        disabled: true,
+        reason: `Slot lanjutan (${nextSlot}) sudah penuh, durasi 1 jam tidak muat`,
+        occupiedSlots: [slot, nextSlot],
+        durationMinutes: 60
+      };
+    }
+
+    return {
+      slot,
+      isAvailable: true,
+      disabled: false,
+      reason: 'Tersedia (1 Jam Penuh)',
+      occupiedSlots: [slot, nextSlot],
+      durationMinutes: 60
+    };
+  });
+
+  return {
+    packageInfo: {
+      name: selectedPackage.name,
+      isPaket2OrHigher,
+      requiredSlotsCount,
+      durationMinutes
+    },
+    slots
+  };
+};
 
 export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   isOpen,
@@ -791,20 +906,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return 0;
   };
 
-  // Mengecek apakah suatu slot valid untuk dijadikan jam mulai reservasi
+  // Mengecek apakah suatu slot valid untuk dijadikan jam mulai reservasi (Durasi Dinamis: 1 Slot vs 2 Slot)
   const isSlotAvailableForBooking = (startSlot: string): { isAvailable: boolean; reason?: string } => {
     const startIndex = activeTimeSlots.indexOf(normalizeSlotTime(startSlot));
     if (startIndex === -1) return { isAvailable: false, reason: 'Slot tidak valid' };
 
-    // Sesi 50 menit di jam 20:30 (slot terakhir) diizinkan dengan biaya tambahan lembur/overtime Rp 35.000
+    const maxCapacity = selectedBranch === 'cabang-2' ? 3 : 1;
     const neededSlots = activeTimeSlots.slice(startIndex, startIndex + sessionSlotsCount);
     for (let i = 0; i < neededSlots.length; i++) {
       const s = neededSlots[i];
       const count = getSlotClientCount(s);
-      if (count >= 3) {
+      if (count >= maxCapacity) {
         return {
           isAvailable: false,
-          reason: i === 0 ? 'Penuh' : `Slot lanjutan (${s}) penuh`
+          reason: i === 0 ? 'Slot jam ini sudah penuh' : `Slot lanjutan (${s}) sudah penuh, durasi 1 jam tidak muat`
         };
       }
     }
