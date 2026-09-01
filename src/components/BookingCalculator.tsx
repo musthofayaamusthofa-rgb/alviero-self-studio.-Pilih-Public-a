@@ -796,13 +796,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const startIndex = activeTimeSlots.indexOf(normalizeSlotTime(startSlot));
     if (startIndex === -1) return { isAvailable: false, reason: 'Slot tidak valid' };
 
-    // Jika durasi 50 menit, pastikan ada slot berikutnya dan tidak melebihi jam tutup studio (21:00 WIB)
-    if (sessionSlotsCount === 2) {
-      if (startIndex + 1 >= activeTimeSlots.length) {
-        return { isAvailable: false, reason: 'Durasi 50 menit melebihi jam tutup studio (21:00 WIB)' };
-      }
-    }
-
+    // Sesi 50 menit di jam 20:30 (slot terakhir) diizinkan dengan biaya tambahan lembur/overtime Rp 35.000
     const neededSlots = activeTimeSlots.slice(startIndex, startIndex + sessionSlotsCount);
     for (let i = 0; i < neededSlots.length; i++) {
       const s = neededSlots[i];
@@ -973,7 +967,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return sum + (addOn ? addOn.price * numQty : 0);
   }, 0);
 
-  const subtotal = packagePrice + addOnsTotalPrice;
+  // Biaya tambahan jika durasi 50 menit (Paket 2 keatas) mengambil slot jam 20:30 WIB (selesai 21:20 WIB / melebihi jam tutup 21:00 WIB)
+  const isLateNightOvertime = sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30';
+  const lateNightOvertimeFee = isLateNightOvertime ? 35000 : 0;
+
+  const subtotal = packagePrice + addOnsTotalPrice + lateNightOvertimeFee;
 
   let discountValue = 0;
   if (appliedPromo) {
@@ -1045,6 +1043,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       message += `\n`;
     }
 
+    if (lateNightOvertimeFee > 0) {
+      message += `⏰ *BIAYA TAMBAHAN OVERTIME:* +Rp 35.000 (Sesi 50 Menit Melebihi Jam 21.00 WIB)\n\n`;
+    }
+
     if (appliedPromo) {
       message += `🎟️ *KODE PROMO:* ${appliedPromo.code} (Hemat Rp ${discountValue.toLocaleString('id-ID')})\n`;
     }
@@ -1112,7 +1114,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: paymentOption,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -1444,6 +1446,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             <span className="text-[8px] font-bold text-[#D4AF37] uppercase mt-0.5 no-underline">
                               Sesi 2
                             </span>
+                          ) : slot === '20:30' && sessionSlotsCount === 2 ? (
+                            <span className="text-[7.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
+                              +35rb
+                            </span>
                           ) : clientCount > 0 ? (
                             <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
                               {clientCount}/3 Terisi
@@ -1453,6 +1459,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       );
                     })}
                   </div>
+
+                  {/* Alert Sesi Overtime Melebihi Jam 21.00 WIB */}
+                  {isLateNightOvertime && (
+                    <div className="mt-2.5 p-3 bg-amber-500/10 border border-amber-400 text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                      <span className="font-bold text-sm shrink-0 mt-0.5 text-amber-700">⏰</span>
+                      <div className="space-y-0.5">
+                        <p className="font-bold text-amber-900 leading-tight">
+                          Tambahan Biaya Sesi Melebihi Jam 21.00 WIB (+Rp 35.000):
+                        </p>
+                        <p className="text-amber-800 text-[11px] leading-snug">
+                          Anda memilih Paket 2 Background (durasi 50 menit dari <strong>20:30 s.d. 21:20 WIB</strong>). Karena sesi melebihi jam operasional tutup studio (21.00 WIB), otomatis dikenakan tambahan biaya operasional overtime sebesar <strong className="text-amber-950 font-bold">Rp 35.000</strong>.
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Pemberitahuan Keterlambatan / Melebihi Jam 21.00 */}
                   <div className="mt-2.5 p-3 bg-amber-50/95 border border-amber-300/90 text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
@@ -2079,6 +2100,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <div className="flex justify-between text-stone-300">
                   <span>Total Add-ons Tambahan</span>
                   <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
+                </div>
+              )}
+
+              {lateNightOvertimeFee > 0 && (
+                <div className="flex justify-between text-amber-300 font-medium">
+                  <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
+                  <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
                 </div>
               )}
 

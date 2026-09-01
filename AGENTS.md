@@ -61,7 +61,7 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 > - **Aturan Durasi Paket (50 Menit untuk 2 Background):**
 >   - Paket 1 Background (Paket 1 / Standar): Durasi **25 Menit** (1 slot).
 >   - Paket 2 Background ke atas (Paket 2, 3, 4 / 2 Background): Durasi otomatis **50 Menit** (mengalokasikan 2 slot waktu berturut-turut, contoh: `12:35 - 13:25 WIB`).
->   - Slot jam `20:30` hanya bisa untuk paket 25 menit (karena jam tutup studio 21:00 WIB). Sesi 50 menit maksimal mulai jam `20:05` (selesai `20:55`).
+>   - Slot jam `20:30` pada paket 2 background ke atas (durasi 50 menit, selesai `21:20 WIB`) **dibuka / diizinkan** dan otomatis dikenakan **tambahan biaya overtime sebesar Rp 35.000** (melebihi jam operasional tutup studio 21.00 WIB).
 
 ---
 
