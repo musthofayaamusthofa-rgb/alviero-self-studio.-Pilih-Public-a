@@ -1,27 +1,24 @@
 /**
- * UNIT TEST VALIDASI LOGIKA BACKGROUND STUDIO 2 (PAKET 2 / 2 BACKGROUND PER KLIEN)
+ * UNIT TEST VALIDASI LOGIKA KUOTA DINAMIS STUDIO 2 (PAKET 2 / 2 BG PER KLIEN)
  * 
- * Aturan Dasar & Kuota Background (Studio 2 - Paket 2):
- * 1. Dalam 1 slot waktu, maksimal ada 3 klien. Setiap klien memilih 2 background (Total 6 pilihan BG).
- * 2. Kuota Maksimal per Background dalam 1 jam yang sama:
- *    - Hitam   : Kuota 2
- *    - Putih   : Kuota 1
- *    - Abu-abu : Kuota 1
- *    - Coklat  : Kuota 1
- *    - Cream   : Kuota 1
+ * Aturan Dasar Studio 2 (Paket 2):
+ * 1. Dalam 1 slot waktu, maksimal ada 3 klien.
+ * 2. Setiap klien wajib memilih 2 background berbeda (Total 6 pilihan BG per slot).
+ * 
+ * Aturan Kuota Background:
+ * - Putih   : Kuota maksimal 1
+ * - Abu-abu : Kuota maksimal 1
+ * - Cream   : Kuota maksimal 1
+ * - Hitam & Coklat (KUOTA DINAMIS):
+ *   - Masing-masing maksimal 2.
+ *   - Total gabungan (Hitam + Coklat) maksimal 3 (countHitam + countCoklat <= 3).
+ *   - Jika Hitam terpilih 2x -> Coklat maksimal 1 (jika sudah terpakai 1x, sisa 0).
+ *   - Jika Coklat terpilih 2x -> Hitam maksimal 1 (jika sudah terpakai 1x, sisa 0).
+ *   - Jika Hitam(2) + Coklat(1) = 3 -> Keduanya otomatis habis (0).
  */
 
 function checkPaket2Availability(existingBookings = []) {
-  // 1. Definisi Konfigurasi Kuota Maksimum Background Studio 2
-  const MAX_QUOTAS = {
-    'c2-hitam': { id: 'c2-hitam', name: 'Hitam', max: 2 },
-    'c2-putih': { id: 'c2-putih', name: 'Putih', max: 1 },
-    'c2-abu-abu': { id: 'c2-abu-abu', name: 'Abu-abu', max: 1 },
-    'c2-coklat-jendela': { id: 'c2-coklat-jendela', name: 'Coklat Jendela', max: 1 },
-    'c2-tematik-cream': { id: 'c2-tematik-cream', name: 'Tematik Cream', max: 1 }
-  };
-
-  // 2. Hitung Penggunaan Tiap Background dari Booking yang Sudah Masuk
+  // 1. Hitung Jumlah Pemakaian Tiap Background dari Reservasi yang Ada
   const usageCounts = {
     'c2-hitam': 0,
     'c2-putih': 0,
@@ -33,59 +30,96 @@ function checkPaket2Availability(existingBookings = []) {
   existingBookings.forEach(booking => {
     const text = String(booking || '').toLowerCase();
 
-    // Deteksi Hitam
-    const hitamMatches = (text.match(/hitam/g) || []).length;
-    usageCounts['c2-hitam'] += hitamMatches;
+    // Hitung Pemakaian Hitam
+    const hitamCount = (text.match(/hitam/g) || []).length;
+    usageCounts['c2-hitam'] += hitamCount;
 
-    // Deteksi Putih
-    const putihMatches = (text.match(/putih/g) || []).length;
-    usageCounts['c2-putih'] += putihMatches;
+    // Hitung Pemakaian Putih
+    const putihCount = (text.match(/putih/g) || []).length;
+    usageCounts['c2-putih'] += putihCount;
 
-    // Deteksi Abu-abu (tangani 'abu-abu' agar dihitung 1x per entri)
-    const abuMatches = (text.match(/abu-abu|abu_abu|\babu\b|c2-abu/g) || []).length;
-    usageCounts['c2-abu-abu'] += abuMatches;
+    // Hitung Pemakaian Abu-abu (hindari double count dari kata 'abu-abu')
+    const abuCount = (text.match(/abu-abu|abu_abu|\babu\b|c2-abu/g) || []).length;
+    usageCounts['c2-abu-abu'] += abuCount;
 
-    // Deteksi Coklat
-    const coklatMatches = (text.match(/coklat|cokelat/g) || []).length;
-    usageCounts['c2-coklat-jendela'] += coklatMatches;
+    // Hitung Pemakaian Coklat
+    const coklatCount = (text.match(/coklat|cokelat/g) || []).length;
+    usageCounts['c2-coklat-jendela'] += coklatCount;
 
-    // Deteksi Cream
-    const creamMatches = (text.match(/cream|krem/g) || []).length;
-    usageCounts['c2-tematik-cream'] += creamMatches;
+    // Hitung Pemakaian Cream
+    const creamCount = (text.match(/cream|krem/g) || []).length;
+    usageCounts['c2-tematik-cream'] += creamCount;
   });
 
-  // 3. Evaluasi Status Ketersediaan & Sisa Kuota
+  const usedHitam = usageCounts['c2-hitam'];
+  const usedCoklat = usageCounts['c2-coklat-jendela'];
+  const usedPutih = usageCounts['c2-putih'];
+  const usedAbu = usageCounts['c2-abu-abu'];
+  const usedCream = usageCounts['c2-tematik-cream'];
+
+  // 2. Evaluasi Kuota Statis (Putih: 1, Abu-abu: 1, Cream: 1)
+  const maxPutih = 1;
+  const maxAbu = 1;
+  const maxCream = 1;
+
+  const remainingPutih = Math.max(0, maxPutih - usedPutih);
+  const remainingAbu = Math.max(0, maxAbu - usedAbu);
+  const remainingCream = Math.max(0, maxCream - usedCream);
+
+  // 3. Evaluasi Kuota Dinamis (Hitam & Coklat: Masing-masing max 2, Total gabungan <= 3)
+  const totalHitamCoklat = usedHitam + usedCoklat;
+
+  let remainingHitam = 0;
+  if (usedHitam < 2 && totalHitamCoklat < 3) {
+    remainingHitam = Math.min(2 - usedHitam, 3 - totalHitamCoklat);
+  }
+
+  let remainingCoklat = 0;
+  if (usedCoklat < 2 && totalHitamCoklat < 3) {
+    remainingCoklat = Math.min(2 - usedCoklat, 3 - totalHitamCoklat);
+  }
+
+  // 4. Struktur Data Ketersediaan Detail Tiap Background
+  const BG_DEFINITIONS = [
+    { id: 'c2-hitam', name: 'Hitam', maxQuota: 2, used: usedHitam, remaining: remainingHitam },
+    { id: 'c2-putih', name: 'Putih', maxQuota: maxPutih, used: usedPutih, remaining: remainingPutih },
+    { id: 'c2-abu-abu', name: 'Abu-abu', maxQuota: maxAbu, used: usedAbu, remaining: remainingAbu },
+    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 2, used: usedCoklat, remaining: remainingCoklat },
+    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: maxCream, used: usedCream, remaining: remainingCream }
+  ];
+
   const availableIds = [];
   const availableNames = [];
   const backgrounds = {};
   const lockedReasons = {};
 
-  Object.keys(MAX_QUOTAS).forEach(bgId => {
-    const config = MAX_QUOTAS[bgId];
-    const used = usageCounts[bgId] || 0;
-    const remaining = Math.max(0, config.max - used);
-    const isAvailable = remaining > 0;
+  BG_DEFINITIONS.forEach(bg => {
+    const isAvailable = bg.remaining > 0;
+    const status = isAvailable ? 'Tersedia' : 'Tidak Tersedia';
+    let reason = undefined;
 
-    const statusStr = isAvailable ? 'Tersedia' : 'Tidak Tersedia';
-    const reason = !isAvailable ? `Kuota habis (${used}/${config.max} sudah terpakai di jam ini)` : undefined;
+    if (!isAvailable) {
+      if ((bg.id === 'c2-hitam' || bg.id === 'c2-coklat-jendela') && totalHitamCoklat >= 3) {
+        reason = `Kuota gabungan Hitam & Coklat sudah maksimal 3 (${usedHitam} Hitam + ${usedCoklat} Coklat)`;
+      } else {
+        reason = `Kuota habis (${bg.used}/${bg.maxQuota} sudah terpakai di jam ini)`;
+      }
+      lockedReasons[bg.id] = reason;
+    } else {
+      availableIds.push(bg.id);
+      availableNames.push(bg.name);
+    }
 
-    backgrounds[bgId] = {
-      id: config.id,
-      name: config.name,
-      maxQuota: config.max,
-      usedCount: used,
-      remainingQuota: remaining,
+    backgrounds[bg.id] = {
+      id: bg.id,
+      name: bg.name,
+      maxQuota: bg.maxQuota,
+      usedCount: bg.used,
+      remainingQuota: bg.remaining,
       isAvailable: isAvailable,
-      status: statusStr,
+      status: status,
       reason: reason
     };
-
-    if (isAvailable) {
-      availableIds.push(config.id);
-      availableNames.push(config.name);
-    } else {
-      lockedReasons[config.id] = reason;
-    }
   });
 
   return {
@@ -93,58 +127,66 @@ function checkPaket2Availability(existingBookings = []) {
     availableNames,
     backgrounds,
     lockedReasons,
+    totalHitamCoklatUsed: totalHitamCoklat,
     remainingQuotas: {
-      hitam: backgrounds['c2-hitam'].remainingQuota,
-      putih: backgrounds['c2-putih'].remainingQuota,
-      abu: backgrounds['c2-abu-abu'].remainingQuota,
-      coklat: backgrounds['c2-coklat-jendela'].remainingQuota,
-      cream: backgrounds['c2-tematik-cream'].remainingQuota
+      hitam: remainingHitam,
+      putih: remainingPutih,
+      abu: remainingAbu,
+      coklat: remainingCoklat,
+      cream: remainingCream
     }
   };
 }
 
 // =========================================================================
-// EKSEKUSI UNIT TEST SESUAI SKENARIO USER
+// UNIT TESTS SESUAI 3 LANGKAH SKENARIO USER
 // =========================================================================
 
 console.log("=========================================================================");
-console.log("UNIT TEST: VALIDASI KETERSEDIAAN BACKGROUND STUDIO 2 (PAKET 2)");
+console.log("UNIT TEST: VALIDASI KUOTA DINAMIS STUDIO 2 (PAKET 2)");
 console.log("=========================================================================");
 
-// Kondisi Awal: Belum ada pemesanan
+// Kondisi Awal: Slot Kosong (0 Klien)
 console.log("\n[KONDISI AWAL] Slot Kosong (0 Klien):");
 const res0 = checkPaket2Availability([]);
 console.log("Sisa Kuota :", res0.remainingQuotas);
 console.log("Tersedia   :", res0.availableNames);
 
-// Skenario 1: Klien 1 memilih Hitam dan Putih
+// -------------------------------------------------------------------------
+// LANGKAH 1: Klien 1 memilih Hitam dan Putih
+// -------------------------------------------------------------------------
 console.log("\n-------------------------------------------------------------------------");
-console.log("[SKENARIO 1] Klien 1 memilih: Hitam & Putih");
-const res1 = checkPaket2Availability(["Latar 1: Hitam & Latar 2: Putih"]);
+console.log("[LANGKAH 1] Klien 1 memilih: Hitam dan Putih");
+const res1 = checkPaket2Availability(["Hitam, Putih"]);
 console.log("Sisa Kuota :", res1.remainingQuotas);
-console.log("Background Tersedia:", res1.availableNames);
-console.log("Detail Status:");
+console.log("Status Per Background:");
 Object.values(res1.backgrounds).forEach(bg => {
   console.log(` - ${bg.name.padEnd(15)}: [${bg.status}] (Terpakai: ${bg.usedCount}/${bg.maxQuota}, Sisa: ${bg.remainingQuota})`);
 });
+console.log("Background Tersedia:", res1.availableNames);
 
-// Skenario 2: Klien 2 memilih Abu-abu dan Hitam
+// -------------------------------------------------------------------------
+// LANGKAH 2: Klien 2 memilih Coklat dan Hitam
+// -------------------------------------------------------------------------
 console.log("\n-------------------------------------------------------------------------");
-console.log("[SKENARIO 2] Klien 2 memilih: Abu-abu & Hitam");
+console.log("[LANGKAH 2] Klien 2 memilih: Coklat dan Hitam");
 const res2 = checkPaket2Availability([
-  "Latar 1: Hitam & Latar 2: Putih",
-  "Latar 1: Abu-abu & Latar 2: Hitam"
+  "Hitam, Putih",
+  "Coklat Jendela, Hitam"
 ]);
+console.log("Total Pemakaian Hitam + Coklat:", res2.totalHitamCoklatUsed, "/ 3");
 console.log("Sisa Kuota :", res2.remainingQuotas);
-console.log("Background Tersedia:", res2.availableNames);
-console.log("Detail Status:");
+console.log("Status Per Background:");
 Object.values(res2.backgrounds).forEach(bg => {
   console.log(` - ${bg.name.padEnd(15)}: [${bg.status}] (Terpakai: ${bg.usedCount}/${bg.maxQuota}, Sisa: ${bg.remainingQuota})`);
 });
+console.log("Background Tersedia:", res2.availableNames);
 
-// Skenario 3: Klien 3 masuk
+// -------------------------------------------------------------------------
+// LANGKAH 3: Klien 3 Masuk
+// -------------------------------------------------------------------------
 console.log("\n-------------------------------------------------------------------------");
-console.log("[SKENARIO 3] Klien 3 Masuk");
-console.log("Karena Hitam, Putih, dan Abu-abu sudah habis (kuota = 0),");
+console.log("[LANGKAH 3] Klien 3 Masuk");
+console.log("Karena Putih, Hitam, dan Coklat sudah habis/disabled,");
 console.log("Klien 3 HANYA bisa memilih:", res2.availableNames.join(" dan "));
 console.log("=========================================================================\n");

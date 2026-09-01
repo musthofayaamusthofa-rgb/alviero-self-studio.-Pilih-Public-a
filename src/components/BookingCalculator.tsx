@@ -332,14 +332,6 @@ export interface Paket2AvailabilityResult {
 export const checkPaket2Availability = (
   existingBookings: string[] = []
 ): Paket2AvailabilityResult => {
-  const MAX_QUOTAS: { [id: string]: { id: string; name: string; max: number } } = {
-    'c2-hitam': { id: 'c2-hitam', name: 'Hitam', max: 2 },
-    'c2-putih': { id: 'c2-putih', name: 'Putih', max: 1 },
-    'c2-abu-abu': { id: 'c2-abu-abu', name: 'Abu-abu', max: 1 },
-    'c2-coklat-jendela': { id: 'c2-coklat-jendela', name: 'Coklat Jendela', max: 1 },
-    'c2-tematik-cream': { id: 'c2-tematik-cream', name: 'Tematik Cream', max: 1 }
-  };
-
   const usageCounts: { [id: string]: number } = {
     'c2-hitam': 0,
     'c2-putih': 0,
@@ -372,37 +364,74 @@ export const checkPaket2Availability = (
     usageCounts['c2-tematik-cream'] += creamMatches;
   });
 
+  const usedHitam = usageCounts['c2-hitam'];
+  const usedCoklat = usageCounts['c2-coklat-jendela'];
+  const usedPutih = usageCounts['c2-putih'];
+  const usedAbu = usageCounts['c2-abu-abu'];
+  const usedCream = usageCounts['c2-tematik-cream'];
+
+  // Evaluasi Kuota Statis (Putih: 1, Abu-abu: 1, Cream: 1)
+  const maxPutih = 1;
+  const maxAbu = 1;
+  const maxCream = 1;
+
+  const remainingPutih = Math.max(0, maxPutih - usedPutih);
+  const remainingAbu = Math.max(0, maxAbu - usedAbu);
+  const remainingCream = Math.max(0, maxCream - usedCream);
+
+  // Evaluasi Kuota Dinamis (Hitam & Coklat: Masing-masing max 2, Total gabungan <= 3)
+  const totalHitamCoklat = usedHitam + usedCoklat;
+
+  let remainingHitam = 0;
+  if (usedHitam < 2 && totalHitamCoklat < 3) {
+    remainingHitam = Math.min(2 - usedHitam, 3 - totalHitamCoklat);
+  }
+
+  let remainingCoklat = 0;
+  if (usedCoklat < 2 && totalHitamCoklat < 3) {
+    remainingCoklat = Math.min(2 - usedCoklat, 3 - totalHitamCoklat);
+  }
+
+  const BG_DEFINITIONS = [
+    { id: 'c2-hitam', name: 'Hitam', maxQuota: 2, used: usedHitam, remaining: remainingHitam },
+    { id: 'c2-putih', name: 'Putih', maxQuota: maxPutih, used: usedPutih, remaining: remainingPutih },
+    { id: 'c2-abu-abu', name: 'Abu-abu', maxQuota: maxAbu, used: usedAbu, remaining: remainingAbu },
+    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 2, used: usedCoklat, remaining: remainingCoklat },
+    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: maxCream, used: usedCream, remaining: remainingCream }
+  ];
+
   const availableIds: string[] = [];
   const availableNames: string[] = [];
   const backgrounds: { [id: string]: BackgroundQuotaStatus } = {};
   const lockedReasons: { [id: string]: string } = {};
 
-  Object.keys(MAX_QUOTAS).forEach(bgId => {
-    const config = MAX_QUOTAS[bgId];
-    const used = usageCounts[bgId] || 0;
-    const remaining = Math.max(0, config.max - used);
-    const isAvailable = remaining > 0;
+  BG_DEFINITIONS.forEach(bg => {
+    const isAvailable = bg.remaining > 0;
+    const status: 'Tersedia' | 'Tidak Tersedia' = isAvailable ? 'Tersedia' : 'Tidak Tersedia';
+    let reason: string | undefined = undefined;
 
-    const statusStr: 'Tersedia' | 'Tidak Tersedia' = isAvailable ? 'Tersedia' : 'Tidak Tersedia';
-    const reason = !isAvailable ? `Kuota habis (${used}/${config.max} sudah terpakai di jam ini)` : undefined;
+    if (!isAvailable) {
+      if ((bg.id === 'c2-hitam' || bg.id === 'c2-coklat-jendela') && totalHitamCoklat >= 3) {
+        reason = `Kuota gabungan Hitam & Coklat sudah maksimal 3 (${usedHitam} Hitam + ${usedCoklat} Coklat)`;
+      } else {
+        reason = `Kuota habis (${bg.used}/${bg.maxQuota} sudah terpakai di jam ini)`;
+      }
+      lockedReasons[bg.id] = reason;
+    } else {
+      availableIds.push(bg.id);
+      availableNames.push(bg.name);
+    }
 
-    backgrounds[bgId] = {
-      id: config.id,
-      name: config.name,
-      maxQuota: config.max,
-      usedCount: used,
-      remainingQuota: remaining,
+    backgrounds[bg.id] = {
+      id: bg.id,
+      name: bg.name,
+      maxQuota: bg.maxQuota,
+      usedCount: bg.used,
+      remainingQuota: bg.remaining,
       isAvailable: isAvailable,
-      status: statusStr,
+      status: status,
       reason: reason
     };
-
-    if (isAvailable) {
-      availableIds.push(config.id);
-      availableNames.push(config.name);
-    } else {
-      lockedReasons[config.id] = reason || `Kuota ${config.name} sudah penuh di jam ini`;
-    }
   });
 
   return {
@@ -411,11 +440,11 @@ export const checkPaket2Availability = (
     backgrounds,
     lockedReasons,
     remainingQuotas: {
-      hitam: backgrounds['c2-hitam'].remainingQuota,
-      putih: backgrounds['c2-putih'].remainingQuota,
-      abu: backgrounds['c2-abu-abu'].remainingQuota,
-      coklat: backgrounds['c2-coklat-jendela'].remainingQuota,
-      cream: backgrounds['c2-tematik-cream'].remainingQuota
+      hitam: remainingHitam,
+      putih: remainingPutih,
+      abu: remainingAbu,
+      coklat: remainingCoklat,
+      cream: remainingCream
     }
   };
 };
