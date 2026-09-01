@@ -108,7 +108,7 @@ export default function App() {
         )}
 
         {activeTab === 'rules' && (
-          <StudioInfoAndRules />
+          <StudioInfoAndRules selectedBranch={selectedBranch} />
         )}
       </main>
 

@@ -1257,7 +1257,9 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
     description: 'Pusat Self Studio & Studio Foto',
     highlights: [],
     icon: '📍',
-    mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6'
+    mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6',
+    whatsappNumber: '6287777538164',
+    whatsappDisplay: '0877-7753-8164'
   },
   {
     id: 'cabang-2',
@@ -1269,7 +1271,9 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
     description: 'Self Studio & Studio Foto',
     highlights: [],
     icon: '🏢',
-    mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9'
+    mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9',
+    whatsappNumber: '6285168879214',
+    whatsappDisplay: '0851-6887-9214'
   }
 ];
 

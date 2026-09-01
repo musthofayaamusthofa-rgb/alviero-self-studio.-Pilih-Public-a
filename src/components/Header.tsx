@@ -88,13 +88,13 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div className="flex items-center gap-4 text-[#D8CFBF] text-[10.5px]">
             <a 
-              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20jadwal%20slot%20kosong" 
+              href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20mau%20tanya%20jadwal%20slot%20kosong`}
               target="_blank" 
               rel="noreferrer"
               className="hover:text-white flex items-center gap-1.5 transition-colors font-semibold uppercase tracking-wider"
             >
               <MessageCircle className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Admin WA VIP: +62 877-7753-8164</span>
+              <span>Admin WA ({currentBranchInfo.badge}): +62 {currentBranchInfo.whatsappDisplay?.replace(/^0/, '') || (selectedBranch === 'cabang-2' ? '851-6887-9214' : '877-7753-8164')}</span>
             </a>
           </div>
         </div>

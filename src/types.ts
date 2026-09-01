@@ -54,6 +54,8 @@ export interface BranchInfo {
   highlights: string[];
   icon: string;
   mapsUrl?: string;
+  whatsappNumber: string;
+  whatsappDisplay: string;
 }
 
 export interface BackdropOption {

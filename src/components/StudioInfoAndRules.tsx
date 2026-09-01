@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { STUDIO_RULES, STUDIO_DISCLAIMER, REVIEWS } from '../data/pricelistData';
+import { StudioBranch } from '../types';
+import { STUDIO_RULES, STUDIO_DISCLAIMER, REVIEWS, STUDIO_BRANCHES } from '../data/pricelistData';
 import {
   MapPin, Clock, ShieldCheck, Star, Camera, Heart, Instagram,
   MessageCircle, Navigation, Award, Copy, Check, ChevronDown, ChevronUp,
   HelpCircle, AlertCircle, FileText, Calendar, CreditCard, Sparkles, Image as ImageIcon
 } from 'lucide-react';
 
-export const StudioInfoAndRules: React.FC = () => {
+interface StudioInfoAndRulesProps {
+  selectedBranch?: StudioBranch;
+}
+
+export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
+  selectedBranch = 'cabang-1'
+}) => {
   const [copiedAddress, setCopiedAddress] = useState<boolean>(false);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
 
-  const addressText = 'Jl. Raya Utama Studio No. 88, Lantai 2 (Samping Coffee Shop Hasan), Kota Indonesia';
+  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+  const addressText = currentBranchInfo.address;
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(addressText);
@@ -183,13 +191,13 @@ export const StudioInfoAndRules: React.FC = () => {
           </div>
 
           <a
-            href="https://wa.me/6281234567890?text=Halo%20Admin%20Alviero%20Studio,%20saya%20sudah%20membaca%20Disclaimer%20dan%20mau%20konsultasi%20booking"
+            href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20sudah%20membaca%20Disclaimer%20dan%20mau%20konsultasi%20booking`}
             target="_blank"
             rel="noreferrer"
             className="min-h-[40px] px-5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
           >
             <MessageCircle className="w-4 h-4 text-amber-300" />
-            <span>Chat WhatsApp Admin</span>
+            <span>Chat WhatsApp ({currentBranchInfo.badge})</span>
           </a>
         </div>
       </div>

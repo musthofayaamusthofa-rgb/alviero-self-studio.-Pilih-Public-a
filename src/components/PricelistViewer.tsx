@@ -1021,13 +1021,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* Customer Service WhatsApp & Actions (Matching Image 2) */}
               <div className="w-full pt-3 border-t border-stone-200/80 space-y-2.5">
                 <a
-                  href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%20Foto,%20saya%20mau%20tanya%20informasi%20pricelist%20dan%20booking"
+                  href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20mau%20tanya%20informasi%20pricelist%20dan%20booking`}
                   target="_blank"
                   rel="noreferrer"
                   className="w-full min-h-[46px] rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95"
                 >
                   <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
-                  <span>Customer Service (WhatsApp)</span>
+                  <span>Customer Service ({currentBranchInfo.badge} WhatsApp)</span>
                 </a>
               </div>
 
@@ -3688,7 +3688,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       </p>
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                         <a
-                          href="https://wa.me/6281234567890?text=Halo%20Admin%20Alviero%20Studio,%20saya%20ingin%20pesan%20Cetak%20Foto%20/%20Bingkai%20/%20Album"
+                          href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20ingin%20pesan%20Cetak%20Foto%20/%20Bingkai%20/%20Album`}
                           target="_blank"
                           rel="noreferrer"
                           className="min-h-[40px] px-5 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
@@ -4010,7 +4010,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       </p>
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                         <a
-                          href="https://wa.me/6281234567890?text=Halo%20Admin%20Alviero%20Studio,%20saya%20ingin%20tanya%20pricelist%20dan%20fitting%20Kebaya%20/%20Gaun"
+                          href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20ingin%20tanya%20pricelist%20dan%20fitting%20Kebaya%20/%20Gaun`}
                           target="_blank"
                           rel="noreferrer"
                           className="min-h-[40px] px-5 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
@@ -4140,7 +4140,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       </div>
 
                       <a
-                        href="https://wa.me/6281234567890?text=Halo%20Admin%20Alviero%20Studio,%20saya%20mau%20tanya%20jadwal%20dan%20pricelist"
+                        href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20mau%20tanya%20jadwal%20dan%20pricelist`}
                         target="_blank"
                         rel="noreferrer"
                         className="min-h-[42px] px-5 py-2.5 bg-white text-emerald-800 font-black text-xs rounded-xl shadow-md hover:bg-emerald-50 transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"

@@ -747,7 +747,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     const message = generateWhatsAppMessageText();
-    const waUrl = `https://wa.me/6287777538164?text=${encodeURIComponent(message)}`;
+    const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
+    const waUrl = `https://wa.me/${studioWaNumber}?text=${encodeURIComponent(message)}`;
 
     // Sinkronisasi background ke Google Spreadsheet via Google Apps Script
     try {

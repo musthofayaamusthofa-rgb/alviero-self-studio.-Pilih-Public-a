@@ -35,11 +35,11 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 
 ---
 
-## 📍 4. Data Lokasi & Google Maps Studio
-| Studio | Nama Tampilan | Alamat Lengkap | Link Google Maps | Pilihan Background |
-| :--- | :--- | :--- | :--- | :--- |
-| **Studio 1** | Alviero Studio — Studio 1 (Karangploso) | Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151 | [https://maps.app.goo.gl/oxtptpr3RSDL9zCj6](https://maps.app.goo.gl/oxtptpr3RSDL9zCj6) | Hijau Pastel, Cream, Limbo, Putih Tengah, Putih Jendela |
-| **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream** |
+## 📍 4. Data Lokasi & WhatsApp Studio
+| Studio | Nama Tampilan | Alamat Lengkap | Link Google Maps | Nomor WhatsApp | Pilihan Background |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Studio 1** | Alviero Studio — Studio 1 (Karangploso) | Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151 | [https://maps.app.goo.gl/oxtptpr3RSDL9zCj6](https://maps.app.goo.gl/oxtptpr3RSDL9zCj6) | **087777538164** (`6287777538164`) | Hijau Pastel, Cream, Limbo, Putih Tengah, Putih Jendela |
+| **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **085168879214** (`6285168879214`) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream** |
 
 > ⚠️ **Sistem Logika Pemesanan & Validasi Background (Booking Validation Rules):**
 > - **A. Aturan Studio 2 (Kapasitas, Kuota Background & Bentrok Posisi):**
