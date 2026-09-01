@@ -716,8 +716,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
   const activeTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
-  // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 50 Menit (2 slot berturut-turut)
-  const sessionDurationMinutes = maxBackdrops > 1 ? 50 : 25;
+  // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 60 Menit (2 slot berturut-turut @30 Menit)
+  const sessionDurationMinutes = maxBackdrops > 1 ? 60 : 30;
   const sessionSlotsCount = maxBackdrops > 1 ? 2 : 1;
 
   // Fetch Slot Terisi & Backdrop Terpakai dari Google Sheets secara Real-Time
@@ -1044,7 +1044,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     if (lateNightOvertimeFee > 0) {
-      message += `⏰ *BIAYA TAMBAHAN OVERTIME:* +Rp 35.000 (Sesi 50 Menit Melebihi Jam 21.00 WIB)\n\n`;
+      message += `⏰ *BIAYA TAMBAHAN OVERTIME:* +Rp 35.000 (Sesi 60 Menit Melebihi Jam 21.00 WIB)\n\n`;
     }
 
     if (appliedPromo) {
@@ -1378,7 +1378,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
                 )}
 
-                {/* 50 Minutes Duration Badge Notice for 2 Background Packages */}
+                {/* 60 Minutes Duration Badge Notice for 2 Background Packages */}
                 {maxBackdrops > 1 && (
                   <div className="p-2.5 bg-[#FAF8F5] border border-[#D5CEC2] flex items-center justify-between gap-2 text-xs font-sans shadow-2xs">
                     <div className="flex items-center gap-2">
@@ -1386,7 +1386,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         2x
                       </span>
                       <p className="text-[11px] text-[#1C1A17] font-medium">
-                        Paket 2 Background: Durasi sesi foto dialokasikan <strong>50 Menit (2 Slot Berturut-turut)</strong>.
+                        Paket 2 Background: Durasi sesi foto dialokasikan <strong>60 Menit (2 Slot Berturut-turut)</strong>.
                       </p>
                     </div>
                     <span className="text-[10.5px] font-mono font-bold bg-white border border-[#E0D9CE] px-2 py-0.5 text-stone-800 shrink-0">
@@ -1469,7 +1469,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           Tambahan Biaya Sesi Melebihi Jam 21.00 WIB (+Rp 35.000):
                         </p>
                         <p className="text-amber-800 text-[11px] leading-snug">
-                          Anda memilih Paket 2 Background (durasi 50 menit dari <strong>20:30 s.d. 21:20 WIB</strong>). Karena sesi melebihi jam operasional tutup studio (21.00 WIB), otomatis dikenakan tambahan biaya operasional overtime sebesar <strong className="text-amber-950 font-bold">Rp 35.000</strong>.
+                          Anda memilih Paket 2 Background (durasi 60 menit dari <strong>20:30 s.d. 21:30 WIB</strong>). Karena sesi melebihi jam operasional tutup studio (21.00 WIB), otomatis dikenakan tambahan biaya operasional overtime sebesar <strong className="text-amber-950 font-bold">Rp 35.000</strong>.
                         </p>
                       </div>
                     </div>

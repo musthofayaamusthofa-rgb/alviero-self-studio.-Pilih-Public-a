@@ -57,11 +57,11 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 
 > ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**
-> - Interval Slot Dasar: **25 Menit per slot** (Total 31 slot mulai dari `08:00` s.d. `20:30`).
-> - **Aturan Durasi Paket (50 Menit untuk 2 Background):**
->   - Paket 1 Background (Paket 1 / Standar): Durasi **25 Menit** (1 slot).
->   - Paket 2 Background ke atas (Paket 2, 3, 4 / 2 Background): Durasi otomatis **50 Menit** (mengalokasikan 2 slot waktu berturut-turut, contoh: `12:35 - 13:25 WIB`).
->   - Slot jam `20:30` pada paket 2 background ke atas (durasi 50 menit, selesai `21:20 WIB`) **dibuka / diizinkan** dan otomatis dikenakan **tambahan biaya overtime sebesar Rp 35.000** (melebihi jam operasional tutup studio 21.00 WIB).
+> - Interval Slot Dasar: **30 Menit per slot** (Total 26 slot mulai dari `08:00` s.d. `20:30`, kelipatan 30 menit: `08:00`, `08:30`, `09:00`, dst).
+> - **Aturan Durasi Paket (60 Menit untuk 2 Background):**
+>   - Paket 1 Background (Paket 1 / Standar): Durasi **30 Menit** (1 slot).
+>   - Paket 2 Background ke atas (Paket 2, 3, 4 / 2 Background): Durasi otomatis **60 Menit** (mengalokasikan 2 slot waktu berturut-turut, contoh: `12:30 - 13:30 WIB`).
+>   - Slot jam `20:30` pada paket 2 background ke atas (durasi 60 menit, selesai `21:30 WIB`) **dibuka / diizinkan** dan otomatis dikenakan **tambahan biaya overtime sebesar Rp 35.000** (melebihi jam operasional tutup studio 21.00 WIB).
 
 ---
 
