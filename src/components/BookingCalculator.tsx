@@ -1,6 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { PACKAGES, CATEGORIES, BACKDROPS, FRAME_TEMPLATES, ADD_ONS, TIME_SLOTS, PRO_STUDIO_TIME_SLOTS, SELF_STUDIO_TIME_SLOTS, STUDIO_BRANCHES } from '../data/pricelistData';
-import { X, Calendar, Clock, User, Phone, CheckCircle2, Sparkles, MessageCircle, QrCode, CreditCard, ChevronRight, Calculator, Plus, Minus, Tag, Copy, Check, Camera, Image as ImageIcon, MapPin, Building2, Layers, Sliders, CheckSquare, Download, Upload, Trash2, AlertCircle } from 'lucide-react';
+import { StudioBranch } from '../types';
+import {
+  PACKAGES,
+  BACKDROPS,
+  FRAME_TEMPLATES,
+  ADD_ONS,
+  PRO_STUDIO_TIME_SLOTS,
+  SELF_STUDIO_TIME_SLOTS,
+  STUDIO_BRANCHES
+} from '../data/pricelistData';
+import {
+  X,
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  Sparkles,
+  MessageCircle,
+  QrCode,
+  CreditCard,
+  ChevronRight,
+  Calculator,
+  Plus,
+  Minus,
+  Tag,
+  Copy,
+  Check,
+  Camera,
+  Image as ImageIcon,
+  MapPin,
+  Download,
+  Upload,
+  Trash2
+} from 'lucide-react';
 
 interface BookingCalculatorProps {
   isOpen: boolean;
@@ -13,6 +45,15 @@ interface BookingCalculatorProps {
   preselectedFrameId?: string;
 }
 
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
+
+// =============================================================================
+// HELPER FUNCTIONS & ATURAN VALIDASI STUDIO
+// =============================================================================
+
+/**
+ * Mendapatkan info kategori paket untuk filtering add-on & catatan khusus
+ */
 export const getPackageCategoryInfo = (pkg: { id: string; category: string; name: string }) => {
   const id = pkg.id.toLowerCase();
   const cat = pkg.category.toLowerCase();
@@ -59,6 +100,9 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
   return { key: cat, label: pkg.name, badge: 'Studio Foto', note: '' };
 };
 
+/**
+ * Menghitung batas maksimum background yang bisa dipilih berdasarkan jenis paket
+ */
 export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[] }): number => {
   const id = pkg.id.toLowerCase();
   const cat = pkg.category.toLowerCase();
@@ -71,12 +115,10 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
   const highlights = (pkg.highlights || []).map(h => h.toLowerCase()).join(' ');
   const name = (pkg.name || '').toLowerCase();
 
-  // If explicitly mentions 2 background / 2 latar
   if (desc.includes('2 background') || highlights.includes('2 background') || desc.includes('2 latar') || highlights.includes('2 latar')) {
     return 2;
   }
 
-  // Paket 2 keatas di Studio Foto
   const isPaket2OrHigher = (
     name.includes(' 2') || name.includes(' 3') || name.includes(' 4') ||
     name.includes('(birthday 2') || name.includes('(birthday 3') || name.includes('(birthday 4') ||
@@ -97,8 +139,9 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
   return isPaket2OrHigher ? 2 : 1;
 };
 
-const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
-
+/**
+ * Validasi bentrok fisik antar background untuk 1 klien yang memilih 2 background
+ */
 export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   if (!idA || !idB || idA === idB) return false;
   const a = idA.toLowerCase();
@@ -233,6 +276,9 @@ export const getAvailableBackgroundsStudio2 = (
   };
 };
 
+/**
+ * Format normalisasi string waktu slot menjadi HH:MM standar
+ */
 export const normalizeSlotTime = (raw: any): string => {
   if (!raw) return '';
   const str = String(raw).trim();
@@ -245,7 +291,9 @@ export const normalizeSlotTime = (raw: any): string => {
   return str;
 };
 
-// Helper untuk menghitung jam selesai berdasarkan durasi (misal: 12:35 + 50 menit = 13:25)
+/**
+ * Menghitung jam selesai sesi foto berdasarkan durasi menit
+ */
 export const calculateEndTime = (startTimeStr: string, durationMinutes: number): string => {
   const norm = normalizeSlotTime(startTimeStr);
   const [hhStr, mmStr] = norm.split(':');
@@ -261,12 +309,15 @@ export const calculateEndTime = (startTimeStr: string, durationMinutes: number):
   return `${String(endHh).padStart(2, '0')}:${String(endMm).padStart(2, '0')}`;
 };
 
+// =============================================================================
+// KOMPONEN UTAMA BOOKING CALCULATOR
+// =============================================================================
+
 export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   isOpen,
   onClose,
   selectedBranch = 'cabang-1',
   onSelectBranch,
-  onOpenBranchModal,
   preselectedPackageId,
   preselectedBackdropId,
   preselectedFrameId
@@ -283,13 +334,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [bookingDate, setBookingDate] = useState<string>(today);
   const [timeSlot, setTimeSlot] = useState<string>('14:00');
 
-  // Real-time Slot & Backdrop Availability from Google Sheets (Maksimal 3 Klien per Slot)
+  // Real-time Slot & Backdrop Availability from Google Sheets
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [slotClientCounts, setSlotClientCounts] = useState<{ [slot: string]: number }>({});
   const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
-  const [isLoadingSlots, setIsLoadingSlots] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [, setIsLoadingSlots] = useState<boolean>(false);
 
+  // Customer Data & Notes
   const [customerName, setCustomerName] = useState<string>('');
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
@@ -301,7 +352,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [paymentOption, setPaymentOption] = useState<'dp' | 'full'>('dp');
   const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
 
-  // Bukti Pembayaran QRIS & Salin Nominal
+  // QRIS Payment Proof & Nominal Copy
   const [paymentProofImage, setPaymentProofImage] = useState<string | null>(null);
   const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
   const [copiedNominal, setCopiedNominal] = useState<boolean>(false);
@@ -313,6 +364,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
   const activeTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
+
+  // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 50 Menit (2 slot berturut-turut)
+  const sessionDurationMinutes = maxBackdrops > 1 ? 50 : 25;
+  const sessionSlotsCount = maxBackdrops > 1 ? 2 : 1;
 
   // Fetch Slot Terisi & Backdrop Terpakai dari Google Sheets secara Real-Time
   useEffect(() => {
@@ -362,10 +417,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       isMounted = false;
     };
   }, [isOpen, bookingDate, selectedPackageId, selectedBranch, isSelfStudio]);
-
-  // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 50 Menit (2 slot berturut-turut)
-  const sessionDurationMinutes = maxBackdrops > 1 ? 50 : 25;
-  const sessionSlotsCount = maxBackdrops > 1 ? 2 : 1;
 
   // Mendapatkan slot-slot yang terpakai oleh durasi sesi foto
   const getOccupiedSlotsForStart = (startSlot: string): string[] => {
@@ -448,11 +499,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const bookedForSlot = (slotBackdrops[normTime] || []).map(b => String(b).toLowerCase());
     const bdIdLower = bdObj.id.toLowerCase();
 
-    // =========================================================================
-    // 1. Validasi Studio 2 (Cabang 2):
-    //    - Kuota 1x per Background di jam yang sama (tidak bisa dipakai 2 klien)
-    //    - Bentrok Posisi Coklat vs Cream (mutually exclusive)
-    // =========================================================================
+    // 1. Validasi Studio 2 (Cabang 2): Kuota 1x per BG di jam sama & Bentrok Posisi Coklat vs Cream
     if (selectedBranch === 'cabang-2') {
       const studio2Availability = getAvailableBackgroundsStudio2(bookedForSlot);
       if (!studio2Availability.availableIds.includes(backdropId)) {
@@ -463,11 +510,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       }
     }
 
-    // =========================================================================
-    // 2. Validasi Studio 1 (Cabang 1):
-    //    - Limbo vs Putih Tengah antar Klien Berbeda
-    //    - Kuota 1x per Background di jam yang sama
-    // =========================================================================
+    // 2. Validasi Studio 1 (Cabang 1): Limbo vs Putih Tengah & Kuota 1x per Background
     if (selectedBranch === 'cabang-1') {
       const isAlreadyBooked = bookedForSlot.some(b => b.includes(bdObj.name.toLowerCase()) || b.includes(bdIdLower));
       if (isAlreadyBooked) {
@@ -480,32 +523,30 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       if (bdIdLower.includes('limbo')) {
         const hasPutihTengahBooked = bookedForSlot.some(b => b.includes('putih tengah') || b.includes('putih-tengah'));
         if (hasPutihTengahBooked) {
-          return { 
-            isAvailable: false, 
-            reason: `Area panggung sama dengan Putih Tengah (terpakai di jam ${normTime} WIB)` 
+          return {
+            isAvailable: false,
+            reason: `Area panggung sama dengan Putih Tengah (terpakai di jam ${normTime} WIB)`
           };
         }
       } else if (bdIdLower.includes('putih-tengah') || bdIdLower.includes('putih_tengah')) {
         const hasLimboBooked = bookedForSlot.some(b => b.includes('limbo'));
         if (hasLimboBooked) {
-          return { 
-            isAvailable: false, 
-            reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)` 
+          return {
+            isAvailable: false,
+            reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)`
           };
         }
       }
     }
 
-    // =========================================================================
     // 3. Pembatasan Khusus 1 Klien yang Mengambil Paket 2 Background
-    // =========================================================================
     if (maxBackdrops > 1 && selectedBackdropIds.length > 0) {
       const conflictingSelected = selectedBackdropIds.find(selId => selId !== backdropId && isConflictingBackdrop(selId, backdropId));
       if (conflictingSelected) {
         const otherBd = BACKDROPS.find(b => b.id === conflictingSelected);
-        return { 
-          isAvailable: false, 
-          reason: `Dilarang digabung dengan ${otherBd?.name || 'Latar Terpilih'} dalam 1 sesi reservasi` 
+        return {
+          isAvailable: false,
+          reason: `Dilarang digabung dengan ${otherBd?.name || 'Latar Terpilih'} dalam 1 sesi reservasi`
         };
       }
     }
@@ -514,7 +555,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   useEffect(() => {
-    // Reset selected backdrop if it's not available in current category, branch, or time slot
+    // Reset selected backdrop jika tidak applicable atau tidak available
     const validIds = selectedBackdropIds.filter(id => {
       const isApplicable = availableBackdrops.some(b => b.id === id);
       const avail = getBackdropAvailability(id);
@@ -522,7 +563,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     });
 
     if (validIds.length === 0 && availableBackdrops.length > 0) {
-      // Cari backdrop pertama yang benar-benar available
       const firstAvail = availableBackdrops.find(b => getBackdropAvailability(b.id).isAvailable) || availableBackdrops[0];
       setSelectedBackdropIds([firstAvail.id]);
     } else if (maxBackdrops === 1 && validIds.length > 1) {
@@ -542,21 +582,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (maxBackdrops === 1) {
       setSelectedBackdropIds([id]);
     } else {
-      // maxBackdrops === 2
       if (selectedBackdropIds.includes(id)) {
         if (selectedBackdropIds.length > 1) {
           setSelectedBackdropIds(selectedBackdropIds.filter(bId => bId !== id));
         }
       } else {
         if (selectedBackdropIds.length < 2) {
-          // Pastikan tidak konflik dengan backdrop ke-1
           if (selectedBackdropIds.length === 1 && isConflictingBackdrop(selectedBackdropIds[0], id)) {
-            alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} dan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} berada di area panggung yang sama sehingga tidak bisa dipilih bersamaan dalam 1 sesi.`);
+            alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} dan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} berada di area panggung yang sama sehingga tidak bisa dipilih bersamaan.`);
             return;
           }
           setSelectedBackdropIds([...selectedBackdropIds, id]);
         } else {
-          // Replace 2nd backdrop jika tidak konflik dengan yang pertama
           if (isConflictingBackdrop(selectedBackdropIds[0], id)) {
             alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} tidak bisa digabung dengan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} (area panggung sama).`);
             return;
@@ -567,21 +604,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
   };
 
-  if (!isOpen) return null;
-
   const selectedBackdropObjects = selectedBackdropIds
     .map(id => BACKDROPS.find(b => b.id === id))
-    .filter(Boolean) as BackdropOption[];
+    .filter(Boolean);
 
   const backdropDisplayName = selectedBackdropObjects.length > 1
-    ? `Latar 1: ${selectedBackdropObjects[0].name} & Latar 2: ${selectedBackdropObjects[1].name}`
+    ? `Latar 1: ${selectedBackdropObjects[0]?.name} & Latar 2: ${selectedBackdropObjects[1]?.name}`
     : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Latar Standar');
 
   const currentFrame = FRAME_TEMPLATES.find(f => f.id === selectedFrameId) || FRAME_TEMPLATES[0];
 
-  // Calculate Price Breakdown
+  // Kalkulasi Biaya & Diskon
   const packagePrice = currentPackage.price;
-
   const addOnsTotalPrice = Object.entries(selectedAddOns).reduce((sum, [id, qty]) => {
     const addOn = ADD_ONS.find(a => a.id === id);
     const numQty = typeof qty === 'number' ? qty : Number(qty) || 0;
@@ -590,7 +624,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const subtotal = packagePrice + addOnsTotalPrice;
 
-  // Calculate Discount
   let discountValue = 0;
   if (appliedPromo) {
     if (appliedPromo.discountPercent) {
@@ -617,7 +650,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
   };
 
-  // AddOn Quantity Modifiers
   const handleAddOnQtyChange = (addOnId: string, delta: number) => {
     setSelectedAddOns(prev => {
       const currentQty = prev[addOnId] || 0;
@@ -630,7 +662,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     });
   };
 
-  // WhatsApp Booking Link Generator
+  // Format Pesan WhatsApp Booking
   const generateWhatsAppMessageText = () => {
     let message = `*HALO ADMIN ALVIERO STUDIO FOTO!* 👋\n`;
     message += `Saya mau reservasi/booking sesi foto dengan rincian berikut:\n\n`;
@@ -701,7 +733,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const message = generateWhatsAppMessageText();
     const waUrl = `https://wa.me/6287777538164?text=${encodeURIComponent(message)}`;
 
-    // Kirim reservasi & foto bukti pembayaran ke Google Apps Script Spreadsheet via POST
+    // Sinkronisasi background ke Google Spreadsheet via Google Apps Script
     try {
       const selectedAddOnsSummary = Object.entries(selectedAddOns)
         .map(([id, qty]) => {
@@ -785,7 +817,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto animate-in fade-in duration-200">
       <div className="bg-[#FAF8F5] max-w-3xl w-full border-x-0 sm:border sm:border-[#D5CEC2] shadow-2xl overflow-hidden flex flex-col max-h-screen sm:max-h-[94vh] my-auto relative text-left">
 
-        {/* Modal Header (Sleek Charcoal & Gold Luxury) */}
+        {/* Modal Header (Luxury Editorial Charcoal & Gold) */}
         <div className="bg-[#1C1A17] text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-[#332F2A]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#2D2A26] border border-[#4A453E] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-xs">
@@ -809,7 +841,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           </button>
         </div>
 
-        {/* Step Navigation Bar (Sharp Architectural Breadcrumb) */}
+        {/* Step Navigation Bar */}
         <div className="bg-white border-b border-[#E0D9CE] px-3 py-2.5 sm:px-6 sm:py-3 flex items-center justify-between text-xs font-serif uppercase tracking-wider overflow-x-auto shrink-0">
           <div className="flex items-center gap-2 w-full justify-between sm:justify-start">
             <button
@@ -854,11 +886,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         {/* Modal Body Content */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6 flex-1 bg-[#FAF8F5]">
 
-          {/* STEP 1: Select Package, Date, Time & Concepts */}
+          {/* ================================================================= */}
+          {/* STEP 1: PILIH PAKET, CABANG, JADWAL & LATAR                       */}
+          {/* ================================================================= */}
           {step === 1 && (
             <div className="space-y-5">
 
-              {/* Branch Selector in Step 1 (Fully Responsive Mobile & Desktop) */}
+              {/* Branch Selector in Step 1 */}
               <div className="bg-white border border-[#E0D9CE] p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shadow-2xs">
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   <div className="w-8 h-8 sm:w-9 sm:h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center shrink-0">
@@ -893,7 +927,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* 1. Pilih Paket Foto */}
+              {/* 1. Pilih Paket Utama */}
               <div>
                 <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider mb-2">
                   1. PILIH PAKET FOTO UTAMA:
@@ -938,7 +972,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* 2. PILIH TANGGAL & JAM SLOT FOTO */}
+              {/* 2. Pilih Tanggal & Waktu Sesi Foto */}
               <div className="space-y-3.5 pt-1">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-1.5">
@@ -1086,7 +1120,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* 3. Background selection */}
+              {/* 3. Pemilihan Background */}
               <div className="pt-2 border-t border-[#E0D9CE]">
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                   <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider">
@@ -1167,7 +1201,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   })}
                 </div>
 
-                {/* Rule hint for Limbo vs Putih Tengah */}
+                {/* Info Studio 1: Limbo vs Putih Tengah */}
                 {availableBackdrops.some(b => b.id.includes('limbo')) && availableBackdrops.some(b => b.id.includes('putih-tengah')) && (
                   <div className="mt-2.5 p-3 bg-white border border-[#E0D9CE] text-stone-600 text-[11px] font-sans flex items-center gap-2">
                     <span className="font-bold text-[#8C6D46]">ℹ️</span>
@@ -1194,7 +1228,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
-              {/* Frame Grid selection (Hanya untuk Self Studio) */}
+              {/* 4. Pemilihan Template Frame Grid (Khusus Self Studio) */}
               {isSelfStudio && (
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -1225,7 +1259,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             </div>
           )}
 
-          {/* STEP 2: Add-Ons & Promo */}
+          {/* ================================================================= */}
+          {/* STEP 2: ADD-ONS TAMBAHAN & KODE PROMO                             */}
+          {/* ================================================================= */}
           {step === 2 && (() => {
             const packageCatInfo = getPackageCategoryInfo(currentPackage);
             const relevantAddOns = ADD_ONS.filter(addOn => {
@@ -1268,7 +1304,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </span>
                   </div>
 
-                  {/* Catatan Khusus Kategori (Jika ada) */}
+                  {/* Catatan Khusus Kategori */}
                   {packageCatInfo.note && (
                     <div className="bg-amber-50 border border-amber-300 p-3 text-amber-900 text-xs font-sans mb-3.5 flex items-start gap-2">
                       <span className="font-bold text-sm shrink-0">ℹ️</span>
@@ -1276,7 +1312,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   )}
 
-                  {/* List Add-Ons Khusus Kategori yang Dipilih */}
+                  {/* List Add-Ons */}
                   {relevantAddOns.length === 0 ? (
                     <div className="p-6 bg-white border border-[#E0D9CE] text-center space-y-1">
                       <p className="text-xs font-bold text-stone-600">Tidak ada Add-Ons tambahan khusus untuk paket ini.</p>
@@ -1365,7 +1401,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             );
           })()}
 
-          {/* STEP 3: Customer Info, Notes & Payment Options */}
+          {/* ================================================================= */}
+          {/* STEP 3: DATA PEMESAN, PEMBAYARAN QRIS & BUKTI TRANSFER            */}
+          {/* ================================================================= */}
           {step === 3 && (
             <div className="space-y-5">
 
@@ -1380,7 +1418,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       JADWAL & LOKASI FOTO:
                     </div>
                     <div className="text-xs sm:text-sm font-serif font-bold text-[#1C1A17] truncate">
-                      {bookingDate} • Jam {timeSlot} WIB
+                      {bookingDate} • Jam {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                     </div>
                     <div className="text-[11px] text-stone-600 font-medium">
                       {currentBranchInfo.name} ({isSelfStudio ? 'Bilik Self Studio' : 'Studio Foto Pro'})
@@ -1428,7 +1466,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* Payment Option Switcher */}
+              {/* Opsi Pembayaran (DP 50% vs Lunas Full) */}
               <div className="pt-2 border-t border-[#E0D9CE] space-y-2">
                 <label className="text-xs font-serif font-bold text-[#1C1A17] uppercase tracking-wider flex items-center gap-1.5">
                   <CreditCard className="w-3.5 h-3.5 text-[#8C6D46]" />
@@ -1624,7 +1662,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
-              {/* Notes */}
+              {/* Catatan Khusus */}
               <div>
                 <label className="block text-xs font-serif font-bold text-[#1C1A17] uppercase mb-1.5">
                   Catatan Khusus (Opsional):
@@ -1655,7 +1693,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             </div>
           )}
 
-          {/* Rincian Biaya Summary Box */}
+          {/* ================================================================= */}
+          {/* RINCIAN BIAYA SUMMARY BOX                                         */}
+          {/* ================================================================= */}
           <div className="bg-[#1C1A17] text-white p-4 sm:p-5 border border-[#332F2A] space-y-3">
             <div className="flex justify-between items-center text-xs text-stone-300 border-b border-[#332F2A] pb-2">
               <span className="font-serif uppercase tracking-wider text-stone-400">RINCIAN RESERVASI:</span>
@@ -1696,7 +1736,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           </div>
         </div>
 
-        {/* Modal Footer Controls */}
+        {/* =================================================================== */}
+        {/* MODAL FOOTER CONTROLS                                               */}
+        {/* =================================================================== */}
         <div className="p-4 sm:p-5 bg-white border-t border-[#E0D9CE] flex items-center justify-between gap-2 shrink-0">
           <button
             onClick={handleCopySummary}
@@ -1736,11 +1778,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 type="button"
                 onClick={handleSendBookingWA}
                 disabled={!canSubmitBooking}
-                className={`min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${
-                  canSubmitBooking
-                    ? 'bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-md cursor-pointer active:scale-95'
-                    : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
-                }`}
+                className={`min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${canSubmitBooking
+                  ? 'bg-[#1C1A17] hover:bg-[#2D2A26] text-white border border-[#1C1A17] shadow-md cursor-pointer active:scale-95'
+                  : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
+                  }`}
                 title={!canSubmitBooking ? 'Lengkapi Nama, WhatsApp, dan Unggah Bukti Bayar' : 'Kirim Booking ke WhatsApp Admin'}
               >
                 <MessageCircle className={`w-4 h-4 ${canSubmitBooking ? 'text-[#D4AF37]' : 'text-stone-400'}`} />
