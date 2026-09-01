@@ -1524,6 +1524,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             <span className={`font-serif font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-stone-400 line-through' : 'text-[#1C1A17]'}`}>
                               {backdrop.name}
                             </span>
+                            {backdrop.id === 'c2-tematik-cream' && (
+                              <span className="text-[8.5px] font-sans font-bold bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.2">
+                                Maks. 5 Orang
+                              </span>
+                            )}
                             {isSelected && maxBackdrops > 1 && (
                               <span className="text-[9px] font-bold bg-[#1C1A17] text-white px-2 py-0.2">
                                 Latar {selectionIndex + 1}
@@ -1552,6 +1557,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     );
                   })}
                 </div>
+
+                {/* Info Studio 2: Tematik Cream Maksimal 5 Orang */}
+                {selectedBranch === 'cabang-2' && (
+                  <div className="mt-2.5 p-2.5 bg-amber-50/90 border border-amber-300/80 text-amber-900 text-[11px] font-sans flex items-center gap-2">
+                    <span className="font-bold text-amber-700 text-xs shrink-0">⚠️</span>
+                    <span>
+                      <strong>Pemberitahuan Khusus Tematik Cream:</strong> Background <em>Tematik Cream (Studio 2)</em> memiliki batasan kapasitas panggung maksimal <strong>5 orang</strong>.
+                    </span>
+                  </div>
+                )}
 
                 {/* Info Studio 1: Limbo vs Putih Tengah */}
                 {availableBackdrops.some(b => b.id.includes('limbo')) && availableBackdrops.some(b => b.id.includes('putih-tengah')) && (

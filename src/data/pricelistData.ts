@@ -1376,7 +1376,7 @@ export const BACKDROPS: BackdropOption[] = [
     name: 'Tematik Cream',
     category: 'solid-color',
     hex: '#FEF3C7',
-    description: 'Latar tematik cream hangat untuk tone pastel lembut, estetik dan bersahabat.',
+    description: 'Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
