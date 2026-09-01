@@ -1,24 +1,40 @@
 /**
  * =========================================================================
  * ALVIERO STUDIO — GOOGLE APPS SCRIPT FOR GOOGLE SHEETS
- * Versi: 3.0 (Support Kapasitas 3 Klien, Filter BOOKED, & Upload Bukti Bayar ke Drive/Sheet)
+ * Versi: 3.1 (Support Kapasitas 3 Klien, Filter BOOKED, & Upload Bukti Bayar ke Drive/Sheet)
  * =========================================================================
  * 
- * FITUR VERSI 3.0:
+ * FITUR UTAMA:
  * 1. Menerima upload foto bukti pembayaran dari web secara otomatis.
  * 2. Foto disimpan ke folder Google Drive "Bukti Pembayaran Alviero Studio".
- * 3. Link foto bukti transfer & formula hyperlink otomatis dimasukkan ke kolom Spreadsheet.
+ * 3. Link foto bukti transfer otomatis dimasukkan ke kolom Spreadsheet.
  * 4. Filter ketersediaan slot jam berdasarkan status 'BOOKED'.
  * 
- * CARA MEMASANG / UPDATE DI GOOGLE SHEETS:
- * 1. Buka Google Spreadsheet Anda.
- * 2. Klik menu "Ekstensi" (Extensions) > "Apps Script".
- * 3. Hapus seluruh isi kode lama di editor, lalu paste (tempel) seluruh kode di bawah ini.
- * 4. Klik icon "Simpan" (Ctrl+S / Cmd+S).
- * 5. Klik tombol "Terapkan" (Deploy) di kanan atas > "Kelola penerapan" (Manage deployments).
- * 6. Klik icon Pensil (Edit) pada penerapan aktif > pilih Versi: "Baru" (New version).
- * 7. Klik "Terapkan" (Deploy).
+ * ⚠️ CARA MENGATASI ERROR IZIN GOOGLE DRIVE (HANYA DILAKUKAN 1 KALI):
+ * Jika muncul error: "Anda tidak memiliki izin untuk memanggil DriveApp...":
+ * 1. Di editor Apps Script, pada menu dropdown fungsi di bagian atas (sebelah tombol Debug/Run), pilih fungsi: "authorizeDrivePermissions".
+ * 2. Klik tombol "Jalankan" (Run ▶️).
+ * 3. Akan muncul jendela popup "Otorisasi Diperlukan" (Authorization Required) > Klik "Tinjau Izin" (Review Permissions).
+ * 4. Pilih Akun Google Anda.
+ * 5. Jika muncul "Google belum memverifikasi aplikasi ini", klik "Lanjutan" (Advanced) > klik "Buka ... (tidak aman)".
+ * 6. Klik tombol "Izinkan" (Allow).
+ * 7. Setelah selesai, klik tombol "Terapkan" (Deploy) di kanan atas > "Kelola penerapan" (Manage deployments) > Edit (ikon Pensil) > pilih Versi: "Baru" (New version) > Klik "Terapkan" (Deploy).
  */
+
+/**
+ * FUNGSI BANTUAN UNTUK OTORISASI IZIN GOOGLE DRIVE (Jalankan fungsi ini di editor jika diminta izin)
+ */
+function authorizeDrivePermissions() {
+  var folderName = 'Bukti Pembayaran Alviero Studio';
+  var folders = DriveApp.getFoldersByName(folderName);
+  var folder;
+  if (folders.hasNext()) {
+    folder = folders.next();
+  } else {
+    folder = DriveApp.createFolder(folderName);
+  }
+  Logger.log('✅ Otorisasi Google Drive Berhasil! Folder ID: ' + folder.getId());
+}
 
 function doGet(e) {
   return handleRequest(e);
