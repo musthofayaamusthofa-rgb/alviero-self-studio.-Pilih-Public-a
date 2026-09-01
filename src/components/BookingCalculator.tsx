@@ -1579,9 +1579,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   })}
                 </div>
 
-                {/* Info Studio 2: Tematik Cream Maksimal 5 Orang */}
-                {selectedBranch === 'cabang-2' && (
-                  <div className="mt-2.5 p-2.5 bg-amber-50/90 border border-amber-300/80 text-amber-900 text-[11px] font-sans flex items-center gap-2">
+                {/* Info Studio 2: Tematik Cream Maksimal 5 Orang (Hanya muncul jika background Cream dipilih) */}
+                {selectedBranch === 'cabang-2' && selectedBackdropIds.some(id => id.includes('cream')) && (
+                  <div className="mt-2.5 p-2.5 bg-amber-50/90 border border-amber-300/80 text-amber-900 text-[11px] font-sans flex items-center gap-2 animate-fadeIn">
                     <span className="font-bold text-amber-700 text-xs shrink-0">⚠️</span>
                     <span>
                       <strong>Pemberitahuan Khusus Tematik Cream:</strong> Background <em>Tematik Cream (Studio 2)</em> memiliki batasan kapasitas panggung maksimal <strong>5 orang</strong>.
