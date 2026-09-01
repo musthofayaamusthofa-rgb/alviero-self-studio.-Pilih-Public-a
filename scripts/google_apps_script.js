@@ -85,17 +85,16 @@ function handleRequest(e) {
       var bookedSlots = [];
       var slotCounts = {};
       var slotBackdrops = {};
-
-      var maxCapacity = (branchParam === 'cabang-2' || branchParam === 'Studio 2') ? 3 : 1;
+      var maxCap = (branchParam === 'cabang-2' || branchParam === 'Studio 2') ? 3 : 1;
 
       for (var i = 1; i < data.length; i++) {
         var row = data[i];
         if (!row || row.length < 2) continue;
 
         var rowDate = formatDate(row[0]); // Kolom A: Tanggal Booking
-        var rowSlot = normalizeTime(row[1]); // Kolom B: Jam Slot
+        var rowSlot = String(row[1] || '').trim(); // Kolom B: Jam Slot
         var rowStudioType = String(row[2] || '').trim().toLowerCase(); // Kolom C: Tipe Studio
-        var rowPackage = String(row[7] || '').trim().toLowerCase(); // Kolom H: Paket Utama
+        var rowPackage = String(row[7] || '').trim(); // Kolom H: Paket Utama
         var rowBackdrop = String(row[8] || '').trim(); // Kolom I: Backdrop
         var rowStatus = String(row[15] || '').trim().toUpperCase(); // Kolom P: Status
 
@@ -114,41 +113,11 @@ function handleRequest(e) {
         }
 
         if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam)) {
-          if (rowSlot) {
-            // Deteksi apakah paket yang dibooking adalah paket 2 slot (60 menit / Paket 2 ke atas)
-            var is2SlotPackage = (
-              rowPackage.indexOf('paket 2') !== -1 ||
-              rowPackage.indexOf('paket 3') !== -1 ||
-              rowPackage.indexOf('paket 4') !== -1 ||
-              rowPackage.indexOf('2 background') !== -1 ||
-              rowPackage.indexOf('supreme') !== -1 ||
-              rowPackage.indexOf('infinity') !== -1 ||
-              rowPackage.indexOf('ultimate') !== -1 ||
-              rowPackage.indexOf('cumlaude') !== -1 ||
-              rowPackage.indexOf('group outdoor') !== -1 ||
-              rowPackage.indexOf('happy nest') !== -1 ||
-              rowPackage.indexOf('opulent') !== -1 ||
-              rowPackage.indexOf('golden') !== -1 ||
-              rowPackage.indexOf('sweet memories') !== -1 ||
-              rowPackage.indexOf('glow sweet') !== -1 ||
-              rowPackage.indexOf('sweet light') !== -1 ||
-              rowPackage.indexOf('signature') !== -1 ||
-              rowPackage.indexOf('royal') !== -1 ||
-              rowPackage.indexOf('imperial') !== -1 ||
-              rowPackage.indexOf('velvet') !== -1 ||
-              rowPackage.indexOf('bundling') !== -1 ||
-              rowPackage.indexOf('60 menit') !== -1 ||
-              rowPackage.indexOf('50 menit') !== -1
-            );
+          var occupiedSlots = getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
 
-            var occupiedSlotsList = [rowSlot];
-            if (is2SlotPackage) {
-              var nextSlot = getNext30MinSlot(rowSlot);
-              if (nextSlot) occupiedSlotsList.push(nextSlot);
-            }
-
-            for (var k = 0; k < occupiedSlotsList.length; k++) {
-              var s = occupiedSlotsList[k];
+          for (var sIdx = 0; sIdx < occupiedSlots.length; sIdx++) {
+            var s = occupiedSlots[sIdx];
+            if (s) {
               slotCounts[s] = (slotCounts[s] || 0) + 1;
 
               if (!slotBackdrops[s]) {
@@ -158,7 +127,7 @@ function handleRequest(e) {
                 slotBackdrops[s].push(rowBackdrop);
               }
 
-              if (slotCounts[s] >= maxCapacity && bookedSlots.indexOf(s) === -1) {
+              if (slotCounts[s] >= maxCap && bookedSlots.indexOf(s) === -1) {
                 bookedSlots.push(s);
               }
             }
@@ -316,20 +285,76 @@ function normalizeTime(val) {
   var str = String(val).trim();
   var match = str.match(/(\d{1,2})[:.](\d{2})/);
   if (match) {
-    return (match[1].length === 1 ? '0' + match[1] : match[1]) + ':' + match[2];
+    return match[1].padStart(2, '0') + ':' + match[2];
   }
   return str;
 }
 
-// Hitung Slot 30 Menit Berikutnya (Contoh: '14:00' -> '14:30')
-function getNext30MinSlot(slotStr) {
-  var norm = normalizeTime(slotStr);
-  var parts = norm.split(':');
-  var hh = parseInt(parts[0], 10);
-  var mm = parseInt(parts[1], 10);
-  if (isNaN(hh) || isNaN(mm)) return '';
-  var total = hh * 60 + mm + 30;
-  var nextHh = Math.floor(total / 60);
-  var nextMm = total % 60;
-  return (nextHh < 10 ? '0' + nextHh : '' + nextHh) + ':' + (nextMm < 10 ? '0' + nextMm : '' + nextMm);
+// 26 Slot Jadwal Interval 30 Menit (08:00 - 20:30 WIB)
+var ALL_30M_SLOTS = [
+  '08:00', '08:30',
+  '09:00', '09:30',
+  '10:00', '10:30',
+  '11:00', '11:30',
+  '12:00', '12:30',
+  '13:00', '13:30',
+  '14:00', '14:30',
+  '15:00', '15:30',
+  '16:00', '16:30',
+  '17:00', '17:30',
+  '18:00', '18:30',
+  '19:00', '19:30',
+  '20:00', '20:30'
+];
+
+// Helper: Menghitung slot apa saja yang terpakai oleh 1 baris booking (1 slot vs 2 slot)
+function getOccupiedSlotsForRow(rowSlotRaw, rowPackageRaw, rowBackdropRaw) {
+  var rawStr = String(rowSlotRaw || '').trim();
+  var slots = [];
+
+  var matches = rawStr.match(/(\d{1,2})[:.](\d{2})/g);
+  if (matches && matches.length > 0) {
+    var startSlot = normalizeTime(matches[0]);
+    var idx = ALL_30M_SLOTS.indexOf(startSlot);
+    if (idx !== -1) {
+      slots.push(startSlot);
+
+      // Cek apakah paket 2 slot / 60 menit / 2 background
+      var pkgLower = String(rowPackageRaw || '').toLowerCase();
+      var bdLower = String(rowBackdropRaw || '').toLowerCase();
+      var is2Slot = (
+        pkgLower.indexOf('paket 2') !== -1 ||
+        pkgLower.indexOf('paket 3') !== -1 ||
+        pkgLower.indexOf('paket 4') !== -1 ||
+        pkgLower.indexOf('2 background') !== -1 ||
+        pkgLower.indexOf('supreme') !== -1 ||
+        pkgLower.indexOf('infinity') !== -1 ||
+        pkgLower.indexOf('ultimate') !== -1 ||
+        pkgLower.indexOf('cumlaude') !== -1 ||
+        pkgLower.indexOf('group outdoor') !== -1 ||
+        pkgLower.indexOf('happy nest') !== -1 ||
+        pkgLower.indexOf('opulent') !== -1 ||
+        pkgLower.indexOf('golden') !== -1 ||
+        pkgLower.indexOf('sweet memories') !== -1 ||
+        pkgLower.indexOf('glow sweet') !== -1 ||
+        pkgLower.indexOf('sweet light') !== -1 ||
+        pkgLower.indexOf('signature') !== -1 ||
+        pkgLower.indexOf('royal') !== -1 ||
+        pkgLower.indexOf('imperial') !== -1 ||
+        pkgLower.indexOf('velvet') !== -1 ||
+        pkgLower.indexOf('bundling') !== -1 ||
+        pkgLower.indexOf('60 menit') !== -1 ||
+        pkgLower.indexOf('50 menit') !== -1 ||
+        bdLower.indexOf(',') !== -1 ||
+        bdLower.indexOf('&') !== -1 ||
+        (matches.length > 1 && normalizeTime(matches[1]) !== startSlot)
+      );
+
+      if (is2Slot && idx + 1 < ALL_30M_SLOTS.length) {
+        slots.push(ALL_30M_SLOTS[idx + 1]);
+      }
+    }
+  }
+
+  return slots;
 }
