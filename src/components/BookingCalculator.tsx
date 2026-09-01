@@ -449,15 +449,15 @@ export const checkPaket2Availability = (
   };
 };
 
-export interface DynamicAvailabilityResult {
+export interface DualDynamicAvailabilityResult {
   availableIds: string[];
   availableNames: string[];
-  backgrounds: { [id: string]: BackgroundQuotaStatus };
+  backgrounds: { [id: string]: BackgroundQuotaStatus & { group: string } };
   lockedReasons: { [id: string]: string };
-  dynamicLimits: {
-    maxHitam: number;
-    maxCoklat: number;
-    totalHitamCoklatUsed: number;
+  groupStats: {
+    grup1_HitamCoklat: { used: number; max: number; remaining: number };
+    grup2_PutihAbu: { used: number; max: number; remaining: number };
+    grup3_Cream: { used: number; max: number; remaining: number };
   };
   remainingQuotas: {
     hitam: number;
@@ -469,22 +469,27 @@ export interface DynamicAvailabilityResult {
 }
 
 /**
- * Logika Validasi Ketersediaan Background Studio 2 dengan Aturan "Kuota Dinamis"
+ * Logika Validasi Ketersediaan Background Studio 2 dengan Aturan "Kuota Dinamis Ganda"
  * 
- * Aturan Kuota Background Studio 2 (Kuota Dinamis):
- * 1. Putih     : Kuota maksimal 2.
- * 2. Abu-abu   : Kuota maksimal 2.
- * 3. Cream     : Kuota maksimal 1.
- * 4. Hitam & Coklat (ATURAN KUOTA DINAMIS):
- *    - Hitam dan Coklat masing-masing maksimal 2.
- *    - Jika Hitam sudah terpilih 2x -> Batas maksimal Coklat menjadi 1.
- *    - Jika Coklat sudah terpilih 2x -> Batas maksimal Hitam menjadi 1.
- *    - Total gabungan (Hitam + Coklat) maksimal 3 dalam 1 slot jam.
+ * Aturan Kuota Dinamis Ganda:
+ * 1. Grup 1: Hitam & Coklat (Maksimal Gabungan = 3, Masing-masing max 2)
+ *    - countHitam + countCoklat <= 3
+ *    - Jika Hitam terpilih 2x -> Kuota Coklat tersisa 1
+ *    - Jika Coklat terpilih 2x -> Kuota Hitam tersisa 1
+ * 
+ * 2. Grup 2: Putih & Abu-abu (Maksimal Gabungan = 2, Masing-masing max 2)
+ *    - countPutih + countAbu <= 2
+ *    - Jika Putih terpilih 2x -> Abu-abu menjadi 0 (Tidak Tersedia)
+ *    - Jika Abu-abu terpilih 2x -> Putih menjadi 0 (Tidak Tersedia)
+ *    - Jika Putih terpilih 1x -> Abu-abu tersisa 1x (dan sebaliknya)
+ * 
+ * 3. Grup 3: Cream
+ *    - Kuota statis maksimal 1
  */
-export const checkDynamicAvailability = (
+export const checkDualDynamicAvailability = (
   existingBookings: string[] = []
-): DynamicAvailabilityResult => {
-  // 1. Hitung Jumlah Pemakaian Tiap Background dari Reservasi Aktif
+): DualDynamicAvailabilityResult => {
+  // 1. Ekstrak Jumlah Pemakaian Tiap Background dari Reservasi yang Ada
   const usageCounts: { [id: string]: number } = {
     'c2-hitam': 0,
     'c2-putih': 0,
@@ -504,7 +509,7 @@ export const checkDynamicAvailability = (
     const putihCount = (text.match(/putih/g) || []).length;
     usageCounts['c2-putih'] += putihCount;
 
-    // Hitung Pemakaian Abu-abu
+    // Hitung Pemakaian Abu-abu (hindari double count dari kata 'abu-abu')
     const abuCount = (text.match(/abu-abu|abu_abu|\babu\b|c2-abu/g) || []).length;
     usageCounts['c2-abu-abu'] += abuCount;
 
@@ -523,48 +528,51 @@ export const checkDynamicAvailability = (
   const usedAbu = usageCounts['c2-abu-abu'];
   const usedCream = usageCounts['c2-tematik-cream'];
 
-  // 2. Evaluasi Kuota Statis (Putih: 2, Abu-abu: 2, Cream: 1)
-  const maxPutih = 2;
-  const maxAbu = 2;
-  const maxCream = 1;
+  // =========================================================================
+  // 2. Perhitungan Matematika Grup Dinamis
+  // =========================================================================
 
-  // 3. Evaluasi Kuota Dinamis (Hitam & Coklat Saling Membatasi: Hitam + Coklat <= 3)
-  // Jika Hitam sudah terpilih 2x -> Batas maksimal Coklat menjadi 1
-  // Jika Coklat sudah terpilih 2x -> Batas maksimal Hitam menjadi 1
-  let dynamicMaxHitam = 2;
-  let dynamicMaxCoklat = 2;
-
-  if (usedCoklat >= 2) {
-    dynamicMaxHitam = 1;
-  } else {
-    dynamicMaxHitam = Math.min(2, 3 - usedCoklat);
+  // Grup 1: Hitam & Coklat (Max individual = 2, Total gabungan <= 3)
+  const totalHitamCoklat = usedHitam + usedCoklat;
+  let remainingHitam = 0;
+  if (usedHitam < 2 && totalHitamCoklat < 3) {
+    remainingHitam = Math.min(2 - usedHitam, 3 - totalHitamCoklat);
   }
 
-  if (usedHitam >= 2) {
-    dynamicMaxCoklat = 1;
-  } else {
-    dynamicMaxCoklat = Math.min(2, 3 - usedHitam);
+  let remainingCoklat = 0;
+  if (usedCoklat < 2 && totalHitamCoklat < 3) {
+    remainingCoklat = Math.min(2 - usedCoklat, 3 - totalHitamCoklat);
   }
 
-  // Hitung Sisa Kuota
-  const remainingHitam = Math.max(0, dynamicMaxHitam - usedHitam);
-  const remainingCoklat = Math.max(0, dynamicMaxCoklat - usedCoklat);
-  const remainingPutih = Math.max(0, maxPutih - usedPutih);
-  const remainingAbu = Math.max(0, maxAbu - usedAbu);
-  const remainingCream = Math.max(0, maxCream - usedCream);
+  // Grup 2: Putih & Abu-abu (Max individual = 2, Total gabungan <= 2)
+  const totalPutihAbu = usedPutih + usedAbu;
+  let remainingPutih = 0;
+  if (usedPutih < 2 && totalPutihAbu < 2) {
+    remainingPutih = Math.min(2 - usedPutih, 2 - totalPutihAbu);
+  }
 
-  // 4. Struktur Output Detail Background
+  let remainingAbu = 0;
+  if (usedAbu < 2 && totalPutihAbu < 2) {
+    remainingAbu = Math.min(2 - usedAbu, 2 - totalPutihAbu);
+  }
+
+  // Grup 3: Cream (Statis max 1)
+  const remainingCream = Math.max(0, 1 - usedCream);
+
+  // =========================================================================
+  // 3. Struktur Output Ketersediaan untuk UI
+  // =========================================================================
   const BG_DEFINITIONS = [
-    { id: 'c2-hitam', name: 'Hitam', maxQuota: dynamicMaxHitam, used: usedHitam, remaining: remainingHitam },
-    { id: 'c2-putih', name: 'Putih', maxQuota: maxPutih, used: usedPutih, remaining: remainingPutih },
-    { id: 'c2-abu-abu', name: 'Abu-abu', maxQuota: maxAbu, used: usedAbu, remaining: remainingAbu },
-    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: dynamicMaxCoklat, used: usedCoklat, remaining: remainingCoklat },
-    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: maxCream, used: usedCream, remaining: remainingCream }
+    { id: 'c2-hitam', name: 'Hitam', maxQuota: 2, used: usedHitam, remaining: remainingHitam, group: 'Grup 1 (Hitam+Coklat <= 3)' },
+    { id: 'c2-putih', name: 'Putih', maxQuota: 2, used: usedPutih, remaining: remainingPutih, group: 'Grup 2 (Putih+Abu <= 2)' },
+    { id: 'c2-abu-abu', name: 'Abu-abu', maxQuota: 2, used: usedAbu, remaining: remainingAbu, group: 'Grup 2 (Putih+Abu <= 2)' },
+    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 2, used: usedCoklat, remaining: remainingCoklat, group: 'Grup 1 (Hitam+Coklat <= 3)' },
+    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: 1, used: usedCream, remaining: remainingCream, group: 'Grup 3 (Cream <= 1)' }
   ];
 
   const availableIds: string[] = [];
   const availableNames: string[] = [];
-  const backgrounds: { [id: string]: BackgroundQuotaStatus } = {};
+  const backgrounds: { [id: string]: BackgroundQuotaStatus & { group: string } } = {};
   const lockedReasons: { [id: string]: string } = {};
 
   BG_DEFINITIONS.forEach(bg => {
@@ -573,10 +581,12 @@ export const checkDynamicAvailability = (
     let reason: string | undefined = undefined;
 
     if (!isAvailable) {
-      if ((bg.id === 'c2-hitam' || bg.id === 'c2-coklat-jendela') && (usedHitam + usedCoklat >= 3)) {
-        reason = `Kuota gabungan Hitam & Coklat sudah maksimal (Terpakai: Hitam ${usedHitam}x, Coklat ${usedCoklat}x)`;
+      if ((bg.id === 'c2-hitam' || bg.id === 'c2-coklat-jendela') && totalHitamCoklat >= 3) {
+        reason = `Batas gabungan Hitam & Coklat telah mencapai 3 (${usedHitam} Hitam + ${usedCoklat} Coklat)`;
+      } else if ((bg.id === 'c2-putih' || bg.id === 'c2-abu-abu') && totalPutihAbu >= 2) {
+        reason = `Batas gabungan Putih & Abu-abu telah mencapai 2 (${usedPutih} Putih + ${usedAbu} Abu-abu)`;
       } else {
-        reason = `Kuota habis (${bg.used}/${bg.maxQuota} sudah terpakai di jam ini)`;
+        reason = `Kuota background habis (${bg.used}/${bg.maxQuota} sudah terpakai di jam ini)`;
       }
       lockedReasons[bg.id] = reason;
     } else {
@@ -587,6 +597,7 @@ export const checkDynamicAvailability = (
     backgrounds[bg.id] = {
       id: bg.id,
       name: bg.name,
+      group: bg.group,
       maxQuota: bg.maxQuota,
       usedCount: bg.used,
       remainingQuota: bg.remaining,
@@ -601,10 +612,10 @@ export const checkDynamicAvailability = (
     availableNames,
     backgrounds,
     lockedReasons,
-    dynamicLimits: {
-      maxHitam: dynamicMaxHitam,
-      maxCoklat: dynamicMaxCoklat,
-      totalHitamCoklatUsed: usedHitam + usedCoklat
+    groupStats: {
+      grup1_HitamCoklat: { used: totalHitamCoklat, max: 3, remaining: Math.max(0, 3 - totalHitamCoklat) },
+      grup2_PutihAbu: { used: totalPutihAbu, max: 2, remaining: Math.max(0, 2 - totalPutihAbu) },
+      grup3_Cream: { used: usedCream, max: 1, remaining: remainingCream }
     },
     remainingQuotas: {
       hitam: remainingHitam,
@@ -839,26 +850,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const bookedForSlot = (slotBackdrops[normTime] || []).map(b => String(b).toLowerCase());
     const bdIdLower = bdObj.id.toLowerCase();
 
-    // 1. Validasi Studio 2 (Cabang 2):
-    //    - Paket 2 (2 Background): Menggunakan checkPaket2Availability (Kuota: Hitam=2, Putih=1, Abu=1, Coklat=1, Cream=1)
-    //    - Paket 1 (1 Background): Menggunakan getAvailableBackgroundsStudio2 (Single-Use per slot + Coklat vs Cream)
+    // 1. Validasi Studio 2 (Cabang 2): Kuota Dinamis Ganda (Hitam+Coklat <= 3, Putih+Abu <= 2, Cream <= 1)
     if (selectedBranch === 'cabang-2') {
-      if (maxBackdrops > 1) {
-        const paket2Result = checkPaket2Availability(bookedForSlot);
-        if (!paket2Result.availableIds.includes(backdropId)) {
-          return {
-            isAvailable: false,
-            reason: paket2Result.lockedReasons[backdropId] || `Kuota background sudah habis di jam ${normTime} WIB`
-          };
-        }
-      } else {
-        const studio2Availability = getAvailableBackgroundsStudio2(bookedForSlot);
-        if (!studio2Availability.availableIds.includes(backdropId)) {
-          return {
-            isAvailable: false,
-            reason: studio2Availability.lockedReasons[backdropId] || `Tidak tersedia di jam ${normTime} WIB`
-          };
-        }
+      const dynamicResult = checkDualDynamicAvailability(bookedForSlot);
+      if (!dynamicResult.availableIds.includes(backdropId)) {
+        return {
+          isAvailable: false,
+          reason: dynamicResult.lockedReasons[backdropId] || `Kuota background sudah habis di jam ${normTime} WIB`
+        };
       }
     }
 
