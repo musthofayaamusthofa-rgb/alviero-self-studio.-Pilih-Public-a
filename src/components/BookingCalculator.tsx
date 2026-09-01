@@ -898,12 +898,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
-  const studioTypeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
-  const activeTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
+  const baseTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
   // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 60 Menit (2 slot berturut-turut @30 Menit)
   const sessionDurationMinutes = maxBackdrops > 1 ? 60 : 30;
   const sessionSlotsCount = maxBackdrops > 1 ? 2 : 1;
+
+  // Jika Paket 2 ke atas (durasi 60 menit): Hanya tampilkan jam kelipatan 1 jam (08:00, 09:00, 10:00, dst)
+  // Jika Paket 1 (durasi 30 menit): Tampilkan seluruh 26 slot (08:00, 08:30, 09:00, dst)
+  const activeTimeSlots = maxBackdrops > 1
+    ? baseTimeSlots.filter(s => s.endsWith(':00'))
+    : baseTimeSlots;
 
   // Fetch Slot Terisi & Backdrop Terpakai dari Google Sheets secara Real-Time
   useEffect(() => {
@@ -954,11 +959,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     };
   }, [isOpen, bookingDate, selectedPackageId, selectedBranch, isSelfStudio]);
 
-  // Mendapatkan slot-slot yang terpakai oleh durasi sesi foto
+  // Mendapatkan slot-slot yang terpakai oleh durasi sesi foto (1 Slot = 30M, 2 Slot = 60M)
   const getOccupiedSlotsForStart = (startSlot: string): string[] => {
-    const startIndex = activeTimeSlots.indexOf(normalizeSlotTime(startSlot));
-    if (startIndex === -1) return [startSlot];
-    return activeTimeSlots.slice(startIndex, startIndex + sessionSlotsCount);
+    const norm = normalizeSlotTime(startSlot);
+    if (!norm) return [];
+    if (sessionSlotsCount === 1) return [norm];
+
+    // Untuk sesi 2 slot (60 Menit): ambil slot awal (misal 08:00) dan slot 30 menit berikutnya (misal 08:30)
+    const baseIdx = baseTimeSlots.indexOf(norm);
+    if (baseIdx !== -1 && baseIdx + 1 < baseTimeSlots.length) {
+      return [norm, baseTimeSlots[baseIdx + 1]];
+    }
+    return [norm];
   };
 
   // Helper untuk menghitung jumlah klien per slot (Kapasitas Maksimal: 3 Klien per Slot Jam)
@@ -978,18 +990,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Mengecek apakah suatu slot valid untuk dijadikan jam mulai reservasi (Durasi Dinamis: 1 Slot vs 2 Slot)
   const isSlotAvailableForBooking = (startSlot: string): { isAvailable: boolean; reason?: string } => {
-    const startIndex = activeTimeSlots.indexOf(normalizeSlotTime(startSlot));
-    if (startIndex === -1) return { isAvailable: false, reason: 'Slot tidak valid' };
+    const neededSlots = getOccupiedSlotsForStart(startSlot);
+    if (neededSlots.length === 0) return { isAvailable: false, reason: 'Slot tidak valid' };
 
     const maxCapacity = selectedBranch === 'cabang-2' ? 3 : 1;
-    const neededSlots = activeTimeSlots.slice(startIndex, startIndex + sessionSlotsCount);
     for (let i = 0; i < neededSlots.length; i++) {
       const s = neededSlots[i];
       const count = getSlotClientCount(s);
       if (count >= maxCapacity) {
         return {
           isAvailable: false,
-          reason: i === 0 ? 'Slot jam ini sudah penuh' : `Slot lanjutan (${s}) sudah penuh, durasi 1 jam tidak muat`
+          reason: i === 0 ? 'Slot jam ini sudah penuh' : `Slot lanjutan (${s}) sudah penuh`
         };
       }
     }
@@ -1000,14 +1011,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const formattedSessionTime = `${timeSlot} - ${calculateEndTime(timeSlot, sessionDurationMinutes)}`;
   const currentOccupiedSlots = getOccupiedSlotsForStart(timeSlot);
 
-  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / penuh
+  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / tidak ada di activeTimeSlots / penuh
   useEffect(() => {
     const currentAvailability = isSlotAvailableForBooking(timeSlot);
-    if (!currentAvailability.isAvailable) {
+    if (!activeTimeSlots.includes(timeSlot) || !currentAvailability.isAvailable) {
       const firstAvailable = activeTimeSlots.find(s => isSlotAvailableForBooking(s).isAvailable);
-      if (firstAvailable) setTimeSlot(firstAvailable);
+      if (firstAvailable) {
+        setTimeSlot(firstAvailable);
+      } else if (activeTimeSlots.length > 0) {
+        setTimeSlot(activeTimeSlots[0]);
+      }
     }
-  }, [slotClientCounts, slotBackdrops, activeTimeSlots, timeSlot, sessionSlotsCount]);
+  }, [slotClientCounts, slotBackdrops, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch]);
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
@@ -1666,20 +1681,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                     <label className="text-xs font-serif font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[#8C6D46]" />
-                      PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN):
+                      PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN{maxBackdrops > 1 ? ' • KELIPATAN 1 JAM' : ''}):
                     </label>
                     <span className="text-[10.5px] font-sans font-bold text-[#1C1A17] bg-white px-2.5 py-0.5 border border-[#E0D9CE]">
                       Terpilih: {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2">
+                  <div className={`grid gap-1.5 sm:gap-2 ${maxBackdrops > 1 ? 'grid-cols-3 sm:grid-cols-4 md:grid-cols-7' : 'grid-cols-4 sm:grid-cols-6 md:grid-cols-8'}`}>
                     {activeTimeSlots.map((slot) => {
                       const isStartSlot = timeSlot === slot;
-                      const isSecondSlot = sessionSlotsCount === 2 && currentOccupiedSlots.length > 1 && currentOccupiedSlots[1] === slot;
                       const clientCount = getSlotClientCount(slot);
                       const availability = isSlotAvailableForBooking(slot);
-                      const isSlotFull = clientCount >= 3;
+                      const maxCap = selectedBranch === 'cabang-2' ? 3 : 1;
+                      const isSlotFull = clientCount >= maxCap || !availability.isAvailable;
                       const isDisabled = !availability.isAvailable;
 
                       return (
@@ -1693,30 +1708,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
                             : isStartSlot
                               ? 'bg-[#1C1A17] text-white border-[#1C1A17] ring-2 ring-[#D4AF37] shadow-sm cursor-pointer active:scale-95 z-10'
-                              : isSecondSlot
-                                ? 'bg-[#2D2A26] text-white border-[#D4AF37] ring-1 ring-[#D4AF37]/50 shadow-xs cursor-pointer active:scale-95'
-                                : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
+                              : 'bg-white hover:bg-[#FAF8F5] text-stone-800 border-[#E0D9CE] cursor-pointer active:scale-95'
                             }`}
                           title={!availability.isAvailable ? availability.reason : `Mulai sesi foto jam ${slot} WIB`}
                         >
                           <span className="leading-tight">{slot}</span>
-                          {isSlotFull ? (
+                          {isDisabled ? (
                             <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
                               Penuh
                             </span>
                           ) : isStartSlot ? (
                             <span className="text-[8px] font-bold text-[#D4AF37] uppercase mt-0.5 no-underline">
-                              {sessionSlotsCount === 2 ? 'Mulai (1/2)' : 'Terpilih'}
+                              {sessionSlotsCount === 2 ? 'Terpilih (1 Jam)' : 'Terpilih'}
                             </span>
-                          ) : isSecondSlot ? (
-                            <span className="text-[8px] font-bold text-[#D4AF37] uppercase mt-0.5 no-underline">
-                              Sesi 2
-                            </span>
-                          ) : slot === '20:30' && sessionSlotsCount === 2 ? (
-                            <span className="text-[7.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
-                              +35rb
-                            </span>
-                          ) : clientCount > 0 ? (
+                          ) : selectedBranch === 'cabang-2' && clientCount > 0 ? (
                             <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
                               {clientCount}/3 Terisi
                             </span>
