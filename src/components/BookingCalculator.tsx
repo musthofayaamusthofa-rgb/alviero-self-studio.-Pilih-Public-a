@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import {
   PACKAGES,
@@ -660,6 +660,59 @@ export const calculateEndTime = (startTimeStr: string, durationMinutes: number):
   return `${String(endHh).padStart(2, '0')}:${String(endMm).padStart(2, '0')}`;
 };
 
+const INDONESIAN_DAYS = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const INDONESIAN_MONTHS = [
+  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+];
+const INDONESIAN_MONTHS_SHORT = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+  'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+];
+
+/**
+ * Format string tanggal YYYY-MM-DD menjadi format teks Indonesia (contoh: Selasa, 1 September 2026)
+ */
+export const formatIndonesianDate = (dateStr: string): string => {
+  if (!dateStr) return '';
+  const [yyyy, mm, dd] = dateStr.split('-').map(Number);
+  if (!yyyy || !mm || !dd) return dateStr;
+  const d = new Date(yyyy, mm - 1, dd);
+  const dayName = INDONESIAN_DAYS[d.getDay()];
+  const monthName = INDONESIAN_MONTHS[mm - 1];
+  return `${dayName}, ${dd} ${monthName} ${yyyy}`;
+};
+
+/**
+ * Menghasilkan daftar hari dan tanggal 14 hari ke depan untuk pemilih tanggal interaktif
+ */
+export const getUpcomingDaysList = (count: number = 14) => {
+  const list = [];
+  const now = new Date();
+  for (let i = 0; i < count; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() + i);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const dateStr = `${yyyy}-${mm}-${dd}`;
+    const dayOfWeek = d.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+    list.push({
+      dateStr,
+      dayShort: INDONESIAN_DAYS[dayOfWeek].substring(0, 3).toUpperCase(),
+      dayName: INDONESIAN_DAYS[dayOfWeek],
+      dateNum: dd,
+      monthShort: INDONESIAN_MONTHS_SHORT[d.getMonth()],
+      isToday: i === 0,
+      isTomorrow: i === 1,
+      isWeekend
+    });
+  }
+  return list;
+};
+
 export interface TimeSlotStatus {
   slot: string;
   isAvailable: boolean;
@@ -815,6 +868,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const today = new Date().toISOString().split('T')[0];
   const [bookingDate, setBookingDate] = useState<string>(today);
   const [timeSlot, setTimeSlot] = useState<string>('14:00');
+  const upcomingDays = useMemo(() => getUpcomingDaysList(14), []);
 
   // Real-time Slot & Backdrop Availability from Google Sheets
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
@@ -1464,20 +1518,101 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <Calendar className="w-3.5 h-3.5 text-[#8C6D46]" />
                     2. PILIH TANGGAL & WAKTU SESI FOTO:
                   </label>
-                  <span className="text-[11px] font-sans font-bold text-[#1C1A17] bg-white px-3 py-1 border border-[#E0D9CE]">
-                    {bookingDate} • {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
+                  <span className="text-[10.5px] sm:text-[11px] font-sans font-bold text-[#1C1A17] bg-white px-2.5 sm:px-3 py-1 border border-[#E0D9CE] shadow-2xs">
+                    {formatIndonesianDate(bookingDate)} • {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                   </span>
                 </div>
 
-                {/* Date Picker */}
-                <div>
-                  <input
-                    type="date"
-                    min={today}
-                    value={bookingDate}
-                    onChange={(e) => setBookingDate(e.target.value)}
-                    className="w-full min-h-[44px] p-2.5 border border-[#D5CEC2] text-xs text-[#1C1A17] font-semibold focus:outline-none focus:border-[#1C1A17] bg-white"
-                  />
+                {/* Interactive Luxury Date Selector Container */}
+                <div className="bg-white border border-[#E0D9CE] p-3 sm:p-3.5 space-y-3 shadow-2xs">
+                  {/* Quick Preset Buttons (Hari Ini, Besok, Lusa, Weekend) */}
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-wider mr-1">
+                      PILIHAN CEPAT:
+                    </span>
+                    {upcomingDays.slice(0, 5).map((item) => {
+                      const isSelected = bookingDate === item.dateStr;
+                      const label = item.isToday ? 'Hari Ini' : item.isTomorrow ? 'Besok' : `${item.dayName} (${item.dateNum} ${item.monthShort})`;
+                      return (
+                        <button
+                          key={item.dateStr}
+                          type="button"
+                          onClick={() => setBookingDate(item.dateStr)}
+                          className={`px-2.5 py-1 text-[11px] font-sans font-semibold transition-all border cursor-pointer active:scale-95 flex items-center gap-1 ${isSelected
+                            ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
+                            : 'bg-[#FAF8F5] text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
+                            }`}
+                        >
+                          <span>{label}</span>
+                          {item.isWeekend && <span className="text-[10px] text-amber-500">✨</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Horizontal Scrollable Date Strip (Next 14 Days) */}
+                  <div className="overflow-x-auto pb-1 pt-0.5 scrollbar-thin">
+                    <div className="flex items-center gap-2 min-w-max">
+                      {upcomingDays.map((item) => {
+                        const isSelected = bookingDate === item.dateStr;
+                        return (
+                          <button
+                            key={item.dateStr}
+                            type="button"
+                            onClick={() => setBookingDate(item.dateStr)}
+                            className={`w-[68px] sm:w-[76px] py-2.5 px-1.5 flex flex-col items-center justify-center transition-all border cursor-pointer active:scale-95 relative ${isSelected
+                              ? 'bg-[#1C1A17] text-white border-[#1C1A17] ring-2 ring-[#D4AF37] shadow-md scale-[1.02] z-10'
+                              : item.isWeekend
+                                ? 'bg-amber-50/40 hover:bg-amber-50 text-stone-800 border-amber-200/80'
+                                : 'bg-[#FAF8F5] hover:bg-white text-stone-800 border-[#E0D9CE]'
+                              }`}
+                          >
+                            {/* Day Header */}
+                            <span className={`text-[9.5px] font-mono font-bold uppercase tracking-wider ${isSelected ? 'text-[#D4AF37]' : item.isWeekend ? 'text-amber-700' : 'text-stone-500'}`}>
+                              {item.dayShort}
+                            </span>
+
+                            {/* Date Number */}
+                            <span className={`text-base sm:text-lg font-serif font-bold leading-tight my-0.5 ${isSelected ? 'text-white' : 'text-[#1C1A17]'}`}>
+                              {item.dateNum}
+                            </span>
+
+                            {/* Month & Label */}
+                            <span className={`text-[9.5px] font-sans font-medium ${isSelected ? 'text-stone-300' : 'text-stone-500'}`}>
+                              {item.isToday ? 'Hari Ini' : item.isTomorrow ? 'Besok' : item.monthShort}
+                            </span>
+
+                            {item.isWeekend && (
+                              <span className="absolute -top-1.5 -right-1 text-[8px] bg-amber-600 text-white px-1 py-0 font-sans font-bold leading-tight shadow-2xs">
+                                W-End
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Custom Date Input for Any Date */}
+                  <div className="pt-2.5 border-t border-[#EFEAE2] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                    <div className="flex items-center gap-2 font-sans text-stone-700">
+                      <Calendar className="w-4 h-4 text-[#8C6D46] shrink-0" />
+                      <span>Tanggal Terpilih: <strong className="text-[#1C1A17] font-bold">{formatIndonesianDate(bookingDate)}</strong></span>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <label className="text-[10.5px] font-serif font-bold text-stone-500 uppercase tracking-wider">
+                        Atau Cari Tanggal Lain:
+                      </label>
+                      <input
+                        type="date"
+                        min={today}
+                        value={bookingDate}
+                        onChange={(e) => setBookingDate(e.target.value)}
+                        className="px-2 py-1 border border-[#D5CEC2] text-xs text-[#1C1A17] font-semibold focus:outline-none focus:border-[#1C1A17] bg-white cursor-pointer"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Room & Studio Type Identifier Banner */}
