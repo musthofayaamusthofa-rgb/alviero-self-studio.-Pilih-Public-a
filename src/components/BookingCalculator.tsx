@@ -292,6 +292,134 @@ export const getAvailableBackgroundsStudio2 = (
   };
 };
 
+export interface BackgroundQuotaStatus {
+  id: string;
+  name: string;
+  maxQuota: number;
+  usedCount: number;
+  remainingQuota: number;
+  isAvailable: boolean;
+  status: 'Tersedia' | 'Tidak Tersedia';
+  reason?: string;
+}
+
+export interface Paket2AvailabilityResult {
+  availableIds: string[];
+  availableNames: string[];
+  backgrounds: { [id: string]: BackgroundQuotaStatus };
+  lockedReasons: { [id: string]: string };
+  remainingQuotas: {
+    hitam: number;
+    putih: number;
+    abu: number;
+    coklat: number;
+    cream: number;
+  };
+}
+
+/**
+ * Logika Validasi Ketersediaan Background Studio 2 (Paket 2 / 2 Background per Klien)
+ * 
+ * Aturan Dasar & Kuota Background (Studio 2 - Paket 2):
+ * 1. Dalam 1 slot waktu, maksimal ada 3 klien. Setiap klien memilih 2 background (Total 6 pilihan BG).
+ * 2. Kuota Maksimal per Background dalam 1 jam yang sama:
+ *    - Hitam   : Kuota 2 (bisa dipilih oleh 2 klien berbeda)
+ *    - Putih   : Kuota 1
+ *    - Abu-abu : Kuota 1
+ *    - Coklat  : Kuota 1
+ *    - Cream   : Kuota 1
+ */
+export const checkPaket2Availability = (
+  existingBookings: string[] = []
+): Paket2AvailabilityResult => {
+  const MAX_QUOTAS: { [id: string]: { id: string; name: string; max: number } } = {
+    'c2-hitam': { id: 'c2-hitam', name: 'Hitam', max: 2 },
+    'c2-putih': { id: 'c2-putih', name: 'Putih', max: 1 },
+    'c2-abu-abu': { id: 'c2-abu-abu', name: 'Abu-abu', max: 1 },
+    'c2-coklat-jendela': { id: 'c2-coklat-jendela', name: 'Coklat Jendela', max: 1 },
+    'c2-tematik-cream': { id: 'c2-tematik-cream', name: 'Tematik Cream', max: 1 }
+  };
+
+  const usageCounts: { [id: string]: number } = {
+    'c2-hitam': 0,
+    'c2-putih': 0,
+    'c2-abu-abu': 0,
+    'c2-coklat-jendela': 0,
+    'c2-tematik-cream': 0
+  };
+
+  existingBookings.forEach(booking => {
+    const text = String(booking || '').toLowerCase();
+
+    // Deteksi Hitam
+    const hitamMatches = (text.match(/hitam/g) || []).length;
+    usageCounts['c2-hitam'] += hitamMatches;
+
+    // Deteksi Putih
+    const putihMatches = (text.match(/putih/g) || []).length;
+    usageCounts['c2-putih'] += putihMatches;
+
+    // Deteksi Abu-abu (hindari double count dari 'abu-abu')
+    const abuMatches = (text.match(/abu-abu|abu_abu|\babu\b|c2-abu/g) || []).length;
+    usageCounts['c2-abu-abu'] += abuMatches;
+
+    // Deteksi Coklat
+    const coklatMatches = (text.match(/coklat|cokelat/g) || []).length;
+    usageCounts['c2-coklat-jendela'] += coklatMatches;
+
+    // Deteksi Cream
+    const creamMatches = (text.match(/cream|krem/g) || []).length;
+    usageCounts['c2-tematik-cream'] += creamMatches;
+  });
+
+  const availableIds: string[] = [];
+  const availableNames: string[] = [];
+  const backgrounds: { [id: string]: BackgroundQuotaStatus } = {};
+  const lockedReasons: { [id: string]: string } = {};
+
+  Object.keys(MAX_QUOTAS).forEach(bgId => {
+    const config = MAX_QUOTAS[bgId];
+    const used = usageCounts[bgId] || 0;
+    const remaining = Math.max(0, config.max - used);
+    const isAvailable = remaining > 0;
+
+    const statusStr: 'Tersedia' | 'Tidak Tersedia' = isAvailable ? 'Tersedia' : 'Tidak Tersedia';
+    const reason = !isAvailable ? `Kuota habis (${used}/${config.max} sudah terpakai di jam ini)` : undefined;
+
+    backgrounds[bgId] = {
+      id: config.id,
+      name: config.name,
+      maxQuota: config.max,
+      usedCount: used,
+      remainingQuota: remaining,
+      isAvailable: isAvailable,
+      status: statusStr,
+      reason: reason
+    };
+
+    if (isAvailable) {
+      availableIds.push(config.id);
+      availableNames.push(config.name);
+    } else {
+      lockedReasons[config.id] = reason || `Kuota ${config.name} sudah penuh di jam ini`;
+    }
+  });
+
+  return {
+    availableIds,
+    availableNames,
+    backgrounds,
+    lockedReasons,
+    remainingQuotas: {
+      hitam: backgrounds['c2-hitam'].remainingQuota,
+      putih: backgrounds['c2-putih'].remainingQuota,
+      abu: backgrounds['c2-abu-abu'].remainingQuota,
+      coklat: backgrounds['c2-coklat-jendela'].remainingQuota,
+      cream: backgrounds['c2-tematik-cream'].remainingQuota
+    }
+  };
+};
+
 /**
  * Format normalisasi string waktu slot menjadi HH:MM standar
  */
@@ -515,14 +643,26 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const bookedForSlot = (slotBackdrops[normTime] || []).map(b => String(b).toLowerCase());
     const bdIdLower = bdObj.id.toLowerCase();
 
-    // 1. Validasi Studio 2 (Cabang 2): Kuota 1x per BG di jam sama & Bentrok Posisi Coklat vs Cream
+    // 1. Validasi Studio 2 (Cabang 2):
+    //    - Paket 2 (2 Background): Menggunakan checkPaket2Availability (Kuota: Hitam=2, Putih=1, Abu=1, Coklat=1, Cream=1)
+    //    - Paket 1 (1 Background): Menggunakan getAvailableBackgroundsStudio2 (Single-Use per slot + Coklat vs Cream)
     if (selectedBranch === 'cabang-2') {
-      const studio2Availability = getAvailableBackgroundsStudio2(bookedForSlot);
-      if (!studio2Availability.availableIds.includes(backdropId)) {
-        return {
-          isAvailable: false,
-          reason: studio2Availability.lockedReasons[backdropId] || `Tidak tersedia di jam ${normTime} WIB`
-        };
+      if (maxBackdrops > 1) {
+        const paket2Result = checkPaket2Availability(bookedForSlot);
+        if (!paket2Result.availableIds.includes(backdropId)) {
+          return {
+            isAvailable: false,
+            reason: paket2Result.lockedReasons[backdropId] || `Kuota background sudah habis di jam ${normTime} WIB`
+          };
+        }
+      } else {
+        const studio2Availability = getAvailableBackgroundsStudio2(bookedForSlot);
+        if (!studio2Availability.availableIds.includes(backdropId)) {
+          return {
+            isAvailable: false,
+            reason: studio2Availability.lockedReasons[backdropId] || `Tidak tersedia di jam ${normTime} WIB`
+          };
+        }
       }
     }
 
