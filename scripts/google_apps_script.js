@@ -86,6 +86,8 @@ function handleRequest(e) {
       var slotCounts = {};
       var slotBackdrops = {};
 
+      var maxCapacity = (branchParam === 'cabang-2' || branchParam === 'Studio 2') ? 3 : 1;
+
       for (var i = 1; i < data.length; i++) {
         var row = data[i];
         if (!row || row.length < 2) continue;
@@ -93,6 +95,7 @@ function handleRequest(e) {
         var rowDate = formatDate(row[0]); // Kolom A: Tanggal Booking
         var rowSlot = normalizeTime(row[1]); // Kolom B: Jam Slot
         var rowStudioType = String(row[2] || '').trim().toLowerCase(); // Kolom C: Tipe Studio
+        var rowPackage = String(row[7] || '').trim().toLowerCase(); // Kolom H: Paket Utama
         var rowBackdrop = String(row[8] || '').trim(); // Kolom I: Backdrop
         var rowStatus = String(row[15] || '').trim().toUpperCase(); // Kolom P: Status
 
@@ -112,17 +115,52 @@ function handleRequest(e) {
 
         if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam)) {
           if (rowSlot) {
-            slotCounts[rowSlot] = (slotCounts[rowSlot] || 0) + 1;
+            // Deteksi apakah paket yang dibooking adalah paket 2 slot (60 menit / Paket 2 ke atas)
+            var is2SlotPackage = (
+              rowPackage.indexOf('paket 2') !== -1 ||
+              rowPackage.indexOf('paket 3') !== -1 ||
+              rowPackage.indexOf('paket 4') !== -1 ||
+              rowPackage.indexOf('2 background') !== -1 ||
+              rowPackage.indexOf('supreme') !== -1 ||
+              rowPackage.indexOf('infinity') !== -1 ||
+              rowPackage.indexOf('ultimate') !== -1 ||
+              rowPackage.indexOf('cumlaude') !== -1 ||
+              rowPackage.indexOf('group outdoor') !== -1 ||
+              rowPackage.indexOf('happy nest') !== -1 ||
+              rowPackage.indexOf('opulent') !== -1 ||
+              rowPackage.indexOf('golden') !== -1 ||
+              rowPackage.indexOf('sweet memories') !== -1 ||
+              rowPackage.indexOf('glow sweet') !== -1 ||
+              rowPackage.indexOf('sweet light') !== -1 ||
+              rowPackage.indexOf('signature') !== -1 ||
+              rowPackage.indexOf('royal') !== -1 ||
+              rowPackage.indexOf('imperial') !== -1 ||
+              rowPackage.indexOf('velvet') !== -1 ||
+              rowPackage.indexOf('bundling') !== -1 ||
+              rowPackage.indexOf('60 menit') !== -1 ||
+              rowPackage.indexOf('50 menit') !== -1
+            );
 
-            if (!slotBackdrops[rowSlot]) {
-              slotBackdrops[rowSlot] = [];
-            }
-            if (rowBackdrop) {
-              slotBackdrops[rowSlot].push(rowBackdrop);
+            var occupiedSlotsList = [rowSlot];
+            if (is2SlotPackage) {
+              var nextSlot = getNext30MinSlot(rowSlot);
+              if (nextSlot) occupiedSlotsList.push(nextSlot);
             }
 
-            if (slotCounts[rowSlot] >= 3 && bookedSlots.indexOf(rowSlot) === -1) {
-              bookedSlots.push(rowSlot);
+            for (var k = 0; k < occupiedSlotsList.length; k++) {
+              var s = occupiedSlotsList[k];
+              slotCounts[s] = (slotCounts[s] || 0) + 1;
+
+              if (!slotBackdrops[s]) {
+                slotBackdrops[s] = [];
+              }
+              if (rowBackdrop) {
+                slotBackdrops[s].push(rowBackdrop);
+              }
+
+              if (slotCounts[s] >= maxCapacity && bookedSlots.indexOf(s) === -1) {
+                bookedSlots.push(s);
+              }
             }
           }
         }
@@ -278,7 +316,20 @@ function normalizeTime(val) {
   var str = String(val).trim();
   var match = str.match(/(\d{1,2})[:.](\d{2})/);
   if (match) {
-    return match[1].padStart(2, '0') + ':' + match[2];
+    return (match[1].length === 1 ? '0' + match[1] : match[1]) + ':' + match[2];
   }
   return str;
+}
+
+// Hitung Slot 30 Menit Berikutnya (Contoh: '14:00' -> '14:30')
+function getNext30MinSlot(slotStr) {
+  var norm = normalizeTime(slotStr);
+  var parts = norm.split(':');
+  var hh = parseInt(parts[0], 10);
+  var mm = parseInt(parts[1], 10);
+  if (isNaN(hh) || isNaN(mm)) return '';
+  var total = hh * 60 + mm + 30;
+  var nextHh = Math.floor(total / 60);
+  var nextMm = total % 60;
+  return (nextHh < 10 ? '0' + nextHh : '' + nextHh) + ':' + (nextMm < 10 ? '0' + nextMm : '' + nextMm);
 }
