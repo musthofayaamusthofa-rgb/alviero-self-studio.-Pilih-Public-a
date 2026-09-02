@@ -1369,12 +1369,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-y-auto animate-in fade-in duration-200">
-      <div className="bg-[#FDFBF7] max-w-3xl w-full border-x-0 sm:border sm:border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col max-h-screen sm:max-h-[94vh] my-auto relative text-left">
+      <div className="bg-[#FDFBF7] max-w-3xl w-full border-x-0 sm:border sm:border-[#E8DDD6] rounded-none sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-screen sm:max-h-[94vh] my-auto relative text-left">
 
         {/* Modal Header */}
         <div className="bg-[#2A2A2A] text-white p-4 sm:p-5 flex items-center justify-between shrink-0 border-b border-[#3A3A3A]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#3A3A3A] border border-[#5A5A5A] flex items-center justify-center text-[#A9BCA7] shrink-0 shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-[#3A3A3A] border border-[#5A5A5A] flex items-center justify-center text-[#A9BCA7] shrink-0 shadow-xs">
               <Calculator className="w-5 h-5 stroke-[1.8]" />
             </div>
             <div>
@@ -1389,7 +1389,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="w-9 h-9 bg-[#3A3A3A] hover:bg-[#4A4A4A] text-stone-300 hover:text-white flex items-center justify-center border border-[#5A5A5A] transition-colors cursor-pointer"
+            className="w-9 h-9 rounded-xl bg-[#3A3A3A] hover:bg-[#4A4A4A] text-stone-300 hover:text-white flex items-center justify-center border border-[#5A5A5A] transition-colors cursor-pointer"
           >
             <X className="w-4.5 h-4.5 stroke-[2]" />
           </button>
@@ -1400,7 +1400,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           <div className="flex items-center gap-2 w-full justify-between sm:justify-start">
             <button
               onClick={() => goToStep(1)}
-              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 1
+              className={`px-3.5 py-1.5 rounded-full flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 1
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E8DDD6] hover:border-[#3A3A3A]'
                 }`}
@@ -1413,7 +1413,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
             <button
               onClick={() => goToStep(2)}
-              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 2
+              className={`px-3.5 py-1.5 rounded-full flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 2
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E8DDD6] hover:border-[#3A3A3A]'
                 }`}
@@ -1426,7 +1426,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
             <button
               onClick={() => goToStep(3)}
-              className={`px-3.5 py-1.5 flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 3
+              className={`px-3.5 py-1.5 rounded-full flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 3
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E8DDD6] hover:border-[#3A3A3A]'
                 }`}
@@ -1445,10 +1445,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             <div className="space-y-5">
 
               {/* Branch Selector in Step 1 */}
-              <div className="bg-white border border-[#E8DDD6] p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shadow-2xs">
+              <div className="bg-white border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shadow-sm">
                 <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center shrink-0">
-                    <MapPin className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#6E856C] stroke-[1.8]" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center shrink-0 shadow-2xs">
+                    <MapPin className="w-4.5 h-4.5 sm:w-5 sm:h-5 text-[#6E856C] stroke-[1.8]" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[9px] sm:text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">
@@ -1468,7 +1468,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       onClick={() => {
                         if (onSelectBranch) onSelectBranch(b.id);
                       }}
-                      className={`px-2.5 sm:px-3.5 py-2 sm:py-1.5 text-[10px] sm:text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border text-center flex items-center justify-center truncate ${selectedBranch === b.id
+                      className={`px-3 sm:px-4 py-2 sm:py-1.5 rounded-xl text-[10px] sm:text-[11px] font-serif font-bold uppercase tracking-wider transition-all cursor-pointer border text-center flex items-center justify-center truncate ${selectedBranch === b.id
                         ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                         : 'bg-[#F2E9E4]/60 text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
                         }`}
@@ -1487,7 +1487,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <select
                   value={selectedPackageId}
                   onChange={(e) => setSelectedPackageId(e.target.value)}
-                  className="w-full min-h-[44px] p-3 border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                  className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
                 >
                   {PACKAGES.map((pkg) => (
                     <option key={pkg.id} value={pkg.id}>
@@ -1498,7 +1498,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               </div>
 
               {/* Package Summary Card */}
-              <div className="bg-white border border-[#E8DDD6] p-4 space-y-2.5">
+              <div className="bg-white border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-sm">
                 <div className="flex justify-between items-start gap-2">
                   <div>
                     <h4 className="font-serif font-bold text-[#3A3A3A] text-sm sm:text-base uppercase tracking-wide">{currentPackage.name}</h4>
@@ -1508,16 +1508,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     Rp {currentPackage.price.toLocaleString('id-ID')}
                   </span>
                 </div>
-                <div className="text-[11px] text-stone-700 pt-2 border-t border-[#F2E9E4] flex items-center gap-2 flex-wrap">
-                  <span className="bg-[#FDFBF7] px-3 py-1 border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5">
+                <div className="text-[11px] text-stone-700 pt-2.5 border-t border-[#F2E9E4] flex items-center gap-2 flex-wrap">
+                  <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5 shadow-2xs">
                     <Clock className="w-3.5 h-3.5 text-[#6E856C]" />
                     {currentPackage.durationMinutes} Menit Sesi
                   </span>
-                  <span className="bg-[#FDFBF7] px-3 py-1 border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5">
+                  <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5 shadow-2xs">
                     <User className="w-3.5 h-3.5 text-[#6E856C]" />
                     {currentPackage.includedPeople} Peserta
                   </span>
-                  <span className="bg-[#FDFBF7] px-3 py-1 border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5">
+                  <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5 shadow-2xs">
                     <ImageIcon className="w-3.5 h-3.5 text-[#6E856C]" />
                     {currentPackage.includedPrints}
                   </span>
@@ -1531,13 +1531,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <Calendar className="w-3.5 h-3.5 text-[#6E856C]" />
                     2. PILIH TANGGAL & WAKTU SESI FOTO:
                   </label>
-                  <span className="text-[10.5px] sm:text-[11px] font-sans font-bold text-[#3A3A3A] bg-white px-2.5 sm:px-3 py-1 border border-[#E8DDD6] shadow-2xs">
+                  <span className="text-[10.5px] sm:text-[11px] font-sans font-bold text-[#3A3A3A] bg-white px-3 py-1 rounded-full border border-[#E8DDD6] shadow-2xs">
                     {formatIndonesianDate(bookingDate)} • {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                   </span>
                 </div>
 
                 {/* Interactive Luxury Date Selector Container */}
-                <div className="bg-white border border-[#E8DDD6] p-3 sm:p-3.5 space-y-3 shadow-2xs">
+                <div className="bg-white border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 space-y-3 shadow-sm">
                   {/* Quick Preset Buttons */}
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-wider mr-1">
@@ -1551,7 +1551,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           key={item.dateStr}
                           type="button"
                           onClick={() => setBookingDate(item.dateStr)}
-                          className={`px-2.5 py-1 text-[11px] font-sans font-semibold transition-all border cursor-pointer active:scale-95 flex items-center gap-1 ${isSelected
+                          className={`px-3 py-1 rounded-full text-[11px] font-sans font-semibold transition-all border cursor-pointer active:scale-95 flex items-center gap-1 ${isSelected
                             ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                             : 'bg-[#F2E9E4]/60 text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
                             }`}
@@ -1573,7 +1573,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             key={item.dateStr}
                             type="button"
                             onClick={() => setBookingDate(item.dateStr)}
-                            className={`w-[68px] sm:w-[76px] py-2.5 px-1.5 flex flex-col items-center justify-center transition-all border cursor-pointer active:scale-95 relative ${isSelected
+                            className={`w-[68px] sm:w-[76px] py-2.5 px-1.5 rounded-2xl flex flex-col items-center justify-center transition-all border cursor-pointer active:scale-95 relative ${isSelected
                               ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] ring-2 ring-[#A9BCA7] shadow-md scale-[1.02] z-10'
                               : item.isWeekend
                                 ? 'bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border-[#DFCFC5]'
@@ -1596,7 +1596,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             </span>
 
                             {item.isWeekend && (
-                              <span className="absolute -top-1.5 -right-1 text-[8px] bg-[#6E856C] text-white px-1 py-0 font-sans font-bold leading-tight shadow-2xs">
+                              <span className="absolute -top-1.5 -right-1 text-[8px] bg-[#6E856C] text-white px-1.5 py-0.2 rounded-full font-sans font-bold leading-tight shadow-2xs">
                                 W-End
                               </span>
                             )}
@@ -1622,7 +1622,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         min={today}
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
-                        className="px-2 py-1 border border-[#E8DDD6] text-xs text-[#3A3A3A] font-semibold focus:outline-none focus:border-[#3A3A3A] bg-white cursor-pointer"
+                        className="px-2.5 py-1 rounded-lg border border-[#E8DDD6] text-xs text-[#3A3A3A] font-semibold focus:outline-none focus:border-[#3A3A3A] bg-white cursor-pointer"
                       />
                     </div>
                   </div>
@@ -1630,27 +1630,27 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Room & Studio Type Identifier Banner */}
                 {isSelfStudio ? (
-                  <div className="p-3.5 bg-white border border-[#E8DDD6] flex items-center gap-3 text-xs font-sans">
-                    <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0">
-                      <Sparkles className="w-4.5 h-4.5" />
+                  <div className="p-3.5 sm:p-4 bg-white border border-[#E8DDD6] rounded-2xl flex items-center gap-3 text-xs font-sans shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                      <Sparkles className="w-5 h-5" />
                     </div>
                     <div className="flex-1">
                       <p className="font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-2">
                         JADWAL KHUSUS: BILIK SELF STUDIO MANDIRI
-                        <span className="text-[9px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2 py-0.5 font-bold">100% PRIVATE</span>
+                        <span className="text-[9px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full font-bold">100% PRIVATE</span>
                       </p>
                       <p className="text-[11px] text-stone-600 mt-0.5">Sesi foto private dengan shutter remote wireless. Jadwal terpisah & tidak bertabrakan dengan Studio Foto.</p>
                     </div>
                   </div>
                 ) : (
-                  <div className="p-3.5 bg-white border border-[#E8DDD6] flex items-center gap-3 text-xs font-sans">
-                    <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0">
-                      <Camera className="w-4.5 h-4.5" />
+                  <div className="p-3.5 sm:p-4 bg-white border border-[#E8DDD6] rounded-2xl flex items-center gap-3 text-xs font-sans shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                      <Camera className="w-5 h-5" />
                     </div>
                     <div className="flex-1">
                       <p className="font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-2">
                         JADWAL KHUSUS: STUDIO FOTO PROFESIONAL
-                        <span className="text-[9px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2 py-0.5 font-bold">FOTOGRAFER PRO</span>
+                        <span className="text-[9px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full font-bold">FOTOGRAFER PRO</span>
                       </p>
                       <p className="text-[11px] text-stone-600 mt-0.5">Sesi dipandu & diarahkan langsung oleh tim fotografer profesional di panggung studio.</p>
                     </div>
@@ -1659,16 +1659,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* 60 Minutes Duration Badge Notice for 2 Background Packages */}
                 {maxBackdrops > 1 && (
-                  <div className="p-2.5 bg-[#F2E9E4]/60 border border-[#E8DDD6] flex items-center justify-between gap-2 text-xs font-sans shadow-2xs">
+                  <div className="p-3 bg-[#F2E9E4]/60 border border-[#E8DDD6] rounded-xl flex items-center justify-between gap-2 text-xs font-sans shadow-2xs">
                     <div className="flex items-center gap-2">
-                      <span className="w-5 h-5 bg-[#3A3A3A] text-[#A9BCA7] text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
+                      <span className="w-5 h-5 rounded-md bg-[#3A3A3A] text-[#A9BCA7] text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
                         2x
                       </span>
                       <p className="text-[11px] text-[#3A3A3A] font-medium">
                         Paket 2 Background: Durasi sesi foto dialokasikan <strong>60 Menit (2 Slot Berturut-turut)</strong>.
                       </p>
                     </div>
-                    <span className="text-[10.5px] font-mono font-bold bg-white border border-[#E8DDD6] px-2 py-0.5 text-stone-800 shrink-0">
+                    <span className="text-[10.5px] font-mono font-bold bg-white border border-[#E8DDD6] px-2.5 py-0.5 rounded-full text-stone-800 shrink-0">
                       {formattedSessionTime} WIB
                     </span>
                   </div>
@@ -1681,7 +1681,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <Clock className="w-3.5 h-3.5 text-[#6E856C]" />
                       PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN{maxBackdrops > 1 ? ' • KELIPATAN 1 JAM' : ''}):
                     </label>
-                    <span className="text-[10.5px] font-sans font-bold text-[#3A3A3A] bg-white px-2.5 py-0.5 border border-[#E8DDD6]">
+                    <span className="text-[10.5px] font-sans font-bold text-[#3A3A3A] bg-white px-3 py-1 rounded-full border border-[#E8DDD6] shadow-2xs">
                       Terpilih: {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
                     </span>
                   </div>
@@ -1701,7 +1701,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           data-slot={slot}
                           disabled={isDisabled}
                           onClick={() => setTimeSlot(slot)}
-                          className={`min-h-[48px] p-1.5 sm:p-2 text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border relative ${isDisabled
+                          className={`min-h-[48px] p-1.5 sm:p-2 rounded-xl text-xs font-mono font-bold transition-all text-center flex flex-col items-center justify-center border relative ${isDisabled
                             ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
                             : isStartSlot
                               ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] ring-2 ring-[#A9BCA7] shadow-sm cursor-pointer active:scale-95 z-10'
@@ -1730,7 +1730,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                   {/* Alert Sesi Overtime Melebihi Jam 21.00 WIB */}
                   {isLateNightOvertime && (
-                    <div className="mt-2.5 p-3 bg-amber-500/10 border border-amber-400 text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                    <div className="mt-2.5 p-3.5 bg-amber-500/10 border border-amber-400 rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
                       <span className="font-bold text-sm shrink-0 mt-0.5 text-amber-700">⏰</span>
                       <div className="space-y-0.5">
                         <p className="font-bold text-amber-900 leading-tight">
@@ -1744,7 +1744,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   )}
 
                   {/* Pemberitahuan Keterlambatan / Melebihi Jam 21.00 */}
-                  <div className="mt-2.5 p-3 bg-[#F2E9E4]/70 border border-[#DFCFC5] text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                  <div className="mt-2.5 p-3.5 bg-[#F2E9E4]/70 border border-[#DFCFC5] rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
                     <span className="font-bold text-sm shrink-0 mt-0.5 text-[#6E856C]">⚠️</span>
                     <div className="space-y-0.5">
                       <p className="font-bold text-stone-900 leading-tight">
@@ -1768,11 +1768,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     3. {maxBackdrops > 1 ? 'PILIH 2 BACKGROUND FOTO / PENCAHAYAAN:' : 'PILIH BACKGROUND FOTO / PENCAHAYAAN:'}
                   </label>
                   {maxBackdrops > 1 ? (
-                    <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-2.5 py-0.5">
+                    <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-3 py-1 rounded-full shadow-2xs">
                       Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
                     </span>
                   ) : (
-                    <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-2.5 py-0.5">
+                    <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-3 py-1 rounded-full shadow-2xs">
                       1 Background
                     </span>
                   )}
@@ -1791,19 +1791,19 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         disabled={!isAvailable && !isSelected}
                         onClick={() => handleSelectBackdrop(backdrop.id)}
-                        className={`min-h-[56px] p-3 border text-left flex items-center gap-3 transition-all relative ${!isAvailable && !isSelected
+                        className={`min-h-[56px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all relative ${!isAvailable && !isSelected
                           ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
                           : isSelected
-                            ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-xs cursor-pointer active:scale-98'
-                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] cursor-pointer active:scale-98'
+                            ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm cursor-pointer active:scale-98'
+                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] cursor-pointer active:scale-98 shadow-2xs'
                           }`}
                       >
                         <div
-                          className="w-7 h-7 border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold"
+                          className="w-8 h-8 rounded-xl border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs"
                           style={{ backgroundColor: backdrop.hex }}
                         >
                           {isSelected && maxBackdrops > 1 && (
-                            <span className="bg-black/50 w-full h-full flex items-center justify-center font-bold">
+                            <span className="bg-black/50 w-full h-full rounded-xl flex items-center justify-center font-bold">
                               {selectionIndex + 1}
                             </span>
                           )}
@@ -1814,17 +1814,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               {backdrop.name}
                             </span>
                             {backdrop.id === 'c2-tematik-cream' && (
-                              <span className="text-[8.5px] font-sans font-bold bg-amber-100 text-amber-900 border border-amber-300 px-1.5 py-0.2">
+                              <span className="text-[8.5px] font-sans font-bold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.2 rounded-full">
                                 Maks. 5 Orang
                               </span>
                             )}
                             {isSelected && maxBackdrops > 1 && (
-                              <span className="text-[9px] font-bold bg-[#3A3A3A] text-white px-2 py-0.2">
+                              <span className="text-[9px] font-bold bg-[#3A3A3A] text-white px-2 py-0.2 rounded-full">
                                 Background {selectionIndex + 1}
                               </span>
                             )}
                             {!isAvailable && !isSelected && (
-                              <span className="text-[8.5px] font-bold bg-rose-100 text-rose-700 px-2 py-0.2 border border-rose-200">
+                              <span className="text-[8.5px] font-bold bg-rose-100 text-rose-700 px-2 py-0.2 rounded-full border border-rose-200">
                                 Tidak Tersedia
                               </span>
                             )}
@@ -1838,7 +1838,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           </div>
                         </div>
                         {isSelected && (
-                          <div className="w-5 h-5 bg-[#3A3A3A] text-white flex items-center justify-center shrink-0 text-xs shadow-2xs">
+                          <div className="w-5 h-5 rounded-full bg-[#3A3A3A] text-white flex items-center justify-center shrink-0 text-xs shadow-2xs">
                             <Check className="w-3.5 h-3.5 stroke-[3]" />
                           </div>
                         )}
@@ -1849,7 +1849,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Info Studio 2: Tematik Cream Maksimal 5 Orang */}
                 {selectedBranch === 'cabang-2' && selectedBackdropIds.some(id => id.includes('cream')) && (
-                  <div className="mt-2.5 p-2.5 bg-amber-50/90 border border-amber-300/80 text-amber-900 text-[11px] font-sans flex items-center gap-2 animate-fadeIn">
+                  <div className="mt-2.5 p-3 bg-amber-50/90 border border-amber-300/80 rounded-2xl text-amber-900 text-[11px] font-sans flex items-center gap-2 animate-fadeIn shadow-2xs">
                     <span className="font-bold text-amber-700 text-xs shrink-0">⚠️</span>
                     <span>
                       <strong>Pemberitahuan Khusus Tematik Cream:</strong> Background <em>Tematik Cream (Studio 2)</em> memiliki batasan kapasitas panggung maksimal <strong>5 orang</strong>.
@@ -1859,7 +1859,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Info Studio 1: Limbo vs Putih Tengah */}
                 {availableBackdrops.some(b => b.id.includes('limbo')) && availableBackdrops.some(b => b.id.includes('putih-tengah')) && (
-                  <div className="mt-2.5 p-3 bg-white border border-[#E8DDD6] text-stone-600 text-[11px] font-sans flex items-center gap-2">
+                  <div className="mt-2.5 p-3.5 bg-white border border-[#E8DDD6] rounded-2xl text-stone-600 text-[11px] font-sans flex items-center gap-2 shadow-2xs">
                     <span className="font-bold text-[#6E856C]">ℹ️</span>
                     <span>
                       <strong>Catatan Latar Studio:</strong> Background <em>Limbo</em> dan <em>Putih Tengah</em> berbagi area panggung yang sama, sehingga tidak dapat digunakan bersamaan pada jam yang sama atau dalam 1 sesi foto.
@@ -1869,7 +1869,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Helper notice for 2 backdrops */}
                 {maxBackdrops > 1 && (
-                  <div className={`mt-2.5 p-3 border text-xs font-sans flex items-center justify-between gap-2 transition-all ${selectedBackdropIds.length >= 2
+                  <div className={`mt-2.5 p-3.5 border rounded-xl text-xs font-sans flex items-center justify-between gap-2 transition-all shadow-2xs ${selectedBackdropIds.length >= 2
                     ? 'bg-white border-[#3A3A3A] text-[#3A3A3A]'
                     : 'bg-[#F2E9E4] border-[#DFCFC5] text-stone-800'
                     }`}>
@@ -1891,7 +1891,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
                       4. PILIH TEMPLATE LAYOUT GRID CETAK:
                     </label>
-                    <span className="text-[10px] bg-white text-stone-700 font-bold px-2 py-0.5 border border-[#E8DDD6]">
+                    <span className="text-[10px] bg-white text-stone-700 font-bold px-2.5 py-0.5 rounded-full border border-[#E8DDD6] shadow-2xs">
                       Khusus Self Studio
                     </span>
                   </div>
@@ -1900,7 +1900,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         key={frame.id}
                         onClick={() => setSelectedFrameId(frame.id)}
-                        className={`min-h-[46px] p-3 border text-left transition-all cursor-pointer active:scale-98 ${selectedFrameId === frame.id
+                        className={`min-h-[46px] p-3 rounded-xl border text-left transition-all cursor-pointer active:scale-98 ${selectedFrameId === frame.id
                           ? 'border-[#3A3A3A] bg-white text-[#3A3A3A] font-bold ring-1 ring-[#3A3A3A] shadow-xs'
                           : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] text-stone-700'
                           }`}
@@ -1930,7 +1930,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <h4 className="font-serif font-bold text-[#3A3A3A] text-sm sm:text-base uppercase tracking-wide">
                       PILIH LAYANAN TAMBAHAN (ADD-ONS):
                     </h4>
-                    <span className="text-[10.5px] bg-white text-stone-800 font-bold px-2.5 py-0.5 border border-[#E8DDD6]">
+                    <span className="text-[10.5px] bg-white text-stone-800 font-bold px-3 py-1 rounded-full border border-[#E8DDD6] shadow-2xs">
                       {Object.values(selectedAddOns).reduce<number>((a, b) => a + (Number(b) || 0), 0)} Item Terpilih
                     </span>
                   </div>
@@ -1939,10 +1939,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </p>
 
                   {/* Header Info Paket Terpilih */}
-                  <div className="bg-white border border-[#E8DDD6] p-3.5 flex items-center justify-between gap-2.5 mb-3">
+                  <div className="bg-white border border-[#E8DDD6] rounded-2xl p-4 flex items-center justify-between gap-2.5 mb-3 shadow-sm">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0">
-                        <Sparkles className="w-4.5 h-4.5" />
+                      <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                        <Sparkles className="w-5 h-5" />
                       </div>
                       <div className="min-w-0">
                         <div className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">
@@ -1953,14 +1953,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         </div>
                       </div>
                     </div>
-                    <span className="text-[11px] font-serif font-bold uppercase bg-[#3A3A3A] text-white px-3 py-1 shrink-0">
+                    <span className="text-[11px] font-serif font-bold uppercase bg-[#3A3A3A] text-white px-3 py-1 rounded-full shrink-0 shadow-2xs">
                       {packageCatInfo.badge}
                     </span>
                   </div>
 
                   {/* Catatan Khusus Kategori */}
                   {packageCatInfo.note && (
-                    <div className="bg-[#F2E9E4] border border-[#DFCFC5] p-3 text-stone-800 text-xs font-sans mb-3.5 flex items-start gap-2">
+                    <div className="bg-[#F2E9E4] border border-[#DFCFC5] rounded-2xl p-3.5 text-stone-800 text-xs font-sans mb-3.5 flex items-start gap-2 shadow-2xs">
                       <span className="font-bold text-sm shrink-0">ℹ️</span>
                       <span className="leading-relaxed">{packageCatInfo.note}</span>
                     </div>
@@ -1968,7 +1968,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                   {/* List Add-Ons */}
                   {relevantAddOns.length === 0 ? (
-                    <div className="p-6 bg-white border border-[#E8DDD6] text-center space-y-1">
+                    <div className="p-6 bg-white border border-[#E8DDD6] rounded-2xl text-center space-y-1 shadow-sm">
                       <p className="text-xs font-bold text-stone-600">Tidak ada Add-Ons tambahan khusus untuk paket ini.</p>
                       <p className="text-[11px] text-stone-400">Paket ini sudah include seluruh fasilitas utama.</p>
                     </div>
@@ -1979,9 +1979,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         return (
                           <div
                             key={addOn.id}
-                            className={`p-3.5 border transition-all flex items-center justify-between gap-3 ${qty > 0
-                              ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-xs'
-                              : 'bg-white hover:border-stone-400 border-[#E8DDD6]'
+                            className={`p-4 rounded-2xl border transition-all flex items-center justify-between gap-3 ${qty > 0
+                              ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-sm'
+                              : 'bg-white hover:border-stone-400 border-[#E8DDD6] shadow-2xs'
                               }`}
                           >
                             <div className="min-w-0 flex-1">
@@ -1997,12 +1997,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             </div>
 
                             {/* Quantity Selector */}
-                            <div className="flex items-center gap-1.5 bg-[#FDFBF7] border border-[#E8DDD6] p-1 shrink-0">
+                            <div className="flex items-center gap-1.5 bg-[#FDFBF7] border border-[#E8DDD6] rounded-xl p-1 shrink-0 shadow-2xs">
                               <button
                                 type="button"
                                 onClick={() => handleAddOnQtyChange(addOn.id, -1)}
                                 disabled={qty === 0}
-                                className="w-8 h-8 bg-white hover:bg-stone-100 disabled:opacity-30 text-stone-700 font-bold text-xs flex items-center justify-center border border-[#E8DDD6] cursor-pointer active:scale-95"
+                                className="w-8 h-8 rounded-lg bg-white hover:bg-stone-100 disabled:opacity-30 text-stone-700 font-bold text-xs flex items-center justify-center border border-[#E8DDD6] cursor-pointer active:scale-95"
                               >
                                 <Minus className="w-3.5 h-3.5 stroke-[2]" />
                               </button>
@@ -2010,7 +2010,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               <button
                                 type="button"
                                 onClick={() => handleAddOnQtyChange(addOn.id, 1)}
-                                className="w-8 h-8 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-bold text-xs flex items-center justify-center border border-[#3A3A3A] cursor-pointer active:scale-95 shadow-xs"
+                                className="w-8 h-8 rounded-lg bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-bold text-xs flex items-center justify-center border border-[#3A3A3A] cursor-pointer active:scale-95 shadow-xs"
                               >
                                 <Plus className="w-3.5 h-3.5 stroke-[2]" />
                               </button>
@@ -2034,11 +2034,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       placeholder="Contoh: STUDENT10, COUPLE15, ALVIERO"
                       value={promoCodeInput}
                       onChange={(e) => setPromoCodeInput(e.target.value)}
-                      className="flex-1 min-h-[44px] p-2.5 border border-[#E8DDD6] text-xs font-bold uppercase focus:outline-none focus:border-[#3A3A3A] bg-white"
+                      className="flex-1 min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-bold uppercase focus:outline-none focus:border-[#3A3A3A] bg-white"
                     />
                     <button
                       onClick={handleApplyPromo}
-                      className="min-h-[44px] px-6 py-2.5 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#3A3A3A] cursor-pointer active:scale-95"
+                      className="min-h-[44px] px-6 py-2.5 rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#3A3A3A] cursor-pointer active:scale-95 shadow-xs"
                     >
                       Gunakan
                     </button>
@@ -2060,10 +2060,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             <div className="space-y-5">
 
               {/* Ringkasan Jadwal & Cabang Terpilih */}
-              <div className="bg-white border border-[#E8DDD6] p-4 flex items-center justify-between gap-3 shadow-2xs">
+              <div className="bg-white border border-[#E8DDD6] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-sm">
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0">
-                    <Calendar className="w-4.5 h-4.5" />
+                  <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                    <Calendar className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-widest">
@@ -2081,7 +2081,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-3.5 py-1.5 bg-[#F2E9E4] hover:bg-white text-stone-800 font-serif font-bold text-[11px] uppercase tracking-wider border border-[#E8DDD6] hover:border-[#3A3A3A] shrink-0 transition-colors cursor-pointer"
+                  className="px-4 py-1.5 rounded-full bg-[#F2E9E4] hover:bg-white text-stone-800 font-serif font-bold text-[11px] uppercase tracking-wider border border-[#E8DDD6] hover:border-[#3A3A3A] shrink-0 transition-colors cursor-pointer shadow-2xs"
                 >
                   Ubah
                 </button>
@@ -2099,7 +2099,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     placeholder="Contoh: Anisa Putri"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full min-h-[44px] p-3 border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
                   />
                 </div>
 
@@ -2113,7 +2113,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     placeholder="Contoh: 081234567890"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full min-h-[44px] p-3 border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
                   />
                 </div>
               </div>
@@ -2128,9 +2128,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${paymentOption === 'dp'
-                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-xs'
-                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7]'
+                    className={`min-h-[56px] p-4 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 ${paymentOption === 'dp'
+                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
+                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
                     <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar DP 50% Sekarang</div>
@@ -2142,9 +2142,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('full')}
-                    className={`min-h-[56px] p-3.5 border text-left font-sans transition-all cursor-pointer active:scale-98 ${paymentOption === 'full'
-                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-xs'
-                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7]'
+                    className={`min-h-[56px] p-4 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 ${paymentOption === 'full'
+                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
+                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
                     <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar Lunas / Full</div>
@@ -2157,10 +2157,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
               {/* QRIS PAYMENT BOX & DOWNLOAD */}
               <div className="pt-2 border-t border-[#E8DDD6] space-y-3">
-                <div className="bg-[#FDFBF7] border border-[#E8DDD6] p-4 sm:p-5 space-y-3.5 shadow-2xs">
+                <div className="bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-sm">
                   <div className="flex items-center justify-between flex-wrap gap-2 border-b border-[#E8DDD6] pb-2.5">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center text-xs shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center text-xs shrink-0 shadow-xs">
                         <QrCode className="w-4 h-4" />
                       </div>
                       <div>
@@ -2172,13 +2172,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         </p>
                       </div>
                     </div>
-                    <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2 py-0.5">
+                    <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full shadow-2xs">
                       QRIS Nasional
                     </span>
                   </div>
 
                   {/* Nominal Box */}
-                  <div className="bg-white border border-[#E8DDD6] p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
+                  <div className="bg-white border border-[#E8DDD6] rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
                     <div>
                       <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
                         Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
@@ -2191,7 +2191,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <button
                       type="button"
                       onClick={handleCopyNominal}
-                      className="px-3 py-1.5 bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0"
+                      className="px-3.5 py-2 rounded-xl bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
                     >
                       {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
@@ -2201,17 +2201,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   {/* QRIS Display & Download Button */}
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center pt-1">
                     <div className="sm:col-span-5 flex flex-col items-center">
-                      <div className="w-full max-w-[210px] bg-white p-2.5 border border-[#3A3A3A] shadow-sm flex flex-col items-center">
+                      <div className="w-full max-w-[210px] bg-white p-3 rounded-2xl border border-[#3A3A3A] shadow-sm flex flex-col items-center">
                         <img
                           src="/images/qris-alviero.png"
                           alt="QRIS Resmi Alviero Studio"
-                          className="w-full h-auto object-contain"
+                          className="w-full h-auto object-contain rounded-lg"
                         />
                       </div>
                       <a
                         href="/images/qris-alviero.png"
                         download="QRIS-Alviero-Studio.png"
-                        className="mt-2.5 w-full max-w-[210px] py-2 px-3 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                        className="mt-2.5 w-full max-w-[210px] py-2 px-3 rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
                       >
                         <Download className="w-3.5 h-3.5 text-[#A9BCA7]" />
                         <span>Unduh Kode QRIS 📥</span>
@@ -2242,18 +2242,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     UNGGAH BUKTI TRANSFER / BAYAR QRIS: <span className="text-rose-600">*</span>
                   </span>
                   {paymentProofImage ? (
-                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5">
+                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-2xs">
                       ✅ Bukti Terlampir
                     </span>
                   ) : (
-                    <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5">
+                    <span className="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2.5 py-0.5 rounded-full shadow-2xs">
                       Wajib Diunggah
                     </span>
                   )}
                 </label>
 
                 {!paymentProofImage ? (
-                  <label className="block border-2 border-dashed border-[#A9BCA7] bg-[#FDFBF7] hover:bg-[#F2E9E4] transition-all p-4 text-center cursor-pointer relative group">
+                  <label className="block border-2 border-dashed border-[#A9BCA7] bg-[#FDFBF7] hover:bg-[#F2E9E4] rounded-2xl transition-all p-5 text-center cursor-pointer relative group shadow-2xs">
                     <input
                       type="file"
                       accept="image/*"
@@ -2261,7 +2261,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       className="hidden"
                     />
                     <div className="flex flex-col items-center justify-center space-y-1.5">
-                      <div className="w-10 h-10 rounded-full bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                      <div className="w-11 h-11 rounded-full bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
                         <Upload className="w-5 h-5" />
                       </div>
                       <p className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wide">
@@ -2273,12 +2273,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   </label>
                 ) : (
-                  <div className="bg-emerald-50/70 border border-emerald-300 p-3 flex items-center justify-between gap-3">
+                  <div className="bg-emerald-50/70 border border-emerald-300 rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-2xs">
                     <div className="flex items-center gap-3 min-w-0">
                       <img
                         src={paymentProofImage}
                         alt="Preview Bukti Bayar"
-                        className="w-14 h-14 object-cover border border-emerald-300 bg-white shrink-0 shadow-2xs"
+                        className="w-14 h-14 object-cover border border-emerald-300 rounded-xl bg-white shrink-0 shadow-2xs"
                       />
                       <div className="min-w-0">
                         <p className="text-xs font-bold text-emerald-950 truncate">
@@ -2292,7 +2292,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
 
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <label className="px-2.5 py-1.5 bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 text-[10.5px] font-serif font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all shadow-2xs">
+                      <label className="px-3 py-1.5 bg-white hover:bg-stone-50 text-stone-800 border border-stone-300 rounded-xl text-[10.5px] font-serif font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all shadow-2xs">
                         <input
                           type="file"
                           accept="image/*"
@@ -2304,7 +2304,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         type="button"
                         onClick={handleRemoveProof}
-                        className="p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer active:scale-95"
+                        className="p-2 rounded-xl text-rose-600 hover:text-rose-800 hover:bg-rose-50 border border-rose-200 transition-colors cursor-pointer active:scale-95 shadow-2xs"
                         title="Hapus Bukti"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -2324,14 +2324,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   placeholder="Misal: Perayaan ulang tahun / minta disiapkan properti toga wisuda"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full min-h-[44px] p-3 border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
+                  className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
                 />
               </div>
 
               {/* Alert Konfirmasi Pembayaran Admin via WhatsApp */}
-              <div className="p-3.5 bg-white border border-[#E8DDD6] flex items-start gap-3">
-                <div className="w-8 h-8 bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center shrink-0 mt-0.5">
-                  <WhatsAppIcon className="w-4.5 h-4.5 fill-[#25D366]" />
+              <div className="p-4 bg-white border border-[#E8DDD6] rounded-2xl flex items-start gap-3 shadow-2xs">
+                <div className="w-9 h-9 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center shrink-0 mt-0.5">
+                  <WhatsAppIcon className="w-5 h-5 fill-[#25D366]" />
                 </div>
                 <div className="flex-1 text-xs font-sans">
                   <p className="font-bold text-[#3A3A3A] leading-relaxed">
@@ -2346,7 +2346,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           )}
 
           {/* RINCIAN BIAYA SUMMARY BOX */}
-          <div className="bg-[#2A2A2A] text-white p-4 sm:p-5 border border-[#3A3A3A] space-y-3">
+          <div className="bg-[#2A2A2A] text-white p-4 sm:p-5 rounded-2xl border border-[#3A3A3A] space-y-3 shadow-sm">
             <div className="flex justify-between items-center text-xs text-stone-300 border-b border-[#3A3A3A] pb-2">
               <span className="font-serif uppercase tracking-wider text-stone-400">RINCIAN RESERVASI:</span>
               <span className="text-[#A9BCA7] font-serif font-bold uppercase">{currentPackage.name}</span>
@@ -2397,7 +2397,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         <div className="p-4 sm:p-5 bg-white border-t border-[#E8DDD6] flex items-center justify-between gap-2 shrink-0">
           <button
             onClick={handleCopySummary}
-            className="min-h-[44px] px-4 py-2 text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#E8DDD6] hover:bg-[#FDFBF7] transition-colors flex items-center gap-2 cursor-pointer active:scale-95"
+            className="min-h-[44px] px-4 py-2 rounded-xl text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#E8DDD6] hover:bg-[#FDFBF7] transition-colors flex items-center gap-2 cursor-pointer active:scale-95 shadow-2xs"
           >
             {copiedSummary ? <Check className="w-4 h-4 text-emerald-700" /> : <Copy className="w-4 h-4" />}
             <span className="hidden sm:inline">{copiedSummary ? 'Tersalin' : 'Salin Rincian'}</span>
@@ -2407,14 +2407,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             {step > 1 ? (
               <button
                 onClick={() => goToStep(step - 1)}
-                className="min-h-[44px] px-5 py-2 text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#E8DDD6] hover:bg-[#FDFBF7] transition-colors cursor-pointer active:scale-95"
+                className="min-h-[44px] px-5 py-2 rounded-xl text-xs font-serif uppercase tracking-wider bg-white text-stone-800 border border-[#E8DDD6] hover:bg-[#FDFBF7] transition-colors cursor-pointer active:scale-95 shadow-2xs"
               >
                 Kembali
               </button>
             ) : (
               <button
                 onClick={onClose}
-                className="min-h-[44px] px-4 py-2 text-xs font-serif uppercase tracking-wider text-stone-500 hover:text-stone-800 transition-colors cursor-pointer active:scale-95"
+                className="min-h-[44px] px-4 py-2 rounded-xl text-xs font-serif uppercase tracking-wider text-stone-500 hover:text-stone-800 transition-colors cursor-pointer active:scale-95"
               >
                 Batal
               </button>
@@ -2423,7 +2423,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             {step < 3 ? (
               <button
                 onClick={() => goToStep(step + 1)}
-                className="min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs flex items-center gap-2 transition-colors cursor-pointer active:scale-95"
+                className="min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs flex items-center gap-2 transition-colors cursor-pointer active:scale-95"
               >
                 <span>Lanjut</span>
                 <ChevronRight className="w-4 h-4 stroke-[2]" />
@@ -2433,7 +2433,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 type="button"
                 onClick={handleSendBookingWA}
                 disabled={!canSubmitBooking}
-                className={`min-h-[44px] px-6 py-2.5 text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${canSubmitBooking
+                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${canSubmitBooking
                   ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-md cursor-pointer active:scale-95'
                   : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
                   }`}

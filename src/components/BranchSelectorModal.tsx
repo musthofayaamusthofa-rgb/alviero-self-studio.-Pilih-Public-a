@@ -1206,12 +1206,12 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
-      <div className="bg-[#FDFBF7] max-w-xl w-full border border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col my-auto relative">
+      <div className="bg-[#FDFBF7] max-w-xl w-full rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col my-auto relative">
         
         {/* Minimalist Modal Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8DDD6] bg-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#FDFBF7] text-[#3A3A3A] flex items-center justify-center border border-[#E8DDD6]">
+            <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] text-[#3A3A3A] flex items-center justify-center border border-[#E8DDD6] shadow-2xs">
               <MapPin className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
             </div>
             <div>
@@ -1228,7 +1228,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-8 h-8 bg-stone-100 hover:bg-[#3A3A3A] text-stone-600 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-[#E8DDD6]"
+              className="w-8 h-8 rounded-xl bg-stone-100 hover:bg-[#3A3A3A] text-stone-600 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-[#E8DDD6]"
             >
               <X className="w-4 h-4" />
             </button>
@@ -1244,16 +1244,16 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
               <div
                 key={branch.id}
                 onClick={() => handleChoose(branch.id)}
-                className={`p-4 sm:p-4.5 border transition-all duration-200 cursor-pointer relative group text-left ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer relative group text-left ${
                   isSelected
                     ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-md'
-                    : 'bg-[#FAF8F5] hover:bg-white border-[#E8DDD6] hover:border-[#3A3A3A]'
+                    : 'bg-[#FAF8F5] hover:bg-white border-[#E8DDD6] hover:border-[#3A3A3A] shadow-2xs'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0 flex-1">
                     {/* Clean Left Icon Container */}
-                    <div className={`w-10 h-10 flex items-center justify-center shrink-0 border transition-colors ${
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-colors shadow-2xs ${
                       isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#FDFBF7] text-[#3A3A3A] border-[#E8DDD6]'
                     }`}>
                       <MapPin className={`w-5 h-5 stroke-[1.8] ${isSelected ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1265,7 +1265,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         <h4 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide">
                           {branch.name}
                         </h4>
-                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 border ${
+                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
                           isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#EBF2EA] text-[#6E856C] border-[#A9BCA7]'
                         }`}>
                           {branch.badge}
@@ -1277,14 +1277,14 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                       </p>
 
                       {/* Fasilitas Cabang */}
-                      <div className="flex items-center gap-2 mt-2 flex-wrap">
-                        <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
+                      <div className="flex items-center gap-2 mt-2.5 flex-wrap">
+                        <span className="text-[10px] bg-white text-stone-700 px-2.5 py-0.5 rounded-full border border-[#E8DDD6] font-medium shadow-2xs">
                           ✓ Pro Studio Lighting
                         </span>
-                        <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
+                        <span className="text-[10px] bg-white text-stone-700 px-2.5 py-0.5 rounded-full border border-[#E8DDD6] font-medium shadow-2xs">
                           ✓ 7+ Background
                         </span>
-                        <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
+                        <span className="text-[10px] bg-white text-stone-700 px-2.5 py-0.5 rounded-full border border-[#E8DDD6] font-medium shadow-2xs">
                           ✓ Ruang AC
                         </span>
                       </div>
@@ -1295,7 +1295,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#6E856C] hover:text-[#3A3A3A] underline underline-offset-2 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 mt-2.5 text-[11px] font-sans font-semibold text-[#6E856C] hover:text-[#3A3A3A] underline underline-offset-2 transition-colors cursor-pointer"
                       >
                         <span>Buka Petunjuk Arah di Google Maps</span>
                         <span className="text-[10px]">↗</span>
@@ -1305,7 +1305,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
 
                   {/* Radio Indicator */}
                   <div className="pt-1 shrink-0">
-                    <div className={`w-5 h-5 border flex items-center justify-center transition-all ${
+                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${
                       isSelected ? 'border-[#3A3A3A] bg-[#3A3A3A]' : 'border-stone-400 bg-transparent'
                     }`}>
                       {isSelected && <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />}
