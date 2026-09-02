@@ -20,6 +20,7 @@ import {
   Sliders, 
   Image as ImageIcon,
   Camera,
+  Calendar,
   MessageCircle,
   RefreshCw
 } from 'lucide-react';
@@ -954,8 +955,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </div>
             </div>
 
-            {/* 3 Companion Service Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
+            {/* 4 Companion Service Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
               {/* Card 1: Pricelist MUA & Kebaya */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('kebayak-gaun') : onSelectBranch(selectedBranch)}
@@ -981,7 +982,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
 
                 <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                  <span className="hidden lg:inline text-[11px]">Lihat Koleksi</span>
+                  <span className="hidden xl:inline text-[11px]">Lihat Koleksi</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
@@ -1011,12 +1012,42 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
 
                 <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                  <span className="hidden lg:inline text-[11px]">Lihat Paket</span>
+                  <span className="hidden xl:inline text-[11px]">Lihat Paket</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
 
-              {/* Card 3: Pricelist Cetak Lab & Bingkai */}
+              {/* Card 3: Pricelist Event */}
+              <div
+                onClick={() => onSelectCategory ? onSelectCategory('event') : onSelectBranch(selectedBranch)}
+                className="p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/50 border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
+              >
+                <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Calendar className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
+                        PRICELIST EVENT
+                      </h4>
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
+                        Event
+                      </span>
+                    </div>
+                    <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
+                      Dokumentasi Birthday, Gathering, Seminar & Komunitas
+                    </p>
+                  </div>
+                </div>
+
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
+                  <span className="hidden xl:inline text-[11px]">Lihat Event</span>
+                  <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+
+              {/* Card 4: Pricelist Cetak Lab & Bingkai */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
                 className="p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/50 border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
@@ -1041,7 +1072,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
 
                 <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                  <span className="hidden lg:inline text-[11px]">Lihat Katalog</span>
+                  <span className="hidden xl:inline text-[11px]">Lihat Katalog</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
               </div>
