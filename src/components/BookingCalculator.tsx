@@ -173,135 +173,8 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
     return true;
   }
 
-  // 2. Studio 2:
-  // a. Coklat vs Cream bentrok panggung yang sama (mutually exclusive)
-  const isC2CoklatA = a.includes('coklat') || a.includes('cokelat');
-  const isC2CreamA = a.includes('cream') || a.includes('krem');
-  const isC2CoklatB = b.includes('coklat') || b.includes('cokelat');
-  const isC2CreamB = b.includes('cream') || b.includes('krem');
-  if ((isC2CoklatA && isC2CreamB) || (isC2CreamA && isC2CoklatB)) {
-    return true;
-  }
-
-  // b. Putih vs Abu-abu bentrok panggung / setup yang sama (mutually exclusive)
-  const isC2WhiteA = a === 'c2-putih' || a.includes('c2-putih') || a.includes('c2-pro-putih');
-  const isC2GrayA = a === 'c2-abu' || a === 'c2-abu-abu' || a.includes('c2-abu');
-  const isC2WhiteB = b === 'c2-putih' || b.includes('c2-putih') || b.includes('c2-pro-putih');
-  const isC2GrayB = b === 'c2-abu' || b === 'c2-abu-abu' || b.includes('c2-abu');
-  if ((isC2WhiteA && isC2GrayB) || (isC2GrayA && isC2WhiteB)) {
-    return true;
-  }
-
+  // Studio 2: Pasangan (Putih & Abu-abu) dan (Cream & Coklat) SAH/VALID digabung oleh 1 klien yang sama (Paket 2)
   return false;
-};
-
-export interface Studio2BackdropAvailabilityResult {
-  availableIds: string[];
-  availableNames: string[];
-  lockedReasons: { [id: string]: string };
-}
-
-/**
- * Logika Pengecekan Ketersediaan Background Studio 2 (Paket 1 / 1 Background per Klien)
- * 
- * Aturan:
- * 1. Kapasitas: Maksimal 3 klien dalam 1 slot jam.
- * 2. Kuota per Background: 1 background hanya bisa dipilih maksimal 1 kali per jam slot (tidak bisa dipakai 2 klien berbeda).
- * 3. Bentrok Posisi (Mutual Exclusion):
- *    - Coklat Jendela ⇄ Tematik Cream (panggung sama)
- *    - Putih ⇄ Abu-abu (panggung/setup sama)
- */
-export const getAvailableBackgroundsStudio2 = (
-  existingBookings: string[] = []
-): Studio2BackdropAvailabilityResult => {
-  const STUDIO_2_BGS = [
-    { id: 'c2-hitam', name: 'Hitam' },
-    { id: 'c2-putih', name: 'Putih' },
-    { id: 'c2-abu', name: 'Abu-abu' },
-    { id: 'c2-coklat-jendela', name: 'Coklat Jendela' },
-    { id: 'c2-tematik-cream', name: 'Tematik Cream' }
-  ];
-
-  const bookedSet = new Set<string>();
-  let hasBookedHitam = false;
-  let hasBookedPutih = false;
-  let hasBookedAbu = false;
-  let hasBookedCoklat = false;
-  let hasBookedCream = false;
-
-  existingBookings.forEach(raw => {
-    const str = String(raw || '').toLowerCase();
-    if (str.includes('hitam')) {
-      hasBookedHitam = true;
-      bookedSet.add('c2-hitam');
-    }
-    if (str.includes('putih')) {
-      hasBookedPutih = true;
-      bookedSet.add('c2-putih');
-    }
-    if (str.includes('abu')) {
-      hasBookedAbu = true;
-      bookedSet.add('c2-abu');
-      bookedSet.add('c2-abu-abu');
-    }
-    if (str.includes('coklat') || str.includes('cokelat')) {
-      hasBookedCoklat = true;
-      bookedSet.add('c2-coklat-jendela');
-    }
-    if (str.includes('cream') || str.includes('krem')) {
-      hasBookedCream = true;
-      bookedSet.add('c2-tematik-cream');
-    }
-  });
-
-  const availableIds: string[] = [];
-  const availableNames: string[] = [];
-  const lockedReasons: { [id: string]: string } = {};
-
-  STUDIO_2_BGS.forEach(bg => {
-    const isDirectlyBooked = bookedSet.has(bg.id) || (bg.id === 'c2-abu' && bookedSet.has('c2-abu-abu'));
-    let isClashed = false;
-    let clashReason = '';
-
-    if (isDirectlyBooked) {
-      lockedReasons[bg.id] = `Sudah dipilih oleh klien lain di jam ini`;
-      if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = lockedReasons[bg.id];
-      return;
-    }
-
-    // Bentrok Posisi Panggung Coklat vs Cream
-    if (bg.id === 'c2-tematik-cream' && hasBookedCoklat) {
-      isClashed = true;
-      clashReason = 'Tidak tersedia (bentrok panggung dengan Coklat Jendela yang sedang terpakai)';
-    } else if (bg.id === 'c2-coklat-jendela' && hasBookedCream) {
-      isClashed = true;
-      clashReason = 'Tidak tersedia (bentrok panggung dengan Tematik Cream yang sedang terpakai)';
-    }
-
-    // Bentrok Posisi Panggung Putih vs Abu-abu
-    if ((bg.id === 'c2-abu' || bg.id === 'c2-abu-abu') && hasBookedPutih) {
-      isClashed = true;
-      clashReason = 'Tidak tersedia (bentrok area dengan Putih yang sedang terpakai)';
-    } else if (bg.id === 'c2-putih' && hasBookedAbu) {
-      isClashed = true;
-      clashReason = 'Tidak tersedia (bentrok area dengan Abu-abu yang sedang terpakai)';
-    }
-
-    if (isClashed) {
-      lockedReasons[bg.id] = clashReason;
-      if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = clashReason;
-    } else {
-      availableIds.push(bg.id);
-      if (bg.id === 'c2-abu') availableIds.push('c2-abu-abu');
-      availableNames.push(bg.name);
-    }
-  });
-
-  return {
-    availableIds,
-    availableNames,
-    lockedReasons
-  };
 };
 
 export interface BackgroundQuotaStatus {
@@ -316,11 +189,22 @@ export interface BackgroundQuotaStatus {
   group?: string;
 }
 
-export interface Paket2AvailabilityResult {
+export interface PairExclusivityAvailabilityResult {
   availableIds: string[];
   availableNames: string[];
   backgrounds: { [id: string]: BackgroundQuotaStatus };
   lockedReasons: { [id: string]: string };
+  details: {
+    usedHitam: number;
+    usedPutih: number;
+    usedAbu: number;
+    usedCoklat: number;
+    usedCream: number;
+    isPutihSplit: boolean;
+    isAbuSplit: boolean;
+    isCoklatSplit: boolean;
+    isCreamSplit: boolean;
+  };
   remainingQuotas: {
     hitam: number;
     putih: number;
@@ -331,11 +215,24 @@ export interface Paket2AvailabilityResult {
 }
 
 /**
- * Logika Validasi Ketersediaan Background Studio 2 (Paket 2 / 2 Background per Klien)
+ * Logika Validasi Ketersediaan Background Studio 2: "Eksklusivitas Pasangan" (Pair Exclusivity)
+ * 
+ * Aturan Eksklusivitas Pasangan BG:
+ * - Pasangan 1: (Putih & Abu-abu)
+ * - Pasangan 2: (Cream & Coklat)
+ * - Mandiri: Hitam
+ * 
+ * 1. Aturan 1 (Boleh digabung oleh 1 klien): Jika 1 klien (Paket 2) memilih Putih & Abu-abu
+ *    sekaligus, pemesanan SAH/VALID. Begitu juga dengan Cream & Coklat.
+ * 2. Aturan 2 (Dilarang dipecah ke klien berbeda):
+ *    - Jika Klien 1 memilih Putih (tanpa Abu-abu), Abu-abu otomatis TIDAK TERSEDIA untuk Klien 2 & 3.
+ *    - Jika Klien 1 memilih Abu-abu (tanpa Putih), Putih otomatis TIDAK TERSEDIA untuk Klien 2 & 3.
+ *    - Jika Klien 1 memilih Cream (tanpa Coklat), Coklat otomatis TIDAK TERSEDIA untuk Klien 2 & 3.
+ *    - Jika Klien 1 memilih Coklat (tanpa Cream), Cream otomatis TIDAK TERSEDIA untuk Klien 2 & 3.
  */
-export const checkPaket2Availability = (
+export const checkPairExclusivityAvailability = (
   existingBookings: string[] = []
-): Paket2AvailabilityResult => {
+): PairExclusivityAvailabilityResult => {
   const usageCounts: { [id: string]: number } = {
     'c2-hitam': 0,
     'c2-putih': 0,
@@ -344,34 +241,61 @@ export const checkPaket2Availability = (
     'c2-tematik-cream': 0
   };
 
-  existingBookings.forEach(booking => {
-    const text = String(booking || '').toLowerCase();
+  let isPutihSplit = false;
+  let isAbuSplit = false;
+  let isCoklatSplit = false;
+  let isCreamSplit = false;
 
-    if (text.includes('hitam')) usageCounts['c2-hitam'] += 1;
-    if (text.includes('putih')) usageCounts['c2-putih'] += 1;
-    if (text.includes('abu')) usageCounts['c2-abu'] += 1;
-    if (text.includes('coklat') || text.includes('cokelat')) usageCounts['c2-coklat-jendela'] += 1;
-    if (text.includes('cream') || text.includes('krem')) usageCounts['c2-tematik-cream'] += 1;
+  existingBookings.forEach(raw => {
+    const text = String(raw || '').toLowerCase();
+
+    const hasHitam = text.includes('hitam');
+    const hasPutih = text.includes('putih');
+    const hasAbu = text.includes('abu');
+    const hasCoklat = text.includes('coklat') || text.includes('cokelat');
+    const hasCream = text.includes('cream') || text.includes('krem');
+
+    if (hasHitam) usageCounts['c2-hitam'] += 1;
+    if (hasPutih) usageCounts['c2-putih'] += 1;
+    if (hasAbu) usageCounts['c2-abu'] += 1;
+    if (hasCoklat) usageCounts['c2-coklat-jendela'] += 1;
+    if (hasCream) usageCounts['c2-tematik-cream'] += 1;
+
+    // Deteksi pemecahan pasangan (Pair Split)
+    if (hasPutih && !hasAbu) isPutihSplit = true;
+    if (hasAbu && !hasPutih) isAbuSplit = true;
+    if (hasCoklat && !hasCream) isCoklatSplit = true;
+    if (hasCream && !hasCoklat) isCreamSplit = true;
   });
 
   const usedHitam = usageCounts['c2-hitam'];
-  const usedCoklat = usageCounts['c2-coklat-jendela'];
   const usedPutih = usageCounts['c2-putih'];
   const usedAbu = usageCounts['c2-abu'];
+  const usedCoklat = usageCounts['c2-coklat-jendela'];
   const usedCream = usageCounts['c2-tematik-cream'];
 
-  const remainingHitam = Math.max(0, 1 - usedHitam);
-  const remainingPutih = (usedPutih > 0 || usedAbu > 0) ? 0 : 1;
-  const remainingAbu = (usedAbu > 0 || usedPutih > 0) ? 0 : 1;
-  const remainingCoklat = (usedCoklat > 0 || usedCream > 0) ? 0 : 1;
-  const remainingCream = (usedCream > 0 || usedCoklat > 0) ? 0 : 1;
+  // Hitung Kuota Tersisa (Remaining Quota)
+  // Hitam: Max 2 (dapat digunakan hingga 2 klien jika slot masih muat)
+  const remainingHitam = Math.max(0, 2 - usedHitam);
+
+  // Putih: Tidak tersedia jika sudah terpakai ATAU jika ada yang memecah pasangan dengan mengambil Abu-abu saja
+  const remainingPutih = (usedPutih >= 1 || isAbuSplit) ? 0 : 1;
+
+  // Abu-abu: Tidak tersedia jika sudah terpakai ATAU jika ada yang memecah pasangan dengan mengambil Putih saja
+  const remainingAbu = (usedAbu >= 1 || isPutihSplit) ? 0 : 1;
+
+  // Coklat: Tidak tersedia jika sudah terpakai ATAU jika ada yang memecah pasangan dengan mengambil Cream saja
+  const remainingCoklat = (usedCoklat >= 1 || isCreamSplit) ? 0 : 1;
+
+  // Cream: Tidak tersedia jika sudah terpakai ATAU jika ada yang memecah pasangan dengan mengambil Coklat saja
+  const remainingCream = (usedCream >= 1 || isCoklatSplit) ? 0 : 1;
 
   const BG_DEFINITIONS = [
-    { id: 'c2-hitam', name: 'Hitam', maxQuota: 1, used: usedHitam, remaining: remainingHitam },
-    { id: 'c2-putih', name: 'Putih', maxQuota: 1, used: usedPutih, remaining: remainingPutih },
-    { id: 'c2-abu', name: 'Abu-abu', maxQuota: 1, used: usedAbu, remaining: remainingAbu },
-    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 1, used: usedCoklat, remaining: remainingCoklat },
-    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: 1, used: usedCream, remaining: remainingCream }
+    { id: 'c2-hitam', name: 'Hitam', maxQuota: 2, used: usedHitam, remaining: remainingHitam, group: 'Mandiri' },
+    { id: 'c2-putih', name: 'Putih', maxQuota: 1, used: usedPutih, remaining: remainingPutih, group: 'Pasangan 1 (Putih & Abu-abu)' },
+    { id: 'c2-abu', name: 'Abu-abu', maxQuota: 1, used: usedAbu, remaining: remainingAbu, group: 'Pasangan 1 (Putih & Abu-abu)' },
+    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 1, used: usedCoklat, remaining: remainingCoklat, group: 'Pasangan 2 (Coklat & Cream)' },
+    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: 1, used: usedCream, remaining: remainingCream, group: 'Pasangan 2 (Coklat & Cream)' }
   ];
 
   const availableIds: string[] = [];
@@ -385,177 +309,22 @@ export const checkPaket2Availability = (
     let reason: string | undefined = undefined;
 
     if (!isAvailable) {
-      if (bg.id === 'c2-coklat-jendela' && usedCream > 0 && usedCoklat === 0) {
-        reason = 'Area panggung sama dengan Tematik Cream (sudah dipilih di jam ini)';
-      } else if (bg.id === 'c2-tematik-cream' && usedCoklat > 0 && usedCream === 0) {
-        reason = 'Area panggung sama dengan Coklat Jendela (sudah dipilih di jam ini)';
-      } else if (bg.id === 'c2-putih' && usedAbu > 0 && usedPutih === 0) {
-        reason = 'Area panggung sama dengan Abu-abu (sudah dipilih di jam ini)';
-      } else if ((bg.id === 'c2-abu' || bg.id === 'c2-abu-abu') && usedPutih > 0 && usedAbu === 0) {
-        reason = 'Area panggung sama dengan Putih (sudah dipilih di jam ini)';
+      if (bg.id === 'c2-putih') {
+        if (usedPutih >= 1) reason = 'Sudah dipilih oleh klien lain di jam ini';
+        else if (isAbuSplit) reason = 'Pasangan Abu-abu sudah terpakai oleh klien lain di jam ini (Eksklusivitas Pasangan)';
+      } else if (bg.id === 'c2-abu') {
+        if (usedAbu >= 1) reason = 'Sudah dipilih oleh klien lain di jam ini';
+        else if (isPutihSplit) reason = 'Pasangan Putih sudah terpakai oleh klien lain di jam ini (Eksklusivitas Pasangan)';
+      } else if (bg.id === 'c2-coklat-jendela') {
+        if (usedCoklat >= 1) reason = 'Sudah dipilih oleh klien lain di jam ini';
+        else if (isCreamSplit) reason = 'Pasangan Tematik Cream sudah terpakai oleh klien lain di jam ini (Eksklusivitas Pasangan)';
+      } else if (bg.id === 'c2-tematik-cream') {
+        if (usedCream >= 1) reason = 'Sudah dipilih oleh klien lain di jam ini';
+        else if (isCoklatSplit) reason = 'Pasangan Coklat Jendela sudah terpakai oleh klien lain di jam ini (Eksklusivitas Pasangan)';
+      } else if (bg.id === 'c2-hitam') {
+        reason = 'Kuota Hitam sudah habis di jam ini';
       } else {
-        reason = `Sudah dipilih oleh klien lain di jam ini`;
-      }
-      lockedReasons[bg.id] = reason;
-      if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = reason;
-    } else {
-      availableIds.push(bg.id);
-      if (bg.id === 'c2-abu') availableIds.push('c2-abu-abu');
-      availableNames.push(bg.name);
-    }
-
-    backgrounds[bg.id] = {
-      id: bg.id,
-      name: bg.name,
-      maxQuota: bg.maxQuota,
-      usedCount: bg.used,
-      remainingQuota: bg.remaining,
-      isAvailable: isAvailable,
-      status: status,
-      reason: reason
-    };
-    if (bg.id === 'c2-abu') {
-      backgrounds['c2-abu-abu'] = backgrounds[bg.id];
-    }
-  });
-
-  return {
-    availableIds,
-    availableNames,
-    backgrounds,
-    lockedReasons,
-    remainingQuotas: {
-      hitam: remainingHitam,
-      putih: remainingPutih,
-      abu: remainingAbu,
-      coklat: remainingCoklat,
-      cream: remainingCream
-    }
-  };
-};
-
-export interface DualDynamicAvailabilityResult {
-  availableIds: string[];
-  availableNames: string[];
-  backgrounds: { [id: string]: BackgroundQuotaStatus };
-  lockedReasons: { [id: string]: string };
-  groupStats: {
-    grup1_HitamCoklat: { used: number; max: number; remaining: number };
-    grup2_PutihAbu: { used: number; max: number; remaining: number };
-    grup3_Cream: { used: number; max: number; remaining: number };
-  };
-  remainingQuotas: {
-    hitam: number;
-    putih: number;
-    abu: number;
-    coklat: number;
-    cream: number;
-  };
-}
-
-/**
- * Logika Validasi Ketersediaan Background Studio 2 (Dinoyo) Sesuai Standar Resmi:
- * 1. Single-Use per Slot: Setiap background (Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream)
- *    hanya bisa dipilih maksimal 1 kali dalam 1 slot jam yang sama.
- * 2. Mutual Exclusion (Bentrok Fisik Panggung):
- *    - Background Coklat Jendela dan Tematik Cream berbagi panggung yang sama.
- *      Jika Coklat Jendela terpakai -> Tematik Cream otomatis Tidak Tersedia (dan sebaliknya).
- *    - Background Putih dan Abu-abu berbagi panggung/setup yang sama.
- *      Jika Putih terpakai -> Abu-abu otomatis Tidak Tersedia (dan sebaliknya).
- * 3. Background Hitam memiliki panggung tersendiri (mandiri).
- */
-export const checkDualDynamicAvailability = (
-  existingBookings: string[] = []
-): DualDynamicAvailabilityResult => {
-  // 1. Ekstrak Jumlah Pemakaian Tiap Background dari Reservasi yang Ada
-  const usageCounts: { [id: string]: number } = {
-    'c2-hitam': 0,
-    'c2-putih': 0,
-    'c2-abu': 0,
-    'c2-coklat-jendela': 0,
-    'c2-tematik-cream': 0
-  };
-
-  existingBookings.forEach(booking => {
-    const text = String(booking || '').toLowerCase();
-
-    // Hitung Pemakaian Hitam
-    if (text.includes('hitam')) {
-      usageCounts['c2-hitam'] += 1;
-    }
-
-    // Hitung Pemakaian Putih
-    if (text.includes('putih')) {
-      usageCounts['c2-putih'] += 1;
-    }
-
-    // Hitung Pemakaian Abu-abu
-    if (text.includes('abu')) {
-      usageCounts['c2-abu'] += 1;
-    }
-
-    // Hitung Pemakaian Coklat
-    if (text.includes('coklat') || text.includes('cokelat')) {
-      usageCounts['c2-coklat-jendela'] += 1;
-    }
-
-    // Hitung Pemakaian Cream
-    if (text.includes('cream') || text.includes('krem')) {
-      usageCounts['c2-tematik-cream'] += 1;
-    }
-  });
-
-  const usedHitam = usageCounts['c2-hitam'];
-  const usedCoklat = usageCounts['c2-coklat-jendela'];
-  const usedPutih = usageCounts['c2-putih'];
-  const usedAbu = usageCounts['c2-abu'];
-  const usedCream = usageCounts['c2-tematik-cream'];
-
-  // =========================================================================
-  // 2. Perhitungan Ketersediaan Background Studio 2 (Single-Use & Mutual Exclusion)
-  // =========================================================================
-  const remainingHitam = usedHitam > 0 ? 0 : 1;
-
-  // Mutual exclusion: Putih vs Abu-abu (Panggung/Setup yang sama)
-  const remainingPutih = (usedPutih > 0 || usedAbu > 0) ? 0 : 1;
-  const remainingAbu = (usedAbu > 0 || usedPutih > 0) ? 0 : 1;
-
-  // Mutual exclusion: Coklat vs Cream (Panggung yang sama)
-  const remainingCoklat = (usedCoklat > 0 || usedCream > 0) ? 0 : 1;
-  const remainingCream = (usedCream > 0 || usedCoklat > 0) ? 0 : 1;
-
-  // =========================================================================
-  // 3. Struktur Output Ketersediaan untuk UI
-  // =========================================================================
-  const BG_DEFINITIONS = [
-    { id: 'c2-hitam', name: 'Hitam', maxQuota: 1, used: usedHitam, remaining: remainingHitam, group: 'Studio 2 Set A' },
-    { id: 'c2-putih', name: 'Putih', maxQuota: 1, used: usedPutih, remaining: remainingPutih, group: 'Studio 2 Set B (Panggung 2)' },
-    { id: 'c2-abu', name: 'Abu-abu', maxQuota: 1, used: usedAbu, remaining: remainingAbu, group: 'Studio 2 Set B (Panggung 2)' },
-    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 1, used: usedCoklat, remaining: remainingCoklat, group: 'Studio 2 Set D (Panggung 1)' },
-    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: 1, used: usedCream, remaining: remainingCream, group: 'Studio 2 Set D (Panggung 1)' }
-  ];
-
-  const availableIds: string[] = [];
-  const availableNames: string[] = [];
-  const backgrounds: { [id: string]: BackgroundQuotaStatus } = {};
-  const lockedReasons: { [id: string]: string } = {};
-
-  BG_DEFINITIONS.forEach(bg => {
-    const isAvailable = bg.remaining > 0;
-    const status: 'Tersedia' | 'Tidak Tersedia' = isAvailable ? 'Tersedia' : 'Tidak Tersedia';
-    let reason: string | undefined = undefined;
-
-    if (!isAvailable) {
-      if (bg.id === 'c2-coklat-jendela' && usedCream > 0 && usedCoklat === 0) {
-        reason = 'Area panggung sama dengan Tematik Cream (terpakai di jam ini)';
-      } else if (bg.id === 'c2-tematik-cream' && usedCoklat > 0 && usedCream === 0) {
-        reason = 'Area panggung sama dengan Coklat Jendela (terpakai di jam ini)';
-      } else if (bg.id === 'c2-putih' && usedAbu > 0 && usedPutih === 0) {
-        reason = 'Area panggung sama dengan Abu-abu (terpakai di jam ini)';
-      } else if ((bg.id === 'c2-abu' || bg.id === 'c2-abu-abu') && usedPutih > 0 && usedAbu === 0) {
-        reason = 'Area panggung sama dengan Putih (terpakai di jam ini)';
-      } else {
-        reason = `Sudah dipilih oleh klien lain di jam ini`;
+        reason = 'Sudah dipilih oleh klien lain di jam ini';
       }
       lockedReasons[bg.id] = reason;
       if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = reason;
@@ -586,10 +355,16 @@ export const checkDualDynamicAvailability = (
     availableNames,
     backgrounds,
     lockedReasons,
-    groupStats: {
-      grup1_HitamCoklat: { used: usedHitam + usedCoklat, max: 2, remaining: remainingHitam + remainingCoklat },
-      grup2_PutihAbu: { used: usedPutih + usedAbu, max: 2, remaining: remainingPutih + remainingAbu },
-      grup3_Cream: { used: usedCream, max: 1, remaining: remainingCream }
+    details: {
+      usedHitam,
+      usedPutih,
+      usedAbu,
+      usedCoklat,
+      usedCream,
+      isPutihSplit,
+      isAbuSplit,
+      isCoklatSplit,
+      isCreamSplit
     },
     remainingQuotas: {
       hitam: remainingHitam,
@@ -600,6 +375,12 @@ export const checkDualDynamicAvailability = (
     }
   };
 };
+
+// Aliases for compatibility
+export type DualDynamicAvailabilityResult = PairExclusivityAvailabilityResult;
+export const checkDualDynamicAvailability = checkPairExclusivityAvailability;
+export const getAvailableBackgroundsStudio2 = checkPairExclusivityAvailability;
+export const checkPaket2Availability = checkPairExclusivityAvailability;
 
 /**
  * Format normalisasi string waktu slot menjadi HH:MM standar
