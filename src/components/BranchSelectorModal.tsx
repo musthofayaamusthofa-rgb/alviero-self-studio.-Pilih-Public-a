@@ -256,7 +256,22 @@ export const CLIENT_REVIEWS: ClientReview[] = [
  */
 export const ClientReviewCarousel: React.FC = () => {
   const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
   const totalPages = Math.ceil(CLIENT_REVIEWS.length / 2);
+
+  // Auto-scroll bergulir otomatis setiap 4.5 detik
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentReviewIdx((prev) => (prev + 1) % totalPages);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isPaused, totalPages]);
 
   const handleNext = () => {
     setCurrentReviewIdx((prev) => (prev + 1) % totalPages);
@@ -266,10 +281,34 @@ export const ClientReviewCarousel: React.FC = () => {
     setCurrentReviewIdx((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) handleNext();
+    if (diff < -45) handlePrev();
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   const visibleReviews = CLIENT_REVIEWS.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
 
   return (
-    <div className="pt-5 pb-1 border-t border-[#E8DDD6] space-y-3 relative">
+    <div 
+      className="pt-5 pb-1 border-t border-[#E8DDD6] space-y-3 relative select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="text-center space-y-0.5">
         <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
           WHAT OUR CLIENTS SAY
