@@ -29,7 +29,7 @@ import {
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
   onSelectBranch: (branch: StudioBranch) => void;
-  onSelectCategory?: (category: string) => void;
+  onSelectCategory?: (category: string, branch?: StudioBranch) => void;
   onClose?: () => void;
   canDismiss?: boolean;
 }
@@ -749,6 +749,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
   const [isOpen, setIsOpen] = useState<boolean>(checkIsOpen);
   const [isStudioFotoExpanded, setIsStudioFotoExpanded] = useState<boolean>(false);
+  const [isSelfStudioExpanded, setIsSelfStudioExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -1023,34 +1024,120 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     )}
                   </div>
 
-                  {/* 2. SelfStudio */}
+                  {/* 2. SelfStudio (Expandable / Pilihan Studio 1 & Studio 2) */}
                   <div
-                    onClick={() => onSelectCategory ? onSelectCategory('selfstudio') : onSelectBranch(selectedBranch)}
-                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
+                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
+                      isSelfStudioExpanded
+                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                    }`}
                   >
-                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                        <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            2. SELFSTUDIO
-                          </h4>
-                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                            Self Photo
-                          </span>
+                    <div
+                      onClick={() => setIsSelfStudioExpanded((prev) => !prev)}
+                      className="cursor-pointer flex items-center justify-between gap-3 select-none"
+                    >
+                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                          <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                          Foto Mandiri dengan Wireless Remote Shutter & Cetak Kolase
-                        </p>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
+                              2. SELFSTUDIO
+                            </h4>
+                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
+                              Self Photo
+                            </span>
+                          </div>
+                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
+                            Foto Mandiri dengan Wireless Remote Shutter & Cetak Kolase
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1 shrink-0 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
+                        <span className="hidden sm:inline text-[10.5px]">
+                          {isSelfStudioExpanded ? 'Tutup' : 'Pilih Studio'}
+                        </span>
+                        <ChevronDown
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                            isSelfStudioExpanded ? 'rotate-180 text-[#6E856C]' : ''
+                          }`}
+                        />
                       </div>
                     </div>
 
-                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                      <span className="hidden xl:inline text-[11px]">Buka</span>
-                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+                    {/* Drawer Pilihan Studio untuk SelfStudio */}
+                    {isSelfStudioExpanded && (
+                      <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                        <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                          <span>PILIH LOKASI SELFSTUDIO:</span>
+                          <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                          {/* Opsi Studio 1 */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onSelectCategory) {
+                                onSelectCategory('selfstudio', 'cabang-1');
+                              } else {
+                                onSelectBranch('cabang-1');
+                              }
+                            }}
+                            className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s1 cursor-pointer active:scale-98 text-left"
+                          >
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  Studio 1
+                                </span>
+                                <span className="font-serif font-bold text-xs">Karangploso</span>
+                              </div>
+                              <p className="text-[10px] text-stone-500 group-hover/s1:text-stone-300 truncate mt-0.5">
+                                Jl. Raya Kertanegara, Karangploso
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/s1:text-[#A9BCA7] shrink-0">
+                              <span>Buka</span>
+                              <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/s1:translate-x-0.5 group-hover/s1:-translate-y-0.5 transition-transform" />
+                            </div>
+                          </button>
+
+                          {/* Opsi Studio 2 */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (onSelectCategory) {
+                                onSelectCategory('selfstudio', 'cabang-2');
+                              } else {
+                                onSelectBranch('cabang-2');
+                              }
+                            }}
+                            className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s2 cursor-pointer active:scale-98 text-left"
+                          >
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  Studio 2
+                                </span>
+                                <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                              </div>
+                              <p className="text-[10px] text-stone-500 group-hover/s2:text-stone-300 truncate mt-0.5">
+                                Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/s2:text-[#A9BCA7] shrink-0">
+                              <span>Buka</span>
+                              <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/s2:translate-x-0.5 group-hover/s2:-translate-y-0.5 transition-transform" />
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* 3. Cetak & Bingkai */}

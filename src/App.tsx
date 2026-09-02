@@ -38,7 +38,11 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSelectCategoryFromLanding = (category: string) => {
+  const handleSelectCategoryFromLanding = (category: string, branch?: StudioBranch) => {
+    if (branch) {
+      setSelectedBranch(branch);
+      localStorage.setItem('alviero_selected_branch', branch);
+    }
     setInitialMenuCategory(category);
     setHasEnteredBranch(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
