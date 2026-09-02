@@ -8,6 +8,16 @@ interface MobileBottomNavProps {
   onBackToLanding?: () => void;
 }
 
+const scrollToTop = () => {
+  try {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  } catch {
+    window.scrollTo(0, 0);
+  }
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+};
+
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   activeTab,
   setActiveTab,
@@ -24,6 +34,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             } else {
               setActiveTab('katalog');
             }
+            scrollToTop();
           }}
           className={`min-h-[44px] flex flex-col items-center justify-center py-1.5 transition-all duration-200 cursor-pointer ${
             activeTab === 'katalog' || activeTab === 'pricelist-sheets'
@@ -36,7 +47,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         </button>
 
         <button
-          onClick={() => setActiveTab('strip-builder')}
+          onClick={() => {
+            setActiveTab('strip-builder');
+            scrollToTop();
+          }}
           className={`min-h-[44px] flex flex-col items-center justify-center py-1.5 transition-all duration-200 cursor-pointer ${
             activeTab === 'strip-builder'
               ? 'text-white bg-[#3A3A3A] font-bold shadow-xs'
@@ -48,7 +62,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         </button>
 
         <button
-          onClick={() => setActiveTab('rules')}
+          onClick={() => {
+            setActiveTab('rules');
+            scrollToTop();
+          }}
           className={`min-h-[44px] flex flex-col items-center justify-center py-1.5 transition-all duration-200 cursor-pointer ${
             activeTab === 'rules'
               ? 'text-white bg-[#3A3A3A] font-bold shadow-xs'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { PricelistViewer } from './components/PricelistViewer';
@@ -22,6 +22,24 @@ export default function App() {
   // Controls whether user is on the Branch Landing Page (Gambar 1) or has entered a branch's catalog (Gambar 2)
   const [hasEnteredBranch, setHasEnteredBranch] = useState<boolean>(false);
   const [initialMenuCategory, setInitialMenuCategory] = useState<string | undefined>();
+
+  // Selalu scroll halaman ke paling atas saat berganti halaman / tab
+  useEffect(() => {
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    } catch {
+      window.scrollTo(0, 0);
+    }
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 15);
+    return () => clearTimeout(timer);
+  }, [activeTab, hasEnteredBranch]);
 
   // Studio Branch Selection State
   const [selectedBranch, setSelectedBranch] = useState<StudioBranch>(() => {
