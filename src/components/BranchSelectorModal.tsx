@@ -933,7 +933,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
 
                 <h3 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white uppercase tracking-wide leading-tight">
-                  SIAP BEREKSPRESI? SEGERA BOOKING DI SINI!
+                  SIAP BEREKSPRESI? JELAJAHI PRICELIST & BOOKING!
                 </h3>
 
                 {/* Prominent High-Contrast Studio Terpilih Card */}
@@ -991,10 +991,11 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 <button
                   type="button"
                   onClick={() => onSelectBranch(selectedBranch)}
-                  className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#A9BCA7] hover:bg-[#98AC96] text-[#2A2A2A] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.18em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#A9BCA7]"
+                  className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#A9BCA7] hover:bg-[#98AC96] text-[#2A2A2A] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.16em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#A9BCA7] group"
                 >
-                  <span>BOOKING DI {selectedBranchData.badge.toUpperCase()}</span>
-                  <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.5]" />
+                  <Sparkles className="w-4 h-4 text-[#2A2A2A] group-hover:rotate-12 transition-transform" />
+                  <span>BUKA PRICELIST {selectedBranchData.badge.toUpperCase()}</span>
+                  <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </button>
               </div>
             </div>
