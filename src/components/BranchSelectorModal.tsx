@@ -523,114 +523,113 @@ export const StudioTourAndEducationShowcase: React.FC<{
   };
 
   return (
-    <div className="space-y-4 pt-4 pb-1 border-t border-[#E8DDD6]">
-      {/* Header Galeri & Background */}
-      <div className="space-y-2 text-left">
-        <div className="border-b-2 border-[#6E856C] pb-2 flex items-center justify-between flex-wrap gap-2">
-          <div>
-            <span className="text-[9.5px] font-sans font-bold tracking-[0.2em] text-[#6E856C] uppercase block">
-              STUDIO BACKDROPS & PHOTO SHOWCASE
-            </span>
-            <h3 className="font-serif text-sm sm:text-base md:text-lg font-bold tracking-wider text-[#3A3A3A] uppercase mt-0.5">
-              TEMA BACKGROUND & HASIL FOTO STUDIO
-            </h3>
-          </div>
-        </div>
-
-        {/* Tab Pilihan Studio */}
-        <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {STUDIO_ROOMS_DATA.map((room) => {
-              const isActive = activeRoomId === room.id;
-              const isSelfStudio = room.id === 'self-studio';
-              return (
-                <button
-                  key={room.id}
-                  type="button"
-                  onClick={() => {
-                    if (isSelfStudio && onSelectCategory) {
-                      onSelectBranch('cabang-1');
-                      onSelectCategory('selfstudio');
-                      return;
-                    }
-                    setActiveRoomId(room.id);
-                    setCurrentSlideIdx(0);
-                    onSelectBranch(room.branchId);
-                  }}
-                  className={`px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider border transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                      : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#F2E9E4]/40'
-                  }`}
-                >
-                  {isSelfStudio ? 'SELFSTUDIO' : room.name.replace('STUDIO ', 'STUDIO ').split('—')[0].trim()}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+    <div className="space-y-6 pt-6 pb-2 border-t border-[#E8DDD6]">
+      {/* Editorial Luxury Studio Header */}
+      <div className="text-center max-w-2xl mx-auto space-y-2">
+        <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#EBF2EA] px-3.5 py-1 border border-[#A9BCA7]">
+          <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
+          STUDIO SPACES & BACKDROPS
+        </span>
+        <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#3A3A3A] tracking-tight">
+          Koleksi Background & Suasana Studio
+        </h3>
+        <p className="text-xs sm:text-sm font-sans text-stone-500 max-w-lg mx-auto leading-relaxed">
+          Pilihan sudut tematik estetis, dekorasi mewah, dan tata cahaya Godox Pro di Alviero Studio.
+        </p>
       </div>
 
-      {/* Full-Width Interactive Photo Showcase */}
-      <div className="space-y-3">
-        <div className="relative w-full h-80 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#2A2A2A] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-md">
+      {/* Luxury Segmented Studio Switcher */}
+      <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+        {STUDIO_ROOMS_DATA.map((room) => {
+          const isActive = activeRoomId === room.id;
+          const isSelfStudio = room.id === 'self-studio';
+          return (
+            <button
+              key={room.id}
+              type="button"
+              onClick={() => {
+                if (isSelfStudio && onSelectCategory) {
+                  onSelectBranch('cabang-1');
+                  onSelectCategory('selfstudio');
+                  return;
+                }
+                setActiveRoomId(room.id);
+                setCurrentSlideIdx(0);
+                onSelectBranch(room.branchId);
+              }}
+              className={`px-5 py-2.5 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
+                isActive
+                  ? 'bg-[#3A3A3A] text-white shadow-md border border-[#3A3A3A]'
+                  : 'bg-white text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#F2E9E4]/60'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-[#A9BCA7] animate-pulse' : 'bg-stone-300'}`} />
+              <span>{isSelfStudio ? '✨ SelfStudio' : room.name.replace('STUDIO ', 'Studio ')}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Cinematic Visual Stage */}
+      <div className="space-y-3 max-w-6xl mx-auto">
+        <div className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[540px] bg-[#222222] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl">
           <img
             key={`${activeRoom.id}-${currentSlideIdx}`}
             src={activeSlide.src}
             alt={activeSlide.caption}
-            className="absolute inset-0 w-full h-full object-cover object-center animate-in fade-in duration-500"
+            className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-102"
           />
           
-          {/* Subtle Bottom Gradient */}
-          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+          {/* Subtle Ambient Shadow */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none" />
 
-          {/* Tag Overlay di Atas */}
-          <div className="relative top-3.5 left-3.5 z-10 pointer-events-none">
-            <span className="inline-block text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#A9BCA7] uppercase bg-black/80 px-3 py-1 border border-[#A9BCA7]/50 backdrop-blur-xs shadow-sm">
+          {/* Top Floating Glassmorphism Tag */}
+          <div className="relative top-4 left-4 z-10 pointer-events-none flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-[9.5px] sm:text-[10.5px] font-mono font-bold tracking-widest text-[#2A2A2A] uppercase bg-[#FDFBF7]/95 px-3.5 py-1.5 border border-[#E8DDD6] backdrop-blur-md shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
               {activeSlide.tag}
             </span>
           </div>
 
-          {/* Caption & Indikator di Bawah */}
-          <div className="relative z-10 p-3.5 sm:p-5 flex items-end justify-between gap-3 text-left">
-            <div className="max-w-xl">
-              <span className="text-[10px] font-mono text-[#A9BCA7] uppercase tracking-wider block mb-0.5">
-                {activeRoom.name}
+          {/* Bottom Luxury Caption Card */}
+          <div className="relative z-10 p-4 sm:p-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-left">
+            <div className="max-w-xl bg-black/65 backdrop-blur-md p-3 sm:p-4 border border-white/20">
+              <span className="text-[10px] font-mono font-bold text-[#A9BCA7] uppercase tracking-widest block mb-0.5">
+                {activeRoom.name} • {activeRoom.badge}
               </span>
-              <p className="text-xs sm:text-base font-serif text-white font-bold drop-shadow-md bg-black/60 backdrop-blur-xs px-3 py-1.5 border border-white/20 inline-block">
+              <p className="text-sm sm:text-base font-serif text-white font-bold leading-snug">
                 {activeSlide.caption}
               </p>
             </div>
 
             {/* Slide Indicator Numbers */}
-            <div className="bg-black/75 backdrop-blur-xs px-3 py-1.5 border border-white/20 text-white font-mono text-xs font-bold shrink-0">
+            <div className="bg-black/75 backdrop-blur-md px-3.5 py-2 border border-white/20 text-white font-mono text-xs font-bold shrink-0 self-start sm:self-end">
               <span className="text-[#A9BCA7]">{currentSlideIdx + 1}</span> / {activeRoom.images.length}
             </div>
           </div>
 
-          {/* Tombol Panah Kiri (<) */}
+          {/* Floating Navigation Controls */}
           <button
             type="button"
             onClick={handlePrevSlide}
             aria-label="Previous Photo"
-            className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90 shadow-md"
+            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 bg-[#FDFBF7]/90 hover:bg-white text-[#2A2A2A] flex items-center justify-center border border-[#E8DDD6] z-20 cursor-pointer transition-all active:scale-90 shadow-lg backdrop-blur-xs"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
           </button>
 
-          {/* Tombol Panah Kanan (>) */}
           <button
             type="button"
             onClick={handleNextSlide}
             aria-label="Next Photo"
-            className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90 shadow-md"
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 bg-[#FDFBF7]/90 hover:bg-white text-[#2A2A2A] flex items-center justify-center border border-[#E8DDD6] z-20 cursor-pointer transition-all active:scale-90 shadow-lg backdrop-blur-xs"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
           </button>
         </div>
 
-        {/* Thumbnail Preview Strip */}
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2 pt-1 overflow-x-auto no-scrollbar">
+        {/* Lookbook Gallery Thumbnails */}
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2 sm:gap-2.5 pt-1 overflow-x-auto no-scrollbar">
           {activeRoom.images.map((img, idx) => {
             const isSelected = currentSlideIdx === idx;
             return (
@@ -638,19 +637,19 @@ export const StudioTourAndEducationShowcase: React.FC<{
                 key={idx}
                 type="button"
                 onClick={() => setCurrentSlideIdx(idx)}
-                className={`relative aspect-[4/3] overflow-hidden border-2 transition-all cursor-pointer group shrink-0 ${
+                className={`relative aspect-[16/11] overflow-hidden border-2 transition-all cursor-pointer group shrink-0 ${
                   isSelected
-                    ? 'border-[#6E856C] ring-2 ring-[#A9BCA7]/60 scale-95 shadow-md'
-                    : 'border-[#E8DDD6] hover:border-[#3A3A3A] opacity-75 hover:opacity-100'
+                    ? 'border-[#3A3A3A] ring-2 ring-[#A9BCA7] shadow-md scale-98'
+                    : 'border-[#E8DDD6] hover:border-[#3A3A3A] opacity-70 hover:opacity-100'
                 }`}
               >
                 <img
                   src={img.src}
                   alt={img.caption}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                 />
-                <div className={`absolute inset-0 transition-colors ${isSelected ? 'bg-transparent' : 'bg-black/20 group-hover:bg-transparent'}`} />
-                <span className="absolute bottom-1 left-1 right-1 text-[8.5px] font-sans font-bold text-white bg-black/70 px-1 py-0.5 truncate text-center pointer-events-none">
+                <div className={`absolute inset-0 transition-colors ${isSelected ? 'bg-transparent' : 'bg-black/25 group-hover:bg-transparent'}`} />
+                <span className="absolute bottom-1 left-1 right-1 text-[8.5px] font-sans font-bold text-white bg-black/75 px-1 py-0.5 truncate text-center pointer-events-none">
                   {img.tag}
                 </span>
               </button>
