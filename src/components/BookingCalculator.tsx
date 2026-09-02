@@ -1134,13 +1134,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       } else {
         if (selectedBackdropIds.length < 2) {
           if (selectedBackdropIds.length === 1 && isConflictingBackdrop(selectedBackdropIds[0], id)) {
-            alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} dan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} berada di area panggung yang sama sehingga tidak bisa dipilih bersamaan.`);
+            alert(`Background ${BACKDROPS.find(b => b.id === id)?.name} dan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} berada di area panggung yang sama sehingga tidak bisa dipilih bersamaan.`);
             return;
           }
           setSelectedBackdropIds([...selectedBackdropIds, id]);
         } else {
           if (isConflictingBackdrop(selectedBackdropIds[0], id)) {
-            alert(`Latar ${BACKDROPS.find(b => b.id === id)?.name} tidak bisa digabung dengan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} (area panggung sama).`);
+            alert(`Background ${BACKDROPS.find(b => b.id === id)?.name} tidak bisa digabung dengan ${BACKDROPS.find(b => b.id === selectedBackdropIds[0])?.name} (area panggung sama).`);
             return;
           }
           setSelectedBackdropIds([selectedBackdropIds[0], id]);
@@ -1154,8 +1154,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     .filter(Boolean);
 
   const backdropDisplayName = selectedBackdropObjects.length > 1
-    ? `Latar 1: ${selectedBackdropObjects[0]?.name} & Latar 2: ${selectedBackdropObjects[1]?.name}`
-    : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Latar Standar');
+    ? `Background 1: ${selectedBackdropObjects[0]?.name} & Background 2: ${selectedBackdropObjects[1]?.name}`
+    : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Background Standar');
 
   const currentFrame = FRAME_TEMPLATES.find(f => f.id === selectedFrameId) || FRAME_TEMPLATES[0];
 
@@ -1765,7 +1765,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               <div className="pt-2 border-t border-[#E8DDD6]">
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                   <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
-                    3. {maxBackdrops > 1 ? 'PILIH 2 LATAR BELAKANG / PENCAHAYAAN (BACKGROUND):' : 'PILIH PENCAHAYAAN / LATAR BELAKANG (BACKGROUND):'}
+                    3. {maxBackdrops > 1 ? 'PILIH 2 BACKGROUND FOTO / PENCAHAYAAN:' : 'PILIH BACKGROUND FOTO / PENCAHAYAAN:'}
                   </label>
                   {maxBackdrops > 1 ? (
                     <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-2.5 py-0.5">
@@ -1820,7 +1820,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             )}
                             {isSelected && maxBackdrops > 1 && (
                               <span className="text-[9px] font-bold bg-[#3A3A3A] text-white px-2 py-0.2">
-                                Latar {selectionIndex + 1}
+                                Background {selectionIndex + 1}
                               </span>
                             )}
                             {!isAvailable && !isSelected && (

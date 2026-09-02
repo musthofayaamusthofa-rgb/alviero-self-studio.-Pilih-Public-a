@@ -33,9 +33,9 @@ interface BranchSelectorViewProps {
 }
 
 /**
- * Daftar Foto Backdrop Studio untuk Hero Banner Slider
+ * Daftar Foto Background Studio untuk Hero Banner Slider
  */
-export const BACKDROP_BANNER_IMAGES = [
+export const BACKGROUND_BANNER_IMAGES = [
   { id: '1', image: '/images/backdrops/backdrop-1.jpg', title: 'Mint Modern Aesthetic Sofa', theme: 'Fresh & Elegant' },
   { id: '2', image: '/images/backdrops/backdrop-2.jpg', title: 'Bohemian Rustic Texture Wall', theme: 'Warm Natural' },
   { id: '3', image: '/images/backdrops/backdrop-3.jpg', title: 'Black Arch Window Bar Stool', theme: 'Bold & Chic' },
@@ -45,14 +45,18 @@ export const BACKDROP_BANNER_IMAGES = [
   { id: '7', image: '/images/backdrops/backdrop-7.jpg', title: 'White Arch Windows & Grey Sofa', theme: 'Minimalist Bright' },
 ];
 
-interface BackdropHeroSliderProps {
+export const BACKDROP_BANNER_IMAGES = BACKGROUND_BANNER_IMAGES;
+
+interface BackgroundHeroSliderProps {
   onViewPlans?: () => void;
 }
 
+export type BackdropHeroSliderProps = BackgroundHeroSliderProps;
+
 /**
- * Hero Slider Banner Backdrop Studio (Desain Tegas, Modern, Responsif Mobile & Desktop)
+ * Hero Slider Banner Background Studio (Desain Tegas, Modern, Responsif Mobile & Desktop)
  */
-export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPlans }) => {
+export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onViewPlans }) => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
@@ -63,41 +67,38 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
     if (isPaused) return;
 
     const interval = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % BACKDROP_BANNER_IMAGES.length);
+      setCurrentIdx((prev) => (prev + 1) % BACKGROUND_BANNER_IMAGES.length);
     }, 4200);
 
     return () => clearInterval(interval);
   }, [isPaused]);
 
   const handleNext = () => {
-    setCurrentIdx((prev) => (prev + 1) % BACKDROP_BANNER_IMAGES.length);
+    setCurrentIdx((prev) => (prev + 1) % BACKGROUND_BANNER_IMAGES.length);
   };
 
   const handlePrev = () => {
-    setCurrentIdx((prev) => (prev - 1 + BACKDROP_BANNER_IMAGES.length) % BACKDROP_BANNER_IMAGES.length);
+    setCurrentIdx((prev) => (prev - 1 + BACKGROUND_BANNER_IMAGES.length) % BACKGROUND_BANNER_IMAGES.length);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.targetTouches[0].clientX;
+    touchStartX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    touchEndX.current = e.targetTouches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = () => {
     if (!touchStartX.current || !touchEndX.current) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (distance > 40) {
-      handleNext();
-    } else if (distance < -40) {
-      handlePrev();
-    }
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) handleNext();
+    if (diff < -50) handlePrev();
     touchStartX.current = null;
     touchEndX.current = null;
   };
 
-  const activeSlide = BACKDROP_BANNER_IMAGES[currentIdx];
+  const currentItem = BACKGROUND_BANNER_IMAGES[currentIdx] || BACKGROUND_BANNER_IMAGES[0];
 
   return (
     <div
@@ -121,22 +122,22 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
       <div className="w-full h-72 sm:h-84 md:h-[440px] lg:h-[500px] relative overflow-hidden bg-[#2A2A2A]">
         {/* Slide Photo with Smooth Transition */}
         <img
-          key={activeSlide.id}
-          src={activeSlide.image}
-          alt={activeSlide.title}
+          key={currentItem.id}
+          src={currentItem.image}
+          alt={currentItem.title}
           className="w-full h-full object-cover object-center transition-all duration-700 animate-in fade-in"
         />
 
         {/* Subtle Bottom Gradient for Caption & Controls Only */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-        {/* Bottom Left Backdrop Theme Label */}
+        {/* Bottom Left Background Theme Label */}
         <div className="absolute bottom-3.5 left-3.5 sm:left-6 z-20 text-left pointer-events-none">
           <span className="inline-block text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#A9BCA7] uppercase bg-black/70 px-2.5 py-1 border border-[#A9BCA7]/50 backdrop-blur-xs">
-            {activeSlide.theme}
+            {currentItem.theme}
           </span>
           <p className="text-xs sm:text-sm font-serif text-white font-bold drop-shadow-md mt-1">
-            {activeSlide.title}
+            {currentItem.title}
           </p>
         </div>
 
@@ -161,7 +162,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
 
         {/* Minimalist Bar Pagination */}
         <div className="absolute bottom-3.5 right-3.5 sm:right-6 flex items-center gap-1.5 z-20 bg-black/60 backdrop-blur-xs px-3 py-1.5 border border-white/15">
-          {BACKDROP_BANNER_IMAGES.map((slide, idx) => {
+          {BACKGROUND_BANNER_IMAGES.map((slide, idx) => {
             const isActive = currentIdx === idx;
             return (
               <button
@@ -528,7 +529,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
       <div className="text-center max-w-2xl mx-auto space-y-2">
         <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#EBF2EA] px-3.5 py-1 border border-[#A9BCA7]">
           <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
-          STUDIO SPACES & BACKDROPS
+          STUDIO SPACES & BACKGROUNDS
         </span>
         <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#3A3A3A] tracking-tight">
           Koleksi Background & Suasana Studio

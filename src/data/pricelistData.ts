@@ -1143,7 +1143,7 @@ export const PACKAGES: PackageItem[] = [
       "Durasi 20 Menit Sesi Foto",
       "Free 2 Lembar Cetak Polaroid",
       "Spotlight Lighting Bebas Tanpa S&K",
-      "All Files Google Drive"
+    "All Files Google Drive"
     ],
     "popular": false,
     "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
@@ -1181,8 +1181,8 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
   }
 ];
 
-export const BACKDROPS: BackdropOption[] = [
-  // ==================== STUDIO 1 & 2 - BACKDROPS ====================
+export const BACKGROUNDS: BackgroundOption[] = [
+  // ==================== STUDIO 1 & 2 - BACKGROUNDS ====================
   {
     id: 'hijau',
     name: 'Hijau Pastel',
@@ -1249,19 +1249,19 @@ export const BACKDROPS: BackdropOption[] = [
     id: 'c2-putih',
     name: 'Putih',
     category: 'solid-color',
-    hex: '#FFFFFF',
-    description: 'Latar putih bersih minimalis dengan pencahayaan seimbang dan terang.',
+    hex: '#F8FAFC',
+    description: 'Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
   {
-    id: 'c2-abu-abu',
+    id: 'c2-abu',
     name: 'Abu-abu',
     category: 'solid-color',
-    hex: '#9CA3AF',
-    description: 'Latar abu-abu netral yang modern dan menonjolkan subjek foto.',
-    previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
+    hex: '#64748B',
+    description: 'Latar abu-abu netral elegan untuk kesan modern & aesthetic.',
+    previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
@@ -1269,9 +1269,9 @@ export const BACKDROPS: BackdropOption[] = [
     id: 'c2-coklat-jendela',
     name: 'Coklat Jendela',
     category: 'solid-color',
-    hex: '#8D5B4C',
-    description: 'Latar coklat hangat bernuansa natural dengan aksen pencahayaan jendela estetik.',
-    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
+    hex: '#92400E',
+    description: 'Latar coklat klasik dengan ornamen jendela mewah berkarakter.',
+    previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-2']
   },
@@ -1286,6 +1286,8 @@ export const BACKDROPS: BackdropOption[] = [
     applicableBranches: ['cabang-2']
   }
 ];
+
+export const BACKDROPS = BACKGROUNDS;
 
 export const FRAME_TEMPLATES: FrameTemplate[] = [
   {

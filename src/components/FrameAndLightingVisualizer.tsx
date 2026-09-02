@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BACKDROPS, FRAME_TEMPLATES } from '../data/pricelistData';
+import { BACKGROUNDS, FRAME_TEMPLATES } from '../data/pricelistData';
 import { playShutterSound } from '../utils/shutterSound';
 import { Sliders, Sparkles, Layers, Check, ArrowRight, Eye, RefreshCw, Camera, Volume2, Wand2 } from 'lucide-react';
 
@@ -8,7 +8,7 @@ interface FrameAndLightingVisualizerProps {
 }
 
 export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProps> = ({ onSelectOptionForBooking }) => {
-  const [selectedBackdrop, setSelectedBackdrop] = useState(BACKDROPS[0]);
+  const [selectedBackdrop, setSelectedBackdrop] = useState(BACKGROUNDS[0]);
   const [selectedFrame, setSelectedFrame] = useState(FRAME_TEMPLATES[0]);
   const [frameBgColor, setFrameBgColor] = useState<string>('#FFFFFF');
   const [samplePoseIndex, setSamplePoseIndex] = useState<number>(0);
@@ -89,7 +89,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
             </div>
 
             <div className="grid grid-cols-1 gap-2">
-              {BACKDROPS.filter(b => b.applicableTo?.includes('self-studio')).map((bd) => (
+              {BACKGROUNDS.filter(b => b.applicableTo?.includes('self-studio')).map((bd) => (
                 <button
                   key={bd.id}
                   onClick={() => setSelectedBackdrop(bd)}

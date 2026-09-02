@@ -58,7 +58,7 @@ export interface BranchInfo {
   whatsappDisplay: string;
 }
 
-export interface BackdropOption {
+export interface BackgroundOption {
   id: string;
   name: string;
   category: 'spotlight-special' | 'spotlight-normal' | 'solid-color';
@@ -69,6 +69,8 @@ export interface BackdropOption {
   applicableTo?: ('self-studio' | 'pro-studio')[];
   applicableBranches?: StudioBranch[];
 }
+
+export type BackdropOption = BackgroundOption;
 
 export interface FrameTemplate {
   id: string;
@@ -104,7 +106,8 @@ export interface PricelistSheet {
 
 export interface BookingFormData {
   packageId: string;
-  backdropId: string;
+  backgroundId?: string;
+  backdropId?: string;
   frameTemplateId: string;
   selectedAddOns: { [addOnId: string]: number }; // addOnId -> quantity
   date: string;
