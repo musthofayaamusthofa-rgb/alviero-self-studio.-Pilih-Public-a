@@ -364,33 +364,25 @@ export const ClientReviewCarousel: React.FC = () => {
 };
 
 /**
- * Data Tur & Informasi Edukasi Lengkap Ruang Studio Alviero (Sesuai Referensi StudioJakarta)
+ * Data Galeri Background & Hasil Foto Studio Alviero
  */
 export interface StudioRoomData {
   id: string;
   name: string;
   badge: string;
-  tagline: string;
   branchId: StudioBranch;
   images: {
     src: string;
     caption: string;
     tag: string;
   }[];
-  dimensions: string;
-  capacity: string;
-  lightingSetup: string;
-  backdrops: string;
-  description: string;
-  highlights: string[];
 }
 
 export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
   {
     id: 'studio-1',
     name: 'STUDIO 1 — KARANGPLOSO',
-    badge: 'COMPLETE MEDIUM & WISUDA STUDIO',
-    tagline: 'Studio Utama Serbaguna Lantai Dasar dengan Live-View Monitor & Lighting Godox Pro',
+    badge: 'STUDIO UTAMA & WISUDA',
     branchId: 'cabang-1',
     images: [
       {
@@ -400,12 +392,12 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
       },
       {
         src: '/images/backdrops/backdrop-1.jpg',
-        caption: 'Mint Modern Aesthetic Sofa Theme — Cocok untuk Wisuda & Keluarga',
+        caption: 'Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga',
         tag: 'MINT AESTHETIC'
       },
       {
         src: '/images/backdrops/backdrop-4.jpg',
-        caption: 'Charcoal Deep Classic Sofa — Elegan, Formal & Timeless',
+        caption: 'Charcoal Deep Classic Sofa — Elegan & Timeless',
         tag: 'TIMELESS CLASSIC'
       },
       {
@@ -428,25 +420,12 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         caption: 'White Arch Windows & Grey Minimalist Set',
         tag: 'MINIMALIST BRIGHT'
       }
-    ],
-    dimensions: 'Luas 7m x 5m | Ceiling 3.5m (Lantai Dasar Tanpa Tangga)',
-    capacity: '1 - 20 Orang (Sangat nyaman untuk grup wisuda, keluarga & prewedding)',
-    lightingSetup: '4 Set Lampu Studio Godox Highspeed + Octagon 120cm + RGB Tube Lighting',
-    backdrops: '7+ Tema Background Permanen & Varian Seamless Background Paper',
-    description: 'Studio lantai dasar serbaguna dengan full AC, tata lampu Godox Studio Pro, monitor live-view realtime, dan 7+ tema background estetis. Sangat nyaman untuk sesi foto wisuda, keluarga, dan group.',
-    highlights: [
-      'Akses Lantai Dasar Tanpa Tangga',
-      'Monitor Live-View Preview Realtime',
-      'Full AC Sejuk & Fitting Room Bersih',
-      'Koleksi Toga Wisuda & Properti Siap Pakai',
-      'Parkir Mobil & Motor Luas'
     ]
   },
   {
     id: 'studio-2',
-    name: 'STUDIO 2 — CABANG EKSKLUSIF',
-    badge: 'PREMIUM SUITE & INTIMATE WEDDING',
-    tagline: 'Studio Lebih Luas dengan Private Dressing Suite & Set Prewedding Mewah',
+    name: 'STUDIO 2 — DINOYO',
+    badge: 'PREMIUM SUITE & WEDDING',
     branchId: 'cabang-2',
     images: [
       {
@@ -484,25 +463,12 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         caption: 'Warm Beige Classic Armchair — Cozy Tone',
         tag: 'COZY EDITORIAL'
       }
-    ],
-    dimensions: 'Luas 9m x 6m | Ceiling 4.0m (Ruang Shooting Lebih Lega)',
-    capacity: '1 - 25 Orang (Cocok untuk keluarga besar, prewedding gaun lebar & group)',
-    lightingSetup: '6 Set Lampu Studio Godox Multi-Strobe + Softbox Strip + Barndoors',
-    backdrops: '5 Pilihan Background: Hitam, Putih, Abu-abu, Coklat Jendela & Tematik Cream',
-    description: 'Studio eksklusif berarea luas dan ceiling tinggi dengan private dressing suite ber-AC, vanity mirror Hollywood, dan set background mewah untuk foto wedding, prewedding & keluarga.',
-    highlights: [
-      'Area Shooting Lebih Luas & Ceiling Tinggi',
-      'Private Dressing Suite Ber-AC',
-      'Cermin Vanity Hollywood Mewah',
-      'Fitting Gaun / Kebaya Pengantin Lengkap',
-      'Asisten Studio Standby'
     ]
   },
   {
     id: 'self-studio',
     name: 'SELFSTUDIO',
-    badge: '100% PRIVATE WIRELESS BOOTH',
-    tagline: 'Sesi Foto Bebas Tanpa Fotografer dengan Remote Shutter Nirkabel & Cetak Instan',
+    badge: 'PRIVATE WIRELESS BOOTH',
     branchId: 'cabang-1',
     images: [
       {
@@ -530,24 +496,12 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
         caption: 'Spotlight & Monochrome Aesthetic Set',
         tag: 'SPOTLIGHT SET'
       }
-    ],
-    dimensions: 'Luas 5m x 4m (Ruang Tertutup & Terjaga Privasinya)',
-    capacity: '1 - 8 Orang (Sangat seru untuk pasangan, bestie & solo)',
-    lightingSetup: 'Godox Studio Flash + Softbox Diffuser Siap Pakai Tanpa Setting Manual',
-    backdrops: 'Pilihan Background Grey, White, Cream & Pastel Aesthetic',
-    description: 'Bilik foto 100% private dengan remote shutter nirkabel dan monitor preview realtime. Bebas berekspresi tanpa canggung, langsung dapat cetak photo strip dan all-file HD.',
-    highlights: [
-      'Remote Shutter Nirkabel Responsif',
-      'Monitor Preview Realtime Besar',
-      'Bebas Berekspresi Tanpa Canggung',
-      'Semua File Asli HD via Google Drive',
-      'Cetak Instan Photo Strip Eksklusif'
     ]
   }
 ];
 
 /**
- * Komponen Edukasi Tur Studio & Spesifikasi Lengkap (Improvisasi dari Referensi StudioJakarta)
+ * Komponen Galeri Tema Background & Hasil Foto Studio
  */
 export const StudioTourAndEducationShowcase: React.FC<{
   onSelectCategory?: (category: string) => void;
@@ -570,31 +524,30 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
   return (
     <div className="space-y-4 pt-4 pb-1 border-t border-[#E8DDD6]">
-      {/* Header Edukasi dengan Garis Aksen Sage */}
+      {/* Header Galeri & Background */}
       <div className="space-y-2 text-left">
         <div className="border-b-2 border-[#6E856C] pb-2 flex items-center justify-between flex-wrap gap-2">
           <div>
             <span className="text-[9.5px] font-sans font-bold tracking-[0.2em] text-[#6E856C] uppercase block">
-              STUDIO SPECIFICATIONS & FACILITIES
+              STUDIO BACKDROPS & PHOTO SHOWCASE
             </span>
-            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wider text-[#3A3A3A] uppercase mt-0.5">
-              EDUKASI RUANG & SPESIFIKASI STUDIO
+            <h3 className="font-serif text-sm sm:text-base md:text-lg font-bold tracking-wider text-[#3A3A3A] uppercase mt-0.5">
+              TEMA BACKGROUND & HASIL FOTO STUDIO
             </h3>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="text-[9.5px] bg-[#FDFBF7] text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-semibold uppercase">
-              Pro Godox Gear
+              7+ Tema Background
             </span>
             <span className="text-[9.5px] bg-[#EBF2EA] text-[#6E856C] px-2 py-0.5 border border-[#A9BCA7] font-semibold uppercase">
-              Full AC
+              Koleksi Properti Lengkap
             </span>
           </div>
         </div>
 
-        {/* Tab Pilihan Studio & Express Booking */}
+        {/* Tab Pilihan Studio */}
         <div className="flex items-center justify-between flex-wrap gap-2 pt-1">
-          {/* Tombol Tab Ruang Studio */}
           <div className="flex items-center gap-1.5 flex-wrap">
             {STUDIO_ROOMS_DATA.map((room) => {
               const isActive = activeRoomId === room.id;
@@ -613,10 +566,10 @@ export const StudioTourAndEducationShowcase: React.FC<{
                     setCurrentSlideIdx(0);
                     onSelectBranch(room.branchId);
                   }}
-                  className={`px-3 py-1.5 text-[10px] sm:text-[10.5px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
+                  className={`px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider border transition-all cursor-pointer ${
                     isActive
                       ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                      : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
+                      : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#F2E9E4]/40'
                   }`}
                 >
                   {isSelfStudio ? 'SELFSTUDIO' : room.name.replace('STUDIO ', 'STUDIO ').split('—')[0].trim()}
@@ -624,14 +577,16 @@ export const StudioTourAndEducationShowcase: React.FC<{
               );
             })}
           </div>
+
+          <span className="text-[11px] font-sans text-stone-500 hidden sm:inline">
+            Klik foto atau tombol panah untuk melihat variasi tema background
+          </span>
         </div>
       </div>
 
-      {/* Interactive Photo Slider & Edukasi Ruang */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
-        
-        {/* Kolom Kiri: Photo Slider */}
-        <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] bg-[#2A2A2A] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between">
+      {/* Full-Width Interactive Photo Showcase */}
+      <div className="space-y-3">
+        <div className="relative w-full h-80 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#2A2A2A] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-md">
           <img
             key={`${activeRoom.id}-${currentSlideIdx}`}
             src={activeSlide.src}
@@ -640,31 +595,29 @@ export const StudioTourAndEducationShowcase: React.FC<{
           />
           
           {/* Subtle Bottom Gradient */}
-          <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
           {/* Tag Overlay di Atas */}
           <div className="relative top-3.5 left-3.5 z-10 pointer-events-none">
-            <span className="inline-block text-[8.5px] sm:text-[9.5px] font-mono font-bold tracking-widest text-[#A9BCA7] uppercase bg-black/75 px-3 py-1 border border-[#A9BCA7]/50 backdrop-blur-xs">
+            <span className="inline-block text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#A9BCA7] uppercase bg-black/80 px-3 py-1 border border-[#A9BCA7]/50 backdrop-blur-xs shadow-sm">
               {activeSlide.tag}
             </span>
           </div>
 
           {/* Caption & Indikator di Bawah */}
-          <div className="relative z-10 p-3.5 sm:p-4 flex items-end justify-between gap-3 text-left">
-            <p className="text-xs sm:text-sm font-sans text-white font-medium drop-shadow-md truncate max-w-[75%] bg-black/60 backdrop-blur-xs px-2.5 py-1 border border-white/15">
-              {activeSlide.caption}
-            </p>
+          <div className="relative z-10 p-3.5 sm:p-5 flex items-end justify-between gap-3 text-left">
+            <div className="max-w-xl">
+              <span className="text-[10px] font-mono text-[#A9BCA7] uppercase tracking-wider block mb-0.5">
+                {activeRoom.name}
+              </span>
+              <p className="text-xs sm:text-base font-serif text-white font-bold drop-shadow-md bg-black/60 backdrop-blur-xs px-3 py-1.5 border border-white/20 inline-block">
+                {activeSlide.caption}
+              </p>
+            </div>
 
-            <div className="flex items-center gap-1 bg-black/70 backdrop-blur-xs px-2 py-1.5 border border-white/20 shrink-0">
-              {activeRoom.images.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCurrentSlideIdx(idx)}
-                  className={`transition-all cursor-pointer ${
-                    currentSlideIdx === idx ? 'w-5 h-0.5 bg-[#A9BCA7]' : 'w-1.5 h-0.5 bg-white/40'
-                  }`}
-                />
-              ))}
+            {/* Slide Indicator Numbers */}
+            <div className="bg-black/75 backdrop-blur-xs px-3 py-1.5 border border-white/20 text-white font-mono text-xs font-bold shrink-0">
+              <span className="text-[#A9BCA7]">{currentSlideIdx + 1}</span> / {activeRoom.images.length}
             </div>
           </div>
 
@@ -673,9 +626,9 @@ export const StudioTourAndEducationShowcase: React.FC<{
             type="button"
             onClick={handlePrevSlide}
             aria-label="Previous Photo"
-            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
+            className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90 shadow-md"
           >
-            <ChevronLeft className="w-4.5 h-4.5 stroke-[2]" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
           </button>
 
           {/* Tombol Panah Kanan (>) */}
@@ -683,66 +636,40 @@ export const StudioTourAndEducationShowcase: React.FC<{
             type="button"
             onClick={handleNextSlide}
             aria-label="Next Photo"
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90"
+            className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/30 z-20 cursor-pointer transition-all active:scale-90 shadow-md"
           >
-            <ChevronRight className="w-4.5 h-4.5 stroke-[2]" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
           </button>
         </div>
 
-        {/* Kolom Kanan: Kartu Informasi & Edukasi Ruang */}
-        <div className="lg:col-span-5 bg-white p-4 sm:p-6 border border-[#E8DDD6] flex flex-col justify-between space-y-3.5 text-left">
-          <div className="space-y-2">
-            <div className="flex items-start justify-between gap-2 flex-wrap">
-              <div>
-                <h4 className="font-serif font-bold text-sm sm:text-base md:text-lg text-[#3A3A3A] uppercase tracking-wide">
-                  {activeRoom.name} <span className="text-stone-400">|</span>{' '}
-                  <span className="text-[#6E856C]">{activeRoom.badge}</span>
-                </h4>
-                <p className="text-xs font-sans font-semibold text-stone-600 mt-0.5">
-                  {activeRoom.tagline}
-                </p>
-              </div>
-            </div>
-
-            {/* Paragraf Deskripsi Edukasi yang Lengkap */}
-            <p className="text-[11.5px] sm:text-xs font-sans text-[#5A5A5A] leading-relaxed">
-              {activeRoom.description}
-            </p>
-          </div>
-
-          {/* Spesifikasi Teknis Studio */}
-          <div className="pt-2 border-t border-[#F2E9E4] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-sans text-[#3A3A3A]">
-            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
-              <span className="font-bold text-[#3A3A3A] block">📐 Dimensi & Akses:</span>
-              <span className="text-stone-600">{activeRoom.dimensions}</span>
-            </div>
-            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
-              <span className="font-bold text-[#3A3A3A] block">👥 Kapasitas:</span>
-              <span className="text-stone-600">{activeRoom.capacity}</span>
-            </div>
-            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
-              <span className="font-bold text-[#3A3A3A] block">💡 Lighting Setup:</span>
-              <span className="text-stone-600">{activeRoom.lightingSetup}</span>
-            </div>
-            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
-              <span className="font-bold text-[#3A3A3A] block">🎨 Pilihan Background:</span>
-              <span className="text-stone-600">{activeRoom.backdrops}</span>
-            </div>
-          </div>
-
+        {/* Thumbnail Preview Strip */}
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2 pt-1 overflow-x-auto no-scrollbar">
+          {activeRoom.images.map((img, idx) => {
+            const isSelected = currentSlideIdx === idx;
+            return (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setCurrentSlideIdx(idx)}
+                className={`relative aspect-[4/3] overflow-hidden border-2 transition-all cursor-pointer group shrink-0 ${
+                  isSelected
+                    ? 'border-[#6E856C] ring-2 ring-[#A9BCA7]/60 scale-95 shadow-md'
+                    : 'border-[#E8DDD6] hover:border-[#3A3A3A] opacity-75 hover:opacity-100'
+                }`}
+              >
+                <img
+                  src={img.src}
+                  alt={img.caption}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className={`absolute inset-0 transition-colors ${isSelected ? 'bg-transparent' : 'bg-black/20 group-hover:bg-transparent'}`} />
+                <span className="absolute bottom-1 left-1 right-1 text-[8.5px] font-sans font-bold text-white bg-black/70 px-1 py-0.5 truncate text-center pointer-events-none">
+                  {img.tag}
+                </span>
+              </button>
+            );
+          })}
         </div>
-
-      </div>
-
-      {/* Facility Highlights Footer */}
-      <div className="p-3.5 bg-white border border-[#E8DDD6] text-center">
-        <p className="font-sans font-semibold text-xs sm:text-sm text-[#3A3A3A] leading-relaxed">
-          <span className="font-bold">Fully Air-Conditioned</span> <span className="text-[#6E856C] font-bold">|</span>{' '}
-          <span className="font-bold">Professional Lighting & Equipment</span> <span className="text-[#6E856C] font-bold">|</span>{' '}
-          <span className="font-bold">Props Collection Ready to Use</span> <span className="text-[#6E856C] font-bold">|</span>{' '}
-          <span className="font-bold">Standby Studio Assistant</span>
-        </p>
-        <div className="h-0.5 bg-[#6E856C] w-28 mx-auto mt-2" />
       </div>
     </div>
   );
