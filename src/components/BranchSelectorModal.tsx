@@ -195,22 +195,6 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#5A5A5A] max-w-2xl mx-auto leading-relaxed">
           Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu Godox Studio Pro, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
         </p>
-
-        {/* Highlight Fasilitas Mewah */}
-        <div className="pt-2 flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-[10.5px] sm:text-xs font-sans font-medium text-stone-700">
-          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
-            <span className="text-[#A9BCA7] font-bold">✦</span> Full AC & Ruang Ganti Privat
-          </span>
-          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
-            <span className="text-[#A9BCA7] font-bold">✦</span> Live-View Monitor Realtime
-          </span>
-          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
-            <span className="text-[#A9BCA7] font-bold">✦</span> Lighting Godox Studio Pro
-          </span>
-          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
-            <span className="text-[#A9BCA7] font-bold">✦</span> Toga Wisuda & Properti Siap Pakai
-          </span>
-        </div>
       </div>
     </div>
   );
