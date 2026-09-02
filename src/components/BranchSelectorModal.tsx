@@ -864,7 +864,7 @@ export const PromoSpecialSection: React.FC<{
   };
 
   return (
-    <div className="space-y-3.5 text-left select-none">
+    <div className="space-y-3.5 text-left">
       {/* Header Section Promo */}
       <div className="flex items-center justify-between gap-2">
         <div className="space-y-1">
@@ -906,12 +906,13 @@ export const PromoSpecialSection: React.FC<{
         </div>
       </div>
 
-      {/* Horizontal Carousel (Geser ke Samping pada HP & Layar Lainnya) */}
+      {/* Horizontal Carousel (Bisa digeser ke samping, dan TIDAK MENGUNCI scroll halaman ke bawah/atas) */}
       <div className="relative -mx-3.5 sm:-mx-6 md:mx-0 px-3.5 sm:px-6 md:px-0">
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 sm:gap-5 pb-3 scroll-smooth no-scrollbar touch-pan-x"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 sm:gap-5 pb-3 scroll-smooth no-scrollbar overscroll-x-contain"
+          style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x pan-y' }}
         >
           {STUDIO_PROMOS.map((promo) => (
             <div
