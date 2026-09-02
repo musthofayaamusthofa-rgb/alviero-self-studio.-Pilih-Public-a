@@ -24,13 +24,18 @@ import {
   Calendar,
   MessageCircle,
   Instagram,
-  RefreshCw
+  RefreshCw,
+  Tag,
+  Copy,
+  Gift,
+  CheckCircle2
 } from 'lucide-react';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
   onSelectBranch: (branch: StudioBranch) => void;
   onSelectCategory?: (category: string, branch?: StudioBranch) => void;
+  onOpenBooking?: (promoCode?: string, packageId?: string) => void;
   onClose?: () => void;
   canDismiss?: boolean;
 }
@@ -717,14 +722,413 @@ export const StudioTourAndEducationShowcase: React.FC<{
 };
 
 /**
+ * Struktur Data Promo & Kupon Alviero Studio
+ */
+export interface StudioPromo {
+  id: string;
+  code: string;
+  badge: string;
+  category: string;
+  title: string;
+  shortDesc: string;
+  fullDesc: string;
+  discountHighlight: string;
+  period: string;
+  imageUrl: string;
+  terms: string[];
+  howToUse: string[];
+  preselectedPackageId?: string;
+}
+
+export const STUDIO_PROMOS: StudioPromo[] = [
+  {
+    id: 'promo-wisuda',
+    code: 'STUDENT10',
+    badge: 'DISKON 10%',
+    category: 'WISUDA & MAHASISWA',
+    title: 'Promo Spesial Wisuda: Diskon 10% All Package',
+    shortDesc: 'Rayakan kelulusan bersama teman & keluarga dengan potongan 10% untuk semua paket wisuda.',
+    fullDesc: 'Dapatkan diskon istimewa 10% untuk seluruh paket Foto Wisuda Indoor (Studio) dan Wisuda Outdoor di Alviero Studio. Fasilitas lengkap mencakup ruang ganti privat, peminjaman toga wisuda, serta seluruh soft file resolusi tinggi via Google Drive.',
+    discountHighlight: 'Potongan 10% Total Transaksi',
+    period: 'Berlaku Setiap Hari • Kuota Terbatas',
+    imageUrl: '/images/categories/graduation.jpg',
+    terms: [
+      'Berlaku untuk paket Graduation Indoor dan Outdoor di Studio 1 maupun Studio 2.',
+      'Wajib menunjukkan Kartu Tanda Mahasiswa (KTM) aktif saat registrasi atau konfirmasi WhatsApp.',
+      'Berlaku untuk pemesanan jadwal secara online via website Alviero Studio.',
+      'Kuota voucher promo terbatas setiap harinya.',
+      'Tidak dapat diuangkan atau digabungkan dengan diskon promosi sejenis lainnya.'
+    ],
+    howToUse: [
+      'Salin kode kupon STUDENT10 di kotak voucher.',
+      'Tekan tombol "Gunakan Promo & Booking" di bawah.',
+      'Kode akan langsung memotong total biaya saat simulasi pembayaran.'
+    ],
+    preselectedPackageId: 'grad-indoor-1'
+  },
+  {
+    id: 'promo-couple',
+    code: 'COUPLE15',
+    badge: 'HEMAT 15%',
+    category: 'COUPLE & PREWEDDING',
+    title: 'Sweet Romance: Hemat 15% Sesi Foto Pasangan',
+    shortDesc: 'Abadikan momen romantis dan prewedding bersama orang tersayang dengan potongan 15%.',
+    fullDesc: 'Momen berharga bersama pasangan semakin berkesan dengan penawaran spesial hemat 15% untuk Paket Foto Couple Studio dan Paket Prewedding. Termasuk cetak foto premium berbingkai dan arahan pose natural dari fotografer berpengalaman.',
+    discountHighlight: 'Potongan 15% Paket Couple & Prewed',
+    period: 'Berlaku s.d. Akhir Bulan',
+    imageUrl: '/images/categories/couple.jpg',
+    terms: [
+      'Berlaku untuk Paket Foto Couple dan Paket Prewedding Studio.',
+      'Berlaku untuk sesi foto di Studio 1 (Karangploso) & Studio 2 (Dinoyo Gajayana).',
+      'Wajib melakukan reservasi jadwal sesi terlebih dahulu via website.',
+      'Sudah termasuk cetak foto berbingkai estetis dan all soft files Google Drive.'
+    ],
+    howToUse: [
+      'Salin kode kupon COUPLE15.',
+      'Tekan tombol "Gunakan Promo & Booking" di bawah.',
+      'Potongan diskon 15% otomatis teraplikasikan pada tagihan reservasi.'
+    ],
+    preselectedPackageId: 'couple-1'
+  },
+  {
+    id: 'promo-welcome',
+    code: 'ALVIERO',
+    badge: 'POTONGAN 10K',
+    category: 'SEMUA LAYANAN & SELFSTUDIO',
+    title: 'Welcome Voucher: Potongan Langsung Rp 10.000',
+    shortDesc: 'Klaim voucher potongan langsung Rp 10.000 untuk semua pemesanan online di website.',
+    fullDesc: 'Sebagai apresiasi untuk Anda yang melakukan reservasi online melalui website resmi Alviero Studio, nikmati potongan langsung Rp 10.000 tanpa minimal transaksi tinggi. Berlaku untuk SelfStudio, Foto Grup, Personal, hingga Sewa Studio.',
+    discountHighlight: 'Potongan Langsung Rp 10.000',
+    period: 'Eksklusif Pemesanan Website',
+    imageUrl: '/images/categories/selfphoto.jpg',
+    terms: [
+      'Berlaku untuk semua paket foto (SelfStudio, Studio Foto, Sewa Studio).',
+      'Khusus reservasi jadwal mandiri melalui website resmi Alviero Studio.',
+      'Dapat digunakan 1 kali per nomor WhatsApp pelanggan.',
+      'Langsung memotong nominal pembayaran DP atau pelunasan.'
+    ],
+    howToUse: [
+      'Salin kode kupon ALVIERO.',
+      'Pilih paket foto yang Anda inginkan pada form booking.',
+      'Voucher otomatis memotong Rp 10.000 dari total tagihan.'
+    ],
+    preselectedPackageId: 'selfstudio-special'
+  }
+];
+
+/**
+ * Komponen Bagian Promo Spesial Alviero Studio
+ */
+export const PromoSpecialSection: React.FC<{
+  onSelectPromo: (promo: StudioPromo) => void;
+}> = ({ onSelectPromo }) => {
+  return (
+    <div className="space-y-4 text-left">
+      {/* Header Section Promo */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div className="space-y-1">
+          <div className="flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider">
+              <Gift className="w-3 h-3 text-[#6E856C]" />
+              PROMO & VOUCHER KHUSUS
+            </span>
+            <span className="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+              Terbatas
+            </span>
+          </div>
+          <h3 className="font-serif font-black text-xl sm:text-2xl text-[#3A3A3A] uppercase tracking-wide">
+            Promo Spesial Alviero Studio
+          </h3>
+          <p className="text-xs sm:text-sm text-stone-600 font-sans">
+            Ketuk banner promo atau tombol rincian untuk melihat kupon voucher & syarat ketentuan:
+          </p>
+        </div>
+      </div>
+
+      {/* Grid 3 Kartu Promo (Responsif: 1 Kolom HP, 3 Kolom Desktop) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        {STUDIO_PROMOS.map((promo) => (
+          <div
+            key={promo.id}
+            onClick={() => onSelectPromo(promo)}
+            className="group rounded-2xl sm:rounded-3xl bg-white border border-[#E8DDD6] hover:border-[#A9BCA7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer active:scale-98"
+          >
+            {/* Banner Foto Promo */}
+            <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-stone-100">
+              <img
+                src={promo.imageUrl}
+                alt={promo.title}
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+              {/* Floating Badge Diskon di Gambar */}
+              <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                <span className="inline-flex items-center gap-1 bg-[#2A2A2A]/90 backdrop-blur-xs text-[#A9BCA7] border border-[#A9BCA7]/40 px-2.5 py-1 rounded-full text-[10px] font-mono font-black tracking-wider uppercase shadow-md">
+                  <Tag className="w-3 h-3 text-[#A9BCA7]" />
+                  {promo.badge}
+                </span>
+              </div>
+
+              {/* Floating Periode Pill */}
+              <div className="absolute top-3 right-3">
+                <span className="bg-white/90 backdrop-blur-xs text-stone-700 px-2 py-0.5 rounded-full text-[9px] font-sans font-bold shadow-xs">
+                  {promo.period}
+                </span>
+              </div>
+
+              {/* Highlight Potongan Bawah Gambar */}
+              <div className="absolute bottom-2.5 left-3 right-3">
+                <span className="text-white text-xs font-serif font-bold drop-shadow-sm flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                  {promo.discountHighlight}
+                </span>
+              </div>
+            </div>
+
+            {/* Konten Rincian Kartu */}
+            <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">
+                  {promo.category}
+                </span>
+                <h4 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] group-hover:text-[#6E856C] transition-colors leading-snug">
+                  {promo.title}
+                </h4>
+                <p className="text-xs font-sans text-stone-600 line-clamp-2 leading-relaxed">
+                  {promo.shortDesc}
+                </p>
+              </div>
+
+              {/* Action Bar Bawah: Kupon Tag & Tombol Detail */}
+              <div className="pt-3 border-t border-[#E8DDD6] flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1 bg-[#F2E9E4] text-[#3A3A3A] border border-dashed border-[#A9BCA7] px-2 py-0.5 rounded-lg text-[9.5px] font-mono font-bold">
+                  <span>KODE:</span>
+                  <span className="text-[#6E856C] font-black tracking-wider">{promo.code}</span>
+                </div>
+
+                <div className="text-xs font-serif font-bold text-[#6E856C] group-hover:text-[#3A3A3A] flex items-center gap-1 transition-transform group-hover:translate-x-0.5 shrink-0">
+                  <span>Lihat Detail</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Komponen Modal Pop-up Detail Promo (Gaya Aplikasi PLN Mobile)
+ */
+export const PromoDetailModal: React.FC<{
+  promo: StudioPromo | null;
+  onClose: () => void;
+  onApplyPromo?: (promoCode: string, packageId?: string) => void;
+  selectedBranch?: StudioBranch;
+}> = ({ promo, onClose, onApplyPromo, selectedBranch = 'cabang-1' }) => {
+  const [copiedCode, setCopiedCode] = useState<boolean>(false);
+
+  if (!promo) return null;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(promo.code);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
+  const whatsappPhone = selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164';
+  const whatsappUrl = `https://wa.me/${whatsappPhone}?text=Halo%20Admin%20Alviero%20Studio,%20saya%20tertarik%20dengan%20promo:%20${encodeURIComponent(promo.title)}%20(Kode%20Promo:%20${promo.code}).%20Bagaimana%20cara%20klaimnya?`;
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
+      <div className="bg-[#FDFBF7] max-w-lg w-full rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col my-auto relative max-h-[92vh] text-left animate-in zoom-in-95 duration-200">
+        
+        {/* Minimalist Top Modal Header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8DDD6] bg-white sticky top-0 z-20">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#EBF2EA] text-[#6E856C] flex items-center justify-center border border-[#A9BCA7]">
+              <Gift className="w-4 h-4 text-[#6E856C]" />
+            </div>
+            <div>
+              <h3 className="font-serif font-black text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide">
+                Detail Promo & Kupon
+              </h3>
+              <span className="text-[10px] font-mono text-stone-500 block">
+                Alviero Studio • Penawaran Terbatas
+              </span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 flex items-center justify-center transition-colors cursor-pointer"
+            aria-label="Tutup Detail Promo"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Scrollable Content Body (Gaya Aplikasi PLN Mobile) */}
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+          {/* Banner Promo */}
+          <div className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden border border-[#E8DDD6] shadow-2xs bg-stone-100">
+            <img
+              src={promo.imageUrl}
+              alt={promo.title}
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+              <span className="bg-[#2A2A2A]/90 backdrop-blur-xs text-[#A9BCA7] border border-[#A9BCA7]/40 px-3 py-1 rounded-full text-[10.5px] font-mono font-black uppercase tracking-wider">
+                {promo.badge}
+              </span>
+              <span className="text-white text-xs font-serif font-bold drop-shadow">
+                {promo.period}
+              </span>
+            </div>
+          </div>
+
+          {/* Judul & Kategori */}
+          <div className="space-y-1">
+            <span className="text-[9.5px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">
+              {promo.category}
+            </span>
+            <h4 className="font-serif font-black text-lg sm:text-xl text-[#3A3A3A] leading-snug">
+              {promo.title}
+            </h4>
+            <div className="flex items-center gap-1.5 text-xs text-stone-600 font-sans pt-1">
+              <Clock className="w-3.5 h-3.5 text-[#6E856C]" />
+              <span>{promo.period}</span>
+            </div>
+          </div>
+
+          {/* Kotak Voucher Promo (Style Aplikasi PLN / E-Commerce) */}
+          <div className="bg-[#F2E9E4]/80 border-2 border-dashed border-[#A9BCA7] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs">
+            <div className="min-w-0">
+              <span className="text-[9.5px] font-mono font-bold uppercase tracking-widest text-stone-500 block">
+                KODE VOUCHER PROMO:
+              </span>
+              <span className="text-base sm:text-lg font-mono font-black text-[#2A2A2A] tracking-wider block">
+                {promo.code}
+              </span>
+              <span className="text-[10px] text-stone-600 block mt-0.5">
+                {promo.discountHighlight}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleCopy}
+              className={`px-3.5 py-2 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs ${
+                copiedCode
+                  ? 'bg-[#6E856C] text-white border border-[#6E856C]'
+                  : 'bg-white hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6]'
+              }`}
+            >
+              {copiedCode ? (
+                <>
+                  <Check className="w-3.5 h-3.5" />
+                  <span>Tersalin!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  <span>Salin Kode</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Deskripsi Promo */}
+          <div className="space-y-1.5">
+            <h5 className="font-serif font-bold text-xs uppercase tracking-wider text-[#3A3A3A]">
+              Tentang Penawaran Ini:
+            </h5>
+            <p className="text-xs sm:text-sm font-sans text-stone-700 leading-relaxed">
+              {promo.fullDesc}
+            </p>
+          </div>
+
+          {/* Syarat & Ketentuan (S&K) */}
+          <div className="bg-white p-4 rounded-2xl border border-[#E8DDD6] space-y-2.5 shadow-2xs">
+            <div className="flex items-center gap-2 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A]">
+              <ShieldCheck className="w-4 h-4 text-[#6E856C]" />
+              <span>Syarat & Ketentuan:</span>
+            </div>
+            <ul className="space-y-1.5">
+              {promo.terms.map((term, i) => (
+                <li key={i} className="flex items-start gap-2 text-xs font-sans text-stone-600 leading-relaxed">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#6E856C] shrink-0 mt-0.5" />
+                  <span>{term}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Cara Penggunaan Kupon */}
+          <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8DDD6] space-y-2 text-left">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C] block">
+              CARA KLAIM PROMO:
+            </span>
+            <ol className="space-y-1.5 text-xs text-stone-700 font-sans">
+              {promo.howToUse.map((step, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="w-4 h-4 rounded-full bg-[#EBF2EA] text-[#6E856C] font-mono font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                    {i + 1}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+
+        {/* Sticky Action Footer */}
+        <div className="p-4 sm:p-5 bg-white border-t border-[#E8DDD6] flex flex-col sm:flex-row gap-2.5 sticky bottom-0 z-20 shadow-md">
+          <button
+            type="button"
+            onClick={() => {
+              if (onApplyPromo) {
+                onApplyPromo(promo.code, promo.preselectedPackageId);
+              }
+            }}
+            className="flex-1 min-h-[44px] rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md active:scale-98"
+          >
+            <Sparkles className="w-4 h-4 text-[#A9BCA7]" />
+            <span>Pakai Promo & Booking Sekarang</span>
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="sm:w-auto min-h-[44px] px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-serif font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md active:scale-98"
+          >
+            <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
+            <span>Chat WhatsApp</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+/**
  * Komponen Tampilan Utama Pilih Cabang & Layanan Khusus (Tegas, Rapi, Full Desktop & Terstruktur)
  */
 export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   selectedBranch,
   onSelectBranch,
   onSelectCategory,
+  onOpenBooking
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedPromoModal, setSelectedPromoModal] = useState<StudioPromo | null>(null);
   const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
   // Dynamic WIB Studio Open Status (08:00 - 21:00 WIB)
@@ -900,6 +1304,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               selectedBranch={selectedBranch}
               onSelectBranch={onSelectBranch}
               onSelectCategory={onSelectCategory}
+            />
+          </div>
+
+          {/* 3.5. Promo Spesial & Voucher Diskon (Gaya Aplikasi PLN Mobile) */}
+          <div className="pt-4 border-t border-[#E8DDD6]">
+            <PromoSpecialSection
+              onSelectPromo={(promo) => setSelectedPromoModal(promo)}
             />
           </div>
 
@@ -1405,6 +1816,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         }}
         onClose={() => setIsModalOpen(false)}
         canDismiss={true}
+      />
+
+      {/* Pop-up Detail Promo (Gaya Aplikasi PLN Mobile) */}
+      <PromoDetailModal
+        promo={selectedPromoModal}
+        onClose={() => setSelectedPromoModal(null)}
+        onApplyPromo={(promoCode, packageId) => {
+          setSelectedPromoModal(null);
+          if (onOpenBooking) {
+            onOpenBooking(promoCode, packageId);
+          } else {
+            onSelectBranch(selectedBranch);
+          }
+        }}
+        selectedBranch={selectedBranch}
       />
     </div>
   );

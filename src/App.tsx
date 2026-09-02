@@ -17,6 +17,7 @@ export default function App() {
   const [preselectedPackageId, setPreselectedPackageId] = useState<string | undefined>();
   const [preselectedBackdropId, setPreselectedBackdropId] = useState<string | undefined>();
   const [preselectedFrameId, setPreselectedFrameId] = useState<string | undefined>();
+  const [initialPromoCode, setInitialPromoCode] = useState<string | undefined>();
 
   // Controls whether user is on the Branch Landing Page (Gambar 1) or has entered a branch's catalog (Gambar 2)
   const [hasEnteredBranch, setHasEnteredBranch] = useState<boolean>(false);
@@ -75,6 +76,16 @@ export default function App() {
     setIsBookingOpen(true);
   };
 
+  const handleOpenBookingWithPromo = (promoCode?: string, packageId?: string) => {
+    if (packageId) {
+      setPreselectedPackageId(packageId);
+    }
+    if (promoCode) {
+      setInitialPromoCode(promoCode);
+    }
+    setIsBookingOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#EFE8DD] text-[#2D2A26] font-sans flex flex-col selection:bg-[#8DA4B8] selection:text-white pb-16 md:pb-0">
       {/* Top Header */}
@@ -96,6 +107,7 @@ export default function App() {
               selectedBranch={selectedBranch}
               onSelectBranch={handleSelectBranch}
               onSelectCategory={handleSelectCategoryFromLanding}
+              onOpenBooking={handleOpenBookingWithPromo}
             />
           ) : (
             /* Gambar 2: Menu Pricelist & Bio-Link Cabang Terpilih */
@@ -138,13 +150,17 @@ export default function App() {
       {/* Booking Modal */}
       <BookingCalculator
         isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
+        onClose={() => {
+          setIsBookingOpen(false);
+          setInitialPromoCode(undefined);
+        }}
         selectedBranch={selectedBranch}
         onSelectBranch={handleSelectBranch}
         onOpenBranchModal={() => setIsBranchModalOpen(true)}
         preselectedPackageId={preselectedPackageId}
         preselectedBackdropId={preselectedBackdropId}
         preselectedFrameId={preselectedFrameId}
+        initialPromoCode={initialPromoCode}
       />
 
       {/* Branch Selector Modal (Popup inside Booking Calculator or Header) */}

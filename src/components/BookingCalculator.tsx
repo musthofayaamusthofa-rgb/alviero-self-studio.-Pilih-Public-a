@@ -42,6 +42,7 @@ interface BookingCalculatorProps {
   preselectedPackageId?: string;
   preselectedBackdropId?: string;
   preselectedFrameId?: string;
+  initialPromoCode?: string;
 }
 
 export const WhatsAppIcon: React.FC<{ className?: string; size?: number; fill?: string }> = ({
@@ -783,7 +784,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   onSelectBranch,
   preselectedPackageId,
   preselectedBackdropId,
-  preselectedFrameId
+  preselectedFrameId,
+  initialPromoCode
 }) => {
   const [step, setStep] = useState<number>(1);
   const modalBodyRef = useRef<HTMLDivElement>(null);
@@ -829,6 +831,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [promoCodeInput, setPromoCodeInput] = useState<string>('');
   const [promoError, setPromoError] = useState<string>('');
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discountPercent?: number; discountAmount?: number } | null>(null);
+
+  // Sync initialPromoCode if provided
+  useEffect(() => {
+    if (initialPromoCode && isOpen) {
+      const code = initialPromoCode.trim().toUpperCase();
+      setPromoCodeInput(code);
+      if (code === 'STUDENT10') {
+        setAppliedPromo({ code: 'STUDENT10', discountPercent: 10 });
+      } else if (code === 'COUPLE15') {
+        setAppliedPromo({ code: 'COUPLE15', discountPercent: 15 });
+      } else if (code === 'ALVIERO') {
+        setAppliedPromo({ code: 'ALVIERO', discountAmount: 10000 });
+      }
+    }
+  }, [initialPromoCode, isOpen]);
+
   const [paymentOption, setPaymentOption] = useState<'dp' | 'full'>('dp');
   const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
 
