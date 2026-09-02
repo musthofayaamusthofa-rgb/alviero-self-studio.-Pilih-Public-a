@@ -645,9 +645,6 @@ export const StudioTourAndEducationShowcase: React.FC<{
         <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#3A3A3A] tracking-tight">
           Koleksi Background & Suasana Studio
         </h3>
-        <p className="text-xs sm:text-sm font-sans text-stone-500 max-w-lg mx-auto leading-relaxed">
-          Pilihan sudut tematik estetis, dekorasi mewah, dan tata cahaya studio profesional di Alviero Studio.
-        </p>
       </div>
 
       {/* Main Cinematic Visual Stage */}
