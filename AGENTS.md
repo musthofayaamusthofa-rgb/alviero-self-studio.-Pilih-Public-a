@@ -42,24 +42,21 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 | **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **085168879214** (`6285168879214`) | **1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream (Maks. 5 Orang)** |
 
 > ⚠️ **Sistem Logika Pemesanan & Validasi Background (Booking Validation Rules):**
-> - **A. Aturan Studio 2 (Kapasitas & Eksklusivitas Pasangan Background):**
->   1. **Kapasitas**: Dalam 1 slot jam, Studio 2 dapat menerima **maksimal 3 klien sekaligus** (mendukung campuran klien Paket 2 & Paket 1).
->   2. **Daftar Pasangan Khusus**:
->      - **Pasangan 1**: (Putih & Abu-abu)
->      - **Pasangan 2**: (Cream & Coklat)
->      - **Mandiri**: Hitam (dapat dipilih hingga kapasitas slot).
->   3. **Aturan 1 (Boleh digabung oleh 1 klien)**:
->      - Klien Paket 2 yang memilih **Putih DAN Abu-abu** sekaligus dalam 1 reservasi dinyatakan **SAH/VALID**.
->      - Klien Paket 2 yang memilih **Cream DAN Coklat** sekaligus dalam 1 reservasi dinyatakan **SAH/VALID**.
->   4. **Aturan 2 (Dilarang dipecah ke klien berbeda / Pair Exclusivity)**:
->      - Jika Klien 1 memilih *Putih* (tanpa Abu-abu) ➔ *Abu-abu* otomatis **TIDAK TERSEDIA** untuk klien berikutnya (Klien 2 & 3).
->      - Jika Klien 1 memilih *Abu-abu* (tanpa Putih) ➔ *Putih* otomatis **TIDAK TERSEDIA** untuk klien berikutnya.
->      - Jika Klien 1 memilih *Cream* (tanpa Coklat) ➔ *Coklat* otomatis **TIDAK TERSEDIA** untuk klien berikutnya.
->      - Jika Klien 1 memilih *Coklat* (tanpa Cream) ➔ *Cream* otomatis **TIDAK TERSEDIA** untuk klien berikutnya.
->   5. **Alur Contoh Validasi**:
->      - Klien 1 (Paket 2) masuk ➔ pilih *Putih & Abu-abu* (SAH. Putih & Abu-abu habis).
->      - Klien 2 (Paket 2) masuk ➔ pilih *Cream & Hitam* (SAH. Karena Cream dipecah, Coklat otomatis terkunci).
->      - Klien 3 (Paket 1) masuk ➔ Pilihan yang tersisa hanya *Hitam* (karena Putih, Abu, Cream, Coklat sudah habis/terkunci).
+> - **A. Aturan Studio 2 (Kapasitas, Kuota Background & Bentrok Posisi):**
+>   1. **Kapasitas**: Dalam 1 slot jam, Studio 2 dapat menerima **maksimal 3 klien sekaligus**.
+>   2. **Kuota per Background (Single-Use per Slot)**: Setiap background (*Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream*) hanya bisa dipilih **maksimal 1 kali** dalam 1 slot jam yang sama (1 background tidak bisa dipakai bersamaan oleh 2 klien berbeda).
+>   3. **Aturan Khusus Bentrok Posisi (*Mutual Exclusion* Panggung Fisik)**:
+>      - **Panggung Fisik Bersama (Coklat Jendela ⇄ Tematik Cream)**:
+>        - Jika *Coklat* dipilih oleh klien mana pun di jam tersebut ➔ *Cream* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut (dan sebaliknya).
+>        - Klien paket 2 background tidak dapat menggabungkan Coklat dan Cream dalam 1 sesi reservasi.
+>      - **Panggung Mandiri (Putih, Abu-abu, Hitam)**:
+>        - Background *Putih*, *Abu-abu*, dan *Hitam* masing-masing memiliki kuota 1x per slot jam.
+>        - **Kombinasi 1 Klien**: 1 klien **DIPERBOLEHKAN** memilih kombinasi *Putih* dan *Abu-abu* sekaligus dalam formulir paket 2 background.
+>        - Setelah klien memesan *Putih* dan *Abu-abu*, kuota kedua background tersebut terpakai sehingga klien lain di jam tersebut tidak dapat memilih keduanya.
+>   4. **Skenario Validasi Studio 2**:
+>      - Klien 1 pilih *Putih & Abu-abu* ➔ *Putih* & *Abu-abu* terkunci. Tersedia untuk Klien 2: *Hitam, Coklat, Cream*.
+>      - Klien 2 pilih *Coklat* ➔ *Coklat* terkunci & *Cream* otomatis ikut terkunci.
+>      - Klien 3 masuk ➔ Pilihan yang tersedia HANYA: ***Hitam***.
 > - **B. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi oleh 1 klien.
 
 > ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
