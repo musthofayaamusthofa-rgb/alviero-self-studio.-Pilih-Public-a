@@ -496,16 +496,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' }
   ];
 
-  const selfPhotoGridItems = [
-    { id: 'selfstudio', name: 'SelfStudio', icon: '✨', img: '/images/categories/selfphoto.jpg', colorBg: 'bg-[#eef8f5]', colorBorder: 'border-[#c2ece0]', colorText: 'text-[#186b57]' }
-  ];
-
-  const additionalGridItems = [
-    { id: 'kebayak-gaun', name: 'Kebaya & Gaun', icon: '👗', colorBg: 'bg-[#fdf1f6]', colorBorder: 'border-[#f5ccdc]', colorText: 'text-[#7d3254]' },
-    { id: 'wedding-package', name: 'Wedding', icon: '💍', img: '/images/categories/wedding.jpg', colorBg: 'bg-[#faf1f5]', colorBorder: 'border-[#ebd0df]', colorText: 'text-[#743358]' },
-    { id: 'bingkai-album', name: 'Cetak Lab', icon: '🖼️', colorBg: 'bg-[#f0f5fa]', colorBorder: 'border-[#cbe0f2]', colorText: 'text-[#264f77]' }
-  ];
-
   // Social Media Links (From Figma Footer)
   const socialLinks = [
     { label: '@alvierostudiofoto', icon: 'tiktok', url: 'https://tiktok.com/@alvierostudiofoto' },
@@ -933,108 +923,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     return (
                       <button
                         key={item.id + item.name}
-                        onClick={() => {
-                          setActiveMenuCategory(item.id);
-                          setIsMobilePopupOpen(true);
-                        }}
-                        className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
-                      >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
-                          isSelected
-                            ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
-                        }`}>
-                          {item.img ? (
-                            <img
-                              src={item.img}
-                              alt={item.name}
-                              className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
-                          )}
-                        </div>
-                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
-                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
-                        }`}>
-                          {item.name}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 2. Self Photo Package Grid (4 Columns, matching Image 2) */}
-              <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
-                    Self Photo Package
-                  </h3>
-                  <span className="text-[10px] font-sans bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-200">
-                    Best Seller
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
-                  {selfPhotoGridItems.map((item) => {
-                    const isSelected = activeMenuCategory === item.id;
-
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => {
-                          setActiveMenuCategory(item.id);
-                          setIsMobilePopupOpen(true);
-                        }}
-                        className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
-                      >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
-                          isSelected
-                            ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
-                        }`}>
-                          {item.img ? (
-                            <img
-                              src={item.img}
-                              alt={item.name}
-                              className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
-                          )}
-                        </div>
-                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
-                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
-                        }`}>
-                          {item.name}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* 3. Layanan Tambahan (Kebaya & Gaun, Wedding, Cetak Lab) */}
-              <div className="w-full text-left space-y-2.5 pt-3 border-t border-stone-200/70">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
-                    Layanan Tambahan
-                  </h3>
-                  <span className="text-[10px] font-sans bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
-                    {additionalGridItems.length} Layanan
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
-                  {additionalGridItems.map((item) => {
-                    const isSelected = activeMenuCategory === item.id;
-
-                    return (
-                      <button
-                        key={item.id}
                         onClick={() => {
                           setActiveMenuCategory(item.id);
                           setIsMobilePopupOpen(true);
