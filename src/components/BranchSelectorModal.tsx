@@ -20,7 +20,8 @@ import {
   Sliders, 
   Image as ImageIcon,
   Camera,
-  MessageCircle
+  MessageCircle,
+  RefreshCw
 } from 'lucide-react';
 
 interface BranchSelectorViewProps {
@@ -935,11 +936,40 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   SIAP BEREKSPRESI? SEGERA BOOKING DI SINI!
                 </h3>
 
-                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-300 font-sans">
-                  <MapPin className="w-4 h-4 text-[#A9BCA7] shrink-0" />
-                  <span>
-                    Studio Terpilih: <strong className="text-white font-serif tracking-wide uppercase">{selectedBranchData.name}</strong> ({selectedBranchData.badge})
-                  </span>
+                {/* Prominent High-Contrast Studio Terpilih Card */}
+                <div className="bg-[#1C1C1C] border-2 border-[#A9BCA7] p-3 sm:p-4 shadow-lg relative overflow-hidden my-1">
+                  <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-[#A9BCA7]" />
+                  <div className="flex items-center justify-between gap-3 pl-2 flex-wrap sm:flex-nowrap">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 bg-[#2A2A2A] border border-[#A9BCA7] text-[#A9BCA7] flex items-center justify-center shrink-0 shadow-inner">
+                        <MapPin className="w-5 h-5 text-[#A9BCA7] stroke-[2.2]" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[10px] sm:text-[11px] font-mono font-black uppercase tracking-widest text-[#A9BCA7] bg-[#2A2A2A] px-2 py-0.5 border border-[#A9BCA7]/40">
+                            STUDIO TERPILIH SAAT INI
+                          </span>
+                          <span className="text-[10px] font-mono font-bold text-white bg-black/60 px-2 py-0.5 border border-white/20">
+                            {selectedBranchData.badge}
+                          </span>
+                        </div>
+                        <div className="text-sm sm:text-base md:text-lg font-serif font-black text-white uppercase tracking-wider mt-1 truncate">
+                          {selectedBranchData.name}
+                        </div>
+                        <div className="text-[11px] sm:text-xs text-stone-300 font-sans truncate">
+                          📍 {selectedBranchData.address.split(',')[0]}, {selectedBranchData.address.split(',')[1] || ''}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(true)}
+                      className="px-3.5 py-2 bg-[#2A2A2A] hover:bg-[#3A3A3A] text-[#A9BCA7] hover:text-white border border-[#A9BCA7]/60 text-[11px] font-serif font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all shrink-0 shadow-xs active:scale-95"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      <span>Ganti Studio</span>
+                    </button>
+                  </div>
                 </div>
 
                 <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
@@ -963,7 +993,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   onClick={() => onSelectBranch(selectedBranch)}
                   className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#A9BCA7] hover:bg-[#98AC96] text-[#2A2A2A] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.18em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#A9BCA7]"
                 >
-                  <span>BOOKING SEKARANG</span>
+                  <span>BOOKING DI {selectedBranchData.badge.toUpperCase()}</span>
                   <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.5]" />
                 </button>
               </div>
