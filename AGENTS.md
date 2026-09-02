@@ -26,9 +26,9 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
    - **Ivory (Putih Gading)**: `#FDFBF7` (Latar belakang body utama, kontainer kartu putih bersih `#FFFFFF`).
    - **Charcoal (Abu-abu Gelap untuk Teks/Kontras)**: `#3A3A3A` (Tipografi utama, heading, tombol aktif kontras, container gelap: `#2A2A2A`).
    - **Shadows**: Soft ambient elevation (`shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]`).
-2. **Tipografi Mewah (*Luxury Typography*)**:
-   - Serif & Editorial Font: `Italiana`, `Bodoni Moda`, `Playfair Display`, `Cormorant Garamond`.
-   - Sans-serif Body: `Plus Jakarta Sans`, `Inter`.
+2. **Standar Tipografi Resmi (*Official Typography System*)**:
+   - **Heading (Judul Utama & Bagian)**: `Playfair Display` (Serif dengan kontras tebal-tipis yang sangat tegas & memberikan impresi mewah berkelas).
+   - **Body (Teks Paragraf & Form)**: `Inter` atau `Roboto` (Sans-serif yang bersih, modern, dan keterbacaan tinggi di layar digital untuk teks penjelasan, rincian biaya, syarat & ketentuan).
 3. **Standar Penamaan**:
    - **Wajib gunakan kata "Studio"** (bukan "Cabang"). Contoh: *Alviero Studio — Studio 1*, *Alviero Studio — Studio 2*.
    - **Logo Resmi**: Wajib menggunakan Logo Vektor Resmi (`/images/alviero-logo-official.png`), bukan ikon kotak kamera generic.
