@@ -173,7 +173,7 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             <MapPin className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'rules' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
-            Panduan & Lokasi
+            Lokasi
           </button>
         </nav>
 
