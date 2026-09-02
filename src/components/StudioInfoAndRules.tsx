@@ -39,9 +39,8 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       backdrops: ['Hijau Pastel', 'Cream', 'Limbo', 'Putih Tengah', 'Putih Jendela'],
       highlights: [
         'Area parkir kendaraan mobil & motor luas dan nyaman',
-        'Studio foto berpendingin udara (AC) & ruang rias terpisah',
+        'Studio foto berpendingin udara & ruang rias terpisah',
         'Pilihan 5 backdrop studio foto elegan & properti lengkap',
-        'Pet-friendly (menerima anjing/kucing kecil ber-pampers)',
         'Akses mudah di tepi jalan utama Karangploso arah Batu'
       ]
     },
@@ -61,19 +60,18 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
         'Terletak di Lantai 2 (suasana privat & eksklusif)',
         'Lokasi strategis pusat kota, dekat kampus UB, UIN, UM, Unisma',
         'Pilihan 5 background kekinian termasuk Tematik Cream & Coklat Jendela',
-        'Ruang make up & ganti baju nyaman ber-AC',
-        'Pet-friendly (menerima anjing/kucing kecil ber-pampers)'
+        'Ruang make up & ganti baju'
       ]
     }
   ];
 
   return (
     <section className="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 sm:space-y-12 text-left animate-in fade-in duration-300">
-      
+
       {/* 1. Header Lokasi Studio */}
       <div className="bg-white rounded-3xl sm:rounded-[32px] p-6 sm:p-10 border border-[#E8DDD6] shadow-sm relative overflow-hidden text-center space-y-3">
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#A9BCA7] via-[#6E856C] to-[#3A3A3A]" />
-        
+
         <div className="inline-flex items-center gap-1.5 bg-[#FDFBF7] text-[#6E856C] text-[11px] font-mono font-bold tracking-widest uppercase px-3.5 py-1 rounded-full border border-[#E8DDD6]">
           <MapPin className="w-3.5 h-3.5 text-[#6E856C]" />
           <span>Informasi Alamat & Petunjuk Arah</span>
@@ -82,7 +80,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
         <h1 className="text-2xl sm:text-4xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase">
           Lokasi Alviero Studio Foto
         </h1>
-        
+
         <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-2xl mx-auto leading-relaxed">
           Alviero Studio hadir di dua lokasi strategis di Malang: <strong>Studio 1 Karangploso</strong> dan <strong>Studio 2 Dinoyo Gajayana</strong>. Seluruh studio buka setiap hari pukul <strong>08:00 - 21:00 WIB</strong>.
         </p>
@@ -97,17 +95,16 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
           return (
             <div
               key={studio.id}
-              className={`bg-white rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-sm relative group ${
-                isSelected
-                  ? 'border-[#6E856C] ring-2 ring-[#A9BCA7]/40 shadow-md'
-                  : 'border-[#E8DDD6] hover:border-[#6E856C]'
-              }`}
+              className={`bg-white rounded-3xl border transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-sm relative group ${isSelected
+                ? 'border-[#6E856C] ring-2 ring-[#A9BCA7]/40 shadow-md'
+                : 'border-[#E8DDD6] hover:border-[#6E856C]'
+                }`}
             >
               {/* Top Accent Bar */}
               <div className={`h-2 w-full ${isSelected ? 'bg-[#6E856C]' : 'bg-[#3A3A3A]'}`} />
 
               <div className="p-6 sm:p-8 space-y-5 flex-1">
-                
+
                 {/* Header Card */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
