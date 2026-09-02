@@ -874,59 +874,57 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak */}
           <div className="pt-4 pb-1 border-t border-[#E8DDD6] space-y-4">
             
-            {/* BIG EYE-CATCHING GRAND CALLOUT BOX */}
-            <div className="w-full bg-[#2A2A2A] text-white p-5 sm:p-7 md:p-8 border border-[#3A3A3A] shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-6 text-left">
+            {/* BIG EYE-CATCHING GRAND CALLOUT BOX (Responsif & Rapi di Mobile & Desktop) */}
+            <div className="w-full bg-[#2A2A2A] text-white p-4 sm:p-6 md:p-8 border border-[#3A3A3A] shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-5 sm:gap-6 text-left">
               {/* Subtle background ambient glow */}
               <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#A9BCA7]/15 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#6E856C]/20 rounded-full blur-3xl pointer-events-none" />
 
               {/* Left Content Column */}
-              <div className="space-y-2.5 max-w-2xl relative z-10">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 bg-[#3A3A3A] text-[#A9BCA7] border border-[#A9BCA7]/40 px-3 py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest">
-                    <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7] animate-pulse" />
-                    RESERVASI JADWAL ONLINE INSTAN
+              <div className="space-y-3 max-w-2xl relative z-10 flex-1">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 bg-[#3A3A3A] text-[#A9BCA7] border border-[#A9BCA7]/40 px-2.5 sm:px-3 py-1 text-[9.5px] sm:text-[10.5px] font-mono font-bold uppercase tracking-widest">
+                    <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#A9BCA7] shrink-0" />
+                    RESERVASI JADWAL ONLINE
                   </span>
                   {isOpen ? (
-                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#A9BCA7] bg-[#1E2E1D]/80 px-2.5 py-1 border border-[#A9BCA7]/40 flex items-center gap-1.5 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-pulse"></span>
-                      Studio Buka • 08:00 - 21:00 WIB
+                    <span className="text-[9.5px] sm:text-[10.5px] font-sans font-bold uppercase tracking-wider text-[#A9BCA7] bg-[#1E2E1D]/80 px-2.5 py-1 border border-[#A9BCA7]/40 flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-pulse shrink-0"></span>
+                      Buka 08:00 - 21:00 WIB
                     </span>
                   ) : (
-                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-rose-300 bg-rose-950/80 px-2.5 py-1 border border-rose-500/30 flex items-center gap-1.5 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
-                      Studio Tutup • Buka Jam 08:00 WIB
+                    <span className="text-[9.5px] sm:text-[10.5px] font-sans font-bold uppercase tracking-wider text-rose-300 bg-rose-950/80 px-2.5 py-1 border border-rose-500/30 flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse shrink-0"></span>
+                      Tutup • Buka 08:00 WIB
                     </span>
                   )}
                 </div>
 
-                <h3 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-white uppercase tracking-wide leading-tight">
-                  SIAP BEREKSPRESI? JELAJAHI PRICELIST & BOOKING!
+                <h3 className="font-serif font-black text-lg sm:text-2xl md:text-3xl text-white uppercase tracking-wide leading-snug">
+                  Siap Berekspresi? Jelajahi Pricelist & Booking!
                 </h3>
 
                 {/* Prominent High-Contrast Studio Terpilih Card */}
-                <div className="bg-[#1C1C1C] border-2 border-[#A9BCA7] p-3 sm:p-4 shadow-lg relative overflow-hidden my-1">
-                  <div className="absolute top-0 left-0 bottom-0 w-1.5 bg-[#A9BCA7]" />
-                  <div className="flex items-center justify-between gap-3 pl-2 flex-wrap sm:flex-nowrap">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 bg-[#2A2A2A] border border-[#A9BCA7] text-[#A9BCA7] flex items-center justify-center shrink-0 shadow-inner">
-                        <MapPin className="w-5 h-5 text-[#A9BCA7] stroke-[2.2]" />
+                <div className="bg-[#1C1C1C] border border-[#A9BCA7]/80 p-3 sm:p-4 shadow-md relative overflow-hidden">
+                  <div className="absolute top-0 left-0 bottom-0 w-1 bg-[#A9BCA7]" />
+                  <div className="flex items-start sm:items-center gap-3 pl-1.5">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#2A2A2A] border border-[#A9BCA7]/60 text-[#A9BCA7] flex items-center justify-center shrink-0 shadow-inner mt-0.5 sm:mt-0">
+                      <MapPin className="w-4.5 h-4.5 text-[#A9BCA7] stroke-[2]" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider text-[#A9BCA7] bg-[#2A2A2A] px-1.5 py-0.5 border border-[#A9BCA7]/30">
+                          STUDIO TERPILIH
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] font-mono font-bold text-white bg-black/60 px-1.5 py-0.5 border border-white/20">
+                          {selectedBranchData.badge}
+                        </span>
                       </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[10px] sm:text-[11px] font-mono font-black uppercase tracking-widest text-[#A9BCA7] bg-[#2A2A2A] px-2 py-0.5 border border-[#A9BCA7]/40">
-                            STUDIO TERPILIH SAAT INI
-                          </span>
-                          <span className="text-[10px] font-mono font-bold text-white bg-black/60 px-2 py-0.5 border border-white/20">
-                            {selectedBranchData.badge}
-                          </span>
-                        </div>
-                        <div className="text-sm sm:text-base md:text-lg font-serif font-black text-white uppercase tracking-wider mt-1 truncate">
-                          {selectedBranchData.name}
-                        </div>
-                        <div className="text-[11px] sm:text-xs text-stone-300 font-sans truncate">
-                          📍 {selectedBranchData.address.split(',')[0]}, {selectedBranchData.address.split(',')[1] || ''}
-                        </div>
+                      <div className="text-xs sm:text-sm md:text-base font-serif font-bold text-white uppercase tracking-wider mt-1 truncate">
+                        {selectedBranchData.name}
+                      </div>
+                      <div className="text-[10.5px] sm:text-xs text-stone-300 font-sans truncate mt-0.5">
+                        📍 {selectedBranchData.address.split(',')[0]}, {selectedBranchData.address.split(',')[1] || ''}
                       </div>
                     </div>
                   </div>
@@ -934,24 +932,24 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </div>
 
               {/* Right Action Column */}
-              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto relative z-10 shrink-0">
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch gap-2.5 sm:gap-3 w-full lg:w-auto relative z-10 shrink-0 pt-1 lg:pt-0">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(true)}
-                  className="min-h-[48px] px-5 py-3 bg-[#3A3A3A] hover:bg-[#4A4A4A] text-[#FDFBF7] hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#5A5A5A] transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shrink-0"
+                  className="min-h-[44px] sm:min-h-[48px] px-4 sm:px-5 py-2.5 sm:py-3 bg-[#3A3A3A] hover:bg-[#4A4A4A] text-[#FDFBF7] hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#5A5A5A] hover:border-[#A9BCA7]/60 transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shrink-0"
                 >
-                  <MapPin className="w-4 h-4 text-[#A9BCA7]" />
-                  <span>GANTI STUDIO ▾</span>
+                  <MapPin className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                  <span>Ganti Studio ▾</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => onSelectBranch(selectedBranch)}
-                  className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#A9BCA7] hover:bg-[#98AC96] text-[#2A2A2A] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.16em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#A9BCA7] group"
+                  className="min-h-[46px] sm:min-h-[48px] px-5 sm:px-8 py-3 bg-[#A9BCA7] hover:bg-[#98AC96] text-[#2A2A2A] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.14em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#A9BCA7] group"
                 >
-                  <Sparkles className="w-4 h-4 text-[#2A2A2A] group-hover:rotate-12 transition-transform" />
+                  <Sparkles className="w-4 h-4 text-[#2A2A2A] group-hover:rotate-12 transition-transform shrink-0" />
                   <span>BUKA PRICELIST {selectedBranchData.badge.toUpperCase()}</span>
-                  <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
                 </button>
               </div>
             </div>
