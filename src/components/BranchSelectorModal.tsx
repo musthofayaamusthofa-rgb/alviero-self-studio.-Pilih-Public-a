@@ -875,14 +875,6 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                         </div>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsModalOpen(true)}
-                      className="px-3.5 py-2 bg-[#2A2A2A] hover:bg-[#3A3A3A] text-[#A9BCA7] hover:text-white border border-[#A9BCA7]/60 text-[11px] font-serif font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all shrink-0 shadow-xs active:scale-95"
-                    >
-                      <RefreshCw className="w-3.5 h-3.5" />
-                      <span>Ganti Studio</span>
-                    </button>
                   </div>
                 </div>
 
