@@ -999,7 +999,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                       <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                        PRICELIST WEDDING & PREWEDDING
+                        PRICELIST WEDDING & PREWEDDING OUTDOOR
                       </h4>
                       <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                         Suite
