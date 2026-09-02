@@ -48,34 +48,16 @@ export const BACKGROUND_BANNER_IMAGES = [
 
 export const BACKDROP_BANNER_IMAGES = BACKGROUND_BANNER_IMAGES;
 
-const QUICK_SERVICE_CHIPS = [
-  { id: 'graduation', label: '🎓 Wisuda' },
-  { id: 'family', label: '👨‍👩‍👧‍👦 Keluarga' },
-  { id: 'group', label: '👥 Group' },
-  { id: 'personal', label: '👩‍💼 Personal' },
-  { id: 'wedding-package', label: '💍 Wedding' },
-  { id: 'event', label: '🎂 Event' },
-  { id: 'pass-photo', label: '🪪 Pas Foto' },
-  { id: 'selfstudio', label: '✨ SelfStudio' },
-  { id: 'bingkai-album', label: '🖼️ Cetak & Frame' },
-];
-
 interface BackgroundHeroSliderProps {
   onViewPlans?: () => void;
-  onSelectCategory?: (category: string) => void;
-  onOpenBranchModal?: () => void;
 }
 
 export type BackdropHeroSliderProps = BackgroundHeroSliderProps;
 
 /**
- * Hero Slider Banner Background Studio (Desain Mewah, Modern, Bernuansa Foto Studio Profesional)
+ * Hero Slider Banner Background Studio (Desain Tegas, Modern, Responsif Mobile & Desktop)
  */
-export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ 
-  onViewPlans,
-  onSelectCategory,
-  onOpenBranchModal
-}) => {
+export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onViewPlans }) => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
@@ -132,7 +114,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({
       <div className="w-full bg-[#FDFBF7] px-4 py-3 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E8DDD6] z-30">
         <div className="flex items-center gap-2">
           <span className="font-serif font-black text-base sm:text-xl tracking-[0.3em] text-[#3A3A3A] uppercase">
-            ALVIERO PHOTO STUDIO
+            ALVIERO
           </span>
         </div>
       </div>
@@ -199,89 +181,23 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({
         </div>
       </div>
 
-      {/* 3. Hero Content Container (Elegan, Berkelas, Fokus Foto Studio) */}
-      <div className="w-full bg-[#FDFBF7] px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-3.5 sm:space-y-4 border-t border-[#E8DDD6]">
-        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#F2E9E4] px-3.5 py-1 border border-[#E8DDD6]">
-          PREMIUM PHOTO STUDIO &amp; CREATIVE SPACE
+      {/* 3. Hero Content Container */}
+      <div className="w-full bg-[#FDFBF7] px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-2.5 sm:space-y-3.5 border-t border-[#E8DDD6]">
+        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#F2E9E4] px-3 py-1 border border-[#E8DDD6]">
+          ALVIERO PHOTO STUDIO
         </span>
 
-        <h2 className="font-serif font-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#3A3A3A] leading-tight tracking-wide uppercase max-w-3xl">
-          Abadikan Momen Berharga dengan Sentuhan Visual Berkelas
+        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#3A3A3A] leading-tight tracking-wide uppercase max-w-2xl">
+          Studio Foto Modern dengan Fasilitas Mewah & Terlengkap
         </h2>
         
-        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#6E856C] tracking-[0.16em] uppercase">
-          Wisuda • Keluarga • Group • Personal • Wedding • Self Photo
+        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#6E856C] tracking-[0.18em] uppercase">
+          Kenyamanan Maksimal • Kualitas Visual Premium
         </p>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#5A5A5A] max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio menghadirkan layanan studio foto profesional dengan ruang ber-AC sejuk, 7+ pilihan background mewah, tata pencahayaan studio terarah, monitor live-view realtime untuk melihat hasil seketika, serta fitting room privat &amp; toga wisuda lengkap.
+          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu lighting studio profesional, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
         </p>
-
-        {/* Quick Category Chips (Akses Cepat Layanan) */}
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-3xl pt-1">
-          {QUICK_SERVICE_CHIPS.map((chip) => (
-            <button
-              key={chip.id}
-              type="button"
-              onClick={() => onSelectCategory ? onSelectCategory(chip.id) : onViewPlans?.()}
-              className="px-3 py-1.5 bg-white hover:bg-[#F2E9E4] text-[#3A3A3A] hover:text-[#2A2A2A] border border-[#E8DDD6] hover:border-[#3A3A3A] text-xs font-sans font-semibold transition-all duration-200 cursor-pointer shadow-2xs hover:shadow-xs active:scale-95"
-            >
-              {chip.label}
-            </button>
-          ))}
-        </div>
-
-        {/* CTA Actions Bar */}
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <button
-            type="button"
-            onClick={onViewPlans}
-            className="px-6 sm:px-8 py-3 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs sm:text-sm uppercase tracking-[0.16em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-95 border border-[#3A3A3A] group"
-          >
-            <Sparkles className="w-4 h-4 text-[#A9BCA7] group-hover:rotate-12 transition-transform" />
-            <span>Lihat Paket Studio</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          {onOpenBranchModal && (
-            <button
-              type="button"
-              onClick={onOpenBranchModal}
-              className="px-5 sm:px-6 py-3 bg-white hover:bg-[#F2E9E4] text-[#3A3A3A] font-serif font-bold text-xs sm:text-sm uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs active:scale-95"
-            >
-              <MapPin className="w-4 h-4 text-[#6E856C]" />
-              <span>Pilih Lokasi Studio</span>
-            </button>
-          )}
-        </div>
-
-        {/* 3 Core Value Mini-Cards (Gaya Bento Bersih & Ringkas) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3.5 max-w-3xl w-full pt-3">
-          <div className="p-3 bg-white border border-[#E8DDD6] text-center shadow-2xs">
-            <span className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider block">
-              Lighting Studio Pro
-            </span>
-            <span className="text-[11px] font-sans text-stone-500 mt-0.5 block">
-              Pencahayaan terarah, jernih &amp; warna kulit natural
-            </span>
-          </div>
-          <div className="p-3 bg-white border border-[#E8DDD6] text-center shadow-2xs">
-            <span className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider block">
-              Monitor Live-View
-            </span>
-            <span className="text-[11px] font-sans text-stone-500 mt-0.5 block">
-              Cek pose &amp; ekspresi langsung seketika di layar besar
-            </span>
-          </div>
-          <div className="p-3 bg-white border border-[#E8DDD6] text-center shadow-2xs">
-            <span className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider block">
-              All-Files Original HD
-            </span>
-            <span className="text-[11px] font-sans text-stone-500 mt-0.5 block">
-              Semua softcopy original beresolusi tinggi via Google Drive
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -844,11 +760,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
       <div className="bg-[#FDFBF7] border-x-0 sm:border sm:border-[#E8DDD6] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
         
         {/* Top Hero Banner Slider */}
-        <BackgroundHeroSlider 
-          onViewPlans={() => onSelectBranch(selectedBranch)} 
-          onSelectCategory={onSelectCategory}
-          onOpenBranchModal={() => setIsModalOpen(true)}
-        />
+        <BackgroundHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
         <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FDFBF7] flex-1">
