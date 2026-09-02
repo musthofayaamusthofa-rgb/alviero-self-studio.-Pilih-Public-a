@@ -228,56 +228,6 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
         })}
       </div>
 
-      {/* 3. Fasilitas Umum Studio Box */}
-      <div className="bg-[#2A2A2A] text-white rounded-3xl p-6 sm:p-10 border border-[#3A3A3A] shadow-xl space-y-6">
-        <div className="space-y-1 text-center max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 bg-[#A9BCA7]/20 text-[#A9BCA7] text-xs font-mono font-bold px-3 py-1 rounded-full border border-[#A9BCA7]/30 uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Kenyamanan & Fasilitas Utama</span>
-          </div>
-          <h3 className="text-xl sm:text-2xl font-serif font-bold text-white uppercase tracking-wide">
-            Fasilitas Standar di Seluruh Studio Alviero
-          </h3>
-          <p className="text-xs text-stone-300 font-sans">
-            Kami memastikan kenyamanan maksimal bagi Anda, keluarga, teman, dan pasangan selama sesi pemotretan berlangsung.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-2 text-center">
-          <div className="bg-[#3A3A3A] p-4 rounded-2xl border border-[#4A4A4A] space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#A9BCA7]/20 text-[#A9BCA7] flex items-center justify-center mx-auto text-lg">
-              🚗
-            </div>
-            <h4 className="font-serif font-bold text-xs sm:text-sm text-white">Parkir Nyaman</h4>
-            <p className="text-[11px] text-stone-300 font-sans">Area parkir aman untuk mobil & motor</p>
-          </div>
-
-          <div className="bg-[#3A3A3A] p-4 rounded-2xl border border-[#4A4A4A] space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#A9BCA7]/20 text-[#A9BCA7] flex items-center justify-center mx-auto text-lg">
-              ❄️
-            </div>
-            <h4 className="font-serif font-bold text-xs sm:text-sm text-white">Full AC & Rias</h4>
-            <p className="text-[11px] text-stone-300 font-sans">Ruang ganti & cermin rias berpendingin udara</p>
-          </div>
-
-          <div className="bg-[#3A3A3A] p-4 rounded-2xl border border-[#4A4A4A] space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#A9BCA7]/20 text-[#A9BCA7] flex items-center justify-center mx-auto text-lg">
-              🐾
-            </div>
-            <h4 className="font-serif font-bold text-xs sm:text-sm text-white">Pet Friendly</h4>
-            <p className="text-[11px] text-stone-300 font-sans">Bisa membawa anjing / kucing kecil kesayangan</p>
-          </div>
-
-          <div className="bg-[#3A3A3A] p-4 rounded-2xl border border-[#4A4A4A] space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#A9BCA7]/20 text-[#A9BCA7] flex items-center justify-center mx-auto text-lg">
-              📷
-            </div>
-            <h4 className="font-serif font-bold text-xs sm:text-sm text-white">Properti Lengkap</h4>
-            <p className="text-[11px] text-stone-300 font-sans">Bunga, kursi estetik, kacamata & aksesoris foto</p>
-          </div>
-        </div>
-      </div>
-
     </section>
   );
 };
