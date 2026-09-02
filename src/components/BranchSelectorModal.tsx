@@ -202,8 +202,8 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
           Kenyamanan Maksimal • Kualitas Visual Premium
         </p>
 
-        <p className="font-sans text-xs sm:text-sm md:text-base text-[#5A5A5A] max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang sejuk, 7+ pilihan tema background estetis, tata lampu lighting studio profesional, monitor live-view realtime untuk melihat hasil jepretan seketika (SelfStudio), serta private dressing room & jas kemeja siap pakai.
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#666666] max-w-xl mx-auto leading-relaxed">
+          Studio foto & self-studio modern di Malang dengan tema background estetis, pencahayaan profesional, dan fasilitas lengkap.
         </p>
       </div>
     </div>
