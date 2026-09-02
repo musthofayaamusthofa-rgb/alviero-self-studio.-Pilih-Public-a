@@ -934,10 +934,6 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
                 </div>
-
-                <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
-                  Pilih paket foto impian Anda, tentukan jam slot tanpa antre, dan konfirmasi jadwal secara otomatis melalui WhatsApp.
-                </p>
               </div>
 
               {/* Right Action Column */}
