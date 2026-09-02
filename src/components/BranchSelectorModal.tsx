@@ -535,15 +535,6 @@ export const StudioTourAndEducationShowcase: React.FC<{
               TEMA BACKGROUND & HASIL FOTO STUDIO
             </h3>
           </div>
-
-          <div className="flex items-center gap-1.5">
-            <span className="text-[9.5px] bg-[#FDFBF7] text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-semibold uppercase">
-              7+ Tema Background
-            </span>
-            <span className="text-[9.5px] bg-[#EBF2EA] text-[#6E856C] px-2 py-0.5 border border-[#A9BCA7] font-semibold uppercase">
-              Koleksi Properti Lengkap
-            </span>
-          </div>
         </div>
 
         {/* Tab Pilihan Studio */}
@@ -577,10 +568,6 @@ export const StudioTourAndEducationShowcase: React.FC<{
               );
             })}
           </div>
-
-          <span className="text-[11px] font-sans text-stone-500 hidden sm:inline">
-            Klik foto atau tombol panah untuk melihat variasi tema background
-          </span>
         </div>
       </div>
 
