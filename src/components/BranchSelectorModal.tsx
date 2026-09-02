@@ -202,6 +202,8 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
   );
 };
 
+export const BackdropHeroSlider = BackgroundHeroSlider;
+
 /**
  * Data Ulasan & Testimonial Klien Alviero Studio
  */
@@ -705,7 +707,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
       <div className="bg-[#FDFBF7] border-x-0 sm:border sm:border-[#E8DDD6] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
         
         {/* Top Hero Banner Slider */}
-        <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
+        <BackgroundHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
         <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FDFBF7] flex-1">
