@@ -819,13 +819,54 @@ export const STUDIO_PROMOS: StudioPromo[] = [
 /**
  * Komponen Bagian Promo Spesial Alviero Studio
  */
+/**
+ * Komponen Bagian Promo Spesial Alviero Studio (Geser ke Samping / Horizontal Carousel)
+ */
 export const PromoSpecialSection: React.FC<{
   onSelectPromo: (promo: StudioPromo) => void;
 }> = ({ onSelectPromo }) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activePromoIdx, setActivePromoIdx] = useState<number>(0);
+
+  const scrollToIndex = (index: number) => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const cards = container.querySelectorAll<HTMLElement>('.promo-card-item');
+    if (cards[index]) {
+      cards[index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start'
+      });
+      setActivePromoIdx(index);
+    }
+  };
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const scrollLeft = container.scrollLeft;
+    const itemWidth = container.querySelector<HTMLElement>('.promo-card-item')?.offsetWidth || 300;
+    const newIdx = Math.round(scrollLeft / (itemWidth + 14));
+    if (newIdx >= 0 && newIdx < STUDIO_PROMOS.length && newIdx !== activePromoIdx) {
+      setActivePromoIdx(newIdx);
+    }
+  };
+
+  const handleNext = () => {
+    const nextIdx = (activePromoIdx + 1) % STUDIO_PROMOS.length;
+    scrollToIndex(nextIdx);
+  };
+
+  const handlePrev = () => {
+    const prevIdx = (activePromoIdx - 1 + STUDIO_PROMOS.length) % STUDIO_PROMOS.length;
+    scrollToIndex(prevIdx);
+  };
+
   return (
-    <div className="space-y-4 text-left">
+    <div className="space-y-3.5 text-left select-none">
       {/* Header Section Promo */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+      <div className="flex items-center justify-between gap-2">
         <div className="space-y-1">
           <div className="flex items-center gap-1.5">
             <span className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider">
@@ -840,82 +881,131 @@ export const PromoSpecialSection: React.FC<{
             Promo Spesial Alviero Studio
           </h3>
           <p className="text-xs sm:text-sm text-stone-600 font-sans">
-            Ketuk banner promo atau tombol rincian untuk melihat kupon voucher & syarat ketentuan:
+            Geser ke samping untuk melihat pilihan kupon & diskon spesial:
           </p>
+        </div>
+
+        {/* Desktop / Tablet Navigation Arrows */}
+        <div className="hidden sm:flex items-center gap-1.5 shrink-0">
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Promo Sebelumnya"
+            className="w-8 h-8 rounded-full bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white border border-[#E8DDD6] flex items-center justify-center cursor-pointer transition-colors shadow-2xs active:scale-95"
+          >
+            <ChevronLeft className="w-4 h-4 stroke-[2]" />
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Promo Selanjutnya"
+            className="w-8 h-8 rounded-full bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white border border-[#E8DDD6] flex items-center justify-center cursor-pointer transition-colors shadow-2xs active:scale-95"
+          >
+            <ChevronRight className="w-4 h-4 stroke-[2]" />
+          </button>
         </div>
       </div>
 
-      {/* Grid 3 Kartu Promo (Responsif: 1 Kolom HP, 3 Kolom Desktop) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        {STUDIO_PROMOS.map((promo) => (
-          <div
-            key={promo.id}
-            onClick={() => onSelectPromo(promo)}
-            className="group rounded-2xl sm:rounded-3xl bg-white border border-[#E8DDD6] hover:border-[#A9BCA7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer active:scale-98"
-          >
-            {/* Banner Foto Promo */}
-            <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-stone-100">
-              <img
-                src={promo.imageUrl}
-                alt={promo.title}
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
+      {/* Horizontal Carousel (Geser ke Samping pada HP & Layar Lainnya) */}
+      <div className="relative -mx-3.5 sm:-mx-6 md:mx-0 px-3.5 sm:px-6 md:px-0">
+        <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 sm:gap-5 pb-3 scroll-smooth no-scrollbar touch-pan-x"
+        >
+          {STUDIO_PROMOS.map((promo) => (
+            <div
+              key={promo.id}
+              onClick={() => onSelectPromo(promo)}
+              className="promo-card-item w-[85%] sm:w-[340px] md:w-[380px] shrink-0 snap-start rounded-2xl sm:rounded-3xl bg-white border border-[#E8DDD6] hover:border-[#A9BCA7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer active:scale-98 group"
+            >
+              {/* Banner Foto Promo */}
+              <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-stone-100">
+                <img
+                  src={promo.imageUrl}
+                  alt={promo.title}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+                {/* Floating Badge Diskon di Gambar */}
+                <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                  <span className="inline-flex items-center gap-1 bg-[#2A2A2A]/90 backdrop-blur-xs text-[#A9BCA7] border border-[#A9BCA7]/40 px-2.5 py-1 rounded-full text-[10px] font-mono font-black tracking-wider uppercase shadow-md">
+                    <Tag className="w-3 h-3 text-[#A9BCA7]" />
+                    {promo.badge}
+                  </span>
+                </div>
+
+                {/* Floating Periode Pill */}
+                <div className="absolute top-3 right-3">
+                  <span className="bg-white/90 backdrop-blur-xs text-stone-700 px-2 py-0.5 rounded-full text-[9px] font-sans font-bold shadow-xs">
+                    {promo.period}
+                  </span>
+                </div>
+
+                {/* Highlight Potongan Bawah Gambar */}
+                <div className="absolute bottom-2.5 left-3 right-3">
+                  <span className="text-white text-xs font-serif font-bold drop-shadow-sm flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                    {promo.discountHighlight}
+                  </span>
+                </div>
+              </div>
+
+              {/* Konten Rincian Kartu */}
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
+                <div className="space-y-1.5">
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">
+                    {promo.category}
+                  </span>
+                  <h4 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] group-hover:text-[#6E856C] transition-colors leading-snug">
+                    {promo.title}
+                  </h4>
+                  <p className="text-xs font-sans text-stone-600 line-clamp-2 leading-relaxed">
+                    {promo.shortDesc}
+                  </p>
+                </div>
+
+                {/* Action Bar Bawah: Kupon Tag & Tombol Detail */}
+                <div className="pt-3 border-t border-[#E8DDD6] flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1 bg-[#F2E9E4] text-[#3A3A3A] border border-dashed border-[#A9BCA7] px-2 py-0.5 rounded-lg text-[9.5px] font-mono font-bold">
+                    <span>KODE:</span>
+                    <span className="text-[#6E856C] font-black tracking-wider">{promo.code}</span>
+                  </div>
+
+                  <div className="text-xs font-serif font-bold text-[#6E856C] group-hover:text-[#3A3A3A] flex items-center gap-1 transition-transform group-hover:translate-x-0.5 shrink-0">
+                    <span>Lihat Detail</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Pagination Dots Indicator & Mobile Swipe Guide */}
+        <div className="flex items-center justify-between pt-1 px-1">
+          <span className="text-[10px] font-sans text-stone-600 flex items-center gap-1 sm:hidden">
+            <span>👉 Geser untuk promo lainnya</span>
+          </span>
+
+          <div className="flex items-center gap-1.5 mx-auto sm:mx-0">
+            {STUDIO_PROMOS.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                type="button"
+                onClick={() => scrollToIndex(dotIdx)}
+                aria-label={`Promo ${dotIdx + 1}`}
+                className={`transition-all rounded-full cursor-pointer ${
+                  activePromoIdx === dotIdx
+                    ? 'w-6 h-1.5 bg-[#6E856C]'
+                    : 'w-2 h-1.5 bg-stone-300 hover:bg-stone-400'
+                }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-
-              {/* Floating Badge Diskon di Gambar */}
-              <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                <span className="inline-flex items-center gap-1 bg-[#2A2A2A]/90 backdrop-blur-xs text-[#A9BCA7] border border-[#A9BCA7]/40 px-2.5 py-1 rounded-full text-[10px] font-mono font-black tracking-wider uppercase shadow-md">
-                  <Tag className="w-3 h-3 text-[#A9BCA7]" />
-                  {promo.badge}
-                </span>
-              </div>
-
-              {/* Floating Periode Pill */}
-              <div className="absolute top-3 right-3">
-                <span className="bg-white/90 backdrop-blur-xs text-stone-700 px-2 py-0.5 rounded-full text-[9px] font-sans font-bold shadow-xs">
-                  {promo.period}
-                </span>
-              </div>
-
-              {/* Highlight Potongan Bawah Gambar */}
-              <div className="absolute bottom-2.5 left-3 right-3">
-                <span className="text-white text-xs font-serif font-bold drop-shadow-sm flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
-                  {promo.discountHighlight}
-                </span>
-              </div>
-            </div>
-
-            {/* Konten Rincian Kartu */}
-            <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-3">
-              <div className="space-y-1.5">
-                <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">
-                  {promo.category}
-                </span>
-                <h4 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] group-hover:text-[#6E856C] transition-colors leading-snug">
-                  {promo.title}
-                </h4>
-                <p className="text-xs font-sans text-stone-600 line-clamp-2 leading-relaxed">
-                  {promo.shortDesc}
-                </p>
-              </div>
-
-              {/* Action Bar Bawah: Kupon Tag & Tombol Detail */}
-              <div className="pt-3 border-t border-[#E8DDD6] flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1 bg-[#F2E9E4] text-[#3A3A3A] border border-dashed border-[#A9BCA7] px-2 py-0.5 rounded-lg text-[9.5px] font-mono font-bold">
-                  <span>KODE:</span>
-                  <span className="text-[#6E856C] font-black tracking-wider">{promo.code}</span>
-                </div>
-
-                <div className="text-xs font-serif font-bold text-[#6E856C] group-hover:text-[#3A3A3A] flex items-center gap-1 transition-transform group-hover:translate-x-0.5 shrink-0">
-                  <span>Lihat Detail</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
