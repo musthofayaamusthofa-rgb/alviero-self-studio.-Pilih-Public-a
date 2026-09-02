@@ -574,8 +574,8 @@ export const StudioTourAndEducationShowcase: React.FC<{
       </div>
 
       {/* Main Cinematic Visual Stage */}
-      <div className="space-y-3 max-w-6xl mx-auto">
-        <div className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[540px] bg-[#222222] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl">
+      <div className="max-w-6xl mx-auto">
+        <div className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#222222] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl">
           <img
             key={`${activeRoom.id}-${currentSlideIdx}`}
             src={activeSlide.src}
@@ -584,7 +584,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
           />
           
           {/* Subtle Ambient Shadow */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
 
           {/* Top Floating Glassmorphism Tag */}
           <div className="relative top-4 left-4 z-10 pointer-events-none flex items-center gap-2">
@@ -594,21 +594,21 @@ export const StudioTourAndEducationShowcase: React.FC<{
             </span>
           </div>
 
-          {/* Bottom Luxury Caption Card */}
-          <div className="relative z-10 p-4 sm:p-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 text-left">
-            <div className="max-w-xl bg-black/65 backdrop-blur-md p-3 sm:p-4 border border-white/20">
-              <span className="text-[10px] font-mono font-bold text-[#A9BCA7] uppercase tracking-widest block mb-0.5">
-                {activeRoom.name} • {activeRoom.badge}
-              </span>
-              <p className="text-sm sm:text-base font-serif text-white font-bold leading-snug">
-                {activeSlide.caption}
-              </p>
-            </div>
-
-            {/* Slide Indicator Numbers */}
-            <div className="bg-black/75 backdrop-blur-md px-3.5 py-2 border border-white/20 text-white font-mono text-xs font-bold shrink-0 self-start sm:self-end">
-              <span className="text-[#A9BCA7]">{currentSlideIdx + 1}</span> / {activeRoom.images.length}
-            </div>
+          {/* Minimalist Bottom Pagination Dots */}
+          <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
+            {activeRoom.images.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setCurrentSlideIdx(idx)}
+                aria-label={`Slide ${idx + 1}`}
+                className={`transition-all duration-300 cursor-pointer ${
+                  currentSlideIdx === idx
+                    ? 'w-8 h-1.5 bg-[#A9BCA7] shadow-sm'
+                    : 'w-2 h-1.5 bg-white/50 hover:bg-white/80'
+                }`}
+              />
+            ))}
           </div>
 
           {/* Floating Navigation Controls */}
@@ -629,35 +629,6 @@ export const StudioTourAndEducationShowcase: React.FC<{
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
           </button>
-        </div>
-
-        {/* Lookbook Gallery Thumbnails */}
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-2 sm:gap-2.5 pt-1 overflow-x-auto no-scrollbar">
-          {activeRoom.images.map((img, idx) => {
-            const isSelected = currentSlideIdx === idx;
-            return (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => setCurrentSlideIdx(idx)}
-                className={`relative aspect-[16/11] overflow-hidden border-2 transition-all cursor-pointer group shrink-0 ${
-                  isSelected
-                    ? 'border-[#3A3A3A] ring-2 ring-[#A9BCA7] shadow-md scale-98'
-                    : 'border-[#E8DDD6] hover:border-[#3A3A3A] opacity-70 hover:opacity-100'
-                }`}
-              >
-                <img
-                  src={img.src}
-                  alt={img.caption}
-                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
-                />
-                <div className={`absolute inset-0 transition-colors ${isSelected ? 'bg-transparent' : 'bg-black/25 group-hover:bg-transparent'}`} />
-                <span className="absolute bottom-1 left-1 right-1 text-[8.5px] font-sans font-bold text-white bg-black/75 px-1 py-0.5 truncate text-center pointer-events-none">
-                  {img.tag}
-                </span>
-              </button>
-            );
-          })}
         </div>
       </div>
     </div>
