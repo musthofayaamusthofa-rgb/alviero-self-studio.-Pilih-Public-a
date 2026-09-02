@@ -5,7 +5,8 @@ import {
   ZoomIn, ArrowRight, Layers, Sparkles, X,
   Search, Camera, Calendar, ChevronRight, MessageCircle,
   Instagram, Music2, CheckCircle2, ChevronLeft, Heart, Image as ImageIcon,
-  Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye, MapPin
+  Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye, MapPin,
+  HelpCircle, ShieldCheck, AlertCircle, FileText, ChevronDown, ChevronUp, BookOpen
 } from 'lucide-react';
 
 interface PricelistViewerProps {
@@ -90,8 +91,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   };
 
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
-  // Mode: 'menu' (Figma Bio-Link Style) or 'gallery' (Contoh Hasil Foto Studio)
-  const [activeTab, setActiveTab] = useState<'menu' | 'gallery'>('menu');
+  // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Contoh Hasil Foto Studio), or 'guide' (Panduan, Disclaimer & FAQ)
+  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>('menu');
+  const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
   const [selfStudioSubTab, setSelfStudioSubTab] = useState<'special' | 'normal' | 'spotlight' | 'grid'>('special');
@@ -513,6 +515,34 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { label: '@alviero.wedding', icon: 'instagram', url: 'https://instagram.com/alviero.wedding' }
   ];
 
+  // Pertanyaan Umum (FAQ) Data
+  const faqs = [
+    {
+      q: 'Berapa lama proses pengerjaan edit foto dan cetak?',
+      a: 'Proses file edit maksimal 7 hari dan cetaknya 5 hari (kecuali pass foto yang bisa langsung jadi kilat) dihitung sejak Anda selesai memilih nomor foto di link Google Drive.'
+    },
+    {
+      q: 'Bagaimana jika saya terlambat datang ke studio?',
+      a: 'Apabila studio tidak ramai, Anda boleh mengajukan jam kosong berikutnya tanpa pengurangan menit. Namun jika jadwal penuh, keterlambatan dihitung dari 5 menit pertama dan dialihkan ke sesi berikutnya.'
+    },
+    {
+      q: 'Berapa DP untuk booking jadwal foto?',
+      a: 'DP minimal 50% dari total harga paket. Pelunasan dapat diselesaikan sebelum atau setelah sesi foto di studio melalui Cash atau Transfer QRIS.'
+    },
+    {
+      q: 'Apakah bisa request foto di luar jam operasional?',
+      a: 'Bisa! Jam operasional normal adalah setiap hari 08:00 - 21:00 WIB. Request di luar jam operasional dikenakan charge 35K (kecuali wisuda outdoor tanpa biaya charge).'
+    },
+    {
+      q: 'Apakah saya bisa membawa binatang peliharaan (Pet-friendly)?',
+      a: 'Bisa! Alviero Studio menyambut binatang peliharaan kucing/anjing kecil selama membawa alas pampers/kandang saat masuk studio.'
+    },
+    {
+      q: 'Apakah soft file foto asli resolusi tinggi diberikan gratis?',
+      a: 'Ya! Seluruh file asli Google Drive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio sedang ramai.'
+    }
+  ];
+
   // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA
   const studioGalleryCategories = [
     { id: 'all', label: 'Semua Paket', icon: '📸' },
@@ -744,10 +774,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         </div>
 
         {/* Tab Switcher */}
-        <div className="bg-[#FDFBF7] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E8DDD6]">
+        <div className="bg-[#FDFBF7] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E8DDD6] rounded-xl sm:rounded-2xl">
           <button
-            onClick={() => setActiveTab('menu')}
-            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'menu'
+            onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${activeTab === 'menu'
               ? 'bg-[#3A3A3A] text-white shadow-xs'
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
@@ -756,13 +786,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('gallery')}
-            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'gallery'
+            onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${activeTab === 'gallery'
               ? 'bg-[#3A3A3A] text-white shadow-xs'
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
           >
             <span>Galeri Foto</span>
+          </button>
+
+          <button
+            onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${activeTab === 'guide'
+              ? 'bg-[#3A3A3A] text-white shadow-xs'
+              : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
+              }`}
+          >
+            <span>Panduan</span>
           </button>
         </div>
       </div>
@@ -831,27 +871,37 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </button>
               </div>
 
-              {/* 4. Switcher Mode: Menu Pricelist vs Galeri Hasil Foto (Khusus HP) */}
-              <div className="w-full lg:hidden bg-[#f4f3ee] p-1 rounded-full flex items-center gap-1 border border-stone-200 shadow-2xs">
+              {/* 4. Switcher Mode: Menu Pricelist vs Galeri Hasil Foto vs Panduan (Khusus HP) */}
+              <div className="w-full lg:hidden bg-[#f4f3ee] p-1 rounded-2xl flex items-center gap-1 border border-stone-200 shadow-2xs">
                 <button
-                  onClick={() => setActiveTab('menu')}
-                  className={`flex-1 min-h-[34px] px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
+                  onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
                     activeTab === 'menu'
                       ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
-                  <span>📱 Menu Pricelist</span>
+                  <span>📱 Menu</span>
                 </button>
                 <button
-                  onClick={() => setActiveTab('gallery')}
-                  className={`flex-1 min-h-[34px] px-3 py-1 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
+                  onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
                     activeTab === 'gallery'
                       ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
-                  <span>📸 Galeri Foto</span>
+                  <span>📸 Galeri</span>
+                </button>
+                <button
+                  onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+                    activeTab === 'guide'
+                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  <span>📖 Panduan</span>
                 </button>
               </div>
 
@@ -4175,11 +4225,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       {activeTab === 'gallery' && (
         <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-300">
 
-          {/* Switcher Mode: Menu Pricelist vs Galeri Foto */}
-          <div className="w-full max-w-md mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs">
+          {/* Switcher Mode: Menu Pricelist vs Galeri Foto vs Panduan */}
+          <div className="w-full max-w-lg mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs rounded-xl sm:rounded-2xl">
             <button
-              onClick={() => setActiveTab('menu')}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer border ${
+              onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 activeTab === 'menu'
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
@@ -4188,14 +4238,24 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               <span>📱 Menu Pricelist</span>
             </button>
             <button
-              onClick={() => setActiveTab('gallery')}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer border ${
+              onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 activeTab === 'gallery'
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
               <span>📸 Galeri Foto</span>
+            </button>
+            <button
+              onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+                activeTab === 'guide'
+                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+              }`}
+            >
+              <span>📖 Panduan</span>
             </button>
           </div>
 
@@ -4351,7 +4411,254 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       )}
 
       {/* ==================================================================== */}
-      {/* 3. MODAL PERBESAR FOTO DENGAN FITUR GESER/SLIDER (SWIPEABLE MODAL)   */}
+      {/* 3. PANDUAN: DISCLAIMER RESMI & PERTANYAAN UMUM (FAQ)                */}
+      {/* ==================================================================== */}
+      {activeTab === 'guide' && (
+        <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-300 max-w-5xl mx-auto w-full">
+
+          {/* Switcher Mode: Menu Pricelist vs Galeri Foto vs Panduan */}
+          <div className="w-full max-w-lg mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs rounded-xl sm:rounded-2xl">
+            <button
+              onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+                activeTab === 'menu'
+                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+              }`}
+            >
+              <span>📱 Menu Pricelist</span>
+            </button>
+            <button
+              onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+                activeTab === 'gallery'
+                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+              }`}
+            >
+              <span>📸 Galeri Foto</span>
+            </button>
+            <button
+              onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+                activeTab === 'guide'
+                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+              }`}
+            >
+              <span>📖 Panduan</span>
+            </button>
+          </div>
+
+          {/* 1. DISCLAIMER RESMI POSTER */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-[#E8DDD6] shadow-sm space-y-6 relative overflow-hidden text-left">
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-500 via-rose-500 to-[#3A3A3A]" />
+
+            {/* Header Disclaimer */}
+            <div className="text-center space-y-1.5 max-w-2xl mx-auto pt-1">
+              <div className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-700 text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-rose-200">
+                <ShieldCheck className="w-3.5 h-3.5 text-rose-600" />
+                <span>Ketentuan & Tata Tertib Resmi</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-serif font-black text-rose-600 tracking-wider uppercase">
+                DISCLAIMER
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-500 font-sans">
+                Kebijakan Operasional, Ketentuan Booking & Prosedur Layanan Alviero Studio
+              </p>
+            </div>
+
+            {/* Disclaimer Sections */}
+            <div className="space-y-5 text-stone-800 text-xs sm:text-sm leading-relaxed max-w-3xl mx-auto pt-2">
+              
+              {/* 1. Umum */}
+              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
+                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                  <span>1. Ketentuan Umum Operasional</span>
+                </h3>
+                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
+                  <li>
+                    Jam operasional buka setiap hari <strong>08:00 - 21:00 WIB</strong>. <span className="text-rose-600 font-semibold">Bisa request di luar jam operasional</span> dengan biaya tambahan charge <strong>Rp 35.000</strong> (kecuali wisuda outdoor tanpa biaya charge).
+                  </li>
+                  <li>
+                    Jika terlambat dikenakan biaya tambahan <strong>Rp 25.000</strong> dan jika sesi melebihi jam 21.00 WIB dikenakan biaya overtime sebesar <strong>Rp 35.000</strong>.
+                  </li>
+                  <li>
+                    Link all file asli via Google Drive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio sedang ramai.
+                  </li>
+                </ol>
+              </div>
+
+              {/* 2. File Edit dan Cetak */}
+              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
+                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                  <span>2. File Edit dan Pengambilan Cetak Foto</span>
+                </h3>
+                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
+                  <li>
+                    Proses File edit maksimal <strong>7 hari</strong> dan Cetak <strong>5 hari</strong> (<span className="text-rose-600 font-semibold">kecuali pass foto langsung jadi kilat</span>) dihitung sejak Anda selesai memilih nomor foto di Google Drive.
+                  </li>
+                  <li>
+                    Hasil cetakan foto diambil kembali di Studio Alviero. Pengiriman via kurir online (Grab / Gojek / Gosend) diperbolehkan dengan pemesanan mandiri oleh klien.
+                  </li>
+                  <li>
+                    Batas waktu pengambilan cetakan foto maksimal <strong>1 bulan</strong>. Di atas 1 bulan, kerusakan atau kehilangan cetakan berada di luar tanggung jawab studio.
+                  </li>
+                  <li>
+                    Pilihan foto yang akan diedit dan dicetak maksimal <strong>1 bulan</strong> dari tanggal sesi foto.
+                  </li>
+                  <li>
+                    Retouch editing foto sebatas pembersihan background, pencahayaan, dan tone warna dasar studio.
+                  </li>
+                </ol>
+              </div>
+
+              {/* 3. Keterlambatan dan Reschedule */}
+              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
+                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                  <span>3. Keterlambatan dan Reschedule Jadwal</span>
+                </h3>
+                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
+                  <li>
+                    Apabila kondisi studio tidak ramai, keterlambatan diperbolehkan tanpa pengurangan menit atau dapat digeser ke jam kosong berikutnya.
+                  </li>
+                  <li>
+                    Dalam kondisi studio ramai/penuh, toleransi keterlambatan dihitung dari <strong>5 menit pertama</strong> dari jam booking dan akan dialihkan ke klien berikutnya yang sudah siap.
+                  </li>
+                  <li>
+                    Boleh mengajukan <strong>reschedule ke hari lain tanpa biaya tambahan</strong> selama hari dan jam yang diajukan masih tersedia.
+                  </li>
+                </ol>
+              </div>
+
+              {/* 4. Reservasi dan Pembayaran */}
+              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
+                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                  <span>4. Reservasi dan Ketentuan Pembayaran</span>
+                </h3>
+                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
+                  <li>
+                    Booking jadwal sah setelah pembayaran <span className="text-rose-600 font-bold">DP minimal 50%</span> dari total biaya.
+                  </li>
+                  <li>
+                    Pelunasan dapat diselesaikan sebelum atau setelah sesi foto di studio melalui Cash atau Transfer QRIS.
+                  </li>
+                  <li>
+                    Pembatalan sepihak oleh klien mengakibatkan DP tidak dapat dikembalikan (<em>non-refundable</em>).
+                  </li>
+                  <li>
+                    Klien diperbolehkan untuk upgrade paket, namun tidak dapat melakukan downgrade paket.
+                  </li>
+                </ol>
+              </div>
+
+              {/* 5. Background dan Properti */}
+              <div className="space-y-2">
+                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                  <span>5. Background dan Properti Studio</span>
+                </h3>
+                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
+                  <li>
+                    Properti studio bersifat fleksibel sesuai ketersediaan. Klien boleh me-request properti yang ada di studio selama keadaan tidak sedang padat.
+                  </li>
+                </ol>
+              </div>
+
+            </div>
+
+            {/* Quick CTA Box */}
+            <div className="bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <div className="space-y-0.5">
+                <div className="font-serif font-bold text-[#3A3A3A] text-xs sm:text-sm uppercase tracking-wide">
+                  Ada Pertanyaan Seputar Disclaimer & Booking?
+                </div>
+                <p className="text-xs text-stone-500 font-sans">
+                  Konsultasikan jadwal atau ketentuan foto langsung bersama admin {currentBranchInfo.name}.
+                </p>
+              </div>
+
+              <a
+                href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20sudah%20membaca%20Disclaimer%20dan%20ingin%20konsultasi%20booking`}
+                target="_blank"
+                rel="noreferrer"
+                className="px-5 py-2.5 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95 shadow-2xs"
+              >
+                <MessageCircle className="w-4 h-4 text-[#A9BCA7]" />
+                <span>Chat Admin WA ({currentBranchInfo.badge})</span>
+              </a>
+            </div>
+          </div>
+
+          {/* 2. PERTANYAAN UMUM (FAQ) */}
+          <div className="bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-sm space-y-5 text-left">
+            <div className="flex items-center gap-2 text-[#6E856C] font-mono font-bold text-xs uppercase tracking-wider">
+              <HelpCircle className="w-4 h-4" />
+              <span>Pertanyaan Umum (FAQ)</span>
+            </div>
+            <div>
+              <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#3A3A3A] uppercase tracking-wide">
+                Hal Yang Sering Ditanyakan
+              </h3>
+              <p className="text-xs text-stone-500 font-sans mt-1">
+                Kumpulan jawaban atas pertanyaan yang paling sering diajukan seputar reservasi dan layanan studio.
+              </p>
+            </div>
+
+            <div className="space-y-2.5 pt-2">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaqIdx === idx;
+                return (
+                  <div key={idx} className="border border-[#E8DDD6] rounded-2xl overflow-hidden bg-[#FDFBF7] transition-all">
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
+                      className="w-full px-4 sm:px-5 py-3.5 flex items-center justify-between text-left gap-3 hover:bg-[#F2E9E4]/60 transition-colors cursor-pointer"
+                    >
+                      <span className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] leading-snug">
+                        {faq.q}
+                      </span>
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 border transition-transform ${
+                        isOpen ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] rotate-180' : 'bg-white text-stone-600 border-[#E8DDD6]'
+                      }`}>
+                        <ChevronDown className="w-3.5 h-3.5" />
+                      </div>
+                    </button>
+                    {isOpen && (
+                      <div className="px-4 sm:px-5 pb-4 pt-1 text-xs sm:text-sm text-stone-600 font-sans leading-relaxed border-t border-[#E8DDD6]/60 bg-white animate-in fade-in duration-200">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Direct WhatsApp Box */}
+            <div className="pt-3 border-t border-[#E8DDD6] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+              <span className="text-xs text-stone-500 font-sans">
+                Pertanyaan Anda belum terjawab di sini? Hubungi kami langsung.
+              </span>
+              <button
+                type="button"
+                onClick={onOpenBooking}
+                className="px-5 py-2.5 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95 shadow-2xs"
+              >
+                <Calendar className="w-4 h-4 text-[#A9BCA7]" />
+                <span>Buka Form Reservasi</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      )}
+
+      {/* ==================================================================== */}
+      {/* 4. MODAL PERBESAR FOTO DENGAN FITUR GESER/SLIDER (SWIPEABLE MODAL)   */}
       {/* ==================================================================== */}
       {activeModalPhoto && (() => {
         const imageList = activeModalPhoto.images && activeModalPhoto.images.length > 0
