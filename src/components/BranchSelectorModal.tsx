@@ -119,12 +119,12 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
       onTouchEnd={handleTouchEnd}
     >
       {/* 1. Top Minimalist Navbar (Tegas & Mewah - Hanya Tampil di Mobile) */}
-      <div className="w-full bg-[#FDFBF7] px-4 py-3 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E8DDD6] z-30">
-        <div className="flex items-center gap-2">
-          <span className="font-serif font-black text-base sm:text-xl tracking-[0.3em] text-[#3A3A3A] uppercase">
-            ALVIERO
-          </span>
-        </div>
+      <div className="w-full bg-[#FDFBF7] px-4 py-2.5 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E8DDD6] z-30">
+        <img
+          src="/images/alviero-logo-official.png"
+          alt="Alviero Studio"
+          className="h-8 sm:h-9 w-auto object-contain"
+        />
       </div>
 
       {/* 2. Full Image Banner Container */}
