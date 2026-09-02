@@ -108,6 +108,10 @@ export default function App() {
               onSelectBranch={handleSelectBranch}
               onSelectCategory={handleSelectCategoryFromLanding}
               onOpenBooking={handleOpenBookingWithPromo}
+              onNavigateToLocation={() => {
+                setActiveTab('rules');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
             />
           ) : (
             /* Gambar 2: Menu Pricelist & Bio-Link Cabang Terpilih */

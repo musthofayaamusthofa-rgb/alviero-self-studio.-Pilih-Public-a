@@ -36,6 +36,7 @@ interface BranchSelectorViewProps {
   onSelectBranch: (branch: StudioBranch) => void;
   onSelectCategory?: (category: string, branch?: StudioBranch) => void;
   onOpenBooking?: (promoCode?: string, packageId?: string) => void;
+  onNavigateToLocation?: () => void;
   onClose?: () => void;
   canDismiss?: boolean;
 }
@@ -1216,7 +1217,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   selectedBranch,
   onSelectBranch,
   onSelectCategory,
-  onOpenBooking
+  onOpenBooking,
+  onNavigateToLocation
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedPromoModal, setSelectedPromoModal] = useState<StudioPromo | null>(null);
@@ -1886,7 +1888,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </a>
               <button
                 type="button"
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => {
+                  if (onNavigateToLocation) {
+                    onNavigateToLocation();
+                  } else {
+                    setIsModalOpen(true);
+                  }
+                }}
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer group"
               >
                 <MapPin className="w-3.5 h-3.5 text-[#A9BCA7] group-hover:text-white transition-colors shrink-0" />
