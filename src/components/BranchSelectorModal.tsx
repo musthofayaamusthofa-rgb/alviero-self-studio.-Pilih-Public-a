@@ -1,28 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { 
-  Check, 
-  X, 
-  ArrowRight, 
+import {
+  Check,
+  X,
+  ArrowRight,
   ArrowUpRight,
-  MapPin, 
-  ChevronLeft, 
-  ChevronRight, 
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
   ChevronDown,
-  Sparkles, 
-  Star, 
-  ShieldCheck, 
-  Clock, 
-  Award, 
-  Palette, 
-  Layers, 
-  HeartHandshake, 
-  Sliders, 
+  Sparkles,
+  Star,
+  ShieldCheck,
+  Clock,
+  Award,
+  Palette,
+  Layers,
+  HeartHandshake,
+  Sliders,
   Image as ImageIcon,
   Camera,
   Calendar,
   MessageCircle,
+  Instagram,
   RefreshCw
 } from 'lucide-react';
 
@@ -171,11 +172,10 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
                 key={slide.id}
                 onClick={() => setCurrentIdx(idx)}
                 aria-label={`Slide ${idx + 1}`}
-                className={`transition-all cursor-pointer ${
-                  isActive
-                    ? 'w-6 h-0.5 bg-[#A9BCA7]'
-                    : 'w-2 h-0.5 bg-white/40 hover:bg-white'
-                }`}
+                className={`transition-all cursor-pointer ${isActive
+                  ? 'w-6 h-0.5 bg-[#A9BCA7]'
+                  : 'w-2 h-0.5 bg-white/40 hover:bg-white'
+                  }`}
               />
             );
           })}
@@ -191,13 +191,13 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
         <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#3A3A3A] leading-tight tracking-wide uppercase max-w-2xl">
           Studio Foto Modern dengan Fasilitas Mewah & Terlengkap
         </h2>
-        
+
         <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#6E856C] tracking-[0.18em] uppercase">
           Kenyamanan Maksimal • Kualitas Visual Premium
         </p>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#5A5A5A] max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu lighting studio profesional, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
+          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang sejuk, 7+ pilihan tema background estetis, tata lampu lighting studio profesional, monitor live-view realtime untuk melihat hasil jepretan seketika (SelfStudio), serta private dressing room & jas kemeja siap pakai.
         </p>
       </div>
     </div>
@@ -303,7 +303,7 @@ export const ClientReviewCarousel: React.FC = () => {
   const visibleReviews = CLIENT_REVIEWS.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
 
   return (
-    <div 
+    <div
       className="pt-5 pb-1 border-t border-[#E8DDD6] space-y-3 relative select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -394,11 +394,10 @@ export const ClientReviewCarousel: React.FC = () => {
               key={idx}
               onClick={() => setCurrentReviewIdx(idx)}
               aria-label={`Review page ${idx + 1}`}
-              className={`transition-all rounded-full cursor-pointer ${
-                currentReviewIdx === idx
-                  ? 'w-6 h-1 bg-[#3A3A3A]'
-                  : 'w-2 h-1 bg-stone-300 hover:bg-stone-500'
-              }`}
+              className={`transition-all rounded-full cursor-pointer ${currentReviewIdx === idx
+                ? 'w-6 h-1 bg-[#3A3A3A]'
+                : 'w-2 h-1 bg-stone-300 hover:bg-stone-500'
+                }`}
             />
           ))}
         </div>
@@ -651,7 +650,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
       {/* Main Cinematic Visual Stage */}
       <div className="max-w-6xl mx-auto">
-        <div 
+        <div
           className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#222222] rounded-2xl sm:rounded-3xl overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl select-none"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
@@ -665,7 +664,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
             alt={activeSlide.caption}
             className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-102"
           />
-          
+
           {/* Subtle Ambient Shadow */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
 
@@ -685,11 +684,10 @@ export const StudioTourAndEducationShowcase: React.FC<{
                 type="button"
                 onClick={() => setCurrentSlideIdx(idx)}
                 aria-label={`Slide ${idx + 1}`}
-                className={`transition-all rounded-full cursor-pointer ${
-                  currentSlideIdx === idx
-                    ? 'w-8 h-1.5 bg-[#A9BCA7] shadow-sm'
-                    : 'w-2 h-1.5 bg-white/50 hover:bg-white/80'
-                }`}
+                className={`transition-all rounded-full cursor-pointer ${currentSlideIdx === idx
+                  ? 'w-8 h-1.5 bg-[#A9BCA7] shadow-sm'
+                  : 'w-2 h-1.5 bg-white/50 hover:bg-white/80'
+                  }`}
               />
             ))}
           </div>
@@ -791,13 +789,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   return (
     <div className="w-full max-w-[1440px] mx-auto my-0 sm:my-4 md:my-6 px-0 sm:px-4 md:px-8 lg:px-12 animate-in fade-in duration-300">
       <div className="bg-[#FDFBF7] border-x-0 sm:border sm:border-[#E8DDD6] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
-        
+
         {/* Top Hero Banner Slider */}
         <BackgroundHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
         <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FDFBF7] flex-1">
-          
+
           {/* 1. Why Choose Alviero Studio? */}
           <div className="pb-1 space-y-4">
             <div className="text-center space-y-1">
@@ -898,7 +896,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
           {/* 3. Spesifikasi Studio & Edukasi Ruang Lengkap */}
           <div className="pt-4 border-t border-[#E8DDD6]">
-            <StudioTourAndEducationShowcase 
+            <StudioTourAndEducationShowcase
               selectedBranch={selectedBranch}
               onSelectBranch={onSelectBranch}
               onSelectCategory={onSelectCategory}
@@ -907,7 +905,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
           {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak */}
           <div id="section-services" className="pt-4 pb-1 border-t border-[#E8DDD6]">
-            
+
             {/* BIG EYE-CATCHING GRAND CALLOUT BOX & SPECIALIST SERVICES (Kontainer Border Hitam Sampai Bawah) */}
             <div className="w-full bg-[#2A2A2A] text-white p-4 sm:p-6 md:p-8 border border-[#3A3A3A] rounded-2xl sm:rounded-3xl shadow-xl relative overflow-hidden space-y-5 sm:space-y-6 text-left">
               {/* Subtle background ambient glow */}
@@ -948,11 +946,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 1. Studio Foto (Expandable / Pilihan Studio 1 & Studio 2 Langsung Buka Pricelist) */}
                   <div
-                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
-                      isStudioFotoExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     <div
                       onClick={toggleStudioFoto}
@@ -965,7 +962,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                         <div className="min-w-0">
                           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                             <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                              1. STUDIO FOTO
+                              STUDIO FOTO
                             </h4>
                             <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                               Foto Studio
@@ -982,9 +979,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           {isStudioFotoExpanded ? 'Tutup' : 'Pilih Studio'}
                         </span>
                         <ChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            isStudioFotoExpanded ? 'rotate-180 text-[#6E856C]' : ''
-                          }`}
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-[#6E856C]' : ''
+                            }`}
                         />
                       </div>
                     </div>
@@ -1058,11 +1054,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 2. SelfStudio (Expandable / Pilihan Studio 1 & Studio 2) */}
                   <div
-                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
-                      isSelfStudioExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     <div
                       onClick={toggleSelfStudio}
@@ -1075,7 +1070,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                         <div className="min-w-0">
                           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                             <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                              2. SELFSTUDIO
+                              SELFSTUDIO
                             </h4>
                             <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                               Self Photo
@@ -1092,9 +1087,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           {isSelfStudioExpanded ? 'Tutup' : 'Pilih Studio'}
                         </span>
                         <ChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            isSelfStudioExpanded ? 'rotate-180 text-[#6E856C]' : ''
-                          }`}
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-[#6E856C]' : ''
+                            }`}
                         />
                       </div>
                     </div>
@@ -1186,7 +1180,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            3. CETAK & BINGKAI
+                            CETAK & BINGKAI
                           </h4>
                           <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                             Lab & Frame
@@ -1216,7 +1210,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            4. WEDDING & PREWEDDING
+                            WEDDING & PREWEDDING OUTDOOR
                           </h4>
                           <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                             Suite
@@ -1246,7 +1240,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            5. MUA & KEBAYA
+                            MUA & KEBAYA
                           </h4>
                           <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                             Wardrobe
@@ -1276,7 +1270,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            6. EVENT
+                            EVENT
                           </h4>
                           <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                             Event
@@ -1336,11 +1330,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             {/* Status Live Pill */}
-            <div className={`px-3.5 py-1.5 border flex items-center gap-2 text-[10.5px] ${
-              isOpen 
-                ? 'bg-[#1E2E1D] border-[#A9BCA7]/40' 
-                : 'bg-rose-950/80 border-rose-500/30'
-            }`}>
+            <div className={`px-3.5 py-1.5 border flex items-center gap-2 text-[10.5px] ${isOpen
+              ? 'bg-[#1E2E1D] border-[#A9BCA7]/40'
+              : 'bg-rose-950/80 border-rose-500/30'
+              }`}>
               {isOpen ? (
                 <>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-pulse"></span>
@@ -1358,30 +1351,44 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               )}
             </div>
 
-            {/* Quick Text Links */}
-            <div className="flex items-center gap-4 sm:gap-6 font-sans text-[11px] text-stone-300">
+            {/* Quick Text Links with Logos / Icons */}
+            <div className="flex items-center gap-4 sm:gap-6 font-sans text-[11px] text-stone-300 flex-wrap justify-center">
               <a
-                href="https://instagram.com/alvierostudio"
+                href="https://instagram.com/alvierostudiofoto"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
               >
-                Instagram
+                <Instagram className="w-3.5 h-3.5 text-[#A9BCA7] group-hover:text-white transition-colors shrink-0" />
+                <span>Instagram</span>
+              </a>
+              <a
+                href="https://tiktok.com/@alvierostudiofoto"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
+              >
+                <svg className="w-3.5 h-3.5 fill-[#A9BCA7] group-hover:fill-white transition-colors shrink-0" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.83-4.47V8.9a8.18 8.18 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-.83-.33z"/>
+                </svg>
+                <span>Tiktok</span>
               </a>
               <a
                 href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
               >
-                WhatsApp
+                <MessageCircle className="w-3.5 h-3.5 text-[#A9BCA7] group-hover:text-white transition-colors shrink-0" />
+                <span>WhatsApp</span>
               </a>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                className="hover:text-white transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer group"
               >
-                Lokasi Studio
+                <MapPin className="w-3.5 h-3.5 text-[#A9BCA7] group-hover:text-white transition-colors shrink-0" />
+                <span>Lokasi Studio</span>
               </button>
             </div>
           </div>
@@ -1428,7 +1435,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
       <div className="bg-[#FDFBF7] max-w-xl w-full rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col my-auto relative">
-        
+
         {/* Minimalist Modal Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8DDD6] bg-white">
           <div className="flex items-center gap-3">
@@ -1465,18 +1472,16 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
               <div
                 key={branch.id}
                 onClick={() => handleChoose(branch.id)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer relative group text-left ${
-                  isSelected
-                    ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-md'
-                    : 'bg-[#FAF8F5] hover:bg-white border-[#E8DDD6] hover:border-[#3A3A3A] shadow-2xs'
-                }`}
+                className={`p-4 sm:p-5 rounded-2xl border transition-all duration-200 cursor-pointer relative group text-left ${isSelected
+                  ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-md'
+                  : 'bg-[#FAF8F5] hover:bg-white border-[#E8DDD6] hover:border-[#3A3A3A] shadow-2xs'
+                  }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0 flex-1">
                     {/* Clean Left Icon Container */}
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-colors shadow-2xs ${
-                      isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#FDFBF7] text-[#3A3A3A] border-[#E8DDD6]'
-                    }`}>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border transition-colors shadow-2xs ${isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#FDFBF7] text-[#3A3A3A] border-[#E8DDD6]'
+                      }`}>
                       <MapPin className={`w-5 h-5 stroke-[1.8] ${isSelected ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
                     </div>
 
@@ -1486,9 +1491,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         <h4 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide">
                           {branch.name}
                         </h4>
-                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${
-                          isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#EBF2EA] text-[#6E856C] border-[#A9BCA7]'
-                        }`}>
+                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#EBF2EA] text-[#6E856C] border-[#A9BCA7]'
+                          }`}>
                           {branch.badge}
                         </span>
                       </div>
@@ -1526,9 +1530,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
 
                   {/* Radio Indicator */}
                   <div className="pt-1 shrink-0">
-                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${
-                      isSelected ? 'border-[#3A3A3A] bg-[#3A3A3A]' : 'border-stone-400 bg-transparent'
-                    }`}>
+                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-all ${isSelected ? 'border-[#3A3A3A] bg-[#3A3A3A]' : 'border-stone-400 bg-transparent'
+                      }`}>
                       {isSelected && <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />}
                     </div>
                   </div>
