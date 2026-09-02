@@ -506,23 +506,61 @@ export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
 /**
  * Komponen Galeri Tema Background & Hasil Foto Studio
  */
+export const STUDIO_SHOWCASE_IMAGES = [
+  {
+    src: '/images/backdrops/backdrop-5.jpg',
+    caption: 'European Royal Fireplace & Frame — Set Mewah Formal',
+    tag: 'ROYAL FIREPLACE'
+  },
+  {
+    src: '/images/backdrops/backdrop-1.jpg',
+    caption: 'Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga',
+    tag: 'MINT AESTHETIC'
+  },
+  {
+    src: '/images/backdrops/backdrop-4.jpg',
+    caption: 'Charcoal Deep Classic Sofa — Elegan & Timeless',
+    tag: 'TIMELESS CLASSIC'
+  },
+  {
+    src: '/images/backdrops/backdrop-6.jpg',
+    caption: 'Warm Beige Classic Armchair — Cozy Editorial Tone',
+    tag: 'COZY EDITORIAL'
+  },
+  {
+    src: '/images/backdrops/backdrop-2.jpg',
+    caption: 'Bohemian Rustic Texture Wall — Natural & Warm',
+    tag: 'BOHEMIAN RUSTIC'
+  },
+  {
+    src: '/images/backdrops/backdrop-3.jpg',
+    caption: 'Black Arch Window Bar Stool Theme — Bold & Editorial',
+    tag: 'ARCH WINDOW'
+  },
+  {
+    src: '/images/backdrops/backdrop-7.jpg',
+    caption: 'White Arch Windows & Grey Minimalist Set',
+    tag: 'MINIMALIST BRIGHT'
+  }
+];
+
+/**
+ * Komponen Galeri Tema Background & Hasil Foto Studio
+ */
 export const StudioTourAndEducationShowcase: React.FC<{
   onSelectCategory?: (category: string) => void;
-  onSelectBranch: (branch: StudioBranch) => void;
-  selectedBranch: StudioBranch;
-}> = ({ onSelectCategory, onSelectBranch, selectedBranch }) => {
-  const [activeRoomId, setActiveRoomId] = useState<string>('studio-1');
+  onSelectBranch?: (branch: StudioBranch) => void;
+  selectedBranch?: StudioBranch;
+}> = () => {
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
-
-  const activeRoom = STUDIO_ROOMS_DATA.find((r) => r.id === activeRoomId) || STUDIO_ROOMS_DATA[0];
-  const activeSlide = activeRoom.images[currentSlideIdx] || activeRoom.images[0];
+  const activeSlide = STUDIO_SHOWCASE_IMAGES[currentSlideIdx] || STUDIO_SHOWCASE_IMAGES[0];
 
   const handleNextSlide = () => {
-    setCurrentSlideIdx((prev) => (prev + 1) % activeRoom.images.length);
+    setCurrentSlideIdx((prev) => (prev + 1) % STUDIO_SHOWCASE_IMAGES.length);
   };
 
   const handlePrevSlide = () => {
-    setCurrentSlideIdx((prev) => (prev - 1 + activeRoom.images.length) % activeRoom.images.length);
+    setCurrentSlideIdx((prev) => (prev - 1 + STUDIO_SHOWCASE_IMAGES.length) % STUDIO_SHOWCASE_IMAGES.length);
   };
 
   return (
@@ -541,43 +579,11 @@ export const StudioTourAndEducationShowcase: React.FC<{
         </p>
       </div>
 
-      {/* Luxury Segmented Studio Switcher */}
-      <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-        {STUDIO_ROOMS_DATA.map((room) => {
-          const isActive = activeRoomId === room.id;
-          const isSelfStudio = room.id === 'self-studio';
-          return (
-            <button
-              key={room.id}
-              type="button"
-              onClick={() => {
-                if (isSelfStudio && onSelectCategory) {
-                  onSelectBranch('cabang-1');
-                  onSelectCategory('selfstudio');
-                  return;
-                }
-                setActiveRoomId(room.id);
-                setCurrentSlideIdx(0);
-                onSelectBranch(room.branchId);
-              }}
-              className={`px-5 py-2.5 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${
-                isActive
-                  ? 'bg-[#3A3A3A] text-white shadow-md border border-[#3A3A3A]'
-                  : 'bg-white text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#F2E9E4]/60'
-              }`}
-            >
-              <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-[#A9BCA7] animate-pulse' : 'bg-stone-300'}`} />
-              <span>{isSelfStudio ? '✨ SelfStudio' : room.name.replace('STUDIO ', 'Studio ')}</span>
-            </button>
-          );
-        })}
-      </div>
-
       {/* Main Cinematic Visual Stage */}
       <div className="max-w-6xl mx-auto">
         <div className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#222222] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl">
           <img
-            key={`${activeRoom.id}-${currentSlideIdx}`}
+            key={currentSlideIdx}
             src={activeSlide.src}
             alt={activeSlide.caption}
             className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-102"
@@ -596,7 +602,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
           {/* Minimalist Bottom Pagination Dots */}
           <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
-            {activeRoom.images.map((_, idx) => (
+            {STUDIO_SHOWCASE_IMAGES.map((_, idx) => (
               <button
                 key={idx}
                 type="button"
