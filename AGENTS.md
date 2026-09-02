@@ -45,14 +45,19 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 > - **A. Aturan Studio 2 (Kapasitas, Kuota Background & Bentrok Posisi):**
 >   1. **Kapasitas**: Dalam 1 slot jam, Studio 2 dapat menerima **maksimal 3 klien sekaligus**.
 >   2. **Kuota per Background (Single-Use per Slot)**: Setiap background (*Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream*) hanya bisa dipilih **maksimal 1 kali** dalam 1 slot jam yang sama (1 background tidak bisa dipakai bersamaan oleh 2 klien berbeda).
->   3. **Aturan Khusus Bentrok Posisi (*Mutual Exclusion: Coklat vs Cream*)**:
->      - Background **Coklat Jendela** dan **Tematik Cream** saling bertabrakan (berada pada posisi panggung fisik yang sama).
->      - Jika *Coklat* dipilih oleh klien mana pun di jam tersebut ➔ *Cream* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut.
->      - Jika *Cream* dipilih oleh klien mana pun di jam tersebut ➔ *Coklat* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut.
+>   3. **Aturan Khusus Bentrok Posisi (*Mutual Exclusion* Panggung Fisik)**:
+>      - **Panggung 1 (Coklat Jendela ⇄ Tematik Cream)**:
+>        - Jika *Coklat* dipilih ➔ *Cream* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut (dan sebaliknya).
+>        - Klien paket 2 background tidak dapat menggabungkan Coklat dan Cream dalam 1 sesi.
+>      - **Panggung 2 (Putih ⇄ Abu-abu)**:
+>        - Jika *Putih* dipilih ➔ *Abu-abu* otomatis **TIDAK TERSEDIA** (terkunci) untuk klien lain di jam tersebut (dan sebaliknya).
+>        - Klien paket 2 background tidak dapat menggabungkan Putih dan Abu-abu dalam 1 sesi.
+>      - **Panggung Mandiri (Hitam)**:
+>        - Background *Hitam* berdiri sendiri dan dapat dipilih selama belum diambil oleh klien lain di jam tersebut.
 >   4. **Skenario Validasi Studio 2**:
 >      - Klien 1 pilih *Hitam* ➔ *Hitam* terkunci. Tersedia untuk Klien 2: *Putih, Abu-abu, Coklat, Cream*.
 >      - Klien 2 pilih *Coklat* ➔ *Coklat* terkunci & *Cream* otomatis ikut terkunci.
->      - Klien 3 masuk ➔ Pilihan yang tersedia HANYA: ***Putih*** atau ***Abu-abu***.
+>      - Klien 3 masuk ➔ Pilihan yang tersedia HANYA: ***Putih*** atau ***Abu-abu*** (jika Klien 3 pilih *Putih* ➔ *Abu-abu* otomatis terkunci, dan sebaliknya).
 > - **B. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi oleh 1 klien.
 
 > ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
