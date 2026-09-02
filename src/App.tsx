@@ -52,11 +52,22 @@ export default function App() {
     setIsBranchModalOpen(true);
   };
 
-  const handleBackToLanding = () => {
+  const handleBackToLanding = (targetSectionId?: string) => {
     setHasEnteredBranch(false);
     setInitialMenuCategory(undefined);
     setActiveTab('katalog');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (targetSectionId) {
+      setTimeout(() => {
+        const el = document.getElementById(targetSectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleOpenBookingWithPackage = (packageId: string) => {

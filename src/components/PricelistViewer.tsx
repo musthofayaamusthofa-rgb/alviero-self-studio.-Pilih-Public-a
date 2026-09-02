@@ -17,7 +17,7 @@ interface PricelistViewerProps {
   onNavigateToRules?: () => void;
   onNavigateToTab?: (tab: string) => void;
   onOpenBooking?: () => void;
-  onBackToLanding?: () => void;
+  onBackToLanding?: (targetSectionId?: string) => void;
 }
 
 interface StudioGalleryPhoto {
@@ -101,6 +101,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [selectedKebayaFilter, setSelectedKebayaFilter] = useState<'all' | 'adat' | 'modern' | 'gaun'>('all');
   const [selectedBingkaiSubTab, setSelectedBingkaiSubTab] = useState<'all' | 'cetak' | 'bingkai' | 'album'>('all');
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(!!initialCategory);
+
+  const handleClosePopup = () => {
+    setIsMobilePopupOpen(false);
+    if (onBackToLanding) {
+      onBackToLanding('section-services');
+    }
+  };
 
   // Sync initialCategory if changed
   React.useEffect(() => {
@@ -1031,6 +1038,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   <span className="text-[10.5px] font-serif font-bold uppercase tracking-wider bg-white text-stone-700 px-3 py-1 border border-[#E0D9CE] rounded-full">
                     {currentBranchInfo.shortName}
                   </span>
+                  <button
+                    onClick={handleClosePopup}
+                    className="p-1.5 rounded-full hover:bg-stone-200 text-stone-600 hover:text-stone-900 transition-colors cursor-pointer"
+                    title="Tutup & Kembali ke Beranda"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
 
@@ -1049,7 +1063,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
 
                 <button
-                  onClick={() => setIsMobilePopupOpen(false)}
+                  onClick={handleClosePopup}
                   className="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
                 >
                   <X className="w-4 h-4 text-amber-300" />
@@ -4093,11 +4107,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 {/* Tombol Tutup di Bagian Bawah Pop-up Khusus HP */}
                 <div className="pt-4 pb-2 border-t border-slate-200 text-center md:hidden">
                   <button
-                    onClick={() => setIsMobilePopupOpen(false)}
+                    onClick={handleClosePopup}
                     className="w-full min-h-[44px] bg-slate-900 hover:bg-slate-800 text-white font-black text-xs rounded-2xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95"
                   >
                     <ChevronLeft className="w-4 h-4 text-amber-300" />
-                    <span>Tutup & Kembali ke Menu Utama</span>
+                    <span>Tutup & Kembali ke Beranda</span>
                   </button>
                 </div>
 

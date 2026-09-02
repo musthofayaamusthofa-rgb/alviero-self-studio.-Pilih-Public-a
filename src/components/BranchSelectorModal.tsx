@@ -748,8 +748,38 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   };
 
   const [isOpen, setIsOpen] = useState<boolean>(checkIsOpen);
-  const [isStudioFotoExpanded, setIsStudioFotoExpanded] = useState<boolean>(false);
-  const [isSelfStudioExpanded, setIsSelfStudioExpanded] = useState<boolean>(false);
+  const [isStudioFotoExpanded, setIsStudioFotoExpanded] = useState<boolean>(() => {
+    return localStorage.getItem('alviero_expanded_service') === 'studio-foto';
+  });
+  const [isSelfStudioExpanded, setIsSelfStudioExpanded] = useState<boolean>(() => {
+    return localStorage.getItem('alviero_expanded_service') === 'selfstudio';
+  });
+
+  const toggleStudioFoto = () => {
+    setIsStudioFotoExpanded((prev) => {
+      const next = !prev;
+      if (next) {
+        localStorage.setItem('alviero_expanded_service', 'studio-foto');
+        setIsSelfStudioExpanded(false);
+      } else {
+        localStorage.removeItem('alviero_expanded_service');
+      }
+      return next;
+    });
+  };
+
+  const toggleSelfStudio = () => {
+    setIsSelfStudioExpanded((prev) => {
+      const next = !prev;
+      if (next) {
+        localStorage.setItem('alviero_expanded_service', 'selfstudio');
+        setIsStudioFotoExpanded(false);
+      } else {
+        localStorage.removeItem('alviero_expanded_service');
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -876,7 +906,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           </div>
 
           {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak */}
-          <div className="pt-4 pb-1 border-t border-[#E8DDD6]">
+          <div id="section-services" className="pt-4 pb-1 border-t border-[#E8DDD6]">
             
             {/* BIG EYE-CATCHING GRAND CALLOUT BOX & SPECIALIST SERVICES (Kontainer Border Hitam Sampai Bawah) */}
             <div className="w-full bg-[#2A2A2A] text-white p-4 sm:p-6 md:p-8 border border-[#3A3A3A] rounded-2xl sm:rounded-3xl shadow-xl relative overflow-hidden space-y-5 sm:space-y-6 text-left">
@@ -925,7 +955,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     }`}
                   >
                     <div
-                      onClick={() => setIsStudioFotoExpanded((prev) => !prev)}
+                      onClick={toggleStudioFoto}
                       className="cursor-pointer flex items-center justify-between gap-3 select-none"
                     >
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
@@ -973,6 +1003,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
+                              localStorage.setItem('alviero_expanded_service', 'studio-foto');
                               onSelectBranch('cabang-1');
                             }}
                             className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b1 cursor-pointer active:scale-98 text-left"
@@ -999,6 +1030,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
+                              localStorage.setItem('alviero_expanded_service', 'studio-foto');
                               onSelectBranch('cabang-2');
                             }}
                             className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b2 cursor-pointer active:scale-98 text-left"
@@ -1033,7 +1065,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     }`}
                   >
                     <div
-                      onClick={() => setIsSelfStudioExpanded((prev) => !prev)}
+                      onClick={toggleSelfStudio}
                       className="cursor-pointer flex items-center justify-between gap-3 select-none"
                     >
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
@@ -1081,6 +1113,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
+                              localStorage.setItem('alviero_expanded_service', 'selfstudio');
                               if (onSelectCategory) {
                                 onSelectCategory('selfstudio', 'cabang-1');
                               } else {
@@ -1111,6 +1144,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
+                              localStorage.setItem('alviero_expanded_service', 'selfstudio');
                               if (onSelectCategory) {
                                 onSelectCategory('selfstudio', 'cabang-2');
                               } else {
