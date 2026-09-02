@@ -20,11 +20,11 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 ---
 
 ## 🎨 3. Design Aesthetics & Luxury Guidelines
-1. **Tema Warna (*Curated Luxury Palette*)**:
-   - **Sage Green Utama**: `#55735b`, `#6c8c74` (Aksen tombol, border aktif, pin lokasi).
-   - **Soft Sage Tint**: `#eaf1ea`, `#e3eee3`, `#f2f7f2` (Latar belakang ikon & pill highlight).
-   - **Latar Belakang (*Background*)**: Warm Ivory `#faf9f5` & White `#ffffff`.
-   - **Teks**: Deep Charcoal `#0f0e0c`, `#18231a`, `#232d38`.
+1. **Tema Warna Resmi (*Official 4-Color Luxury Palette*)**:
+   - **Dusty Sage (Hijau Pastel Redup)**: `#A9BCA7` (Aksen tombol, border aktif, tag highlight, ikon; aksen pekat: `#6E856C`, `#5C725A`).
+   - **Champagne (Krem Keemasan Halus)**: `#F2E9E4` (Latar belakang pill, border sekunder `#E8DDD6`, warm surface tints).
+   - **Ivory (Putih Gading)**: `#FDFBF7` (Latar belakang body utama, kontainer kartu putih bersih `#FFFFFF`).
+   - **Charcoal (Abu-abu Gelap untuk Teks/Kontras)**: `#3A3A3A` (Tipografi utama, heading, tombol aktif kontras, container gelap: `#2A2A2A`).
    - **Shadows**: Soft ambient elevation (`shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]`).
 2. **Tipografi Mewah (*Luxury Typography*)**:
    - Serif & Editorial Font: `Italiana`, `Bodoni Moda`, `Playfair Display`, `Cormorant Garamond`.

@@ -205,27 +205,27 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       {/* ==================================================================== */}
       {/* 2. Interactive FAQ Section                                           */}
       {/* ==================================================================== */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-        <div className="flex items-center gap-2 text-indigo-600 font-extrabold text-xs uppercase tracking-wider">
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8DDD6] shadow-xs space-y-4">
+        <div className="flex items-center gap-2 text-[#6E856C] font-extrabold text-xs uppercase tracking-wider">
           <HelpCircle className="w-4 h-4" />
           <span>Pertanyaan Umum (FAQ)</span>
         </div>
-        <h3 className="text-xl font-extrabold text-slate-900">Hal Yang Sering Ditanyakan</h3>
+        <h3 className="text-xl font-extrabold text-[#3A3A3A]">Hal Yang Sering Ditanyakan</h3>
 
         <div className="space-y-2 pt-2">
           {faqs.map((faq, idx) => {
             const isOpen = openFaqIdx === idx;
             return (
-              <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden">
+              <div key={idx} className="border border-[#E8DDD6] rounded-2xl overflow-hidden">
                 <button
                   onClick={() => setOpenFaqIdx(isOpen ? null : idx)}
-                  className="w-full p-4 text-left font-bold text-xs sm:text-sm text-slate-900 bg-slate-50 hover:bg-slate-100/80 flex items-center justify-between gap-2 cursor-pointer transition-colors"
+                  className="w-full p-4 text-left font-bold text-xs sm:text-sm text-[#3A3A3A] bg-[#FDFBF7] hover:bg-[#F2E9E4] flex items-center justify-between gap-2 cursor-pointer transition-colors"
                 >
                   <span>{faq.q}</span>
-                  {isOpen ? <ChevronUp className="w-4 h-4 text-indigo-600 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
+                  {isOpen ? <ChevronUp className="w-4 h-4 text-[#6E856C] shrink-0" /> : <ChevronDown className="w-4 h-4 text-stone-400 shrink-0" />}
                 </button>
                 {isOpen && (
-                  <div className="p-4 bg-white text-xs text-slate-600 leading-relaxed border-t border-slate-100 animate-in fade-in duration-200">
+                  <div className="p-4 bg-white text-xs text-stone-600 leading-relaxed border-t border-[#E8DDD6] animate-in fade-in duration-200">
                     {faq.a}
                   </div>
                 )}
@@ -238,29 +238,29 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       {/* ==================================================================== */}
       {/* 4. Location & Contact Section                                       */}
       {/* ==================================================================== */}
-      <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <div className="bg-[#2A2A2A] text-white rounded-3xl p-6 sm:p-10 border border-[#3A3A3A] shadow-xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full">
+          <div className="inline-flex items-center gap-1.5 bg-[#A9BCA7]/20 text-[#A9BCA7] text-xs font-bold px-3 py-1 rounded-full border border-[#A9BCA7]/40">
             <MapPin className="w-3.5 h-3.5" />
             <span>Lokasi & Jam Operasional</span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-black text-white">
+          <h3 className="text-2xl sm:text-3xl font-black text-white font-serif">
             Kunjungi Alviero Studio Foto
           </h3>
 
-          <div className="space-y-3 text-xs text-slate-200 pt-2">
+          <div className="space-y-3 text-xs text-stone-200 pt-2">
             <a
               href="https://maps.app.goo.gl/oxtptpr3RSDL9zCj6"
               target="_blank"
               rel="noreferrer"
               title="Buka Studio 1 di Google Maps"
-              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all cursor-pointer group"
+              className="flex items-start gap-2 bg-[#3A3A3A] hover:bg-[#4A4A4A] p-3 rounded-2xl border border-[#4A4A4A] hover:border-[#A9BCA7] transition-all cursor-pointer group"
             >
-              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <MapPin className="w-4 h-4 text-[#A9BCA7] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
-                <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 1 (Karangploso) ↗</strong>
-                <span className="text-slate-300 break-all underline decoration-slate-500 hover:decoration-emerald-400">https://maps.app.goo.gl/oxtptpr3RSDL9zCj6</span>
+                <strong className="text-white block font-bold group-hover:text-[#A9BCA7] transition-colors">Studio 1 (Karangploso) ↗</strong>
+                <span className="text-stone-300 break-all underline decoration-stone-500 hover:decoration-[#A9BCA7]">https://maps.app.goo.gl/oxtptpr3RSDL9zCj6</span>
               </div>
             </a>
 
@@ -269,17 +269,17 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
               target="_blank"
               rel="noreferrer"
               title="Buka Studio 2 di Google Maps"
-              className="flex items-start gap-2 bg-slate-800/80 hover:bg-slate-800 p-3 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition-all cursor-pointer group"
+              className="flex items-start gap-2 bg-[#3A3A3A] hover:bg-[#4A4A4A] p-3 rounded-2xl border border-[#4A4A4A] hover:border-[#A9BCA7] transition-all cursor-pointer group"
             >
-              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <MapPin className="w-4 h-4 text-[#A9BCA7] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div>
-                <strong className="text-white block font-bold group-hover:text-emerald-300 transition-colors">Studio 2 (Dinoyo Gajayana) ↗</strong>
-                <span className="text-slate-300 break-all underline decoration-slate-500 hover:decoration-emerald-400">https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9</span>
+                <strong className="text-white block font-bold group-hover:text-[#A9BCA7] transition-colors">Studio 2 (Dinoyo Gajayana) ↗</strong>
+                <span className="text-stone-300 break-all underline decoration-stone-500 hover:decoration-[#A9BCA7]">https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9</span>
               </div>
             </a>
 
-            <div className="flex items-center gap-2 pt-1">
-              <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="flex items-center gap-2 pt-1 text-stone-300">
+              <Clock className="w-4 h-4 text-[#A9BCA7] shrink-0" />
               <span>Buka Setiap Hari: 08:00 - 21:00 WIB</span>
             </div>
           </div>
@@ -289,7 +289,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
               href="https://maps.app.goo.gl/oxtptpr3RSDL9zCj6"
               target="_blank"
               rel="noreferrer"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
+              className="bg-[#6E856C] hover:bg-[#5C725A] text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
             >
               <Navigation className="w-3.5 h-3.5" />
               Maps Studio 1
@@ -298,32 +298,32 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
               href="https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9"
               target="_blank"
               rel="noreferrer"
-              className="bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
+              className="bg-[#5C725A] hover:bg-[#4A5D48] text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
             >
               <Navigation className="w-3.5 h-3.5" />
               Maps Studio 2
             </a>
             <button
               onClick={handleCopyAddress}
-              className="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 border border-slate-700 cursor-pointer active:scale-95"
+              className="bg-[#3A3A3A] hover:bg-[#4A4A4A] text-white font-bold text-xs px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5 border border-[#4A4A4A] cursor-pointer active:scale-95"
             >
-              {copiedAddress ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedAddress ? <Check className="w-3.5 h-3.5 text-[#A9BCA7]" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedAddress ? 'Alamat Tersalin!' : 'Salin Alamat'}</span>
             </button>
           </div>
         </div>
 
         {/* Map Location Card */}
-        <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700 text-center space-y-3">
-          <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
+        <div className="bg-[#1F1F1F] rounded-2xl p-6 border border-[#3A3A3A] text-center space-y-3">
+          <div className="w-16 h-16 bg-[#A9BCA7]/20 text-[#A9BCA7] rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
             📍
           </div>
-          <h4 className="font-extrabold text-sm text-white">Alviero Self Photo Studio</h4>
-          <p className="text-xs text-slate-300">
+          <h4 className="font-extrabold text-sm text-white font-serif">Alviero Self Photo Studio</h4>
+          <p className="text-xs text-stone-300">
             Lantai 2 • Akses Tangga Nyaman • Fasilitas Lengkap
           </p>
           <div className="pt-2">
-            <span className="inline-block bg-slate-900 text-emerald-300 text-[11px] font-bold px-3 py-1.5 rounded-xl border border-slate-700">
+            <span className="inline-block bg-[#2A2A2A] text-[#A9BCA7] text-[11px] font-bold px-3 py-1.5 rounded-xl border border-[#3A3A3A]">
               🟢 Slot Hari Ini Masih Tersedia (08:00 - 21:00 WIB)
             </span>
           </div>

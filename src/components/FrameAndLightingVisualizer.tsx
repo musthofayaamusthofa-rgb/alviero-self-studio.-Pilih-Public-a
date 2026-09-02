@@ -60,14 +60,14 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
     <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
       {/* Title */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-1.5 bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full">
-          <Sliders className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] text-xs font-bold px-3 py-1 rounded-full border border-[#A9BCA7]">
+          <Sliders className="w-3.5 h-3.5 text-[#6E856C]" />
           <span>Interactive Studio Preview Simulator</span>
         </div>
-        <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+        <h2 className="text-2xl sm:text-4xl font-black text-[#3A3A3A] tracking-tight font-serif">
           Simulator Spotlight & Frame Grid
         </h2>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-stone-600">
           Uji coba kombinasi efek cahaya sorot (spotlight) dan pilihan desain bingkai photo strip sebelum kamu memesan.
         </p>
       </div>
@@ -75,15 +75,15 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
       {/* Main Visualizer Playground */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Left Control Panel (Options) */}
-        <div className="lg:col-span-5 space-y-5 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs">
+        <div className="lg:col-span-5 space-y-5 bg-white p-5 sm:p-6 rounded-3xl border border-[#E8DDD6] shadow-xs">
           {/* 1. Select Lighting Backdrop */}
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <label className="text-xs font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
                 1. Pilih Pencahayaan & Background:
               </label>
-              <span className="text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
+              <span className="text-[11px] font-semibold text-[#6E856C] bg-[#EBF2EA] border border-[#A9BCA7] px-2 py-0.5 rounded-md">
                 {selectedBackdrop.name}
               </span>
             </div>
@@ -95,8 +95,8 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                   onClick={() => setSelectedBackdrop(bd)}
                   className={`p-2.5 rounded-2xl border text-left transition-all flex items-center gap-3 cursor-pointer ${
                     selectedBackdrop.id === bd.id
-                      ? 'border-indigo-600 bg-indigo-50/60 ring-2 ring-indigo-600/20 shadow-xs'
-                      : 'border-slate-200 hover:bg-slate-50'
+                      ? 'border-[#6E856C] bg-[#EBF2EA] ring-2 ring-[#A9BCA7]/30 shadow-xs'
+                      : 'border-[#E8DDD6] hover:bg-[#FDFBF7]'
                   }`}
                 >
                   <div 
@@ -112,8 +112,8 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-bold text-xs text-slate-900 truncate">{bd.name}</div>
-                    <div className="text-[10px] text-slate-500 truncate">{bd.description}</div>
+                    <div className="font-bold text-xs text-[#3A3A3A] truncate">{bd.name}</div>
+                    <div className="text-[10px] text-stone-500 truncate">{bd.description}</div>
                   </div>
                 </button>
               ))}
@@ -121,7 +121,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
 
             {/* Spotlight Radius Slider */}
             <div className="pt-1">
-              <div className="flex justify-between text-[11px] font-bold text-slate-600 mb-1">
+              <div className="flex justify-between text-[11px] font-bold text-stone-600 mb-1">
                 <span>Ukuran Lingkaran Spotlight:</span>
                 <span>{spotlightRadius}%</span>
               </div>
@@ -131,19 +131,19 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                 max="100"
                 value={spotlightRadius}
                 onChange={(e) => setSpotlightRadius(Number(e.target.value))}
-                className="w-full accent-indigo-600 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
+                className="w-full accent-[#6E856C] h-1.5 bg-[#E8DDD6] rounded-lg cursor-pointer"
               />
             </div>
           </div>
 
           {/* 2. Select Frame Grid Template */}
-          <div className="space-y-3 pt-2 border-t border-slate-100">
+          <div className="space-y-3 pt-2 border-t border-[#E8DDD6]">
             <div className="flex justify-between items-center">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-purple-600" />
+              <label className="text-xs font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-[#6E856C]" />
                 2. Pilih Grid & Template Cetak:
               </label>
-              <span className="text-[11px] font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md">
+              <span className="text-[11px] font-semibold text-[#6E856C] bg-[#EBF2EA] border border-[#A9BCA7] px-2 py-0.5 rounded-md">
                 {selectedFrame.name}
               </span>
             </div>
@@ -155,21 +155,21 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                   onClick={() => setSelectedFrame(ft)}
                   className={`p-2.5 rounded-2xl border text-left transition-all flex flex-col justify-between gap-1 cursor-pointer ${
                     selectedFrame.id === ft.id
-                      ? 'border-purple-600 bg-purple-50/60 ring-2 ring-purple-600/20 shadow-xs'
-                      : 'border-slate-200 hover:bg-slate-50'
+                      ? 'border-[#3A3A3A] bg-[#3A3A3A] text-white ring-2 ring-[#A9BCA7]/40 shadow-xs'
+                      : 'border-[#E8DDD6] hover:bg-[#FDFBF7] text-[#3A3A3A]'
                   }`}
                 >
-                  <div className="font-bold text-xs text-slate-900">{ft.name}</div>
-                  <div className="text-[10px] text-slate-500">{ft.description}</div>
+                  <div className={`font-bold text-xs ${selectedFrame.id === ft.id ? 'text-white' : 'text-[#3A3A3A]'}`}>{ft.name}</div>
+                  <div className={`text-[10px] ${selectedFrame.id === ft.id ? 'text-stone-300' : 'text-stone-500'}`}>{ft.description}</div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* 3. Filter & Props Options */}
-          <div className="space-y-3 pt-2 border-t border-slate-100">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-              <Wand2 className="w-3.5 h-3.5 text-rose-500" />
+          <div className="space-y-3 pt-2 border-t border-[#E8DDD6]">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+              <Wand2 className="w-3.5 h-3.5 text-[#6E856C]" />
               3. Tambah Filter & Aksesoris Foto:
             </label>
             
@@ -185,7 +185,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                   key={f.id}
                   onClick={() => setActiveFilter(f.id)}
                   className={`px-2.5 py-1 rounded-lg text-xs font-bold shrink-0 transition-colors ${
-                    activeFilter === f.id ? 'bg-rose-500 text-white' : 'bg-slate-100 text-slate-700'
+                    activeFilter === f.id ? 'bg-[#3A3A3A] text-white' : 'bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A]'
                   }`}
                 >
                   {f.label}
@@ -205,7 +205,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                   key={p.id}
                   onClick={() => setSelectedProp(p.id)}
                   className={`p-1.5 rounded-xl border text-center transition-all ${
-                    selectedProp === p.id ? 'border-indigo-600 bg-indigo-50 text-indigo-700' : 'border-slate-200 text-slate-600'
+                    selectedProp === p.id ? 'border-[#6E856C] bg-[#EBF2EA] text-[#6E856C]' : 'border-[#E8DDD6] text-stone-600 hover:bg-[#FDFBF7]'
                   }`}
                 >
                   {p.label}
@@ -215,8 +215,8 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
           </div>
 
           {/* 4. Frame Background Color */}
-          <div className="space-y-2 pt-2 border-t border-slate-100">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+          <div className="space-y-2 pt-2 border-t border-[#E8DDD6]">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#3A3A3A]">
               4. Warna Kertas Bingkai Strip:
             </label>
             <div className="flex items-center gap-2">
@@ -225,8 +225,8 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
                   key={fc.hex}
                   onClick={() => setFrameBgColor(fc.hex)}
                   title={fc.name}
-                  className={`w-8 h-8 rounded-full border border-slate-300 shadow-xs transition-transform cursor-pointer ${
-                    frameBgColor === fc.hex ? 'ring-2 ring-indigo-600 scale-110' : 'hover:scale-105'
+                  className={`w-8 h-8 rounded-full border border-stone-300 shadow-xs transition-transform cursor-pointer ${
+                    frameBgColor === fc.hex ? 'ring-2 ring-[#6E856C] scale-110' : 'hover:scale-105'
                   }`}
                   style={{ backgroundColor: fc.hex }}
                 />
@@ -238,7 +238,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
           <div className="pt-3">
             <button
               onClick={() => onSelectOptionForBooking(selectedBackdrop.id, selectedFrame.id)}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full bg-[#6E856C] hover:bg-[#5C725A] text-white font-bold text-xs py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
               <span>Gunakan Kombinasi Ini & Booking</span>
               <ArrowRight className="w-4 h-4" />
@@ -247,7 +247,7 @@ export const FrameAndLightingVisualizer: React.FC<FrameAndLightingVisualizerProp
         </div>
 
         {/* Right Live Preview Canvas */}
-        <div className="lg:col-span-7 bg-slate-950 rounded-3xl p-5 sm:p-8 border border-slate-800 text-white flex flex-col items-center justify-center min-h-[520px] relative shadow-2xl overflow-hidden">
+        <div className="lg:col-span-7 bg-[#2A2A2A] rounded-3xl p-5 sm:p-8 border border-[#3A3A3A] text-white flex flex-col items-center justify-center min-h-[520px] relative shadow-2xl overflow-hidden">
           {/* Camera Flash Screen Effect */}
           {isFlashing && (
             <div className="absolute inset-0 bg-white z-50 animate-pulse pointer-events-none" />

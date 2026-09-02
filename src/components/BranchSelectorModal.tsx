@@ -100,24 +100,24 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
 
   return (
     <div
-      className="relative w-full overflow-hidden select-none bg-white group flex flex-col border-b border-[#E0D9CE]"
+      className="relative w-full overflow-hidden select-none bg-[#FDFBF7] group flex flex-col border-b border-[#E8DDD6]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* 1. Top Minimalist Navbar (Tegas & Mewah - Hanya Tampil di Mobile, Desktop Menggunakan Header Utama) */}
-      <div className="w-full bg-white px-4 py-3 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E0D9CE] z-30">
+      {/* 1. Top Minimalist Navbar (Tegas & Mewah - Hanya Tampil di Mobile) */}
+      <div className="w-full bg-[#FDFBF7] px-4 py-3 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E8DDD6] z-30">
         <div className="flex items-center gap-2">
-          <span className="font-serif font-black text-base sm:text-xl tracking-[0.3em] text-[#1C1A17] uppercase">
+          <span className="font-serif font-black text-base sm:text-xl tracking-[0.3em] text-[#3A3A3A] uppercase">
             ALVIERO
           </span>
         </div>
       </div>
 
-      {/* 2. Full Image Banner Container (Bersih Tanpa Teks yang Menutupi Foto) */}
-      <div className="w-full h-72 sm:h-84 md:h-[440px] lg:h-[500px] relative overflow-hidden bg-[#1C1A17]">
+      {/* 2. Full Image Banner Container */}
+      <div className="w-full h-72 sm:h-84 md:h-[440px] lg:h-[500px] relative overflow-hidden bg-[#2A2A2A]">
         {/* Slide Photo with Smooth Transition */}
         <img
           key={activeSlide.id}
@@ -131,7 +131,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
 
         {/* Bottom Left Backdrop Theme Label */}
         <div className="absolute bottom-3.5 left-3.5 sm:left-6 z-20 text-left pointer-events-none">
-          <span className="inline-block text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#D4AF37] uppercase bg-black/70 px-2.5 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
+          <span className="inline-block text-[9px] sm:text-[10px] font-mono font-bold tracking-widest text-[#A9BCA7] uppercase bg-black/70 px-2.5 py-1 border border-[#A9BCA7]/50 backdrop-blur-xs">
             {activeSlide.theme}
           </span>
           <p className="text-xs sm:text-sm font-serif text-white font-bold drop-shadow-md mt-1">
@@ -139,7 +139,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
           </p>
         </div>
 
-        {/* Manual Arrow Controls (Sudut Tegas) */}
+        {/* Manual Arrow Controls */}
         <button
           type="button"
           onClick={handlePrev}
@@ -169,7 +169,7 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
                 aria-label={`Slide ${idx + 1}`}
                 className={`transition-all cursor-pointer ${
                   isActive
-                    ? 'w-6 h-0.5 bg-[#D4AF37]'
+                    ? 'w-6 h-0.5 bg-[#A9BCA7]'
                     : 'w-2 h-0.5 bg-white/40 hover:bg-white'
                 }`}
               />
@@ -178,37 +178,37 @@ export const BackdropHeroSlider: React.FC<BackdropHeroSliderProps> = ({ onViewPl
         </div>
       </div>
 
-      {/* 3. Hero Content Container (Penjelasan Singkat Studio & Fasilitas Mewah Lengkap) */}
-      <div className="w-full bg-white px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-2.5 sm:space-y-3.5 border-t border-[#E0D9CE]">
-        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#8C6D46] uppercase bg-[#FAF8F5] px-3 py-1 border border-[#E0D9CE]">
+      {/* 3. Hero Content Container */}
+      <div className="w-full bg-[#FDFBF7] px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-2.5 sm:space-y-3.5 border-t border-[#E8DDD6]">
+        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#F2E9E4] px-3 py-1 border border-[#E8DDD6]">
           ALVIERO PHOTO STUDIO
         </span>
 
-        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#1C1A17] leading-tight tracking-wide uppercase max-w-2xl">
+        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#3A3A3A] leading-tight tracking-wide uppercase max-w-2xl">
           Studio Foto Modern dengan Fasilitas Mewah & Terlengkap
         </h2>
         
-        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#8C6D46] tracking-[0.18em] uppercase">
+        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#6E856C] tracking-[0.18em] uppercase">
           Kenyamanan Maksimal • Kualitas Visual Premium
         </p>
 
-        <p className="font-sans text-xs sm:text-sm md:text-base text-[#5C5650] max-w-2xl mx-auto leading-relaxed">
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#5A5A5A] max-w-2xl mx-auto leading-relaxed">
           Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu Godox Studio Pro, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
         </p>
 
         {/* Highlight Fasilitas Mewah */}
         <div className="pt-2 flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-[10.5px] sm:text-xs font-sans font-medium text-stone-700">
-          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
-            <span className="text-[#D4AF37] font-bold">✦</span> Full AC & Ruang Ganti Privat
+          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
+            <span className="text-[#A9BCA7] font-bold">✦</span> Full AC & Ruang Ganti Privat
           </span>
-          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
-            <span className="text-[#D4AF37] font-bold">✦</span> Live-View Monitor Realtime
+          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
+            <span className="text-[#A9BCA7] font-bold">✦</span> Live-View Monitor Realtime
           </span>
-          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
-            <span className="text-[#D4AF37] font-bold">✦</span> Lighting Godox Studio Pro
+          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
+            <span className="text-[#A9BCA7] font-bold">✦</span> Lighting Godox Studio Pro
           </span>
-          <span className="bg-[#FAF8F5] px-2.5 py-1 border border-[#E0D9CE] flex items-center gap-1.5">
-            <span className="text-[#D4AF37] font-bold">✦</span> Toga Wisuda & Properti Siap Pakai
+          <span className="bg-white px-2.5 py-1 border border-[#E8DDD6] flex items-center gap-1.5 shadow-2xs">
+            <span className="text-[#A9BCA7] font-bold">✦</span> Toga Wisuda & Properti Siap Pakai
           </span>
         </div>
       </div>
@@ -281,12 +281,12 @@ export const ClientReviewCarousel: React.FC = () => {
   const visibleReviews = CLIENT_REVIEWS.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
 
   return (
-    <div className="pt-5 pb-1 border-t border-[#E0D9CE] space-y-3 relative">
+    <div className="pt-5 pb-1 border-t border-[#E8DDD6] space-y-3 relative">
       <div className="text-center space-y-0.5">
-        <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+        <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
           WHAT OUR CLIENTS SAY
         </h3>
-        <p className="text-[11px] font-sans text-[#736B63]">
+        <p className="text-[11px] font-sans text-[#666666]">
           Ulasan jujur & kepuasan dari klien Alviero Studio
         </p>
       </div>
@@ -298,7 +298,7 @@ export const ClientReviewCarousel: React.FC = () => {
           type="button"
           onClick={handlePrev}
           aria-label="Previous Reviews"
-          className="absolute -left-1 sm:left-0 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 bg-white text-[#1C1A17] hover:bg-[#1C1A17] hover:text-white shadow-sm border border-[#D5CEC2] flex items-center justify-center cursor-pointer z-10 transition-colors"
+          className="absolute -left-1 sm:left-0 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white shadow-sm border border-[#E8DDD6] flex items-center justify-center cursor-pointer z-10 transition-colors"
         >
           <ChevronLeft className="w-4 h-4 stroke-[2]" />
         </button>
@@ -308,7 +308,7 @@ export const ClientReviewCarousel: React.FC = () => {
           type="button"
           onClick={handleNext}
           aria-label="Next Reviews"
-          className="absolute -right-1 sm:right-0 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 bg-white text-[#1C1A17] hover:bg-[#1C1A17] hover:text-white shadow-sm border border-[#D5CEC2] flex items-center justify-center cursor-pointer z-10 transition-colors"
+          className="absolute -right-1 sm:right-0 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white shadow-sm border border-[#E8DDD6] flex items-center justify-center cursor-pointer z-10 transition-colors"
         >
           <ChevronRight className="w-4 h-4 stroke-[2]" />
         </button>
@@ -318,9 +318,9 @@ export const ClientReviewCarousel: React.FC = () => {
           {visibleReviews.map((review) => (
             <div
               key={review.id}
-              className="relative bg-white p-3.5 sm:p-4.5 border border-[#E0D9CE] shadow-2xs pl-16 sm:pl-20 animate-in fade-in duration-300 flex flex-col justify-between"
+              className="relative bg-white p-3.5 sm:p-4.5 border border-[#E8DDD6] shadow-2xs pl-16 sm:pl-20 animate-in fade-in duration-300 flex flex-col justify-between"
             >
-              {/* Foto Avatar Melingkar Rapi */}
+              {/* Foto Avatar */}
               <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-13 h-13 sm:w-15 sm:h-15 bg-stone-900 border-2 border-white shadow-sm overflow-hidden shrink-0">
                 <img
                   src={review.avatar}
@@ -330,14 +330,14 @@ export const ClientReviewCarousel: React.FC = () => {
               </div>
 
               {/* Watermark Tanda Kutip (Quote) */}
-              <div className="absolute top-1.5 left-14 sm:left-17 text-2xl sm:text-3xl font-serif text-[#D8CFBF] select-none leading-none opacity-40">
+              <div className="absolute top-1.5 left-14 sm:left-17 text-2xl sm:text-3xl font-serif text-[#DFCFC5] select-none leading-none opacity-40">
                 “
               </div>
 
               {/* Konten Review */}
               <div className="space-y-1 text-left">
                 <div className="flex items-center justify-between gap-1 flex-wrap">
-                  <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wider leading-tight">
+                  <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wider leading-tight">
                     {review.name}
                   </h4>
                 </div>
@@ -347,10 +347,10 @@ export const ClientReviewCarousel: React.FC = () => {
                   {'★★★★★'}
                 </div>
 
-                <div className="h-px bg-[#EFEAE2] my-1" />
+                <div className="h-px bg-[#F2E9E4] my-1" />
 
                 {/* Teks Testimonial */}
-                <p className="text-[10.5px] sm:text-[11px] font-sans text-[#5C5650] leading-relaxed line-clamp-4">
+                <p className="text-[10.5px] sm:text-[11px] font-sans text-[#5A5A5A] leading-relaxed line-clamp-4">
                   {review.text}
                 </p>
               </div>
@@ -367,7 +367,7 @@ export const ClientReviewCarousel: React.FC = () => {
               aria-label={`Review page ${idx + 1}`}
               className={`transition-all cursor-pointer ${
                 currentReviewIdx === idx
-                  ? 'w-5 h-0.5 bg-[#1C1A17]'
+                  ? 'w-5 h-0.5 bg-[#3A3A3A]'
                   : 'w-2 h-0.5 bg-stone-300 hover:bg-stone-500'
               }`}
             />
@@ -584,24 +584,24 @@ export const StudioTourAndEducationShowcase: React.FC<{
   };
 
   return (
-    <div className="space-y-4 pt-4 pb-1 border-t border-[#E0D9CE]">
-      {/* Header Edukasi dengan Garis Aksen Emas */}
+    <div className="space-y-4 pt-4 pb-1 border-t border-[#E8DDD6]">
+      {/* Header Edukasi dengan Garis Aksen Sage */}
       <div className="space-y-2 text-left">
-        <div className="border-b-2 border-[#8C6D46] pb-2 flex items-center justify-between flex-wrap gap-2">
+        <div className="border-b-2 border-[#6E856C] pb-2 flex items-center justify-between flex-wrap gap-2">
           <div>
-            <span className="text-[9.5px] font-sans font-bold tracking-[0.2em] text-[#8C6D46] uppercase block">
+            <span className="text-[9.5px] font-sans font-bold tracking-[0.2em] text-[#6E856C] uppercase block">
               STUDIO SPECIFICATIONS & FACILITIES
             </span>
-            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wider text-[#1C1A17] uppercase mt-0.5">
+            <h3 className="font-serif text-sm sm:text-base font-bold tracking-wider text-[#3A3A3A] uppercase mt-0.5">
               EDUKASI RUANG & SPESIFIKASI STUDIO
             </h3>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-[9.5px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#D5CEC2] font-semibold uppercase">
+            <span className="text-[9.5px] bg-[#FDFBF7] text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-semibold uppercase">
               Pro Godox Gear
             </span>
-            <span className="text-[9.5px] bg-emerald-50 text-emerald-800 px-2 py-0.5 border border-emerald-200 font-semibold uppercase">
+            <span className="text-[9.5px] bg-[#EBF2EA] text-[#6E856C] px-2 py-0.5 border border-[#A9BCA7] font-semibold uppercase">
               Full AC
             </span>
           </div>
@@ -630,8 +630,8 @@ export const StudioTourAndEducationShowcase: React.FC<{
                   }}
                   className={`px-3 py-1.5 text-[10px] sm:text-[10.5px] font-sans font-bold uppercase tracking-wider border transition-colors cursor-pointer ${
                     isActive
-                      ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
-                      : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17]'
+                      ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                      : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
                   }`}
                 >
                   {isSelfStudio ? 'SELFSTUDIO' : room.name.replace('STUDIO ', 'STUDIO ').split('—')[0].trim()}
@@ -639,16 +639,14 @@ export const StudioTourAndEducationShowcase: React.FC<{
               );
             })}
           </div>
-
-
         </div>
       </div>
 
-      {/* Interactive Photo Slider & Edukasi Ruang (Side-by-side 2 Kolom di Desktop, Stack di Mobile) */}
+      {/* Interactive Photo Slider & Edukasi Ruang */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-stretch">
         
-        {/* Kolom Kiri: Photo Slider (7 Kolom di Desktop) */}
-        <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] bg-[#1C1A17] overflow-hidden border border-[#E0D9CE] group flex flex-col justify-between">
+        {/* Kolom Kiri: Photo Slider */}
+        <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-[480px] bg-[#2A2A2A] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between">
           <img
             key={`${activeRoom.id}-${currentSlideIdx}`}
             src={activeSlide.src}
@@ -656,12 +654,12 @@ export const StudioTourAndEducationShowcase: React.FC<{
             className="absolute inset-0 w-full h-full object-cover object-center animate-in fade-in duration-500"
           />
           
-          {/* Subtle Bottom Gradient Only for Caption (Foto 100% Jernih & Terang) */}
+          {/* Subtle Bottom Gradient */}
           <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none" />
 
           {/* Tag Overlay di Atas */}
           <div className="relative top-3.5 left-3.5 z-10 pointer-events-none">
-            <span className="inline-block text-[8.5px] sm:text-[9.5px] font-mono font-bold tracking-widest text-[#D4AF37] uppercase bg-black/75 px-3 py-1 border border-[#D4AF37]/50 backdrop-blur-xs">
+            <span className="inline-block text-[8.5px] sm:text-[9.5px] font-mono font-bold tracking-widest text-[#A9BCA7] uppercase bg-black/75 px-3 py-1 border border-[#A9BCA7]/50 backdrop-blur-xs">
               {activeSlide.tag}
             </span>
           </div>
@@ -678,7 +676,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
                   key={idx}
                   onClick={() => setCurrentSlideIdx(idx)}
                   className={`transition-all cursor-pointer ${
-                    currentSlideIdx === idx ? 'w-5 h-0.5 bg-[#D4AF37]' : 'w-1.5 h-0.5 bg-white/40'
+                    currentSlideIdx === idx ? 'w-5 h-0.5 bg-[#A9BCA7]' : 'w-1.5 h-0.5 bg-white/40'
                   }`}
                 />
               ))}
@@ -706,14 +704,14 @@ export const StudioTourAndEducationShowcase: React.FC<{
           </button>
         </div>
 
-        {/* Kolom Kanan: Kartu Informasi & Edukasi Ruang (5 Kolom di Desktop) */}
-        <div className="lg:col-span-5 bg-white p-4 sm:p-6 border border-[#E0D9CE] flex flex-col justify-between space-y-3.5 text-left">
+        {/* Kolom Kanan: Kartu Informasi & Edukasi Ruang */}
+        <div className="lg:col-span-5 bg-white p-4 sm:p-6 border border-[#E8DDD6] flex flex-col justify-between space-y-3.5 text-left">
           <div className="space-y-2">
             <div className="flex items-start justify-between gap-2 flex-wrap">
               <div>
-                <h4 className="font-serif font-bold text-sm sm:text-base md:text-lg text-[#1C1A17] uppercase tracking-wide">
+                <h4 className="font-serif font-bold text-sm sm:text-base md:text-lg text-[#3A3A3A] uppercase tracking-wide">
                   {activeRoom.name} <span className="text-stone-400">|</span>{' '}
-                  <span className="text-[#8C6D46]">{activeRoom.badge}</span>
+                  <span className="text-[#6E856C]">{activeRoom.badge}</span>
                 </h4>
                 <p className="text-xs font-sans font-semibold text-stone-600 mt-0.5">
                   {activeRoom.tagline}
@@ -722,27 +720,27 @@ export const StudioTourAndEducationShowcase: React.FC<{
             </div>
 
             {/* Paragraf Deskripsi Edukasi yang Lengkap */}
-            <p className="text-[11.5px] sm:text-xs font-sans text-[#5C5650] leading-relaxed">
+            <p className="text-[11.5px] sm:text-xs font-sans text-[#5A5A5A] leading-relaxed">
               {activeRoom.description}
             </p>
           </div>
 
-          {/* Spesifikasi Teknis Studio (Grid 2 Kolom) */}
-          <div className="pt-2 border-t border-[#EFEAE2] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-sans text-[#4A433A]">
-            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
-              <span className="font-bold text-[#1C1A17] block">📐 Dimensi & Akses:</span>
+          {/* Spesifikasi Teknis Studio */}
+          <div className="pt-2 border-t border-[#F2E9E4] grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] font-sans text-[#3A3A3A]">
+            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
+              <span className="font-bold text-[#3A3A3A] block">📐 Dimensi & Akses:</span>
               <span className="text-stone-600">{activeRoom.dimensions}</span>
             </div>
-            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
-              <span className="font-bold text-[#1C1A17] block">👥 Kapasitas:</span>
+            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
+              <span className="font-bold text-[#3A3A3A] block">👥 Kapasitas:</span>
               <span className="text-stone-600">{activeRoom.capacity}</span>
             </div>
-            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
-              <span className="font-bold text-[#1C1A17] block">💡 Lighting Setup:</span>
+            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
+              <span className="font-bold text-[#3A3A3A] block">💡 Lighting Setup:</span>
               <span className="text-stone-600">{activeRoom.lightingSetup}</span>
             </div>
-            <div className="bg-[#FAF8F5] p-2.5 border border-[#E0D9CE]">
-              <span className="font-bold text-[#1C1A17] block">🎨 Pilihan Background:</span>
+            <div className="bg-[#FDFBF7] p-2.5 border border-[#E8DDD6]">
+              <span className="font-bold text-[#3A3A3A] block">🎨 Pilihan Background:</span>
               <span className="text-stone-600">{activeRoom.backdrops}</span>
             </div>
           </div>
@@ -751,15 +749,15 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
       </div>
 
-      {/* Facility Highlights Footer (Sesuai Referensi StudioJakarta) */}
-      <div className="p-3.5 bg-white border border-[#E0D9CE] text-center">
-        <p className="font-sans font-semibold text-xs sm:text-sm text-[#1C1A17] leading-relaxed">
-          <span className="font-bold">Fully Air-Conditioned</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
-          <span className="font-bold">Professional Lighting & Equipment</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
-          <span className="font-bold">Props Collection Ready to Use</span> <span className="text-[#8C6D46] font-bold">|</span>{' '}
+      {/* Facility Highlights Footer */}
+      <div className="p-3.5 bg-white border border-[#E8DDD6] text-center">
+        <p className="font-sans font-semibold text-xs sm:text-sm text-[#3A3A3A] leading-relaxed">
+          <span className="font-bold">Fully Air-Conditioned</span> <span className="text-[#6E856C] font-bold">|</span>{' '}
+          <span className="font-bold">Professional Lighting & Equipment</span> <span className="text-[#6E856C] font-bold">|</span>{' '}
+          <span className="font-bold">Props Collection Ready to Use</span> <span className="text-[#6E856C] font-bold">|</span>{' '}
           <span className="font-bold">Standby Studio Assistant</span>
         </p>
-        <div className="h-0.5 bg-[#8C6D46] w-28 mx-auto mt-2" />
+        <div className="h-0.5 bg-[#6E856C] w-28 mx-auto mt-2" />
       </div>
     </div>
   );
@@ -805,21 +803,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
   return (
     <div className="w-full max-w-[1440px] mx-auto my-0 sm:my-4 md:my-6 px-0 sm:px-4 md:px-8 lg:px-12 animate-in fade-in duration-300">
-      <div className="bg-[#FAF8F5] border-x-0 sm:border sm:border-[#D5CEC2] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
+      <div className="bg-[#FDFBF7] border-x-0 sm:border sm:border-[#E8DDD6] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
         
         {/* Top Hero Banner Slider */}
         <BackdropHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
-        <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FAF8F5] flex-1">
+        <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FDFBF7] flex-1">
           
-          {/* 1. Why Choose Alviero Studio? (Grid 4 Kolom di Desktop, Diposisikan di Atas Tur Edukasi) */}
+          {/* 1. Why Choose Alviero Studio? */}
           <div className="pb-1 space-y-4">
             <div className="text-center space-y-1">
-              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#1C1A17] uppercase">
+              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
                 WHY CHOOSE ALVIERO STUDIO?
               </h3>
-              <p className="text-xs font-sans text-[#736B63]">
+              <p className="text-xs font-sans text-[#666666]">
                 Kenyamanan, kualitas visual premium & pelayanan terpercaya
               </p>
             </div>
@@ -827,92 +825,92 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             {/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 text-center">
               {/* Item 1: Fast and convenient */}
-              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Clock className="w-4.5 h-4.5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2">
+                  <Clock className="w-4.5 h-4.5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
                   Fast & Convenient
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
                   Booking instan tanpa antre, jadwal pasti & all-file HD via Google Drive.
                 </p>
               </div>
 
               {/* Item 2: Style and function */}
-              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Sliders className="w-4.5 h-4.5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2">
+                  <Sliders className="w-4.5 h-4.5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
                   Style & Function
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
                   7+ tema background estetik, lighting Godox studio & arahan pose natural.
                 </p>
               </div>
 
               {/* Item 3: Live-View Preview */}
-              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Camera className="w-4.5 h-4.5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2">
+                  <Camera className="w-4.5 h-4.5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
                   Live-View Preview
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
                   Monitor realtime besar untuk cek hasil jepretan dan pose langsung seketika.
                 </p>
               </div>
 
               {/* Item 4: Fasilitas Lengkap */}
-              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Sparkles className="w-4.5 h-4.5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2">
+                  <Sparkles className="w-4.5 h-4.5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
                   Fasilitas Lengkap
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
                   Full AC sejuk, fitting room privat, toga wisuda & aneka properti siap pakai.
                 </p>
               </div>
 
               {/* Item 5: Reflect your lifestyle */}
-              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <Layers className="w-4.5 h-4.5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2">
+                  <Layers className="w-4.5 h-4.5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
                   Reflect Lifestyle
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
                   Paket wisuda, wedding, self studio, family, hingga cetak frame kayu eksklusif.
                 </p>
               </div>
 
               {/* Item 6: Continuous support */}
-              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-9 h-9 bg-[#FAF8F5] border border-[#E0D9CE] text-[#1C1A17] flex items-center justify-center mb-2">
-                  <HeartHandshake className="w-4.5 h-4.5 stroke-[1.6]" />
+              <div className="p-3.5 sm:p-4 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-9 h-9 bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2">
+                  <HeartHandshake className="w-4.5 h-4.5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#1C1A17] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
                   Continuous Support
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#736B63] leading-relaxed mt-1.5">
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
                   Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin ramah.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 2. Client Reviews & Testimonials Carousel (Diposisikan di Atas Tur Edukasi Ruang) */}
-          <div className="pt-4 border-t border-[#E0D9CE]">
+          {/* 2. Client Reviews & Testimonials Carousel */}
+          <div className="pt-4 border-t border-[#E8DDD6]">
             <ClientReviewCarousel />
           </div>
 
-          {/* 3. Spesifikasi Studio & Edukasi Ruang Lengkap (Dari Referensi StudioJakarta) */}
-          <div className="pt-4 border-t border-[#E0D9CE]">
+          {/* 3. Spesifikasi Studio & Edukasi Ruang Lengkap */}
+          <div className="pt-4 border-t border-[#E8DDD6]">
             <StudioTourAndEducationShowcase 
               selectedBranch={selectedBranch}
               onSelectBranch={onSelectBranch}
@@ -920,25 +918,25 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             />
           </div>
 
-          {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak (Eye-Catching Grand Booking & Services Layout) */}
-          <div className="pt-4 pb-1 border-t border-[#E0D9CE] space-y-4">
+          {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak */}
+          <div className="pt-4 pb-1 border-t border-[#E8DDD6] space-y-4">
             
-            {/* BIG EYE-CATCHING GRAND CALLOUT BOX: "SEGERA BOOKING DI SINI!" */}
-            <div className="w-full bg-[#1C1A17] text-white p-5 sm:p-7 md:p-8 border border-[#332F2A] shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-6 text-left">
+            {/* BIG EYE-CATCHING GRAND CALLOUT BOX */}
+            <div className="w-full bg-[#2A2A2A] text-white p-5 sm:p-7 md:p-8 border border-[#3A3A3A] shadow-xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-6 text-left">
               {/* Subtle background ambient glow */}
-              <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#8C6D46]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -top-16 -right-16 w-64 h-64 bg-[#A9BCA7]/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-16 -left-16 w-64 h-64 bg-[#6E856C]/20 rounded-full blur-3xl pointer-events-none" />
 
               {/* Left Content Column */}
               <div className="space-y-2.5 max-w-2xl relative z-10">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="inline-flex items-center gap-1.5 bg-[#2A2723] text-[#D4AF37] border border-[#D4AF37]/40 px-3 py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest">
-                    <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 bg-[#3A3A3A] text-[#A9BCA7] border border-[#A9BCA7]/40 px-3 py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-widest">
+                    <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7] animate-pulse" />
                     RESERVASI JADWAL ONLINE INSTAN
                   </span>
                   {isOpen ? (
-                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 px-2.5 py-1 border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#A9BCA7] bg-[#1E2E1D]/80 px-2.5 py-1 border border-[#A9BCA7]/40 flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-pulse"></span>
                       Studio Buka • 08:00 - 21:00 WIB
                     </span>
                   ) : (
@@ -954,32 +952,32 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </h3>
 
                 <div className="flex items-center gap-2.5 text-xs sm:text-sm text-stone-300 font-sans">
-                  <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                  <MapPin className="w-4 h-4 text-[#A9BCA7] shrink-0" />
                   <span>
                     Studio Terpilih: <strong className="text-white font-serif tracking-wide uppercase">{selectedBranchData.name}</strong> ({selectedBranchData.badge})
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-stone-400 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
                   Pilih paket foto impian Anda, tentukan jam slot tanpa antre, dan konfirmasi jadwal secara otomatis melalui WhatsApp.
                 </p>
               </div>
 
-              {/* Right Action Column (Big Buttons) */}
+              {/* Right Action Column */}
               <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto relative z-10 shrink-0">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(true)}
-                  className="min-h-[48px] px-5 py-3 bg-[#2A2723] hover:bg-[#38342E] text-stone-200 hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#4A453E] transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shrink-0"
+                  className="min-h-[48px] px-5 py-3 bg-[#3A3A3A] hover:bg-[#4A4A4A] text-[#FDFBF7] hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#5A5A5A] transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shrink-0"
                 >
-                  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                  <MapPin className="w-4 h-4 text-[#A9BCA7]" />
                   <span>GANTI STUDIO ▾</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => onSelectBranch(selectedBranch)}
-                  className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#D4AF37] hover:bg-[#E5C158] text-[#1C1A17] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.18em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#D4AF37]"
+                  className="min-h-[48px] px-6 sm:px-8 py-3 bg-[#A9BCA7] hover:bg-[#98AC96] text-[#2A2A2A] font-serif font-black text-xs sm:text-sm uppercase tracking-[0.18em] transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95 shrink-0 border border-[#A9BCA7]"
                 >
                   <span>BOOKING SEKARANG</span>
                   <ArrowUpRight className="w-4.5 h-4.5 stroke-[2.5]" />
@@ -987,33 +985,33 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </div>
             </div>
 
-            {/* 3 Companion Service Cards (MUA & Kebaya, Wedding, Cetak Lab) */}
+            {/* 3 Companion Service Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4">
               {/* Card 1: Pricelist MUA & Kebaya */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('kebayak-gaun') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
+                className="p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/50 border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
               >
                 <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Palette className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Palette className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                         PRICELIST MUA & KEBAYA
                       </h4>
-                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                         Wardrobe
                       </span>
                     </div>
-                    <p className="text-[11px] sm:text-xs font-sans text-[#736B63] truncate mt-1">
+                    <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
                       Sewa Kebaya Modern, Gaun Wisuda & Paket MUA
                     </p>
                   </div>
                 </div>
 
-                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
                   <span className="hidden lg:inline text-[11px]">Lihat Koleksi</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
@@ -1022,28 +1020,28 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* Card 2: Pricelist Wedding & Prewedding */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
+                className="p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/50 border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
               >
                 <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Sparkles className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                         PRICELIST WEDDING & PREWEDDING
                       </h4>
-                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                         Suite
                       </span>
                     </div>
-                    <p className="text-[11px] sm:text-xs font-sans text-[#736B63] truncate mt-1">
+                    <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
                       Paket Prewedding, Akad Nikah, Resepsi & Engagement
                     </p>
                   </div>
                 </div>
 
-                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
                   <span className="hidden lg:inline text-[11px]">Lihat Paket</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
@@ -1052,28 +1050,28 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* Card 3: Pricelist Cetak Lab & Bingkai */}
               <div
                 onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                className="p-4 sm:p-5 bg-white hover:bg-[#FCFBF9] border border-[#E0D9CE] hover:border-[#1C1A17] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
+                className="p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/50 border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-2xs"
               >
                 <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FAF8F5] border border-[#E0D9CE] text-[#8C6D46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#8C6D46]" />
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] tracking-wider uppercase truncate">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                         PRICELIST CETAK LAB & BINGKAI
                       </h4>
-                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#FAF8F5] text-[#8C6D46] border border-[#E0D9CE]">
+                      <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
                         Lab
                       </span>
                     </div>
-                    <p className="text-[11px] sm:text-xs font-sans text-[#736B63] truncate mt-1">
+                    <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
                       Cetak Lab Anti-Luntur, Bingkai Kayu & Album Hardcover
                     </p>
                   </div>
                 </div>
 
-                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#1C1A17] flex items-center gap-1 shrink-0 group-hover:text-[#8C6D46]">
+                <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
                   <span className="hidden lg:inline text-[11px]">Lihat Katalog</span>
                   <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
                 </div>
@@ -1084,10 +1082,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
         </div>
 
-        {/* ==================================================================== */}
-        {/* LUXURY EDITORIAL DARK FOOTER (Sesuai Referensi Asloka.co)           */}
-        {/* ==================================================================== */}
-        <footer className="w-full bg-[#0D0C0B] text-[#EAE2D5] border-t border-[#1C1A17] select-none">
+        {/* LUXURY EDITORIAL DARK FOOTER */}
+        <footer className="w-full bg-[#222222] text-[#F2E9E4] border-t border-[#3A3A3A] select-none">
           {/* Main Footer Row */}
           <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-8 sm:py-12 flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Brand Logo / Text */}
@@ -1095,24 +1091,24 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               <span className="font-serif font-black text-xl sm:text-2xl tracking-[0.25em] text-white uppercase">
                 ALVIERO STUDIO
               </span>
-              <span className="text-[10px] font-mono tracking-widest text-[#D4AF37] uppercase mt-0.5">
+              <span className="text-[10px] font-mono tracking-widest text-[#A9BCA7] uppercase mt-0.5">
                 EST. MALANG • JAWA TIMUR
               </span>
             </div>
 
             {/* Studio Specialization Services */}
-            <div className="text-center md:text-right font-sans text-xs text-stone-400 tracking-wider">
-              <p className="font-medium text-stone-300">
-                Photography <span className="text-[#8C6D46] px-1">•</span> Videography <span className="text-[#8C6D46] px-1">•</span> Creative Production
+            <div className="text-center md:text-right font-sans text-xs text-stone-300 tracking-wider">
+              <p className="font-medium text-stone-200">
+                Photography <span className="text-[#A9BCA7] px-1">•</span> Videography <span className="text-[#A9BCA7] px-1">•</span> Creative Production
               </p>
-              <p className="text-[11px] text-stone-500 mt-1">
+              <p className="text-[11px] text-stone-400 mt-1">
                 Studio 1 Karangploso & Studio 2 Cabang Eksklusif
               </p>
             </div>
           </div>
 
           {/* Sub-Footer Row */}
-          <div className="border-t border-white/10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-4 sm:py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-400">
+          <div className="border-t border-white/10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 py-4 sm:py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-300">
             {/* Copyright */}
             <div className="text-center md:text-left">
               <span>© {new Date().getFullYear()} Alviero Studio. All Rights Reserved.</span>
@@ -1121,13 +1117,13 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             {/* Status Live Pill */}
             <div className={`px-3.5 py-1.5 border flex items-center gap-2 text-[10.5px] ${
               isOpen 
-                ? 'bg-[#1A1816] border-emerald-500/30' 
-                : 'bg-[#1A1816] border-rose-500/30'
+                ? 'bg-[#1E2E1D] border-[#A9BCA7]/40' 
+                : 'bg-rose-950/80 border-rose-500/30'
             }`}>
               {isOpen ? (
                 <>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-emerald-300 font-medium tracking-wider uppercase text-[10px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-pulse"></span>
+                  <span className="text-[#A9BCA7] font-medium tracking-wider uppercase text-[10px]">
                     Studio Buka Hari Ini • 08:00 - 21:00 WIB
                   </span>
                 </>
@@ -1142,7 +1138,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
             {/* Quick Text Links */}
-            <div className="flex items-center gap-4 sm:gap-6 font-sans text-[11px] text-stone-400">
+            <div className="flex items-center gap-4 sm:gap-6 font-sans text-[11px] text-stone-300">
               <a
                 href="https://instagram.com/alvierostudio"
                 target="_blank"
@@ -1171,7 +1167,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         </footer>
       </div>
 
-      {/* Pop-up Modal Pilihan Studio 1 & Studio 2 (Desain Tegas & Modern) */}
+      {/* Pop-up Modal Pilihan Studio 1 & Studio 2 */}
       <BranchSelectorModal
         isOpen={isModalOpen}
         selectedBranch={selectedBranch}
@@ -1210,19 +1206,19 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
-      <div className="bg-[#FAF8F5] max-w-xl w-full border border-[#D5CEC2] shadow-2xl overflow-hidden flex flex-col my-auto relative">
+      <div className="bg-[#FDFBF7] max-w-xl w-full border border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col my-auto relative">
         
         {/* Minimalist Modal Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E0D9CE] bg-white">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8DDD6] bg-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#FAF8F5] text-[#1C1A17] flex items-center justify-center border border-[#E0D9CE]">
-              <MapPin className="w-5 h-5 stroke-[1.8]" />
+            <div className="w-10 h-10 bg-[#FDFBF7] text-[#3A3A3A] flex items-center justify-center border border-[#E8DDD6]">
+              <MapPin className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
             </div>
             <div>
-              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#1C1A17] uppercase leading-none">
+              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#3A3A3A] uppercase leading-none">
                 PILIH LOKASI STUDIO
               </h3>
-              <p className="text-[11px] font-sans text-[#736B63] mt-1">
+              <p className="text-[11px] font-sans text-[#666666] mt-1">
                 Tentukan cabang studio foto yang ingin Anda kunjungi
               </p>
             </div>
@@ -1232,15 +1228,15 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-8 h-8 bg-stone-100 hover:bg-[#1C1A17] text-stone-600 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-[#E0D9CE]"
+              className="w-8 h-8 bg-stone-100 hover:bg-[#3A3A3A] text-stone-600 hover:text-white flex items-center justify-center transition-colors cursor-pointer border border-[#E8DDD6]"
             >
               <X className="w-4 h-4" />
             </button>
           )}
         </div>
 
-        {/* Branch Cards (Sharp & Luxury Layout) */}
-        <div className="p-4 sm:p-5 space-y-3 bg-[#FAF8F5] flex-1">
+        {/* Branch Cards */}
+        <div className="p-4 sm:p-5 space-y-3 bg-[#FDFBF7] flex-1">
           {STUDIO_BRANCHES.map((branch) => {
             const isSelected = selectedBranch === branch.id;
 
@@ -1250,45 +1246,45 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                 onClick={() => handleChoose(branch.id)}
                 className={`p-4 sm:p-4.5 border transition-all duration-200 cursor-pointer relative group text-left ${
                   isSelected
-                    ? 'bg-white border-[#1C1A17] ring-1 ring-[#1C1A17] shadow-md'
-                    : 'bg-[#FCFBF9] hover:bg-white border-[#E0D9CE] hover:border-[#1C1A17]'
+                    ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-md'
+                    : 'bg-[#FAF8F5] hover:bg-white border-[#E8DDD6] hover:border-[#3A3A3A]'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0 flex-1">
                     {/* Clean Left Icon Container */}
                     <div className={`w-10 h-10 flex items-center justify-center shrink-0 border transition-colors ${
-                      isSelected ? 'bg-[#1C1A17] text-white border-[#1C1A17]' : 'bg-[#FAF8F5] text-[#1C1A17] border-[#E0D9CE]'
+                      isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#FDFBF7] text-[#3A3A3A] border-[#E8DDD6]'
                     }`}>
-                      <MapPin className="w-5 h-5 stroke-[1.8]" />
+                      <MapPin className={`w-5 h-5 stroke-[1.8] ${isSelected ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
                     </div>
 
                     {/* Main Studio Info */}
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] uppercase tracking-wide">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide">
                           {branch.name}
                         </h4>
                         <span className={`text-[9px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 border ${
-                          isSelected ? 'bg-[#1C1A17] text-white border-[#1C1A17]' : 'bg-[#FAF8F5] text-stone-700 border-[#E0D9CE]'
+                          isSelected ? 'bg-[#3A3A3A] text-white border-[#3A3A3A]' : 'bg-[#EBF2EA] text-[#6E856C] border-[#A9BCA7]'
                         }`}>
                           {branch.badge}
                         </span>
                       </div>
 
-                      <p className="text-xs font-sans text-[#736B63] font-normal leading-relaxed mt-1">
+                      <p className="text-xs font-sans text-[#666666] font-normal leading-relaxed mt-1">
                         {branch.address}
                       </p>
 
                       {/* Fasilitas Cabang */}
                       <div className="flex items-center gap-2 mt-2 flex-wrap">
-                        <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
+                        <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
                           ✓ Pro Godox Lighting
                         </span>
-                        <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
+                        <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
                           ✓ 7+ Backdrop
                         </span>
-                        <span className="text-[10px] bg-[#FAF8F5] text-stone-700 px-2 py-0.5 border border-[#E0D9CE] font-medium">
+                        <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
                           ✓ Ruang AC
                         </span>
                       </div>
@@ -1299,7 +1295,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#8C6D46] hover:text-[#1C1A17] underline underline-offset-2 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1 mt-2 text-[11px] font-sans font-semibold text-[#6E856C] hover:text-[#3A3A3A] underline underline-offset-2 transition-colors cursor-pointer"
                       >
                         <span>Buka Petunjuk Arah di Google Maps</span>
                         <span className="text-[10px]">↗</span>
@@ -1310,7 +1306,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                   {/* Radio Indicator */}
                   <div className="pt-1 shrink-0">
                     <div className={`w-5 h-5 border flex items-center justify-center transition-all ${
-                      isSelected ? 'border-[#1C1A17] bg-[#1C1A17]' : 'border-stone-400 bg-transparent'
+                      isSelected ? 'border-[#3A3A3A] bg-[#3A3A3A]' : 'border-stone-400 bg-transparent'
                     }`}>
                       {isSelected && <Check className="w-3.5 h-3.5 text-white stroke-[2.5]" />}
                     </div>
@@ -1322,7 +1318,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
         </div>
 
         {/* Footer info */}
-        <div className="p-3.5 bg-[#F4EFEA] border-t border-[#E0D9CE] text-center text-[11px] text-[#736B63] font-medium">
+        <div className="p-3.5 bg-[#F2E9E4] border-t border-[#E8DDD6] text-center text-[11px] text-[#666666] font-medium">
           💡 Pilih salah satu studio untuk melihat pricelist dan katalog lengkap.
         </div>
       </div>

@@ -67,17 +67,17 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className={`hidden lg:block sticky top-0 z-40 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#D5CEC2] shadow-xs' 
-        : 'bg-[#FAF8F5] border-b border-[#E0D9CE]'
+        ? 'bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#E8DDD6] shadow-xs' 
+        : 'bg-[#FDFBF7] border-b border-[#E8DDD6]'
     }`}>
-      {/* Top Banner Notice (Sharp & Luxurious) */}
-      <div className="bg-[#141210] text-[#E8DFD1] text-[11px] py-1.5 px-4 sm:px-8 border-b border-white/10">
+      {/* Top Banner Notice (Sharp & Luxurious Charcoal) */}
+      <div className="bg-[#2A2A2A] text-[#F2E9E4] text-[11px] py-1.5 px-4 sm:px-8 border-b border-white/10">
         <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center gap-2 font-medium">
             {isOpen ? (
               <>
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50"></span>
-                <span className="text-emerald-300 font-bold uppercase tracking-wider text-[10px]">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-pulse shadow-sm shadow-[#A9BCA7]/50"></span>
+                <span className="text-[#A9BCA7] font-bold uppercase tracking-wider text-[10px]">Studio Buka Hari Ini • 08:00 - 21:00 WIB</span>
               </>
             ) : (
               <>
@@ -86,23 +86,23 @@ export const Header: React.FC<HeaderProps> = ({
               </>
             )}
           </div>
-          <div className="flex items-center gap-4 text-[#D8CFBF] text-[10.5px]">
+          <div className="flex items-center gap-4 text-[#F2E9E4]/90 text-[10.5px]">
             <a 
               href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20mau%20tanya%20jadwal%20slot%20kosong`}
               target="_blank" 
               rel="noreferrer"
               className="hover:text-white flex items-center gap-1.5 transition-colors font-semibold uppercase tracking-wider"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <MessageCircle className="w-3.5 h-3.5 text-[#A9BCA7]" />
               <span>Admin WA ({currentBranchInfo.badge}): +62 {currentBranchInfo.whatsappDisplay?.replace(/^0/, '') || (selectedBranch === 'cabang-2' ? '851-6887-9214' : '877-7753-8164')}</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main Header (Sharp Minimalist Layout) */}
+      {/* Main Header */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
-        {/* Brand Logo (Logo Resmi Alviero Studio - Klik untuk kembali ke beranda) */}
+        {/* Brand Logo (Logo Resmi Alviero Studio) */}
         <div 
           onClick={() => {
             if (onBackToLanding) {
@@ -121,8 +121,8 @@ export const Header: React.FC<HeaderProps> = ({
           />
         </div>
 
-        {/* Desktop Navigation Tabs (Sudut Tegas & Modern) */}
-        <nav className="hidden lg:flex items-center gap-1 bg-white p-1 border border-[#D5CEC2] shadow-2xs">
+        {/* Desktop Navigation Tabs */}
+        <nav className="hidden lg:flex items-center gap-1 bg-[#FDFBF7] p-1 border border-[#E8DDD6] shadow-2xs">
           {/* Tombol Beranda Utama (Ikon Rumah) */}
           <button
             type="button"
@@ -133,22 +133,22 @@ export const Header: React.FC<HeaderProps> = ({
                 setActiveTab('katalog');
               }
             }}
-            className="w-8 h-7.5 flex items-center justify-center cursor-pointer text-stone-600 hover:text-[#1C1A17] hover:bg-[#FAF8F5] transition-colors border-r border-[#E0D9CE]/60 mr-0.5 group"
+            className="w-8 h-7.5 flex items-center justify-center cursor-pointer text-[#6E856C] hover:text-[#3A3A3A] hover:bg-[#F2E9E4] transition-colors border-r border-[#E8DDD6]/80 mr-0.5 group"
             title="Kembali ke Beranda Awal"
             aria-label="Kembali ke Beranda Awal"
           >
-            <Home className="w-4 h-4 stroke-[1.8] text-[#8C6D46] group-hover:text-[#1C1A17] transition-transform group-hover:scale-110" />
+            <Home className="w-4 h-4 stroke-[1.8] text-[#6E856C] group-hover:text-[#3A3A3A] transition-transform group-hover:scale-110" />
           </button>
 
           <button
             onClick={() => setActiveTab('katalog')}
             className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'katalog' || activeTab === 'pricelist-sheets'
-                ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
-                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold'
+                ? 'bg-[#3A3A3A] text-white shadow-xs font-bold'
+                : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4] font-semibold'
             }`}
           >
-            <Camera className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
+            <Camera className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
             Katalog & Pricelist
           </button>
 
@@ -156,11 +156,11 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('strip-builder')}
             className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'strip-builder'
-                ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
-                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold'
+                ? 'bg-[#3A3A3A] text-white shadow-xs font-bold'
+                : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4] font-semibold'
             }`}
           >
-            <Sparkles className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
+            <Sparkles className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
             Photo Strip
           </button>
 
@@ -168,36 +168,36 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setActiveTab('rules')}
             className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'rules'
-                ? 'bg-[#1C1A17] text-white shadow-xs font-bold'
-                : 'text-[#5C5650] hover:text-[#1C1A17] hover:bg-[#FAF8F5] font-semibold'
+                ? 'bg-[#3A3A3A] text-white shadow-xs font-bold'
+                : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4] font-semibold'
             }`}
           >
-            <MapPin className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'rules' ? 'text-[#D4AF37]' : 'text-[#8C6D46]'}`} />
+            <MapPin className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'rules' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
             Panduan & Lokasi
           </button>
         </nav>
 
-        {/* CTA & Branch Switcher (Sudut Tegas & Elegan) */}
+        {/* CTA & Branch Switcher */}
         <div className="flex items-center gap-2.5">
           {onOpenBranchModal && (
             <button
               type="button"
               onClick={onOpenBranchModal}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#FAF8F5] text-[#1C1A17] font-bold text-xs border border-[#D5CEC2] hover:border-[#1C1A17] transition-all cursor-pointer shadow-2xs uppercase tracking-wider"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#F2E9E4] text-[#3A3A3A] font-bold text-xs border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all cursor-pointer shadow-2xs uppercase tracking-wider"
             >
-              <MapPin className="w-3.5 h-3.5 text-[#8C6D46] stroke-[1.8]" />
+              <MapPin className="w-3.5 h-3.5 text-[#6E856C] stroke-[1.8]" />
               <span>{currentBranchInfo.shortName}</span>
-              <span className="text-[10px] text-[#8C6D46] font-black underline underline-offset-2 ml-0.5">Ganti</span>
+              <span className="text-[10px] text-[#6E856C] font-black underline underline-offset-2 ml-0.5">Ganti</span>
             </button>
           )}
 
           <button
             onClick={onOpenBooking}
-            className="relative group bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs px-5 py-2.5 shadow-xs hover:shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer border border-[#1C1A17] uppercase tracking-wider"
+            className="relative group bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs px-5 py-2.5 shadow-xs hover:shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer border border-[#3A3A3A] uppercase tracking-wider"
           >
-            <Calendar className="w-4 h-4 text-[#D4AF37] stroke-[1.8] group-hover:scale-110 transition-transform" />
+            <Calendar className="w-4 h-4 text-[#A9BCA7] stroke-[1.8] group-hover:scale-110 transition-transform" />
             <span>Reservasi</span>
-            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-ping"></span>
           </button>
         </div>
       </div>

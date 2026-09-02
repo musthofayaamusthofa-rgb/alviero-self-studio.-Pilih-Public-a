@@ -23,25 +23,25 @@ const CATEGORY_PASTEL_THEMES: Record<string, {
   activeText: string;
 }> = {
   'all': {
-    bg: 'bg-[#f4f3ee]',
-    border: 'border-stone-200',
-    text: 'text-stone-800',
-    iconBg: 'bg-[#ebe7df]',
-    iconColor: 'text-stone-700',
+    bg: 'bg-[#FDFBF7]',
+    border: 'border-[#E8DDD6]',
+    text: 'text-[#3A3A3A]',
+    iconBg: 'bg-[#F2E9E4]',
+    iconColor: 'text-[#3A3A3A]',
     badgeBg: 'bg-white',
-    badgeText: 'text-stone-700',
-    activeBg: 'bg-[#232d38]',
+    badgeText: 'text-[#3A3A3A]',
+    activeBg: 'bg-[#3A3A3A]',
     activeText: 'text-white',
   },
   'selfstudio': {
-    bg: 'bg-[#f0f8f3]',
-    border: 'border-[#c5e4cf]',
-    text: 'text-[#204e2e]',
-    iconBg: 'bg-[#d3ede0]',
-    iconColor: 'text-[#204e2e]',
-    badgeBg: 'bg-[#d3ede0]',
-    badgeText: 'text-[#204e2e]',
-    activeBg: 'bg-[#4d7557]',
+    bg: 'bg-[#EBF2EA]',
+    border: 'border-[#A9BCA7]',
+    text: 'text-[#6E856C]',
+    iconBg: 'bg-[#EBF2EA]',
+    iconColor: 'text-[#6E856C]',
+    badgeBg: 'bg-[#EBF2EA]',
+    badgeText: 'text-[#6E856C]',
+    activeBg: 'bg-[#6E856C]',
     activeText: 'text-white',
   },
   'undangan': {
@@ -223,19 +223,19 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
   return (
     <section className="py-4 sm:py-8 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8 animate-fade-in">
       {/* Hero Banner Section */}
-      <div className="relative bg-[#232d38] rounded-3xl p-5 sm:p-10 text-white overflow-hidden shadow-xl border border-stone-700/50">
-        <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-[#6c8c74]/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute right-20 top-0 w-64 h-64 bg-amber-500/15 rounded-full blur-2xl pointer-events-none"></div>
+      <div className="relative bg-[#2A2A2A] rounded-3xl p-5 sm:p-10 text-white overflow-hidden shadow-xl border border-[#3A3A3A]">
+        <div className="absolute -right-10 -bottom-10 w-80 h-80 bg-[#A9BCA7]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute right-20 top-0 w-64 h-64 bg-[#F2E9E4]/10 rounded-full blur-2xl pointer-events-none"></div>
 
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 bg-[#6c8c74]/40 text-[#c8e2cf] border border-[#9fc4a8]/30 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+          <div className="inline-flex items-center gap-2 bg-[#A9BCA7]/30 text-[#A9BCA7] border border-[#A9BCA7]/40 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
+            <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
             <span>Katalog Resmi Alviero Studio • 12 Kategori Paket Lengkap</span>
           </div>
 
-          <h1 className="text-xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+          <h1 className="text-xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight font-serif">
             Pilihan Paket Foto Lengkap <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-[#d3ebd9] to-white">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F2E9E4] via-[#A9BCA7] to-white">
               Studio & Outdoor Ter-Aesthetic
             </span>
           </h1>
@@ -247,26 +247,26 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
           {/* Feature Badges */}
           <div className="pt-2 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-stone-200 font-medium">
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10">
-              <Camera className="w-4 h-4 text-[#9fc4a8] shrink-0" />
+              <Camera className="w-4 h-4 text-[#A9BCA7] shrink-0" />
               <span>Studio & Outdoor Pro</span>
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10">
-              <FileText className="w-4 h-4 text-emerald-300 shrink-0" />
+              <FileText className="w-4 h-4 text-[#A9BCA7] shrink-0" />
               <span>Gratis Semua Soft Files</span>
             </div>
             <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-2 rounded-xl border border-white/10 col-span-2 sm:col-span-1">
-              <Printer className="w-4 h-4 text-amber-300 shrink-0" />
+              <Printer className="w-4 h-4 text-[#A9BCA7] shrink-0" />
               <span>Cetak & Frame Premium</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Category Grid Overview (12 Categories Quick Jump with Multi-Pastel Colors) */}
-      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-stone-200 shadow-sm space-y-4">
+      {/* Category Grid Overview */}
+      <div className="bg-white p-4 sm:p-5 rounded-3xl border border-[#E8DDD6] shadow-sm space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-extrabold text-stone-900 text-xs sm:text-base flex items-center gap-2">
-            <Filter className="w-4 h-4 text-[#6c8c74]" />
+          <h2 className="font-extrabold text-[#3A3A3A] text-xs sm:text-base flex items-center gap-2">
+            <Filter className="w-4 h-4 text-[#6E856C]" />
             <span>Pilih Kategori Layanan Studio (12 Kategori)</span>
           </h2>
           <span className="text-xs text-stone-500 font-medium hidden sm:block">
@@ -280,13 +280,13 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
             onClick={() => setSelectedCategory('all')}
             className={`min-h-[56px] p-3 rounded-2xl text-xs font-bold transition-all text-left flex flex-col justify-between border cursor-pointer active:scale-98 ${
               selectedCategory === 'all'
-                ? 'bg-[#232d38] text-white border-[#232d38] shadow-sm'
-                : 'bg-[#f4f3ee] text-stone-700 border-stone-200 hover:bg-[#eae6dd]'
+                ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-sm'
+                : 'bg-[#FDFBF7] text-[#3A3A3A] border-[#E8DDD6] hover:bg-[#F2E9E4]'
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <Camera className={`w-4 h-4 ${selectedCategory === 'all' ? 'text-white' : 'text-stone-600'}`} />
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${selectedCategory === 'all' ? 'bg-stone-700 text-white' : 'bg-white text-stone-600 border border-stone-200'}`}>
+              <Camera className={`w-4 h-4 ${selectedCategory === 'all' ? 'text-white' : 'text-[#3A3A3A]'}`} />
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${selectedCategory === 'all' ? 'bg-[#2A2A2A] text-white' : 'bg-white text-[#3A3A3A] border border-[#E8DDD6]'}`}>
                 33 Paket
               </span>
             </div>
@@ -344,13 +344,13 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
         )}
 
         {/* Filter Budget */}
-        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-stone-100">
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#E8DDD6]">
           <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto py-1 scroll-mask-x">
             <span className="text-xs font-bold text-stone-500 shrink-0">Filter Budget:</span>
             <button
               onClick={() => setMaxPrice(0)}
               className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 cursor-pointer transition-all active:scale-95 ${
-                maxPrice === 0 ? 'bg-[#232d38] text-white' : 'bg-[#f4f3ee] text-stone-700 hover:bg-stone-200'
+                maxPrice === 0 ? 'bg-[#3A3A3A] text-white' : 'bg-[#FDFBF7] text-[#3A3A3A] border border-[#E8DDD6] hover:bg-[#F2E9E4]'
               }`}
             >
               Semua Harga
@@ -358,7 +358,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
             <button
               onClick={() => setMaxPrice(100000)}
               className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 cursor-pointer transition-all active:scale-95 ${
-                maxPrice === 100000 ? 'bg-[#232d38] text-white' : 'bg-[#f4f3ee] text-stone-700 hover:bg-stone-200'
+                maxPrice === 100000 ? 'bg-[#3A3A3A] text-white' : 'bg-[#FDFBF7] text-[#3A3A3A] border border-[#E8DDD6] hover:bg-[#F2E9E4]'
               }`}
             >
               ≤ 100 Ribu
@@ -366,7 +366,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
             <button
               onClick={() => setMaxPrice(200000)}
               className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 cursor-pointer transition-all active:scale-95 ${
-                maxPrice === 200000 ? 'bg-[#232d38] text-white' : 'bg-[#f4f3ee] text-stone-700 hover:bg-stone-200'
+                maxPrice === 200000 ? 'bg-[#3A3A3A] text-white' : 'bg-[#FDFBF7] text-[#3A3A3A] border border-[#E8DDD6] hover:bg-[#F2E9E4]'
               }`}
             >
               ≤ 200 Ribu
@@ -375,9 +375,9 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
             {compareIds.length > 0 && (
               <button
                 onClick={() => setShowCompareModal(true)}
-                className="min-h-[36px] bg-[#eef4f0] border border-[#c8dacd] text-[#2d5236] font-bold text-xs px-3.5 py-1.5 rounded-xl flex items-center gap-1 hover:bg-[#dfeee3] transition-colors shrink-0 ml-auto cursor-pointer"
+                className="min-h-[36px] bg-[#EBF2EA] border border-[#A9BCA7] text-[#6E856C] font-bold text-xs px-3.5 py-1.5 rounded-xl flex items-center gap-1 hover:bg-[#dfeee3] transition-colors shrink-0 ml-auto cursor-pointer"
               >
-                <Scale className="w-3.5 h-3.5 text-[#4d7557]" />
+                <Scale className="w-3.5 h-3.5 text-[#6E856C]" />
                 <span>Bandingkan ({compareIds.length})</span>
               </button>
             )}
@@ -385,26 +385,13 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
         </div>
       </div>
 
-      {/* Special Sub-Category Toggle for Self Studio */}
-      {selectedCategory === 'self-studio' && (
-        <div className="bg-[#fdf8eb] border border-[#f6e5b7] rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div>
-            <span className="text-xs font-bold text-[#73530f] uppercase tracking-wider block">Kategori Self Studio Memiliki 3 Kelompok Sub Paket:</span>
-            <p className="text-xs text-[#73530f]/80 font-medium">1. Sub Paket Special (2) • 2. Sub Paket Normal (2) • 3. Sub Paket Color Spotlight (2)</p>
-          </div>
-          <div className="flex items-center gap-1.5 shrink-0">
-            <span className="text-[11px] bg-white border border-[#ebd696] text-[#73530f] font-bold px-2.5 py-1 rounded-lg">Total 6 Sub Paket</span>
-          </div>
-        </div>
-      )}
-
       {/* Package Cards Grid */}
       {filteredPackages.length === 0 ? (
-        <div className="bg-white rounded-3xl p-8 text-center border border-stone-200 space-y-3">
+        <div className="bg-white rounded-3xl p-8 text-center border border-[#E8DDD6] space-y-3">
           <p className="text-stone-600 font-semibold text-sm">Tidak ditemukan paket sesuai filter kategori atau harga ini.</p>
           <button
             onClick={() => { setSelectedCategory('all'); setMaxPrice(0); }}
-            className="min-h-[40px] inline-flex items-center gap-1 bg-[#6c8c74] hover:bg-[#57735e] text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+            className="min-h-[40px] inline-flex items-center gap-1 bg-[#6E856C] hover:bg-[#5C725A] text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
           >
             <span>Reset Filter</span>
           </button>
@@ -421,14 +408,14 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                 key={pkg.id}
                 className={`bg-white rounded-3xl border transition-all duration-300 flex flex-col justify-between overflow-hidden group relative ${
                   pkg.popular 
-                    ? 'border-[#6c8c74] shadow-md ring-2 ring-[#6c8c74]/20' 
-                    : 'border-stone-200 shadow-2xs hover:shadow-md'
+                    ? 'border-[#A9BCA7] shadow-md ring-2 ring-[#A9BCA7]/30' 
+                    : 'border-[#E8DDD6] shadow-2xs hover:shadow-md'
                 }`}
               >
                 {/* Tag Badge */}
                 {pkg.tag && (
-                  <div className="absolute top-3.5 left-3.5 z-10 bg-[#232d38]/90 backdrop-blur-md text-amber-300 font-extrabold text-[11px] px-3 py-1 rounded-full shadow-md flex items-center gap-1 border border-white/10">
-                    <Star className="w-3 h-3 text-amber-300 fill-amber-300" />
+                  <div className="absolute top-3.5 left-3.5 z-10 bg-[#3A3A3A]/90 backdrop-blur-md text-[#A9BCA7] font-extrabold text-[11px] px-3 py-1 rounded-full shadow-md flex items-center gap-1 border border-white/10">
+                    <Star className="w-3 h-3 text-[#A9BCA7] fill-[#A9BCA7]" />
                     <span>{pkg.tag}</span>
                   </div>
                 )}
@@ -439,8 +426,8 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                   title="Bandingkan paket"
                   className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full backdrop-blur-md text-xs font-bold transition-all shadow-md cursor-pointer flex items-center justify-center ${
                     isComparing 
-                      ? 'bg-[#6c8c74] text-white' 
-                      : 'bg-white/90 text-stone-700 hover:bg-white border border-stone-200'
+                      ? 'bg-[#6E856C] text-white' 
+                      : 'bg-white/90 text-[#3A3A3A] hover:bg-white border border-[#E8DDD6]'
                   }`}
                 >
                   <Scale className="w-4 h-4" />
@@ -458,11 +445,11 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
 
                     {/* Category Label inside Image Overlay */}
                     <div className="absolute top-3.5 left-3.5 right-14 flex items-center gap-2">
-                      <span className="bg-[#232d38]/80 backdrop-blur-md text-stone-200 text-[10px] font-bold px-2.5 py-0.5 rounded-md border border-white/20">
+                      <span className="bg-[#3A3A3A]/80 backdrop-blur-md text-stone-200 text-[10px] font-bold px-2.5 py-0.5 rounded-md border border-white/20">
                         {categoryObj?.name || pkg.category}
                       </span>
                       {pkg.subCategory && (
-                        <span className="bg-amber-400 text-stone-950 text-[10px] font-black px-2 py-0.5 rounded-md">
+                        <span className="bg-[#A9BCA7] text-[#2A2A2A] text-[10px] font-black px-2 py-0.5 rounded-md">
                           Sub: {pkg.subCategory}
                         </span>
                       )}
@@ -470,12 +457,12 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
 
                     <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between text-white">
                       <div>
-                        <h3 className="font-extrabold text-base sm:text-lg text-white leading-snug drop-shadow-sm">
+                        <h3 className="font-extrabold text-base sm:text-lg text-white leading-snug drop-shadow-sm font-serif">
                           {pkg.name}
                         </h3>
                       </div>
                       <div className="text-right shrink-0">
-                        <div className="font-black text-lg sm:text-xl text-amber-300">
+                        <div className="font-black text-lg sm:text-xl text-[#A9BCA7]">
                           Rp {pkg.price.toLocaleString('id-ID')}
                         </div>
                         {pkg.originalPrice && (
@@ -498,7 +485,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                       <div className="flex items-center gap-2 text-stone-700">
                         <Clock className={`w-4 h-4 ${cardTheme.iconColor} shrink-0`} />
                         <div>
-                          <div className="font-bold text-stone-900">{pkg.durationMinutes} Min Foto</div>
+                          <div className="font-bold text-[#3A3A3A]">{pkg.durationMinutes} Min Foto</div>
                           <div className="text-[10px] text-stone-500">+{pkg.selectionTimeMinutes} min pilih</div>
                         </div>
                       </div>
@@ -506,7 +493,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                       <div className="flex items-center gap-2 text-stone-700">
                         <Users className={`w-4 h-4 ${cardTheme.iconColor} shrink-0`} />
                         <div>
-                          <div className="font-bold text-stone-900">{pkg.includedPeople} Orang</div>
+                          <div className="font-bold text-[#3A3A3A]">{pkg.includedPeople} Orang</div>
                           <div className="text-[10px] text-stone-500">Sudah termasuk</div>
                         </div>
                       </div>
@@ -519,7 +506,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                       </div>
                       {pkg.highlights.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-2 text-xs text-stone-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#4d7557] shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#6E856C] shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -533,8 +520,8 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                     onClick={() => onSelectPackageForBooking(pkg.id)}
                     className={`w-full min-h-[44px] py-3 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98 ${
                       pkg.popular
-                        ? 'bg-[#6c8c74] hover:bg-[#57735e] text-white shadow-sm'
-                        : 'bg-[#232d38] hover:bg-[#1a222c] text-white'
+                        ? 'bg-[#6E856C] hover:bg-[#5C725A] text-white shadow-sm'
+                        : 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white'
                     }`}
                   >
                     <span>Pilih Paket & Reservasi</span>
@@ -550,15 +537,15 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
       {/* Package Comparison Modal */}
       {showCompareModal && (
         <div className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 space-y-6 shadow-2xl my-auto border border-stone-200">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-4">
+          <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 space-y-6 shadow-2xl my-auto border border-[#E8DDD6]">
+            <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-4">
               <div className="flex items-center gap-2">
-                <Scale className="w-5 h-5 text-[#6c8c74]" />
-                <h3 className="font-extrabold text-base sm:text-lg text-stone-900">Perbandingan Paket Studio</h3>
+                <Scale className="w-5 h-5 text-[#6E856C]" />
+                <h3 className="font-extrabold text-base sm:text-lg text-[#3A3A3A] font-serif">Perbandingan Paket Studio</h3>
               </div>
               <button 
                 onClick={() => setShowCompareModal(false)}
-                className="w-9 h-9 rounded-full bg-stone-100 text-stone-500 hover:text-stone-800 cursor-pointer flex items-center justify-center"
+                className="w-9 h-9 rounded-full bg-[#FDFBF7] text-stone-500 hover:text-stone-800 cursor-pointer flex items-center justify-center border border-[#E8DDD6]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -566,9 +553,9 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {comparePackages.map((pkg) => (
-                <div key={pkg.id} className="border border-stone-200 rounded-2xl p-4 bg-[#faf9f6] space-y-3">
-                  <div className="font-extrabold text-stone-900 text-base">{pkg.name}</div>
-                  <div className="text-xl font-black text-[#4d7557]">Rp {pkg.price.toLocaleString('id-ID')}</div>
+                <div key={pkg.id} className="border border-[#E8DDD6] rounded-2xl p-4 bg-[#FDFBF7] space-y-3">
+                  <div className="font-extrabold text-[#3A3A3A] text-base font-serif">{pkg.name}</div>
+                  <div className="text-xl font-black text-[#6E856C]">Rp {pkg.price.toLocaleString('id-ID')}</div>
                   <div className="text-xs text-stone-600 space-y-1.5">
                     <div>⏱️ Durasi: <strong>{pkg.durationMinutes} Menit</strong></div>
                     <div>👥 Peserta: <strong>{pkg.includedPeople} Orang</strong></div>
@@ -580,7 +567,7 @@ export const PackageCatalog: React.FC<PackageCatalogProps> = ({
                       setShowCompareModal(false);
                       onSelectPackageForBooking(pkg.id);
                     }}
-                    className="w-full min-h-[40px] py-2 bg-[#6c8c74] hover:bg-[#57735e] text-white font-bold text-xs rounded-xl cursor-pointer active:scale-95 shadow-xs"
+                    className="w-full min-h-[40px] py-2 bg-[#6E856C] hover:bg-[#5C725A] text-white font-bold text-xs rounded-xl cursor-pointer active:scale-95 shadow-xs"
                   >
                     Pilih Paket Ini
                   </button>

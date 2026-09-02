@@ -218,11 +218,11 @@ export const PhotoStripCustomizer: React.FC = () => {
     <section className="py-4 sm:py-8 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-300">
       {/* Header Banner */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-1.5 bg-[#eef6f2] text-[#2c5b43] text-[11px] sm:text-xs font-extrabold px-3 py-1 rounded-full border border-[#c6e4d4]">
-          <Sparkles className="w-3.5 h-3.5 text-[#4a8a68]" />
+        <div className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] text-[11px] sm:text-xs font-extrabold px-3 py-1 rounded-full border border-[#A9BCA7]">
+          <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
           <span>Interactive Photo Grid Customizer & Live Frame Generator</span>
         </div>
-        <h2 className="text-xl sm:text-3xl font-black text-stone-900 tracking-tight">
+        <h2 className="text-xl sm:text-3xl font-black text-[#3A3A3A] tracking-tight">
           Kustomisasi Grid & Bingkai Alviero
         </h2>
         <p className="text-xs sm:text-sm text-stone-600 leading-relaxed px-2">
@@ -232,18 +232,18 @@ export const PhotoStripCustomizer: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
         {/* Left Controls Panel */}
-        <div className="lg:col-span-6 bg-white p-4 sm:p-6 rounded-3xl border border-stone-200 shadow-sm space-y-5">
+        <div className="lg:col-span-6 bg-white p-4 sm:p-6 rounded-3xl border border-[#E8DDD6] shadow-sm space-y-5">
           
           {/* 1. UPLOAD & KELOLA FOTO UTUH */}
           <div className="space-y-3">
             <div className="flex justify-between items-center flex-wrap gap-1">
-              <label className="text-xs font-extrabold uppercase tracking-wider text-stone-800 flex items-center gap-1.5">
-                <ImageIcon className="w-4 h-4 text-[#6c8c74]" />
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+                <ImageIcon className="w-4 h-4 text-[#6E856C]" />
                 1. Upload & Kelola Foto ({currentGridDef.photoCount} Slot Foto):
               </label>
               <button
                 onClick={handleResetPhotos}
-                className="text-[11px] text-stone-500 hover:text-[#6c8c74] font-semibold flex items-center gap-1 cursor-pointer transition-colors"
+                className="text-[11px] text-stone-500 hover:text-[#6E856C] font-semibold flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <RefreshCw className="w-3 h-3" />
                 Reset Contoh
@@ -269,14 +269,14 @@ export const PhotoStripCustomizer: React.FC = () => {
 
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-full min-h-[46px] py-3 px-4 rounded-2xl border-2 border-dashed border-[#a8c9b3] hover:border-[#6c8c74] bg-[#f4f9f6] hover:bg-[#ebf4ef] text-[#2c5b43] font-extrabold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              className="w-full min-h-[46px] py-3 px-4 rounded-2xl border-2 border-dashed border-[#A9BCA7] hover:border-[#6E856C] bg-[#FDFBF7] hover:bg-[#F2E9E4] text-[#3A3A3A] font-extrabold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
-              <Upload className="w-4 h-4 text-[#4a8a68]" />
+              <Upload className="w-4 h-4 text-[#6E856C]" />
               <span>Unggah Foto Dari Galeri HP / Laptop</span>
             </button>
 
             {/* Instruction Tip */}
-            <div className="bg-[#f7faf8] border border-[#d6ebd9] p-3 rounded-2xl text-[11px] text-[#244c38] font-medium leading-relaxed">
+            <div className="bg-[#FDFBF7] border border-[#E8DDD6] p-3 rounded-2xl text-[11px] text-[#3A3A3A] font-medium leading-relaxed">
               💡 <strong>Petunjuk Posisi:</strong> Klik <strong>"Crop Utuh & Posisi"</strong> pada foto untuk zoom, geser wajah, atau putar sudut foto agar pas dengan bingkai.
             </div>
 
@@ -287,10 +287,10 @@ export const PhotoStripCustomizer: React.FC = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {userPhotos.slice(0, currentGridDef.photoCount).map((img, idx) => (
-                  <div key={idx} className="p-2.5 rounded-2xl border border-stone-200 bg-stone-50/80 flex items-center gap-3 shadow-2xs hover:border-[#6c8c74] transition-colors">
+                  <div key={idx} className="p-2.5 rounded-2xl border border-[#E8DDD6] bg-[#FDFBF7] flex items-center gap-3 shadow-2xs hover:border-[#6E856C] transition-colors">
                     <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-stone-200 shrink-0 border border-stone-300">
                       <img src={img} alt={`Foto slot ${idx + 1}`} className="w-full h-full object-cover" />
-                      <div className="absolute top-1 left-1 bg-stone-900/90 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
+                      <div className="absolute top-1 left-1 bg-[#3A3A3A] text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
                         {idx + 1}
                       </div>
                     </div>
@@ -298,14 +298,14 @@ export const PhotoStripCustomizer: React.FC = () => {
                     <div className="flex flex-col gap-1.5 flex-1 min-w-0">
                       <button
                         onClick={() => handleOpenCropModal(idx)}
-                        className="w-full min-h-[34px] py-1 px-2 bg-[#6c8c74] hover:bg-[#57735e] text-white font-extrabold text-[10.5px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95"
+                        className="w-full min-h-[34px] py-1 px-2 bg-[#6E856C] hover:bg-[#5C725A] text-white font-extrabold text-[10.5px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                       >
-                        <Crop className="w-3.5 h-3.5 text-[#d6ebd9]" />
+                        <Crop className="w-3.5 h-3.5 text-[#EBF2EA]" />
                         <span>Crop Utuh & Posisi</span>
                       </button>
                       <button
                         onClick={() => triggerSingleReplace(idx)}
-                        className="w-full min-h-[30px] py-0.5 px-2 bg-white hover:bg-stone-100 border border-stone-300 text-stone-700 font-bold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer"
+                        className="w-full min-h-[30px] py-0.5 px-2 bg-white hover:bg-stone-100 border border-[#E8DDD6] text-[#3A3A3A] font-bold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer"
                       >
                         <Upload className="w-3 h-3 text-stone-500" />
                         <span>Ganti Foto</span>
@@ -317,14 +317,14 @@ export const PhotoStripCustomizer: React.FC = () => {
             </div>
           </div>
 
-          {/* 2. PILIH TATA LETAK GRID (Sesuai BAHAN GRID) */}
-          <div className="space-y-3 pt-3 border-t border-stone-200">
+          {/* 2. PILIH TATA LETAK GRID */}
+          <div className="space-y-3 pt-3 border-t border-[#E8DDD6]">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-extrabold uppercase tracking-wider text-stone-800 flex items-center gap-1.5">
-                <Layers className="w-4 h-4 text-amber-600" />
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+                <Layers className="w-4 h-4 text-[#6E856C]" />
                 2. Pilihan Tata Letak Grid:
               </label>
-              <span className="text-[10.5px] bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-[10.5px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2 py-0.5 rounded-full font-bold">
                 {currentGridDef.sizeLabel}
               </span>
             </div>
@@ -343,14 +343,14 @@ export const PhotoStripCustomizer: React.FC = () => {
                     }}
                     className={`min-h-[58px] p-2.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between active:scale-98 ${
                       isSelected
-                        ? 'bg-[#232d38] text-white border-[#232d38] shadow-md ring-2 ring-[#6c8c74]/30'
-                        : 'bg-stone-50 border-stone-200 text-stone-800 hover:bg-stone-100 hover:border-stone-300'
+                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-md ring-2 ring-[#A9BCA7]'
+                        : 'bg-[#FDFBF7] border-[#E8DDD6] text-[#3A3A3A] hover:bg-[#F2E9E4] hover:border-[#3A3A3A]'
                     }`}
                   >
                     <div className="flex items-center justify-between w-full">
                       <span className="font-extrabold text-xs">{g.name}</span>
                       <span className={`text-[9.5px] font-black px-1.5 py-0.5 rounded-md ${
-                        isSelected ? 'bg-[#6c8c74] text-white' : 'bg-stone-200 text-stone-700'
+                        isSelected ? 'bg-[#A9BCA7] text-[#2A2A2A]' : 'bg-[#E8DDD6] text-stone-700'
                       }`}>
                         {g.shortLabel}
                       </span>
@@ -364,14 +364,14 @@ export const PhotoStripCustomizer: React.FC = () => {
             </div>
           </div>
 
-          {/* 3. PILIH TEMA / WARNA BINGKAI (Sesuai BAHAN GRID A-E) */}
-          <div className="space-y-3 pt-3 border-t border-stone-200">
+          {/* 3. PILIH TEMA / WARNA BINGKAI */}
+          <div className="space-y-3 pt-3 border-t border-[#E8DDD6]">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-extrabold uppercase tracking-wider text-stone-800 flex items-center gap-1.5">
-                <Palette className="w-4 h-4 text-purple-600" />
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+                <Palette className="w-4 h-4 text-[#6E856C]" />
                 3. Pilih Tema / Warna Bingkai:
               </label>
-              <span className="text-[10.5px] bg-purple-50 text-purple-800 border border-purple-200 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-[10.5px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2 py-0.5 rounded-full font-bold">
                 Tema {selectedTheme}: {currentThemeDef.name}
               </span>
             </div>
@@ -389,8 +389,8 @@ export const PhotoStripCustomizer: React.FC = () => {
                     }}
                     className={`min-h-[46px] p-2.5 rounded-2xl border text-left flex items-center gap-2.5 cursor-pointer transition-all active:scale-98 ${
                       isSelected
-                        ? 'bg-[#232d38] text-white border-[#232d38] shadow-md ring-2 ring-purple-400/40'
-                        : 'bg-white border-stone-200 text-stone-800 hover:bg-stone-50 hover:border-stone-300'
+                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-md ring-2 ring-[#A9BCA7]'
+                        : 'bg-white border-[#E8DDD6] text-[#3A3A3A] hover:bg-[#FDFBF7] hover:border-[#3A3A3A]'
                     }`}
                   >
                     <div 
@@ -412,9 +412,9 @@ export const PhotoStripCustomizer: React.FC = () => {
           </div>
 
           {/* 4. EFEK WARNA FOTO & STIKER */}
-          <div className="space-y-3 pt-3 border-t border-stone-200">
-            <label className="text-xs font-extrabold uppercase tracking-wider text-stone-800 flex items-center gap-1.5">
-              <Wand2 className="w-4 h-4 text-[#6c8c74]" />
+          <div className="space-y-3 pt-3 border-t border-[#E8DDD6]">
+            <label className="text-xs font-extrabold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+              <Wand2 className="w-4 h-4 text-[#6E856C]" />
               4. Efek Warna Foto & Stiker:
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -424,7 +424,7 @@ export const PhotoStripCustomizer: React.FC = () => {
                   playShutterSound();
                   setActiveFilter(e.target.value);
                 }}
-                className="w-full min-h-[42px] px-3 py-2 bg-stone-50 border border-stone-300 rounded-xl text-xs font-extrabold text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#6c8c74] cursor-pointer"
+                className="w-full min-h-[42px] px-3 py-2 bg-[#FDFBF7] border border-[#E8DDD6] rounded-xl text-xs font-extrabold text-[#3A3A3A] focus:outline-none focus:ring-2 focus:ring-[#A9BCA7] cursor-pointer"
               >
                 <option value="none">Normal Color (Natural)</option>
                 <option value="vivid">Vivid Contrast (Tajam)</option>
@@ -433,7 +433,7 @@ export const PhotoStripCustomizer: React.FC = () => {
                 <option value="grayscale">B&W Dramatic (Hitam Putih)</option>
               </select>
 
-              <div className="flex items-center gap-1 bg-stone-50 border border-stone-300 p-1.5 rounded-xl justify-around text-lg min-h-[42px]">
+              <div className="flex items-center gap-1 bg-[#FDFBF7] border border-[#E8DDD6] p-1.5 rounded-xl justify-around text-lg min-h-[42px]">
                 {['', '💖', '⭐', '✨', '🎀', '🌸', '🍀', '🔥'].map((s) => (
                   <button
                     key={s || 'none'}
@@ -442,7 +442,7 @@ export const PhotoStripCustomizer: React.FC = () => {
                       setSelectedSticker(s);
                     }}
                     className={`min-w-[30px] min-h-[30px] p-0.5 rounded-lg transition-all cursor-pointer flex items-center justify-center text-sm sm:text-base ${
-                      selectedSticker === s ? 'bg-[#232d38] text-white scale-110 shadow-xs' : 'hover:scale-105'
+                      selectedSticker === s ? 'bg-[#3A3A3A] text-white scale-110 shadow-xs' : 'hover:scale-105'
                     }`}
                   >
                     {s || '🚫'}
@@ -456,7 +456,7 @@ export const PhotoStripCustomizer: React.FC = () => {
           <div className="flex items-center justify-between text-xs text-stone-500 pt-1">
             <button
               onClick={() => playShutterSound()}
-              className="flex items-center gap-1.5 text-xs text-[#3a6b52] hover:text-[#234c38] font-bold cursor-pointer py-1"
+              className="flex items-center gap-1.5 text-xs text-[#6E856C] hover:text-[#3A3A3A] font-bold cursor-pointer py-1"
             >
               <Volume2 className="w-4 h-4" />
               <span>Tes Efek Suara Shutter Kamera</span>
@@ -468,9 +468,9 @@ export const PhotoStripCustomizer: React.FC = () => {
             <button
               onClick={handleDownloadPNG}
               disabled={isDownloading}
-              className="w-full min-h-[48px] bg-[#6c8c74] hover:bg-[#57735e] active:bg-[#465f4c] text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              className="w-full min-h-[48px] bg-[#6E856C] hover:bg-[#5C725A] text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-2xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
-              <Download className="w-4 h-4 text-[#d4ebd8]" />
+              <Download className="w-4 h-4 text-[#EBF2EA]" />
               <span>{isDownloading ? 'Mengekspor Foto Lab...' : `Download Hasil ${currentGridDef.name} (PNG)`}</span>
             </button>
           </div>
@@ -577,9 +577,9 @@ export const PhotoStripCustomizer: React.FC = () => {
             <button
               onClick={handleDownloadPNG}
               disabled={isDownloading}
-              className="w-full min-h-[44px] bg-[#6c8c74] hover:bg-[#57735e] text-white font-extrabold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              className="w-full min-h-[44px] bg-[#6E856C] hover:bg-[#5C725A] text-white font-extrabold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
-              <Download className="w-4 h-4 text-[#d4ebd8]" />
+              <Download className="w-4 h-4 text-[#EBF2EA]" />
               <span>{isDownloading ? 'Mengekspor PNG...' : 'Download Hasil PNG'}</span>
             </button>
           </div>
@@ -593,11 +593,11 @@ export const PhotoStripCustomizer: React.FC = () => {
       {/* FULL PHOTO VISIBLE MANUAL CROP MODAL */}
       {cropIndex !== null && (
         <div className="fixed inset-0 z-50 bg-stone-950/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-          <div className="bg-stone-900 text-white rounded-3xl max-w-2xl w-full border border-stone-800 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[96vh]">
+          <div className="bg-[#2A2A2A] text-white rounded-3xl max-w-2xl w-full border border-[#3A3A3A] shadow-2xl overflow-hidden flex flex-col my-auto max-h-[96vh]">
             {/* Modal Header */}
-            <div className="p-3.5 sm:p-5 bg-stone-950 border-b border-stone-800 flex items-center justify-between shrink-0">
+            <div className="p-3.5 sm:p-5 bg-[#1F1F1F] border-b border-[#3A3A3A] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2">
-                <Crop className="w-5 h-5 text-[#9fc4a8]" />
+                <Crop className="w-5 h-5 text-[#A9BCA7]" />
                 <div>
                   <h3 className="font-extrabold text-sm sm:text-base">Crop & Posisi Foto #{cropIndex + 1}</h3>
                   {imgDimensions && (
@@ -609,48 +609,48 @@ export const PhotoStripCustomizer: React.FC = () => {
               </div>
               <button
                 onClick={() => setCropIndex(null)}
-                className="w-8 h-8 rounded-full bg-stone-800 text-stone-400 hover:text-white transition-colors cursor-pointer flex items-center justify-center"
+                className="w-8 h-8 rounded-full bg-[#3A3A3A] text-stone-400 hover:text-white transition-colors cursor-pointer flex items-center justify-center"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Viewport Modes Bar */}
-            <div className="bg-stone-950/80 px-3 py-2 border-b border-stone-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2 shrink-0">
+            <div className="bg-[#1F1F1F]/80 px-3 py-2 border-b border-[#3A3A3A] flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2 shrink-0">
               <span className="text-stone-400 font-semibold text-[11px]">Mode Tampilan Foto:</span>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={() => { setFitMode('contain'); setCropZoom(1); setCropPanX(0); setCropPanY(0); }}
                   className={`min-h-[36px] px-3 py-1 rounded-xl text-[11px] font-extrabold flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
-                    fitMode === 'contain' ? 'bg-[#6c8c74] text-white shadow-xs' : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                    fitMode === 'contain' ? 'bg-[#6E856C] text-white shadow-xs' : 'bg-[#3A3A3A] text-stone-300 hover:bg-[#4A4A4A]'
                   }`}
                 >
-                  <Maximize2 className="w-3 h-3 text-amber-300" />
+                  <Maximize2 className="w-3 h-3 text-[#A9BCA7]" />
                   <span>Foto Utuh (Contain)</span>
                 </button>
 
                 <button
                   onClick={() => { setFitMode('cover'); setCropZoom(1); setCropPanX(0); setCropPanY(0); }}
                   className={`min-h-[36px] px-3 py-1 rounded-xl text-[11px] font-extrabold flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
-                    fitMode === 'cover' ? 'bg-[#6c8c74] text-white shadow-xs' : 'bg-stone-800 text-stone-300 hover:bg-stone-700'
+                    fitMode === 'cover' ? 'bg-[#6E856C] text-white shadow-xs' : 'bg-[#3A3A3A] text-stone-300 hover:bg-[#4A4A4A]'
                   }`}
                 >
-                  <Crop className="w-3 h-3 text-amber-300" />
+                  <Crop className="w-3 h-3 text-[#A9BCA7]" />
                   <span>Penuh Frame (Cover)</span>
                 </button>
               </div>
             </div>
 
             {/* Canvas Interactive Viewport */}
-            <div className="p-3 sm:p-5 flex flex-col items-center justify-center bg-stone-950/70 relative overflow-hidden flex-1 min-h-[260px]">
-              <div className="text-[10px] sm:text-[11px] text-amber-300 mb-2 flex items-center gap-1.5 font-bold bg-stone-900/90 px-3 py-1 rounded-full border border-amber-500/30 shadow-md">
-                <Move className="w-3.5 h-3.5 text-amber-300 animate-bounce" />
+            <div className="p-3 sm:p-5 flex flex-col items-center justify-center bg-[#181818] relative overflow-hidden flex-1 min-h-[260px]">
+              <div className="text-[10px] sm:text-[11px] text-[#A9BCA7] mb-2 flex items-center gap-1.5 font-bold bg-[#2A2A2A]/90 px-3 py-1 rounded-full border border-[#A9BCA7]/30 shadow-md">
+                <Move className="w-3.5 h-3.5 text-[#A9BCA7] animate-bounce" />
                 <span>Geser (Drag) foto untuk atur fokus wajah</span>
               </div>
 
               {/* Crop Frame Box */}
               <div 
-                className="relative overflow-hidden rounded-2xl border-4 border-[#6c8c74] shadow-2xl cursor-grab active:cursor-grabbing bg-stone-950 flex items-center justify-center touch-none my-auto"
+                className="relative overflow-hidden rounded-2xl border-4 border-[#6E856C] shadow-2xl cursor-grab active:cursor-grabbing bg-stone-950 flex items-center justify-center touch-none my-auto"
                 onMouseDown={(e) => handleStartDrag(e.clientX, e.clientY)}
                 onMouseMove={(e) => handleMoveDrag(e.clientX, e.clientY)}
                 onMouseUp={handleEndDrag}
@@ -689,17 +689,17 @@ export const PhotoStripCustomizer: React.FC = () => {
             </div>
 
             {/* Crop Controls Sliders */}
-            <div className="p-3 sm:p-5 space-y-3 border-t border-stone-800 text-xs shrink-0 bg-stone-900">
+            <div className="p-3 sm:p-5 space-y-3 border-t border-[#3A3A3A] text-xs shrink-0 bg-[#2A2A2A]">
               {/* Zoom Slider */}
               <div className="space-y-1">
                 <div className="flex justify-between font-bold text-stone-300 text-[11px]">
-                  <span className="flex items-center gap-1"><ZoomIn className="w-3.5 h-3.5 text-[#9fc4a8]" /> Zoom Scale:</span>
-                  <span className="text-amber-300 font-extrabold">{Math.round(cropZoom * 100)}%</span>
+                  <span className="flex items-center gap-1"><ZoomIn className="w-3.5 h-3.5 text-[#A9BCA7]" /> Zoom Scale:</span>
+                  <span className="text-[#A9BCA7] font-extrabold">{Math.round(cropZoom * 100)}%</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setCropZoom(prev => Math.max(0.3, prev - 0.1))}
-                    className="w-9 h-9 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 flex items-center justify-center cursor-pointer active:scale-95"
+                    className="w-9 h-9 rounded-xl bg-[#3A3A3A] hover:bg-[#4A4A4A] text-stone-200 flex items-center justify-center cursor-pointer active:scale-95"
                     title="Perkecil Zoom"
                   >
                     <ZoomOut className="w-4 h-4" />
@@ -711,11 +711,11 @@ export const PhotoStripCustomizer: React.FC = () => {
                     step="0.05"
                     value={cropZoom}
                     onChange={(e) => setCropZoom(parseFloat(e.target.value))}
-                    className="flex-1 h-3 accent-[#6c8c74] cursor-pointer"
+                    className="flex-1 h-3 accent-[#6E856C] cursor-pointer"
                   />
                   <button
                     onClick={() => setCropZoom(prev => Math.min(3.0, prev + 0.1))}
-                    className="w-9 h-9 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 flex items-center justify-center cursor-pointer active:scale-95"
+                    className="w-9 h-9 rounded-xl bg-[#3A3A3A] hover:bg-[#4A4A4A] text-stone-200 flex items-center justify-center cursor-pointer active:scale-95"
                     title="Perbesar Zoom"
                   >
                     <ZoomIn className="w-4 h-4" />
@@ -727,7 +727,7 @@ export const PhotoStripCustomizer: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className="space-y-1">
                   <div className="flex justify-between font-bold text-stone-300 text-[10px]">
-                    <span className="flex items-center gap-1"><ArrowLeftRight className="w-3 h-3 text-[#9fc4a8]" /> Posisi Kiri-Kanan (X):</span>
+                    <span className="flex items-center gap-1"><ArrowLeftRight className="w-3 h-3 text-[#A9BCA7]" /> Posisi Kiri-Kanan (X):</span>
                     <span>{Math.round(cropPanX)} px</span>
                   </div>
                   <input
@@ -737,13 +737,13 @@ export const PhotoStripCustomizer: React.FC = () => {
                     step="1"
                     value={cropPanX}
                     onChange={(e) => setCropPanX(parseFloat(e.target.value))}
-                    className="w-full h-3 accent-[#6c8c74] cursor-pointer"
+                    className="w-full h-3 accent-[#6E856C] cursor-pointer"
                   />
                 </div>
 
                 <div className="space-y-1">
                   <div className="flex justify-between font-bold text-stone-300 text-[10px]">
-                    <span className="flex items-center gap-1"><ArrowUpDown className="w-3 h-3 text-[#9fc4a8]" /> Posisi Atas-Bawah (Y):</span>
+                    <span className="flex items-center gap-1"><ArrowUpDown className="w-3 h-3 text-[#A9BCA7]" /> Posisi Atas-Bawah (Y):</span>
                     <span>{Math.round(cropPanY)} px</span>
                   </div>
                   <input
@@ -753,19 +753,19 @@ export const PhotoStripCustomizer: React.FC = () => {
                     step="1"
                     value={cropPanY}
                     onChange={(e) => setCropPanY(parseFloat(e.target.value))}
-                    className="w-full h-3 accent-[#6c8c74] cursor-pointer"
+                    className="w-full h-3 accent-[#6E856C] cursor-pointer"
                   />
                 </div>
               </div>
 
               {/* Rotation & Quick Action Buttons */}
-              <div className="flex items-center justify-between gap-2 pt-1 border-t border-stone-800/80 flex-wrap">
+              <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#3A3A3A] flex-wrap">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setCropRotation(prev => (prev + 90) % 360)}
-                    className="min-h-[36px] px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold flex items-center gap-1.5 cursor-pointer text-[11px] active:scale-95"
+                    className="min-h-[36px] px-3 py-1.5 rounded-xl bg-[#3A3A3A] hover:bg-[#4A4A4A] text-stone-200 font-bold flex items-center gap-1.5 cursor-pointer text-[11px] active:scale-95"
                   >
-                    <RotateCw className="w-3.5 h-3.5 text-[#9fc4a8]" />
+                    <RotateCw className="w-3.5 h-3.5 text-[#A9BCA7]" />
                     <span>Putar 90°</span>
                   </button>
 
@@ -776,9 +776,9 @@ export const PhotoStripCustomizer: React.FC = () => {
                       setCropPanX(0);
                       setCropPanY(0);
                     }}
-                    className="min-h-[36px] px-3 py-1.5 rounded-xl bg-[#232d38] text-[#9fc4a8] border border-stone-700 font-bold flex items-center gap-1 cursor-pointer text-[11px] active:scale-95"
+                    className="min-h-[36px] px-3 py-1.5 rounded-xl bg-[#3A3A3A] text-[#A9BCA7] border border-[#5A5A5A] font-bold flex items-center gap-1 cursor-pointer text-[11px] active:scale-95"
                   >
-                    <Maximize2 className="w-3.5 h-3.5 text-amber-300" />
+                    <Maximize2 className="w-3.5 h-3.5 text-[#A9BCA7]" />
                     <span>Foto Utuh</span>
                   </button>
                 </div>
@@ -791,7 +791,7 @@ export const PhotoStripCustomizer: React.FC = () => {
                     setCropRotation(0);
                     setFitMode('cover');
                   }}
-                  className="min-h-[36px] px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-400 hover:text-stone-200 font-semibold flex items-center gap-1 cursor-pointer text-[11px] active:scale-95"
+                  className="min-h-[36px] px-3 py-1.5 rounded-xl bg-[#3A3A3A] hover:bg-[#4A4A4A] text-stone-400 hover:text-stone-200 font-semibold flex items-center gap-1 cursor-pointer text-[11px] active:scale-95"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   <span>Reset</span>
@@ -800,7 +800,7 @@ export const PhotoStripCustomizer: React.FC = () => {
             </div>
 
             {/* Modal Actions */}
-            <div className="p-3.5 sm:p-5 bg-stone-950 border-t border-stone-800 flex items-center justify-end gap-2 shrink-0">
+            <div className="p-3.5 sm:p-5 bg-[#1F1F1F] border-t border-[#3A3A3A] flex items-center justify-end gap-2 shrink-0">
               <button
                 onClick={() => setCropIndex(null)}
                 className="min-h-[42px] px-4 py-2 rounded-xl font-bold text-stone-400 hover:text-white cursor-pointer text-xs"
@@ -809,7 +809,7 @@ export const PhotoStripCustomizer: React.FC = () => {
               </button>
               <button
                 onClick={handleSaveCrop}
-                className="min-h-[42px] px-5 py-2.5 rounded-xl font-extrabold bg-[#6c8c74] hover:bg-[#57735e] text-white shadow-md flex items-center gap-2 cursor-pointer active:scale-95 transition-all text-xs"
+                className="min-h-[42px] px-5 py-2.5 rounded-xl font-extrabold bg-[#6E856C] hover:bg-[#5C725A] text-white shadow-md flex items-center gap-2 cursor-pointer active:scale-95 transition-all text-xs"
               >
                 <Check className="w-4 h-4" />
                 <span>Simpan Hasil Posisi & Crop</span>

@@ -728,13 +728,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     <div className="w-full py-2 sm:py-6 px-2 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-3 sm:space-y-6">
 
       {/* Top Segmented Navigation Tabs (Khusus Desktop) */}
-      <div className="hidden lg:flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3.5 sm:p-4 border border-[#E0D9CE] shadow-xs">
+      <div className="hidden lg:flex flex-col sm:flex-row items-center justify-between gap-3 bg-white p-3.5 sm:p-4 border border-[#E8DDD6] shadow-xs">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-[#1C1A17] text-[#D4AF37] flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center shrink-0">
             <Sparkles className="w-4.5 h-4.5" />
           </div>
           <div>
-            <h2 className="font-serif font-bold text-sm sm:text-base text-[#1C1A17] uppercase tracking-wide leading-tight">
+            <h2 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide leading-tight">
               Katalog Resmi & Galeri Alviero Studio
             </h2>
             <p className="text-[11px] sm:text-xs text-stone-500 font-sans">
@@ -744,12 +744,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         </div>
 
         {/* Tab Switcher */}
-        <div className="bg-[#FAF8F5] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E0D9CE]">
+        <div className="bg-[#FDFBF7] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E8DDD6]">
           <button
             onClick={() => setActiveTab('menu')}
             className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'menu'
-              ? 'bg-[#1C1A17] text-white shadow-xs'
-              : 'text-stone-600 hover:text-[#1C1A17] hover:bg-white'
+              ? 'bg-[#3A3A3A] text-white shadow-xs'
+              : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
           >
             <span>Menu Pricelist</span>
@@ -758,8 +758,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           <button
             onClick={() => setActiveTab('gallery')}
             className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'gallery'
-              ? 'bg-[#1C1A17] text-white shadow-xs'
-              : 'text-stone-600 hover:text-[#1C1A17] hover:bg-white'
+              ? 'bg-[#3A3A3A] text-white shadow-xs'
+              : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
           >
             <span>Galeri Foto</span>
@@ -774,19 +774,19 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-8 items-start w-full">
 
           {/* Left Column: The Studio Menu Card (Minimalist & Elegant) */}
-          <div className="md:col-span-5 lg:col-span-4 xl:col-span-4 max-w-md w-full mx-auto md:sticky md:top-20 overflow-hidden shadow-md border border-[#E0D9CE] bg-white relative rounded-2xl">
+          <div className="md:col-span-5 lg:col-span-4 xl:col-span-4 max-w-md w-full mx-auto md:sticky md:top-20 overflow-hidden shadow-md border border-[#E8DDD6] bg-white relative rounded-2xl">
             {/* Subtle Studio Ambient Header Glow */}
-            <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-[#FAF8F5] to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-[#FDFBF7] to-transparent pointer-events-none" />
 
             {/* Menu Content */}
             <div className="relative z-10 p-4 sm:p-6 flex flex-col items-center text-center space-y-3.5 sm:space-y-4">
 
               {/* Tombol Navigasi Kembali ke Beranda Awal */}
               {onBackToLanding && (
-                <div className="w-full flex items-center justify-between gap-2 pb-2.5 border-b border-[#E0D9CE]">
+                <div className="w-full flex items-center justify-between gap-2 pb-2.5 border-b border-[#E8DDD6]">
                   <button
                     onClick={onBackToLanding}
-                    className="px-3.5 py-1.5 bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer border border-[#1C1A17] shadow-xs active:scale-95"
+                    className="px-3.5 py-1.5 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer border border-[#3A3A3A] shadow-xs active:scale-95"
                   >
                     <ChevronLeft className="w-3.5 h-3.5 stroke-[2]" />
                     <span>Kembali ke Beranda</span>
@@ -4175,14 +4175,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       {activeTab === 'gallery' && (
         <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-300">
 
-          {/* Switcher Mode: Menu Pricelist vs Galeri Foto (Sharp Luxury Architectural Switcher) */}
-          <div className="w-full max-w-md mx-auto bg-white p-1 flex items-center gap-1 border border-[#E0D9CE] shadow-2xs">
+          {/* Switcher Mode: Menu Pricelist vs Galeri Foto */}
+          <div className="w-full max-w-md mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs">
             <button
               onClick={() => setActiveTab('menu')}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer border ${
                 activeTab === 'menu'
-                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#1C1A17] hover:bg-[#FAF8F5] border-transparent'
+                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
               <span>📱 Menu Pricelist</span>
@@ -4191,23 +4191,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               onClick={() => setActiveTab('gallery')}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer border ${
                 activeTab === 'gallery'
-                  ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#1C1A17] hover:bg-[#FAF8F5] border-transparent'
+                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
               <span>📸 Galeri Foto</span>
             </button>
           </div>
 
-          {/* Header Galeri (Tegas & Mewah) */}
-          <div className="bg-white p-4 sm:p-6 border border-[#E0D9CE] shadow-xs space-y-4">
+          {/* Header Galeri */}
+          <div className="bg-white p-4 sm:p-6 border border-[#E8DDD6] shadow-xs space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-1 text-left">
-                <div className="inline-flex items-center gap-1.5 bg-[#FAF8F5] text-[#8C6D46] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 border border-[#E0D9CE]">
-                  <Camera className="w-3.5 h-3.5 text-[#8C6D46]" />
+                <div className="inline-flex items-center gap-1.5 bg-[#FDFBF7] text-[#6E856C] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 border border-[#E8DDD6]">
+                  <Camera className="w-3.5 h-3.5 text-[#6E856C]" />
                   <span>Portofolio Alviero Studio</span>
                 </div>
-                <h3 className="text-lg sm:text-2xl font-serif font-black text-[#1C1A17] tracking-wide uppercase">
+                <h3 className="text-lg sm:text-2xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase">
                   Galeri Contoh Hasil Foto Studio
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-xl">
@@ -4223,7 +4223,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Cari tema foto..."
-                  className="w-full min-h-[42px] pl-9 pr-8 py-2 bg-[#FAF8F5] border border-[#D5CEC2] text-xs text-[#1C1A17] placeholder-stone-400 focus:outline-none focus:border-[#1C1A17] transition-all font-sans font-medium"
+                  className="w-full min-h-[42px] pl-9 pr-8 py-2 bg-[#FDFBF7] border border-[#E8DDD6] text-xs text-[#3A3A3A] placeholder-stone-400 focus:outline-none focus:border-[#3A3A3A] transition-all font-sans font-medium"
                 />
                 {searchQuery && (
                   <button
@@ -4236,7 +4236,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
             </div>
 
-            {/* Pilihan Kategori Paket (Desain Tegas & Berkelas) */}
+            {/* Pilihan Kategori Paket */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar pt-1">
               {studioGalleryCategories.map((cat) => {
                 const isSelected = selectedGalleryCategory === cat.id;
@@ -4247,8 +4247,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     onClick={() => setSelectedGalleryCategory(cat.id)}
                     className={`min-h-[36px] px-3.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 border ${
                       isSelected
-                        ? 'bg-[#1C1A17] text-white border-[#1C1A17] shadow-xs'
-                        : 'bg-white text-stone-700 border-[#D5CEC2] hover:border-[#1C1A17] hover:bg-[#FAF8F5]'
+                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                        : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#FDFBF7]'
                     }`}
                   >
                     <span>{cat.icon}</span>
@@ -4259,13 +4259,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             </div>
           </div>
 
-          {/* Grid Kartu Foto (Sharp Luxury Framing) */}
+          {/* Grid Kartu Foto */}
           {filteredGalleryPhotos.length === 0 ? (
-            <div className="bg-white p-8 text-center border border-[#E0D9CE] space-y-2">
+            <div className="bg-white p-8 text-center border border-[#E8DDD6] space-y-2">
               <p className="text-stone-600 font-serif font-bold text-sm uppercase">Tidak ada contoh foto yang sesuai dengan pencarian.</p>
               <button
                 onClick={() => { setSelectedGalleryCategory('all'); setSearchQuery(''); }}
-                className="text-xs font-serif font-bold text-[#8C6D46] hover:underline cursor-pointer uppercase tracking-wider"
+                className="text-xs font-serif font-bold text-[#6E856C] hover:underline cursor-pointer uppercase tracking-wider"
               >
                 Tampilkan Semua Foto
               </button>
@@ -4276,11 +4276,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 return (
                   <div
                     key={photo.id}
-                    className="bg-white border border-[#E0D9CE] shadow-2xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-0.5"
+                    className="bg-white border border-[#E8DDD6] shadow-2xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-0.5"
                   >
                     {/* Foto Preview */}
                     <div
-                      className="relative aspect-[4/3] bg-[#1C1A17] overflow-hidden cursor-pointer group"
+                      className="relative aspect-[4/3] bg-[#2A2A2A] overflow-hidden cursor-pointer group"
                       onClick={() => {
                         setActiveModalPhoto(photo);
                         setModalImageIndex(0);
@@ -4295,7 +4295,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
 
                       {/* Label Paket */}
-                      <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#D4AF37] text-[9px] font-mono font-bold tracking-wider px-2.5 py-1 border border-[#D4AF37]/50 flex items-center gap-1 z-10 uppercase">
+                      <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#A9BCA7] text-[9px] font-mono font-bold tracking-wider px-2.5 py-1 border border-[#A9BCA7]/50 flex items-center gap-1 z-10 uppercase">
                         <span>{photo.icon}</span>
                         <span>{photo.packageName}</span>
                       </div>
@@ -4305,13 +4305,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <ZoomIn className="w-3.5 h-3.5" />
                       </div>
 
-                      {/* Judul & Indikator di Atas Foto dengan Kontras Tinggi */}
+                      {/* Judul & Indikator di Atas Foto */}
                       <div className="absolute bottom-0 inset-x-0 p-3 pt-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white z-10">
                         <h4 className="font-serif font-bold text-xs sm:text-sm text-white uppercase tracking-wide leading-snug drop-shadow-md line-clamp-1">
                           {photo.title}
                         </h4>
                         {photo.images && photo.images.length > 1 && (
-                          <div className="flex items-center gap-1 mt-0.5 text-[9.5px] text-[#D4AF37] font-mono font-bold uppercase drop-shadow-xs">
+                          <div className="flex items-center gap-1 mt-0.5 text-[9.5px] text-[#A9BCA7] font-mono font-bold uppercase drop-shadow-xs">
                             <span>📸 {photo.images.length} Foto Preview • Geser ↔️</span>
                           </div>
                         )}
@@ -4321,7 +4321,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     {/* Konten & Tombol */}
                     <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5">
                       <div className="space-y-1">
-                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A17] uppercase tracking-wide leading-snug line-clamp-1">
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wide leading-snug line-clamp-1">
                           {photo.title}
                         </h4>
                         <p className="text-xs text-stone-600 font-sans line-clamp-2 leading-relaxed">
@@ -4329,15 +4329,15 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </p>
                       </div>
 
-                      <div className="pt-2 border-t border-[#EFEAE2]">
+                      <div className="pt-2 border-t border-[#F2E9E4]">
                         <button
                           onClick={() => {
                             setActiveModalPhoto(photo);
                             setModalImageIndex(0);
                           }}
-                          className="w-full min-h-[38px] bg-[#1C1A17] hover:bg-[#2D2A26] text-white font-serif font-bold text-xs uppercase tracking-wider py-2 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 border border-[#1C1A17] shadow-xs"
+                          className="w-full min-h-[38px] bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs uppercase tracking-wider py-2 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 border border-[#3A3A3A] shadow-xs"
                         >
-                          <ZoomIn className="w-3.5 h-3.5 text-[#D4AF37]" />
+                          <ZoomIn className="w-3.5 h-3.5 text-[#A9BCA7]" />
                           <span>{photo.images && photo.images.length > 1 ? `Lihat ${photo.images.length} Foto HD (Bisa Digeser)` : 'Lihat Foto HD'}</span>
                         </button>
                       </div>
@@ -4389,7 +4389,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
         return (
           <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
-            <div className="bg-[#1C1A17] border border-[#332F2A] text-white max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto text-left">
+            <div className="bg-[#2A2A2A] border border-[#3A3A3A] text-white max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto text-left">
 
               {/* Close Button */}
               <button
@@ -4401,7 +4401,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 <X className="w-4 h-4 stroke-[2]" />
               </button>
 
-              {/* Kolom Kiri: Foto Slider dengan Swipe Gesture */}
+              {/* Kolom Kiri: Foto Slider */}
               <div className="md:w-1/2 bg-black relative flex flex-col items-center justify-center overflow-hidden h-[42vh] sm:h-[50vh] md:h-auto shrink-0 select-none p-2">
                 <div
                   className="relative w-full h-full flex items-center justify-center overflow-hidden border border-white/10"
@@ -4416,12 +4416,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   />
 
                   {/* Badge Label Paket */}
-                  <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#D4AF37] text-[9.5px] font-mono font-bold tracking-wider px-2.5 py-1 border border-[#D4AF37]/50 z-10 shadow-xs flex items-center gap-1 uppercase">
+                  <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#A9BCA7] text-[9.5px] font-mono font-bold tracking-wider px-2.5 py-1 border border-[#A9BCA7]/50 z-10 shadow-xs flex items-center gap-1 uppercase">
                     <span>{activeModalPhoto.icon}</span>
                     <span>{activeModalPhoto.packageName}</span>
                   </div>
 
-                  {/* Tombol Geser / Navigasi (Jika ada lebih dari 1 foto) */}
+                  {/* Tombol Geser / Navigasi */}
                   {imageList.length > 1 && (
                     <>
                       <button
@@ -4444,14 +4444,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                       {/* Indikator Nomor Foto & Swipe Hint */}
                       <div className="absolute bottom-2.5 inset-x-0 mx-auto w-fit bg-black/80 backdrop-blur-xs text-white text-[10px] font-mono font-bold tracking-wider px-3 py-1 border border-white/20 z-10 flex items-center gap-1.5 shadow-md uppercase">
-                        <span className="text-[#D4AF37]">{modalImageIndex + 1} / {imageList.length}</span>
+                        <span className="text-[#A9BCA7]">{modalImageIndex + 1} / {imageList.length}</span>
                         <span className="text-white/60 text-[9px]">• Geser Foto ↔️</span>
                       </div>
                     </>
                   )}
                 </div>
 
-                {/* Thumbnail Strip (Jika ada lebih dari 1 foto) */}
+                {/* Thumbnail Strip */}
                 {imageList.length > 1 && (
                   <div className="w-full pt-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar px-1 shrink-0">
                     {imageList.map((img, idx) => (
@@ -4461,7 +4461,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         onClick={() => setModalImageIndex(idx)}
                         className={`relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden shrink-0 border transition-all cursor-pointer ${
                           modalImageIndex === idx
-                            ? 'border-[#D4AF37] ring-1 ring-[#D4AF37] opacity-100 scale-105'
+                            ? 'border-[#A9BCA7] ring-1 ring-[#A9BCA7] opacity-100 scale-105'
                             : 'border-white/20 opacity-50 hover:opacity-80'
                         }`}
                       >
@@ -4475,7 +4475,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* Kolom Kanan: Detail Foto */}
               <div className="md:w-1/2 p-5 sm:p-7 flex flex-col justify-between space-y-4 overflow-y-auto max-h-[52vh] md:max-h-full">
                 <div className="space-y-3">
-                  <div className="inline-flex items-center gap-1.5 bg-[#25221E] text-[#D4AF37] text-[10px] sm:text-[11px] font-mono font-bold tracking-wider px-3 py-1 border border-[#4A453E] uppercase">
+                  <div className="inline-flex items-center gap-1.5 bg-[#3A3A3A] text-[#A9BCA7] text-[10px] sm:text-[11px] font-mono font-bold tracking-wider px-3 py-1 border border-[#5A5A5A] uppercase">
                     <span>{activeModalPhoto.icon}</span>
                     <span>{activeModalPhoto.packageName}</span>
                   </div>
@@ -4491,9 +4491,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </p>
 
                   {/* Catatan Konsep Foto */}
-                  <div className="bg-[#25221E] p-3.5 border border-[#3D3832] space-y-1 text-xs">
-                    <div className="font-serif font-bold text-[#D4AF37] uppercase tracking-wider flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+                  <div className="bg-[#333333] p-3.5 border border-[#444444] space-y-1 text-xs">
+                    <div className="font-serif font-bold text-[#A9BCA7] uppercase tracking-wider flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
                       <span>Catatan Konsep:</span>
                     </div>
                     <p className="text-stone-300 text-xs font-sans leading-relaxed">
@@ -4503,11 +4503,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
 
                 {/* Footer Modal */}
-                <div className="pt-3 border-t border-[#332F2A] flex items-center justify-between text-xs text-stone-400 font-sans">
+                <div className="pt-3 border-t border-[#3A3A3A] flex items-center justify-between text-xs text-stone-400 font-sans">
                   <span>Alviero Studio Foto © 2026</span>
                   <button
                     onClick={() => setActiveModalPhoto(null)}
-                    className="px-4 py-2 bg-[#2D2A26] hover:bg-[#3D3832] text-[#D4AF37] hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#4A453E] transition-colors cursor-pointer active:scale-95"
+                    className="px-4 py-2 bg-[#3A3A3A] hover:bg-[#4A4A4A] text-[#A9BCA7] hover:text-white font-serif font-bold text-xs uppercase tracking-wider border border-[#5A5A5A] transition-colors cursor-pointer active:scale-95"
                   >
                     Tutup Tampilan
                   </button>
@@ -4521,7 +4521,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       {/* Standard Poster Modal (If clicked from Menu view) */}
       {activeModalSheet && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
-          <div className="bg-[#1C1A17] border border-[#332F2A] text-white max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto text-left">
+          <div className="bg-[#2A2A2A] border border-[#3A3A3A] text-white max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto text-left">
             <button
               onClick={() => setActiveModalSheet(null)}
               className="absolute top-2.5 right-2.5 z-30 w-8 h-8 bg-black/70 hover:bg-black text-stone-300 hover:text-white flex items-center justify-center border border-white/20 transition-colors cursor-pointer active:scale-95"
@@ -4539,7 +4539,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
             <div className="md:w-1/2 p-4 sm:p-6 flex flex-col justify-between space-y-3 overflow-y-auto max-h-[54vh] md:max-h-full">
               <div className="space-y-2.5">
-                <div className="inline-block bg-[#25221E] text-[#D4AF37] text-[10px] sm:text-[11px] font-mono font-bold tracking-wider px-3 py-1 border border-[#4A453E] uppercase">
+                <div className="inline-block bg-[#3A3A3A] text-[#A9BCA7] text-[10px] sm:text-[11px] font-mono font-bold tracking-wider px-3 py-1 border border-[#5A5A5A] uppercase">
                   {activeModalSheet.category}
                 </div>
                 <h3 className="text-base sm:text-xl font-serif font-bold text-white uppercase tracking-wide">
@@ -4550,11 +4550,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-[#332F2A] flex items-center justify-between text-xs text-stone-400 font-sans">
+              <div className="pt-2 border-t border-[#3A3A3A] flex items-center justify-between text-xs text-stone-400 font-sans">
                 <span>Alviero Studio Foto © 2026</span>
                 <button
                   onClick={() => setActiveModalSheet(null)}
-                  className="text-[#D4AF37] hover:text-white font-serif font-bold text-xs uppercase tracking-wider cursor-pointer p-1"
+                  className="text-[#A9BCA7] hover:text-white font-serif font-bold text-xs uppercase tracking-wider cursor-pointer p-1"
                 >
                   Tutup
                 </button>
