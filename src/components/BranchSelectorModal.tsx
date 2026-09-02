@@ -553,7 +553,22 @@ export const StudioTourAndEducationShowcase: React.FC<{
   selectedBranch?: StudioBranch;
 }> = () => {
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
   const activeSlide = STUDIO_SHOWCASE_IMAGES[currentSlideIdx] || STUDIO_SHOWCASE_IMAGES[0];
+
+  // Auto-scroll bergulir otomatis setiap 3.8 detik
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlideIdx((prev) => (prev + 1) % STUDIO_SHOWCASE_IMAGES.length);
+    }, 3800);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   const handleNextSlide = () => {
     setCurrentSlideIdx((prev) => (prev + 1) % STUDIO_SHOWCASE_IMAGES.length);
@@ -561,6 +576,23 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
   const handlePrevSlide = () => {
     setCurrentSlideIdx((prev) => (prev - 1 + STUDIO_SHOWCASE_IMAGES.length) % STUDIO_SHOWCASE_IMAGES.length);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 45) handleNextSlide();
+    if (diff < -45) handlePrevSlide();
+    touchStartX.current = null;
+    touchEndX.current = null;
   };
 
   return (
@@ -581,7 +613,14 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
       {/* Main Cinematic Visual Stage */}
       <div className="max-w-6xl mx-auto">
-        <div className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#222222] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl">
+        <div 
+          className="relative w-full h-84 sm:h-96 md:h-[480px] lg:h-[560px] bg-[#222222] overflow-hidden border border-[#E8DDD6] group flex flex-col justify-between shadow-xl select-none"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <img
             key={currentSlideIdx}
             src={activeSlide.src}
