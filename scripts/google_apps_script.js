@@ -276,7 +276,18 @@ function formatDate(val) {
     var dd = String(val.getDate()).padStart(2, '0');
     return yyyy + '-' + mm + '-' + dd;
   }
-  return String(val).trim();
+  var str = String(val).trim();
+  // Format YYYY-MM-DD
+  var mIso = str.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
+  if (mIso) {
+    return mIso[1] + '-' + mIso[2].padStart(2, '0') + '-' + mIso[3].padStart(2, '0');
+  }
+  // Format DD/MM/YYYY atau DD-MM-YYYY
+  var mDmy = str.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})/);
+  if (mDmy) {
+    return mDmy[3] + '-' + mDmy[2].padStart(2, '0') + '-' + mDmy[1].padStart(2, '0');
+  }
+  return str;
 }
 
 // Format Jam HH:MM

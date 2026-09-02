@@ -183,16 +183,6 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
     return true;
   }
 
-  // b. Pasangan Putih dan Abu-abu TIDAK BOLEH dipilih sekaligus oleh 1 klien yang sama (paket 2 BG)
-  const isC2WhiteA = a === 'c2-putih' || a.includes('c2-putih') || a.includes('c2-pro-putih');
-  const isC2GrayA = a === 'c2-abu-abu' || a.includes('c2-abu');
-  const isC2WhiteB = b === 'c2-putih' || b.includes('c2-putih') || b.includes('c2-pro-putih');
-  const isC2GrayB = b === 'c2-abu-abu' || b.includes('c2-abu');
-
-  if ((isC2WhiteA && isC2GrayB) || (isC2GrayA && isC2WhiteB)) {
-    return true;
-  }
-
   return false;
 };
 
@@ -218,7 +208,7 @@ export const getAvailableBackgroundsStudio2 = (
   const STUDIO_2_BGS = [
     { id: 'c2-hitam', name: 'Hitam' },
     { id: 'c2-putih', name: 'Putih' },
-    { id: 'c2-abu-abu', name: 'Abu-abu' },
+    { id: 'c2-abu', name: 'Abu-abu' },
     { id: 'c2-coklat-jendela', name: 'Coklat Jendela' },
     { id: 'c2-tematik-cream', name: 'Tematik Cream' }
   ];
@@ -242,6 +232,7 @@ export const getAvailableBackgroundsStudio2 = (
     }
     if (str.includes('abu')) {
       hasBookedAbu = true;
+      bookedSet.add('c2-abu');
       bookedSet.add('c2-abu-abu');
     }
     if (str.includes('coklat') || str.includes('cokelat')) {
@@ -259,12 +250,13 @@ export const getAvailableBackgroundsStudio2 = (
   const lockedReasons: { [id: string]: string } = {};
 
   STUDIO_2_BGS.forEach(bg => {
-    const isDirectlyBooked = bookedSet.has(bg.id);
+    const isDirectlyBooked = bookedSet.has(bg.id) || (bg.id === 'c2-abu' && bookedSet.has('c2-abu-abu'));
     let isClashed = false;
     let clashReason = '';
 
     if (isDirectlyBooked) {
       lockedReasons[bg.id] = `Sudah dipilih oleh klien lain di jam ini`;
+      if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = lockedReasons[bg.id];
       return;
     }
 
@@ -281,6 +273,7 @@ export const getAvailableBackgroundsStudio2 = (
       lockedReasons[bg.id] = clashReason;
     } else {
       availableIds.push(bg.id);
+      if (bg.id === 'c2-abu') availableIds.push('c2-abu-abu');
       availableNames.push(bg.name);
     }
   });
@@ -301,6 +294,7 @@ export interface BackgroundQuotaStatus {
   isAvailable: boolean;
   status: 'Tersedia' | 'Tidak Tersedia';
   reason?: string;
+  group?: string;
 }
 
 export interface Paket2AvailabilityResult {
@@ -319,15 +313,6 @@ export interface Paket2AvailabilityResult {
 
 /**
  * Logika Validasi Ketersediaan Background Studio 2 (Paket 2 / 2 Background per Klien)
- * 
- * Aturan Dasar & Kuota Background (Studio 2 - Paket 2):
- * 1. Dalam 1 slot waktu, maksimal ada 3 klien. Setiap klien memilih 2 background (Total 6 pilihan BG).
- * 2. Kuota Maksimal per Background dalam 1 jam yang sama:
- *    - Hitam   : Kuota 2 (bisa dipilih oleh 2 klien berbeda)
- *    - Putih   : Kuota 1
- *    - Abu-abu : Kuota 1
- *    - Coklat  : Kuota 1
- *    - Cream   : Kuota 1
  */
 export const checkPaket2Availability = (
   existingBookings: string[] = []
@@ -335,7 +320,7 @@ export const checkPaket2Availability = (
   const usageCounts: { [id: string]: number } = {
     'c2-hitam': 0,
     'c2-putih': 0,
-    'c2-abu-abu': 0,
+    'c2-abu': 0,
     'c2-coklat-jendela': 0,
     'c2-tematik-cream': 0
   };
@@ -343,61 +328,31 @@ export const checkPaket2Availability = (
   existingBookings.forEach(booking => {
     const text = String(booking || '').toLowerCase();
 
-    // Deteksi Hitam
-    const hitamMatches = (text.match(/hitam/g) || []).length;
-    usageCounts['c2-hitam'] += hitamMatches;
-
-    // Deteksi Putih
-    const putihMatches = (text.match(/putih/g) || []).length;
-    usageCounts['c2-putih'] += putihMatches;
-
-    // Deteksi Abu-abu (hindari double count dari 'abu-abu')
-    const abuMatches = (text.match(/abu-abu|abu_abu|\babu\b|c2-abu/g) || []).length;
-    usageCounts['c2-abu-abu'] += abuMatches;
-
-    // Deteksi Coklat
-    const coklatMatches = (text.match(/coklat|cokelat/g) || []).length;
-    usageCounts['c2-coklat-jendela'] += coklatMatches;
-
-    // Deteksi Cream
-    const creamMatches = (text.match(/cream|krem/g) || []).length;
-    usageCounts['c2-tematik-cream'] += creamMatches;
+    if (text.includes('hitam')) usageCounts['c2-hitam'] += 1;
+    if (text.includes('putih')) usageCounts['c2-putih'] += 1;
+    if (text.includes('abu')) usageCounts['c2-abu'] += 1;
+    if (text.includes('coklat') || text.includes('cokelat')) usageCounts['c2-coklat-jendela'] += 1;
+    if (text.includes('cream') || text.includes('krem')) usageCounts['c2-tematik-cream'] += 1;
   });
 
   const usedHitam = usageCounts['c2-hitam'];
   const usedCoklat = usageCounts['c2-coklat-jendela'];
   const usedPutih = usageCounts['c2-putih'];
-  const usedAbu = usageCounts['c2-abu-abu'];
+  const usedAbu = usageCounts['c2-abu'];
   const usedCream = usageCounts['c2-tematik-cream'];
 
-  // Evaluasi Kuota Statis (Putih: 1, Abu-abu: 1, Cream: 1)
-  const maxPutih = 1;
-  const maxAbu = 1;
-  const maxCream = 1;
-
-  const remainingPutih = Math.max(0, maxPutih - usedPutih);
-  const remainingAbu = Math.max(0, maxAbu - usedAbu);
-  const remainingCream = Math.max(0, maxCream - usedCream);
-
-  // Evaluasi Kuota Dinamis (Hitam & Coklat: Masing-masing max 2, Total gabungan <= 3)
-  const totalHitamCoklat = usedHitam + usedCoklat;
-
-  let remainingHitam = 0;
-  if (usedHitam < 2 && totalHitamCoklat < 3) {
-    remainingHitam = Math.min(2 - usedHitam, 3 - totalHitamCoklat);
-  }
-
-  let remainingCoklat = 0;
-  if (usedCoklat < 2 && totalHitamCoklat < 3) {
-    remainingCoklat = Math.min(2 - usedCoklat, 3 - totalHitamCoklat);
-  }
+  const remainingHitam = Math.max(0, 1 - usedHitam);
+  const remainingPutih = Math.max(0, 1 - usedPutih);
+  const remainingAbu = Math.max(0, 1 - usedAbu);
+  const remainingCoklat = (usedCoklat > 0 || usedCream > 0) ? 0 : 1;
+  const remainingCream = (usedCream > 0 || usedCoklat > 0) ? 0 : 1;
 
   const BG_DEFINITIONS = [
-    { id: 'c2-hitam', name: 'Hitam', maxQuota: 2, used: usedHitam, remaining: remainingHitam },
-    { id: 'c2-putih', name: 'Putih', maxQuota: maxPutih, used: usedPutih, remaining: remainingPutih },
-    { id: 'c2-abu-abu', name: 'Abu-abu', maxQuota: maxAbu, used: usedAbu, remaining: remainingAbu },
-    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 2, used: usedCoklat, remaining: remainingCoklat },
-    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: maxCream, used: usedCream, remaining: remainingCream }
+    { id: 'c2-hitam', name: 'Hitam', maxQuota: 1, used: usedHitam, remaining: remainingHitam },
+    { id: 'c2-putih', name: 'Putih', maxQuota: 1, used: usedPutih, remaining: remainingPutih },
+    { id: 'c2-abu', name: 'Abu-abu', maxQuota: 1, used: usedAbu, remaining: remainingAbu },
+    { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 1, used: usedCoklat, remaining: remainingCoklat },
+    { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: 1, used: usedCream, remaining: remainingCream }
   ];
 
   const availableIds: string[] = [];
@@ -411,14 +366,18 @@ export const checkPaket2Availability = (
     let reason: string | undefined = undefined;
 
     if (!isAvailable) {
-      if ((bg.id === 'c2-hitam' || bg.id === 'c2-coklat-jendela') && totalHitamCoklat >= 3) {
-        reason = `Kuota gabungan Hitam & Coklat sudah maksimal 3 (${usedHitam} Hitam + ${usedCoklat} Coklat)`;
+      if (bg.id === 'c2-coklat-jendela' && usedCream > 0) {
+        reason = 'Area panggung sama dengan Tematik Cream (sudah dipilih di jam ini)';
+      } else if (bg.id === 'c2-tematik-cream' && usedCoklat > 0) {
+        reason = 'Area panggung sama dengan Coklat Jendela (sudah dipilih di jam ini)';
       } else {
-        reason = `Kuota habis (${bg.used}/${bg.maxQuota} sudah terpakai di jam ini)`;
+        reason = `Sudah dipilih oleh klien lain di jam ini`;
       }
       lockedReasons[bg.id] = reason;
+      if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = reason;
     } else {
       availableIds.push(bg.id);
+      if (bg.id === 'c2-abu') availableIds.push('c2-abu-abu');
       availableNames.push(bg.name);
     }
 
@@ -432,6 +391,9 @@ export const checkPaket2Availability = (
       status: status,
       reason: reason
     };
+    if (bg.id === 'c2-abu') {
+      backgrounds['c2-abu-abu'] = backgrounds[bg.id];
+    }
   });
 
   return {
@@ -452,7 +414,7 @@ export const checkPaket2Availability = (
 export interface DualDynamicAvailabilityResult {
   availableIds: string[];
   availableNames: string[];
-  backgrounds: { [id: string]: BackgroundQuotaStatus & { group: string } };
+  backgrounds: { [id: string]: BackgroundQuotaStatus };
   lockedReasons: { [id: string]: string };
   groupStats: {
     grup1_HitamCoklat: { used: number; max: number; remaining: number };
@@ -485,7 +447,7 @@ export const checkDualDynamicAvailability = (
   const usageCounts: { [id: string]: number } = {
     'c2-hitam': 0,
     'c2-putih': 0,
-    'c2-abu-abu': 0,
+    'c2-abu': 0,
     'c2-coklat-jendela': 0,
     'c2-tematik-cream': 0
   };
@@ -503,9 +465,9 @@ export const checkDualDynamicAvailability = (
       usageCounts['c2-putih'] += 1;
     }
 
-    // Hitung Pemakaian Abu-abu (hindari salah tangkap)
-    if (text.includes('abu-abu') || text.includes('abu_abu') || text.includes('c2-abu') || (/\babu\b/).test(text)) {
-      usageCounts['c2-abu-abu'] += 1;
+    // Hitung Pemakaian Abu-abu
+    if (text.includes('abu')) {
+      usageCounts['c2-abu'] += 1;
     }
 
     // Hitung Pemakaian Coklat
@@ -522,7 +484,7 @@ export const checkDualDynamicAvailability = (
   const usedHitam = usageCounts['c2-hitam'];
   const usedCoklat = usageCounts['c2-coklat-jendela'];
   const usedPutih = usageCounts['c2-putih'];
-  const usedAbu = usageCounts['c2-abu-abu'];
+  const usedAbu = usageCounts['c2-abu'];
   const usedCream = usageCounts['c2-tematik-cream'];
 
   // =========================================================================
@@ -542,14 +504,14 @@ export const checkDualDynamicAvailability = (
   const BG_DEFINITIONS = [
     { id: 'c2-hitam', name: 'Hitam', maxQuota: 1, used: usedHitam, remaining: remainingHitam, group: 'Studio 2 Set A' },
     { id: 'c2-putih', name: 'Putih', maxQuota: 1, used: usedPutih, remaining: remainingPutih, group: 'Studio 2 Set B' },
-    { id: 'c2-abu-abu', name: 'Abu-abu', maxQuota: 1, used: usedAbu, remaining: remainingAbu, group: 'Studio 2 Set C' },
+    { id: 'c2-abu', name: 'Abu-abu', maxQuota: 1, used: usedAbu, remaining: remainingAbu, group: 'Studio 2 Set C' },
     { id: 'c2-coklat-jendela', name: 'Coklat Jendela', maxQuota: 1, used: usedCoklat, remaining: remainingCoklat, group: 'Studio 2 Set D (Panggung 1)' },
     { id: 'c2-tematik-cream', name: 'Tematik Cream', maxQuota: 1, used: usedCream, remaining: remainingCream, group: 'Studio 2 Set D (Panggung 1)' }
   ];
 
   const availableIds: string[] = [];
   const availableNames: string[] = [];
-  const backgrounds: { [id: string]: BackgroundQuotaStatus & { group: string } } = {};
+  const backgrounds: { [id: string]: BackgroundQuotaStatus } = {};
   const lockedReasons: { [id: string]: string } = {};
 
   BG_DEFINITIONS.forEach(bg => {
@@ -566,8 +528,10 @@ export const checkDualDynamicAvailability = (
         reason = `Sudah dipilih oleh klien lain di jam ini`;
       }
       lockedReasons[bg.id] = reason;
+      if (bg.id === 'c2-abu') lockedReasons['c2-abu-abu'] = reason;
     } else {
       availableIds.push(bg.id);
+      if (bg.id === 'c2-abu') availableIds.push('c2-abu-abu');
       availableNames.push(bg.name);
     }
 
@@ -582,6 +546,9 @@ export const checkDualDynamicAvailability = (
       status: status,
       reason: reason
     };
+    if (bg.id === 'c2-abu') {
+      backgrounds['c2-abu-abu'] = backgrounds[bg.id];
+    }
   });
 
   return {
