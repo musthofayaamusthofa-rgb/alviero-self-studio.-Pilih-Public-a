@@ -195,7 +195,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
         </p>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#5A5A5A] max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu Godox Studio Pro, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
+          Alviero Studio menghadirkan pengalaman fotografi profesional dengan ruang ber-AC sejuk, 7+ pilihan tema background estetis, tata lampu lighting studio profesional, monitor live-view realtime untuk melihat hasil jepretan seketika, serta private dressing room & koleksi toga wisuda siap pakai.
         </p>
       </div>
     </div>
@@ -646,7 +646,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
           Koleksi Background & Suasana Studio
         </h3>
         <p className="text-xs sm:text-sm font-sans text-stone-500 max-w-lg mx-auto leading-relaxed">
-          Pilihan sudut tematik estetis, dekorasi mewah, dan tata cahaya Godox Pro di Alviero Studio.
+          Pilihan sudut tematik estetis, dekorasi mewah, dan tata cahaya studio profesional di Alviero Studio.
         </p>
       </div>
 
@@ -802,7 +802,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   Style & Function
                 </h4>
                 <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  7+ tema background estetik, lighting Godox studio & arahan pose natural.
+                  7+ tema background estetik, lighting studio profesional & arahan pose natural.
                 </p>
               </div>
 
@@ -1257,10 +1257,10 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                       {/* Fasilitas Cabang */}
                       <div className="flex items-center gap-2 mt-2 flex-wrap">
                         <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
-                          ✓ Pro Godox Lighting
+                          ✓ Pro Studio Lighting
                         </span>
                         <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
-                          ✓ 7+ Backdrop
+                          ✓ 7+ Background
                         </span>
                         <span className="text-[10px] bg-white text-stone-700 px-2 py-0.5 border border-[#E8DDD6] font-medium">
                           ✓ Ruang AC
