@@ -1332,12 +1332,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         .filter(Boolean)
         .join(', ') || '-';
 
+      const studioType = isSelfStudio ? 'selfstudio' : 'studio_foto';
+      const studioLabel = isSelfStudio ? 'Self Studio' : 'Studio Foto Profesional';
+
       const payload = {
         action: 'book_slot',
         date: bookingDate,
         time: formattedSessionTime,
-        studio_type: studioTypeKey,
-        studio_label: isSelfStudio ? 'Self Studio' : 'Studio Foto Profesional',
+        studio_type: studioType,
+        studio_label: studioLabel,
         branch: selectedBranch,
         branch_name: currentBranchInfo.name,
         backdrop: backdropDisplayName,
@@ -1355,8 +1358,38 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
       };
 
+      // Fallback form submission to hidden iframe ensures 100% delivery even with strict browser security
+      try {
+        let iframe = document.getElementById('gas-hidden-iframe') as HTMLIFrameElement;
+        if (!iframe) {
+          iframe = document.createElement('iframe');
+          iframe.id = 'gas-hidden-iframe';
+          iframe.name = 'gas-hidden-iframe';
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
+        }
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = GOOGLE_SHEETS_SCRIPT_URL;
+        form.target = 'gas-hidden-iframe';
+        form.style.display = 'none';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'payload';
+        input.value = JSON.stringify(payload);
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+        setTimeout(() => form.remove(), 2000);
+      } catch (formErr) {
+        console.log('Hidden form fallback note:', formErr);
+      }
+
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 12000);
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
 
       await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',

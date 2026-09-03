@@ -57,6 +57,13 @@ function handleRequest(e) {
       params = e.parameter;
     }
 
+    // Jika dikirim via hidden form input name="payload"
+    if (params && params.payload && typeof params.payload === 'string') {
+      try {
+        params = JSON.parse(params.payload);
+      } catch (pErr) {}
+    }
+
     var action = params.action || '';
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
