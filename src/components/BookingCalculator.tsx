@@ -1344,12 +1344,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         addons: selectedAddOnsSummary,
         total: grandTotal,
         dp: dpAmount,
-        paymentMethod: paymentOption,
+        paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS'}`,
         notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}] [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
       };
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 12000);
 
       await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',
@@ -1357,8 +1360,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         headers: {
           'Content-Type': 'text/plain;charset=utf-8'
         },
-        body: JSON.stringify(payload)
-      });
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      }).catch(err => console.log('GAS sync note:', err));
+
+      clearTimeout(timeoutId);
     } catch (e) {
       console.log('GAS sync error:', e);
     } finally {
