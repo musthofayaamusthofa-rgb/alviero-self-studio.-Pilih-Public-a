@@ -963,17 +963,22 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
               </div>
 
-              {/* Customer Service WhatsApp & Actions (Matching Image 2) */}
-              <div className="w-full pt-3 border-t border-stone-200/80 space-y-2.5">
-                <a
-                  href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20mau%20tanya%20informasi%20pricelist%20dan%20booking`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full min-h-[46px] rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95"
-                >
-                  <MessageCircle className="w-4 h-4 fill-white text-[#25D366]" />
-                  <span>Customer Service ({currentBranchInfo.badge} WhatsApp)</span>
-                </a>
+              {/* Penjelasan Memilih Salah Satu Paket Foto */}
+              <div className="w-full pt-3 border-t border-stone-200/80">
+                <div className="w-full bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 text-center space-y-1 shadow-2xs">
+                  <div className="flex items-center justify-center gap-1.5 text-[#6E856C]">
+                    <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#6E856C]">
+                      PANDUAN MEMILIH PAKET
+                    </span>
+                  </div>
+                  <p className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A]">
+                    Silakan ketuk salah satu kategori paket di atas
+                  </p>
+                  <p className="text-[11px] text-stone-600 font-sans leading-relaxed max-w-md mx-auto">
+                    Pilih paket yang Anda inginkan untuk melihat rincian harga, jumlah orang, durasi sesi, dan melakukan reservasi jadwal.
+                  </p>
+                </div>
               </div>
 
               {/* Social Media Links Grid (Minimalist & Clean) */}

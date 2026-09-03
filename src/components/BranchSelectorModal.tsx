@@ -203,7 +203,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
         </p>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#666666] max-w-xl mx-auto leading-relaxed">
-          Studio foto & self-studio modern di Malang dengan tema background estetis, pencahayaan profesional, dan fasilitas lengkap.
+          Studio foto & self-studio modern di Malang dengan tema background estetik, pencahayaan profesional, dan fasilitas lengkap.
         </p>
       </div>
     </div>
@@ -999,11 +999,10 @@ export const PromoSpecialSection: React.FC<{
                 type="button"
                 onClick={() => scrollToIndex(dotIdx)}
                 aria-label={`Promo ${dotIdx + 1}`}
-                className={`transition-all rounded-full cursor-pointer ${
-                  activePromoIdx === dotIdx
-                    ? 'w-6 h-1.5 bg-[#6E856C]'
-                    : 'w-2 h-1.5 bg-stone-300 hover:bg-stone-400'
-                }`}
+                className={`transition-all rounded-full cursor-pointer ${activePromoIdx === dotIdx
+                  ? 'w-6 h-1.5 bg-[#6E856C]'
+                  : 'w-2 h-1.5 bg-stone-300 hover:bg-stone-400'
+                  }`}
               />
             ))}
           </div>
@@ -1038,7 +1037,7 @@ export const PromoDetailModal: React.FC<{
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
       <div className="bg-[#FDFBF7] max-w-lg w-full rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-2xl overflow-hidden flex flex-col my-auto relative max-h-[92vh] text-left animate-in zoom-in-95 duration-200">
-        
+
         {/* Minimalist Top Modal Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8DDD6] bg-white sticky top-0 z-20">
           <div className="flex items-center gap-2.5">
@@ -1115,11 +1114,10 @@ export const PromoDetailModal: React.FC<{
             <button
               type="button"
               onClick={handleCopy}
-              className={`px-3.5 py-2 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs ${
-                copiedCode
-                  ? 'bg-[#6E856C] text-white border border-[#6E856C]'
-                  : 'bg-white hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6]'
-              }`}
+              className={`px-3.5 py-2 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs ${copiedCode
+                ? 'bg-[#6E856C] text-white border border-[#6E856C]'
+                : 'bg-white hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6]'
+                }`}
             >
               {copiedCode ? (
                 <>
@@ -1873,7 +1871,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 className="inline-flex items-center gap-1.5 hover:text-white transition-colors group"
               >
                 <svg className="w-3.5 h-3.5 fill-[#A9BCA7] group-hover:fill-white transition-colors shrink-0" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.83-4.47V8.9a8.18 8.18 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-.83-.33z"/>
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.47 6.27 6.27 0 0 0 1.83-4.47V8.9a8.18 8.18 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-.83-.33z" />
                 </svg>
                 <span>Tiktok</span>
               </a>
