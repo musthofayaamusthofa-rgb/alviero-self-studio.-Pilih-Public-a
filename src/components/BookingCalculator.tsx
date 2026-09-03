@@ -2431,6 +2431,53 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
+              {/* RINCIAN RESERVASI & ESTIMASI BIAYA (Ditempatkan tepat di bawah Kode Promo) */}
+              <div className="bg-[#2A2A2A] text-white p-4 sm:p-5 rounded-2xl border border-[#3A3A3A] space-y-3 shadow-md">
+                <div className="flex justify-between items-center text-xs text-stone-300 border-b border-[#3A3A3A] pb-2">
+                  <span className="font-serif uppercase tracking-wider text-stone-400">RINCIAN RESERVASI:</span>
+                  <span className="text-[#A9BCA7] font-serif font-bold uppercase">{currentPackage.name}</span>
+                </div>
+
+                <div className="space-y-1.5 text-xs font-sans">
+                  <div className="flex justify-between text-stone-300">
+                    <span>Harga Paket Utama</span>
+                    <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
+                  </div>
+
+                  {addOnsTotalPrice > 0 && (
+                    <div className="flex justify-between text-stone-300">
+                      <span>Total Add-ons Tambahan</span>
+                      <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
+                    </div>
+                  )}
+
+                  {lateNightOvertimeFee > 0 && (
+                    <div className="flex justify-between text-amber-300 font-medium">
+                      <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
+                      <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
+                    </div>
+                  )}
+
+                  {discountValue > 0 && (
+                    <div className="flex justify-between text-emerald-400 font-bold">
+                      <span>Diskon Promo ({appliedPromo?.code})</span>
+                      <span>- Rp {discountValue.toLocaleString('id-ID')}</span>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between text-base font-serif font-bold text-white pt-2.5 border-t border-[#3A3A3A]">
+                    <span className="uppercase tracking-wider">TOTAL ESTIMASI BIAYA</span>
+                    <span className="text-[#A9BCA7]">Rp {grandTotal.toLocaleString('id-ID')}</span>
+                  </div>
+
+                  {paymentOption === 'dp' && (
+                    <div className="text-[11px] text-[#A9BCA7] pt-1 text-right font-sans">
+                      Minimum Transfer DP 50%: <strong>Rp {dpAmount.toLocaleString('id-ID')}</strong>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* Opsi Pembayaran (DP 50% vs Lunas Full) */}
               <div className="pt-2 border-t border-[#E8DDD6] space-y-2">
                 <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
@@ -2744,52 +2791,54 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             </div>
           )}
 
-          {/* RINCIAN BIAYA SUMMARY BOX */}
-          <div className="bg-[#2A2A2A] text-white p-4 sm:p-5 rounded-2xl border border-[#3A3A3A] space-y-3 shadow-sm">
-            <div className="flex justify-between items-center text-xs text-stone-300 border-b border-[#3A3A3A] pb-2">
-              <span className="font-serif uppercase tracking-wider text-stone-400">RINCIAN RESERVASI:</span>
-              <span className="text-[#A9BCA7] font-serif font-bold uppercase">{currentPackage.name}</span>
-            </div>
-
-            <div className="space-y-1.5 text-xs font-sans">
-              <div className="flex justify-between text-stone-300">
-                <span>Harga Paket Utama</span>
-                <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
+          {/* RINCIAN BIAYA SUMMARY BOX (Khusus Step 1 & 2) */}
+          {step !== 3 && (
+            <div className="bg-[#2A2A2A] text-white p-4 sm:p-5 rounded-2xl border border-[#3A3A3A] space-y-3 shadow-sm">
+              <div className="flex justify-between items-center text-xs text-stone-300 border-b border-[#3A3A3A] pb-2">
+                <span className="font-serif uppercase tracking-wider text-stone-400">RINCIAN RESERVASI:</span>
+                <span className="text-[#A9BCA7] font-serif font-bold uppercase">{currentPackage.name}</span>
               </div>
 
-              {addOnsTotalPrice > 0 && (
+              <div className="space-y-1.5 text-xs font-sans">
                 <div className="flex justify-between text-stone-300">
-                  <span>Total Add-ons Tambahan</span>
-                  <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
+                  <span>Harga Paket Utama</span>
+                  <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
                 </div>
-              )}
 
-              {lateNightOvertimeFee > 0 && (
-                <div className="flex justify-between text-amber-300 font-medium">
-                  <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
-                  <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
+                {addOnsTotalPrice > 0 && (
+                  <div className="flex justify-between text-stone-300">
+                    <span>Total Add-ons Tambahan</span>
+                    <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
+                  </div>
+                )}
+
+                {lateNightOvertimeFee > 0 && (
+                  <div className="flex justify-between text-amber-300 font-medium">
+                    <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
+                    <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
+                  </div>
+                )}
+
+                {discountValue > 0 && (
+                  <div className="flex justify-between text-emerald-400 font-bold">
+                    <span>Diskon Promo ({appliedPromo?.code})</span>
+                    <span>- Rp {discountValue.toLocaleString('id-ID')}</span>
+                  </div>
+                )}
+
+                <div className="flex justify-between text-base font-serif font-bold text-white pt-2.5 border-t border-[#3A3A3A]">
+                  <span className="uppercase tracking-wider">TOTAL ESTIMASI BIAYA</span>
+                  <span className="text-[#A9BCA7]">Rp {grandTotal.toLocaleString('id-ID')}</span>
                 </div>
-              )}
 
-              {discountValue > 0 && (
-                <div className="flex justify-between text-emerald-400 font-bold">
-                  <span>Diskon Promo ({appliedPromo?.code})</span>
-                  <span>- Rp {discountValue.toLocaleString('id-ID')}</span>
-                </div>
-              )}
-
-              <div className="flex justify-between text-base font-serif font-bold text-white pt-2.5 border-t border-[#3A3A3A]">
-                <span className="uppercase tracking-wider">TOTAL ESTIMASI BIAYA</span>
-                <span className="text-[#A9BCA7]">Rp {grandTotal.toLocaleString('id-ID')}</span>
+                {paymentOption === 'dp' && (
+                  <div className="text-[11px] text-[#A9BCA7] pt-1 text-right font-sans">
+                    Minimum Transfer DP 50%: <strong>Rp {dpAmount.toLocaleString('id-ID')}</strong>
+                  </div>
+                )}
               </div>
-
-              {paymentOption === 'dp' && (
-                <div className="text-[11px] text-[#A9BCA7] pt-1 text-right font-sans">
-                  Minimum Transfer DP 50%: <strong>Rp {dpAmount.toLocaleString('id-ID')}</strong>
-                </div>
-              )}
             </div>
-          </div>
+          )}
         </div>
 
         {/* MODAL FOOTER CONTROLS */}
