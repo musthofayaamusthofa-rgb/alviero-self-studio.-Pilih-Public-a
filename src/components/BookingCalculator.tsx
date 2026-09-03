@@ -2484,17 +2484,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <CreditCard className="w-3.5 h-3.5 text-[#6E856C]" />
                   OPSI PEMBAYARAN BOOKING:
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs">
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[48px] px-4 py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'dp'
+                    className={`min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-1.5 sm:gap-2 ${paymentOption === 'dp'
                       ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
                       : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
-                    <span className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar DP 50%</span>
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${paymentOption === 'dp' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
+                    <span className="font-serif font-bold text-[11px] sm:text-xs uppercase text-[#3A3A3A] truncate">Bayar DP 50%</span>
+                    <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] sm:text-xs font-bold ${paymentOption === 'dp' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
                       ✓
                     </div>
                   </button>
@@ -2502,13 +2502,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('full')}
-                    className={`min-h-[48px] px-4 py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'full'
+                    className={`min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-1.5 sm:gap-2 ${paymentOption === 'full'
                       ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
                       : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
-                    <span className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar Lunas/Full</span>
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${paymentOption === 'full' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
+                    <span className="font-serif font-bold text-[11px] sm:text-xs uppercase text-[#3A3A3A] truncate">Bayar Lunas/Full</span>
+                    <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] sm:text-xs font-bold ${paymentOption === 'full' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
                       ✓
                     </div>
                   </button>
