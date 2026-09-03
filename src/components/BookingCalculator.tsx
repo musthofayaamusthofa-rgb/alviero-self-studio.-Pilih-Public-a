@@ -2488,17 +2488,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[52px] p-3.5 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'dp'
+                    className={`min-h-[48px] px-4 py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'dp'
                       ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
                       : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
-                    <div>
-                      <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar DP 50%</div>
-                      <div className="text-xs font-mono font-bold text-[#6E856C] mt-0.5">
-                        Rp {dpAmount.toLocaleString('id-ID')}
-                      </div>
-                    </div>
+                    <span className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar DP 50%</span>
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${paymentOption === 'dp' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
                       ✓
                     </div>
@@ -2507,17 +2502,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('full')}
-                    className={`min-h-[52px] p-3.5 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'full'
+                    className={`min-h-[48px] px-4 py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'full'
                       ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
                       : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
-                    <div>
-                      <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar Lunas/Full</div>
-                      <div className="text-xs font-mono font-bold text-stone-700 mt-0.5">
-                        Rp {grandTotal.toLocaleString('id-ID')}
-                      </div>
-                    </div>
+                    <span className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">Bayar Lunas/Full</span>
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${paymentOption === 'full' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
                       ✓
                     </div>
