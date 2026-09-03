@@ -1390,6 +1390,15 @@ export const ADD_ONS: AddOnOption[] = [
     category: 'selfstudio',
     applicableCategories: ['self-studio']
   },
+  // Flashdisk Penyimpanan File (Berlaku untuk Semua Paket)
+  {
+    id: 'global-flashdisk-32gb',
+    name: 'Flashdisk 32GB',
+    price: 95000,
+    unit: 'pcs',
+    description: 'Penyimpanan seluruh file foto resolusi tinggi ke dalam flashdisk USB 32GB siap pakai.',
+    category: 'file'
+  },
 
   // ==================== 1. GRADUATION INDOOR ====================
   {
