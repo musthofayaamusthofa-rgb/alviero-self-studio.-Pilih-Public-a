@@ -31,7 +31,8 @@ import {
   Download,
   Upload,
   Trash2,
-  Instagram
+  Instagram,
+  GraduationCap
 } from 'lucide-react';
 
 interface BookingCalculatorProps {
@@ -865,6 +866,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Customer Data & Notes
   const [customerName, setCustomerName] = useState<string>('');
   const [customerPhone, setCustomerPhone] = useState<string>('');
+  const [universityName, setUniversityName] = useState<string>('');
   const [allowSocialUpload, setAllowSocialUpload] = useState<boolean>(true);
   const [socialUsername, setSocialUsername] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
@@ -910,6 +912,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
+  const isGraduationPackage = (
+    currentPackage.category === 'graduation-indoor' ||
+    currentPackage.category === 'graduation-outdoor' ||
+    currentPackage.category.includes('grad') ||
+    currentPackage.id.toLowerCase().includes('grad') ||
+    currentPackage.name.toLowerCase().includes('scholar') ||
+    currentPackage.name.toLowerCase().includes('cumlaude') ||
+    currentPackage.name.toLowerCase().includes('wisuda')
+  );
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const baseTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
@@ -1242,6 +1253,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     message += `📌 *DATA PEMESAN:*\n`;
     message += `• Nama: ${customerName || '-'}\n`;
     message += `• No. WhatsApp: ${customerPhone || '-'}\n`;
+    if (isGraduationPackage && universityName.trim()) {
+      message += `• Asal Universitas: *${universityName.trim()}*\n`;
+    }
     message += `• Izin Upload Instagram: ${allowSocialUpload ? '✅ Boleh Di-upload' : '🔒 Jangan Di-upload (Privat)'}\n`;
     if (socialUsername.trim()) {
       message += `• Akun IG / TikTok: @${socialUsername.trim().replace(/^@/, '')}\n`;
@@ -1352,7 +1366,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}] [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -2212,6 +2226,28 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   />
                 </div>
               </div>
+
+              {/* Slot Nama Universitas (Hanya muncul jika klien membooking paket graduation: indoor & outdoor) */}
+              {isGraduationPackage && (
+                <div className="pt-0.5 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase mb-1.5 flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <GraduationCap className="w-3.5 h-3.5 text-[#6E856C]" />
+                      NAMA UNIVERSITAS / KAMPUS:
+                    </span>
+                    <span className="text-[10.5px] text-[#6E856C] font-serif font-bold tracking-wide">
+                      🎓 Paket Graduation
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Contoh: Universitas Brawijaya (UB) / UM / UMM / Polinema / UIN"
+                    value={universityName}
+                    onChange={(e) => setUniversityName(e.target.value)}
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white shadow-2xs"
+                  />
+                </div>
+              )}
 
               {/* Izin Upload Foto ke Instagram & Username Akun Medsos */}
               <div className="pt-2 border-t border-[#E8DDD6] space-y-3">
