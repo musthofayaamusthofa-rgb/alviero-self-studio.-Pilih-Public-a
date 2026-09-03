@@ -1270,7 +1270,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
     message += `• Izin Upload Instagram: ${allowSocialUpload ? '✅ Boleh Di-upload' : '🔒 Jangan Di-upload (Privat)'}\n`;
     if (socialUsername.trim()) {
-      message += `• Akun IG / TikTok: @${socialUsername.trim().replace(/^@/, '')}\n`;
+      message += `• Akun Instagram: @${socialUsername.trim().replace(/^@/, '')}\n`;
     }
     message += `• Tanggal Foto: ${bookingDate}\n`;
     message += `• Jam Sesi Foto: *${formattedSessionTime} WIB* (Durasi: ${sessionDurationMinutes} Menit / ${maxBackdrops} Background)\n`;
@@ -1335,6 +1335,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
     if (!customerPhone.trim()) {
       alert('⚠️ Mohon masukkan Nomor WhatsApp aktif terlebih dahulu.');
+      return;
+    }
+    if (!socialUsername.trim()) {
+      alert('⚠️ Mohon masukkan Username Akun Instagram Anda terlebih dahulu.');
+      const socialEl = document.getElementById('social-username-section');
+      if (socialEl) {
+        socialEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
     if (!paymentProofImage) {
@@ -1474,7 +1482,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setTimeout(() => setCopiedNominal(false), 2000);
   };
 
-  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && !!paymentProofImage;
+  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && !!paymentProofImage;
 
   // Validasi Step 1: Jika klien memilih paket 2 background ke atas, mereka wajib memilih semua background (misal 2/2) baru bisa menekan tombol "Lanjut"
   const isStep1Valid = selectedBackdropIds.length >= maxBackdrops;
@@ -2318,15 +2326,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
                 </div>
 
-                {/* 2. Slot Input Username Instagram / TikTok */}
-                <div className="space-y-1.5">
+                {/* 2. Slot Input Username Instagram (Wajib) */}
+                <div id="social-username-section" className="space-y-1.5 scroll-mt-6">
                   <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
                       <span className="text-[#6E856C] font-mono font-bold text-sm">@</span>
-                      USERNAME AKUN INSTAGRAM / TIKTOK:
+                      USERNAME AKUN INSTAGRAM: <span className="text-rose-600">*</span>
                     </span>
-                    <span className="text-[10px] text-stone-400 font-sans font-normal">
-                      (Opsional untuk ditag)
+                    <span className="text-[10px] text-stone-500 font-sans font-normal">
+                      (Wajib diisi)
                     </span>
                   </label>
                   <div className="relative">
@@ -2335,10 +2343,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </span>
                     <input
                       type="text"
-                      placeholder="nama_akun_kamu (Instagram atau TikTok)"
+                      placeholder="nama_akun_instagram_kamu"
                       value={socialUsername.replace(/^@/, '')}
                       onChange={(e) => setSocialUsername(e.target.value.replace(/^@/, ''))}
                       className="w-full min-h-[44px] pl-8 pr-3 py-2.5 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white shadow-2xs"
+                      required
                     />
                   </div>
                 </div>
@@ -2921,7 +2930,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-md'
                   : 'bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-700 border border-[#E8DDD6] shadow-xs'
                   }`}
-                title={!canSubmitBooking ? 'Lengkapi Nama, WhatsApp, dan Unggah Bukti Bayar' : 'Kirim Booking ke WhatsApp Admin'}
+                title={!canSubmitBooking ? 'Lengkapi Nama, WhatsApp, Username Instagram, dan Unggah Bukti Bayar' : 'Kirim Booking ke WhatsApp Admin'}
               >
                 {isSubmittingBooking ? (
                   <>
