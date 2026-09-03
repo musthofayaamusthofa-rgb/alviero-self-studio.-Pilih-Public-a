@@ -2545,27 +2545,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       </span>
                     </div>
 
-                    {/* Nominal Box */}
-                    <div className="bg-white border border-[#E8DDD6] rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
-                      <div>
-                        <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
-                          Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
-                        </span>
-                        <span className="text-base sm:text-lg font-mono font-black text-[#3A3A3A]">
-                          Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}
-                        </span>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={handleCopyNominal}
-                        className="px-3.5 py-2 rounded-xl bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
-                      >
-                        {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
-                      </button>
-                    </div>
-
                     {/* QRIS Display & Download Button */}
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center pt-1">
                       <div className="sm:col-span-5 flex flex-col items-center">
@@ -2648,27 +2627,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       >
                         {copiedAccount ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
                         <span>{copiedAccount ? 'No. Rek Tersalin!' : 'Salin No. Rekening'}</span>
-                      </button>
-                    </div>
-
-                    {/* Nominal Box */}
-                    <div className="bg-white border border-[#E8DDD6] rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
-                      <div>
-                        <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
-                          Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
-                        </span>
-                        <span className="text-base sm:text-lg font-mono font-black text-[#3A3A3A]">
-                          Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}
-                        </span>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={handleCopyNominal}
-                        className="px-3.5 py-2 rounded-xl bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
-                      >
-                        {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
-                        <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
                       </button>
                     </div>
 
