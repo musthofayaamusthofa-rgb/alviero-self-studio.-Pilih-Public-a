@@ -65,6 +65,45 @@ export const WhatsAppIcon: React.FC<{ className?: string; size?: number; fill?: 
 
 const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
 
+// Helper kompresi gambar client-side agar upload bukti transfer cepat & ringan (<150KB)
+const compressImage = (file: File, maxWidth = 1200, quality = 0.75): Promise<string> => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxWidth) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxWidth) / height);
+            height = maxWidth;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        } else {
+          resolve(event.target?.result as string);
+        }
+      };
+      img.onerror = () => resolve(event.target?.result as string);
+    };
+    reader.onerror = () => resolve('');
+  });
+};
+
 // =============================================================================
 // HELPER FUNCTIONS & ATURAN VALIDASI STUDIO
 // =============================================================================
@@ -859,6 +898,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [paymentProofImage, setPaymentProofImage] = useState<string | null>(null);
   const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
   const [copiedNominal, setCopiedNominal] = useState<boolean>(false);
+  const [isSubmittingBooking, setIsSubmittingBooking] = useState<boolean>(false);
 
   const handleCopyAccount = () => {
     navigator.clipboard.writeText('0113324021');
@@ -1258,7 +1298,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setTimeout(() => setCopiedSummary(false), 2000);
   };
 
-  const handleSendBookingWA = () => {
+  const handleSendBookingWA = async () => {
     if (!customerName.trim()) {
       alert('Mohon masukkan Nama Pemesan terlebih dahulu.');
       return;
@@ -1268,9 +1308,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       return;
     }
     if (!paymentProofImage) {
-      alert('Mohon unggah / upload foto bukti transfer pembayaran QRIS terlebih dahulu sebelum mengirim booking WhatsApp.');
+      alert('Mohon unggah / upload foto bukti transfer pembayaran terlebih dahulu sebelum mengirim booking WhatsApp.');
       return;
     }
+
+    setIsSubmittingBooking(true);
 
     const message = generateWhatsAppMessageText();
     const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
@@ -1309,34 +1351,41 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
       };
 
-      fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8'
         },
         body: JSON.stringify(payload)
-      }).catch(err => console.log('GAS background sync note:', err));
+      });
     } catch (e) {
       console.log('GAS sync error:', e);
+    } finally {
+      setIsSubmittingBooking(false);
     }
 
     window.open(waUrl, '_blank');
   };
 
-  const handleProofUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProofUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Ukuran file foto maksimal 5 MB.');
+      if (file.size > 15 * 1024 * 1024) {
+        alert('Ukuran file foto maksimal 15 MB.');
         return;
       }
       setPaymentProofFileName(file.name);
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPaymentProofImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      try {
+        const compressedBase64 = await compressImage(file, 1200, 0.75);
+        setPaymentProofImage(compressedBase64);
+      } catch {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPaymentProofImage(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -2676,15 +2725,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               <button
                 type="button"
                 onClick={handleSendBookingWA}
-                disabled={!canSubmitBooking}
-                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${canSubmitBooking
+                disabled={!canSubmitBooking || isSubmittingBooking}
+                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${canSubmitBooking && !isSubmittingBooking
                   ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-md cursor-pointer active:scale-95'
                   : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
                   }`}
                 title={!canSubmitBooking ? 'Lengkapi Nama, WhatsApp, dan Unggah Bukti Bayar' : 'Kirim Booking ke WhatsApp Admin'}
               >
-                <WhatsAppIcon className={`w-4.5 h-4.5 ${canSubmitBooking ? 'fill-[#25D366]' : 'fill-stone-400'}`} />
-                <span>Kirim Booking WA →</span>
+                {isSubmittingBooking ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
+                    <span>Menyimpan ke Jadwal...</span>
+                  </>
+                ) : (
+                  <>
+                    <WhatsAppIcon className={`w-4.5 h-4.5 ${canSubmitBooking ? 'fill-[#25D366]' : 'fill-stone-400'}`} />
+                    <span>Kirim Booking WA →</span>
+                  </>
+                )}
               </button>
             )}
           </div>
