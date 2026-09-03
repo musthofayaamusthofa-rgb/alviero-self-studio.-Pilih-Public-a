@@ -965,9 +965,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
               {/* Penjelasan Memilih Salah Satu Paket Foto (Simple & Minimalis) */}
               <div className="w-full pt-3 pb-1 border-t border-stone-200/80 text-center">
-                <p className="text-xs sm:text-[13px] font-sans text-stone-600 flex items-center justify-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C] shrink-0" />
-                  <span>Ketuk salah satu kategori paket di atas untuk melihat rincian harga & booking.</span>
+                <p className="text-xs sm:text-[13px] font-sans text-stone-600 text-center leading-relaxed">
+                  Ketuk salah satu kategori paket di atas untuk melihat rincian harga & booking.
                 </p>
               </div>
 
