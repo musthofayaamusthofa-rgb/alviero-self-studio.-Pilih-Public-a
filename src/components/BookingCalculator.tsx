@@ -2336,6 +2336,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     />
                   </div>
                 </div>
+
+                {/* 3. Catatan Khusus (Opsional) */}
+                <div className="space-y-1.5 pt-1">
+                  <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wide">
+                    CATATAN KHUSUS (OPSIONAL):
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Misal: Perayaan ulang tahun / minta disiapkan properti toga wisuda"
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white shadow-2xs"
+                  />
+                </div>
               </div>
 
               {/* Slot Kode Promo & Voucher Diskon */}
@@ -2753,20 +2767,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   </div>
                 )}
-              </div>
-
-              {/* Catatan Khusus */}
-              <div>
-                <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase mb-1.5">
-                  Catatan Khusus (Opsional):
-                </label>
-                <input
-                  type="text"
-                  placeholder="Misal: Perayaan ulang tahun / minta disiapkan properti toga wisuda"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
-                />
               </div>
 
               {/* Alert Konfirmasi Pembayaran Admin via WhatsApp */}
