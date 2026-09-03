@@ -1300,15 +1300,19 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const handleSendBookingWA = async () => {
     if (!customerName.trim()) {
-      alert('Mohon masukkan Nama Pemesan terlebih dahulu.');
+      alert('⚠️ Mohon masukkan Nama Pemesan terlebih dahulu.');
       return;
     }
     if (!customerPhone.trim()) {
-      alert('Mohon masukkan Nomor WhatsApp aktif terlebih dahulu.');
+      alert('⚠️ Mohon masukkan Nomor WhatsApp aktif terlebih dahulu.');
       return;
     }
     if (!paymentProofImage) {
-      alert('Mohon unggah / upload foto bukti transfer pembayaran terlebih dahulu sebelum mengirim booking WhatsApp.');
+      alert('⚠️ Wajib unggah foto bukti transfer pembayaran (QRIS atau Transfer BCA) pada formulir sebelum mengirim booking.');
+      const proofEl = document.getElementById('payment-proof-section');
+      if (proofEl) {
+        proofEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
@@ -2514,7 +2518,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               </div>
 
               {/* UPLOAD BUKTI PEMBAYARAN (WAJIB) */}
-              <div className="pt-2 border-t border-[#E8DDD6] space-y-2">
+              <div id="payment-proof-section" className="pt-2 border-t border-[#E8DDD6] space-y-2 scroll-mt-6">
                 <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
                     <Camera className="w-3.5 h-3.5 text-[#6E856C]" />
@@ -2731,10 +2735,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               <button
                 type="button"
                 onClick={handleSendBookingWA}
-                disabled={!canSubmitBooking || isSubmittingBooking}
-                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${canSubmitBooking && !isSubmittingBooking
-                  ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-md cursor-pointer active:scale-95'
-                  : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
+                disabled={isSubmittingBooking}
+                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer active:scale-95 ${canSubmitBooking && !isSubmittingBooking
+                  ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-md'
+                  : 'bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-700 border border-[#E8DDD6] shadow-xs'
                   }`}
                 title={!canSubmitBooking ? 'Lengkapi Nama, WhatsApp, dan Unggah Bukti Bayar' : 'Kirim Booking ke WhatsApp Admin'}
               >
@@ -2745,7 +2749,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </>
                 ) : (
                   <>
-                    <WhatsAppIcon className={`w-4.5 h-4.5 ${canSubmitBooking ? 'fill-[#25D366]' : 'fill-stone-400'}`} />
+                    <WhatsAppIcon className={`w-4.5 h-4.5 ${canSubmitBooking ? 'fill-[#25D366]' : 'fill-[#6E856C]'}`} />
                     <span>Kirim Booking WA →</span>
                   </>
                 )}
