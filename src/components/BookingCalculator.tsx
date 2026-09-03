@@ -1206,7 +1206,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
   }
 
-  const grandTotal = Math.max(0, subtotal - discountValue);
+  const baseTotal = Math.max(0, subtotal - discountValue);
+  const qrisFee = paymentMethod === 'qris' ? Math.round(baseTotal * 0.01) : 0;
+  const grandTotal = baseTotal + qrisFee;
   const dpAmount = Math.round(grandTotal * 0.5);
 
   const handleApplyPromo = () => {
@@ -1303,6 +1305,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       message += `🎟️ *KODE PROMO:* ${appliedPromo.code} (Hemat Rp ${discountValue.toLocaleString('id-ID')})\n`;
     }
 
+    if (paymentMethod === 'qris' && qrisFee > 0) {
+      message += `📱 *BIAYA LAYANAN QRIS (1%):* +Rp ${qrisFee.toLocaleString('id-ID')}\n`;
+    }
+
     if (notes) {
       message += `📝 *Catatan Khusus:* ${notes}\n`;
     }
@@ -1375,8 +1381,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         addons: selectedAddOnsSummary,
         total: grandTotal,
         dp: dpAmount,
-        paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS (Fee 1%)'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -2487,9 +2493,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <QrCode className="w-5 h-5" />
                     </div>
                     <div className="min-w-0">
-                      <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A] flex items-center gap-1.5">
+                      <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A] flex items-center gap-1.5 flex-wrap">
                         <span>QRIS Resmi</span>
                         <span className="text-[9px] font-mono bg-[#EBF2EA] text-[#6E856C] px-1.5 py-0.2 rounded border border-[#A9BCA7]/60">Semua Bank</span>
+                        <span className="text-[9px] font-mono font-bold bg-amber-50 text-amber-800 px-1.5 py-0.2 rounded border border-amber-300 shadow-2xs">+1% Biaya</span>
                       </div>
                     </div>
                   </button>
@@ -2546,6 +2553,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <div className="flex justify-between text-emerald-400 font-bold">
                       <span>Diskon Promo ({appliedPromo?.code})</span>
                       <span>- Rp {discountValue.toLocaleString('id-ID')}</span>
+                    </div>
+                  )}
+
+                  {paymentMethod === 'qris' && qrisFee > 0 && (
+                    <div className="flex justify-between text-amber-300 font-medium">
+                      <span>Biaya Layanan QRIS (1%)</span>
+                      <span>+ Rp {qrisFee.toLocaleString('id-ID')}</span>
                     </div>
                   )}
 
@@ -2808,6 +2822,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="flex justify-between text-emerald-400 font-bold">
                     <span>Diskon Promo ({appliedPromo?.code})</span>
                     <span>- Rp {discountValue.toLocaleString('id-ID')}</span>
+                  </div>
+                )}
+
+                {paymentMethod === 'qris' && qrisFee > 0 && (
+                  <div className="flex justify-between text-amber-300 font-medium">
+                    <span>Biaya Layanan QRIS (1%)</span>
+                    <span>+ Rp {qrisFee.toLocaleString('id-ID')}</span>
                   </div>
                 )}
 
