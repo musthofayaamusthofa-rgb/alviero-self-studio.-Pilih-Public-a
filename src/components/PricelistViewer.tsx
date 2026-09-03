@@ -963,22 +963,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
               </div>
 
-              {/* Penjelasan Memilih Salah Satu Paket Foto */}
-              <div className="w-full pt-3 border-t border-stone-200/80">
-                <div className="w-full bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 text-center space-y-1 shadow-2xs">
-                  <div className="flex items-center justify-center gap-1.5 text-[#6E856C]">
-                    <Sparkles className="w-3.5 h-3.5 text-[#A9BCA7]" />
-                    <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#6E856C]">
-                      PANDUAN MEMILIH PAKET
-                    </span>
-                  </div>
-                  <p className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A]">
-                    Silakan ketuk salah satu kategori paket di atas
-                  </p>
-                  <p className="text-[11px] text-stone-600 font-sans leading-relaxed max-w-md mx-auto">
-                    Pilih paket yang Anda inginkan untuk melihat rincian harga, jumlah orang, durasi sesi, dan melakukan reservasi jadwal.
-                  </p>
-                </div>
+              {/* Penjelasan Memilih Salah Satu Paket Foto (Simple & Minimalis) */}
+              <div className="w-full pt-3 pb-1 border-t border-stone-200/80 text-center">
+                <p className="text-xs sm:text-[13px] font-sans text-stone-600 flex items-center justify-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C] shrink-0" />
+                  <span>Ketuk salah satu kategori paket di atas untuk melihat rincian harga & booking.</span>
+                </p>
               </div>
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
