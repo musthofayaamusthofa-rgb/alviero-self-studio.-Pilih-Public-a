@@ -2538,9 +2538,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         <span>QRIS Resmi</span>
                         <span className="text-[9px] font-mono bg-[#EBF2EA] text-[#6E856C] px-1.5 py-0.2 rounded border border-[#A9BCA7]/60">Semua Bank</span>
                       </div>
-                      <div className="text-[10.5px] font-normal text-stone-500 mt-0.5 truncate">
-                        BCA, Mandiri, BRI, GoPay, Dana, OVO, ShopeePay
-                      </div>
                     </div>
                   </button>
 
