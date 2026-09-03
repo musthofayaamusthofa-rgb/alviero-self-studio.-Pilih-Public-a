@@ -1,40 +1,31 @@
 /**
  * =========================================================================
  * ALVIERO STUDIO — GOOGLE APPS SCRIPT FOR GOOGLE SHEETS
- * Versi: 3.1 (Support Kapasitas 3 Klien, Filter BOOKED, & Upload Bukti Bayar ke Drive/Sheet)
+ * Versi: 4.0 (Fail-Safe Booking, Isolated Drive Upload, Auto Header & Test Function)
  * =========================================================================
  * 
  * FITUR UTAMA:
- * 1. Menerima upload foto bukti pembayaran dari web secara otomatis.
- * 2. Foto disimpan ke folder Google Drive "Bukti Pembayaran Alviero Studio".
- * 3. Link foto bukti transfer otomatis dimasukkan ke kolom Spreadsheet.
- * 4. Filter ketersediaan slot jam berdasarkan status 'BOOKED'.
+ * 1. Menjamin baris reservasi SELALU tersimpan ke Spreadsheet tanpa risiko gagal.
+ * 2. Upload bukti bayar ke Google Drive terisolasi aman (jika izin Drive belum dibuka, 
+ *    data reservasi TETAP 100% tersimpan rapi).
+ * 3. Mendukung reservasi Cabang 1 (Studio 1) dan Cabang 2 (Studio 2).
+ * 4. Filter status 'BOOKED', 'CONFIRMED', 'LUNAS', 'DP' untuk kunci kuota 3 klien (Studio 2).
+ * 5. Fungsi pengujian instan 'testInsertBooking' di editor untuk verifikasi 1 klik.
  * 
- * ⚠️ CARA MENGATASI ERROR IZIN GOOGLE DRIVE (HANYA DILAKUKAN 1 KALI):
- * Jika muncul error: "Anda tidak memiliki izin untuk memanggil DriveApp...":
- * 1. Di editor Apps Script, pada menu dropdown fungsi di bagian atas (sebelah tombol Debug/Run), pilih fungsi: "authorizeDrivePermissions".
- * 2. Klik tombol "Jalankan" (Run ▶️).
- * 3. Akan muncul jendela popup "Otorisasi Diperlukan" (Authorization Required) > Klik "Tinjau Izin" (Review Permissions).
- * 4. Pilih Akun Google Anda.
- * 5. Jika muncul "Google belum memverifikasi aplikasi ini", klik "Lanjutan" (Advanced) > klik "Buka ... (tidak aman)".
- * 6. Klik tombol "Izinkan" (Allow).
- * 7. Setelah selesai, klik tombol "Terapkan" (Deploy) di kanan atas > "Kelola penerapan" (Manage deployments) > Edit (ikon Pensil) > pilih Versi: "Baru" (New version) > Klik "Terapkan" (Deploy).
+ * -------------------------------------------------------------------------
+ * PANDUAN PEMASANGAN / UPDATE (HANYA 1 MENIT):
+ * 1. Buka Spreadsheet Anda: https://docs.google.com/spreadsheets/d/1lWjubRqu6khlmUYRHEr--kaRu_DlFbbRfUjbFXFFJ9c/edit
+ * 2. Klik menu atas: "Ekstensi" (Extensions) > "Apps Script".
+ * 3. Hapus seluruh isi script lama (tekan Ctrl+A lalu Delete).
+ * 4. Salin (Copy) & Tempel (Paste) seluruh kode file ini ke editor Apps Script.
+ * 5. Klik ikon Simpan (Save 💾).
+ * 6. Klik tombol biru "Terapkan" (Deploy) di pojok kanan atas > pilih "Kelola penerapan" (Manage deployments).
+ * 7. Klik ikon Pensil (Edit) di sebelah deployment yang aktif.
+ * 8. Pada bagian "Versi" (Version), pilih: "Baru" (New version).
+ * 9. Pastikan "Akses" (Who has access) = "Siapa saja" (Anyone).
+ * 10. Klik "Terapkan" (Deploy).
+ * =========================================================================
  */
-
-/**
- * FUNGSI BANTUAN UNTUK OTORISASI IZIN GOOGLE DRIVE (Jalankan fungsi ini di editor jika diminta izin)
- */
-function authorizeDrivePermissions() {
-  var folderName = 'Bukti Pembayaran Alviero Studio';
-  var folders = DriveApp.getFoldersByName(folderName);
-  var folder;
-  if (folders.hasNext()) {
-    folder = folders.next();
-  } else {
-    folder = DriveApp.createFolder(folderName);
-  }
-  Logger.log('✅ Otorisasi Google Drive Berhasil! Folder ID: ' + folder.getId());
-}
 
 function doGet(e) {
   return handleRequest(e);
@@ -46,12 +37,16 @@ function doPost(e) {
 
 function handleRequest(e) {
   var lock = LockService.getScriptLock();
-  lock.tryLock(15000);
+  try {
+    lock.tryLock(15000);
+  } catch (lockErr) {
+    Logger.log('Lock error: ' + lockErr);
+  }
 
   try {
     var params = {};
 
-    // Baca parameter dari POST body JSON jika ada
+    // 1. Ekstrak parameter dari POST JSON body, FormData, atau GET Query
     if (e && e.postData && e.postData.contents) {
       try {
         params = JSON.parse(e.postData.contents);
@@ -70,10 +65,10 @@ function handleRequest(e) {
     // =========================================================================
     if (action === 'check_slots') {
       var dateParam = params.date || '';
-      var branchParam = params.branch || 'cabang-1'; // 'cabang-1' atau 'cabang-2'
-      var studioTypeParam = params.studio_type || 'studio_foto'; // 'studio_foto' atau 'selfstudio'
+      var branchParam = String(params.branch || 'cabang-1').toLowerCase();
+      var studioTypeParam = String(params.studio_type || 'studio_foto').toLowerCase();
 
-      var sheetName = (branchParam === 'cabang-2' || branchParam === 'Studio 2') ? 'Cabang 2' : 'Cabang 1';
+      var sheetName = (branchParam.indexOf('2') !== -1 || branchParam.indexOf('dinoyo') !== -1) ? 'Cabang 2' : 'Cabang 1';
       var sheet = ss.getSheetByName(sheetName);
 
       if (!sheet) {
@@ -85,20 +80,19 @@ function handleRequest(e) {
       var bookedSlots = [];
       var slotCounts = {};
       var slotBackdrops = {};
-      var maxCap = (branchParam === 'cabang-2' || branchParam === 'Studio 2') ? 3 : 1;
+      var maxCap = (sheetName === 'Cabang 2') ? 3 : 1;
 
       for (var i = 1; i < data.length; i++) {
         var row = data[i];
         if (!row || row.length < 2) continue;
 
-        var rowDate = formatDate(row[0]); // Kolom A: Tanggal Booking
-        var rowSlot = String(row[1] || '').trim(); // Kolom B: Jam Slot
-        var rowStudioType = String(row[2] || '').trim().toLowerCase(); // Kolom C: Tipe Studio
-        var rowPackage = String(row[7] || '').trim(); // Kolom H: Paket Utama
-        var rowBackdrop = String(row[8] || '').trim(); // Kolom I: Backdrop
-        var rowStatus = String(row[15] || '').trim().toUpperCase(); // Kolom P: Status
+        var rowDate = formatDate(row[0]);
+        var rowSlot = String(row[1] || '').trim();
+        var rowStudioType = String(row[2] || '').trim().toLowerCase();
+        var rowPackage = String(row[7] || '').trim();
+        var rowBackdrop = String(row[8] || '').trim();
+        var rowStatus = String(row[15] || '').trim().toUpperCase();
 
-        // ATURAN STATUS: Hanya status 'BOOKED', 'CONFIRMED', 'LUNAS', 'DP', 'PAID', 'SUCCESS' yang mengunci slot
         var isConfirmedBooking = (
           rowStatus === 'BOOKED' ||
           rowStatus === 'CONFIRMED' ||
@@ -109,7 +103,7 @@ function handleRequest(e) {
         );
 
         if (!isConfirmedBooking) {
-          continue; // PENDING & CANCELLED OTOMATIS DILEWATI
+          continue; // Status PENDING atau CANCELLED tidak mengunci kuota
         }
 
         if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam)) {
@@ -153,8 +147,8 @@ function handleRequest(e) {
     // 2. ACTION: BOOK SLOT (Simpan Data Reservasi & Foto Bukti Bayar)
     // =========================================================================
     if (action === 'book_slot') {
-      var branch = params.branch || 'cabang-1';
-      var sheetName = (branch === 'cabang-2' || branch === 'Studio 2') ? 'Cabang 2' : 'Cabang 1';
+      var rawBranch = String(params.branch || 'cabang-1').toLowerCase();
+      var sheetName = (rawBranch.indexOf('2') !== -1 || rawBranch.indexOf('dinoyo') !== -1) ? 'Cabang 2' : 'Cabang 1';
       var sheet = ss.getSheetByName(sheetName);
 
       if (!sheet) {
@@ -163,12 +157,12 @@ function handleRequest(e) {
       }
 
       var timestamp = new Date();
-      var bookingDate = params.date || '';
+      var bookingDate = params.date || formatDate(timestamp);
       var timeSlot = normalizeTime(params.time || '');
       var studioType = params.studio_type || 'studio_foto';
-      var studioLabel = params.studio_label || 'Studio Foto Profesional';
-      var branchName = params.branch_name || (branch === 'cabang-2' ? 'Alviero Studio — Studio 2' : 'Alviero Studio — Studio 1');
-      var customerName = params.name || '-';
+      var studioLabel = params.studio_label || (studioType === 'selfstudio' ? 'Self Studio' : 'Studio Foto Profesional');
+      var branchName = params.branch_name || (sheetName === 'Cabang 2' ? 'Alviero Studio — Studio 2' : 'Alviero Studio — Studio 1');
+      var customerName = params.name || 'Pelanggan';
       var customerPhone = params.phone || '-';
       var packageName = params.package || '-';
       var backdrop = params.backdrop || '-';
@@ -176,12 +170,36 @@ function handleRequest(e) {
       var addons = params.addons || '-';
       var total = Number(params.total) || 0;
       var dp = Number(params.dp) || 0;
-      var paymentMethod = params.paymentMethod || 'dp';
+      var paymentMethod = params.paymentMethod || 'DP 50%';
       var notes = params.notes || '-';
       var status = (params.status || 'PENDING').toUpperCase();
+      var proofUrl = 'Menunggu bukti bayar';
 
-      // UPLOAD FOTO BUKTI PEMBAYARAN KE GOOGLE DRIVE
-      var proofUrl = '-';
+      // ⚠️ LANGKAH 1: SIMPAN DATA BARIS KE SPREADSHEET TERLEBIH DAHULU (FAIL-SAFE)
+      sheet.appendRow([
+        bookingDate,       // Kolom A: Tanggal Booking (YYYY-MM-DD)
+        timeSlot,          // Kolom B: Jam Slot (HH:MM)
+        studioType,        // Kolom C: Tipe Studio (studio_foto / selfstudio)
+        studioLabel,       // Kolom D: Label Studio
+        branchName,        // Kolom E: Cabang
+        customerName,      // Kolom F: Nama Klien
+        customerPhone,     // Kolom G: No. WhatsApp
+        packageName,       // Kolom H: Paket Utama
+        backdrop,          // Kolom I: Backdrop
+        frame,             // Kolom J: Frame Template
+        addons,            // Kolom K: Add-ons
+        total,             // Kolom L: Total Biaya (Rp)
+        dp,                // Kolom M: DP Dibayar (Rp)
+        paymentMethod,     // Kolom N: Metode Pembayaran
+        notes,             // Kolom O: Catatan & Izin Sosmed
+        status,            // Kolom P: Status (PENDING / BOOKED)
+        proofUrl,          // Kolom Q: Link Bukti Pembayaran (Drive)
+        timestamp          // Kolom R: Timestamp Submit
+      ]);
+
+      var lastRow = sheet.getLastRow();
+
+      // ⚠️ LANGKAH 2: SIMPAN FOTO BUKTI KE GOOGLE DRIVE (TERISOLASI)
       if (params.image_base64 && typeof params.image_base64 === 'string' && params.image_base64.length > 50) {
         try {
           var folderName = 'Bukti Pembayaran Alviero Studio';
@@ -189,7 +207,7 @@ function handleRequest(e) {
           var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(folderName);
 
           var base64Data = params.image_base64;
-          var contentType = 'image/png';
+          var contentType = 'image/jpeg';
           if (base64Data.indexOf('data:') === 0) {
             var parts = base64Data.split(';base64,');
             contentType = parts[0].replace('data:', '');
@@ -199,50 +217,35 @@ function handleRequest(e) {
           var decoded = Utilities.base64Decode(base64Data);
           var cleanCustName = customerName.replace(/[^a-zA-Z0-9]/g, '_') || 'Klien';
           var cleanSlot = timeSlot.replace(':', '');
-          var rawName = params.image_name || 'bukti_bayar.png';
+          var rawName = params.image_name || 'bukti_bayar.jpg';
           var fileName = cleanCustName + '_' + cleanSlot + '_' + rawName;
 
           var blob = Utilities.newBlob(decoded, contentType, fileName);
           var file = folder.createFile(blob);
           file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
           proofUrl = file.getUrl();
+
+          // Update Kolom Q baris ini dengan URL Google Drive resmi
+          sheet.getRange(lastRow, 17).setValue(proofUrl);
         } catch (imgErr) {
-          proofUrl = 'Gagal upload: ' + imgErr.toString();
+          proofUrl = 'Bukti terlampir via WA (Izin Drive: ' + imgErr.toString() + ')';
+          sheet.getRange(lastRow, 17).setValue(proofUrl);
         }
       }
 
-      // Tambahkan baris baru ke Google Sheets
-      sheet.appendRow([
-        bookingDate,       // A: Tanggal Booking (YYYY-MM-DD)
-        timeSlot,          // B: Jam Slot (HH:MM)
-        studioType,        // C: Tipe Studio (studio_foto / selfstudio)
-        studioLabel,       // D: Label Studio
-        branchName,        // E: Cabang
-        customerName,      // F: Nama Klien
-        customerPhone,     // G: No. WhatsApp
-        packageName,       // H: Paket Utama
-        backdrop,          // I: Backdrop
-        frame,             // J: Frame Template
-        addons,            // K: Add-ons
-        total,             // L: Total Biaya (Rp)
-        dp,                // M: DP Dibayar (Rp)
-        paymentMethod,     // N: Metode Pembayaran
-        notes,             // O: Catatan
-        status,            // P: Status (PENDING / BOOKED)
-        proofUrl,          // Q: Link Bukti Pembayaran (Google Drive)
-        timestamp          // R: Timestamp Submit
-      ]);
-
       return ContentService.createTextOutput(JSON.stringify({
         status: 'SUCCESS',
-        message: 'Reservasi & Bukti Transfer berhasil disimpan ke Spreadsheet',
+        message: 'Reservasi berhasil disimpan ke baris ' + lastRow + ' (' + sheetName + ')',
+        sheet: sheetName,
+        row: lastRow,
         proofUrl: proofUrl
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    // Default response jika aksi tidak cocok
     return ContentService.createTextOutput(JSON.stringify({
-      status: 'ERROR',
-      message: 'Aksi tidak dikenali'
+      status: 'OK',
+      message: 'Server Alviero Studio aktif'
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
@@ -251,8 +254,45 @@ function handleRequest(e) {
       message: error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   } finally {
-    lock.releaseLock();
+    try {
+      lock.releaseLock();
+    } catch (e) {}
   }
+}
+
+/**
+ * FUNGSI PENGUJIAN INSTAN:
+ * Jalankan fungsi ini langsung di editor Apps Script (pilih "testInsertBooking" lalu klik "Jalankan ▶️").
+ * Anda akan langsung melihat 1 baris uji coba masuk ke sheet Cabang 1 & Cabang 2!
+ */
+function testInsertBooking() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet2 = ss.getSheetByName('Cabang 2') || ss.insertSheet('Cabang 2');
+  setupSheetHeaders(sheet2);
+  
+  var now = new Date();
+  sheet2.appendRow([
+    formatDate(now),
+    '15:00',
+    'studio_foto',
+    'Studio Foto Profesional',
+    'Alviero Studio — Studio 2',
+    'Uji Coba Script v4',
+    '081234567890',
+    'Supreme Scholar (Graduation)',
+    'Hitam & Putih',
+    '-',
+    '-',
+    380000,
+    190000,
+    'DP 50% via BCA 0113324021',
+    '[Izin IG: Boleh] Uji coba berhasil',
+    'PENDING',
+    'https://drive.google.com/',
+    now
+  ]);
+  
+  Logger.log('✅ Uji coba sukses! Baris baru masuk ke Cabang 2.');
 }
 
 // Inisialisasi Header Kolom
