@@ -30,7 +30,8 @@ import {
   MapPin,
   Download,
   Upload,
-  Trash2
+  Trash2,
+  Instagram
 } from 'lucide-react';
 
 interface BookingCalculatorProps {
@@ -825,6 +826,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Customer Data & Notes
   const [customerName, setCustomerName] = useState<string>('');
   const [customerPhone, setCustomerPhone] = useState<string>('');
+  const [allowSocialUpload, setAllowSocialUpload] = useState<boolean>(true);
+  const [socialUsername, setSocialUsername] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
 
   // Promo Code & Payment Option
@@ -1199,6 +1202,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     message += `📌 *DATA PEMESAN:*\n`;
     message += `• Nama: ${customerName || '-'}\n`;
     message += `• No. WhatsApp: ${customerPhone || '-'}\n`;
+    message += `• Izin Upload Instagram: ${allowSocialUpload ? '✅ Boleh Di-upload' : '🔒 Jangan Di-upload (Privat)'}\n`;
+    if (socialUsername.trim()) {
+      message += `• Akun IG / TikTok: @${socialUsername.trim().replace(/^@/, '')}\n`;
+    }
     message += `• Tanggal Foto: ${bookingDate}\n`;
     message += `• Jam Sesi Foto: *${formattedSessionTime} WIB* (Durasi: ${sessionDurationMinutes} Menit / ${maxBackdrops} Background)\n`;
     message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
@@ -1296,7 +1303,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: paymentOption,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}] [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -2111,6 +2118,85 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     onChange={(e) => setCustomerPhone(e.target.value)}
                     className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white"
                   />
+                </div>
+              </div>
+
+              {/* Izin Upload Foto ke Instagram & Username Akun Medsos */}
+              <div className="pt-2 border-t border-[#E8DDD6] space-y-3">
+                {/* 1. Izin Publikasi Instagram */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <Instagram className="w-3.5 h-3.5 text-[#6E856C]" />
+                      IZIN PUBLIKASI FOTO KE INSTAGRAM STUDIO:
+                    </span>
+                    <span className="text-[10px] font-sans text-stone-500 font-normal">
+                      Pilih salah satu
+                    </span>
+                  </label>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setAllowSocialUpload(true)}
+                      className={`min-h-[50px] p-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center gap-3 ${allowSocialUpload
+                        ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
+                        : 'border-[#E8DDD6] bg-white text-stone-600 hover:bg-[#FDFBF7] shadow-2xs'
+                        }`}
+                    >
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${allowSocialUpload ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'
+                        }`}>
+                        ✓
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-serif font-bold text-xs text-[#3A3A3A]">Boleh Di-upload</div>
+                        <div className="text-[10px] text-stone-500 truncate">Bersedia diposting di feeds / story studio</div>
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setAllowSocialUpload(false)}
+                      className={`min-h-[50px] p-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center gap-3 ${!allowSocialUpload
+                        ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
+                        : 'border-[#E8DDD6] bg-white text-stone-600 hover:bg-[#FDFBF7] shadow-2xs'
+                        }`}
+                    >
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${!allowSocialUpload ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'
+                        }`}>
+                        ✓
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-serif font-bold text-xs text-[#3A3A3A]">Jangan Di-upload (Privat)</div>
+                        <div className="text-[10px] text-stone-500 truncate">Foto privat hanya untuk arsip pribadi klien</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. Slot Input Username Instagram / TikTok */}
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <span className="text-[#6E856C] font-mono font-bold text-sm">@</span>
+                      USERNAME AKUN INSTAGRAM / TIKTOK:
+                    </span>
+                    <span className="text-[10px] text-stone-400 font-sans font-normal">
+                      (Opsional untuk ditag)
+                    </span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 font-mono text-xs font-bold pointer-events-none">
+                      @
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="nama_akun_kamu (Instagram atau TikTok)"
+                      value={socialUsername.replace(/^@/, '')}
+                      onChange={(e) => setSocialUsername(e.target.value.replace(/^@/, ''))}
+                      className="w-full min-h-[44px] pl-8 pr-3 py-2.5 rounded-xl border border-[#E8DDD6] text-xs text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white shadow-2xs"
+                    />
+                  </div>
                 </div>
               </div>
 
