@@ -1307,7 +1307,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       message += `📝 *Catatan Khusus:* ${notes}\n`;
     }
 
-    const paymentMethodLabel = paymentMethod === 'bca' ? 'Transfer Bank BCA (No. Rek 0113324021)' : 'QRIS Resmi Alviero Studio';
+    const paymentMethodLabel = paymentMethod === 'bca' ? 'Transfer Bank BCA (No. Rek 0113324021 a.n Muhammad Azzam Fakhri)' : 'QRIS Resmi Alviero Studio';
     message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : 'LUNAS FULL'} via ${paymentMethodLabel}\n`;
     message += `🧾 *STATUS BUKTI TRANSFER:* ✅ Sudah Diunggah (${paymentProofFileName || (paymentMethod === 'bca' ? 'Bukti Transfer BCA' : 'Bukti Transfer QRIS')})\n`;
     message += `💰 *TOTAL BIAYA:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n`;
@@ -2656,9 +2656,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             BCA
                           </span>
                         </div>
-                        <span className="text-[10.5px] text-stone-500 block mt-1">
-                          Rekening Resmi Alviero Studio
-                        </span>
+                        <div className="mt-1">
+                          <span className="text-xs font-bold text-stone-800 block">
+                            A.n Muhammad Azzam Fakhri
+                          </span>
+                          <span className="text-[10.5px] text-stone-500 block mt-0.5">
+                            Rekening Resmi Alviero Studio
+                          </span>
+                        </div>
                       </div>
 
                       <button
