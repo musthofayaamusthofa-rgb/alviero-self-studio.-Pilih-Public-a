@@ -1212,12 +1212,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const handleApplyPromo = () => {
     setPromoError('');
     const cleaned = promoCodeInput.trim().toUpperCase();
+    if (!cleaned) {
+      setPromoError('Mohon masukkan kode promo terlebih dahulu.');
+      return;
+    }
     if (cleaned === 'STUDENT10') {
       setAppliedPromo({ code: 'STUDENT10', discountPercent: 10 });
     } else if (cleaned === 'COUPLE15') {
       setAppliedPromo({ code: 'COUPLE15', discountPercent: 15 });
-    } else if (cleaned === 'ALVIERO') {
-      setAppliedPromo({ code: 'ALVIERO', discountAmount: 10000 });
+    } else if (cleaned === 'ALVIERO' || cleaned === 'WELCOME10') {
+      setAppliedPromo({ code: cleaned, discountAmount: 10000 });
+    } else if (cleaned === 'ALVIERO50') {
+      if (subtotal < 500000) {
+        setPromoError('Kode ALVIERO50 hanya berlaku untuk total pemesanan minimal Rp 500.000.');
+        return;
+      }
+      setAppliedPromo({ code: 'ALVIERO50', discountAmount: 50000 });
     } else {
       setPromoError('Kode promo tidak valid atau telah kadaluarsa.');
     }
@@ -1366,7 +1376,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -2326,6 +2336,85 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     />
                   </div>
                 </div>
+              </div>
+
+              {/* Slot Kode Promo & Voucher Diskon */}
+              <div className="pt-2 border-t border-[#E8DDD6] space-y-2">
+                <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <Tag className="w-3.5 h-3.5 text-[#6E856C]" />
+                    KODE PROMO / VOUCHER DISKON:
+                  </span>
+                  {appliedPromo && (
+                    <span className="text-[10px] font-serif font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded-full shadow-2xs">
+                      Hemat Rp {discountValue.toLocaleString('id-ID')}
+                    </span>
+                  )}
+                </label>
+
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      placeholder="Contoh: STUDENT10, COUPLE15, ALVIERO"
+                      value={promoCodeInput}
+                      onChange={(e) => {
+                        setPromoCodeInput(e.target.value.toUpperCase());
+                        if (promoError) setPromoError('');
+                      }}
+                      className="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl border border-[#E8DDD6] text-xs font-mono font-bold uppercase text-[#3A3A3A] focus:outline-none focus:border-[#3A3A3A] bg-white shadow-2xs placeholder:normal-case placeholder:font-sans placeholder:font-normal"
+                    />
+                    {appliedPromo && (
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-emerald-700 flex items-center gap-1 pointer-events-none">
+                        <Check className="w-3.5 h-3.5" />
+                        Terpasang
+                      </span>
+                    )}
+                  </div>
+
+                  {appliedPromo ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAppliedPromo(null);
+                        setPromoCodeInput('');
+                        setPromoError('');
+                      }}
+                      className="min-h-[44px] px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-serif font-bold uppercase tracking-wider transition-colors cursor-pointer active:scale-95 shrink-0 shadow-2xs"
+                    >
+                      Hapus
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={handleApplyPromo}
+                      className="min-h-[44px] px-5 py-2.5 rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer active:scale-95 shrink-0 shadow-xs"
+                    >
+                      Gunakan
+                    </button>
+                  )}
+                </div>
+
+                {promoError && (
+                  <p className="text-[11px] text-rose-600 font-sans font-medium flex items-center gap-1 animate-in fade-in duration-200">
+                    <span>❌</span> {promoError}
+                  </p>
+                )}
+
+                {appliedPromo && (
+                  <div className="p-2.5 bg-emerald-50/90 border border-emerald-200 rounded-xl text-xs font-sans text-emerald-900 flex items-center justify-between shadow-2xs animate-in fade-in duration-200">
+                    <span className="flex items-center gap-1.5 font-medium">
+                      <Check className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                      Kupon <strong className="font-mono">{appliedPromo.code}</strong> aktif: Potongan{' '}
+                      <strong>
+                        {appliedPromo.discountPercent ? `${appliedPromo.discountPercent}%` : `Rp ${appliedPromo.discountAmount?.toLocaleString('id-ID')}`}
+                      </strong>
+                    </span>
+                    <span className="font-mono font-bold text-emerald-800">
+                      -Rp {discountValue.toLocaleString('id-ID')}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Opsi Pembayaran (DP 50% vs Lunas Full) */}
