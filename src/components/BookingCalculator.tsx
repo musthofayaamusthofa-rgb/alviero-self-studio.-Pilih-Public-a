@@ -1163,6 +1163,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const handleAddOnQtyChange = (addOnId: string, delta: number) => {
     setSelectedAddOns(prev => {
+      // Jika memilih keep-drive, batasi maksimal qty 1 dan batalkan opsi bulan lainnya yang bentrok
+      if (addOnId.includes('keep-drive') && delta > 0) {
+        const next = { ...prev };
+        if (addOnId === 'studio-keep-drive-1m') delete next['studio-keep-drive-2m'];
+        if (addOnId === 'studio-keep-drive-2m') delete next['studio-keep-drive-1m'];
+        if (addOnId === 'self-keep-drive-1m') delete next['self-keep-drive-2m'];
+        if (addOnId === 'self-keep-drive-2m') delete next['self-keep-drive-1m'];
+        next[addOnId] = 1;
+        return next;
+      }
+
       const currentQty = prev[addOnId] || 0;
       const newQty = Math.max(0, currentQty + delta);
       if (newQty === 0) {
@@ -1891,7 +1902,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           {/* STEP 2: ADD-ONS TAMBAHAN & KODE PROMO */}
           {step === 2 && (() => {
             const packageCatInfo = getPackageCategoryInfo(currentPackage);
+            const isSelf = packageCatInfo.key === 'self-studio' || isSelfStudio;
             const relevantAddOns = ADD_ONS.filter(addOn => {
+              if (addOn.id.startsWith('self-keep-drive')) return isSelf;
+              if (addOn.id.startsWith('studio-keep-drive')) return !isSelf;
               if (!addOn.applicableCategories) return true;
               return addOn.applicableCategories.includes(packageCatInfo.key);
             });

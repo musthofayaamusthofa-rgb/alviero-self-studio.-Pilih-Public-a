@@ -1325,6 +1325,72 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
 ];
 
 export const ADD_ONS: AddOnOption[] = [
+  // ==================== GLOBAL GOOGLE DRIVE STORAGE ADD-ONS ====================
+  // Photo Studio (Semua Paket Foto selain Self Studio): 1 Bulan 10K, 2 Bulan 20K
+  {
+    id: 'studio-keep-drive-1m',
+    name: 'Keep Link Google Drive 1 Bulan',
+    price: 10000,
+    unit: 'bulan',
+    description: 'Penyimpanan & masa aktif link file Google Drive diperpanjang selama 1 bulan.',
+    category: 'file',
+    applicableCategories: [
+      'grad-indoor',
+      'grad-outdoor',
+      'pass-foto',
+      'group',
+      'family',
+      'birthday',
+      'maternity',
+      'personal',
+      'couple',
+      'prewedding',
+      'undangan',
+      'sewa-studio'
+    ]
+  },
+  {
+    id: 'studio-keep-drive-2m',
+    name: 'Keep Link Google Drive 2 Bulan',
+    price: 20000,
+    unit: 'bulan',
+    description: 'Penyimpanan & masa aktif link file Google Drive diperpanjang selama 2 bulan.',
+    category: 'file',
+    applicableCategories: [
+      'grad-indoor',
+      'grad-outdoor',
+      'pass-foto',
+      'group',
+      'family',
+      'birthday',
+      'maternity',
+      'personal',
+      'couple',
+      'prewedding',
+      'undangan',
+      'sewa-studio'
+    ]
+  },
+  // Self Studio (Khusus Bilik Self Studio): 1 Bulan 5K, 2 Bulan 10K
+  {
+    id: 'self-keep-drive-1m',
+    name: 'Keep Link Google Drive 1 Bulan',
+    price: 5000,
+    unit: 'bulan',
+    description: 'Penyimpanan & masa aktif link file Google Drive diperpanjang selama 1 bulan.',
+    category: 'selfstudio',
+    applicableCategories: ['self-studio']
+  },
+  {
+    id: 'self-keep-drive-2m',
+    name: 'Keep Link Google Drive 2 Bulan',
+    price: 10000,
+    unit: 'bulan',
+    description: 'Penyimpanan & masa aktif link file Google Drive diperpanjang selama 2 bulan.',
+    category: 'selfstudio',
+    applicableCategories: ['self-studio']
+  },
+
   // ==================== 1. GRADUATION INDOOR ====================
   {
     id: 'grad-indoor-frame-10rs',
