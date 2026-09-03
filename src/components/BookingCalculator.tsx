@@ -1327,6 +1327,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && !!paymentProofImage;
 
+  // Validasi Step 1: Jika klien memilih paket 2 background ke atas, mereka wajib memilih semua background (misal 2/2) baru bisa menekan tombol "Lanjut"
+  const isStep1Valid = selectedBackdropIds.length >= maxBackdrops;
+
   if (!isOpen) return null;
 
   return (
@@ -1831,15 +1834,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                 {/* Helper notice for 2 backdrops */}
                 {maxBackdrops > 1 && (
-                  <div className={`mt-2.5 p-3.5 border rounded-xl text-xs font-sans flex items-center justify-between gap-2 transition-all shadow-2xs ${selectedBackdropIds.length >= 2
-                    ? 'bg-white border-[#3A3A3A] text-[#3A3A3A]'
-                    : 'bg-[#F2E9E4] border-[#DFCFC5] text-stone-800'
+                  <div className={`mt-2.5 p-3.5 border rounded-2xl text-xs font-sans flex items-center justify-between gap-2 transition-all shadow-2xs ${selectedBackdropIds.length >= maxBackdrops
+                    ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+                    : 'bg-amber-50 border-amber-300 text-amber-900'
                     }`}>
-                    <span className="font-medium">
-                      {selectedBackdropIds.length >= 2 ? (
-                        <>✓ <strong>2 Latar Terpilih:</strong> {backdropDisplayName}</>
+                    <span className="font-medium flex items-center gap-2">
+                      {selectedBackdropIds.length >= maxBackdrops ? (
+                        <>
+                          <Check className="w-4 h-4 text-emerald-700 shrink-0 stroke-[2.5]" />
+                          <span><strong>{maxBackdrops} Background Lengkap:</strong> {backdropDisplayName}</span>
+                        </>
                       ) : (
-                        <>ℹ️ <strong>Baru 1 Latar Dipilih:</strong> {selectedBackdropObjects[0]?.name || '-'}. <em>Silakan klik 1 background lagi untuk latar ke-2 Anda!</em></>
+                        <>
+                          <span className="text-amber-700 text-sm shrink-0">⚠️</span>
+                          <span>
+                            <strong>Wajib Pilih {maxBackdrops} Background ({selectedBackdropIds.length}/{maxBackdrops}):</strong> Silakan klik {maxBackdrops - selectedBackdropIds.length} background lagi di atas untuk mengaktifkan tombol <strong>Lanjut</strong>.
+                          </span>
+                        </>
                       )}
                     </span>
                   </div>
@@ -2382,9 +2393,29 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               </button>
             )}
 
-            {step < 3 ? (
+            {step === 1 ? (
               <button
-                onClick={() => goToStep(step + 1)}
+                type="button"
+                onClick={() => {
+                  if (isStep1Valid) {
+                    goToStep(2);
+                  }
+                }}
+                disabled={!isStep1Valid}
+                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${
+                  isStep1Valid
+                    ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs cursor-pointer active:scale-95'
+                    : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
+                }`}
+                title={!isStep1Valid ? `Wajib memilih ${maxBackdrops} background terlebih dahulu sebelum lanjut` : 'Lanjut ke Add-Ons'}
+              >
+                <span>Lanjut</span>
+                <ChevronRight className="w-4 h-4 stroke-[2]" />
+              </button>
+            ) : step === 2 ? (
+              <button
+                type="button"
+                onClick={() => goToStep(3)}
                 className="min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs flex items-center gap-2 transition-colors cursor-pointer active:scale-95"
               >
                 <span>Lanjut</span>
