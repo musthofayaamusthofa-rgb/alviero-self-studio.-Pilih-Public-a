@@ -2510,9 +2510,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         <span>Transfer Bank BCA</span>
                         <span className="text-[9px] font-mono bg-[#E8EEF5] text-[#005EAA] px-1.5 py-0.2 rounded border border-[#B8D1EA]">No. Rekening</span>
                       </div>
-                      <div className="text-[10.5px] font-normal text-stone-500 mt-0.5 truncate font-mono">
-                        0113324021
-                      </div>
                     </div>
                   </button>
                 </div>
