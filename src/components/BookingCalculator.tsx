@@ -2569,8 +2569,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
 
                   {paymentOption === 'dp' && (
-                    <div className="text-[11px] text-[#A9BCA7] pt-1 text-right font-sans">
-                      Minimum Transfer DP 50%: <strong>Rp {dpAmount.toLocaleString('id-ID')}</strong>
+                    <div className="mt-2.5 p-3 rounded-xl bg-[#1E241E] border border-[#A9BCA7]/40 flex justify-between items-center shadow-inner">
+                      <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider text-stone-200">
+                        Minimum Transfer DP 50%:
+                      </span>
+                      <span className="text-base sm:text-lg font-mono font-black text-[#A9BCA7]">
+                        Rp {dpAmount.toLocaleString('id-ID')}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -2838,8 +2843,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
 
                 {paymentOption === 'dp' && (
-                  <div className="text-[11px] text-[#A9BCA7] pt-1 text-right font-sans">
-                    Minimum Transfer DP 50%: <strong>Rp {dpAmount.toLocaleString('id-ID')}</strong>
+                  <div className="mt-2.5 p-3 rounded-xl bg-[#1E241E] border border-[#A9BCA7]/40 flex justify-between items-center shadow-inner">
+                    <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider text-stone-200">
+                      Minimum Transfer DP 50%:
+                    </span>
+                    <span className="text-base sm:text-lg font-mono font-black text-[#A9BCA7]">
+                      Rp {dpAmount.toLocaleString('id-ID')}
+                    </span>
                   </div>
                 )}
               </div>
