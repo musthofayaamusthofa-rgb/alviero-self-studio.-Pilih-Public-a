@@ -848,12 +848,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   }, [initialPromoCode, isOpen]);
 
   const [paymentOption, setPaymentOption] = useState<'dp' | 'full'>('dp');
+  const [paymentMethod, setPaymentMethod] = useState<'qris' | 'bca'>('qris');
   const [copiedSummary, setCopiedSummary] = useState<boolean>(false);
+  const [copiedAccount, setCopiedAccount] = useState<boolean>(false);
 
-  // QRIS Payment Proof & Nominal Copy
+  // QRIS & BCA Payment Proof & Nominal Copy
   const [paymentProofImage, setPaymentProofImage] = useState<string | null>(null);
   const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
   const [copiedNominal, setCopiedNominal] = useState<boolean>(false);
+
+  const handleCopyAccount = () => {
+    navigator.clipboard.writeText('0113324021');
+    setCopiedAccount(true);
+    setTimeout(() => setCopiedAccount(false), 2000);
+  };
 
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
   const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
@@ -1228,10 +1236,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       message += `📝 *Catatan Khusus:* ${notes}\n`;
     }
 
-    message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : 'LUNAS FULL'}\n`;
-    message += `🧾 *STATUS BUKTI TRANSFER:* ✅ Sudah Diunggah (${paymentProofFileName || 'Bukti Transfer QRIS'})\n`;
+    const paymentMethodLabel = paymentMethod === 'bca' ? 'Transfer Bank BCA (No. Rek 0113324021)' : 'QRIS Resmi Alviero Studio';
+    message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : 'LUNAS FULL'} via ${paymentMethodLabel}\n`;
+    message += `🧾 *STATUS BUKTI TRANSFER:* ✅ Sudah Diunggah (${paymentProofFileName || (paymentMethod === 'bca' ? 'Bukti Transfer BCA' : 'Bukti Transfer QRIS')})\n`;
     message += `💰 *TOTAL BIAYA:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n`;
-    message += `Bukti transfer QRIS sudah terlampir bersama chat ini ya min. Mohon dikonfirmasi jadwalnya. Terima kasih! 🙏`;
+    message += `Bukti transfer pembayaran sudah terlampir bersama chat ini ya min. Mohon dikonfirmasi jadwalnya. Terima kasih! 🙏`;
 
     return message;
   };
@@ -2142,83 +2151,225 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* QRIS PAYMENT BOX & DOWNLOAD */}
+              {/* PILIH METODE PEMBAYARAN: QRIS vs TRANSFER BCA */}
+              <div className="pt-2 border-t border-[#E8DDD6] space-y-2">
+                <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
+                  <CreditCard className="w-3.5 h-3.5 text-[#6E856C]" />
+                  PILIH METODE PEMBAYARAN:
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('qris')}
+                    className={`min-h-[56px] p-3.5 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center gap-3 ${paymentMethod === 'qris'
+                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
+                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
+                      }`}
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center shrink-0 shadow-xs">
+                      <QrCode className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A] flex items-center gap-1.5">
+                        <span>QRIS Resmi</span>
+                        <span className="text-[9px] font-mono bg-[#EBF2EA] text-[#6E856C] px-1.5 py-0.2 rounded border border-[#A9BCA7]/60">Semua Bank</span>
+                      </div>
+                      <div className="text-[10.5px] font-normal text-stone-500 mt-0.5 truncate">
+                        BCA, Mandiri, BRI, GoPay, Dana, OVO, ShopeePay
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('bca')}
+                    className={`min-h-[56px] p-3.5 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center gap-3 ${paymentMethod === 'bca'
+                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
+                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
+                      }`}
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-[#005EAA] text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs">
+                      BCA
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-serif font-bold text-xs uppercase text-[#3A3A3A] flex items-center gap-1.5">
+                        <span>Transfer Bank BCA</span>
+                        <span className="text-[9px] font-mono bg-[#E8EEF5] text-[#005EAA] px-1.5 py-0.2 rounded border border-[#B8D1EA]">No. Rekening</span>
+                      </div>
+                      <div className="text-[10.5px] font-normal text-stone-500 mt-0.5 truncate font-mono">
+                        0113324021
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* PAYMENT BOX DETAIL: QRIS vs TRANSFER BANK BCA */}
               <div className="pt-2 border-t border-[#E8DDD6] space-y-3">
-                <div className="bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-sm">
-                  <div className="flex items-center justify-between flex-wrap gap-2 border-b border-[#E8DDD6] pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center text-xs shrink-0 shadow-xs">
-                        <QrCode className="w-4 h-4" />
+                {paymentMethod === 'qris' ? (
+                  /* 1. TAMPILAN QRIS */
+                  <div className="bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-sm">
+                    <div className="flex items-center justify-between flex-wrap gap-2 border-b border-[#E8DDD6] pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-[#3A3A3A] text-[#A9BCA7] flex items-center justify-center text-xs shrink-0 shadow-xs">
+                          <QrCode className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wide">
+                            Scan Pembayaran QRIS Resmi Alviero Studio
+                          </h4>
+                          <p className="text-[10.5px] text-stone-500 font-sans">
+                            Mendukung BCA, Mandiri, BRI, BNI, GoPay, OVO, Dana, ShopeePay
+                          </p>
+                        </div>
                       </div>
+                      <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full shadow-2xs">
+                        QRIS Nasional
+                      </span>
+                    </div>
+
+                    {/* Nominal Box */}
+                    <div className="bg-white border border-[#E8DDD6] rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
                       <div>
-                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wide">
-                          Scan Pembayaran QRIS Resmi Alviero Studio
-                        </h4>
-                        <p className="text-[10.5px] text-stone-500 font-sans">
-                          Mendukung BCA, Mandiri, BRI, BNI, GoPay, OVO, Dana, ShopeePay
-                        </p>
+                        <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
+                          Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
+                        </span>
+                        <span className="text-base sm:text-lg font-mono font-black text-[#3A3A3A]">
+                          Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}
+                        </span>
                       </div>
-                    </div>
-                    <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full shadow-2xs">
-                      QRIS Nasional
-                    </span>
-                  </div>
 
-                  {/* Nominal Box */}
-                  <div className="bg-white border border-[#E8DDD6] rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
-                    <div>
-                      <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
-                        Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
-                      </span>
-                      <span className="text-base sm:text-lg font-mono font-black text-[#3A3A3A]">
-                        Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}
-                      </span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={handleCopyNominal}
-                      className="px-3.5 py-2 rounded-xl bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
-                    >
-                      {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
-                    </button>
-                  </div>
-
-                  {/* QRIS Display & Download Button */}
-                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center pt-1">
-                    <div className="sm:col-span-5 flex flex-col items-center">
-                      <div className="w-full max-w-[210px] bg-white p-3 rounded-2xl border border-[#3A3A3A] shadow-sm flex flex-col items-center">
-                        <img
-                          src="/images/qris-alviero.png"
-                          alt="QRIS Resmi Alviero Studio"
-                          className="w-full h-auto object-contain rounded-lg"
-                        />
-                      </div>
-                      <a
-                        href="/images/qris-alviero.png"
-                        download="QRIS-Alviero-Studio.png"
-                        className="mt-2.5 w-full max-w-[210px] py-2 px-3 rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                      <button
+                        type="button"
+                        onClick={handleCopyNominal}
+                        className="px-3.5 py-2 rounded-xl bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
                       >
-                        <Download className="w-3.5 h-3.5 text-[#A9BCA7]" />
-                        <span>Unduh Kode QRIS 📥</span>
-                      </a>
+                        {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
+                      </button>
                     </div>
 
-                    <div className="sm:col-span-7 space-y-2 text-xs font-sans text-stone-700 leading-relaxed">
+                    {/* QRIS Display & Download Button */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center pt-1">
+                      <div className="sm:col-span-5 flex flex-col items-center">
+                        <div className="w-full max-w-[210px] bg-white p-3 rounded-2xl border border-[#3A3A3A] shadow-sm flex flex-col items-center">
+                          <img
+                            src="/images/qris-alviero.png"
+                            alt="QRIS Resmi Alviero Studio"
+                            className="w-full h-auto object-contain rounded-lg"
+                          />
+                        </div>
+                        <a
+                          href="/images/qris-alviero.png"
+                          download="QRIS-Alviero-Studio.png"
+                          className="mt-2.5 w-full max-w-[210px] py-2 px-3 rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                        >
+                          <Download className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                          <span>Unduh Kode QRIS 📥</span>
+                        </a>
+                      </div>
+
+                      <div className="sm:col-span-7 space-y-2 text-xs font-sans text-stone-700 leading-relaxed">
+                        <p className="font-bold text-[#3A3A3A] uppercase tracking-wide text-[11px] font-serif">
+                          Petunjuk Pembayaran QRIS:
+                        </p>
+                        <ol className="list-decimal list-inside space-y-1.5 text-[11px] text-stone-600">
+                          <li>Klik tombol <strong>"Unduh Kode QRIS 📥"</strong> di atas atau tangkap layar (screenshot).</li>
+                          <li>Buka aplikasi <strong>M-Banking (BCA, Mandiri, BRImo, dll)</strong> atau <strong>E-Wallet (GoPay, OVO, Dana, ShopeePay)</strong>.</li>
+                          <li>Pilih menu <strong>QRIS ➔ Scan dari Galeri</strong> ➔ pilih gambar QRIS tadi.</li>
+                          <li>Ketik nominal transfer: <strong className="text-[#3A3A3A] font-mono">Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}</strong>.</li>
+                          <li>Simpan screenshot bukti transfer dan <strong>unggah pada form di bawah</strong> untuk mengaktifkan tombol kirim.</li>
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* 2. TAMPILAN TRANSFER BANK BCA */
+                  <div className="bg-[#FDFBF7] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3.5 shadow-sm">
+                    <div className="flex items-center justify-between flex-wrap gap-2 border-b border-[#E8DDD6] pb-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-[#005EAA] text-white flex items-center justify-center font-black text-xs shrink-0 shadow-xs">
+                          BCA
+                        </div>
+                        <div>
+                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wide">
+                            Transfer Rekening Bank BCA
+                          </h4>
+                          <p className="text-[10.5px] text-stone-500 font-sans">
+                            Mendukung BCA Mobile, myBCA, KlikBCA, dan ATM BCA
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[9.5px] font-mono font-bold uppercase tracking-wider bg-[#E8EEF5] text-[#005EAA] border border-[#B8D1EA] px-2.5 py-0.5 rounded-full shadow-2xs">
+                        Bank Transfer
+                      </span>
+                    </div>
+
+                    {/* Nomor Rekening Box dengan One-Click Copy */}
+                    <div className="bg-white border-2 border-[#005EAA]/40 rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                      <div>
+                        <span className="text-[10px] font-serif font-bold uppercase tracking-wider text-stone-500 block">
+                          Nomor Rekening Bank BCA:
+                        </span>
+                        <div className="flex items-center gap-2.5 mt-1">
+                          <span className="text-xl sm:text-2xl font-mono font-black text-[#3A3A3A] tracking-wider selection:bg-blue-100">
+                            0113324021
+                          </span>
+                          <span className="text-[10px] font-sans font-bold text-white bg-[#005EAA] px-2 py-0.5 rounded shadow-2xs">
+                            BCA
+                          </span>
+                        </div>
+                        <span className="text-[10.5px] text-stone-500 block mt-1">
+                          Rekening Resmi Alviero Studio
+                        </span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleCopyAccount}
+                        className="px-4 py-2.5 rounded-xl bg-[#005EAA] hover:bg-[#004b88] text-white text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-xs"
+                      >
+                        {copiedAccount ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
+                        <span>{copiedAccount ? 'No. Rek Tersalin!' : 'Salin No. Rekening'}</span>
+                      </button>
+                    </div>
+
+                    {/* Nominal Box */}
+                    <div className="bg-white border border-[#E8DDD6] rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
+                      <div>
+                        <span className="text-[10.5px] font-serif uppercase tracking-wider text-stone-500 block">
+                          Nominal {paymentOption === 'dp' ? 'DP 50% Yang Harus Ditransfer:' : 'Pelunasan 100% Yang Harus Ditransfer:'}
+                        </span>
+                        <span className="text-base sm:text-lg font-mono font-black text-[#3A3A3A]">
+                          Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}
+                        </span>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={handleCopyNominal}
+                        className="px-3.5 py-2 rounded-xl bg-[#F2E9E4] hover:bg-[#EBDDD6] text-stone-800 border border-[#E8DDD6] text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs"
+                      >
+                        {copiedNominal ? <Check className="w-3.5 h-3.5 text-emerald-700" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copiedNominal ? 'Nominal Tersalin!' : 'Salin Nominal'}</span>
+                      </button>
+                    </div>
+
+                    {/* Petunjuk Transfer BCA */}
+                    <div className="p-3.5 bg-white border border-[#E8DDD6] rounded-xl text-xs font-sans text-stone-700 space-y-1.5 shadow-2xs">
                       <p className="font-bold text-[#3A3A3A] uppercase tracking-wide text-[11px] font-serif">
-                        Petunjuk Pembayaran QRIS:
+                        Petunjuk Transfer Bank BCA:
                       </p>
-                      <ol className="list-decimal list-inside space-y-1.5 text-[11px] text-stone-600">
-                        <li>Klik tombol <strong>"Unduh Kode QRIS 📥"</strong> di atas atau tangkap layar (screenshot).</li>
-                        <li>Buka aplikasi <strong>M-Banking (BCA, Mandiri, BRImo, dll)</strong> atau <strong>E-Wallet (GoPay, OVO, Dana, ShopeePay)</strong>.</li>
-                        <li>Pilih menu <strong>QRIS ➔ Scan dari Galeri</strong> ➔ pilih gambar QRIS tadi.</li>
-                        <li>Ketik nominal transfer: <strong className="text-[#3A3A3A] font-mono">Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}</strong>.</li>
-                        <li>Simpan screenshot bukti transfer dan <strong>unggah pada form di bawah</strong> untuk mengaktifkan tombol kirim.</li>
+                      <ol className="list-decimal list-inside space-y-1 text-[11px] text-stone-600">
+                        <li>Buka aplikasi <strong>BCA Mobile / myBCA</strong> atau kunjungi mesin <strong>ATM BCA</strong> terdekat.</li>
+                        <li>Pilih menu <strong>m-Transfer ➔ Antar Rekening BCA</strong> (atau Transfer ke Rekening BCA).</li>
+                        <li>Masukkan nomor rekening tujuan: <strong className="font-mono text-[#3A3A3A]">0113324021</strong>.</li>
+                        <li>Masukkan nominal transfer: <strong className="font-mono text-[#3A3A3A]">Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}</strong>.</li>
+                        <li>Pastikan nama tujuan sesuai, selesaikan transaksi, simpan resi / struk bukti transfer, lalu <strong>unggah pada formulir di bawah</strong>.</li>
                       </ol>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* UPLOAD BUKTI PEMBAYARAN (WAJIB) */}
@@ -2226,7 +2377,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between">
                   <span className="flex items-center gap-1.5">
                     <Camera className="w-3.5 h-3.5 text-[#6E856C]" />
-                    UNGGAH BUKTI TRANSFER / BAYAR QRIS: <span className="text-rose-600">*</span>
+                    UNGGAH BUKTI TRANSFER ({paymentMethod === 'bca' ? 'BCA' : 'QRIS'}): <span className="text-rose-600">*</span>
                   </span>
                   {paymentProofImage ? (
                     <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-2xs">
