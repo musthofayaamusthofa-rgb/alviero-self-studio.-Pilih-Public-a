@@ -2670,20 +2670,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         <span>{copiedAccount ? 'No. Rek Tersalin!' : 'Salin No. Rekening'}</span>
                       </button>
                     </div>
-
-                    {/* Petunjuk Transfer BCA */}
-                    <div className="p-3.5 bg-white border border-[#E8DDD6] rounded-xl text-xs font-sans text-stone-700 space-y-1.5 shadow-2xs">
-                      <p className="font-bold text-[#3A3A3A] uppercase tracking-wide text-[11px] font-serif">
-                        Petunjuk Transfer Bank BCA:
-                      </p>
-                      <ol className="list-decimal list-inside space-y-1 text-[11px] text-stone-600">
-                        <li>Buka aplikasi <strong>BCA Mobile / myBCA</strong> atau kunjungi mesin <strong>ATM BCA</strong> terdekat.</li>
-                        <li>Pilih menu <strong>m-Transfer ➔ Antar Rekening BCA</strong> (atau Transfer ke Rekening BCA).</li>
-                        <li>Masukkan nomor rekening tujuan: <strong className="font-mono text-[#3A3A3A]">0113324021</strong>.</li>
-                        <li>Masukkan nominal transfer: <strong className="font-mono text-[#3A3A3A]">Rp {(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')}</strong>.</li>
-                        <li>Pastikan nama tujuan sesuai, selesaikan transaksi, simpan resi / struk bukti transfer, lalu <strong>unggah pada formulir di bawah</strong>.</li>
-                      </ol>
-                    </div>
                   </div>
                 )}
               </div>
