@@ -89,6 +89,17 @@ export default function App() {
     }
   };
 
+  const handleNavigateToPricelist = () => {
+    setActiveTab('katalog');
+    if (!hasEnteredBranch) {
+      setTimeout(() => {
+        document.getElementById('section-services')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleOpenBookingWithPackage = (packageId: string) => {
     setPreselectedPackageId(packageId);
     setIsBookingOpen(true);
@@ -114,6 +125,7 @@ export default function App() {
         onOpenBranchModal={handleOpenBranchModal}
         onOpenBooking={() => setIsBookingOpen(true)}
         onBackToLanding={handleBackToLanding}
+        onNavigateToPricelist={handleNavigateToPricelist}
       />
 
       {/* Main View Area */}
@@ -167,6 +179,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         onOpenBooking={() => setIsBookingOpen(true)}
         onBackToLanding={handleBackToLanding}
+        onNavigateToPricelist={handleNavigateToPricelist}
       />
 
       {/* Booking Modal */}

@@ -34,6 +34,7 @@ export interface PackageItem {
   includedPrints: string;
   softFilesIncluded: boolean;
   price: number;
+  hasFreePrint?: boolean;
   originalPrice?: number;
   description: string;
   highlights: string[];

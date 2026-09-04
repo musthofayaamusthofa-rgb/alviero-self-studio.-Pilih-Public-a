@@ -119,12 +119,15 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
       onTouchEnd={handleTouchEnd}
     >
       {/* 1. Top Minimalist Navbar (Tegas & Mewah - Hanya Tampil di Mobile) */}
-      <div className="w-full bg-[#FDFBF7] px-4 py-2.5 sm:px-8 flex lg:hidden items-center justify-center border-b border-[#E8DDD6] z-30">
+      <div className="w-full bg-[#FDFBF7] px-4 py-3 sm:px-8 flex lg:hidden flex-col items-center justify-center gap-1.5 border-b border-[#E8DDD6] z-30">
         <img
           src="/images/alviero-logo-official.png"
           alt="Alviero Studio"
           className="h-8 sm:h-9 w-auto object-contain"
         />
+        <p className="font-serif italic text-[10px] sm:text-[11px] text-[#6E856C] tracking-wide">
+          Perfecting Happiness in Every Moment
+        </p>
       </div>
 
       {/* 2. Full Image Banner Container */}
@@ -727,6 +730,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
  */
 export interface StudioPromo {
   id: string;
+  kind?: 'promo' | 'berita' | 'tim';
   code: string;
   badge: string;
   category: string;
@@ -744,6 +748,7 @@ export interface StudioPromo {
 export const STUDIO_PROMOS: StudioPromo[] = [
   {
     id: 'promo-wisuda',
+    kind: 'promo',
     code: 'STUDENT10',
     badge: 'DISKON 10%',
     category: 'WISUDA & MAHASISWA',
@@ -769,6 +774,7 @@ export const STUDIO_PROMOS: StudioPromo[] = [
   },
   {
     id: 'promo-couple',
+    kind: 'promo',
     code: 'COUPLE15',
     badge: 'HEMAT 15%',
     category: 'COUPLE & PREWEDDING',
@@ -793,6 +799,7 @@ export const STUDIO_PROMOS: StudioPromo[] = [
   },
   {
     id: 'promo-welcome',
+    kind: 'promo',
     code: 'ALVIERO',
     badge: 'POTONGAN 10K',
     category: 'SEMUA LAYANAN & SELFSTUDIO',
@@ -814,6 +821,36 @@ export const STUDIO_PROMOS: StudioPromo[] = [
       'Voucher otomatis memotong Rp 10.000 dari total tagihan.'
     ],
     preselectedPackageId: 'selfstudio-special'
+  },
+  {
+    id: 'news-new-lighting',
+    kind: 'berita',
+    code: 'INFO',
+    badge: 'BERITA TERBARU',
+    category: 'BERITA ALVIERO',
+    title: 'Setup Lighting Baru untuk Hasil Foto Lebih Berkarakter',
+    shortDesc: 'Alviero Studio terus memperbarui peralatan lighting untuk mendukung foto portrait, wisuda, dan self studio.',
+    fullDesc: 'Kami sedang menghadirkan pembaruan setup lighting agar pencahayaan sesi foto semakin fleksibel. Tim studio dapat membantu menyesuaikan karakter cahaya dengan konsep dan kebutuhan setiap klien.',
+    discountHighlight: 'Pembaruan Fasilitas Studio',
+    period: 'Informasi Studio',
+    imageUrl: 'https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85',
+    terms: ['Ketersediaan setup menyesuaikan jenis sesi dan paket.', 'Konsultasikan kebutuhan lighting kepada admin atau fotografer.'],
+    howToUse: ['Pilih paket dan jadwal sesi foto.', 'Sampaikan referensi konsep kepada admin.', 'Tim Alviero akan membantu menyiapkan setup yang sesuai.']
+  },
+  {
+    id: 'team-alviero',
+    kind: 'tim',
+    code: 'TEAM',
+    badge: 'TIM ALVIERO',
+    category: 'TIM ALVIERO STUDIO',
+    title: 'Kenali Tim yang Menemani Sesi Foto Anda',
+    shortDesc: 'Tim Alviero Studio siap membantu pengarahan pose, persiapan konsep, dan kebutuhan teknis selama sesi foto.',
+    fullDesc: 'Di balik setiap sesi foto ada tim yang memastikan pengalaman Anda tetap nyaman dan terarah. Fotografer, admin, dan kru studio bekerja bersama untuk membantu persiapan, pencahayaan, pose, hingga proses konfirmasi jadwal.',
+    discountHighlight: 'Fotografer & Kru Studio',
+    period: 'Tentang Tim Kami',
+    imageUrl: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85',
+    terms: ['Komposisi tim menyesuaikan jenis layanan dan jadwal.', 'Konsultasi konsep dapat dilakukan sebelum sesi foto.'],
+    howToUse: ['Hubungi admin untuk konsultasi konsep.', 'Datang sesuai jadwal reservasi.', 'Nikmati sesi foto dengan pendampingan tim Alviero.']
   }
 ];
 
@@ -872,17 +909,17 @@ export const PromoSpecialSection: React.FC<{
           <div className="flex items-center gap-1.5">
             <span className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] px-2.5 py-0.5 rounded-full text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-wider">
               <Gift className="w-3 h-3 text-[#6E856C]" />
-              PROMO & VOUCHER KHUSUS
+              PROMO & INFORMASI
             </span>
             <span className="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
               Terbatas
             </span>
           </div>
           <h3 className="font-serif font-black text-xl sm:text-2xl text-[#3A3A3A] uppercase tracking-wide">
-            Promo Spesial Alviero Studio
+            Promo dan Informasi Alviero Studio
           </h3>
           <p className="text-xs sm:text-sm text-stone-600 font-sans">
-            Geser ke samping untuk melihat pilihan kupon & diskon spesial:
+            Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:
           </p>
         </div>
 
@@ -972,7 +1009,7 @@ export const PromoSpecialSection: React.FC<{
                 {/* Action Bar Bawah: Kupon Tag & Tombol Detail */}
                 <div className="pt-3 border-t border-[#E8DDD6] flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1 bg-[#F2E9E4] text-[#3A3A3A] border border-dashed border-[#A9BCA7] px-2 py-0.5 rounded-lg text-[9.5px] font-mono font-bold">
-                    <span>KODE:</span>
+                    <span>{promo.kind === 'promo' ? 'KODE:' : promo.kind === 'berita' ? 'INFO:' : 'PROFIL:'}</span>
                     <span className="text-[#6E856C] font-black tracking-wider">{promo.code}</span>
                   </div>
 
@@ -989,7 +1026,7 @@ export const PromoSpecialSection: React.FC<{
         {/* Pagination Dots Indicator & Mobile Swipe Guide */}
         <div className="flex items-center justify-between pt-1 px-1">
           <span className="text-[10px] font-sans text-stone-600 flex items-center gap-1 sm:hidden">
-            <span>👉 Geser untuk promo lainnya</span>
+                <span>👉 Geser untuk melihat informasi lainnya</span>
           </span>
 
           <div className="flex items-center gap-1.5 mx-auto sm:mx-0">
@@ -1046,10 +1083,10 @@ export const PromoDetailModal: React.FC<{
             </div>
             <div>
               <h3 className="font-serif font-black text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide">
-                Detail Promo & Kupon
+                {promo.kind === 'promo' ? 'Detail Promo & Kupon' : 'Detail Informasi Alviero'}
               </h3>
               <span className="text-[10px] font-mono text-stone-500 block">
-                Alviero Studio • Penawaran Terbatas
+                Alviero Studio • {promo.kind === 'promo' ? 'Penawaran Terbatas' : 'Informasi Terbaru'}
               </span>
             </div>
           </div>
@@ -1097,7 +1134,8 @@ export const PromoDetailModal: React.FC<{
             </div>
           </div>
 
-          {/* Kotak Voucher Promo (Style Aplikasi PLN / E-Commerce) */}
+          {/* Kotak Voucher Promo hanya untuk konten promo */}
+          {promo.kind === 'promo' && (
           <div className="bg-[#F2E9E4]/80 border-2 border-dashed border-[#A9BCA7] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs">
             <div className="min-w-0">
               <span className="text-[9.5px] font-mono font-bold uppercase tracking-widest text-stone-500 block">
@@ -1132,11 +1170,12 @@ export const PromoDetailModal: React.FC<{
               )}
             </button>
           </div>
+          )}
 
           {/* Deskripsi Promo */}
           <div className="space-y-1.5">
             <h5 className="font-serif font-bold text-xs uppercase tracking-wider text-[#3A3A3A]">
-              Tentang Penawaran Ini:
+              {promo.kind === 'promo' ? 'Tentang Penawaran Ini:' : 'Tentang Informasi Ini:'}
             </h5>
             <p className="text-xs sm:text-sm font-sans text-stone-700 leading-relaxed">
               {promo.fullDesc}
@@ -1159,10 +1198,10 @@ export const PromoDetailModal: React.FC<{
             </ul>
           </div>
 
-          {/* Cara Penggunaan Kupon */}
+          {/* Cara penggunaan promo atau tindak lanjut informasi */}
           <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8DDD6] space-y-2 text-left">
             <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C] block">
-              CARA KLAIM PROMO:
+              {promo.kind === 'promo' ? 'CARA KLAIM PROMO:' : 'INFORMASI UNTUK KLIEN:'}
             </span>
             <ol className="space-y-1.5 text-xs text-stone-700 font-sans">
               {promo.howToUse.map((step, i) => (
@@ -1179,7 +1218,7 @@ export const PromoDetailModal: React.FC<{
 
         {/* Sticky Action Footer */}
         <div className="p-4 sm:p-5 bg-white border-t border-[#E8DDD6] flex flex-col sm:flex-row gap-2.5 sticky bottom-0 z-20 shadow-md">
-          <button
+          {promo.kind === 'promo' && <button
             type="button"
             onClick={() => {
               if (onApplyPromo) {
@@ -1190,7 +1229,7 @@ export const PromoDetailModal: React.FC<{
           >
             <Sparkles className="w-4 h-4 text-[#A9BCA7]" />
             <span>Pakai Promo & Booking Sekarang</span>
-          </button>
+          </button>}
 
           <a
             href={whatsappUrl}

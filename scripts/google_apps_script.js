@@ -87,6 +87,7 @@ function handleRequest(e) {
       var bookedSlots = [];
       var slotCounts = {};
       var slotBackdrops = {};
+      var slotSelfStudioCounts = {};
       var maxCap = (sheetName === 'Cabang 2') ? 3 : 1;
 
       for (var i = 1; i < data.length; i++) {
@@ -127,6 +128,9 @@ function handleRequest(e) {
               if (rowBackdrop) {
                 slotBackdrops[s].push(rowBackdrop);
               }
+              if (rowStudioType === 'selfstudio') {
+                slotSelfStudioCounts[s] = (slotSelfStudioCounts[s] || 0) + 1;
+              }
 
               if (slotCounts[s] >= maxCap && bookedSlots.indexOf(s) === -1) {
                 bookedSlots.push(s);
@@ -143,7 +147,8 @@ function handleRequest(e) {
         date: dateParam,
         bookedSlots: bookedSlots,
         slotCounts: slotCounts,
-        slotBackdrops: slotBackdrops
+        slotBackdrops: slotBackdrops,
+        slotSelfStudioCounts: slotSelfStudioCounts
       };
 
       return ContentService.createTextOutput(JSON.stringify(responseData))

@@ -10,6 +10,7 @@ interface HeaderProps {
   onOpenBranchModal?: () => void;
   onOpenBooking: () => void;
   onBackToLanding?: () => void;
+  onNavigateToPricelist?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -19,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenBranchModal,
   onOpenBooking,
   onBackToLanding,
+  onNavigateToPricelist,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -141,7 +143,7 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
-            onClick={() => setActiveTab('katalog')}
+            onClick={onNavigateToPricelist || (() => setActiveTab('katalog'))}
             className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
               activeTab === 'katalog' || activeTab === 'pricelist-sheets'
                 ? 'bg-[#3A3A3A] text-white shadow-xs font-bold'
@@ -149,7 +151,7 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             <Camera className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'katalog' || activeTab === 'pricelist-sheets' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
-            Katalog & Pricelist
+            Pricelist
           </button>
 
           <button

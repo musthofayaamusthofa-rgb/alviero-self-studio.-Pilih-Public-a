@@ -91,7 +91,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   };
 
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
-  // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Contoh Hasil Foto Studio), or 'guide' (Panduan, Disclaimer & FAQ)
+  // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Fasilitas Studio), or 'guide' (Panduan, Disclaimer & FAQ)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>('menu');
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
@@ -542,20 +542,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA
   const studioGalleryCategories = [
-    { id: 'all', label: 'Semua Paket', icon: '📸' },
-    { id: 'grad-indoor', label: 'Paket Graduation Indoor', icon: '🎓' },
-    { id: 'grad-outdoor', label: 'Paket Wisuda Outdoor', icon: '🌳' },
-    { id: 'group', label: 'Paket Group', icon: '👥' },
-    { id: 'family', label: 'Paket Family', icon: '👨‍👩‍👧‍👦' },
-    { id: 'maternity', label: 'Paket Maternity', icon: '🤰' },
-    { id: 'personal', label: 'Paket Personal', icon: '👤' },
-    { id: 'couple', label: 'Paket Couple', icon: '💑' },
-    { id: 'birthday', label: 'Paket Birthday', icon: '🎉' },
-    { id: 'undangan', label: 'Paket Undangan', icon: '💌' },
-    { id: 'prewed', label: 'Paket Prewedding', icon: '💍' },
-    { id: 'pass-foto', label: 'Paket Pass Foto', icon: '🪪' },
-    { id: 'sewa-studio', label: 'Paket Sewa Studio', icon: '🏢' },
-    { id: 'selfstudio', label: 'Paket Self Studio', icon: '✨' }
+    { id: 'all', label: 'Semua Fasilitas', icon: '🏢' },
+    { id: 'ruangan', label: 'Sudut Ruangan', icon: '🛋️' },
+    { id: 'peralatan', label: 'Peralatan Studio', icon: '💡' },
+    { id: 'kenyamanan', label: 'Kenyamanan', icon: '✨' },
+    { id: 'layanan', label: 'Layanan & Akses', icon: '💳' }
   ];
 
   const STUDIO_GALLERY_PHOTOS: StudioGalleryPhoto[] = [
@@ -732,9 +723,108 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
-  // Filter Photos for Gallery Tab
+  const FACILITY_PHOTOS: StudioGalleryPhoto[] = [
+    {
+      id: 'facility-main-room',
+      title: 'Sudut Ruangan Studio',
+      category: 'ruangan',
+      packageName: 'Fasilitas Ruangan',
+      icon: '🛋️',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85',
+      description: 'Ruang studio yang rapi, luas, dan nyaman untuk sesi foto personal, keluarga, grup, maupun self studio.',
+      conceptNote: 'Area utama dapat disesuaikan untuk kebutuhan pemotretan dan aktivitas klien.',
+      tags: ['#RuangStudio', '#StudioNyaman', '#FasilitasAlviero']
+    },
+    {
+      id: 'facility-makeup-room',
+      title: 'Ruang Rias & Fitting',
+      category: 'ruangan',
+      packageName: 'Fasilitas Ruangan',
+      icon: '🪞',
+      targetPackageId: 'personal-bold-statement',
+      imageUrl: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85',
+      description: 'Area privat untuk persiapan makeup, merapikan outfit, dan berganti kostum sebelum sesi dimulai.',
+      conceptNote: 'Mendukung kebutuhan wisuda, kebaya, gaun, maternity, dan sesi portrait.',
+      tags: ['#RuangRias', '#FittingRoom', '#Kebaya']
+    },
+    {
+      id: 'facility-bathroom',
+      title: 'Kamar Mandi Bersih',
+      category: 'kenyamanan',
+      packageName: 'Fasilitas Kenyamanan',
+      icon: '🚿',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=85',
+      description: 'Kamar mandi yang bersih dan terawat untuk mendukung kenyamanan klien selama berada di studio.',
+      conceptNote: 'Fasilitas tersedia untuk klien dan pendamping selama jam operasional studio.',
+      tags: ['#KamarMandi', '#StudioBersih', '#Kenyamanan']
+    },
+    {
+      id: 'facility-lighting',
+      title: 'Setup Lighting Profesional',
+      category: 'peralatan',
+      packageName: 'Peralatan Studio',
+      icon: '💡',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85',
+      description: 'Peralatan lighting studio untuk membantu menghasilkan pencahayaan yang merata dan karakter foto yang kuat.',
+      conceptNote: 'Setup dapat digunakan untuk sesi fotografer profesional maupun sewa studio.',
+      tags: ['#LightingStudio', '#Softbox', '#PeralatanFoto']
+    },
+    {
+      id: 'facility-edc',
+      title: 'Mesin EDC & Pembayaran',
+      category: 'layanan',
+      packageName: 'Layanan Studio',
+      icon: '💳',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=85',
+      description: 'Pilihan pembayaran yang praktis untuk membantu proses transaksi layanan studio.',
+      conceptNote: 'Konfirmasi metode pembayaran kepada admin sebelum sesi foto.',
+      tags: ['#EDC', '#Pembayaran', '#LayananStudio']
+    },
+    {
+      id: 'facility-air-conditioning',
+      title: 'Ruangan Ber-AC',
+      category: 'kenyamanan',
+      packageName: 'Fasilitas Kenyamanan',
+      icon: '❄️',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1631545806609-3a7f5c7d4d7e?auto=format&fit=crop&w=1000&q=85',
+      description: 'Ruangan berpendingin udara agar sesi foto tetap nyaman, termasuk saat membawa keluarga atau rombongan.',
+      conceptNote: 'Kenyamanan ruangan dijaga selama jam operasional studio.',
+      tags: ['#StudioBerAC', '#RuangNyaman', '#FasilitasStudio']
+    },
+    {
+      id: 'facility-waiting-area',
+      title: 'Area Tunggu Klien',
+      category: 'ruangan',
+      packageName: 'Fasilitas Ruangan',
+      icon: '🪑',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85',
+      description: 'Area tunggu untuk klien dan pendamping sebelum giliran sesi foto atau saat persiapan berlangsung.',
+      conceptNote: 'Cocok untuk keluarga, teman, dan rombongan yang datang bersama.',
+      tags: ['#AreaTunggu', '#RuangKeluarga', '#StudioFoto']
+    },
+    {
+      id: 'facility-parking',
+      title: 'Akses & Area Parkir',
+      category: 'layanan',
+      packageName: 'Layanan Studio',
+      icon: '🅿️',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85',
+      description: 'Informasi akses lokasi dan area parkir untuk membantu kedatangan klien ke studio.',
+      conceptNote: 'Detail alamat dan petunjuk arah tersedia pada menu Lokasi.',
+      tags: ['#AksesStudio', '#Parkir', '#LokasiAlviero']
+    }
+  ];
+
+  // Filter fasilitas untuk tab Fasilitas
   const filteredGalleryPhotos = useMemo(() => {
-    return STUDIO_GALLERY_PHOTOS.filter(photo => {
+    return FACILITY_PHOTOS.filter(photo => {
       const matchesCategory = selectedGalleryCategory === 'all' || photo.category === selectedGalleryCategory;
       const query = searchQuery.trim().toLowerCase();
       const matchesSearch = !query ||
@@ -762,10 +852,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           </div>
           <div>
             <h2 className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A] uppercase tracking-wide leading-tight">
-              Katalog Resmi & Galeri Alviero Studio
+              Katalog Resmi & Fasilitas Alviero Studio
             </h2>
             <p className="text-[11px] sm:text-xs text-stone-500 font-sans">
-              Lihat pricelist resmi atau jelajahi inspirasi contoh hasil foto asli sesuai paket studio kami.
+              Lihat pricelist resmi atau kenali fasilitas yang tersedia di studio kami.
             </p>
           </div>
         </div>
@@ -789,7 +879,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
           >
-            <span>Galeri Foto</span>
+            <span>Fasilitas</span>
           </button>
 
           <button
@@ -868,7 +958,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </button>
               </div>
 
-              {/* 4. Switcher Mode: Menu Pricelist vs Galeri Hasil Foto vs Panduan (Khusus HP) */}
+              {/* 4. Switcher Mode: Menu Pricelist vs Fasilitas vs Panduan (Khusus HP) */}
               <div className="w-full lg:hidden bg-[#f4f3ee] p-1 rounded-2xl flex items-center gap-1 border border-stone-200 shadow-2xs">
                 <button
                   onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -888,7 +978,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
-                  <span>📸 Galeri</span>
+                  <span>🏢 Fasilitas</span>
                 </button>
                 <button
                   onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -4116,12 +4206,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       )}
 
       {/* ==================================================================== */}
-      {/* 2. GALERI CONTOH HASIL FOTO STUDIO (BERDASARKAN PAKET UTAMA)         */}
+      {/* 2. FASILITAS STUDIO (TANPA FOTO BACKGROUND)                         */}
       {/* ==================================================================== */}
       {activeTab === 'gallery' && (
         <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-300">
 
-          {/* Switcher Mode: Menu Pricelist vs Galeri Foto vs Panduan */}
+          {/* Switcher Mode: Menu Pricelist vs Fasilitas vs Panduan */}
           <div className="w-full max-w-lg mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs rounded-xl sm:rounded-2xl">
             <button
               onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -4141,7 +4231,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
-              <span>📸 Galeri Foto</span>
+              <span>🏢 Fasilitas</span>
             </button>
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -4155,19 +4245,19 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             </button>
           </div>
 
-          {/* Header Galeri */}
+          {/* Header Fasilitas */}
           <div className="bg-white p-4 sm:p-6 border border-[#E8DDD6] shadow-xs space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-1 text-left">
                 <div className="inline-flex items-center gap-1.5 bg-[#FDFBF7] text-[#6E856C] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 border border-[#E8DDD6]">
                   <Camera className="w-3.5 h-3.5 text-[#6E856C]" />
-                  <span>Portofolio Alviero Studio</span>
+                  <span>Fasilitas Alviero Studio</span>
                 </div>
                 <h3 className="text-lg sm:text-2xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase">
-                  Galeri Contoh Hasil Foto Studio
+                  Fasilitas Studio
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-xl">
-                  Inspirasi gaya foto dan hasil jepretan asli studio kami berdasarkan pilihan paket foto yang tersedia.
+                  Kenali sudut ruangan, peralatan, kenyamanan, dan layanan yang tersedia di studio kami. Foto background tidak ditampilkan di bagian ini.
                 </p>
               </div>
 
@@ -4178,7 +4268,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari tema foto..."
+                  placeholder="Cari fasilitas..."
                   className="w-full min-h-[42px] pl-9 pr-8 py-2 bg-[#FDFBF7] border border-[#E8DDD6] text-xs text-[#3A3A3A] placeholder-stone-400 focus:outline-none focus:border-[#3A3A3A] transition-all font-sans font-medium"
                 />
                 {searchQuery && (
@@ -4192,7 +4282,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
             </div>
 
-            {/* Pilihan Kategori Paket */}
+            {/* Pilihan Kelompok Fasilitas */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar pt-1">
               {studioGalleryCategories.map((cat) => {
                 const isSelected = selectedGalleryCategory === cat.id;
@@ -4218,12 +4308,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           {/* Grid Kartu Foto */}
           {filteredGalleryPhotos.length === 0 ? (
             <div className="bg-white p-8 text-center border border-[#E8DDD6] space-y-2">
-              <p className="text-stone-600 font-serif font-bold text-sm uppercase">Tidak ada contoh foto yang sesuai dengan pencarian.</p>
+              <p className="text-stone-600 font-serif font-bold text-sm uppercase">Tidak ada fasilitas yang sesuai dengan pencarian.</p>
               <button
                 onClick={() => { setSelectedGalleryCategory('all'); setSearchQuery(''); }}
                 className="text-xs font-serif font-bold text-[#6E856C] hover:underline cursor-pointer uppercase tracking-wider"
               >
-                Tampilkan Semua Foto
+                Tampilkan Semua Fasilitas
               </button>
             </div>
           ) : (
@@ -4312,7 +4402,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       {activeTab === 'guide' && (
         <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-300 max-w-5xl mx-auto w-full">
 
-          {/* Switcher Mode: Menu Pricelist vs Galeri Foto vs Panduan */}
+          {/* Switcher Mode: Menu Pricelist vs Fasilitas vs Panduan */}
           <div className="w-full max-w-lg mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs rounded-xl sm:rounded-2xl">
             <button
               onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -4332,7 +4422,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
-              <span>📸 Galeri Foto</span>
+              <span>🏢 Fasilitas</span>
             </button>
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}

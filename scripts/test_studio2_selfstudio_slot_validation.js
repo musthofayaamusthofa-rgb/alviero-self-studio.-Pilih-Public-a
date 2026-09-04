@@ -25,6 +25,7 @@ function checkTimeSlotAvailability({
   allSlots,
   selectedPackage,
   existingBookings = {},
+  existingSelfStudioBookings = {},
   selectedBranch = 'cabang-2',
   existingBackdrops = {},
   maxCapacityPerSlot = 3
@@ -69,6 +70,7 @@ function checkTimeSlotAvailability({
     // Aturan Khusus Self Studio di Studio 2:
     if (isStudio2 && isSelfStudio) {
       const rawBackdrops = existingBackdrops[sNorm] || existingBackdrops[slot] || [];
+      const selfStudioBookingsCount = Number(existingSelfStudioBookings[sNorm] || existingSelfStudioBookings[slot] || 0);
       let countPutih = 0;
       let countAbu = 0;
       let countCream = 0;
@@ -92,7 +94,14 @@ function checkTimeSlotAvailability({
         countSelfStudio = Number(rawBackdrops.selfstudio || rawBackdrops.countSelfStudio || 0);
       }
 
-      const canBookSelfStudio = (countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0 && countSelfStudio === 0);
+      const selfStudioAlreadyBooked = selfStudioBookingsCount >= 1 || countSelfStudio >= 1;
+      const canBookSelfStudio = (
+        !selfStudioAlreadyBooked &&
+        countPutih === 0 &&
+        countAbu === 0 &&
+        countCream === 0 &&
+        countCoklat === 0
+      );
 
       if (!canBookSelfStudio) {
         const busyList = [];
@@ -100,7 +109,7 @@ function checkTimeSlotAvailability({
         if (countAbu > 0) busyList.push('Abu-abu');
         if (countCream > 0) busyList.push('Cream');
         if (countCoklat > 0) busyList.push('Coklat');
-        if (countSelfStudio > 0 && busyList.length === 0) busyList.push('Bilik Self Studio');
+        if (selfStudioAlreadyBooked && busyList.length === 0) busyList.push('Bilik Self Studio');
 
         return {
           slot,
@@ -150,12 +159,16 @@ const testBackdrops = {
   '14:00': ['Tematik Cream'],
   '15:00': []
 };
+const testSelfStudioBookings = {
+  '13:00': 1
+};
 
 // Jalankan pengecekan untuk Paket "Self Studio"
 const resultSelfStudio = checkTimeSlotAvailability({
   allSlots: testSlots,
   selectedPackage: 'selfstudio',
   existingBookings: testBookings,
+  existingSelfStudioBookings: testSelfStudioBookings,
   selectedBranch: 'cabang-2',
   existingBackdrops: testBackdrops
 });
@@ -196,10 +209,10 @@ assert(
   'Skenario 3: Jam 12:00 (Putih terpakai) -> TIDAK AKTIF / DISABLED untuk Self Studio'
 );
 
-// Skenario 4: Jam 13:00 (Abu-abu terpakai) -> TIDAK AKTIF / DISABLED
+// Skenario 4: Jam 13:00 (1 booking Self Studio) -> TIDAK AKTIF / DISABLED
 assert(
   slotResults['13:00'].isAvailable === false && slotResults['13:00'].disabled === true,
-  'Skenario 4: Jam 13:00 (Abu-abu terpakai) -> TIDAK AKTIF / DISABLED untuk Self Studio'
+  'Skenario 4: Jam 13:00 (1 booking Self Studio) -> TIDAK AKTIF / DISABLED untuk Self Studio'
 );
 
 // Skenario 5: Jam 14:00 (Cream terpakai) -> TIDAK AKTIF / DISABLED

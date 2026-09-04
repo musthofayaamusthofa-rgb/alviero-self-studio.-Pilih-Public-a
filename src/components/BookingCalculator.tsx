@@ -7,7 +7,9 @@ import {
   ADD_ONS,
   PRO_STUDIO_TIME_SLOTS,
   SELF_STUDIO_TIME_SLOTS,
-  STUDIO_BRANCHES
+  STUDIO_BRANCHES,
+  SELF_STUDIO_SUB_PACKAGES,
+  PRINT_OPTIONS
 } from '../data/pricelistData';
 import {
   X,
@@ -64,7 +66,7 @@ export const WhatsAppIcon: React.FC<{ className?: string; size?: number; fill?: 
   </svg>
 );
 
-const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQYerfozER5QYE20q5PTfXcINS2zlEce1jRLj_VOYO_EJ-FiEJ09qeDsDDAGguC6mLQ/exec';
+const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_RuTLV0Q0pMe3LRKvqGFELu4lV5j4cVx7YPuBdO6ux8ZWBmVONRs3g_qnN_5QXlL7-w/exec';
 
 // Helper kompresi gambar client-side agar upload bukti transfer cepat & ringan (<150KB)
 const compressImage = (file: File, maxWidth = 1200, quality = 0.75): Promise<string> => {
@@ -732,6 +734,7 @@ export const checkTimeSlotAvailability = (
     allSlots: string[];
     selectedPackage: any;
     existingBookings?: { [slot: string]: number };
+    existingSelfStudioBookings?: { [slot: string]: number };
     selectedBranch?: StudioBranch;
     existingBackdrops?: { [slot: string]: any };
     maxCapacityPerSlot?: number;
@@ -739,11 +742,13 @@ export const checkTimeSlotAvailability = (
   selectedPackageParam?: any,
   existingBookingsParam: { [slot: string]: number } = {},
   selectedBranchParam: StudioBranch = 'cabang-1',
-  existingBackdropsParam: { [slot: string]: any } = {}
+  existingBackdropsParam: { [slot: string]: any } = {},
+  existingSelfStudioBookingsParam: { [slot: string]: number } = {}
 ): CheckTimeSlotAvailabilityResult => {
   let allSlots: string[];
   let selectedPackage: any;
   let existingBookings: { [slot: string]: number };
+  let existingSelfStudioBookings: { [slot: string]: number };
   let selectedBranch: StudioBranch;
   let existingBackdrops: { [slot: string]: any };
   let maxCapacityPerSlot: number;
@@ -752,6 +757,7 @@ export const checkTimeSlotAvailability = (
     allSlots = allSlotsOrOptions;
     selectedPackage = selectedPackageParam;
     existingBookings = existingBookingsParam || {};
+    existingSelfStudioBookings = existingSelfStudioBookingsParam || {};
     selectedBranch = selectedBranchParam || 'cabang-1';
     existingBackdrops = existingBackdropsParam || {};
     maxCapacityPerSlot = selectedBranch === 'cabang-2' ? 3 : 1;
@@ -759,6 +765,7 @@ export const checkTimeSlotAvailability = (
     allSlots = allSlotsOrOptions.allSlots || [];
     selectedPackage = allSlotsOrOptions.selectedPackage;
     existingBookings = allSlotsOrOptions.existingBookings || {};
+    existingSelfStudioBookings = allSlotsOrOptions.existingSelfStudioBookings || {};
     selectedBranch = allSlotsOrOptions.selectedBranch || 'cabang-1';
     existingBackdrops = allSlotsOrOptions.existingBackdrops || {};
     maxCapacityPerSlot = allSlotsOrOptions.maxCapacityPerSlot || (selectedBranch === 'cabang-2' ? 3 : 1);
@@ -811,6 +818,9 @@ export const checkTimeSlotAvailability = (
     // =========================================================================
     if (isStudio2 && isSelfStudio) {
       const rawBackdrops = existingBackdrops[sNorm] || existingBackdrops[slot] || [];
+      const selfStudioBookingsCount = Number(
+        existingSelfStudioBookings[sNorm] ?? existingSelfStudioBookings[slot] ?? 0
+      );
       let countPutih = 0;
       let countAbu = 0;
       let countCream = 0;
@@ -834,7 +844,14 @@ export const checkTimeSlotAvailability = (
         countSelfStudio = Number(rawBackdrops.selfstudio || rawBackdrops.countSelfStudio || 0);
       }
 
-      const canBookSelfStudio = (countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0 && countSelfStudio === 0);
+      const selfStudioAlreadyBooked = selfStudioBookingsCount >= 1 || countSelfStudio >= 1;
+      const canBookSelfStudio = (
+        !selfStudioAlreadyBooked &&
+        countPutih === 0 &&
+        countAbu === 0 &&
+        countCream === 0 &&
+        countCoklat === 0
+      );
 
       if (!canBookSelfStudio) {
         const busyList: string[] = [];
@@ -842,7 +859,7 @@ export const checkTimeSlotAvailability = (
         if (countAbu > 0) busyList.push('Abu-abu');
         if (countCream > 0) busyList.push('Cream');
         if (countCoklat > 0) busyList.push('Coklat');
-        if (countSelfStudio > 0 && busyList.length === 0) busyList.push('Bilik Self Studio');
+        if (selfStudioAlreadyBooked && busyList.length === 0) busyList.push('Bilik Self Studio');
 
         return {
           slot,
@@ -987,9 +1004,19 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Form State
   const [selectedPackageId, setSelectedPackageId] = useState<string>(preselectedPackageId || PACKAGES[0].id);
+  const initialSelfStudioOption = SELF_STUDIO_SUB_PACKAGES.flatMap(group => group.options).find(option => option.id === preselectedPackageId)
+    || SELF_STUDIO_SUB_PACKAGES[0].options[0];
+  const [selfStudioCategory, setSelfStudioCategory] = useState<string>(
+    SELF_STUDIO_SUB_PACKAGES.find(group => group.options.some(option => option.id === initialSelfStudioOption.id))?.category || 'Normal'
+  );
+  const [selfStudioSubPackage, setSelfStudioSubPackage] = useState<string>(initialSelfStudioOption.id);
+  const [ukuranCetak, setUkuranCetak] = useState<keyof typeof PRINT_OPTIONS | ''>('');
+  const [gridCetak, setGridCetak] = useState<string>('');
   const [selectedBackdropIds, setSelectedBackdropIds] = useState<string[]>([preselectedBackdropId || BACKDROPS[0].id]);
+  const [activeBackdropDetail, setActiveBackdropDetail] = useState<typeof BACKDROPS[number] | null>(null);
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: number }>({});
+  const [selectedAddOnGroup, setSelectedAddOnGroup] = useState<string | null>(null);
 
   const today = new Date().toISOString().split('T')[0];
   const [bookingDate, setBookingDate] = useState<string>(today);
@@ -1000,6 +1027,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [slotClientCounts, setSlotClientCounts] = useState<{ [slot: string]: number }>({});
   const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
+  const [slotSelfStudioBookings, setSlotSelfStudioBookings] = useState<{ [slot: string]: number }>({});
   const [, setIsLoadingSlots] = useState<boolean>(false);
 
   // Customer Data & Notes
@@ -1040,6 +1068,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
   const [copiedNominal, setCopiedNominal] = useState<boolean>(false);
   const [isSubmittingBooking, setIsSubmittingBooking] = useState<boolean>(false);
+  const bookingSubmissionInFlight = useRef(false);
 
   const handleCopyAccount = () => {
     navigator.clipboard.writeText('0113324021');
@@ -1063,9 +1092,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const baseTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
-  // Durasi Sesi Foto: Jika paket 2 keatas (2 background) durasi = 60 Menit (2 slot berturut-turut @30 Menit)
-  const sessionDurationMinutes = maxBackdrops > 1 ? 60 : 30;
-  const sessionSlotsCount = maxBackdrops > 1 ? 2 : 1;
+  // Durasi Self Studio mengikuti sub-paket, tetapi tetap memakai satu slot reguler.
+  const sessionDurationMinutes = isSelfStudio ? currentPackage.durationMinutes : (maxBackdrops > 1 ? 60 : 30);
+  const sessionSlotsCount = isSelfStudio ? 1 : (maxBackdrops > 1 ? 2 : 1);
 
   // Jika Paket 2 ke atas (durasi 60 menit): Hanya tampilkan jam kelipatan 1 jam (08:00, 09:00, 10:00, dst)
   // Jika Paket 1 (durasi 30 menit): Tampilkan seluruh 26 slot (08:00, 08:30, 09:00, dst)
@@ -1080,6 +1109,26 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       return isSelfStudio ? isPkgSelf : !isPkgSelf;
     });
   }, [isSelfStudio]);
+
+  const selectedSelfStudioCategory = SELF_STUDIO_SUB_PACKAGES.find(group => group.category === selfStudioCategory)
+    || SELF_STUDIO_SUB_PACKAGES[0];
+  const selectedSelfStudioOption = selectedSelfStudioCategory.options.find(option => option.id === selfStudioSubPackage)
+    || selectedSelfStudioCategory.options[0];
+  const hasFreePrint = isSelfStudio && selectedSelfStudioOption.hasFreePrint;
+
+  useEffect(() => {
+    if (!isSelfStudio) return;
+    const selectedOption = SELF_STUDIO_SUB_PACKAGES.flatMap(group => group.options).find(option => option.id === selectedPackageId);
+    if (selectedOption) {
+      const selectedGroup = SELF_STUDIO_SUB_PACKAGES.find(group => group.options.some(option => option.id === selectedOption.id));
+      if (selectedGroup) setSelfStudioCategory(selectedGroup.category);
+      setSelfStudioSubPackage(selectedOption.id);
+      if (!selectedOption.hasFreePrint) {
+        setUkuranCetak('');
+        setGridCetak('');
+      }
+    }
+  }, [isSelfStudio, selectedPackageId]);
 
   // Fetch Slot Terisi & Backdrop Terpakai dari Google Sheets secara Real-Time
   useEffect(() => {
@@ -1115,6 +1164,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               }
             });
             setSlotBackdrops(normalizedSlotBackdrops);
+          }
+          if (data.slotSelfStudioCounts && typeof data.slotSelfStudioCounts === 'object') {
+            const counts: { [s: string]: number } = {};
+            Object.entries(data.slotSelfStudioCounts).forEach(([slotRaw, count]) => {
+              const sNorm = normalizeSlotTime(slotRaw);
+              if (sNorm) counts[sNorm] = Number(count) || 0;
+            });
+            setSlotSelfStudioBookings(counts);
           }
         }
       })
@@ -1182,6 +1239,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       // =========================================================================
       if (selectedBranch === 'cabang-2' && isSelfStudio) {
         const bdsInSlot = (slotBackdrops[s] || []).map(b => String(b || '').toLowerCase());
+        const selfStudioBookingsCount = slotSelfStudioBookings[s] || 0;
         let countPutih = 0;
         let countAbu = 0;
         let countCream = 0;
@@ -1196,7 +1254,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           if (b.includes('self') || b.includes('biru')) countSelfStudio++;
         });
 
-        const canBookSelfStudio = (countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0 && countSelfStudio === 0);
+        const selfStudioAlreadyBooked = selfStudioBookingsCount >= 1 || countSelfStudio >= 1;
+        const canBookSelfStudio = (
+          !selfStudioAlreadyBooked &&
+          countPutih === 0 &&
+          countAbu === 0 &&
+          countCream === 0 &&
+          countCoklat === 0
+        );
 
         if (!canBookSelfStudio) {
           const usedList: string[] = [];
@@ -1204,7 +1269,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           if (countAbu > 0) usedList.push('Abu-abu');
           if (countCream > 0) usedList.push('Cream');
           if (countCoklat > 0) usedList.push('Coklat');
-          if (countSelfStudio > 0 && usedList.length === 0) usedList.push('Bilik Self Studio');
+          if (selfStudioAlreadyBooked && usedList.length === 0) usedList.push('Bilik Self Studio');
 
           return {
             isAvailable: false,
@@ -1233,7 +1298,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         setTimeSlot(activeTimeSlots[0]);
       }
     }
-  }, [slotClientCounts, slotBackdrops, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch]);
+  }, [slotClientCounts, slotBackdrops, slotSelfStudioBookings, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch]);
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
@@ -1487,7 +1552,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
     message += `• Pencahayaan / Background: ${backdropDisplayName}\n`;
     if (isSelfStudio) {
-      message += `• Grid Template Cetak: ${currentFrame.name}\n`;
+      message += `• Template Layout Grid: ${currentFrame.name}\n`;
+      if (hasFreePrint) {
+        message += `• Gratis Cetak: ${ukuranCetak} - ${gridCetak}\n`;
+      }
     }
     message += `\n`;
 
@@ -1551,6 +1619,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       }
       return;
     }
+    if (isSelfStudio && hasFreePrint && (!ukuranCetak || !gridCetak)) {
+      alert('⚠️ Pilih ukuran cetak dan grid cetak terlebih dahulu.');
+      return;
+    }
     if (!paymentProofImage) {
       alert('⚠️ Wajib unggah foto bukti transfer pembayaran (QRIS atau Transfer BCA) pada formulir sebelum mengirim booking.');
       const proofEl = document.getElementById('payment-proof-section');
@@ -1560,6 +1632,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       return;
     }
 
+    if (bookingSubmissionInFlight.current) return;
+    bookingSubmissionInFlight.current = true;
     setIsSubmittingBooking(true);
 
     const message = generateWhatsAppMessageText();
@@ -1593,44 +1667,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         phone: customerPhone || '-',
         package: currentPackage.name,
         addons: selectedAddOnsSummary,
+        print_size: hasFreePrint ? ukuranCetak : '',
+        print_grid: hasFreePrint ? gridCetak : '',
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS (Fee 1%)'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${hasFreePrint ? ` [Gratis Cetak: ${ukuranCetak} - ${gridCetak}]` : ''}${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
       };
-
-      // Fallback form submission to hidden iframe ensures 100% delivery even with strict browser security
-      try {
-        let iframe = document.getElementById('gas-hidden-iframe') as HTMLIFrameElement;
-        if (!iframe) {
-          iframe = document.createElement('iframe');
-          iframe.id = 'gas-hidden-iframe';
-          iframe.name = 'gas-hidden-iframe';
-          iframe.style.display = 'none';
-          document.body.appendChild(iframe);
-        }
-
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = GOOGLE_SHEETS_SCRIPT_URL;
-        form.target = 'gas-hidden-iframe';
-        form.style.display = 'none';
-
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'payload';
-        input.value = JSON.stringify(payload);
-        form.appendChild(input);
-
-        document.body.appendChild(form);
-        form.submit();
-        setTimeout(() => form.remove(), 2000);
-      } catch (formErr) {
-        console.log('Hidden form fallback note:', formErr);
-      }
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -1649,6 +1695,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     } catch (e) {
       console.log('GAS sync error:', e);
     } finally {
+      bookingSubmissionInFlight.current = false;
       setIsSubmittingBooking(false);
     }
 
@@ -1807,85 +1854,70 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
-              {/* Pilihan Opsi Tipe Layanan / Studio: Studio Foto vs SelfStudio */}
-              <div className="bg-white border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 space-y-2.5 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <label className="text-[11px] sm:text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
-                    PILIH OPSI LAYANAN STUDIO:
-                  </label>
-                  <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#F2E9E4] text-[#3A3A3A] border border-[#E8DDD6]">
-                    {isSelfStudio ? '✨ Bilik Self Studio' : '📸 Studio Foto Pro'}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (isSelfStudio) {
-                        const firstPro = PACKAGES.find(p => p.category !== 'self-studio' && !p.id.toLowerCase().includes('self'));
-                        if (firstPro) setSelectedPackageId(firstPro.id);
-                      }
-                    }}
-                    className={`p-2.5 sm:p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
-                      !isSelfStudio
-                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs ring-1 ring-[#3A3A3A]'
-                        : 'bg-[#FDFBF7] text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
-                    }`}
-                  >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${!isSelfStudio ? 'bg-white/20 text-white' : 'bg-white text-[#6E856C] border border-[#E8DDD6]'}`}>
-                      <Camera className="w-4 h-4" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="font-serif font-bold text-xs uppercase tracking-wide truncate">Studio Foto</div>
-                      <div className={`text-[9.5px] sm:text-[10px] truncate ${!isSelfStudio ? 'text-[#A9BCA7]' : 'text-stone-500'}`}>Fotografer Pro</div>
-                    </div>
-                    {!isSelfStudio && <Check className="w-3.5 h-3.5 text-[#A9BCA7] shrink-0 stroke-[3]" />}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!isSelfStudio) {
-                        const firstSelf = PACKAGES.find(p => p.category === 'self-studio' || p.id.toLowerCase().includes('self'));
-                        if (firstSelf) setSelectedPackageId(firstSelf.id);
-                      }
-                    }}
-                    className={`p-2.5 sm:p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
-                      isSelfStudio
-                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs ring-1 ring-[#3A3A3A]'
-                        : 'bg-[#FDFBF7] text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
-                    }`}
-                  >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isSelfStudio ? 'bg-white/20 text-white' : 'bg-white text-[#6E856C] border border-[#E8DDD6]'}`}>
-                      <Sparkles className="w-4 h-4" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="font-serif font-bold text-xs uppercase tracking-wide truncate">SelfStudio</div>
-                      <div className={`text-[9.5px] sm:text-[10px] truncate ${isSelfStudio ? 'text-[#A9BCA7]' : 'text-stone-500'}`}>Shutter Mandiri</div>
-                    </div>
-                    {isSelfStudio && <Check className="w-3.5 h-3.5 text-[#A9BCA7] shrink-0 stroke-[3]" />}
-                  </button>
-                </div>
-              </div>
-
               {/* 1. Pilih Paket Utama */}
               <div>
                 <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider mb-2">
                   1. PILIH PAKET {isSelfStudio ? 'SELFSTUDIO' : 'STUDIO FOTO'}:
                 </label>
-                <select
-                  value={selectedPackageId}
-                  onChange={(e) => setSelectedPackageId(e.target.value)}
-                  className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
-                >
-                  {filteredPackages.map((pkg) => (
-                    <option key={pkg.id} value={pkg.id}>
-                      {pkg.name} — Rp {pkg.price.toLocaleString('id-ID')} ({pkg.durationMinutes} Min)
-                    </option>
-                  ))}
-                </select>
+                {isSelfStudio ? (
+                  <div className="space-y-2.5">
+                    <select
+                      value={selfStudioCategory}
+                      onChange={(e) => {
+                        const nextCategory = SELF_STUDIO_SUB_PACKAGES.find(group => group.category === e.target.value) || SELF_STUDIO_SUB_PACKAGES[0];
+                        const nextOption = nextCategory.options[0];
+                        setSelfStudioCategory(nextCategory.category);
+                        setSelfStudioSubPackage(nextOption.id);
+                        setSelectedPackageId(nextOption.id);
+                      }}
+                      className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                    >
+                      {SELF_STUDIO_SUB_PACKAGES.map(group => (
+                        <option key={group.category} value={group.category}>{group.category}</option>
+                      ))}
+                    </select>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {selectedSelfStudioCategory.options.map(option => {
+                        const isSelected = selectedSelfStudioOption.id === option.id;
+                        return (
+                          <button
+                            key={option.id}
+                            type="button"
+                            onClick={() => {
+                              setSelfStudioSubPackage(option.id);
+                              setSelectedPackageId(option.id);
+                            }}
+                            className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${isSelected
+                              ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs ring-1 ring-[#3A3A3A]'
+                              : 'bg-white text-[#3A3A3A] border-[#E8DDD6] hover:border-[#6E856C]'
+                              }`}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <span className="font-serif font-bold text-xs uppercase tracking-wide">{option.name}</span>
+                              {isSelected && <Check className="w-3.5 h-3.5 text-[#A9BCA7] shrink-0" />}
+                            </div>
+                            <div className={`mt-1 text-[11px] ${isSelected ? 'text-[#A9BCA7]' : 'text-stone-500'}`}>
+                              {option.durationMinutes} menit | Rp {option.price.toLocaleString('id-ID')}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ) : (
+                  <select
+                    value={selectedPackageId}
+                    onChange={(e) => setSelectedPackageId(e.target.value)}
+                    className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                  >
+                    {filteredPackages.map((pkg) => (
+                      <option key={pkg.id} value={pkg.id}>
+                        {pkg.name} — Rp {pkg.price.toLocaleString('id-ID')} ({pkg.durationMinutes} Min)
+                      </option>
+                    ))}
+                  </select>
+                )}
               </div>
 
               {/* Package Summary Card */}
@@ -1930,28 +1962,30 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 {/* Interactive Luxury Date Selector Container */}
                 <div className="bg-white border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 space-y-3 shadow-sm">
                   {/* Quick Preset Buttons */}
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-wider mr-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2.5">
+                    <span className="text-[9.5px] font-serif font-bold text-stone-500 uppercase tracking-wider whitespace-nowrap">
                       PILIHAN CEPAT:
                     </span>
-                    {upcomingDays.slice(0, 5).map((item) => {
-                      const isSelected = bookingDate === item.dateStr;
-                      const label = item.isToday ? 'Hari Ini' : item.isTomorrow ? 'Besok' : `${item.dayName} (${item.dateNum} ${item.monthShort})`;
-                      return (
-                        <button
-                          key={item.dateStr}
-                          type="button"
-                          onClick={() => setBookingDate(item.dateStr)}
-                          className={`px-3 py-1 rounded-full text-[11px] font-sans font-semibold transition-all border cursor-pointer active:scale-95 flex items-center gap-1 ${isSelected
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4]/60 text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
-                            }`}
-                        >
-                          <span>{label}</span>
-                          {item.isWeekend && <span className="text-[10px] text-amber-600">✨</span>}
-                        </button>
-                      );
-                    })}
+                    <div className="flex flex-1 items-center gap-2 flex-wrap">
+                      {upcomingDays.slice(0, 5).map((item) => {
+                        const isSelected = bookingDate === item.dateStr;
+                        const label = item.isToday ? 'Hari Ini' : item.isTomorrow ? 'Besok' : `${item.dayName} (${item.dateNum} ${item.monthShort})`;
+                        return (
+                          <button
+                            key={item.dateStr}
+                            type="button"
+                            onClick={() => setBookingDate(item.dateStr)}
+                            className={`min-h-[40px] px-3.5 py-2 rounded-full text-[11px] font-sans font-semibold transition-all border cursor-pointer active:scale-95 flex items-center justify-center gap-1 whitespace-nowrap ${isSelected
+                              ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                              : 'bg-[#F2E9E4]/60 text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
+                              }`}
+                          >
+                            <span>{label}</span>
+                            {item.isWeekend && <span className="text-[10px] text-amber-600">✨</span>}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
                   {/* Horizontal Scrollable Date Strip */}
@@ -2134,21 +2168,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   )}
 
-                  {/* Pemberitahuan Keterlambatan / Melebihi Jam 21.00 */}
-                  <div className="mt-2.5 p-3.5 bg-[#F2E9E4]/70 border border-[#DFCFC5] rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
-                    <span className="font-bold text-sm shrink-0 mt-0.5 text-[#6E856C]">⚠️</span>
-                    <div className="space-y-0.5">
-                      <p className="font-bold text-stone-900 leading-tight">
-                        Pemberitahuan Jam Tutup & Keterlambatan:
-                      </p>
-                      <p className="text-stone-700 text-[11px] sm:text-xs leading-snug">
-                        1. Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan<br />
-                        2. Difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-stone-900">Rp. 25.000</strong><br />
-                        3. Dipindahkan ke hari berikutnya<br />
-                        4. Jika melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-stone-900">Rp. 35.000</strong>.
-                      </p>
+                  {/* Pemberitahuan ini hanya berlaku untuk booking Studio Foto. */}
+                  {!isSelfStudio && (
+                    <div className="mt-2.5 p-3.5 bg-[#F2E9E4]/70 border border-[#DFCFC5] rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                      <span className="font-bold text-sm shrink-0 mt-0.5 text-[#6E856C]">⚠️</span>
+                      <div className="space-y-0.5">
+                        <p className="font-bold text-stone-900 leading-tight">
+                          Pemberitahuan Jam Tutup & Keterlambatan:
+                        </p>
+                        <p className="text-stone-700 text-[11px] sm:text-xs leading-snug">
+                          1. Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan<br />
+                          2. Difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-stone-900">Rp. 25.000</strong><br />
+                          3. Dipindahkan ke hari berikutnya<br />
+                          4. Jika melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-stone-900">Rp. 35.000</strong>.
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
@@ -2182,11 +2218,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     const isAvailable = availability.isAvailable;
 
                     return (
-                      <button
+                      <div
                         key={backdrop.id}
-                        type="button"
-                        disabled={!isAvailable && !isSelected}
-                        onClick={() => handleSelectBackdrop(backdrop.id)}
+                        onClick={() => {
+                          if (isAvailable || isSelected) handleSelectBackdrop(backdrop.id);
+                        }}
+                        role="button"
+                        tabIndex={isAvailable || isSelected ? 0 : -1}
+                        aria-disabled={!isAvailable && !isSelected}
                         className={`min-h-[56px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all relative ${!isAvailable && !isSelected
                           ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
                           : isSelected
@@ -2233,12 +2272,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             )}
                           </div>
                         </div>
-                        {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-[#3A3A3A] text-white flex items-center justify-center shrink-0 text-xs shadow-2xs">
-                            <Check className="w-3.5 h-3.5 stroke-[3]" />
-                          </div>
-                        )}
-                      </button>
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <button
+                            type="button"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              setActiveBackdropDetail(backdrop);
+                            }}
+                            className="min-h-[28px] rounded-lg border border-[#E8DDD6] bg-white px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-stone-600 hover:border-[#6E856C] hover:text-[#3A3A3A] cursor-pointer"
+                          >
+                            Detail
+                          </button>
+                          {isSelected && (
+                            <div className="w-5 h-5 rounded-full bg-[#3A3A3A] text-white flex items-center justify-center text-xs shadow-2xs">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
@@ -2288,6 +2339,64 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
+              {activeBackdropDetail && (
+                <div className="fixed inset-0 z-[75] flex items-center justify-center bg-black/55 p-4" role="dialog" aria-modal="true" aria-label={`Detail ${activeBackdropDetail.name}`}>
+                  <div className="w-full max-w-md overflow-hidden rounded-3xl bg-[#FDFBF7] shadow-2xl">
+                    <div className="h-32 sm:h-40" style={{ backgroundColor: activeBackdropDetail.hex }}>
+                      {activeBackdropDetail.previewImage && (
+                        <img
+                          src={activeBackdropDetail.previewImage}
+                          alt={activeBackdropDetail.name}
+                          className="h-full w-full object-cover mix-blend-multiply opacity-80"
+                        />
+                      )}
+                    </div>
+                    <div className="space-y-3 p-5 text-left">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">Detail Background</p>
+                          <h3 className="mt-1 font-serif text-xl font-black text-[#3A3A3A]">{activeBackdropDetail.name}</h3>
+                        </div>
+                        <span className="h-8 w-8 shrink-0 rounded-xl border border-black/10" style={{ backgroundColor: activeBackdropDetail.hex }} />
+                      </div>
+                      <p className="text-sm leading-relaxed text-stone-600">{activeBackdropDetail.description}</p>
+                      <div className="grid grid-cols-2 gap-2 text-[11px]">
+                        <div className="rounded-xl border border-[#E8DDD6] bg-white p-3">
+                          <span className="block font-bold uppercase tracking-wide text-stone-400">Kategori</span>
+                          <span className="mt-1 block font-semibold text-[#3A3A3A]">{activeBackdropDetail.category.replace('-', ' ')}</span>
+                        </div>
+                        <div className="rounded-xl border border-[#E8DDD6] bg-white p-3">
+                          <span className="block font-bold uppercase tracking-wide text-stone-400">Status</span>
+                          <span className="mt-1 block font-semibold text-[#3A3A3A]">
+                            {selectedBackdropIds.includes(activeBackdropDetail.id) ? 'Sedang dipilih' : 'Bisa dipilih'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setActiveBackdropDetail(null)}
+                          className="min-h-[42px] flex-1 rounded-xl border border-[#E8DDD6] bg-white text-xs font-bold uppercase tracking-wide text-stone-700 hover:bg-[#F2E9E4] cursor-pointer"
+                        >
+                          Tutup
+                        </button>
+                        <button
+                          type="button"
+                          disabled={!getBackdropAvailability(activeBackdropDetail.id).isAvailable && !selectedBackdropIds.includes(activeBackdropDetail.id)}
+                          onClick={() => {
+                            handleSelectBackdrop(activeBackdropDetail.id);
+                            setActiveBackdropDetail(null);
+                          }}
+                          className="min-h-[42px] flex-1 rounded-xl bg-[#3A3A3A] text-xs font-bold uppercase tracking-wide text-white hover:bg-[#2A2A2A] disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
+                        >
+                          Pilih Background
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* 4. Pemilihan Template Frame Grid (Khusus Self Studio) */}
               {isSelfStudio && (
                 <div>
@@ -2316,6 +2425,47 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
                 </div>
               )}
+
+              {isSelfStudio && hasFreePrint && (
+                <div className="space-y-3 bg-white border border-[#E8DDD6] rounded-2xl p-4 shadow-sm">
+                  <div>
+                    <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider mb-2">
+                      5. PILIHAN CETAK GRATIS:
+                    </label>
+                    <select
+                      value={ukuranCetak}
+                      onChange={(e) => {
+                        setUkuranCetak(e.target.value as keyof typeof PRINT_OPTIONS);
+                        setGridCetak('');
+                      }}
+                      className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                    >
+                      <option value="">Pilih ukuran cetak</option>
+                      {(Object.keys(PRINT_OPTIONS) as Array<keyof typeof PRINT_OPTIONS>).map(size => (
+                        <option key={size} value={size}>{size}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {ukuranCetak && (
+                    <div>
+                      <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider mb-2">
+                        PILIH GRID CETAK {ukuranCetak}:
+                      </label>
+                      <select
+                        value={gridCetak}
+                        onChange={(e) => setGridCetak(e.target.value)}
+                        className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                      >
+                        <option value="">Pilih variasi grid</option>
+                        {PRINT_OPTIONS[ukuranCetak].map(grid => (
+                          <option key={grid} value={grid}>{grid}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -2329,6 +2479,29 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               if (!addOn.applicableCategories) return true;
               return addOn.applicableCategories.includes(packageCatInfo.key);
             });
+            const addOnGroupMeta: Record<string, { label: string; description: string; className: string }> = {
+              selfstudio: { label: 'Self Studio', description: 'Tambahan khusus sesi foto mandiri', className: 'bg-emerald-50 border-emerald-200 text-emerald-950' },
+              background: { label: 'Background', description: 'Tambahan pilihan latar foto', className: 'bg-cyan-50 border-cyan-200 text-cyan-950' },
+              frame: { label: 'Cetak & Bingkai', description: 'Pilihan cetak dan pelengkap foto', className: 'bg-amber-50 border-amber-200 text-amber-950' },
+              file: { label: 'File & Penyimpanan', description: 'Perpanjangan dan pengelolaan file', className: 'bg-sky-50 border-sky-200 text-sky-950' },
+              mua: { label: 'MUA & Kebaya', description: 'Make up, hairdo, dan layanan penampilan', className: 'bg-violet-50 border-violet-200 text-violet-950' },
+              person: { label: 'Orang & Kostum', description: 'Tambahan peserta dan outfit', className: 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-950' },
+              prop: { label: 'Properti & Aksesori', description: 'Tambahan properti sesi foto', className: 'bg-orange-50 border-orange-200 text-orange-950' },
+              'pass-foto': { label: 'Pass Foto', description: 'Layanan tambahan pass foto', className: 'bg-lime-50 border-lime-200 text-lime-950' }
+            };
+            const getAddOnGroupKey = (addOn: typeof relevantAddOns[number]): string => {
+              const normalizedName = addOn.name.toLowerCase();
+              if (normalizedName.includes('background')) return 'background';
+              if (normalizedName.includes('cetak') || normalizedName.includes('bingkai')) return 'frame';
+              if (normalizedName.includes('make up') || normalizedName.includes('makeup') || normalizedName.includes('hairdo')) return 'mua';
+              return addOn.category;
+            };
+            const groupedAddOns = relevantAddOns.reduce<Record<string, typeof relevantAddOns>>((groups, addOn) => {
+              const groupKey = getAddOnGroupKey(addOn);
+              (groups[groupKey] ||= []).push(addOn);
+              return groups;
+            }, {});
+            const activeAddOnGroup = selectedAddOnGroup ? groupedAddOns[selectedAddOnGroup] : undefined;
 
             return (
               <div className="space-y-4">
@@ -2373,58 +2546,88 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   )}
 
-                  {/* List Add-Ons */}
+                  {/* Add-On Groups */}
                   {relevantAddOns.length === 0 ? (
                     <div className="p-6 bg-white border border-[#E8DDD6] rounded-2xl text-center space-y-1 shadow-sm">
                       <p className="text-xs font-bold text-stone-600">Tidak ada Add-Ons tambahan khusus untuk paket ini.</p>
                       <p className="text-[11px] text-stone-400">Paket ini sudah include seluruh fasilitas utama.</p>
                     </div>
                   ) : (
-                    <div className="space-y-2.5">
-                      {relevantAddOns.map(addOn => {
-                        const qty = selectedAddOns[addOn.id] || 0;
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {Object.entries(groupedAddOns).map(([groupKey, groupItems]) => {
+                        const meta = addOnGroupMeta[groupKey] || { label: groupKey, description: 'Layanan tambahan', className: 'bg-stone-50 border-stone-200 text-stone-950' };
+                        const selectedCount = groupItems.reduce((total, addOn) => total + (selectedAddOns[addOn.id] || 0), 0);
                         return (
-                          <div
-                            key={addOn.id}
-                            className={`p-4 rounded-2xl border transition-all flex items-center justify-between gap-3 ${qty > 0
-                              ? 'bg-white border-[#3A3A3A] ring-1 ring-[#3A3A3A] shadow-sm'
-                              : 'bg-white hover:border-stone-400 border-[#E8DDD6] shadow-2xs'
-                              }`}
+                          <button
+                            key={groupKey}
+                            type="button"
+                            onClick={() => setSelectedAddOnGroup(groupKey)}
+                            className={`min-h-[92px] rounded-2xl border p-4 text-left transition-all hover:-translate-y-0.5 hover:shadow-md ${meta.className}`}
                           >
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A]">{addOn.name}</span>
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <span className="block font-serif font-bold text-sm uppercase tracking-wide">{meta.label}</span>
+                                <span className="mt-1 block text-[11px] opacity-75">{meta.description}</span>
                               </div>
-                              <div className="text-[11px] sm:text-xs text-stone-500 mt-0.5 leading-snug">
-                                {addOn.description}
-                              </div>
-                              <div className="text-xs sm:text-sm mt-1 text-[#6E856C] font-bold">
-                                Rp {addOn.price.toLocaleString('id-ID')} <span className="text-[11px] text-stone-400 font-normal">/ {addOn.unit}</span>
-                              </div>
+                              <span className="rounded-full bg-white/70 px-2 py-0.5 text-[10px] font-bold">
+                                {selectedCount > 0 ? `${selectedCount} dipilih` : `${groupItems.length} opsi`}
+                              </span>
                             </div>
-
-                            {/* Quantity Selector */}
-                            <div className="flex items-center gap-1.5 bg-[#FDFBF7] border border-[#E8DDD6] rounded-xl p-1 shrink-0 shadow-2xs">
-                              <button
-                                type="button"
-                                onClick={() => handleAddOnQtyChange(addOn.id, -1)}
-                                disabled={qty === 0}
-                                className="w-8 h-8 rounded-lg bg-white hover:bg-stone-100 disabled:opacity-30 text-stone-700 font-bold text-xs flex items-center justify-center border border-[#E8DDD6] cursor-pointer active:scale-95"
-                              >
-                                <Minus className="w-3.5 h-3.5 stroke-[2]" />
-                              </button>
-                              <span className="w-6 text-center font-mono font-bold text-xs text-[#3A3A3A]">{qty}</span>
-                              <button
-                                type="button"
-                                onClick={() => handleAddOnQtyChange(addOn.id, 1)}
-                                className="w-8 h-8 rounded-lg bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-bold text-xs flex items-center justify-center border border-[#3A3A3A] cursor-pointer active:scale-95 shadow-xs"
-                              >
-                                <Plus className="w-3.5 h-3.5 stroke-[2]" />
-                              </button>
-                            </div>
-                          </div>
+                            <span className="mt-3 block text-[10px] font-bold uppercase tracking-wider opacity-70">Tekan untuk melihat opsi →</span>
+                          </button>
                         );
                       })}
+                    </div>
+                  )}
+
+                  {activeAddOnGroup && (
+                    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4">
+                      <div className="max-h-[86vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl bg-[#FDFBF7] p-4 shadow-2xl sm:rounded-3xl sm:p-5">
+                        <div className="mb-4 flex items-start justify-between gap-3 border-b border-[#E8DDD6] pb-3">
+                          <div>
+                            <h5 className="font-serif text-base font-bold uppercase tracking-wide text-[#3A3A3A]">
+                              {addOnGroupMeta[selectedAddOnGroup || '']?.label || selectedAddOnGroup}
+                            </h5>
+                            <p className="mt-1 text-[11px] text-stone-500">Pilih jumlah layanan tambahan yang diperlukan.</p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedAddOnGroup(null)}
+                            aria-label="Tutup kelompok add-on"
+                            className="rounded-full p-2 text-stone-500 hover:bg-[#F2E9E4]"
+                          >
+                            <X className="h-5 w-5" />
+                          </button>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {activeAddOnGroup.map(addOn => {
+                            const qty = selectedAddOns[addOn.id] || 0;
+                            return (
+                              <div key={addOn.id} className={`flex items-center justify-between gap-3 rounded-2xl border p-3.5 transition-all ${qty > 0 ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A]' : 'border-[#E8DDD6] bg-white'}`}>
+                                <div className="min-w-0 flex-1">
+                                  <span className="block font-serif text-xs font-bold text-[#3A3A3A] sm:text-sm">{addOn.name}</span>
+                                  <span className="mt-0.5 block text-[11px] leading-snug text-stone-500">{addOn.description}</span>
+                                  <span className="mt-1 block text-xs font-bold text-[#6E856C]">Rp {addOn.price.toLocaleString('id-ID')} <span className="font-normal text-stone-400">/ {addOn.unit}</span></span>
+                                </div>
+                                <div className="flex shrink-0 items-center gap-1.5 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-1">
+                                  <button type="button" onClick={() => handleAddOnQtyChange(addOn.id, -1)} disabled={qty === 0} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E8DDD6] bg-white text-stone-700 disabled:opacity-30">
+                                    <Minus className="h-3.5 w-3.5" />
+                                  </button>
+                                  <span className="w-6 text-center font-mono text-xs font-bold text-[#3A3A3A]">{qty}</span>
+                                  <button type="button" onClick={() => handleAddOnQtyChange(addOn.id, 1)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3A3A3A] text-white">
+                                    <Plus className="h-3.5 w-3.5" />
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <button type="button" onClick={() => setSelectedAddOnGroup(null)} className="mt-4 min-h-[42px] w-full rounded-xl bg-[#3A3A3A] text-xs font-bold uppercase tracking-wider text-white">
+                          Selesai Memilih
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -3110,13 +3313,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="flex justify-between text-emerald-400 font-bold">
                     <span>Diskon Promo ({appliedPromo?.code})</span>
                     <span>- Rp {discountValue.toLocaleString('id-ID')}</span>
-                  </div>
-                )}
-
-                {paymentMethod === 'qris' && qrisFee > 0 && (
-                  <div className="flex justify-between text-amber-300 font-medium">
-                    <span>Biaya Layanan QRIS (1%)</span>
-                    <span>+ Rp {qrisFee.toLocaleString('id-ID')}</span>
                   </div>
                 )}
 

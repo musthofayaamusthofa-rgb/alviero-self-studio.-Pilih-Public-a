@@ -1,5 +1,53 @@
 import { PackageItem, CategoryInfo, BackdropOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
 
+export interface SelfStudioSubPackageOption {
+  id: string;
+  name: string;
+  durationMinutes: number;
+  price: number;
+  hasFreePrint: boolean;
+}
+
+export interface SelfStudioSubPackageGroup {
+  category: 'Normal' | 'Colour Spotlight' | 'Spesial';
+  options: SelfStudioSubPackageOption[];
+}
+
+export const SELF_STUDIO_SUB_PACKAGES: SelfStudioSubPackageGroup[] = [
+  {
+    category: 'Normal',
+    options: [
+      { id: 'self-normal-narsis', name: 'Normal narsis', durationMinutes: 15, price: 80000, hasFreePrint: true },
+      { id: 'self-normal-super-narsis', name: 'Normal super narsis', durationMinutes: 20, price: 95000, hasFreePrint: true }
+    ]
+  },
+  {
+    category: 'Colour Spotlight',
+    options: [
+      { id: 'self-special-spotlight', name: 'Special Colour Spotlight', durationMinutes: 20, price: 99000, hasFreePrint: true },
+      { id: 'self-normal-spotlight', name: 'Normal Colour Spotlight', durationMinutes: 20, price: 115000, hasFreePrint: true }
+    ]
+  },
+  {
+    category: 'Spesial',
+    options: [
+      { id: 'self-special-narsis', name: 'Spesial narsis', durationMinutes: 15, price: 55000, hasFreePrint: false },
+      { id: 'self-special-super-narsis', name: 'Spesial super narsis', durationMinutes: 20, price: 70000, hasFreePrint: true }
+    ]
+  }
+];
+
+export const PRINT_OPTIONS = {
+  '3R': [
+    'Grid 1a', 'Grid 1b', 'Grid 1c', 'Grid 1d', 'Grid 1e',
+    'Grid 4a', 'Grid 4b', 'Grid 4c', 'Grid 4d', 'Grid 4e'
+  ],
+  '4R': [
+    'Grid 3a', 'Grid 3b', 'Grid 3c', 'Grid 3d', 'Grid 3e',
+    'Grid 6a', 'Grid 6b', 'Grid 6c', 'Grid 6d', 'Grid 6e'
+  ]
+} as const;
+
 export const CATEGORIES: CategoryInfo[] = [
   {
     id: 'graduation-indoor',
@@ -1002,6 +1050,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "Belum Termasuk Cetak",
     "softFilesIncluded": true,
+    "hasFreePrint": false,
     "price": 55000,
     "originalPrice": 75000,
     "description": "Maksimal 5 orang (Lebih dari 5 +15k/orang), Unlimited shoots, Durasi 15 menit/sesi foto, Belum termasuk cetak, 1 Background, Available fun props, All file Google Drive.",
@@ -1029,6 +1078,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "Free Cetak 2 Polaroid",
     "softFilesIncluded": true,
+    "hasFreePrint": true,
     "price": 70000,
     "originalPrice": 90000,
     "description": "Maksimal 5 orang (Lebih dari 5 +15k/orang), Unlimited shoots, Durasi 20 menit/sesi foto, Free cetak 2 polaroid, 1 Background, Available fun props, All file Google Drive.",
@@ -1056,6 +1106,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "Free 2 Lembar Cetak Polaroid",
     "softFilesIncluded": true,
+    "hasFreePrint": true,
     "price": 80000,
     "originalPrice": 100000,
     "description": "Paket Self Studio Normal tanpa syarat & ketentuan. Maksimal 5 orang dengan durasi 15 menit, unlimited shoots, dan gratis semua soft file via Google Drive.",
@@ -1082,6 +1133,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "Free 2 Lembar Cetak Polaroid",
     "softFilesIncluded": true,
+    "hasFreePrint": true,
     "price": 95000,
     "originalPrice": 120000,
     "description": "Sesi foto lebih puas 20 menit tanpa syarat & ketentuan! Bebas berekspresi sepuasnya tanpa rasa canggung untuk maksimal 5 orang.",
@@ -1108,6 +1160,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "Free 2 Lembar Cetak Polaroid Spotlight",
     "softFilesIncluded": true,
+    "hasFreePrint": true,
     "price": 99000,
     "originalPrice": 125000,
     "description": "Efek pencahayaan spotlight warna-warni dual-tone (Cyber Magenta, Warm Sunset, Electric Cyan) harga hemat dengan Wajib Mengikuti Syarat & Ketentuan.",
@@ -1134,6 +1187,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "Free 2 Lembar Cetak Polaroid Spotlight",
     "softFilesIncluded": true,
+    "hasFreePrint": true,
     "price": 115000,
     "originalPrice": 140000,
     "description": "Pencahayaan sorot fokus lingkaran hangat/warna dengan latar belakang netral tanpa perlu mengikuti syarat & ketentuan.",
