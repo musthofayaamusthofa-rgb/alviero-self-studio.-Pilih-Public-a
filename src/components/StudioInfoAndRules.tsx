@@ -55,11 +55,14 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       whatsappNumber: '6285168879214',
       whatsappDisplay: '0851-6887-9214',
       operationalHours: 'Setiap Hari: 08:00 - 21:00 WIB',
-      backdrops: ['Hitam', 'Putih', 'Abu-abu', 'Coklat Jendela', 'Tematik Cream (Maks 5 Orang)'],
+      backdrops: [
+        'Studio Foto: Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream (Maks 5 Org)',
+        'SelfStudio: Abu-abu, Biru, Putih, Tematik Cream'
+      ],
       highlights: [
         'Terletak di Lantai 2 (suasana privat & eksklusif)',
         'Lokasi strategis pusat kota, dekat kampus UB, UIN, UM, Unisma',
-        'Pilihan 5 background kekinian termasuk Tematik Cream & Coklat Jendela',
+        'Pilihan background berbeda untuk Studio Foto (5 Latar) & SelfStudio (4 Latar)',
         'Ruang make up & ganti baju'
       ]
     }

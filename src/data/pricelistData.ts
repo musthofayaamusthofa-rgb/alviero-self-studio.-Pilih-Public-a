@@ -1182,7 +1182,7 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
 ];
 
 export const BACKGROUNDS: BackgroundOption[] = [
-  // ==================== STUDIO 1 & 2 - BACKGROUNDS ====================
+  // ==================== STUDIO 1 - BACKGROUNDS ====================
   {
     id: 'hijau',
     name: 'Hijau Pastel',
@@ -1190,7 +1190,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#A7D7C5',
     description: 'Latar hijau pastel lembut untuk nuansa foto estetik dan segar.',
     previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
   {
@@ -1200,7 +1200,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#FEF3C7',
     description: 'Latar cream hangat untuk tone pastel yang lembut.',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
   {
@@ -1210,7 +1210,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#E5E7EB',
     description: 'Latar limbo mulus tanpa sudut untuk efek ruang tak terbatas.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
   {
@@ -1220,7 +1220,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#F1F5F9',
     description: 'Latar putih tengah dengan pencahayaan seimbang.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
   {
@@ -1230,11 +1230,11 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#FAFAFA',
     description: 'Latar putih cerah dengan efek pencahayaan jendela natural.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
+    applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
 
-  // ==================== STUDIO 2 (DINOYO) - 5 BACKGROUND RESMI ====================
+  // ==================== STUDIO 2 (DINOYO) - STUDIO FOTO (5 BACKGROUND) ====================
   {
     id: 'c2-hitam',
     name: 'Hitam',
@@ -1242,7 +1242,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#111827',
     description: 'Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.',
     previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
+    applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
@@ -1252,7 +1252,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#F8FAFC',
     description: 'Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
+    applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
@@ -1262,7 +1262,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#64748B',
     description: 'Latar abu-abu netral elegan untuk kesan modern & aesthetic.',
     previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
+    applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
@@ -1272,7 +1272,7 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#92400E',
     description: 'Latar coklat klasik dengan ornamen jendela mewah berkarakter.',
     previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
+    applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-2']
   },
   {
@@ -1282,7 +1282,49 @@ export const BACKGROUNDS: BackgroundOption[] = [
     hex: '#FEF3C7',
     description: 'Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
+    applicableTo: ['pro-studio'],
+    applicableBranches: ['cabang-2']
+  },
+
+  // ==================== STUDIO 2 (DINOYO) - SELFSTUDIO (4 BACKGROUND) ====================
+  {
+    id: 'c2-self-abu',
+    name: 'Abu-abu',
+    category: 'solid-color',
+    hex: '#64748B',
+    description: 'Latar abu-abu netral aesthetic untuk foto mandiri kekinian.',
+    previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-self-biru',
+    name: 'Biru',
+    category: 'solid-color',
+    hex: '#2563EB',
+    description: 'Latar biru aesthetic & fresh khas bilik foto mandiri Alviero.',
+    previewImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-self-putih',
+    name: 'Putih',
+    category: 'solid-color',
+    hex: '#F8FAFC',
+    description: 'Latar putih bersih minimalis untuk ekspresi gaya bebas.',
+    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-2']
+  },
+  {
+    id: 'c2-self-tematik-cream',
+    name: 'Tematik Cream',
+    category: 'solid-color',
+    hex: '#FEF3C7',
+    description: 'Latar tematik cream hangat untuk nuansa pastel aesthetic (Maksimal 5 Orang).',
+    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
     applicableBranches: ['cabang-2']
   }
 ];

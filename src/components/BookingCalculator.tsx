@@ -934,6 +934,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     ? baseTimeSlots.filter(s => s.endsWith(':00'))
     : baseTimeSlots;
 
+  // Filter paket berdasarkan tipe ruangan yang aktif (SelfStudio vs Studio Foto)
+  const filteredPackages = useMemo(() => {
+    return PACKAGES.filter(pkg => {
+      const isPkgSelf = pkg.category === 'self-studio' || pkg.id.toLowerCase().includes('self');
+      return isSelfStudio ? isPkgSelf : !isPkgSelf;
+    });
+  }, [isSelfStudio]);
+
   // Fetch Slot Terisi & Backdrop Terpakai dari Google Sheets secara Real-Time
   useEffect(() => {
     if (!isOpen || !bookingDate) return;
@@ -1068,14 +1076,33 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const bookedForSlot = (slotBackdrops[normTime] || []).map(b => String(b).toLowerCase());
     const bdIdLower = bdObj.id.toLowerCase();
 
-    // 1. Validasi Studio 2 (Cabang 2): Kuota Dinamis Ganda (Hitam+Coklat <= 3, Putih+Abu <= 2, Cream <= 1)
+    // 1. Validasi Studio 2 (Cabang 2):
     if (selectedBranch === 'cabang-2') {
-      const dynamicResult = checkDualDynamicAvailability(bookedForSlot);
-      if (!dynamicResult.availableIds.includes(backdropId)) {
-        return {
-          isAvailable: false,
-          reason: dynamicResult.lockedReasons[backdropId] || `Kuota background sudah habis di jam ${normTime} WIB`
-        };
+      if (isSelfStudio) {
+        // SelfStudio Studio 2 (Abu-abu, Biru, Putih, Tematik Cream)
+        const isAlreadyBooked = bookedForSlot.some(b => {
+          const lower = b.toLowerCase();
+          return lower.includes(bdObj.name.toLowerCase()) || lower.includes(bdIdLower) ||
+            (bdIdLower.includes('abu') && lower.includes('abu')) ||
+            (bdIdLower.includes('biru') && lower.includes('biru')) ||
+            (bdIdLower.includes('putih') && lower.includes('putih')) ||
+            (bdIdLower.includes('cream') && (lower.includes('cream') || lower.includes('krem')));
+        });
+        if (isAlreadyBooked) {
+          return {
+            isAvailable: false,
+            reason: `Sudah dipilih oleh klien lain di jam ${normTime} WIB`
+          };
+        }
+      } else {
+        // Studio Foto Studio 2: Kuota Dinamis Ganda (Hitam+Coklat <= 3, Putih+Abu <= 2, Cream <= 1)
+        const dynamicResult = checkDualDynamicAvailability(bookedForSlot);
+        if (!dynamicResult.availableIds.includes(backdropId)) {
+          return {
+            isAvailable: false,
+            reason: dynamicResult.lockedReasons[backdropId] || `Kuota background sudah habis di jam ${normTime} WIB`
+          };
+        }
       }
     }
 
@@ -1601,17 +1628,80 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
               </div>
 
+              {/* Pilihan Opsi Tipe Layanan / Studio: Studio Foto vs SelfStudio */}
+              <div className="bg-white border border-[#E8DDD6] rounded-2xl p-3.5 sm:p-4 space-y-2.5 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] sm:text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
+                    PILIH OPSI LAYANAN STUDIO:
+                  </label>
+                  <span className="text-[10px] font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#F2E9E4] text-[#3A3A3A] border border-[#E8DDD6]">
+                    {isSelfStudio ? '✨ Bilik Self Studio' : '📸 Studio Foto Pro'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isSelfStudio) {
+                        const firstPro = PACKAGES.find(p => p.category !== 'self-studio' && !p.id.toLowerCase().includes('self'));
+                        if (firstPro) setSelectedPackageId(firstPro.id);
+                      }
+                    }}
+                    className={`p-2.5 sm:p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
+                      !isSelfStudio
+                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs ring-1 ring-[#3A3A3A]'
+                        : 'bg-[#FDFBF7] text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${!isSelfStudio ? 'bg-white/20 text-white' : 'bg-white text-[#6E856C] border border-[#E8DDD6]'}`}>
+                      <Camera className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-serif font-bold text-xs uppercase tracking-wide truncate">Studio Foto</div>
+                      <div className={`text-[9.5px] sm:text-[10px] truncate ${!isSelfStudio ? 'text-[#A9BCA7]' : 'text-stone-500'}`}>Fotografer Pro</div>
+                    </div>
+                    {!isSelfStudio && <Check className="w-3.5 h-3.5 text-[#A9BCA7] shrink-0 stroke-[3]" />}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!isSelfStudio) {
+                        const firstSelf = PACKAGES.find(p => p.category === 'self-studio' || p.id.toLowerCase().includes('self'));
+                        if (firstSelf) setSelectedPackageId(firstSelf.id);
+                      }
+                    }}
+                    className={`p-2.5 sm:p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all cursor-pointer ${
+                      isSelfStudio
+                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs ring-1 ring-[#3A3A3A]'
+                        : 'bg-[#FDFBF7] text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A]'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isSelfStudio ? 'bg-white/20 text-white' : 'bg-white text-[#6E856C] border border-[#E8DDD6]'}`}>
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-serif font-bold text-xs uppercase tracking-wide truncate">SelfStudio</div>
+                      <div className={`text-[9.5px] sm:text-[10px] truncate ${isSelfStudio ? 'text-[#A9BCA7]' : 'text-stone-500'}`}>Shutter Mandiri</div>
+                    </div>
+                    {isSelfStudio && <Check className="w-3.5 h-3.5 text-[#A9BCA7] shrink-0 stroke-[3]" />}
+                  </button>
+                </div>
+              </div>
+
               {/* 1. Pilih Paket Utama */}
               <div>
                 <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider mb-2">
-                  1. PILIH PAKET FOTO UTAMA:
+                  1. PILIH PAKET {isSelfStudio ? 'SELFSTUDIO' : 'STUDIO FOTO'}:
                 </label>
                 <select
                   value={selectedPackageId}
                   onChange={(e) => setSelectedPackageId(e.target.value)}
                   className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
                 >
-                  {PACKAGES.map((pkg) => (
+                  {filteredPackages.map((pkg) => (
                     <option key={pkg.id} value={pkg.id}>
                       {pkg.name} — Rp {pkg.price.toLocaleString('id-ID')} ({pkg.durationMinutes} Min)
                     </option>
@@ -1889,15 +1979,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
                     3. {maxBackdrops > 1 ? 'PILIH 2 BACKGROUND FOTO / PENCAHAYAAN:' : 'PILIH BACKGROUND FOTO / PENCAHAYAAN:'}
                   </label>
-                  {maxBackdrops > 1 ? (
-                    <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-3 py-1 rounded-full shadow-2xs">
-                      Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[10px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                      {isSelfStudio ? '✨ Bilik Self Studio' : '📸 Studio Foto Pro'}
                     </span>
-                  ) : (
-                    <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-3 py-1 rounded-full shadow-2xs">
-                      1 Background
-                    </span>
-                  )}
+                    {maxBackdrops > 1 ? (
+                      <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-3 py-1 rounded-full shadow-2xs">
+                        Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
+                      </span>
+                    ) : (
+                      <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-3 py-1 rounded-full shadow-2xs">
+                        1 Background
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -1935,7 +2030,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             <span className={`font-serif font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-stone-400 line-through' : 'text-[#3A3A3A]'}`}>
                               {backdrop.name}
                             </span>
-                            {backdrop.id === 'c2-tematik-cream' && (
+                            {(backdrop.id.includes('cream') || backdrop.name.toLowerCase().includes('cream')) && (
                               <span className="text-[8.5px] font-sans font-bold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.2 rounded-full">
                                 Maks. 5 Orang
                               </span>
