@@ -1062,18 +1062,18 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
               <div className="w-full pt-3 border-t border-stone-200/80">
-                <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-left">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-left">
                   {socialLinks.map((s, idx) => (
                     <a
                       key={idx}
                       href={s.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1.5 text-[10.5px] font-medium text-stone-600 hover:text-[#6c8c74] transition-colors py-0.5 truncate"
+                      className="flex min-h-[32px] items-center gap-2.5 rounded-lg px-2 text-xs font-medium text-stone-600 hover:bg-[#FDFBF7] hover:text-[#6c8c74] transition-colors truncate"
                     >
-                      {s.icon === 'tiktok' && <Music2 className="w-3 h-3 text-stone-500 shrink-0" />}
-                      {s.icon === 'instagram' && <Instagram className="w-3 h-3 text-stone-500 shrink-0" />}
-                      {s.icon === 'whatsapp' && <MessageCircle className="w-3 h-3 text-stone-500 shrink-0" />}
+                      {s.icon === 'tiktok' && <Music2 className="w-4 h-4 text-stone-500 shrink-0" />}
+                      {s.icon === 'instagram' && <Instagram className="w-4 h-4 text-stone-500 shrink-0" />}
+                      {s.icon === 'whatsapp' && <MessageCircle className="w-4 h-4 text-stone-500 shrink-0" />}
                       <span className="truncate">{s.label}</span>
                     </a>
                   ))}
