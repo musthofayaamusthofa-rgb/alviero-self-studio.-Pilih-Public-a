@@ -58,6 +58,10 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 >      - Klien 2 pilih *Coklat* ➔ *Coklat* terkunci & *Cream* otomatis ikut terkunci.
 >      - Klien 3 masuk ➔ Pilihan yang tersedia HANYA: ***Hitam***.
 > - **B. Aturan Studio 1:** Background *Limbo* dan *Putih Tengah* berada di panggung yang sama dan tidak bisa dipilih bersamaan dalam 1 waktu / sesi oleh 1 klien.
+> - **C. Aturan Khusus Ketersediaan Jam Self Studio (Studio 2):**
+>   - Pada Studio 2, paket *"Self Studio"* memiliki syarat ketersediaan ruangan khusus karena menggunakan area panggung utama.
+>   - Slot jam HANYA BISA AKTIF (Tersedia) untuk dipesan oleh paket Self Studio **JIKA DAN HANYA JIKA** 4 background: *Putih, Abu-abu, Cream, dan Coklat* **BELUM DIPILIH SAMA SEKALI** (jumlah pemakaian = 0) oleh klien lain di jam tersebut (`countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0`).
+>   - Jika ada klien lain yang sedang memakai background *"Hitam"* di jam tersebut, paket Self Studio **TETAP DIIZINKAN (Valid)**.
 
 > ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**

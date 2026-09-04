@@ -73,7 +73,7 @@ function handleRequest(e) {
     if (action === 'check_slots') {
       var dateParam = params.date || '';
       var branchParam = String(params.branch || 'cabang-1').toLowerCase();
-      var studioTypeParam = String(params.studio_type || 'studio_foto').toLowerCase();
+      var studioTypeParam = String(params.studio_type || '').toLowerCase();
 
       var sheetName = (branchParam.indexOf('2') !== -1 || branchParam.indexOf('dinoyo') !== -1) ? 'Cabang 2' : 'Cabang 1';
       var sheet = ss.getSheetByName(sheetName);
@@ -113,7 +113,7 @@ function handleRequest(e) {
           continue; // Status PENDING atau CANCELLED tidak mengunci kuota
         }
 
-        if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam)) {
+        if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam || studioTypeParam === 'all')) {
           var occupiedSlots = getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
 
           for (var sIdx = 0; sIdx < occupiedSlots.length; sIdx++) {

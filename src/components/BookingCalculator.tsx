@@ -720,30 +720,77 @@ export interface CheckTimeSlotAvailabilityResult {
 }
 
 /**
- * Logika Validasi Ketersediaan "Jam Slot Studio Foto" untuk Studio 1 & Studio 2 (Durasi Dinamis)
+ * Logika Validasi Ketersediaan "Jam Slot Studio Foto & Self Studio" untuk Studio 1 & Studio 2 (Durasi Dinamis)
  * 
- * Aturan:
- * 1. Jika Paket 1 (1 Background): Durasi 30 Menit (1 slot). Hanya cek slot tersebut.
- * 2. Jika Paket 2 ke atas (2 Background / Durasi 1 Jam):
- *    - Membutuhkan 2 slot berurutan (misal: 10:00 & 10:30).
- *    - Tombol jam (10:00) HANYA BISA AKTIF jika jam 10:00 DAN jam 10:30 keduanya tersedia.
- *    - Jika jam 10:30 sudah penuh, jam 10:00 otomatis DISABLED (disabled: true).
+ * Aturan Khusus Self Studio di Studio 2:
+ * - Slot jam HANYA BISA AKTIF (Tersedia) JIKA DAN HANYA JIKA:
+ *   Putih, Abu-abu, Cream, dan Coklat BELUM DIPILIH SAMA SEKALI (pemakaian = 0) oleh klien lain.
+ * - Catatan: Jika ada klien lain yang memakai background "Hitam", Self Studio TETAP DIIZINKAN (Valid).
  */
 export const checkTimeSlotAvailability = (
-  allSlots: string[],
-  selectedPackage: { id: string; name: string; category: string; maxBackdrops?: number; description?: string; highlights?: string[] },
-  existingBookings: { [slot: string]: number } = {},
-  selectedBranch: StudioBranch = 'cabang-1'
+  allSlotsOrOptions: string[] | {
+    allSlots: string[];
+    selectedPackage: any;
+    existingBookings?: { [slot: string]: number };
+    selectedBranch?: StudioBranch;
+    existingBackdrops?: { [slot: string]: any };
+    maxCapacityPerSlot?: number;
+  },
+  selectedPackageParam?: any,
+  existingBookingsParam: { [slot: string]: number } = {},
+  selectedBranchParam: StudioBranch = 'cabang-1',
+  existingBackdropsParam: { [slot: string]: any } = {}
 ): CheckTimeSlotAvailabilityResult => {
-  const maxBackdrops = getPackageMaxBackdrops(selectedPackage);
+  let allSlots: string[];
+  let selectedPackage: any;
+  let existingBookings: { [slot: string]: number };
+  let selectedBranch: StudioBranch;
+  let existingBackdrops: { [slot: string]: any };
+  let maxCapacityPerSlot: number;
+
+  if (Array.isArray(allSlotsOrOptions)) {
+    allSlots = allSlotsOrOptions;
+    selectedPackage = selectedPackageParam;
+    existingBookings = existingBookingsParam || {};
+    selectedBranch = selectedBranchParam || 'cabang-1';
+    existingBackdrops = existingBackdropsParam || {};
+    maxCapacityPerSlot = selectedBranch === 'cabang-2' ? 3 : 1;
+  } else {
+    allSlots = allSlotsOrOptions.allSlots || [];
+    selectedPackage = allSlotsOrOptions.selectedPackage;
+    existingBookings = allSlotsOrOptions.existingBookings || {};
+    selectedBranch = allSlotsOrOptions.selectedBranch || 'cabang-1';
+    existingBackdrops = allSlotsOrOptions.existingBackdrops || {};
+    maxCapacityPerSlot = allSlotsOrOptions.maxCapacityPerSlot || (selectedBranch === 'cabang-2' ? 3 : 1);
+  }
+
+  const pkgObj = typeof selectedPackage === 'string'
+    ? { id: selectedPackage, name: selectedPackage, category: selectedPackage }
+    : (selectedPackage || {});
+
+  const maxBackdrops = getPackageMaxBackdrops(pkgObj);
   const isPaket2OrHigher = maxBackdrops > 1;
   const requiredSlotsCount = isPaket2OrHigher ? 2 : 1;
   const durationMinutes = requiredSlotsCount * 30;
-  const maxCapacityPerSlot = selectedBranch === 'cabang-2' ? 3 : 1;
+
+  const isSelfStudio = (
+    pkgObj.category === 'self-studio' ||
+    pkgObj.category === 'selfstudio' ||
+    String(pkgObj.id || '').toLowerCase().includes('self') ||
+    String(pkgObj.name || '').toLowerCase().includes('self')
+  );
+
+  const isStudio2 = (
+    selectedBranch === 'cabang-2' ||
+    String(selectedBranch).toLowerCase().includes('2') ||
+    String(selectedBranch).toLowerCase().includes('dinoyo')
+  );
 
   const slots: TimeSlotStatus[] = allSlots.map((slot, index) => {
     const sNorm = normalizeSlotTime(slot);
-    const currentOccupancy = existingBookings[sNorm] || 0;
+    const currentOccupancy = existingBookings[sNorm] !== undefined
+      ? existingBookings[sNorm]
+      : (existingBookings[slot] !== undefined ? existingBookings[slot] : 0);
     const isCurrentSlotFull = currentOccupancy >= maxCapacityPerSlot;
 
     if (isCurrentSlotFull) {
@@ -755,6 +802,57 @@ export const checkTimeSlotAvailability = (
         occupiedSlots: [slot],
         durationMinutes
       };
+    }
+
+    // =========================================================================
+    // ATURAN KHUSUS SELF STUDIO DI STUDIO 2:
+    // Slot HANYA BISA AKTIF jika Putih, Abu-abu, Cream, dan Coklat = 0
+    // Catatan: Jika ada klien memakai "Hitam", Self Studio TETAP DIIZINKAN (Valid)
+    // =========================================================================
+    if (isStudio2 && isSelfStudio) {
+      const rawBackdrops = existingBackdrops[sNorm] || existingBackdrops[slot] || [];
+      let countPutih = 0;
+      let countAbu = 0;
+      let countCream = 0;
+      let countCoklat = 0;
+      let countSelfStudio = 0;
+
+      if (Array.isArray(rawBackdrops)) {
+        rawBackdrops.forEach(item => {
+          const text = String(item || '').toLowerCase();
+          if (text.includes('putih')) countPutih++;
+          if (text.includes('abu')) countAbu++;
+          if (text.includes('cream') || text.includes('krem')) countCream++;
+          if (text.includes('coklat') || text.includes('cokelat')) countCoklat++;
+          if (text.includes('self') || text.includes('biru')) countSelfStudio++;
+        });
+      } else if (typeof rawBackdrops === 'object' && rawBackdrops !== null) {
+        countPutih = Number(rawBackdrops.putih || rawBackdrops.countPutih || 0);
+        countAbu = Number(rawBackdrops.abu || rawBackdrops.countAbu || rawBackdrops['abu-abu'] || 0);
+        countCream = Number(rawBackdrops.cream || rawBackdrops.countCream || rawBackdrops.krem || 0);
+        countCoklat = Number(rawBackdrops.coklat || rawBackdrops.countCoklat || rawBackdrops.cokelat || 0);
+        countSelfStudio = Number(rawBackdrops.selfstudio || rawBackdrops.countSelfStudio || 0);
+      }
+
+      const canBookSelfStudio = (countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0 && countSelfStudio === 0);
+
+      if (!canBookSelfStudio) {
+        const busyList: string[] = [];
+        if (countPutih > 0) busyList.push('Putih');
+        if (countAbu > 0) busyList.push('Abu-abu');
+        if (countCream > 0) busyList.push('Cream');
+        if (countCoklat > 0) busyList.push('Coklat');
+        if (countSelfStudio > 0 && busyList.length === 0) busyList.push('Bilik Self Studio');
+
+        return {
+          slot,
+          isAvailable: false,
+          disabled: true,
+          reason: `Self Studio tidak tersedia (${busyList.join(', ')} sedang terpakai)`,
+          occupiedSlots: [slot],
+          durationMinutes
+        };
+      }
     }
 
     if (requiredSlotsCount === 1) {
@@ -783,7 +881,9 @@ export const checkTimeSlotAvailability = (
 
     const nextSlot = allSlots[index + 1];
     const nextNorm = normalizeSlotTime(nextSlot);
-    const nextOccupancy = existingBookings[nextNorm] || 0;
+    const nextOccupancy = existingBookings[nextNorm] !== undefined
+      ? existingBookings[nextNorm]
+      : (existingBookings[nextSlot] !== undefined ? existingBookings[nextSlot] : 0);
     const isNextSlotFull = nextOccupancy >= maxCapacityPerSlot;
 
     if (isNextSlotFull) {
@@ -795,6 +895,45 @@ export const checkTimeSlotAvailability = (
         occupiedSlots: [slot, nextSlot],
         durationMinutes: 60
       };
+    }
+
+    // Cek juga slot lanjutan jika Self Studio butuh 2 slot
+    if (isStudio2 && isSelfStudio) {
+      const rawNextBds = existingBackdrops[nextNorm] || existingBackdrops[nextSlot] || [];
+      let nextPutih = 0;
+      let nextAbu = 0;
+      let nextCream = 0;
+      let nextCoklat = 0;
+      let nextSelfStudio = 0;
+
+      if (Array.isArray(rawNextBds)) {
+        rawNextBds.forEach(item => {
+          const text = String(item || '').toLowerCase();
+          if (text.includes('putih')) nextPutih++;
+          if (text.includes('abu')) nextAbu++;
+          if (text.includes('cream') || text.includes('krem')) nextCream++;
+          if (text.includes('coklat') || text.includes('cokelat')) nextCoklat++;
+          if (text.includes('self') || text.includes('biru')) nextSelfStudio++;
+        });
+      } else if (typeof rawNextBds === 'object' && rawNextBds !== null) {
+        nextPutih = Number(rawNextBds.putih || rawNextBds.countPutih || 0);
+        nextAbu = Number(rawNextBds.abu || rawNextBds.countAbu || rawNextBds['abu-abu'] || 0);
+        nextCream = Number(rawNextBds.cream || rawNextBds.countCream || rawNextBds.krem || 0);
+        nextCoklat = Number(rawNextBds.coklat || rawNextBds.countCoklat || rawNextBds.cokelat || 0);
+        nextSelfStudio = Number(rawNextBds.selfstudio || rawNextBds.countSelfStudio || 0);
+      }
+
+      const canBookNext = (nextPutih === 0 && nextAbu === 0 && nextCream === 0 && nextCoklat === 0 && nextSelfStudio === 0);
+      if (!canBookNext) {
+        return {
+          slot,
+          isAvailable: false,
+          disabled: true,
+          reason: `Slot lanjutan (${nextSlot}) bentrok dengan latar yang terpakai`,
+          occupiedSlots: [slot, nextSlot],
+          durationMinutes: 60
+        };
+      }
     }
 
     return {
@@ -809,7 +948,7 @@ export const checkTimeSlotAvailability = (
 
   return {
     packageInfo: {
-      name: selectedPackage.name,
+      name: pkgObj.name || 'Paket',
       isPaket2OrHigher,
       requiredSlotsCount,
       durationMinutes
@@ -949,7 +1088,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     let isMounted = true;
     setIsLoadingSlots(true);
 
-    const typeKey = isSelfStudio ? 'selfstudio' : 'studio_foto';
+    const typeKey = selectedBranch === 'cabang-2' ? 'all' : (isSelfStudio ? 'selfstudio' : 'studio_foto');
 
     fetch(`${GOOGLE_SHEETS_SCRIPT_URL}?action=check_slots&date=${encodeURIComponent(bookingDate)}&studio_type=${encodeURIComponent(typeKey)}&branch=${encodeURIComponent(selectedBranch)}`)
       .then(res => res.json())
@@ -1034,6 +1173,46 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           isAvailable: false,
           reason: i === 0 ? 'Slot jam ini sudah penuh' : `Slot lanjutan (${s}) sudah penuh`
         };
+      }
+
+      // =========================================================================
+      // ATURAN VALIDASI KHUSUS SELF STUDIO DI STUDIO 2:
+      // HANYA BISA AKTIF jika Putih, Abu-abu, Cream, dan Coklat = 0
+      // Catatan: Jika ada klien memakai "Hitam", Self Studio TETAP DIIZINKAN (Valid)
+      // =========================================================================
+      if (selectedBranch === 'cabang-2' && isSelfStudio) {
+        const bdsInSlot = (slotBackdrops[s] || []).map(b => String(b || '').toLowerCase());
+        let countPutih = 0;
+        let countAbu = 0;
+        let countCream = 0;
+        let countCoklat = 0;
+        let countSelfStudio = 0;
+
+        bdsInSlot.forEach(b => {
+          if (b.includes('putih')) countPutih++;
+          if (b.includes('abu')) countAbu++;
+          if (b.includes('cream') || b.includes('krem')) countCream++;
+          if (b.includes('coklat') || b.includes('cokelat')) countCoklat++;
+          if (b.includes('self') || b.includes('biru')) countSelfStudio++;
+        });
+
+        const canBookSelfStudio = (countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0 && countSelfStudio === 0);
+
+        if (!canBookSelfStudio) {
+          const usedList: string[] = [];
+          if (countPutih > 0) usedList.push('Putih');
+          if (countAbu > 0) usedList.push('Abu-abu');
+          if (countCream > 0) usedList.push('Cream');
+          if (countCoklat > 0) usedList.push('Coklat');
+          if (countSelfStudio > 0 && usedList.length === 0) usedList.push('Bilik Self Studio');
+
+          return {
+            isAvailable: false,
+            reason: i === 0
+              ? `Self Studio tidak tersedia (${usedList.join(', ')} sedang terpakai)`
+              : `Slot lanjutan (${s}) bentrok dengan background ${usedList.join(', ')}`
+          };
+        }
       }
     }
 
