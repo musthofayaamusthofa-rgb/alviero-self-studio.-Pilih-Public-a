@@ -8,10 +8,12 @@ import {
 
 interface StudioInfoAndRulesProps {
   selectedBranch?: StudioBranch;
+  onNavigateToFacilities?: () => void;
 }
 
 export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
-  selectedBranch = 'cabang-1'
+  selectedBranch = 'cabang-1',
+  onNavigateToFacilities
 }) => {
   const [copiedBranch, setCopiedBranch] = useState<string | null>(null);
 
@@ -164,10 +166,18 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
 
                 {/* Fasilitas & Keunggulan */}
                 <div className="space-y-2 pt-1 border-t border-[#F2E9E4]">
-                  <div className="text-[11px] font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={onNavigateToFacilities}
+                    className="w-full text-left text-[11px] font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between gap-1.5 cursor-pointer group"
+                    aria-label="Buka halaman fasilitas dan layanan studio"
+                  >
+                    <span className="flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
-                    <span>Fasilitas & Layanan Studio:</span>
-                  </div>
+                      <span className="group-hover:text-[#6E856C] transition-colors">Fasilitas & Layanan Studio:</span>
+                    </span>
+                    <ExternalLink className="w-3.5 h-3.5 text-[#6E856C] opacity-70 group-hover:opacity-100 transition-opacity" />
+                  </button>
                   <ul className="space-y-1.5 text-xs text-stone-600 font-sans">
                     {studio.highlights.map((highlight, idx) => (
                       <li key={idx} className="flex items-start gap-2">

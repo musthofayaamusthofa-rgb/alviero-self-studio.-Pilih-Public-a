@@ -995,6 +995,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
   };
 
+  const goToStepSafely = (newStep: number) => {
+    if (newStep >= 2 && !isStep1Valid) {
+      alert('Lengkapi pilihan background sesuai paket terlebih dahulu.');
+      return;
+    }
+
+    if (newStep === 3) {
+      const availability = isSlotAvailableForBooking(timeSlot);
+      if (!availability.isAvailable) {
+        alert(availability.reason || 'Slot yang dipilih sudah tidak tersedia.');
+        return;
+      }
+    }
+
+    goToStep(newStep);
+  };
+
   // Scroll otomatis ke puncak modal setiap kali step berubah
   useEffect(() => {
     if (modalBodyRef.current) {
@@ -1069,6 +1086,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [copiedNominal, setCopiedNominal] = useState<boolean>(false);
   const [isSubmittingBooking, setIsSubmittingBooking] = useState<boolean>(false);
   const bookingSubmissionInFlight = useRef(false);
+  const bookingIdRef = useRef<string | null>(null);
+
+  const getBookingId = () => {
+    if (!bookingIdRef.current) {
+      bookingIdRef.current = typeof crypto !== 'undefined' && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `booking-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    }
+    return bookingIdRef.current;
+  };
 
   const handleCopyAccount = () => {
     navigator.clipboard.writeText('0113324021');
@@ -1136,6 +1163,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     let isMounted = true;
     setIsLoadingSlots(true);
+    setBookedSlots([]);
+    setSlotClientCounts({});
+    setSlotBackdrops({});
+    setSlotSelfStudioBookings({});
 
     const typeKey = selectedBranch === 'cabang-2' ? 'all' : (isSelfStudio ? 'selfstudio' : 'studio_foto');
 
@@ -1143,10 +1174,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       .then(res => res.json())
       .then(data => {
         if (isMounted && data) {
-          if (Array.isArray(data.bookedSlots)) {
-            const normalized = data.bookedSlots.map(normalizeSlotTime).filter(Boolean);
-            setBookedSlots(normalized);
-          }
+          setBookedSlots(Array.isArray(data.bookedSlots)
+            ? data.bookedSlots.map(normalizeSlotTime).filter(Boolean)
+            : []);
           if (data.slotCounts && typeof data.slotCounts === 'object') {
             const counts: { [s: string]: number } = {};
             Object.entries(data.slotCounts).forEach(([slotRaw, count]) => {
@@ -1154,6 +1184,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               if (sNorm) counts[sNorm] = Number(count) || 0;
             });
             setSlotClientCounts(counts);
+          } else {
+            setSlotClientCounts({});
           }
           if (data.slotBackdrops && typeof data.slotBackdrops === 'object') {
             const normalizedSlotBackdrops: { [s: string]: string[] } = {};
@@ -1164,6 +1196,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               }
             });
             setSlotBackdrops(normalizedSlotBackdrops);
+          } else {
+            setSlotBackdrops({});
           }
           if (data.slotSelfStudioCounts && typeof data.slotSelfStudioCounts === 'object') {
             const counts: { [s: string]: number } = {};
@@ -1172,11 +1206,19 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               if (sNorm) counts[sNorm] = Number(count) || 0;
             });
             setSlotSelfStudioBookings(counts);
+          } else {
+            setSlotSelfStudioBookings({});
           }
         }
       })
       .catch(err => {
         console.warn('Gagal memuat status ketersediaan slot dari Google Sheets:', err);
+        if (isMounted) {
+          setBookedSlots([]);
+          setSlotClientCounts({});
+          setSlotBackdrops({});
+          setSlotSelfStudioBookings({});
+        }
       })
       .finally(() => {
         if (isMounted) setIsLoadingSlots(false);
@@ -1603,6 +1645,19 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   const handleSendBookingWA = async () => {
+    if (!isStep1Valid) {
+      alert('Pilih seluruh background sesuai paket terlebih dahulu.');
+      goToStep(1);
+      return;
+    }
+
+    const availability = isSlotAvailableForBooking(timeSlot);
+    if (!availability.isAvailable) {
+      alert(availability.reason || 'Slot yang dipilih sudah tidak tersedia.');
+      goToStep(1);
+      return;
+    }
+
     if (!customerName.trim()) {
       alert('⚠️ Mohon masukkan Nama Pemesan terlebih dahulu.');
       return;
@@ -1639,6 +1694,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const message = generateWhatsAppMessageText();
     const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
     const waUrl = `https://wa.me/${studioWaNumber}?text=${encodeURIComponent(message)}`;
+    const bookingId = getBookingId();
 
     // Sinkronisasi background ke Google Spreadsheet via Google Apps Script
     try {
@@ -1655,6 +1711,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
       const payload = {
         action: 'book_slot',
+        booking_id: bookingId,
         date: bookingDate,
         time: formattedSessionTime,
         studio_type: studioType,
@@ -1681,25 +1738,36 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-      await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+      const response = await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8'
         },
         body: JSON.stringify(payload),
         signal: controller.signal
-      }).catch(err => console.log('GAS sync note:', err));
+      });
+
+      if (!response.ok) {
+        throw new Error(`Booking server mengembalikan HTTP ${response.status}.`);
+      }
+
+      const result = await response.json() as { status?: string; message?: string };
+      if (result.status !== 'SUCCESS') {
+        throw new Error(result.message || 'Booking tidak berhasil disimpan.');
+      }
 
       clearTimeout(timeoutId);
+      bookingIdRef.current = null;
+      window.open(waUrl, '_blank');
     } catch (e) {
-      console.log('GAS sync error:', e);
+      console.error('GAS sync error:', e);
+      alert(e instanceof Error
+        ? e.message
+        : 'Booking gagal disinkronkan. Silakan coba lagi.');
     } finally {
       bookingSubmissionInFlight.current = false;
       setIsSubmittingBooking(false);
     }
-
-    window.open(waUrl, '_blank');
   };
 
   const handleProofUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1787,7 +1855,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
 
             <button
-              onClick={() => goToStep(2)}
+              onClick={() => goToStepSafely(2)}
               className={`px-3.5 py-1.5 rounded-full flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 2
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E8DDD6] hover:border-[#3A3A3A]'
@@ -1800,7 +1868,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             <ChevronRight className="w-3.5 h-3.5 text-stone-400 shrink-0" />
 
             <button
-              onClick={() => goToStep(3)}
+              onClick={() => goToStepSafely(3)}
               className={`px-3.5 py-1.5 rounded-full flex items-center gap-2 shrink-0 cursor-pointer transition-all border ${step === 3
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs font-bold'
                 : 'bg-white text-stone-600 border-[#E8DDD6] hover:border-[#3A3A3A]'

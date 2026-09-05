@@ -1,4 +1,4 @@
-import { PackageItem, CategoryInfo, BackdropOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
+import { PackageItem, CategoryInfo, BackdropOption, BackgroundOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
 
 export interface SelfStudioSubPackageOption {
   id: string;

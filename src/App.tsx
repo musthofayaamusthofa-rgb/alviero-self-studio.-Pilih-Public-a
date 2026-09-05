@@ -22,6 +22,7 @@ export default function App() {
   // Controls whether user is on the Branch Landing Page (Gambar 1) or has entered a branch's catalog (Gambar 2)
   const [hasEnteredBranch, setHasEnteredBranch] = useState<boolean>(false);
   const [initialMenuCategory, setInitialMenuCategory] = useState<string | undefined>();
+  const [initialCatalogTab, setInitialCatalogTab] = useState<'menu' | 'gallery' | 'guide'>('menu');
 
   // Selalu scroll halaman ke paling atas saat berganti halaman / tab
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function App() {
   const handleSelectBranch = (branch: StudioBranch) => {
     setSelectedBranch(branch);
     setInitialMenuCategory(undefined);
+    setInitialCatalogTab('menu');
     localStorage.setItem('alviero_selected_branch', branch);
     setHasEnteredBranch(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -63,7 +65,16 @@ export default function App() {
       localStorage.setItem('alviero_selected_branch', branch);
     }
     setInitialMenuCategory(category);
+    setInitialCatalogTab('menu');
     setHasEnteredBranch(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateToFacilities = () => {
+    setHasEnteredBranch(true);
+    setInitialMenuCategory(undefined);
+    setInitialCatalogTab('gallery');
+    setActiveTab('katalog');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -147,6 +158,7 @@ export default function App() {
             /* Gambar 2: Menu Pricelist & Bio-Link Cabang Terpilih */
             <PricelistViewer
               selectedBranch={selectedBranch}
+              initialTab={initialCatalogTab}
               initialCategory={initialMenuCategory}
               onOpenBranchModal={handleOpenBranchModal}
               onBackToLanding={handleBackToLanding}
@@ -169,7 +181,10 @@ export default function App() {
         )}
 
         {activeTab === 'rules' && (
-          <StudioInfoAndRules selectedBranch={selectedBranch} />
+          <StudioInfoAndRules
+            selectedBranch={selectedBranch}
+            onNavigateToFacilities={handleNavigateToFacilities}
+          />
         )}
       </main>
 

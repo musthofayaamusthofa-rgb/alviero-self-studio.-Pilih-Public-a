@@ -11,6 +11,12 @@ import {
 } from '../utils/downloadPhotoStrip';
 import { playShutterSound } from '../utils/shutterSound';
 
+const revokeBlobUrl = (url: string | null | undefined) => {
+  if (url?.startsWith('blob:')) {
+    URL.revokeObjectURL(url);
+  }
+};
+
 export const PhotoStripCustomizer: React.FC = () => {
   const [selectedGrid, setSelectedGrid] = useState<GridTypeId>('grid-4-3r');
   const [selectedTheme, setSelectedTheme] = useState<FrameThemeId>('A');
@@ -30,6 +36,8 @@ export const PhotoStripCustomizer: React.FC = () => {
   ];
 
   const [userPhotos, setUserPhotos] = useState<string[]>(defaultSamplePhotos);
+  const userPhotosRef = useRef(userPhotos);
+  userPhotosRef.current = userPhotos;
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const singleReplaceInputRef = useRef<HTMLInputElement | null>(null);
   const [replaceTargetIndex, setReplaceTargetIndex] = useState<number | null>(null);
@@ -46,6 +54,16 @@ export const PhotoStripCustomizer: React.FC = () => {
   const cropCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [imgDimensions, setImgDimensions] = useState<{ w: number; h: number } | null>(null);
 
+  useEffect(() => {
+    return () => {
+      userPhotosRef.current.forEach(revokeBlobUrl);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => revokeBlobUrl(downloadedImageUrl);
+  }, [downloadedImageUrl]);
+
   const currentGridDef = GRID_DEFINITIONS[selectedGrid] || GRID_DEFINITIONS['grid-4-3r'];
   const currentThemeDef = FRAME_THEMES.find(t => t.id === selectedTheme) || FRAME_THEMES[0];
   const overlayImageUrl = getFrameOverlayUrl(selectedGrid, selectedTheme);
@@ -56,7 +74,11 @@ export const PhotoStripCustomizer: React.FC = () => {
       playShutterSound();
       const files = Array.from(e.target.files);
       const newUrls = files.map(file => URL.createObjectURL(file as File));
-      setUserPhotos(prev => [...newUrls, ...prev].slice(0, 6));
+      setUserPhotos(prev => {
+        const next = [...newUrls, ...prev].slice(0, 6);
+        prev.filter(url => !next.includes(url)).forEach(revokeBlobUrl);
+        return next;
+      });
     }
   };
 
@@ -67,6 +89,7 @@ export const PhotoStripCustomizer: React.FC = () => {
       const newUrl = URL.createObjectURL(file);
       setUserPhotos(prev => {
         const next = [...prev];
+        revokeBlobUrl(next[replaceTargetIndex]);
         next[replaceTargetIndex] = newUrl;
         return next;
       });
@@ -81,6 +104,7 @@ export const PhotoStripCustomizer: React.FC = () => {
 
   const handleResetPhotos = () => {
     playShutterSound();
+    userPhotosRef.current.forEach(revokeBlobUrl);
     setUserPhotos(defaultSamplePhotos);
   };
 
@@ -146,6 +170,7 @@ export const PhotoStripCustomizer: React.FC = () => {
       const croppedDataUrl = canvas.toDataURL('image/png');
       setUserPhotos(prev => {
         const next = [...prev];
+        revokeBlobUrl(next[cropIndex]);
         next[cropIndex] = croppedDataUrl;
         return next;
       });
@@ -161,6 +186,7 @@ export const PhotoStripCustomizer: React.FC = () => {
           const blobUrl = URL.createObjectURL(blob);
           setUserPhotos(prev => {
             const next = [...prev];
+            revokeBlobUrl(next[cropIndex]);
             next[cropIndex] = blobUrl;
             return next;
           });

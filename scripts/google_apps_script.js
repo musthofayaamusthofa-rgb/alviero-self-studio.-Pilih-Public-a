@@ -37,10 +37,12 @@ function doPost(e) {
 
 function handleRequest(e) {
   var lock = LockService.getScriptLock();
-  try {
-    lock.tryLock(15000);
-  } catch (lockErr) {
-    Logger.log('Lock error: ' + lockErr);
+  if (!lock.tryLock(15000)) {
+    return jsonResponse({
+      status: 'ERROR',
+      code: 'SERVER_BUSY',
+      message: 'Server sedang memproses booking lain. Silakan coba lagi.'
+    });
   }
 
   try {
@@ -101,20 +103,20 @@ function handleRequest(e) {
         var rowBackdrop = String(row[8] || '').trim();
         var rowStatus = String(row[15] || '').trim().toUpperCase();
 
-        var isConfirmedBooking = (
-          rowStatus === 'BOOKED' ||
-          rowStatus === 'CONFIRMED' ||
-          rowStatus === 'LUNAS' ||
-          rowStatus === 'DP' ||
-          rowStatus === 'PAID' ||
-          rowStatus === 'SUCCESS'
+        var isConfirmedBooking = isActiveBookingStatus(
+          rowStatus,
+          row[17]
         );
 
-        if (!isConfirmedBooking) {
-          continue; // Status PENDING atau CANCELLED tidak mengunci kuota
-        }
-
-        if (rowDate === dateParam && (rowStudioType === studioTypeParam || !studioTypeParam || studioTypeParam === 'all')) {
+        /*
+         * PENDING menahan slot selama HOLD_MINUTES agar dua pelanggan tidak
+         * dapat mengambil slot yang sama sebelum admin mengonfirmasi.
+         */
+        if (
+          isConfirmedBooking &&
+          rowDate === dateParam &&
+          (rowStudioType === studioTypeParam || !studioTypeParam || studioTypeParam === 'all')
+        ) {
           var occupiedSlots = getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
 
           for (var sIdx = 0; sIdx < occupiedSlots.length; sIdx++) {
@@ -138,6 +140,7 @@ function handleRequest(e) {
             }
           }
         }
+
       }
 
       var responseData = {
@@ -159,7 +162,28 @@ function handleRequest(e) {
     // 2. ACTION: BOOK SLOT (Simpan Data Reservasi & Foto Bukti Bayar)
     // =========================================================================
     if (action === 'book_slot') {
+      var bookingId = String(params.booking_id || '').trim();
+      var bookingDate = formatDate(params.date || '');
+      var timeSlot = normalizeTime(params.time || '');
+      var studioType = String(params.studio_type || 'studio_foto').toLowerCase();
       var rawBranch = String(params.branch || 'cabang-1').toLowerCase();
+
+      if (!bookingId || !bookingDate || !ALL_30M_SLOTS.includes(timeSlot)) {
+        return jsonResponse({
+          status: 'ERROR',
+          code: 'INVALID_BOOKING_INPUT',
+          message: 'Booking ID, tanggal, atau slot tidak valid.'
+        });
+      }
+
+      if (['studio_foto', 'selfstudio'].indexOf(studioType) === -1) {
+        return jsonResponse({
+          status: 'ERROR',
+          code: 'INVALID_STUDIO_TYPE',
+          message: 'Tipe studio tidak valid.'
+        });
+      }
+
       var sheetName = (rawBranch.indexOf('2') !== -1 || rawBranch.indexOf('dinoyo') !== -1) ? 'Cabang 2' : 'Cabang 1';
       var sheet = ss.getSheetByName(sheetName);
 
@@ -169,9 +193,6 @@ function handleRequest(e) {
       }
 
       var timestamp = new Date();
-      var bookingDate = params.date || formatDate(timestamp);
-      var timeSlot = normalizeTime(params.time || '');
-      var studioType = params.studio_type || 'studio_foto';
       var studioLabel = params.studio_label || (studioType === 'selfstudio' ? 'Self Studio' : 'Studio Foto Profesional');
       var branchName = params.branch_name || (sheetName === 'Cabang 2' ? 'Alviero Studio — Studio 2' : 'Alviero Studio — Studio 1');
       var customerName = params.name || 'Pelanggan';
@@ -184,8 +205,42 @@ function handleRequest(e) {
       var dp = Number(params.dp) || 0;
       var paymentMethod = params.paymentMethod || 'DP 50%';
       var notes = params.notes || '-';
-      var status = (params.status || 'PENDING').toUpperCase();
+      var status = 'PENDING';
       var proofUrl = 'Menunggu bukti bayar';
+
+      var existingData = sheet.getDataRange().getValues();
+      for (var existingIndex = 1; existingIndex < existingData.length; existingIndex++) {
+        var existingNotes = String(existingData[existingIndex][14] || '');
+        if (existingNotes.indexOf('[BOOKING_ID:' + bookingId + ']') !== -1) {
+          return jsonResponse({
+            status: 'SUCCESS',
+            code: 'DUPLICATE',
+            message: 'Booking sudah pernah diterima.',
+            bookingId: bookingId
+          });
+        }
+      }
+
+      var requestedSlots = getOccupiedSlotsForRow(timeSlot, packageName, backdrop);
+      var availability = getBookingAvailability(
+        existingData,
+        bookingDate,
+        studioType,
+        requestedSlots,
+        backdrop,
+        sheetName === 'Cabang 2' ? 3 : 1
+      );
+
+      if (!availability.available) {
+        return jsonResponse({
+          status: 'ERROR',
+          code: 'SLOT_UNAVAILABLE',
+          message: availability.message,
+          occupiedSlots: availability.occupiedSlots
+        });
+      }
+
+      var notesWithBookingId = '[BOOKING_ID:' + bookingId + '] ' + notes;
 
       // ⚠️ LANGKAH 1: SIMPAN DATA BARIS KE SPREADSHEET TERLEBIH DAHULU (FAIL-SAFE)
       sheet.appendRow([
@@ -203,7 +258,7 @@ function handleRequest(e) {
         total,             // Kolom L: Total Biaya (Rp)
         dp,                // Kolom M: DP Dibayar (Rp)
         paymentMethod,     // Kolom N: Metode Pembayaran
-        notes,             // Kolom O: Catatan & Izin Sosmed
+        notesWithBookingId,// Kolom O: Catatan & Izin Sosmed
         status,            // Kolom P: Status (PENDING / BOOKED)
         proofUrl,          // Kolom Q: Link Bukti Pembayaran (Drive)
         timestamp          // Kolom R: Timestamp Submit
@@ -245,26 +300,27 @@ function handleRequest(e) {
         }
       }
 
-      return ContentService.createTextOutput(JSON.stringify({
+      return jsonResponse({
         status: 'SUCCESS',
         message: 'Reservasi berhasil disimpan ke baris ' + lastRow + ' (' + sheetName + ')',
         sheet: sheetName,
         row: lastRow,
-        proofUrl: proofUrl
-      })).setMimeType(ContentService.MimeType.JSON);
+        proofUrl: proofUrl,
+        bookingId: bookingId
+      });
     }
 
     // Default response jika aksi tidak cocok
-    return ContentService.createTextOutput(JSON.stringify({
+    return jsonResponse({
       status: 'OK',
       message: 'Server Alviero Studio aktif'
-    })).setMimeType(ContentService.MimeType.JSON);
+    });
 
   } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({
+    return jsonResponse({
       status: 'ERROR',
       message: error.toString()
-    })).setMimeType(ContentService.MimeType.JSON);
+    });
   } finally {
     try {
       lock.releaseLock();
@@ -305,6 +361,79 @@ function testInsertBooking() {
   ]);
   
   Logger.log('✅ Uji coba sukses! Baris baru masuk ke Cabang 2.');
+}
+
+function jsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+var PENDING_HOLD_MINUTES = 15;
+
+function isActiveBookingStatus(status, submittedAt) {
+  var normalizedStatus = String(status || '').toUpperCase();
+  var confirmedStatuses = [
+    'BOOKED', 'CONFIRMED', 'LUNAS', 'DP', 'PAID', 'SUCCESS'
+  ];
+
+  if (confirmedStatuses.indexOf(normalizedStatus) !== -1) {
+    return true;
+  }
+
+  if (normalizedStatus !== 'PENDING' || !submittedAt) {
+    return false;
+  }
+
+  var submittedDate = submittedAt instanceof Date
+    ? submittedAt
+    : new Date(submittedAt);
+
+  if (isNaN(submittedDate.getTime())) {
+    return false;
+  }
+
+  var ageMinutes = (new Date().getTime() - submittedDate.getTime()) / 60000;
+  return ageMinutes >= 0 && ageMinutes <= PENDING_HOLD_MINUTES;
+}
+
+function getBookingAvailability(data, bookingDate, studioType, requestedSlots, backdrop, maxCapacity) {
+  var slotCounts = {};
+  var normalizedBackdrop = String(backdrop || '').trim().toLowerCase();
+
+  for (var i = 1; i < data.length; i++) {
+    var row = data[i];
+    if (!row || row.length < 18) continue;
+
+    var rowDate = formatDate(row[0]);
+    var rowStudioType = String(row[2] || '').trim().toLowerCase();
+    var rowStatus = String(row[15] || '').trim().toUpperCase();
+
+    if (rowDate !== bookingDate || rowStudioType !== studioType) continue;
+    if (!isActiveBookingStatus(rowStatus, row[17])) continue;
+
+    var occupiedSlots = getOccupiedSlotsForRow(row[1], row[7], row[8]);
+    occupiedSlots.forEach(function(slot) {
+      slotCounts[slot] = (slotCounts[slot] || 0) + 1;
+    });
+  }
+
+  for (var j = 0; j < requestedSlots.length; j++) {
+    var requestedSlot = requestedSlots[j];
+    if ((slotCounts[requestedSlot] || 0) >= maxCapacity) {
+      return {
+        available: false,
+        message: 'Slot ' + requestedSlot + ' sudah penuh.',
+        occupiedSlots: requestedSlots
+      };
+    }
+  }
+
+  return {
+    available: true,
+    requestedBackdrop: normalizedBackdrop,
+    occupiedSlots: requestedSlots
+  };
 }
 
 // Inisialisasi Header Kolom

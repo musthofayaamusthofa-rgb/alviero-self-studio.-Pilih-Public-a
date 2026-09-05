@@ -312,9 +312,10 @@ export const downloadPhotoStripAsImage = async (options: ExportGridOptions): Pro
 
           setTimeout(() => {
             document.body.removeChild(link);
+            URL.revokeObjectURL(blobUrl);
           }, 500);
 
-          resolve({ success: true, blobUrl });
+          resolve({ success: true });
         } else {
           try {
             const dataUrl = canvas.toDataURL('image/png');

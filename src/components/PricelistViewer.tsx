@@ -3,7 +3,7 @@ import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES } from '../data/pricelistDa
 import { PricelistSheet, StudioBranch } from '../types';
 import {
   ZoomIn, ArrowRight, Layers, Sparkles, X,
-  Search, Camera, Calendar, ChevronRight, MessageCircle,
+  Camera, Calendar, ChevronRight, MessageCircle,
   Instagram, Music2, CheckCircle2, ChevronLeft, Heart, Image as ImageIcon,
   Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye, MapPin,
   HelpCircle, ShieldCheck, AlertCircle, FileText, ChevronDown, ChevronUp, BookOpen
@@ -12,6 +12,7 @@ import {
 interface PricelistViewerProps {
   onSelectPackageForBooking: (packageId: string) => void;
   selectedBranch?: StudioBranch;
+  initialTab?: 'menu' | 'gallery' | 'guide';
   initialCategory?: string;
   onOpenBranchModal?: () => void;
   onNavigateToRules?: () => void;
@@ -37,6 +38,7 @@ interface StudioGalleryPhoto {
 export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   onSelectPackageForBooking,
   selectedBranch = 'cabang-1',
+  initialTab = 'menu',
   initialCategory,
   onOpenBranchModal,
   onNavigateToRules,
@@ -92,7 +94,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Fasilitas Studio), or 'guide' (Panduan, Disclaimer & FAQ)
-  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>('menu');
+  const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>(initialTab);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
@@ -104,9 +106,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const handleClosePopup = () => {
     setIsMobilePopupOpen(false);
-    if (onBackToLanding) {
-      onBackToLanding('section-services');
-    }
   };
 
   // Sync initialCategory if changed
@@ -120,7 +119,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   // Gallery Tab State & Modal Swipe
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalPhoto, setActiveModalPhoto] = useState<StudioGalleryPhoto | null>(null);
   const [modalImageIndex, setModalImageIndex] = useState<number>(0);
   const touchModalStartX = React.useRef<number | null>(null);
@@ -826,20 +824,73 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const filteredGalleryPhotos = useMemo(() => {
     return FACILITY_PHOTOS.filter(photo => {
       const matchesCategory = selectedGalleryCategory === 'all' || photo.category === selectedGalleryCategory;
-      const query = searchQuery.trim().toLowerCase();
-      const matchesSearch = !query ||
-        photo.title.toLowerCase().includes(query) ||
-        photo.description.toLowerCase().includes(query) ||
-        photo.packageName.toLowerCase().includes(query) ||
-        photo.tags.some(t => t.toLowerCase().includes(query));
-      return matchesCategory && matchesSearch;
+      return matchesCategory;
     });
-  }, [selectedGalleryCategory, searchQuery]);
+  }, [selectedGalleryCategory]);
 
   const activeMenuInfo = allCategoryButtons.find(m => m.id === activeMenuCategory) || studioFotoSubButtons[0] || mainMenuButtons[0];
   const activeMenuPackages = useMemo(() => {
     return PACKAGES.filter(p => activeMenuInfo.targetPackageIds.includes(p.id));
   }, [activeMenuInfo]);
+
+  const previewCategoryByMenu: Record<string, string> = {
+    'selfstudio': 'selfstudio',
+    'grad-indoor': 'grad-indoor',
+    'grad-outdoor': 'grad-outdoor',
+    'group-paket': 'group',
+    'family-paket': 'family',
+    'maternity-paket': 'maternity',
+    'personal-paket': 'personal',
+    'couple-paket': 'couple',
+    'event': 'birthday',
+    'undangan-paket': 'undangan',
+    'prewed-paket': 'prewed',
+    'pass-foto': 'pass-foto',
+    'sewa-studio': 'sewa-studio',
+    'kebayak-gaun': 'prewed',
+    'wedding-package': 'prewed'
+  };
+
+  const pricelistPreviewPhotos = useMemo(() => {
+    const previewCategory = previewCategoryByMenu[activeMenuCategory || ''] || activeMenuCategory;
+    const matchingGallery = STUDIO_GALLERY_PHOTOS.filter(photo => photo.category === previewCategory);
+
+    if (matchingGallery.length > 0) {
+      return matchingGallery.flatMap(photo => (photo.images || [photo.imageUrl]).map((imageUrl, index) => ({
+        id: `${photo.id}-${index}`,
+        imageUrl,
+        title: photo.title,
+        packageName: photo.packageName
+      })));
+    }
+
+    return activeMenuPackages
+      .filter(pkg => Boolean(pkg.image))
+      .map(pkg => ({
+        id: pkg.id,
+        imageUrl: pkg.image,
+        title: pkg.name,
+        packageName: activeMenuInfo.title
+      }));
+  }, [activeMenuCategory, activeMenuInfo.title, activeMenuPackages]);
+
+  const birthdayDecorPreview: StudioGalleryPhoto = {
+    id: 'birthday-decor-preview',
+    title: 'Contoh Hasil Dekor Birthday',
+    category: 'birthday',
+    packageName: 'Properti Birthday',
+    icon: '🎉',
+    targetPackageId: 'birthday-sweet-light',
+    imageUrl: '/images/categories/birthday.jpg',
+    images: [
+      '/images/categories/birthday.jpg',
+      'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=85',
+      'https://images.unsplash.com/photo-1513159446162-54eb8bdaa79b?auto=format&fit=crop&w=1200&q=85'
+    ],
+    description: 'Referensi dekorasi birthday dengan tulisan birthday, balon latex, dan balon angka sesuai pilihan warna.',
+    conceptNote: 'Contoh visual dekorasi. Detail properti mengikuti ketersediaan studio dan konsep yang dipilih.',
+    tags: ['#BirthdayDecor', '#PropertiBirthday', '#DekorasiStudio']
+  };
 
   return (
     <div className="w-full py-2 sm:py-6 px-2 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-3 sm:space-y-6">
@@ -1062,18 +1113,18 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
               <div className="w-full pt-3 border-t border-stone-200/80">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-left">
+                <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-1.5 text-left">
                   {socialLinks.map((s, idx) => (
                     <a
                       key={idx}
                       href={s.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex min-h-[32px] items-center gap-2.5 rounded-lg px-2 text-xs font-medium text-stone-600 hover:bg-[#FDFBF7] hover:text-[#6c8c74] transition-colors truncate"
+                      className={`flex items-center gap-1.5 text-[10.5px] font-medium text-stone-600 hover:text-[#6c8c74] transition-colors py-0.5 truncate ${idx === socialLinks.length - 1 ? 'basis-full justify-center' : ''}`}
                     >
-                      {s.icon === 'tiktok' && <Music2 className="w-4 h-4 text-stone-500 shrink-0" />}
-                      {s.icon === 'instagram' && <Instagram className="w-4 h-4 text-stone-500 shrink-0" />}
-                      {s.icon === 'whatsapp' && <MessageCircle className="w-4 h-4 text-stone-500 shrink-0" />}
+                      {s.icon === 'tiktok' && <Music2 className="w-3 h-3 text-stone-500 shrink-0" />}
+                      {s.icon === 'instagram' && <Instagram className="w-3 h-3 text-stone-500 shrink-0" />}
+                      {s.icon === 'whatsapp' && <MessageCircle className="w-3 h-3 text-stone-500 shrink-0" />}
                       <span className="truncate">{s.label}</span>
                     </a>
                   ))}
@@ -1157,6 +1208,38 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
               {/* Scrollable Container Body */}
               <div className="p-4 sm:p-6 lg:p-7 overflow-y-auto lg:overflow-visible space-y-6 flex-1 bg-white">
+
+                {/* Foto hasil sesi sesuai pricelist aktif */}
+                {pricelistPreviewPhotos.length > 0 && (
+                  <section className="space-y-2.5 animate-in fade-in duration-300" aria-label={`Hasil foto ${activeMenuInfo.title}`}>
+                    <div className="flex items-end justify-between gap-3">
+                      <div>
+                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400">Hasil Foto Paket</span>
+                        <h3 className="font-serif font-black text-base sm:text-lg text-slate-900 leading-tight">Inspirasi {activeMenuInfo.title.replace('PRICELIST ', '')}</h3>
+                      </div>
+                      <span className="text-[10px] font-bold text-slate-400 shrink-0">Geser ke samping</span>
+                    </div>
+
+                    <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-1 touch-pan-x">
+                      {pricelistPreviewPhotos.map((photo) => (
+                        <div
+                          key={photo.id}
+                          className="relative shrink-0 w-[78%] sm:w-[42%] lg:w-[31%] aspect-[4/3] snap-start overflow-hidden rounded-2xl bg-slate-900 border border-slate-200 shadow-sm group"
+                        >
+                          <img
+                            src={photo.imageUrl}
+                            alt={`${photo.title} - ${photo.packageName}`}
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent px-3 pb-2.5 pt-8">
+                            <p className="text-[10px] sm:text-[11px] text-white font-bold leading-tight line-clamp-2">{photo.title}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )}
 
                 {/* 1. SPECIAL FIGMA VIEW FOR SELF STUDIO */}
                 {(activeMenuCategory === 'selfstudio' || activeMenuCategory === 'self-studio') && (
@@ -2760,6 +2843,17 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Foto 30 Menit | 1 Background foto | <span className="text-rose-600 font-bold">1 Person</span> | All file via Google Drive</p>
                           <p>8 Foto edit | 2 Foto cetak Uk 10Rs</p>
                           <p><span className="text-rose-600 font-bold">Include Properti:</span> tulisan birthday, 12 Balon Latex, 1 Balon Angka 80cm</p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveModalPhoto(birthdayDecorPreview);
+                              setModalImageIndex(0);
+                            }}
+                            className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+                          >
+                            <ImageIcon className="w-3.5 h-3.5" />
+                            <span>Contoh Hasil Dekor</span>
+                          </button>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
                           <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">250K</div>
@@ -2782,6 +2876,17 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Foto 30 Menit | 1 Background | <span className="text-rose-600 font-bold">2 - 3 Person</span> | All file via Google Drive</p>
                           <p>8 Edit foto | 2 Cetak foto Uk 10Rs</p>
                           <p><span className="text-rose-600 font-bold">Include Properti:</span> tulisan birthday, balon 12 pas, balon angka bebas pilihan warna</p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveModalPhoto(birthdayDecorPreview);
+                              setModalImageIndex(0);
+                            }}
+                            className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+                          >
+                            <ImageIcon className="w-3.5 h-3.5" />
+                            <span>Contoh Hasil Dekor</span>
+                          </button>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
                           <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">325K</div>
@@ -4246,7 +4351,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           </div>
 
           {/* Header Fasilitas */}
-          <div className="bg-white p-4 sm:p-6 border border-[#E8DDD6] shadow-xs space-y-4">
+          <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-xs space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="space-y-1 text-left">
                 <div className="inline-flex items-center gap-1.5 bg-[#FDFBF7] text-[#6E856C] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 border border-[#E8DDD6]">
@@ -4261,25 +4366,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </p>
               </div>
 
-              {/* Kotak Pencarian */}
-              <div className="relative w-full sm:w-64 shrink-0">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari fasilitas..."
-                  className="w-full min-h-[42px] pl-9 pr-8 py-2 bg-[#FDFBF7] border border-[#E8DDD6] text-xs text-[#3A3A3A] placeholder-stone-400 focus:outline-none focus:border-[#3A3A3A] transition-all font-sans font-medium"
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-800 p-1 cursor-pointer"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
             </div>
 
             {/* Pilihan Kelompok Fasilitas */}
@@ -4291,7 +4377,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   <button
                     key={cat.id}
                     onClick={() => setSelectedGalleryCategory(cat.id)}
-                    className={`min-h-[36px] px-3.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 border ${
+                    className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 border ${
                       isSelected
                         ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                         : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#FDFBF7]'
@@ -4307,10 +4393,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
           {/* Grid Kartu Foto */}
           {filteredGalleryPhotos.length === 0 ? (
-            <div className="bg-white p-8 text-center border border-[#E8DDD6] space-y-2">
-              <p className="text-stone-600 font-serif font-bold text-sm uppercase">Tidak ada fasilitas yang sesuai dengan pencarian.</p>
+            <div className="bg-white p-8 text-center rounded-2xl border border-[#E8DDD6] space-y-2">
+              <p className="text-stone-600 font-serif font-bold text-sm uppercase">Tidak ada fasilitas pada kategori ini.</p>
               <button
-                onClick={() => { setSelectedGalleryCategory('all'); setSearchQuery(''); }}
+                onClick={() => setSelectedGalleryCategory('all')}
                 className="text-xs font-serif font-bold text-[#6E856C] hover:underline cursor-pointer uppercase tracking-wider"
               >
                 Tampilkan Semua Fasilitas
@@ -4322,11 +4408,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 return (
                   <div
                     key={photo.id}
-                    className="bg-white border border-[#E8DDD6] shadow-2xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-0.5"
+                    className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-2xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-0.5"
                   >
                     {/* Foto Preview */}
                     <div
-                      className="relative aspect-[4/3] bg-[#2A2A2A] overflow-hidden cursor-pointer group"
+                      className="relative aspect-[4/3] bg-[#2A2A2A] overflow-hidden cursor-pointer group rounded-t-2xl sm:rounded-t-3xl"
                       onClick={() => {
                         setActiveModalPhoto(photo);
                         setModalImageIndex(0);
@@ -4347,7 +4433,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       </div>
 
                       {/* Tombol Perbesar */}
-                      <div className="absolute top-2.5 right-2.5 w-7 h-7 bg-black/60 backdrop-blur-xs text-white flex items-center justify-center border border-white/20 group-hover:bg-black/90 transition-colors z-10">
+                      <div className="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg bg-black/60 backdrop-blur-xs text-white flex items-center justify-center border border-white/20 group-hover:bg-black/90 transition-colors z-10">
                         <ZoomIn className="w-3.5 h-3.5" />
                       </div>
 
@@ -4682,12 +4768,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
         return (
           <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-2.5 sm:p-4 overflow-y-auto">
-            <div className="bg-[#2A2A2A] border border-[#3A3A3A] text-white max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto text-left">
+            <div className="bg-[#2A2A2A] border border-[#3A3A3A] text-white max-w-4xl w-full max-h-[94vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative my-auto text-left rounded-2xl sm:rounded-3xl">
 
               {/* Close Button */}
               <button
                 onClick={() => setActiveModalPhoto(null)}
-                className="absolute top-2.5 right-2.5 z-30 w-8 h-8 bg-black/70 hover:bg-black text-stone-300 hover:text-white flex items-center justify-center border border-white/20 transition-colors cursor-pointer active:scale-95 shadow-md"
+                className="absolute top-2.5 right-2.5 z-30 w-8 h-8 rounded-lg bg-black/70 hover:bg-black text-stone-300 hover:text-white flex items-center justify-center border border-white/20 transition-colors cursor-pointer active:scale-95 shadow-md"
                 title="Tutup Modal"
                 aria-label="Tutup Modal"
               >
@@ -4697,7 +4783,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* Kolom Kiri: Foto Slider */}
               <div className="md:w-1/2 bg-black relative flex flex-col items-center justify-center overflow-hidden h-[42vh] sm:h-[50vh] md:h-auto shrink-0 select-none p-2">
                 <div
-                  className="relative w-full h-full flex items-center justify-center overflow-hidden border border-white/10"
+                  className="relative w-full h-full flex items-center justify-center overflow-hidden border border-white/10 rounded-xl"
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                   onTouchEnd={handleTouchEnd}
@@ -4709,7 +4795,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   />
 
                   {/* Badge Label Paket */}
-                  <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#A9BCA7] text-[9.5px] font-mono font-bold tracking-wider px-2.5 py-1 border border-[#A9BCA7]/50 z-10 shadow-xs flex items-center gap-1 uppercase">
+                  <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#A9BCA7] text-[9.5px] font-mono font-bold tracking-wider px-2.5 py-1 rounded-md border border-[#A9BCA7]/50 z-10 shadow-xs flex items-center gap-1 uppercase">
                     <span>{activeModalPhoto.icon}</span>
                     <span>{activeModalPhoto.packageName}</span>
                   </div>
@@ -4720,7 +4806,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       <button
                         type="button"
                         onClick={handlePrevImg}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 bg-black/70 hover:bg-black text-white flex items-center justify-center border border-white/30 transition-all active:scale-90 cursor-pointer shadow-lg"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center border border-white/30 transition-all active:scale-90 cursor-pointer shadow-lg"
                         title="Foto Sebelumnya"
                       >
                         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
@@ -4729,14 +4815,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       <button
                         type="button"
                         onClick={handleNextImg}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 bg-black/70 hover:bg-black text-white flex items-center justify-center border border-white/30 transition-all active:scale-90 cursor-pointer shadow-lg"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center border border-white/30 transition-all active:scale-90 cursor-pointer shadow-lg"
                         title="Foto Selanjutnya"
                       >
                         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
                       </button>
 
                       {/* Indikator Nomor Foto & Swipe Hint */}
-                      <div className="absolute bottom-2.5 inset-x-0 mx-auto w-fit bg-black/80 backdrop-blur-xs text-white text-[10px] font-mono font-bold tracking-wider px-3 py-1 border border-white/20 z-10 flex items-center gap-1.5 shadow-md uppercase">
+                      <div className="absolute bottom-2.5 inset-x-0 mx-auto w-fit bg-black/80 backdrop-blur-xs text-white text-[10px] font-mono font-bold tracking-wider px-3 py-1 rounded-full border border-white/20 z-10 flex items-center gap-1.5 shadow-md uppercase">
                         <span className="text-[#A9BCA7]">{modalImageIndex + 1} / {imageList.length}</span>
                         <span className="text-white/60 text-[9px]">• Geser Foto ↔️</span>
                       </div>
@@ -4752,7 +4838,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         key={img + idx}
                         type="button"
                         onClick={() => setModalImageIndex(idx)}
-                        className={`relative w-10 h-10 sm:w-11 sm:h-11 overflow-hidden shrink-0 border transition-all cursor-pointer ${
+                        className={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden shrink-0 border transition-all cursor-pointer ${
                           modalImageIndex === idx
                             ? 'border-[#A9BCA7] ring-1 ring-[#A9BCA7] opacity-100 scale-105'
                             : 'border-white/20 opacity-50 hover:opacity-80'
