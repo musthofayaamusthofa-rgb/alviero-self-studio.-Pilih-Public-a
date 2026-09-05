@@ -1503,6 +1503,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const numQty = typeof qty === 'number' ? qty : Number(qty) || 0;
     return sum + (addOn ? addOn.price * numQty : 0);
   }, 0);
+  const selectedAddOnDetails = Object.entries(selectedAddOns)
+    .map(([id, qty]) => {
+      const addOn = ADD_ONS.find(item => item.id === id);
+      const quantity = Number(qty) || 0;
+      return addOn && quantity > 0
+        ? { ...addOn, quantity, subtotal: addOn.price * quantity }
+        : null;
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null);
 
   // Biaya tambahan jika durasi 50 menit (Paket 2 keatas) mengambil slot jam 20:30 WIB (selesai 21:20 WIB / melebihi jam tutup 21:00 WIB)
   const isLateNightOvertime = sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30';
@@ -3090,10 +3099,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
 
                   {addOnsTotalPrice > 0 && (
-                    <div className="flex justify-between text-stone-300">
-                      <span>Total Add-ons Tambahan</span>
-                      <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
-                    </div>
+                    <>
+                      <div className="flex justify-between text-stone-300">
+                        <span>Total Add-ons Tambahan</span>
+                        <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
+                      </div>
+                      <div className="rounded-xl border border-[#5A5A5A] bg-[#333333] p-3 space-y-1.5">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-[#A9BCA7]">Detail Add-ons Dipilih</div>
+                        {selectedAddOnDetails.map(addOn => (
+                          <div key={addOn.id} className="flex justify-between gap-3 text-[11px] text-stone-300">
+                            <span className="min-w-0">{addOn.name} × {addOn.quantity} <span className="text-stone-500">(Rp {addOn.price.toLocaleString('id-ID')}/{addOn.unit})</span></span>
+                            <span className="shrink-0 text-stone-200">Rp {addOn.subtotal.toLocaleString('id-ID')}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
                   )}
 
                   {lateNightOvertimeFee > 0 && (
@@ -3364,10 +3384,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
 
                 {addOnsTotalPrice > 0 && (
-                  <div className="flex justify-between text-stone-300">
-                    <span>Total Add-ons Tambahan</span>
-                    <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
-                  </div>
+                  <>
+                    <div className="flex justify-between text-stone-300">
+                      <span>Total Add-ons Tambahan</span>
+                      <span>+ Rp {addOnsTotalPrice.toLocaleString('id-ID')}</span>
+                    </div>
+                    <div className="rounded-xl border border-[#5A5A5A] bg-[#333333] p-3 space-y-1.5">
+                      <div className="text-[10px] font-bold uppercase tracking-wider text-[#A9BCA7]">Detail Add-ons Dipilih</div>
+                      {selectedAddOnDetails.map(addOn => (
+                        <div key={addOn.id} className="flex justify-between gap-3 text-[11px] text-stone-300">
+                          <span className="min-w-0">{addOn.name} × {addOn.quantity} <span className="text-stone-500">(Rp {addOn.price.toLocaleString('id-ID')}/{addOn.unit})</span></span>
+                          <span className="shrink-0 text-stone-200">Rp {addOn.subtotal.toLocaleString('id-ID')}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </>
                 )}
 
                 {lateNightOvertimeFee > 0 && (
