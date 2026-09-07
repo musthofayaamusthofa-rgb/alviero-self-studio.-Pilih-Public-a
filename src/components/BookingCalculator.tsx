@@ -2450,7 +2450,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <p className="text-[11px] text-emerald-900">
                         {isOutdoorOnly
                           ? 'Pilih waktu sesi outdoor Anda. Slot pagi 05:00 dan 06:00 tersedia khusus, lalu berlanjut setiap 65 menit mulai 12:00.'
-                          : 'Sesi outdoor wajib memiliki jarak minimal 1 jam 30 menit (90 menit) dari sesi indoor. Slot pagi 05:00 dan 06:00 tersedia khusus, lalu berlanjut setiap 65 menit mulai 12:00.'}
+                          : 'Sesi outdoor wajib memiliki jarak minimal 1 jam 30 menit (90 menit) dari sesi indoor. Slot pagi 05:00 dan 06:00 tersedia khusus.'}
                       </p>
                       <div className="space-y-1.5">
                         <label htmlFor="outdoor-location" className="block text-[11px] font-sans font-bold text-emerald-950">
