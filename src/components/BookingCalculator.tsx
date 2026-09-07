@@ -34,7 +34,8 @@ import {
   Upload,
   Trash2,
   Instagram,
-  GraduationCap
+  GraduationCap,
+  Trees
 } from 'lucide-react';
 
 interface BookingCalculatorProps {
@@ -701,6 +702,24 @@ export const getUpcomingDaysList = (count: number = 14) => {
   return list;
 };
 
+/**
+ * Slot mulai sesi outdoor: dua slot pagi khusus lalu rangkaian 65 menit dari
+ * tengah hari. Slot terakhir tetap boleh dipilih karena dapat dikenai overtime.
+ */
+export const generateOutdoorTimeSlots = (): string[] => {
+  const slots = ['05:00', '06:00'];
+  const startMinutes = 12 * 60;
+  const lastStartMinutes = 20 * 60 + 40;
+
+  for (let minutes = startMinutes; minutes <= lastStartMinutes; minutes += 65) {
+    const hours = Math.floor(minutes / 60);
+    const remainder = minutes % 60;
+    slots.push(`${String(hours).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`);
+  }
+
+  return slots;
+};
+
 export interface TimeSlotStatus {
   slot: string;
   isAvailable: boolean;
@@ -1003,8 +1022,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     if (newStep === 3) {
       const availability = isSlotAvailableForBooking(timeSlot);
-      if (!availability.isAvailable) {
-        alert(availability.reason || 'Slot yang dipilih sudah tidak tersedia.');
+      const outdoorAvailability = hasOutdoorSession
+        ? isOutdoorTimeSlotAvailable(outdoorTimeSlot)
+        : { isAvailable: true };
+      if (!availability.isAvailable || !outdoorAvailability.isAvailable || (hasOutdoorSession && timeSlot === outdoorTimeSlot)) {
+        alert(availability.reason || 'Waktu indoor dan outdoor harus berbeda serta tersedia.');
         return;
       }
     }
@@ -1038,6 +1060,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const today = new Date().toISOString().split('T')[0];
   const [bookingDate, setBookingDate] = useState<string>(today);
   const [timeSlot, setTimeSlot] = useState<string>('14:00');
+  const [outdoorTimeSlot, setOutdoorTimeSlot] = useState<string>('12:00');
   const upcomingDays = useMemo(() => getUpcomingDaysList(14), []);
 
   // Real-time Slot & Backdrop Availability from Google Sheets
@@ -1116,12 +1139,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     currentPackage.name.toLowerCase().includes('cumlaude') ||
     currentPackage.name.toLowerCase().includes('wisuda')
   );
+  const hasOutdoorSession = Boolean(
+    currentPackage.hasOutdoorSession ||
+    currentPackage.category === 'graduation-outdoor' ||
+    currentPackage.name.toLowerCase().includes('outdoor') ||
+    currentPackage.name.toLowerCase().includes('bundling') ||
+    currentPackage.description.toLowerCase().includes('outdoor')
+  );
+  const outdoorTimeSlots = useMemo(() => generateOutdoorTimeSlots(), []);
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const baseTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
 
   // Durasi Self Studio mengikuti sub-paket, tetapi tetap memakai satu slot reguler.
   const sessionDurationMinutes = isSelfStudio ? currentPackage.durationMinutes : (maxBackdrops > 1 ? 60 : 30);
   const sessionSlotsCount = isSelfStudio ? 1 : (maxBackdrops > 1 ? 2 : 1);
+  const isOutdoorOvertime = hasOutdoorSession && (outdoorTimeSlot === '05:00' || outdoorTimeSlot === '06:00');
+  const outdoorOvertimeFee = isOutdoorOvertime ? 35000 : 0;
 
   // Jika Paket 2 ke atas (durasi 60 menit): Hanya tampilkan jam kelipatan 1 jam (08:00, 09:00, 10:00, dst)
   // Jika Paket 1 (durasi 30 menit): Tampilkan seluruh 26 slot (08:00, 08:30, 09:00, dst)
@@ -1326,7 +1359,25 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return { isAvailable: true };
   };
 
-  const formattedSessionTime = `${timeSlot} - ${calculateEndTime(timeSlot, sessionDurationMinutes)}`;
+  const isOutdoorTimeSlotAvailable = (startSlot: string): { isAvailable: boolean; reason?: string } => {
+    if (!outdoorTimeSlots.includes(startSlot)) {
+      return { isAvailable: false, reason: 'Slot outdoor tidak valid' };
+    }
+
+    if (getSlotClientCount(startSlot) >= (selectedBranch === 'cabang-2' ? 3 : 1)) {
+      return { isAvailable: false, reason: 'Slot outdoor sudah penuh' };
+    }
+
+    return { isAvailable: true };
+  };
+
+  const formattedIndoorTime = `${timeSlot} - ${calculateEndTime(timeSlot, sessionDurationMinutes)}`;
+  const formattedOutdoorTime = hasOutdoorSession
+    ? `${outdoorTimeSlot} - ${calculateEndTime(outdoorTimeSlot, 65)}`
+    : '';
+  const formattedSessionTime = hasOutdoorSession
+    ? `Indoor ${formattedIndoorTime} | Outdoor ${formattedOutdoorTime}`
+    : formattedIndoorTime;
   const currentOccupiedSlots = getOccupiedSlotsForStart(timeSlot);
 
   // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / tidak ada di activeTimeSlots / penuh
@@ -1341,6 +1392,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       }
     }
   }, [slotClientCounts, slotBackdrops, slotSelfStudioBookings, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch]);
+
+  useEffect(() => {
+    if (!hasOutdoorSession) return;
+    if (!isOutdoorTimeSlotAvailable(outdoorTimeSlot).isAvailable) {
+      const firstAvailable = outdoorTimeSlots.find(slot => isOutdoorTimeSlotAvailable(slot).isAvailable);
+      if (firstAvailable) setOutdoorTimeSlot(firstAvailable);
+    }
+  }, [hasOutdoorSession, outdoorTimeSlot, outdoorTimeSlots, slotClientCounts, selectedBranch]);
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
@@ -1516,8 +1575,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Biaya tambahan jika durasi 50 menit (Paket 2 keatas) mengambil slot jam 20:30 WIB (selesai 21:20 WIB / melebihi jam tutup 21:00 WIB)
   const isLateNightOvertime = sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30';
   const lateNightOvertimeFee = isLateNightOvertime ? 35000 : 0;
+  const overtimeFee = lateNightOvertimeFee + outdoorOvertimeFee;
 
-  const subtotal = packagePrice + addOnsTotalPrice + lateNightOvertimeFee;
+  const subtotal = packagePrice + addOnsTotalPrice + overtimeFee;
 
   let discountValue = 0;
   if (appliedPromo) {
@@ -1596,6 +1656,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
     message += `• Tanggal Foto: ${bookingDate}\n`;
     message += `• Jam Sesi Foto: *${formattedSessionTime} WIB* (Durasi: ${sessionDurationMinutes} Menit / ${maxBackdrops} Background)\n`;
+    if (hasOutdoorSession) {
+      message += `• Waktu Indoor: *${formattedIndoorTime} WIB*\n`;
+      message += `• Waktu Outdoor: *${formattedOutdoorTime} WIB* (Jarak sesi 65 menit)\n`;
+    }
     message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
     message += `• *Lokasi Studio:* *${currentBranchInfo.name}*\n\n`;
 
@@ -1661,8 +1725,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     const availability = isSlotAvailableForBooking(timeSlot);
-    if (!availability.isAvailable) {
-      alert(availability.reason || 'Slot yang dipilih sudah tidak tersedia.');
+    const outdoorAvailability = hasOutdoorSession
+      ? isOutdoorTimeSlotAvailable(outdoorTimeSlot)
+      : { isAvailable: true };
+    if (!availability.isAvailable || !outdoorAvailability.isAvailable || (hasOutdoorSession && timeSlot === outdoorTimeSlot)) {
+      alert(availability.reason || 'Waktu indoor dan outdoor harus berbeda serta tersedia.');
       goToStep(1);
       return;
     }
@@ -1722,7 +1789,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         action: 'book_slot',
         booking_id: bookingId,
         date: bookingDate,
-        time: formattedSessionTime,
+        time: timeSlot,
+        indoor_time: formattedIndoorTime,
+        outdoor_time: hasOutdoorSession ? formattedOutdoorTime : '',
         studio_type: studioType,
         studio_label: studioLabel,
         branch: selectedBranch,
@@ -1738,7 +1807,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS (Fee 1%)'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}]${hasFreePrint ? ` [Gratis Cetak: ${ukuranCetak} - ${gridCetak}]` : ''}${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}${isOutdoorOvertime ? ' | Biaya Tambahan di Luar Jam Kerja: +Rp 35.000' : ''}]${hasOutdoorSession ? ` [Indoor: ${formattedIndoorTime} | Outdoor: ${formattedOutdoorTime}]` : ''}${hasFreePrint ? ` [Gratis Cetak: ${ukuranCetak} - ${gridCetak}]` : ''}${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -1815,7 +1884,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && !!paymentProofImage;
 
   // Validasi Step 1: Jika klien memilih paket 2 background ke atas, mereka wajib memilih semua background (misal 2/2) baru bisa menekan tombol "Lanjut"
-  const isStep1Valid = selectedBackdropIds.length >= maxBackdrops;
+  const isStep1Valid = selectedBackdropIds.length >= maxBackdrops &&
+    (!hasOutdoorSession || (
+      isOutdoorTimeSlotAvailable(outdoorTimeSlot).isAvailable &&
+      timeSlot !== outdoorTimeSlot
+    ));
 
   if (!isOpen) return null;
 
@@ -2230,6 +2303,51 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     })}
                   </div>
 
+                  {hasOutdoorSession && (
+                    <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-3.5 space-y-2.5">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <label className="text-xs font-serif font-bold text-emerald-950 uppercase tracking-wider flex items-center gap-1.5">
+                          <Trees className="w-3.5 h-3.5 text-emerald-700" />
+                          2. PILIH WAKTU OUTDOOR
+                        </label>
+                        <span className="text-[10px] font-bold text-emerald-800 bg-white border border-emerald-200 rounded-full px-2.5 py-1">
+                          Durasi 65 Menit
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-emerald-900">
+                        Sesi outdoor wajib memakai waktu berbeda dari sesi indoor. Slot pagi 05:00 dan 06:00 tersedia khusus, lalu berlanjut setiap 65 menit mulai 12:00.
+                      </p>
+                      <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 gap-1.5">
+                        {outdoorTimeSlots.map(slot => {
+                          const availability = isOutdoorTimeSlotAvailable(slot);
+                          const isSelected = outdoorTimeSlot === slot;
+                          return (
+                            <button
+                              key={slot}
+                              type="button"
+                              disabled={!availability.isAvailable}
+                              onClick={() => setOutdoorTimeSlot(slot)}
+                              className={`min-h-[42px] rounded-xl border text-xs font-mono font-bold transition-all ${!availability.isAvailable
+                                ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed line-through'
+                                : isSelected
+                                  ? 'bg-emerald-800 text-white border-emerald-800 ring-2 ring-emerald-300'
+                                  : 'bg-white text-emerald-950 border-emerald-200 hover:border-emerald-700 cursor-pointer'
+                                }`}
+                              title={!availability.isAvailable ? availability.reason : `Outdoor ${slot} - ${calculateEndTime(slot, 65)} WIB`}
+                            >
+                              {slot}
+                              {slot === '05:00' || slot === '06:00' ? <span className="block text-[8px] text-amber-600 no-underline">+OT</span> : null}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-emerald-950 font-medium">
+                        <span>Indoor: <strong>{formattedIndoorTime} WIB</strong></span>
+                        <span>Outdoor: <strong>{formattedOutdoorTime} WIB</strong></span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Alert Sesi Overtime Melebihi Jam 21.00 WIB */}
                   {isLateNightOvertime && (
                     <div className="mt-2.5 p-3.5 bg-amber-500/10 border border-amber-400 rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
@@ -2241,6 +2359,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         <p className="text-amber-800 text-[11px] leading-snug">
                           Anda memilih Paket 2 Background (durasi 60 menit dari <strong>20:30 s.d. 21:30 WIB</strong>). Karena sesi melebihi jam operasional tutup studio (21.00 WIB), otomatis dikenakan tambahan biaya operasional overtime sebesar <strong className="text-amber-950 font-bold">Rp 35.000</strong>.
                         </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {isOutdoorOvertime && (
+                    <div className="mt-2.5 p-3.5 bg-amber-500/10 border border-amber-400 rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                      <span className="font-bold text-sm shrink-0 mt-0.5 text-amber-700">⏰</span>
+                      <div>
+                        <p className="font-bold text-amber-900 leading-tight">Biaya Tambahan di Luar Jam Kerja (+Rp 35.000)</p>
+                        <p className="text-amber-800 text-[11px] leading-snug">Waktu outdoor {outdoorTimeSlot} berada sebelum jam operasional normal 08:00 WIB.</p>
                       </div>
                     </div>
                   )}
@@ -3123,6 +3251,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   )}
 
+                  {outdoorOvertimeFee > 0 && (
+                    <div className="flex justify-between text-amber-300 font-medium">
+                      <span>Biaya Tambahan di Luar Jam Kerja</span>
+                      <span>+ Rp {outdoorOvertimeFee.toLocaleString('id-ID')}</span>
+                    </div>
+                  )}
+
                   {discountValue > 0 && (
                     <div className="flex justify-between text-emerald-400 font-bold">
                       <span>Diskon Promo ({appliedPromo?.code})</span>
@@ -3405,6 +3540,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className="flex justify-between text-amber-300 font-medium">
                     <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
                     <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
+                  </div>
+                )}
+
+                {outdoorOvertimeFee > 0 && (
+                  <div className="flex justify-between text-amber-300 font-medium">
+                    <span>Biaya Tambahan di Luar Jam Kerja</span>
+                    <span>+ Rp {outdoorOvertimeFee.toLocaleString('id-ID')}</span>
                   </div>
                 )}
 

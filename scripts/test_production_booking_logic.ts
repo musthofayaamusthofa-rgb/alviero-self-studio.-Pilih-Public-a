@@ -1,6 +1,7 @@
-import { checkTimeSlotAvailability } from '../src/components/BookingCalculator';
+import { checkTimeSlotAvailability, generateOutdoorTimeSlots } from '../src/components/BookingCalculator';
 
 const slots = ['10:00', '10:30', '11:00', '11:30'];
+const outdoorSlots = generateOutdoorTimeSlots();
 
 function assert(condition: boolean, message: string) {
   if (!condition) {
@@ -61,5 +62,9 @@ assert(
   selfStudioResult.slots.find(slot => slot.slot === '10:00')?.isAvailable === true,
   'Self Studio tetap tersedia ketika hanya background Hitam yang terpakai'
 );
+
+assert(outdoorSlots[0] === '05:00' && outdoorSlots[1] === '06:00', 'Slot outdoor pagi dimulai pada 05:00 dan 06:00');
+assert(outdoorSlots.includes('12:00') && outdoorSlots.includes('13:05') && outdoorSlots.includes('20:40'), 'Slot outdoor memakai interval 65 menit mulai 12:00');
+assert(!outdoorSlots.includes('07:00') && !outdoorSlots.includes('11:00'), 'Slot outdoor melompati jam yang tidak diizinkan');
 
 console.log('Production booking logic tests passed.');

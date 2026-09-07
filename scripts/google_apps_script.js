@@ -101,6 +101,7 @@ function handleRequest(e) {
         var rowStudioType = String(row[2] || '').trim().toLowerCase();
         var rowPackage = String(row[7] || '').trim();
         var rowBackdrop = String(row[8] || '').trim();
+        var rowNotes = String(row[14] || '').trim();
         var rowStatus = String(row[15] || '').trim().toUpperCase();
 
         var isConfirmedBooking = isActiveBookingStatus(
@@ -139,6 +140,16 @@ function handleRequest(e) {
               }
             }
           }
+
+          var outdoorSlot = extractOutdoorTime(rowNotes);
+          if (outdoorSlot) {
+            slotCounts[outdoorSlot] = (slotCounts[outdoorSlot] || 0) + 1;
+            if (!slotBackdrops[outdoorSlot]) slotBackdrops[outdoorSlot] = [];
+            if (rowBackdrop) slotBackdrops[outdoorSlot].push(rowBackdrop);
+            if (slotCounts[outdoorSlot] >= maxCap && bookedSlots.indexOf(outdoorSlot) === -1) {
+              bookedSlots.push(outdoorSlot);
+            }
+          }
         }
 
       }
@@ -165,10 +176,11 @@ function handleRequest(e) {
       var bookingId = String(params.booking_id || '').trim();
       var bookingDate = formatDate(params.date || '');
       var timeSlot = normalizeTime(params.time || '');
+      var outdoorTime = normalizeTime(params.outdoor_time || '');
       var studioType = String(params.studio_type || 'studio_foto').toLowerCase();
       var rawBranch = String(params.branch || 'cabang-1').toLowerCase();
 
-      if (!bookingId || !bookingDate || !ALL_30M_SLOTS.includes(timeSlot)) {
+      if (!bookingId || !bookingDate || !ALL_30M_SLOTS.includes(timeSlot) || (outdoorTime && !generateOutdoorTimeSlots().includes(outdoorTime)) || (outdoorTime && outdoorTime === timeSlot)) {
         return jsonResponse({
           status: 'ERROR',
           code: 'INVALID_BOOKING_INPUT',
@@ -228,6 +240,7 @@ function handleRequest(e) {
         studioType,
         requestedSlots,
         backdrop,
+        outdoorTime,
         sheetName === 'Cabang 2' ? 3 : 1
       );
 
@@ -240,7 +253,8 @@ function handleRequest(e) {
         });
       }
 
-      var notesWithBookingId = '[BOOKING_ID:' + bookingId + '] ' + notes;
+      var notesWithBookingId = '[BOOKING_ID:' + bookingId + ']' +
+        (outdoorTime ? ' [OUTDOOR_TIME:' + outdoorTime + ']' : '') + ' ' + notes;
 
       // ⚠️ LANGKAH 1: SIMPAN DATA BARIS KE SPREADSHEET TERLEBIH DAHULU (FAIL-SAFE)
       sheet.appendRow([
@@ -397,7 +411,7 @@ function isActiveBookingStatus(status, submittedAt) {
   return ageMinutes >= 0 && ageMinutes <= PENDING_HOLD_MINUTES;
 }
 
-function getBookingAvailability(data, bookingDate, studioType, requestedSlots, backdrop, maxCapacity) {
+function getBookingAvailability(data, bookingDate, studioType, requestedSlots, backdrop, outdoorTime, maxCapacity) {
   var slotCounts = {};
   var normalizedBackdrop = String(backdrop || '').trim().toLowerCase();
 
@@ -416,6 +430,11 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     occupiedSlots.forEach(function(slot) {
       slotCounts[slot] = (slotCounts[slot] || 0) + 1;
     });
+
+    var existingOutdoorTime = extractOutdoorTime(String(row[14] || ''));
+    if (existingOutdoorTime) {
+      slotCounts[existingOutdoorTime] = (slotCounts[existingOutdoorTime] || 0) + 1;
+    }
   }
 
   for (var j = 0; j < requestedSlots.length; j++) {
@@ -429,11 +448,34 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     }
   }
 
+  if (outdoorTime && (slotCounts[outdoorTime] || 0) >= maxCapacity) {
+    return {
+      available: false,
+      message: 'Slot outdoor ' + outdoorTime + ' sudah penuh.',
+      occupiedSlots: requestedSlots.concat([outdoorTime])
+    };
+  }
+
   return {
     available: true,
     requestedBackdrop: normalizedBackdrop,
     occupiedSlots: requestedSlots
   };
+}
+
+function generateOutdoorTimeSlots() {
+  var slots = ['05:00', '06:00'];
+  for (var minutes = 12 * 60; minutes <= 20 * 60 + 40; minutes += 65) {
+    var hours = Math.floor(minutes / 60);
+    var remainder = minutes % 60;
+    slots.push(('0' + hours).slice(-2) + ':' + ('0' + remainder).slice(-2));
+  }
+  return slots;
+}
+
+function extractOutdoorTime(notes) {
+  var match = String(notes || '').match(/\[OUTDOOR_TIME:(\d{2}:\d{2})\]/);
+  return match ? normalizeTime(match[1]) : '';
 }
 
 // Inisialisasi Header Kolom

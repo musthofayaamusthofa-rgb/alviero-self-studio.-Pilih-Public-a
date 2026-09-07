@@ -50,20 +50,12 @@ export const PRINT_OPTIONS = {
 
 export const CATEGORIES: CategoryInfo[] = [
   {
-    id: 'graduation-indoor',
-    name: 'Graduation',
-    subPackageCount: 5,
-    subPackageNote: '5 Sub Paket (Elegant, Supreme, Infinity, Bundling 1-2)',
-    description: 'Sesi foto wisuda indoor di studio dengan berbagai tema latar, toga, props wisuda, dan bingkai eksklusif.',
+    id: 'graduation',
+    name: 'Graduation (Indoor & Outdoor)',
+    subPackageCount: 11,
+    subPackageNote: '11 Sub Paket Indoor, Outdoor & Bundling',
+    description: 'Paket wisuda terpadu dengan sesi indoor, outdoor, serta bundling indoor & outdoor dalam satu layanan Graduation.',
     iconName: 'GraduationCap'
-  },
-  {
-    id: 'graduation-outdoor',
-    name: 'Grad Outdoor',
-    subPackageCount: 6,
-    subPackageNote: '6 Sub Paket (Smart 30M/60M, Cumlaude, Group Outdoor 2-5 Wisudawan)',
-    description: 'Sesi foto wisuda outdoor di area kampus atau lokasi outdoor favorit lengkap dengan video & free transport.',
-    iconName: 'Trees'
   },
   {
     id: 'group',
@@ -254,7 +246,10 @@ export const PACKAGES: PackageItem[] = [
       "All File via Google Drive"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "indoorPackageId": "grad-indoor-elegant-scholar",
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-bundling-ultimate-2",
@@ -279,7 +274,10 @@ export const PACKAGES: PackageItem[] = [
       "All File via Google Drive"
     ],
     "popular": false,
-    "image": "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "indoorPackageId": "grad-indoor-supreme-scholar",
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-outdoor-smart-30",
@@ -303,7 +301,10 @@ export const PACKAGES: PackageItem[] = [
       "All File via Link Google Drive"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "indoorPackageId": "grad-indoor-elegant-scholar",
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-outdoor-smart-60",
@@ -327,7 +328,10 @@ export const PACKAGES: PackageItem[] = [
       "All File via Link Google Drive"
     ],
     "popular": false,
-    "image": "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "indoorPackageId": "grad-indoor-supreme-scholar",
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-outdoor-cumlaude",
@@ -352,7 +356,9 @@ export const PACKAGES: PackageItem[] = [
       "All File via Link Google Drive"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-outdoor-group-2",
@@ -375,7 +381,9 @@ export const PACKAGES: PackageItem[] = [
       "Semua Termasuk All File via Google Drive"
     ],
     "popular": false,
-    "image": "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-outdoor-group-3",
@@ -398,7 +406,9 @@ export const PACKAGES: PackageItem[] = [
       "Semua Termasuk All File via Google Drive"
     ],
     "popular": false,
-    "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "serviceGroup": "graduation"
   },
   {
     "id": "grad-outdoor-group-4-5",
@@ -421,7 +431,9 @@ export const PACKAGES: PackageItem[] = [
       "Semua Termasuk All File via Google Drive"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd?auto=format&fit=crop&w=800&q=80"
+    "image": "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd?auto=format&fit=crop&w=800&q=80",
+    "hasOutdoorSession": true,
+    "serviceGroup": "graduation"
   },
   {
     "id": "group-friendly-frame",

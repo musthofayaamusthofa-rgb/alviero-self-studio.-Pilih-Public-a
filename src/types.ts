@@ -1,4 +1,5 @@
 export type PackageCategory =
+  | 'graduation'
   | 'graduation-indoor'
   | 'graduation-outdoor'
   | 'pass-foto'
@@ -40,6 +41,9 @@ export interface PackageItem {
   highlights: string[];
   popular?: boolean;
   image: string;
+  hasOutdoorSession?: boolean;
+  indoorPackageId?: string;
+  serviceGroup?: 'graduation';
 }
 
 export type StudioBranch = 'cabang-1' | 'cabang-2';
