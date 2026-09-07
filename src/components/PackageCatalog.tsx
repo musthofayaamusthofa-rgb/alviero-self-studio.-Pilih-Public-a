@@ -165,17 +165,6 @@ const CATEGORY_PASTEL_THEMES: Record<string, {
     activeBg: 'bg-[#5252be]',
     activeText: 'text-white',
   },
-  'graduation-outdoor': {
-    bg: 'bg-[#f2f8f3]',
-    border: 'border-[#cde3d2]',
-    text: 'text-[#2a5936]',
-    iconBg: 'bg-[#ddf0e2]',
-    iconColor: 'text-[#2a5936]',
-    badgeBg: 'bg-[#ddf0e2]',
-    badgeText: 'text-[#2a5936]',
-    activeBg: 'bg-[#407a50]',
-    activeText: 'text-white',
-  },
 };
 
 export const PackageCatalog: React.FC<PackageCatalogProps> = ({

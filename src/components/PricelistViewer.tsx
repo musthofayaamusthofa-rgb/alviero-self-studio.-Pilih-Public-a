@@ -59,11 +59,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     if (c === 'bingkai-album' || c === 'cetak' || c === 'bingkai') {
       return 'bingkai-album';
     }
-    if (c === 'graduation-indoor' || c === 'grad-indoor' || c === 'graduation' || c === 'wisuda' || c === 'wisuda-indoor' || c === 'wisuda-wisudawan') {
+    if (c === 'graduation-indoor' || c === 'graduation-outdoor' || c === 'grad-indoor' || c === 'grad-outdoor' || c === 'graduation' || c === 'wisuda' || c === 'wisuda-indoor' || c === 'wisuda-outdoor' || c === 'wisuda-wisudawan') {
       return 'grad-indoor';
-    }
-    if (c === 'graduation-outdoor' || c === 'grad-outdoor' || c === 'wisuda-outdoor') {
-      return 'grad-outdoor';
     }
     if (c === 'kebaya-gaun' || c === 'kebayak-gaun') {
       return 'kebayak-gaun';
@@ -200,11 +197,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const studioFotoSubButtons = [
     {
       id: 'grad-indoor',
-      title: 'PRICELIST GRADUATION INDOOR',
-      subtitle: 'Elegant Scholar, Supreme, Infinity & Bundling',
+      title: 'PRICELIST GRADUATION INDOOR & OUTDOOR',
+      subtitle: 'Paket Indoor, Outdoor & Bundling Graduation',
       icon: '🎓',
-      sheetCategory: 'Paket Graduation Indoor',
-      badge: 'Wisuda Hot',
+      sheetCategory: 'Graduation',
+      badge: 'Wisuda Indoor & Outdoor',
       specialView: 'grad-indoor',
       cardBg: 'bg-[#f3f3fd]',
       cardBorder: 'border-[#d6d6f9]',
@@ -216,26 +213,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       badgeBorder: 'border-[#c2c2f7]',
       targetPackageIds: [
         'grad-indoor-elegant-scholar', 'grad-indoor-supreme-scholar', 'grad-indoor-infinity-scholar',
-        'grad-bundling-ultimate-1', 'grad-bundling-ultimate-2'
-      ]
-    },
-    {
-      id: 'grad-outdoor',
-      title: 'PRICELIST GRADUATION OUTDOOR',
-      subtitle: 'Smart (30/60M), Cumlaude Video & Group Outdoor',
-      icon: '🌳',
-      sheetCategory: 'Paket Wisuda Outdoor',
-      badge: 'Outdoor',
-      specialView: 'grad-outdoor',
-      cardBg: 'bg-[#f2f8f3]',
-      cardBorder: 'border-[#cde3d2]',
-      hoverBorder: 'hover:border-[#4b8058]',
-      iconBg: 'bg-[#ddf0e2]',
-      iconText: 'text-[#2a5936]',
-      badgeBg: 'bg-[#ddf0e2]',
-      badgeText: 'text-[#2a5936]',
-      badgeBorder: 'border-[#b9dec2]',
-      targetPackageIds: [
+        'grad-bundling-ultimate-1', 'grad-bundling-ultimate-2',
         'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude',
         'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'
       ]
@@ -488,7 +466,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // Grid Category Arrays (Sesuai Urutan 12 Paket Utama Photo Studio)
   const photoStudioGridItems = [
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
-    { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f2f8f3]', colorBorder: 'border-[#cde3d2]', colorText: 'text-[#2a5936]' },
     { id: 'group-paket', name: 'Group', icon: '👥', img: '/images/categories/group.jpg', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', img: '/images/categories/family.jpg', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
     { id: 'maternity-paket', name: 'Maternity', icon: '🤰', img: '/images/categories/maternity.jpg', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
@@ -3323,7 +3300,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 )}
 
                 {/* 13. SPECIAL FIGMA VIEW FOR GRADUATION OUTDOOR */}
-                {activeMenuCategory === 'grad-outdoor' && (
+                {activeMenuCategory === 'grad-indoor' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
                     <div className="space-y-1">
                       <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">OUTDOOR SESSIONS</span>
