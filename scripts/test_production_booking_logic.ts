@@ -1,4 +1,4 @@
-import { checkTimeSlotAvailability, generateOutdoorTimeSlots } from '../src/components/BookingCalculator';
+import { checkTimeSlotAvailability, generateOutdoorTimeSlots, getPackageMaxBackdrops } from '../src/components/BookingCalculator';
 
 const slots = ['10:00', '10:30', '11:00', '11:30'];
 const outdoorSlots = generateOutdoorTimeSlots();
@@ -66,5 +66,25 @@ assert(
 assert(outdoorSlots[0] === '05:00' && outdoorSlots[1] === '06:00', 'Slot outdoor pagi dimulai pada 05:00 dan 06:00');
 assert(outdoorSlots.includes('12:00') && outdoorSlots.includes('13:05') && outdoorSlots.includes('20:40'), 'Slot outdoor memakai interval 65 menit mulai 12:00');
 assert(!outdoorSlots.includes('07:00') && !outdoorSlots.includes('11:00'), 'Slot outdoor melompati jam yang tidak diizinkan');
+
+assert(
+  getPackageMaxBackdrops({
+    id: 'grad-bundling-ultimate-1',
+    name: 'Ultimate Scholar 1 (Graduation Bundling)',
+    category: 'graduation-indoor',
+    description: 'Paket bundling hemat'
+  }) === 1,
+  'Ultimate Scholar 1 hanya memakai 1 background'
+);
+
+assert(
+  getPackageMaxBackdrops({
+    id: 'grad-bundling-ultimate-2',
+    name: 'Ultimate Scholar 2 (Graduation Bundling)',
+    category: 'graduation-indoor',
+    description: 'Paket bundling hemat'
+  }) === 2,
+  'Ultimate Scholar 2 tetap memakai 2 background'
+);
 
 console.log('Production booking logic tests passed.');

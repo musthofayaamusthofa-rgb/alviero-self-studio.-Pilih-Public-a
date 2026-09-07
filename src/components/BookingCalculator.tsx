@@ -167,6 +167,15 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
 export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[] }): number => {
   const id = pkg.id.toLowerCase();
   const cat = pkg.category.toLowerCase();
+  const name = (pkg.name || '').toLowerCase();
+
+  if (
+    id === 'grad-bundling-ultimate-1' ||
+    name === 'bundling 1 ——ultimate scholar 1' ||
+    name === 'ultimate scholar 1 (graduation bundling)'
+  ) {
+    return 1;
+  }
 
   if (id.includes('self') || cat === 'self-studio' || cat === 'pass-foto' || id.includes('passfoto') || cat === 'sewa-studio' || cat === 'undangan') {
     return 1;
@@ -174,8 +183,6 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
 
   const desc = (pkg.description || '').toLowerCase();
   const highlights = (pkg.highlights || []).map(h => h.toLowerCase()).join(' ');
-  const name = (pkg.name || '').toLowerCase();
-
   if (desc.includes('2 background') || highlights.includes('2 background') || desc.includes('2 latar') || highlights.includes('2 latar')) {
     return 2;
   }
@@ -1091,6 +1098,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   const goToStepSafely = (newStep: number) => {
+    if (newStep >= 2 && hasOutdoorSession && !outdoorLocation.trim()) {
+      alert('Lokasi foto outdoor wajib diisi!');
+      return;
+    }
+
     if (newStep >= 2 && !isStep1Valid) {
       alert('Lengkapi pilihan background sesuai paket terlebih dahulu.');
       return;
@@ -1239,6 +1251,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const sessionDurationMinutes = isSelfStudio || isOutdoorOnly
     ? currentPackage.durationMinutes
     : (maxBackdrops > 1 ? 60 : 30);
+  const outdoorSessionDurationMinutes = hasOutdoorSession
+    ? (isOutdoorOnly ? currentPackage.durationMinutes : 60)
+    : 0;
   const sessionSlotsCount = isSelfStudio ? 1 : (maxBackdrops > 1 ? 2 : 1);
   const isOutdoorOvertime = hasOutdoorSession && (outdoorTimeSlot === '05:00' || outdoorTimeSlot === '06:00');
   const outdoorOvertimeFee = isOutdoorOvertime ? 35000 : 0;
@@ -1482,7 +1497,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const formattedIndoorTime = `${timeSlot} - ${calculateEndTime(timeSlot, sessionDurationMinutes)}`;
   const formattedOutdoorTime = hasOutdoorSession
-    ? `${outdoorTimeSlot} - ${calculateEndTime(outdoorTimeSlot, 65)}`
+    ? `${outdoorTimeSlot} - ${calculateEndTime(outdoorTimeSlot, outdoorSessionDurationMinutes)}`
     : '';
   const formattedSessionTime = isOutdoorOnly
     ? formattedOutdoorTime
@@ -1662,7 +1677,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const backdropDisplayName = selectedBackdropObjects.length > 1
     ? `Background 1: ${selectedBackdropObjects[0]?.name} & Background 2: ${selectedBackdropObjects[1]?.name}`
-    : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Background Standar');
+    : (isOutdoorOnly ? '-' : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Background Standar'));
 
   const currentFrame = FRAME_TEMPLATES.find(f => f.id === selectedFrameId) || FRAME_TEMPLATES[0];
 
@@ -1771,7 +1786,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       if (!isOutdoorOnly) {
         message += `• Waktu Indoor: *${formattedIndoorTime} WIB*\n`;
       }
-      message += `• Waktu Outdoor: *${formattedOutdoorTime} WIB* (Jarak sesi 65 menit)\n`;
+      message += `• Waktu Outdoor: *${formattedOutdoorTime} WIB* (Durasi sesi ${outdoorSessionDurationMinutes} menit)\n`;
       message += `• Lokasi Foto Outdoor: *${outdoorLocation.trim()}*\n`;
     }
     message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
@@ -1920,6 +1935,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         time: isOutdoorOnly ? outdoorTimeSlot : timeSlot,
         indoor_time: isOutdoorOnly ? '' : formattedIndoorTime,
         outdoor_time: hasOutdoorSession ? formattedOutdoorTime : '',
+        outdoor_duration: hasOutdoorSession ? outdoorSessionDurationMinutes : 0,
         outdoor_location: hasOutdoorSession ? outdoorLocation.trim() : '',
         studio_type: studioType,
         studio_label: studioLabel,
@@ -1936,7 +1952,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS (Fee 1%)'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}${isOutdoorOvertime ? ' | Biaya Tambahan di Luar Jam Kerja: +Rp 35.000' : ''}]${hasOutdoorSession ? ` [${isOutdoorOnly ? '' : `Indoor: ${formattedIndoorTime} | `}Outdoor: ${formattedOutdoorTime} | Lokasi Outdoor: ${outdoorLocation.trim()}]` : ''}${hasFreePrint ? ` [Gratis Cetak: ${ukuranCetak} - ${gridCetak}]` : ''}${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}${isOutdoorOvertime ? ' | Biaya Tambahan di Luar Jam Kerja: +Rp 35.000' : ''}]${hasOutdoorSession ? ` [OUTDOOR_DURATION:${outdoorSessionDurationMinutes}] [${isOutdoorOnly ? '' : `Indoor: ${formattedIndoorTime} | `}Outdoor: ${formattedOutdoorTime} | Lokasi Outdoor: ${outdoorLocation.trim()}]` : ''}${hasFreePrint ? ` [Gratis Cetak: ${ukuranCetak} - ${gridCetak}]` : ''}${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -2013,7 +2029,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && !!paymentProofImage && (!hasOutdoorSession || outdoorLocation.trim().length > 0);
 
   // Validasi Step 1: Jika klien memilih paket 2 background ke atas, mereka wajib memilih semua background (misal 2/2) baru bisa menekan tombol "Lanjut"
-  const isStep1Valid = selectedBackdropIds.length >= maxBackdrops &&
+  const isStep1Valid = (isOutdoorOnly || selectedBackdropIds.length >= maxBackdrops) &&
+    (!hasOutdoorSession || outdoorLocation.trim().length > 0) &&
     (!hasOutdoorSession || (
       isOutdoorTimeSlotAvailable(outdoorTimeSlot).isAvailable &&
       (isOutdoorOnly || (
@@ -2444,7 +2461,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           {isOutdoorOnly ? '1.' : '2.'} PILIH WAKTU OUTDOOR
                         </label>
                         <span className="text-[10px] font-bold text-emerald-800 bg-white border border-emerald-200 rounded-full px-2.5 py-1">
-                          Durasi 65 Menit • Jeda Min. 90 Menit
+                          Durasi {outdoorSessionDurationMinutes} Menit • Jeda Min. 90 Menit
                         </span>
                       </div>
                       <p className="text-[11px] text-emerald-900">
@@ -2483,7 +2500,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                   ? 'bg-emerald-800 text-white border-emerald-800 ring-2 ring-emerald-300'
                                   : 'bg-white text-emerald-950 border-emerald-200 hover:border-emerald-700 cursor-pointer'
                                 }`}
-                              title={!availability.isAvailable ? availability.reason : `Outdoor ${slot} - ${calculateEndTime(slot, 65)} WIB`}
+                              title={!availability.isAvailable ? availability.reason : `Outdoor ${slot} - ${calculateEndTime(slot, outdoorSessionDurationMinutes)} WIB`}
                             >
                               <span className="leading-tight">{slot}</span>
                               {!availability.isAvailable ? (
@@ -2550,7 +2567,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               </div>
 
               {/* 3. Pemilihan Background */}
-              <div className="pt-2 border-t border-[#E8DDD6]">
+              <div className={`pt-2 border-t border-[#E8DDD6] ${isOutdoorOnly ? 'hidden' : ''}`}>
                 <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
                   <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
                     3. {maxBackdrops > 1 ? 'PILIH 2 BACKGROUND FOTO / PENCAHAYAAN:' : 'PILIH BACKGROUND FOTO / PENCAHAYAAN:'}

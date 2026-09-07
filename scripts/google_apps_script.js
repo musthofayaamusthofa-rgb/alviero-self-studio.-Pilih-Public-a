@@ -118,7 +118,11 @@ function handleRequest(e) {
           rowDate === dateParam &&
           (rowStudioType === studioTypeParam || !studioTypeParam || studioTypeParam === 'all')
         ) {
-          var occupiedSlots = getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
+          var outdoorSlot = extractOutdoorTime(rowNotes);
+          var isOutdoorOnlyRow = isOutdoorOnlyBookingRow(rowSlot, rowNotes, outdoorSlot);
+          var occupiedSlots = isOutdoorOnlyRow
+            ? []
+            : getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
 
           for (var sIdx = 0; sIdx < occupiedSlots.length; sIdx++) {
             var s = occupiedSlots[sIdx];
@@ -141,14 +145,16 @@ function handleRequest(e) {
             }
           }
 
-          var outdoorSlot = extractOutdoorTime(rowNotes);
           if (outdoorSlot) {
-            slotCounts[outdoorSlot] = (slotCounts[outdoorSlot] || 0) + 1;
-            if (!slotBackdrops[outdoorSlot]) slotBackdrops[outdoorSlot] = [];
-            if (rowBackdrop) slotBackdrops[outdoorSlot].push(rowBackdrop);
-            if (slotCounts[outdoorSlot] >= maxCap && bookedSlots.indexOf(outdoorSlot) === -1) {
-              bookedSlots.push(outdoorSlot);
-            }
+            addOutdoorOccupancy(
+              slotCounts,
+              bookedSlots,
+              slotBackdrops,
+              outdoorSlot,
+              extractOutdoorDuration(rowNotes),
+              rowBackdrop,
+              maxCap
+            );
           }
         }
 
@@ -179,6 +185,8 @@ function handleRequest(e) {
       var indoorTime = normalizeTime(params.indoor_time || '');
       var outdoorTime = normalizeTime(params.outdoor_time || '');
       var isOutdoorOnlyBooking = !indoorTime && !!outdoorTime;
+      var outdoorLocation = String(params.outdoor_location || '').trim();
+      var outdoorDuration = Number(params.outdoor_duration) || extractOutdoorDuration(String(params.notes || '')) || 60;
       var studioType = String(params.studio_type || 'studio_foto').toLowerCase();
       var rawBranch = String(params.branch || 'cabang-1').toLowerCase();
 
@@ -191,6 +199,14 @@ function handleRequest(e) {
           status: 'ERROR',
           code: 'INVALID_BOOKING_INPUT',
           message: 'Booking ID, tanggal, atau slot tidak valid.'
+        });
+      }
+
+      if (outdoorTime && !outdoorLocation) {
+        return jsonResponse({
+          status: 'ERROR',
+          code: 'MISSING_OUTDOOR_LOCATION',
+          message: 'Lokasi foto outdoor wajib diisi.'
         });
       }
 
@@ -249,7 +265,9 @@ function handleRequest(e) {
         requestedSlots,
         backdrop,
         outdoorTime,
-        sheetName === 'Cabang 2' ? 3 : 1
+        outdoorDuration,
+        sheetName === 'Cabang 2' ? 3 : 1,
+        packageName
       );
 
       if (!availability.available) {
@@ -419,9 +437,20 @@ function isActiveBookingStatus(status, submittedAt) {
   return ageMinutes >= 0 && ageMinutes <= PENDING_HOLD_MINUTES;
 }
 
-function getBookingAvailability(data, bookingDate, studioType, requestedSlots, backdrop, outdoorTime, maxCapacity) {
+function getBookingAvailability(data, bookingDate, studioType, requestedSlots, backdrop, outdoorTime, outdoorDuration, maxCapacity, packageName) {
   var slotCounts = {};
+  var slotBackdrops = {};
   var normalizedBackdrop = String(backdrop || '').trim().toLowerCase();
+  var requestedBackdropCount = splitBackdropNames(backdrop).length;
+  var maxBackdrops = getBackendMaxBackdrops(packageName);
+
+  if (requestedSlots.length > 0 && requestedBackdropCount > maxBackdrops) {
+    return {
+      available: false,
+      message: 'Paket ini maksimal menggunakan ' + maxBackdrops + ' background.',
+      occupiedSlots: requestedSlots
+    };
+  }
 
   for (var i = 1; i < data.length; i++) {
     var row = data[i];
@@ -434,14 +463,26 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     if (rowDate !== bookingDate || rowStudioType !== studioType) continue;
     if (!isActiveBookingStatus(rowStatus, row[17])) continue;
 
-    var occupiedSlots = getOccupiedSlotsForRow(row[1], row[7], row[8]);
+    var existingOutdoorTime = extractOutdoorTime(String(row[14] || ''));
+    var occupiedSlots = isOutdoorOnlyBookingRow(row[1], String(row[14] || ''), existingOutdoorTime)
+      ? []
+      : getOccupiedSlotsForRow(row[1], row[7], row[8]);
     occupiedSlots.forEach(function(slot) {
       slotCounts[slot] = (slotCounts[slot] || 0) + 1;
+      if (!slotBackdrops[slot]) slotBackdrops[slot] = [];
+      slotBackdrops[slot] = slotBackdrops[slot].concat(splitBackdropNames(row[8]));
     });
 
-    var existingOutdoorTime = extractOutdoorTime(String(row[14] || ''));
     if (existingOutdoorTime) {
-      slotCounts[existingOutdoorTime] = (slotCounts[existingOutdoorTime] || 0) + 1;
+      addOutdoorOccupancy(
+        slotCounts,
+        [],
+        {},
+        existingOutdoorTime,
+        extractOutdoorDuration(String(row[14] || '')),
+        row[8],
+        maxCapacity
+      );
     }
   }
 
@@ -460,8 +501,19 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     return {
       available: false,
       message: 'Slot outdoor ' + outdoorTime + ' sudah penuh.',
-      occupiedSlots: requestedSlots.concat([outdoorTime])
+          occupiedSlots: requestedSlots.concat([outdoorTime])
     };
+  }
+
+  var backdropValidation = validateRequestedBackdrops(
+    slotBackdrops,
+    requestedSlots,
+    normalizedBackdrop,
+    studioType,
+    maxCapacity
+  );
+  if (!backdropValidation.available) {
+    return backdropValidation;
   }
 
   return {
@@ -469,6 +521,163 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     requestedBackdrop: normalizedBackdrop,
     occupiedSlots: requestedSlots
   };
+}
+
+function getBackendMaxBackdrops(packageName) {
+  var packageText = String(packageName || '').toLowerCase();
+  if (packageText.indexOf('ultimate scholar 1') !== -1 || packageText.indexOf('grad-bundling-ultimate-1') !== -1) {
+    return 1;
+  }
+  if (
+    packageText.indexOf('2 background') !== -1 ||
+    packageText.indexOf('supreme') !== -1 ||
+    packageText.indexOf('infinity') !== -1 ||
+    packageText.indexOf('ultimate scholar 2') !== -1 ||
+    packageText.indexOf('happy nest') !== -1 ||
+    packageText.indexOf('opulent') !== -1 ||
+    packageText.indexOf('sweet memories') !== -1
+  ) {
+    return 2;
+  }
+  return 1;
+}
+
+function timeToMinutes(time) {
+  var normalized = normalizeTime(time);
+  var parts = normalized.split(':');
+  if (parts.length !== 2) return NaN;
+  return Number(parts[0]) * 60 + Number(parts[1]);
+}
+
+function extractOutdoorDuration(notes) {
+  var match = String(notes || '').match(/\[OUTDOOR_DURATION:(\d+)\]/);
+  return match ? Number(match[1]) : 60;
+}
+
+function addOutdoorOccupancy(slotCounts, bookedSlots, slotBackdrops, startSlot, durationMinutes, backdrop, maxCapacity) {
+  var startMinutes = timeToMinutes(startSlot);
+  if (isNaN(startMinutes)) return;
+
+  var endMinutes = startMinutes + (Number(durationMinutes) || 60);
+  var outdoorSlots = generateOutdoorTimeSlots();
+  outdoorSlots.forEach(function(candidate) {
+    var candidateMinutes = timeToMinutes(candidate);
+    if (candidateMinutes >= startMinutes && candidateMinutes < endMinutes) {
+      slotCounts[candidate] = (slotCounts[candidate] || 0) + 1;
+      if (slotBackdrops) {
+        if (!slotBackdrops[candidate]) slotBackdrops[candidate] = [];
+        if (backdrop) slotBackdrops[candidate] = slotBackdrops[candidate].concat(splitBackdropNames(backdrop));
+      }
+      if (bookedSlots && slotCounts[candidate] >= maxCapacity && bookedSlots.indexOf(candidate) === -1) {
+        bookedSlots.push(candidate);
+      }
+    }
+  });
+}
+
+function isOutdoorOnlyBookingRow(rowSlotRaw, notes, outdoorSlot) {
+  var rowSlot = normalizeTime(rowSlotRaw);
+  return Boolean(outdoorSlot && rowSlot === outdoorSlot && !/\bIndoor\s*:/i.test(String(notes || '')));
+}
+
+function splitBackdropNames(backdrop) {
+  return String(backdrop || '')
+    .split(/\s*(?:&|,|\+|\|)\s*/)
+    .map(function(item) { return item.trim().toLowerCase(); })
+    .filter(Boolean);
+}
+
+function hasBackdropKeyword(backdrop, keywords) {
+  var value = String(backdrop || '').toLowerCase();
+  return keywords.some(function(keyword) { return value.indexOf(keyword) !== -1; });
+}
+
+function validateRequestedBackdrops(slotBackdrops, requestedSlots, backdrop, studioType, maxCapacity) {
+  if (!backdrop || requestedSlots.length === 0) {
+    return { available: true };
+  }
+
+  var requested = splitBackdropNames(backdrop);
+  for (var requestedIndex = 0; requestedIndex < requested.length; requestedIndex++) {
+    for (var otherIndex = requestedIndex + 1; otherIndex < requested.length; otherIndex++) {
+      var firstRequested = requested[requestedIndex];
+      var secondRequested = requested[otherIndex];
+      var samePhysicalBackdrop =
+        (hasBackdropKeyword(firstRequested, ['putih']) && hasBackdropKeyword(secondRequested, ['putih'])) ||
+        (hasBackdropKeyword(firstRequested, ['abu']) && hasBackdropKeyword(secondRequested, ['abu'])) ||
+        (hasBackdropKeyword(firstRequested, ['hitam']) && hasBackdropKeyword(secondRequested, ['hitam']));
+      var limboPutihConflict =
+        (hasBackdropKeyword(firstRequested, ['limbo']) && hasBackdropKeyword(secondRequested, ['putih tengah', 'putih-tengah'])) ||
+        (hasBackdropKeyword(secondRequested, ['limbo']) && hasBackdropKeyword(firstRequested, ['putih tengah', 'putih-tengah']));
+      var coklatCreamConflict =
+        (hasBackdropKeyword(firstRequested, ['coklat', 'cokelat']) && hasBackdropKeyword(secondRequested, ['cream', 'krem'])) ||
+        (hasBackdropKeyword(secondRequested, ['coklat', 'cokelat']) && hasBackdropKeyword(firstRequested, ['cream', 'krem']));
+
+      if (samePhysicalBackdrop || limboPutihConflict || coklatCreamConflict) {
+        return {
+          available: false,
+          message: 'Kombinasi background yang dipilih tidak diizinkan pada satu sesi.',
+          occupiedSlots: requestedSlots
+        };
+      }
+    }
+  }
+
+  for (var i = 0; i < requestedSlots.length; i++) {
+    var slot = requestedSlots[i];
+    var existing = slotBackdrops[slot] || [];
+
+    if (studioType === 'studio_foto') {
+      for (var r = 0; r < requested.length; r++) {
+        var requestedName = requested[r];
+        var duplicate = existing.some(function(existingName) {
+          return existingName === requestedName ||
+            (hasBackdropKeyword(requestedName, ['putih']) && hasBackdropKeyword(existingName, ['putih'])) ||
+            (hasBackdropKeyword(requestedName, ['abu']) && hasBackdropKeyword(existingName, ['abu'])) ||
+            (hasBackdropKeyword(requestedName, ['hitam']) && hasBackdropKeyword(existingName, ['hitam'])) ||
+            (hasBackdropKeyword(requestedName, ['cream', 'krem']) && hasBackdropKeyword(existingName, ['cream', 'krem'])) ||
+            (hasBackdropKeyword(requestedName, ['coklat', 'cokelat']) && hasBackdropKeyword(existingName, ['coklat', 'cokelat'])) ||
+            (hasBackdropKeyword(requestedName, ['limbo']) && hasBackdropKeyword(existingName, ['limbo'])) ||
+            (hasBackdropKeyword(requestedName, ['putih tengah', 'putih-tengah']) && hasBackdropKeyword(existingName, ['putih tengah', 'putih-tengah']));
+        });
+        if (duplicate) {
+          return {
+            available: false,
+            message: 'Background ' + requestedName + ' sudah terpakai pada slot ' + slot + '.',
+            occupiedSlots: [slot]
+          };
+        }
+
+        var limboStageConflict =
+          (hasBackdropKeyword(requestedName, ['limbo']) && existing.some(function(existingName) {
+            return hasBackdropKeyword(existingName, ['putih tengah', 'putih-tengah']);
+          })) ||
+          (hasBackdropKeyword(requestedName, ['putih tengah', 'putih-tengah']) && existing.some(function(existingName) {
+            return hasBackdropKeyword(existingName, ['limbo']);
+          }));
+        if (limboStageConflict) {
+          return {
+            available: false,
+            message: 'Background Limbo dan Putih Tengah memakai panggung yang sama pada slot ' + slot + '.',
+            occupiedSlots: [slot]
+          };
+        }
+      }
+
+      var combined = existing.concat(requested);
+      var hasCoklat = combined.some(function(name) { return hasBackdropKeyword(name, ['coklat', 'cokelat']); });
+      var hasCream = combined.some(function(name) { return hasBackdropKeyword(name, ['cream', 'krem']); });
+      if (hasCoklat && hasCream) {
+        return {
+          available: false,
+          message: 'Background Coklat dan Cream tidak dapat dipakai bersamaan pada slot ' + slot + '.',
+          occupiedSlots: [slot]
+        };
+      }
+    }
+  }
+
+  return { available: true };
 }
 
 function generateOutdoorTimeSlots() {
@@ -564,7 +773,11 @@ function getOccupiedSlotsForRow(rowSlotRaw, rowPackageRaw, rowBackdropRaw) {
       // Cek apakah paket 2 slot / 60 menit / 2 background
       var pkgLower = String(rowPackageRaw || '').toLowerCase();
       var bdLower = String(rowBackdropRaw || '').toLowerCase();
-      var is2Slot = (
+      var isUltimateScholar1 = (
+        pkgLower.indexOf('grad-bundling-ultimate-1') !== -1 ||
+        pkgLower.indexOf('ultimate scholar 1') !== -1
+      );
+      var is2Slot = !isUltimateScholar1 && (
         pkgLower.indexOf('paket 2') !== -1 ||
         pkgLower.indexOf('paket 3') !== -1 ||
         pkgLower.indexOf('paket 4') !== -1 ||
