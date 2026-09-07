@@ -176,11 +176,17 @@ function handleRequest(e) {
       var bookingId = String(params.booking_id || '').trim();
       var bookingDate = formatDate(params.date || '');
       var timeSlot = normalizeTime(params.time || '');
+      var indoorTime = normalizeTime(params.indoor_time || '');
       var outdoorTime = normalizeTime(params.outdoor_time || '');
+      var isOutdoorOnlyBooking = !indoorTime && !!outdoorTime;
       var studioType = String(params.studio_type || 'studio_foto').toLowerCase();
       var rawBranch = String(params.branch || 'cabang-1').toLowerCase();
 
-      if (!bookingId || !bookingDate || !ALL_30M_SLOTS.includes(timeSlot) || (outdoorTime && !generateOutdoorTimeSlots().includes(outdoorTime)) || (outdoorTime && outdoorTime === timeSlot)) {
+      var isPrimaryTimeValid = isOutdoorOnlyBooking
+        ? generateOutdoorTimeSlots().includes(timeSlot)
+        : ALL_30M_SLOTS.includes(timeSlot);
+
+      if (!bookingId || !bookingDate || !isPrimaryTimeValid || (outdoorTime && !generateOutdoorTimeSlots().includes(outdoorTime)) || (!isOutdoorOnlyBooking && outdoorTime && outdoorTime === timeSlot)) {
         return jsonResponse({
           status: 'ERROR',
           code: 'INVALID_BOOKING_INPUT',
@@ -233,7 +239,9 @@ function handleRequest(e) {
         }
       }
 
-      var requestedSlots = getOccupiedSlotsForRow(timeSlot, packageName, backdrop);
+      var requestedSlots = isOutdoorOnlyBooking
+        ? []
+        : getOccupiedSlotsForRow(timeSlot, packageName, backdrop);
       var availability = getBookingAvailability(
         existingData,
         bookingDate,
