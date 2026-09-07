@@ -62,6 +62,13 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 >   - Pada Studio 2, paket *"Self Studio"* memiliki syarat ketersediaan ruangan khusus karena menggunakan area panggung utama.
 >   - Slot jam HANYA BISA AKTIF (Tersedia) untuk dipesan oleh paket Self Studio **JIKA DAN HANYA JIKA** 4 background: *Putih, Abu-abu, Cream, dan Coklat* **BELUM DIPILIH SAMA SEKALI** (jumlah pemakaian = 0) oleh klien lain di jam tersebut (`countPutih === 0 && countAbu === 0 && countCream === 0 && countCoklat === 0`).
 >   - Jika ada klien lain yang sedang memakai background *"Hitam"* di jam tersebut, paket Self Studio **TETAP DIIZINKAN (Valid)**.
+> - **D. Aturan Jarak Waktu Minimal Antar Sesi (Bundling Indoor & Outdoor):**
+>   - Paket yang memiliki 2 sesi (seperti Paket Bundling Indoor + Outdoor) mewajibkan jarak waktu minimal **1 jam 30 menit (90 menit)** antar waktu mulai kedua sesi: `Math.abs(time2Minutes - time1Minutes) >= 90`.
+>   - Urutan pemilihan bebas (klien boleh memilih Indoor terlebih dahulu maupun Outdoor terlebih dahulu).
+>   - Jam kedua sesi tidak boleh sama / bentrok.
+>   - Pada UI pemilihan sesi kedua, slot waktu yang selisihnya `< 90 menit` otomatis berstatus `disabled: true`, bercoret, dan berlabel badge `< 90m` / `< 90 Menit`.
+>   - Sistem secara otomatis menyesuaikan slot pilihan kedua ke jam valid pertama jika jam sesi pertama diubah.
+
 
 > ⏰ **Jam Operasional, Interval & Durasi Sesi Foto:**
 > - Buka Setiap Hari: **08:00 - 21:00 WIB**

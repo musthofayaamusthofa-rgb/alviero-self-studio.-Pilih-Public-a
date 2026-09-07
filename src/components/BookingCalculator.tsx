@@ -649,6 +649,82 @@ export const calculateEndTime = (startTimeStr: string, durationMinutes: number):
   return `${String(endHh).padStart(2, '0')}:${String(endMm).padStart(2, '0')}`;
 };
 
+/**
+ * Konversi waktu HH:MM ke total menit dari 00:00
+ */
+export const timeToMinutes = (timeStr: string): number => {
+  const norm = normalizeSlotTime(timeStr);
+  const [hhStr, mmStr] = norm.split(':');
+  const hh = Number(hhStr);
+  const mm = Number(mmStr);
+  if (isNaN(hh) || isNaN(mm)) return 0;
+  return hh * 60 + mm;
+};
+
+/**
+ * Menghitung selisih waktu absolut antar dua slot jam dalam menit
+ */
+export const calculateTimeGapMinutes = (time1: string, time2: string): number => {
+  if (!time1 || !time2) return 0;
+  return Math.abs(timeToMinutes(time1) - timeToMinutes(time2));
+};
+
+/**
+ * Memvalidasi apakah jarak waktu antar 2 sesi memenuhi batas minimal (default 90 menit)
+ */
+export const isBundlingGapValid = (time1: string, time2: string, minGapMinutes = 90): boolean => {
+  if (!time1 || !time2) return true;
+  return calculateTimeGapMinutes(time1, time2) >= minGapMinutes;
+};
+
+export interface SecondSessionSlotStatus {
+  slot: string;
+  disabled: boolean;
+  reason?: string;
+  gapMinutes?: number;
+}
+
+/**
+ * Logika validasi jarak waktu minimal antar sesi (Indoor & Outdoor) untuk Paket Bundling.
+ * Menghitung selisih absolut Math.abs(time2 - time1) >= 90 menit.
+ * Jika selisih < 90 menit, me-return status disabled: true.
+ *
+ * @param firstSessionTime Jam sesi pertama yang dipilih (misal: '10:00')
+ * @param allSecondSlots Daftar semua slot jam yang tersedia untuk sesi kedua
+ * @param minGapMinutes Batas minimal jeda waktu antar sesi (default: 90 menit)
+ * @returns Array objek berisi slot, status disabled, dan alasannya
+ */
+export const getAvailableSecondSessionTimes = (
+  firstSessionTime: string,
+  allSecondSlots: string[],
+  minGapMinutes: number = 90
+): SecondSessionSlotStatus[] => {
+  if (!firstSessionTime) {
+    return allSecondSlots.map(slot => ({
+      slot,
+      disabled: false,
+      gapMinutes: undefined
+    }));
+  }
+
+  const firstMinutes = timeToMinutes(firstSessionTime);
+
+  return allSecondSlots.map(slot => {
+    const slotMinutes = timeToMinutes(slot);
+    const gap = Math.abs(slotMinutes - firstMinutes);
+    const disabled = gap < minGapMinutes;
+
+    return {
+      slot,
+      disabled,
+      gapMinutes: gap,
+      reason: disabled
+        ? `Jarak minimal antar sesi 90 menit (selisih: ${gap} menit dari ${firstSessionTime} WIB)`
+        : undefined
+    };
+  });
+};
+
 const INDONESIAN_DAYS = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 const INDONESIAN_MONTHS = [
   'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -1025,8 +1101,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       const outdoorAvailability = hasOutdoorSession
         ? isOutdoorTimeSlotAvailable(outdoorTimeSlot)
         : { isAvailable: true };
-      if (!availability.isAvailable || !outdoorAvailability.isAvailable || (hasOutdoorSession && timeSlot === outdoorTimeSlot)) {
-        alert(availability.reason || 'Waktu indoor dan outdoor harus berbeda serta tersedia.');
+      if (!availability.isAvailable || !outdoorAvailability.isAvailable || (hasOutdoorSession && timeSlot === outdoorTimeSlot) || (hasOutdoorSession && !isBundlingGapValid(timeSlot, outdoorTimeSlot, 90))) {
+        const gap = calculateTimeGapMinutes(timeSlot, outdoorTimeSlot);
+        alert(
+          availability.reason ||
+          outdoorAvailability.reason ||
+          `Jarak waktu antar Sesi Indoor (${timeSlot}) dan Sesi Outdoor (${outdoorTimeSlot}) minimal 1 jam 30 menit (90 menit). Selisih saat ini: ${gap} menit.`
+        );
         return;
       }
     }
@@ -1356,6 +1437,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       }
     }
 
+    // Aturan Jarak Waktu Minimal 90 Menit jika paket memiliki sesi Outdoor (Bundling)
+    if (hasOutdoorSession && outdoorTimeSlot) {
+      const [slotStatus] = getAvailableSecondSessionTimes(outdoorTimeSlot, [startSlot], 90);
+      if (slotStatus?.disabled) {
+        return {
+          isAvailable: false,
+          reason: `Jarak minimal antar sesi 90 menit (selisih: ${slotStatus.gapMinutes} menit dari Outdoor ${outdoorTimeSlot} WIB)`
+        };
+      }
+    }
+
     return { isAvailable: true };
   };
 
@@ -1366,6 +1458,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     if (getSlotClientCount(startSlot) >= (selectedBranch === 'cabang-2' ? 3 : 1)) {
       return { isAvailable: false, reason: 'Slot outdoor sudah penuh' };
+    }
+
+    // Aturan Jarak Waktu Minimal 90 Menit Antar Sesi (Bundling Indoor & Outdoor)
+    if (hasOutdoorSession && timeSlot) {
+      const [slotStatus] = getAvailableSecondSessionTimes(timeSlot, [startSlot], 90);
+      if (slotStatus?.disabled) {
+        return {
+          isAvailable: false,
+          reason: `Jarak minimal antar sesi 90 menit (selisih: ${slotStatus.gapMinutes} menit dari Indoor ${timeSlot} WIB)`
+        };
+      }
     }
 
     return { isAvailable: true };
@@ -1380,7 +1483,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     : formattedIndoorTime;
   const currentOccupiedSlots = getOccupiedSlotsForStart(timeSlot);
 
-  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / tidak ada di activeTimeSlots / penuh
+  // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / tidak ada di activeTimeSlots / penuh / terlalu dekat
   useEffect(() => {
     const currentAvailability = isSlotAvailableForBooking(timeSlot);
     if (!activeTimeSlots.includes(timeSlot) || !currentAvailability.isAvailable) {
@@ -1391,7 +1494,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         setTimeSlot(activeTimeSlots[0]);
       }
     }
-  }, [slotClientCounts, slotBackdrops, slotSelfStudioBookings, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch]);
+  }, [slotClientCounts, slotBackdrops, slotSelfStudioBookings, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch, outdoorTimeSlot, hasOutdoorSession]);
 
   useEffect(() => {
     if (!hasOutdoorSession) return;
@@ -1399,7 +1502,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       const firstAvailable = outdoorTimeSlots.find(slot => isOutdoorTimeSlotAvailable(slot).isAvailable);
       if (firstAvailable) setOutdoorTimeSlot(firstAvailable);
     }
-  }, [hasOutdoorSession, outdoorTimeSlot, outdoorTimeSlots, slotClientCounts, selectedBranch]);
+  }, [hasOutdoorSession, outdoorTimeSlot, outdoorTimeSlots, slotClientCounts, selectedBranch, timeSlot]);
 
   useEffect(() => {
     if (preselectedPackageId) setSelectedPackageId(preselectedPackageId);
@@ -1728,8 +1831,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const outdoorAvailability = hasOutdoorSession
       ? isOutdoorTimeSlotAvailable(outdoorTimeSlot)
       : { isAvailable: true };
-    if (!availability.isAvailable || !outdoorAvailability.isAvailable || (hasOutdoorSession && timeSlot === outdoorTimeSlot)) {
-      alert(availability.reason || 'Waktu indoor dan outdoor harus berbeda serta tersedia.');
+    if (!availability.isAvailable || !outdoorAvailability.isAvailable || (hasOutdoorSession && timeSlot === outdoorTimeSlot) || (hasOutdoorSession && !isBundlingGapValid(timeSlot, outdoorTimeSlot, 90))) {
+      const gap = calculateTimeGapMinutes(timeSlot, outdoorTimeSlot);
+      alert(availability.reason || outdoorAvailability.reason || `Waktu indoor dan outdoor harus berbeda dan berjarak minimal 90 menit (saat ini ${gap} menit).`);
       goToStep(1);
       return;
     }
@@ -1887,7 +1991,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const isStep1Valid = selectedBackdropIds.length >= maxBackdrops &&
     (!hasOutdoorSession || (
       isOutdoorTimeSlotAvailable(outdoorTimeSlot).isAvailable &&
-      timeSlot !== outdoorTimeSlot
+      isSlotAvailableForBooking(timeSlot).isAvailable &&
+      isBundlingGapValid(timeSlot, outdoorTimeSlot, 90)
     ));
 
   if (!isOpen) return null;
@@ -2268,6 +2373,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       const availability = isSlotAvailableForBooking(slot);
                       const maxCap = selectedBranch === 'cabang-2' ? 3 : 1;
                       const isDisabled = !availability.isAvailable;
+                      const isTooClose = Boolean(availability.reason?.includes('90 menit'));
 
                       return (
                         <button
@@ -2286,8 +2392,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         >
                           <span className="leading-tight">{slot}</span>
                           {isDisabled ? (
-                            <span className="text-[8.5px] font-bold text-rose-500 uppercase mt-0.5 no-underline">
-                              Penuh
+                            <span className={`text-[8px] font-bold uppercase mt-0.5 no-underline ${isTooClose ? 'text-amber-700' : 'text-rose-500'}`}>
+                              {isTooClose ? '< 90 Menit' : 'Penuh'}
                             </span>
                           ) : isStartSlot ? (
                             <span className="text-[8px] font-bold text-[#A9BCA7] uppercase mt-0.5 no-underline">
@@ -2311,32 +2417,39 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           2. PILIH WAKTU OUTDOOR
                         </label>
                         <span className="text-[10px] font-bold text-emerald-800 bg-white border border-emerald-200 rounded-full px-2.5 py-1">
-                          Durasi 65 Menit
+                          Durasi 65 Menit • Jeda Min. 90 Menit
                         </span>
                       </div>
                       <p className="text-[11px] text-emerald-900">
-                        Sesi outdoor wajib memakai waktu berbeda dari sesi indoor. Slot pagi 05:00 dan 06:00 tersedia khusus, lalu berlanjut setiap 65 menit mulai 12:00.
+                        Sesi outdoor wajib memiliki <strong>jarak minimal 1 jam 30 menit (90 menit)</strong> dari sesi indoor. Slot pagi 05:00 dan 06:00 tersedia khusus, lalu berlanjut setiap 65 menit mulai 12:00.
                       </p>
                       <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 gap-1.5">
                         {outdoorTimeSlots.map(slot => {
                           const availability = isOutdoorTimeSlotAvailable(slot);
                           const isSelected = outdoorTimeSlot === slot;
+                          const isTooClose = Boolean(availability.reason?.includes('90 menit'));
                           return (
                             <button
                               key={slot}
                               type="button"
                               disabled={!availability.isAvailable}
                               onClick={() => setOutdoorTimeSlot(slot)}
-                              className={`min-h-[42px] rounded-xl border text-xs font-mono font-bold transition-all ${!availability.isAvailable
-                                ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed line-through'
+                              className={`min-h-[44px] p-1 rounded-xl border text-xs font-mono font-bold transition-all flex flex-col items-center justify-center ${!availability.isAvailable
+                                ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed opacity-60 line-through'
                                 : isSelected
                                   ? 'bg-emerald-800 text-white border-emerald-800 ring-2 ring-emerald-300'
                                   : 'bg-white text-emerald-950 border-emerald-200 hover:border-emerald-700 cursor-pointer'
                                 }`}
                               title={!availability.isAvailable ? availability.reason : `Outdoor ${slot} - ${calculateEndTime(slot, 65)} WIB`}
                             >
-                              {slot}
-                              {slot === '05:00' || slot === '06:00' ? <span className="block text-[8px] text-amber-600 no-underline">+OT</span> : null}
+                              <span className="leading-tight">{slot}</span>
+                              {!availability.isAvailable ? (
+                                <span className="text-[7.5px] font-bold text-amber-700 uppercase no-underline">
+                                  {isTooClose ? '< 90m' : 'Penuh'}
+                                </span>
+                              ) : (slot === '05:00' || slot === '06:00') ? (
+                                <span className="block text-[8px] text-amber-600 no-underline">+OT</span>
+                              ) : null}
                             </button>
                           );
                         })}
