@@ -1026,7 +1026,7 @@ export const PromoSpecialSection: React.FC<{
         {/* Pagination Dots Indicator & Mobile Swipe Guide */}
         <div className="flex items-center justify-between pt-1 px-1">
           <span className="text-[10px] font-sans text-stone-600 flex items-center gap-1 sm:hidden">
-                <span>👉 Geser untuk melihat informasi lainnya</span>
+            <span>👉 Geser untuk melihat informasi lainnya</span>
           </span>
 
           <div className="flex items-center gap-1.5 mx-auto sm:mx-0">
@@ -1136,40 +1136,40 @@ export const PromoDetailModal: React.FC<{
 
           {/* Kotak Voucher Promo hanya untuk konten promo */}
           {promo.kind === 'promo' && (
-          <div className="bg-[#F2E9E4]/80 border-2 border-dashed border-[#A9BCA7] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs">
-            <div className="min-w-0">
-              <span className="text-[9.5px] font-mono font-bold uppercase tracking-widest text-stone-500 block">
-                KODE VOUCHER PROMO:
-              </span>
-              <span className="text-base sm:text-lg font-mono font-black text-[#2A2A2A] tracking-wider block">
-                {promo.code}
-              </span>
-              <span className="text-[10px] text-stone-600 block mt-0.5">
-                {promo.discountHighlight}
-              </span>
-            </div>
+            <div className="bg-[#F2E9E4]/80 border-2 border-dashed border-[#A9BCA7] rounded-2xl p-4 flex items-center justify-between gap-3 shadow-2xs">
+              <div className="min-w-0">
+                <span className="text-[9.5px] font-mono font-bold uppercase tracking-widest text-stone-500 block">
+                  KODE VOUCHER PROMO:
+                </span>
+                <span className="text-base sm:text-lg font-mono font-black text-[#2A2A2A] tracking-wider block">
+                  {promo.code}
+                </span>
+                <span className="text-[10px] text-stone-600 block mt-0.5">
+                  {promo.discountHighlight}
+                </span>
+              </div>
 
-            <button
-              type="button"
-              onClick={handleCopy}
-              className={`px-3.5 py-2 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs ${copiedCode
-                ? 'bg-[#6E856C] text-white border border-[#6E856C]'
-                : 'bg-white hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6]'
-                }`}
-            >
-              {copiedCode ? (
-                <>
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Tersalin!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5" />
-                  <span>Salin Kode</span>
-                </>
-              )}
-            </button>
-          </div>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className={`px-3.5 py-2 rounded-xl font-sans font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-2xs ${copiedCode
+                  ? 'bg-[#6E856C] text-white border border-[#6E856C]'
+                  : 'bg-white hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6]'
+                  }`}
+              >
+                {copiedCode ? (
+                  <>
+                    <Check className="w-3.5 h-3.5" />
+                    <span>Tersalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Salin Kode</span>
+                  </>
+                )}
+              </button>
+            </div>
           )}
 
           {/* Deskripsi Promo */}
