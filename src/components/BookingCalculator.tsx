@@ -803,6 +803,34 @@ export const generateOutdoorTimeSlots = (): string[] => {
   return slots;
 };
 
+export const checkOutdoorSlotAvailability = (
+  slotTime: string,
+  existingBookings: { [slot: string]: number } = {},
+  allowIndoorOverlap: boolean = false
+): { isAvailable: boolean; reason?: string } => {
+  const normalizedSlot = normalizeSlotTime(slotTime);
+  if (!generateOutdoorTimeSlots().includes(normalizedSlot)) {
+    return { isAvailable: false, reason: 'Slot outdoor tidak valid' };
+  }
+
+  const outdoorBookingsCount = Number(
+    existingBookings[normalizedSlot] ?? existingBookings[slotTime] ?? 0
+  );
+
+  if (outdoorBookingsCount >= 1) {
+    return {
+      isAvailable: false,
+      reason: 'Slot outdoor sudah terisi oleh klien lain di jam ini.'
+    };
+  }
+
+  if (allowIndoorOverlap) {
+    return { isAvailable: true };
+  }
+
+  return { isAvailable: true };
+};
+
 export interface TimeSlotStatus {
   slot: string;
   isAvailable: boolean;
@@ -1162,6 +1190,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Real-time Slot & Backdrop Availability from Google Sheets
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [slotClientCounts, setSlotClientCounts] = useState<{ [slot: string]: number }>({});
+  const [outdoorSlotClientCounts, setOutdoorSlotClientCounts] = useState<{ [slot: string]: number }>({});
   const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
   const [slotSelfStudioBookings, setSlotSelfStudioBookings] = useState<{ [slot: string]: number }>({});
   const [, setIsLoadingSlots] = useState<boolean>(false);
@@ -1300,6 +1329,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setIsLoadingSlots(true);
     setBookedSlots([]);
     setSlotClientCounts({});
+    setOutdoorSlotClientCounts({});
     setSlotBackdrops({});
     setSlotSelfStudioBookings({});
 
@@ -1334,6 +1364,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           } else {
             setSlotBackdrops({});
           }
+          if (data.outdoorSlotCounts && typeof data.outdoorSlotCounts === 'object') {
+            const counts: { [s: string]: number } = {};
+            Object.entries(data.outdoorSlotCounts).forEach(([slotRaw, count]) => {
+              const sNorm = normalizeSlotTime(slotRaw);
+              if (sNorm) counts[sNorm] = Number(count) || 0;
+            });
+            setOutdoorSlotClientCounts(counts);
+          } else {
+            setOutdoorSlotClientCounts({});
+          }
           if (data.slotSelfStudioCounts && typeof data.slotSelfStudioCounts === 'object') {
             const counts: { [s: string]: number } = {};
             Object.entries(data.slotSelfStudioCounts).forEach(([slotRaw, count]) => {
@@ -1351,6 +1391,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         if (isMounted) {
           setBookedSlots([]);
           setSlotClientCounts({});
+          setOutdoorSlotClientCounts({});
           setSlotBackdrops({});
           setSlotSelfStudioBookings({});
         }
@@ -1473,12 +1514,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   const isOutdoorTimeSlotAvailable = (startSlot: string): { isAvailable: boolean; reason?: string } => {
-    if (!outdoorTimeSlots.includes(startSlot)) {
-      return { isAvailable: false, reason: 'Slot outdoor tidak valid' };
-    }
-
-    if (getSlotClientCount(startSlot) >= (selectedBranch === 'cabang-2' ? 3 : 1)) {
-      return { isAvailable: false, reason: 'Slot outdoor sudah penuh' };
+    const outdoorAvailability = checkOutdoorSlotAvailability(startSlot, outdoorSlotClientCounts);
+    if (!outdoorAvailability.isAvailable) {
+      return outdoorAvailability;
     }
 
     // Aturan Jarak Waktu Minimal 90 Menit Antar Sesi (Bundling Indoor & Outdoor)

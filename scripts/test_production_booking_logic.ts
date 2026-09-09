@@ -1,4 +1,4 @@
-import { checkTimeSlotAvailability, generateOutdoorTimeSlots, getPackageMaxBackdrops } from '../src/components/BookingCalculator';
+import { checkOutdoorSlotAvailability, checkTimeSlotAvailability, generateOutdoorTimeSlots, getPackageMaxBackdrops } from '../src/components/BookingCalculator';
 
 const slots = ['10:00', '10:30', '11:00', '11:30'];
 const outdoorSlots = generateOutdoorTimeSlots();
@@ -85,6 +85,16 @@ assert(
     description: 'Paket bundling hemat'
   }) === 2,
   'Ultimate Scholar 2 tetap memakai 2 background'
+);
+
+assert(
+  checkOutdoorSlotAvailability('06:00', { '06:00': 1 }).isAvailable === false,
+  'Slot outdoor dengan 1 booking existing otomatis dinonaktifkan untuk klien lain'
+);
+
+assert(
+  checkOutdoorSlotAvailability('06:00', { '06:00': 0 }).isAvailable === true,
+  'Slot outdoor yang masih kosong tetap aktif untuk booking baru'
 );
 
 console.log('Production booking logic tests passed.');

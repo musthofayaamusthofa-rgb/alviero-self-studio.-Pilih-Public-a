@@ -88,6 +88,7 @@ function handleRequest(e) {
       var data = sheet.getDataRange().getValues();
       var bookedSlots = [];
       var slotCounts = {};
+      var outdoorSlotCounts = {};
       var slotBackdrops = {};
       var slotSelfStudioCounts = {};
       var maxCap = (sheetName === 'Cabang 2') ? 3 : 1;
@@ -147,13 +148,13 @@ function handleRequest(e) {
 
           if (outdoorSlot) {
             addOutdoorOccupancy(
-              slotCounts,
-              bookedSlots,
+              outdoorSlotCounts,
+              [],
               slotBackdrops,
               outdoorSlot,
               extractOutdoorDuration(rowNotes),
               rowBackdrop,
-              maxCap
+              1
             );
           }
         }
@@ -167,6 +168,7 @@ function handleRequest(e) {
         date: dateParam,
         bookedSlots: bookedSlots,
         slotCounts: slotCounts,
+        outdoorSlotCounts: outdoorSlotCounts,
         slotBackdrops: slotBackdrops,
         slotSelfStudioCounts: slotSelfStudioCounts
       };
@@ -497,11 +499,36 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     }
   }
 
-  if (outdoorTime && (slotCounts[outdoorTime] || 0) >= maxCapacity) {
+  var outdoorSlotCountsForCheck = {};
+  for (var i2 = 1; i2 < data.length; i2++) {
+    var row2 = data[i2];
+    if (!row2 || row2.length < 18) continue;
+
+    var rowDate2 = formatDate(row2[0]);
+    var rowStudioType2 = String(row2[2] || '').trim().toLowerCase();
+    var rowStatus2 = String(row2[15] || '').trim().toUpperCase();
+    if (rowDate2 !== bookingDate || rowStudioType2 !== studioType) continue;
+    if (!isActiveBookingStatus(rowStatus2, row2[17])) continue;
+
+    var existingOutdoorTime2 = extractOutdoorTime(String(row2[14] || ''));
+    if (existingOutdoorTime2) {
+      addOutdoorOccupancy(
+        outdoorSlotCountsForCheck,
+        [],
+        {},
+        existingOutdoorTime2,
+        extractOutdoorDuration(String(row2[14] || '')),
+        row2[8],
+        1
+      );
+    }
+  }
+
+  if (outdoorTime && (outdoorSlotCountsForCheck[outdoorTime] || 0) >= 1) {
     return {
       available: false,
-      message: 'Slot outdoor ' + outdoorTime + ' sudah penuh.',
-          occupiedSlots: requestedSlots.concat([outdoorTime])
+      message: 'Slot outdoor ' + outdoorTime + ' sudah terisi oleh klien lain.',
+      occupiedSlots: requestedSlots.concat([outdoorTime])
     };
   }
 
