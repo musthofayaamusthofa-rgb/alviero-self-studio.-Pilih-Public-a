@@ -83,6 +83,8 @@ function handleRequest(e) {
       if (!sheet) {
         sheet = ss.insertSheet(sheetName);
         setupSheetHeaders(sheet);
+      } else {
+        ensureSheetHeaders(sheet);
       }
 
       var data = sheet.getDataRange().getValues();
@@ -97,17 +99,18 @@ function handleRequest(e) {
         var row = data[i];
         if (!row || row.length < 2) continue;
 
-        var rowDate = formatDate(row[0]);
-        var rowSlot = String(row[1] || '').trim();
-        var rowStudioType = String(row[2] || '').trim().toLowerCase();
-        var rowPackage = String(row[7] || '').trim();
-        var rowBackdrop = String(row[8] || '').trim();
+        var rowDate = formatDate(row[4]);
+        var rowSlot = String(row[6] || '').trim();
+        var rowStudioType = getRowStudioType(row);
+        var rowPackage = String(row[11] || '').trim();
+        var rowBackdrop = String(row[7] || '').trim();
         var rowNotes = String(row[14] || '').trim();
-        var rowStatus = String(row[15] || '').trim().toUpperCase();
+        var rowInternalNote = sheet.getRange(i + 1, 15).getNote() || '';
+        var rowStatus = String(row[20] || '').trim().toUpperCase();
 
         var isConfirmedBooking = isActiveBookingStatus(
           rowStatus,
-          row[17]
+          row[0]
         );
 
         /*
@@ -119,8 +122,8 @@ function handleRequest(e) {
           rowDate === dateParam &&
           (rowStudioType === studioTypeParam || !studioTypeParam || studioTypeParam === 'all')
         ) {
-          var outdoorSlot = extractOutdoorTime(rowNotes);
-          var isOutdoorOnlyRow = isOutdoorOnlyBookingRow(rowSlot, rowNotes, outdoorSlot);
+          var outdoorSlot = extractOutdoorTime(row[8]) || extractOutdoorTime(rowInternalNote);
+          var isOutdoorOnlyRow = isOutdoorOnlyBookingRow(rowSlot, row[6], outdoorSlot);
           var occupiedSlots = isOutdoorOnlyRow
             ? []
             : getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
@@ -152,7 +155,7 @@ function handleRequest(e) {
               [],
               slotBackdrops,
               outdoorSlot,
-              extractOutdoorDuration(rowNotes),
+              extractOutdoorDuration(row[8]) || extractOutdoorDuration(rowInternalNote),
               rowBackdrop,
               1
             );
@@ -184,11 +187,15 @@ function handleRequest(e) {
       var bookingId = String(params.booking_id || '').trim();
       var bookingDate = formatDate(params.date || '');
       var timeSlot = normalizeTime(params.time || '');
-      var indoorTime = normalizeTime(params.indoor_time || '');
-      var outdoorTime = normalizeTime(params.outdoor_time || '');
+      var indoorTimeRaw = String(params.indoor_time || '').trim();
+      var outdoorTimeRaw = String(params.outdoor_time || '').trim();
+      var indoorTime = normalizeTime(indoorTimeRaw);
+      var outdoorTime = normalizeTime(outdoorTimeRaw);
       var isOutdoorOnlyBooking = !indoorTime && !!outdoorTime;
       var outdoorLocation = String(params.outdoor_location || '').trim();
       var outdoorDuration = Number(params.outdoor_duration) || extractOutdoorDuration(String(params.notes || '')) || 60;
+      var instagram = String(params.instagram || '').trim().replace(/^@/, '');
+      var publicationPermission = String(params.izin_publikasi || '').trim();
       var studioType = String(params.studio_type || 'studio_foto').toLowerCase();
       var rawBranch = String(params.branch || 'cabang-1').toLowerCase();
 
@@ -212,6 +219,14 @@ function handleRequest(e) {
         });
       }
 
+      if (!instagram || ['Ya', 'Tidak'].indexOf(publicationPermission) === -1) {
+        return jsonResponse({
+          status: 'ERROR',
+          code: 'MISSING_PUBLICATION_DATA',
+          message: 'Akun Instagram dan pilihan izin publikasi wajib diisi.'
+        });
+      }
+
       if (['studio_foto', 'selfstudio'].indexOf(studioType) === -1) {
         return jsonResponse({
           status: 'ERROR',
@@ -226,6 +241,8 @@ function handleRequest(e) {
       if (!sheet) {
         sheet = ss.insertSheet(sheetName);
         setupSheetHeaders(sheet);
+      } else {
+        ensureSheetHeaders(sheet);
       }
 
       var timestamp = new Date();
@@ -237,17 +254,19 @@ function handleRequest(e) {
       var backdrop = params.backdrop || '-';
       var frame = params.frame || '-';
       var addons = params.addons || '-';
+      var university = String(params.universitas || '').trim();
       var total = Number(params.total) || 0;
       var dp = Number(params.dp) || 0;
       var paymentMethod = params.paymentMethod || 'DP 50%';
-      var notes = params.notes || '-';
+      var notes = String(params.notes || '').trim();
       var status = 'PENDING';
       var proofUrl = 'Menunggu bukti bayar';
 
       var existingData = sheet.getDataRange().getValues();
       for (var existingIndex = 1; existingIndex < existingData.length; existingIndex++) {
+        var existingInternalNote = sheet.getRange(existingIndex + 1, 15).getNote() || '';
         var existingNotes = String(existingData[existingIndex][14] || '');
-        if (existingNotes.indexOf('[BOOKING_ID:' + bookingId + ']') !== -1) {
+        if (existingInternalNote.indexOf('[BOOKING_ID:' + bookingId + ']') !== -1 || existingNotes.indexOf('[BOOKING_ID:' + bookingId + ']') !== -1) {
           return jsonResponse({
             status: 'SUCCESS',
             code: 'DUPLICATE',
@@ -281,32 +300,37 @@ function handleRequest(e) {
         });
       }
 
-      var notesWithBookingId = '[BOOKING_ID:' + bookingId + ']' +
-        (outdoorTime ? ' [OUTDOOR_TIME:' + outdoorTime + ']' : '') + ' ' + notes;
+      var internalBookingNote = '[BOOKING_ID:' + bookingId + ']' +
+        (outdoorTime ? ' [OUTDOOR_TIME:' + outdoorTime + ']' : '') +
+        ' [OUTDOOR_DURATION:' + outdoorDuration + ']';
 
       // ⚠️ LANGKAH 1: SIMPAN DATA BARIS KE SPREADSHEET TERLEBIH DAHULU (FAIL-SAFE)
       sheet.appendRow([
-        bookingDate,       // Kolom A: Tanggal Booking (YYYY-MM-DD)
-        timeSlot,          // Kolom B: Jam Slot (HH:MM)
-        studioType,        // Kolom C: Tipe Studio (studio_foto / selfstudio)
-        studioLabel,       // Kolom D: Label Studio
-        branchName,        // Kolom E: Cabang
-        customerName,      // Kolom F: Nama Klien
-        customerPhone,     // Kolom G: No. WhatsApp
-        packageName,       // Kolom H: Paket Utama
-        backdrop,          // Kolom I: Backdrop
-        frame,             // Kolom J: Frame Template
-        addons,            // Kolom K: Add-ons
-        total,             // Kolom L: Total Biaya (Rp)
-        dp,                // Kolom M: DP Dibayar (Rp)
-        paymentMethod,     // Kolom N: Metode Pembayaran
-        notesWithBookingId,// Kolom O: Catatan & Izin Sosmed
-        status,            // Kolom P: Status (PENDING / BOOKED)
-        proofUrl,          // Kolom Q: Link Bukti Pembayaran (Drive)
-        timestamp          // Kolom R: Timestamp Submit
+        timestamp,          // 1. Timestamp Submit
+        studioLabel,        // 2. Label Studio
+        customerName,       // 3. Nama Klien
+        instagram || '-',   // 4. Instagram
+        bookingDate,        // 5. Tanggal Booking
+        frame,              // 6. Frame Template
+        indoorTimeRaw || indoorTime || '-', // 7. Jam Indoor
+        backdrop,           // 8. Backdrop
+        outdoorTimeRaw || outdoorTime || '-', // 9. Jam Outdoor
+        outdoorLocation || '-', // 10. Lokasi Outdoor
+        customerPhone,      // 11. No. WhatsApp
+        packageName,        // 12. Paket Utama
+        publicationPermission || '-', // 13. Izin Publikasi
+        addons,             // 14. Add-ons
+        notes,              // 15. Catatan khusus (opsional), hanya isi klien
+        university || '-',  // 16. Nama universitas / kampus
+        total,              // 17. Total Biaya (Rp)
+        dp,                 // 18. DP Dibayar (Rp)
+        paymentMethod,      // 19. Metode Pembayaran
+        proofUrl,           // 20. Link Bukti Pembayaran (Drive)
+        status              // 21. Status
       ]);
 
       var lastRow = sheet.getLastRow();
+      sheet.getRange(lastRow, 15).setNote(internalBookingNote);
 
       // ⚠️ LANGKAH 2: SIMPAN FOTO BUKTI KE GOOGLE DRIVE (TERISOLASI)
       if (params.image_base64 && typeof params.image_base64 === 'string' && params.image_base64.length > 50) {
@@ -335,10 +359,10 @@ function handleRequest(e) {
           proofUrl = file.getUrl();
 
           // Update Kolom Q baris ini dengan URL Google Drive resmi
-          sheet.getRange(lastRow, 17).setValue(proofUrl);
+          sheet.getRange(lastRow, 20).setValue(proofUrl);
         } catch (imgErr) {
           proofUrl = 'Bukti terlampir via WA (Izin Drive: ' + imgErr.toString() + ')';
-          sheet.getRange(lastRow, 17).setValue(proofUrl);
+          sheet.getRange(lastRow, 20).setValue(proofUrl);
         }
       }
 
@@ -373,33 +397,36 @@ function handleRequest(e) {
 /**
  * FUNGSI PENGUJIAN INSTAN:
  * Jalankan fungsi ini langsung di editor Apps Script (pilih "testInsertBooking" lalu klik "Jalankan ▶️").
- * Anda akan langsung melihat 1 baris uji coba masuk ke sheet Cabang 1 & Cabang 2!
+            extractOutdoorDuration(row[8]),
  */
 function testInsertBooking() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet2 = ss.getSheetByName('Cabang 2') || ss.insertSheet('Cabang 2');
-  setupSheetHeaders(sheet2);
+  ensureSheetHeaders(sheet2);
   
   var now = new Date();
   sheet2.appendRow([
-    formatDate(now),
-    '15:00',
-    'studio_foto',
+    now,
     'Studio Foto Profesional',
-    'Alviero Studio — Studio 2',
     'Uji Coba Script v4',
-    '081234567890',
-    'Supreme Scholar (Graduation)',
+    'uji_coba',
+    formatDate(now),
+    '-',
+    '15:00 - 16:00',
     'Hitam & Putih',
     '-',
+    '-',
+    '081234567890',
+    'Supreme Scholar (Graduation)',
+    'Ya',
+    '-',
+    '',
     '-',
     380000,
     190000,
     'DP 50% via BCA 0113324021',
-    '[Izin IG: Boleh] Uji coba berhasil',
-    'PENDING',
     'https://drive.google.com/',
-    now
+    'PENDING'
   ]);
   
   Logger.log('✅ Uji coba sukses! Baris baru masuk ke Cabang 2.');
@@ -458,21 +485,21 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     var row = data[i];
     if (!row || row.length < 18) continue;
 
-    var rowDate = formatDate(row[0]);
-    var rowStudioType = String(row[2] || '').trim().toLowerCase();
-    var rowStatus = String(row[15] || '').trim().toUpperCase();
+    var rowDate = formatDate(row[4]);
+    var rowStudioType = getRowStudioType(row);
+    var rowStatus = String(row[20] || '').trim().toUpperCase();
 
     if (rowDate !== bookingDate || rowStudioType !== studioType) continue;
-    if (!isActiveBookingStatus(rowStatus, row[17])) continue;
+    if (!isActiveBookingStatus(rowStatus, row[0])) continue;
 
-    var existingOutdoorTime = extractOutdoorTime(String(row[14] || ''));
-    var occupiedSlots = isOutdoorOnlyBookingRow(row[1], String(row[14] || ''), existingOutdoorTime)
+    var existingOutdoorTime = extractOutdoorTime(row[8]);
+    var occupiedSlots = isOutdoorOnlyBookingRow(row[6], row[6], existingOutdoorTime)
       ? []
-      : getOccupiedSlotsForRow(row[1], row[7], row[8]);
+      : getOccupiedSlotsForRow(row[6], row[11], row[7]);
     occupiedSlots.forEach(function(slot) {
       slotCounts[slot] = (slotCounts[slot] || 0) + 1;
       if (!slotBackdrops[slot]) slotBackdrops[slot] = [];
-      slotBackdrops[slot] = slotBackdrops[slot].concat(splitBackdropNames(row[8]));
+      slotBackdrops[slot] = slotBackdrops[slot].concat(splitBackdropNames(row[7]));
     });
 
     if (existingOutdoorTime) {
@@ -481,8 +508,8 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
         [],
         {},
         existingOutdoorTime,
-        extractOutdoorDuration(String(row[14] || '')),
-        row[8],
+        extractOutdoorDuration(row[8]) || extractOutdoorDuration(rowInternalNote),
+        row[7],
         maxCapacity
       );
     }
@@ -504,21 +531,21 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     var row2 = data[i2];
     if (!row2 || row2.length < 18) continue;
 
-    var rowDate2 = formatDate(row2[0]);
-    var rowStudioType2 = String(row2[2] || '').trim().toLowerCase();
-    var rowStatus2 = String(row2[15] || '').trim().toUpperCase();
+    var rowDate2 = formatDate(row2[4]);
+    var rowStudioType2 = getRowStudioType(row2);
+    var rowStatus2 = String(row2[20] || '').trim().toUpperCase();
     if (rowDate2 !== bookingDate || rowStudioType2 !== studioType) continue;
-    if (!isActiveBookingStatus(rowStatus2, row2[17])) continue;
+    if (!isActiveBookingStatus(rowStatus2, row2[0])) continue;
 
-    var existingOutdoorTime2 = extractOutdoorTime(String(row2[14] || ''));
+    var existingOutdoorTime2 = extractOutdoorTime(row2[8]);
     if (existingOutdoorTime2) {
       addOutdoorOccupancy(
         outdoorSlotCountsForCheck,
         [],
         {},
         existingOutdoorTime2,
-        extractOutdoorDuration(String(row2[14] || '')),
-        row2[8],
+        extractOutdoorDuration(row2[8]),
+        row2[7],
         1
       );
     }
@@ -578,7 +605,16 @@ function timeToMinutes(time) {
 
 function extractOutdoorDuration(notes) {
   var match = String(notes || '').match(/\[OUTDOOR_DURATION:(\d+)\]/);
-  return match ? Number(match[1]) : 60;
+  if (match) return Number(match[1]);
+
+  var times = String(notes || '').match(/\d{1,2}[:.]\d{2}/g);
+  if (times && times.length >= 2) {
+    var start = timeToMinutes(times[0]);
+    var end = timeToMinutes(times[1]);
+    if (!isNaN(start) && !isNaN(end) && end > start) return end - start;
+  }
+
+  return 0;
 }
 
 function addOutdoorOccupancy(slotCounts, bookedSlots, slotBackdrops, startSlot, durationMinutes, backdrop, maxCapacity) {
@@ -604,7 +640,8 @@ function addOutdoorOccupancy(slotCounts, bookedSlots, slotBackdrops, startSlot, 
 
 function isOutdoorOnlyBookingRow(rowSlotRaw, notes, outdoorSlot) {
   var rowSlot = normalizeTime(rowSlotRaw);
-  return Boolean(outdoorSlot && rowSlot === outdoorSlot && !/\bIndoor\s*:/i.test(String(notes || '')));
+  var indoorValue = String(notes || '').trim();
+  return Boolean(outdoorSlot && rowSlot === outdoorSlot && (!indoorValue || indoorValue === '-'));
 }
 
 function splitBackdropNames(backdrop) {
@@ -719,19 +756,138 @@ function generateOutdoorTimeSlots() {
 
 function extractOutdoorTime(notes) {
   var match = String(notes || '').match(/\[OUTDOOR_TIME:(\d{2}:\d{2})\]/);
+  if (!match) match = String(notes || '').match(/(\d{1,2}[:.]\d{2})/);
   return match ? normalizeTime(match[1]) : '';
 }
 
 // Inisialisasi Header Kolom
 function setupSheetHeaders(sheet) {
   var headers = [
-    'Tanggal Booking', 'Jam Slot', 'Tipe Studio', 'Label Studio', 'Cabang',
-    'Nama Klien', 'No. WhatsApp', 'Paket Utama', 'Backdrop', 'Frame Template',
-    'Add-ons', 'Total Biaya (Rp)', 'DP Dibayar (Rp)', 'Metode Pembayaran',
-    'Catatan', 'Status', 'Link Bukti Pembayaran (Drive)', 'Timestamp Submit'
+    'Timestamp Submit', 'Label Studio', 'Nama Klien', 'Instagram',
+    'Tanggal Booking', 'Frame Template', 'Jam Indoor', 'Backdrop',
+    'Jam Outdoor', 'Lokasi Outdoor', 'No. WhatsApp', 'Paket Utama',
+    'Izin Publikasi', 'Add-ons', 'Catatan khusus (opsional)',
+    'Nama universitas / kampus', 'Total Biaya (Rp)', 'DP Dibayar (Rp)',
+    'Metode Pembayaran', 'Link Bukti Pembayaran (Drive)', 'Status'
   ];
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#EFEFEF');
+}
+
+function ensureSheetHeaders(sheet) {
+  var headers = [
+    'Timestamp Submit', 'Label Studio', 'Nama Klien', 'Instagram',
+    'Tanggal Booking', 'Frame Template', 'Jam Indoor', 'Backdrop',
+    'Jam Outdoor', 'Lokasi Outdoor', 'No. WhatsApp', 'Paket Utama',
+    'Izin Publikasi', 'Add-ons', 'Catatan khusus (opsional)',
+    'Nama universitas / kampus', 'Total Biaya (Rp)', 'DP Dibayar (Rp)',
+    'Metode Pembayaran', 'Link Bukti Pembayaran (Drive)', 'Status'
+  ];
+  var existingHeaders = sheet.getRange(1, 1, 1, headers.length).getValues()[0];
+  var isCurrentSchema = headers.every(function(header, index) {
+    return String(existingHeaders[index] || '').trim() === header;
+  });
+
+  if (isCurrentSchema) {
+    cleanCurrentSchemaNotes(sheet);
+    return;
+  }
+
+  var oldRows = sheet.getDataRange().getValues();
+  var migratedRows = [headers];
+  for (var rowIndex = 1; rowIndex < oldRows.length; rowIndex++) {
+    var oldRow = oldRows[rowIndex];
+    if (!oldRow || oldRow.every(function(value) { return value === ''; })) continue;
+
+    var oldNotes = String(oldRow[14] || '');
+    var oldClientNotes = extractClientNotes(oldNotes);
+    var oldLabel = String(oldRow[3] || '-');
+    migratedRows.push([
+      oldRow[17] || '-',
+      oldLabel,
+      oldRow[5] || '-',
+      extractInstagram(oldNotes) || '-',
+      oldRow[0] || '-',
+      oldRow[9] || '-',
+      oldRow[18] || oldRow[1] || '-',
+      oldRow[8] || '-',
+      oldRow[19] || extractOutdoorTime(oldNotes) || '-',
+      oldRow[20] || extractOutdoorLocation(oldNotes) || '-',
+      oldRow[6] || '-',
+      oldRow[7] || '-',
+      extractPublicationPermission(oldNotes) || '-',
+      oldRow[10] || '-',
+      oldClientNotes,
+      extractUniversity(oldNotes) || '-',
+      oldRow[11] || 0,
+      oldRow[12] || 0,
+      oldRow[13] || '-',
+      oldRow[16] || '-',
+      oldRow[15] || '-'
+    ]);
+  }
+
+  sheet.clearContents();
+  sheet.getRange(1, 1, migratedRows.length, headers.length).setValues(migratedRows);
+  sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#EFEFEF');
+}
+
+function cleanCurrentSchemaNotes(sheet) {
+  var lastRow = sheet.getLastRow();
+  if (lastRow < 2) return;
+
+  var notes = sheet.getRange(2, 15, lastRow - 1, 1).getValues();
+  for (var index = 0; index < notes.length; index++) {
+    var currentNotes = String(notes[index][0] || '');
+    if (!/\[(?:BOOKING_ID|OUTDOOR_TIME|OUTDOOR_DURATION|Durasi|Izin\s+IG|Universitas|Promo|Biaya\s+QRIS):/i.test(currentNotes)) {
+      continue;
+    }
+
+    var rowNumber = index + 2;
+    var cell = sheet.getRange(rowNumber, 15);
+    if (!cell.getNote()) cell.setNote(currentNotes);
+    cell.setValue(extractClientNotes(currentNotes));
+  }
+}
+
+function getRowStudioType(row) {
+  var label = String(row[1] || '').toLowerCase();
+  return label.indexOf('self') !== -1 ? 'selfstudio' : 'studio_foto';
+}
+
+function extractInstagram(notes) {
+  var match = String(notes || '').match(/(?:Akun|Instagram)\s*:\s*@?([\w.]+)/i);
+  return match ? match[1] : '';
+}
+
+function extractPublicationPermission(notes) {
+  var match = String(notes || '').match(/\[Izin\s+IG:\s*(Boleh|Privat)/i);
+  return match ? (match[1].toLowerCase() === 'boleh' ? 'Ya' : 'Tidak') : '';
+}
+
+function extractUniversity(notes) {
+  var match = String(notes || '').match(/\[Universitas:\s*([^\]]+)\]/i);
+  return match ? match[1].trim() : '';
+}
+
+function extractOutdoorLocation(notes) {
+  var match = String(notes || '').match(/Lokasi\s+Outdoor:\s*([^\]]+)/i);
+  return match ? match[1].trim() : '';
+}
+
+function extractClientNotes(notes) {
+  return String(notes || '')
+    .replace(/\[BOOKING_ID:[^\]]+\]/gi, '')
+    .replace(/\[OUTDOOR_TIME:[^\]]+\]/gi, '')
+    .replace(/\[OUTDOOR_DURATION:[^\]]+\]/gi, '')
+    .replace(/\[Durasi:[^\]]+\]/gi, '')
+    .replace(/\[Indoor:[^\]]+\]/gi, '')
+    .replace(/\[Universitas:[^\]]+\]/gi, '')
+    .replace(/\[Izin\s+IG:[^\]]+\]/gi, '')
+    .replace(/\[Promo:[^\]]+\]/gi, '')
+    .replace(/\[Biaya\s+QRIS[^\]]+\]/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 // Format Tanggal YYYY-MM-DD

@@ -1199,7 +1199,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [customerName, setCustomerName] = useState<string>('');
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const [universityName, setUniversityName] = useState<string>('');
-  const [allowSocialUpload, setAllowSocialUpload] = useState<boolean>(true);
+  const [allowSocialUpload, setAllowSocialUpload] = useState<boolean | null>(null);
   const [socialUsername, setSocialUsername] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
 
@@ -1814,7 +1814,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (isGraduationPackage && universityName.trim()) {
       message += `• Asal Universitas: *${universityName.trim()}*\n`;
     }
-    message += `• Izin Upload Instagram: ${allowSocialUpload ? '✅ Boleh Di-upload' : '🔒 Jangan Di-upload (Privat)'}\n`;
+    message += `• Izin Upload Instagram: ${allowSocialUpload === true ? '✅ Boleh Di-upload' : '🔒 Jangan Di-upload (Privat)'}\n`;
     if (socialUsername.trim()) {
       message += `• Akun Instagram: @${socialUsername.trim().replace(/^@/, '')}\n`;
     }
@@ -1918,6 +1918,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       alert('⚠️ Mohon masukkan Nomor WhatsApp aktif terlebih dahulu.');
       return;
     }
+    if (allowSocialUpload === null) {
+      alert('⚠️ Mohon pilih izin publikasi foto terlebih dahulu.');
+      return;
+    }
     if (hasOutdoorSession && !outdoorLocation.trim()) {
       alert('Lokasi foto outdoor wajib diisi!');
       goToStep(1);
@@ -1972,9 +1976,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         date: bookingDate,
         time: isOutdoorOnly ? outdoorTimeSlot : timeSlot,
         indoor_time: isOutdoorOnly ? '' : formattedIndoorTime,
-        outdoor_time: hasOutdoorSession ? formattedOutdoorTime : '',
+        outdoor_time: hasOutdoorSession ? outdoorTimeSlot : '',
         outdoor_duration: hasOutdoorSession ? outdoorSessionDurationMinutes : 0,
         outdoor_location: hasOutdoorSession ? outdoorLocation.trim() : '',
+        instagram: socialUsername.trim().replace(/^@/, ''),
+        izin_publikasi: allowSocialUpload ? 'Ya' : 'Tidak',
+        universitas: isGraduationPackage ? universityName.trim() : '',
         studio_type: studioType,
         studio_label: studioLabel,
         branch: selectedBranch,
@@ -1990,7 +1997,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         total: grandTotal,
         dp: dpAmount,
         paymentMethod: `${paymentOption.toUpperCase()} via ${paymentMethod === 'bca' ? 'Transfer BCA 0113324021' : 'QRIS (Fee 1%)'}`,
-        notes: `[Durasi: ${sessionDurationMinutes} Menit / ${sessionSlotsCount} Slot${isLateNightOvertime ? ' | Overtime 21.00: +Rp 35.000' : ''}${isOutdoorOvertime ? ' | Biaya Tambahan di Luar Jam Kerja: +Rp 35.000' : ''}]${hasOutdoorSession ? ` [OUTDOOR_DURATION:${outdoorSessionDurationMinutes}] [${isOutdoorOnly ? '' : `Indoor: ${formattedIndoorTime} | `}Outdoor: ${formattedOutdoorTime} | Lokasi Outdoor: ${outdoorLocation.trim()}]` : ''}${hasFreePrint ? ` [Gratis Cetak: ${ukuranCetak} - ${gridCetak}]` : ''}${isGraduationPackage && universityName.trim() ? ` [Universitas: ${universityName.trim()}]` : ''}${appliedPromo ? ` [Promo: ${appliedPromo.code} (-Rp ${discountValue.toLocaleString('id-ID')})]` : ''}${paymentMethod === 'qris' && qrisFee > 0 ? ` [Biaya QRIS 1%: +Rp ${qrisFee.toLocaleString('id-ID')}]` : ''} [Izin IG: ${allowSocialUpload ? 'Boleh' : 'Privat'}${socialUsername.trim() ? ` | Akun: @${socialUsername.trim().replace(/^@/, '')}` : ''}] ${notes || '-'}`,
+        notes: notes.trim(),
         status: 'PENDING',
         image_base64: paymentProofImage || '',
         image_name: paymentProofFileName || `bukti_${Date.now()}.png`
@@ -2064,7 +2071,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setTimeout(() => setCopiedNominal(false), 2000);
   };
 
-  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && !!paymentProofImage && (!hasOutdoorSession || outdoorLocation.trim().length > 0);
+  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && allowSocialUpload !== null && !!paymentProofImage && (!hasOutdoorSession || outdoorLocation.trim().length > 0);
 
   // Validasi Step 1: Jika klien memilih paket 2 background ke atas, mereka wajib memilih semua background (misal 2/2) baru bisa menekan tombol "Lanjut"
   const isStep1Valid = (isOutdoorOnly || selectedBackdropIds.length >= maxBackdrops) &&
@@ -3173,10 +3180,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
                       <Instagram className="w-3.5 h-3.5 text-[#6E856C]" />
-                      IZIN PUBLIKASI FOTO KE INSTAGRAM STUDIO:
+                      IZIN PUBLIKASI FOTO KE INSTAGRAM STUDIO: <span className="text-rose-600">*</span>
                     </span>
                     <span className="text-[10px] font-sans text-stone-500 font-normal">
-                      Pilih salah satu
+                      Wajib pilih salah satu
                     </span>
                   </label>
 
