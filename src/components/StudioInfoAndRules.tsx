@@ -3,7 +3,7 @@ import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 import {
   MapPin, Clock, Navigation, Copy, Check, MessageCircle,
-  Sparkles, CheckCircle2, Car, Wind, Camera, Heart, ExternalLink
+  Sparkles, Car, Wind, Camera, Heart, ExternalLink
 } from 'lucide-react';
 
 interface StudioInfoAndRulesProps {
@@ -39,12 +39,6 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       whatsappDisplay: '0877-7753-8164',
       operationalHours: 'Setiap Hari: 08:00 - 21:00 WIB',
       backdrops: ['Hijau Pastel', 'Cream', 'Limbo', 'Putih Tengah', 'Putih Jendela'],
-      highlights: [
-        'Area parkir kendaraan mobil & motor luas dan nyaman',
-        'Studio foto berpendingin udara & ruang rias terpisah',
-        'Pilihan 5 backdrop studio foto elegan & properti lengkap',
-        'Akses mudah di tepi jalan utama Karangploso arah Batu'
-      ]
     },
     {
       id: 'cabang-2',
@@ -61,12 +55,6 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
         'Studio Foto: Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream (Maks 5 Org)',
         'SelfStudio: Abu-abu, Biru, Putih, Tematik Cream'
       ],
-      highlights: [
-        'Terletak di Lantai 2 (suasana privat & eksklusif)',
-        'Lokasi strategis pusat kota, dekat kampus UB, UIN, UM, Unisma',
-        'Pilihan background berbeda untuk Studio Foto (5 Latar) & SelfStudio (4 Latar)',
-        'Ruang make up & ganti baju'
-      ]
     }
   ];
 
@@ -169,23 +157,15 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
                   <button
                     type="button"
                     onClick={onNavigateToFacilities}
-                    className="w-full text-left text-[11px] font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between gap-1.5 cursor-pointer group"
+                    className="w-full min-h-11 px-3.5 py-2.5 rounded-xl border border-[#A9BCA7] bg-[#FDFBF7] hover:bg-[#EBF2EA] text-left text-[11px] font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between gap-2 cursor-pointer group transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6E856C] focus-visible:ring-offset-2"
                     aria-label="Buka halaman fasilitas dan layanan studio"
                   >
-                    <span className="flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
-                      <span className="group-hover:text-[#6E856C] transition-colors">Fasilitas & Layanan Studio:</span>
+                    <span className="flex items-center gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
+                      <span className="group-hover:text-[#6E856C] transition-colors">Fasilitas & layanan Studio</span>
                     </span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#6E856C] opacity-70 group-hover:opacity-100 transition-opacity" />
+                    <ExternalLink className="w-3.5 h-3.5 text-[#6E856C] shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
                   </button>
-                  <ul className="space-y-1.5 text-xs text-stone-600 font-sans">
-                    {studio.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#6E856C] shrink-0 mt-0.5" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
               </div>

@@ -854,6 +854,12 @@ export const STUDIO_PROMOS: StudioPromo[] = [
   }
 ];
 
+const DISPLAY_STUDIO_PROMOS = STUDIO_PROMOS.filter((promo, index, promos) =>
+  promo.kind === 'promo'
+    ? promos.findIndex(item => item.kind === 'promo') === index
+    : promo.kind === 'berita' || promo.kind === 'tim'
+);
+
 /**
  * Komponen Bagian Promo Spesial Alviero Studio
  */
@@ -886,18 +892,18 @@ export const PromoSpecialSection: React.FC<{
     const scrollLeft = container.scrollLeft;
     const itemWidth = container.querySelector<HTMLElement>('.promo-card-item')?.offsetWidth || 300;
     const newIdx = Math.round(scrollLeft / (itemWidth + 14));
-    if (newIdx >= 0 && newIdx < STUDIO_PROMOS.length && newIdx !== activePromoIdx) {
+    if (newIdx >= 0 && newIdx < DISPLAY_STUDIO_PROMOS.length && newIdx !== activePromoIdx) {
       setActivePromoIdx(newIdx);
     }
   };
 
   const handleNext = () => {
-    const nextIdx = (activePromoIdx + 1) % STUDIO_PROMOS.length;
+    const nextIdx = (activePromoIdx + 1) % DISPLAY_STUDIO_PROMOS.length;
     scrollToIndex(nextIdx);
   };
 
   const handlePrev = () => {
-    const prevIdx = (activePromoIdx - 1 + STUDIO_PROMOS.length) % STUDIO_PROMOS.length;
+    const prevIdx = (activePromoIdx - 1 + DISPLAY_STUDIO_PROMOS.length) % DISPLAY_STUDIO_PROMOS.length;
     scrollToIndex(prevIdx);
   };
 
@@ -952,7 +958,7 @@ export const PromoSpecialSection: React.FC<{
           className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 sm:gap-5 pb-3 scroll-smooth no-scrollbar overscroll-x-contain"
           style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x pan-y' }}
         >
-          {STUDIO_PROMOS.map((promo) => (
+          {DISPLAY_STUDIO_PROMOS.map((promo) => (
             <div
               key={promo.id}
               onClick={() => onSelectPromo(promo)}
@@ -1030,7 +1036,7 @@ export const PromoSpecialSection: React.FC<{
           </span>
 
           <div className="flex items-center gap-1.5 mx-auto sm:mx-0">
-            {STUDIO_PROMOS.map((_, dotIdx) => (
+            {DISPLAY_STUDIO_PROMOS.map((_, dotIdx) => (
               <button
                 key={dotIdx}
                 type="button"
