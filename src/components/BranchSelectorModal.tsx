@@ -37,6 +37,7 @@ interface BranchSelectorViewProps {
   onSelectCategory?: (category: string, branch?: StudioBranch) => void;
   onOpenBooking?: (promoCode?: string, packageId?: string) => void;
   onNavigateToLocation?: () => void;
+  onOpenBeautyModal?: () => void;
   onClose?: () => void;
   canDismiss?: boolean;
 }
@@ -209,6 +210,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
           Studio foto & self-studio modern di Malang dengan tema background estetik, pencahayaan profesional, dan fasilitas lengkap.
         </p>
       </div>
+
     </div>
   );
 };
@@ -1261,7 +1263,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   onSelectBranch,
   onSelectCategory,
   onOpenBooking,
-  onNavigateToLocation
+  onNavigateToLocation,
+  onOpenBeautyModal
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedPromoModal, setSelectedPromoModal] = useState<StudioPromo | null>(null);
@@ -1775,37 +1778,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 5. Mua & Kebaya */}
-                  <div
-                    onClick={() => onSelectCategory ? onSelectCategory('kebayak-gaun') : onSelectBranch(selectedBranch)}
-                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
-                  >
-                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                        <Palette className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            MUA & KEBAYA
-                          </h4>
-                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                            Wardrobe
-                          </span>
-                        </div>
-                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                          Sewa Kebaya Modern, Gaun Wisuda & Paket MUA Profesional
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                      <span className="hidden xl:inline text-[11px]">Lihat</span>
-                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
-                    </div>
-                  </div>
-
-                  {/* 6. Event */}
+                  {/* 5. Event */}
                   <div
                     onClick={() => onSelectCategory ? onSelectCategory('event') : onSelectBranch(selectedBranch)}
                     className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
@@ -1825,6 +1798,46 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                         </div>
                         <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
                           Dokumentasi Birthday, Gathering, Seminar & Komunitas
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
+                      <span className="hidden xl:inline text-[11px]">Lihat</span>
+                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+                    </div>
+                  </div>
+
+                  {/* 6. MUA, Kebaya, Hairdo & Hijabdo */}
+                  <div
+                    onClick={() => {
+                      if (onOpenBeautyModal) {
+                        onOpenBeautyModal();
+                        return;
+                      }
+                      if (onSelectCategory) {
+                        onSelectCategory('beauty');
+                        return;
+                      }
+                      onSelectBranch(selectedBranch);
+                    }}
+                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
+                  >
+                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+                        <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
+                            MUA, KEBAYA, HAIRDO & HIJABDO
+                          </h4>
+                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
+                            Beauty
+                          </span>
+                        </div>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
+                          Makeup, kebaya, hairdo & hijabdo siap untuk sesi spesial
                         </p>
                       </div>
                     </div>

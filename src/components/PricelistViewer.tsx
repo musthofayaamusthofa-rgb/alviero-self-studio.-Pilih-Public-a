@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES } from '../data/pricelistData';
+import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
 import {
   ZoomIn, ArrowRight, Layers, Sparkles, X,
@@ -517,7 +517,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA
   const studioGalleryCategories = [
-    { id: 'all', label: 'Semua Fasilitas', icon: '🏢' },
+    { id: 'all', label: 'Semua Fasilitas & Background', icon: '🏢' },
+    { id: 'background', label: 'Background Studio', icon: '🖼️' },
     { id: 'ruangan', label: 'Sudut Ruangan', icon: '🛋️' },
     { id: 'peralatan', label: 'Peralatan Studio', icon: '💡' },
     { id: 'kenyamanan', label: 'Kenyamanan', icon: '✨' },
@@ -797,13 +798,140 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
-  // Filter fasilitas untuk tab Fasilitas
-  const filteredGalleryPhotos = useMemo(() => {
-    return FACILITY_PHOTOS.filter(photo => {
-      const matchesCategory = selectedGalleryCategory === 'all' || photo.category === selectedGalleryCategory;
-      return matchesCategory;
+  const branchFacilityPhotos = useMemo<StudioGalleryPhoto[]>(() => {
+    if (selectedBranch === 'cabang-2') {
+      return [
+        {
+          id: 'facility-studio2-setup',
+          title: 'Setup Studio Foto Profesional',
+          category: 'peralatan',
+          packageName: 'Fasilitas Studio 2',
+          icon: '📷',
+          targetPackageId: 'sewa-studio-hourly',
+          imageUrl: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85',
+          description: 'Setup lighting, background, dan area final shoot yang siap dipakai untuk sesi family, wisuda, grup, maupun personal.',
+          conceptNote: 'Studio 2 menyiapkan alat pencahayaan dan layout yang lebih ekstensif untuk sesi foto profesional.',
+          tags: ['#Studio2', '#LightingProfesional', '#SetupFoto']
+        },
+        {
+          id: 'facility-studio2-wardrobe',
+          title: 'Area Persiapan & Wardrobe',
+          category: 'ruangan',
+          packageName: 'Fasilitas Studio 2',
+          icon: '🪞',
+          targetPackageId: 'personal-bold-statement',
+          imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=85',
+          description: 'Ruang fitting dan persiapan untuk membantu klien tampil lebih siap sebelum sesi foto dimulai.',
+          conceptNote: 'Cocok untuk kebutuhan outfit, kostum, dan penyusunan pose sebelum shooting.',
+          tags: ['#Wardrobe', '#Persiapan', '#Studio2']
+        },
+        {
+          id: 'facility-studio2-parking',
+          title: 'Akses Mudah & Parkir',
+          category: 'layanan',
+          packageName: 'Fasilitas Studio 2',
+          icon: '🅿️',
+          targetPackageId: 'sewa-studio-hourly',
+          imageUrl: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85',
+          description: 'Lokasi yang mudah dijangkau dan area parkir yang membantu kenyamanan kedatangan klien.',
+          conceptNote: 'Studio 2 didesain untuk pengalaman booking yang cepat dan nyaman untuk keluarga maupun kelompok.',
+          tags: ['#Lokasi', '#Parkir', '#Studio2']
+        }
+      ];
+    }
+
+    return [
+      {
+        id: 'facility-studio1-sudut',
+        title: 'Sudut Fotografi & Area Comfort',
+        category: 'ruangan',
+        packageName: 'Fasilitas Studio 1',
+        icon: '🛋️',
+        targetPackageId: 'sewa-studio-hourly',
+        imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=85',
+        description: 'Studio 1 menampilkan area foto dengan background lembut dan style yang nyaman untuk sesi personal maupun keluarga.',
+        conceptNote: 'Kombinasi sudut ruangan dan pencahayaan hangat cocok untuk sesi yang santai dan estetik.',
+        tags: ['#Studio1', '#SudutFoto', '#Comfort']
+      },
+      {
+        id: 'facility-studio1-lighting',
+        title: 'Lighting Hangat & Estetik',
+        category: 'peralatan',
+        packageName: 'Fasilitas Studio 1',
+        icon: '💡',
+        targetPackageId: 'sewa-studio-hourly',
+        imageUrl: 'https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85',
+        description: 'Pencahayaan yang diarahkan untuk menjaga warna kulit tetap natural serta tetap menghasilkan look yang soft dan aesthetic.',
+        conceptNote: 'Ideal untuk semua kebutuhan foto self studio, keluarga, hingga sesi wisuda.',
+        tags: ['#Lighting', '#Studio1', '#Estetik']
+      },
+      {
+        id: 'facility-studio1-support',
+        title: 'Kenyamanan & Dukungan Klien',
+        category: 'kenyamanan',
+        packageName: 'Fasilitas Studio 1',
+        icon: '✅',
+        targetPackageId: 'sewa-studio-hourly',
+        imageUrl: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=85',
+        description: 'Area kerja dan area tunggu yang nyaman untuk keluarga maupun klien yang datang bersama dalam satu sesi.',
+        conceptNote: 'Studio 1 dirancang untuk pengalaman booking yang santai, jelas, dan rapi.',
+        tags: ['#Kenyamanan', '#Studio1', '#Support']
+      }
+    ];
+  }, [selectedBranch]);
+
+  const branchBackgroundPhotos = useMemo<StudioGalleryPhoto[]>(() => {
+    const selectedBackgrounds = BACKGROUNDS.filter(bg => bg.applicableBranches.includes(selectedBranch));
+    const uniqueBackgrounds = new Map<string, typeof selectedBackgrounds[number]>();
+
+    selectedBackgrounds.forEach(bg => {
+      const normalizedKey = bg.name.trim().toLowerCase();
+      if (!uniqueBackgrounds.has(normalizedKey)) {
+        uniqueBackgrounds.set(normalizedKey, bg);
+      }
     });
-  }, [selectedGalleryCategory]);
+
+    const preferredOrder = selectedBranch === 'cabang-1'
+      ? ['hitam', 'hijau pastel', 'cream', 'limbo', 'putih tengah', 'putih jendela']
+      : ['hitam', 'putih', 'abu-abu', 'coklat jendela', 'tematik cream', 'biru'];
+
+    const orderedBackgrounds = Array.from(uniqueBackgrounds.values()).sort((a, b) => {
+      const indexA = preferredOrder.indexOf(a.name.trim().toLowerCase());
+      const indexB = preferredOrder.indexOf(b.name.trim().toLowerCase());
+      const safeA = indexA === -1 ? Number.MAX_SAFE_INTEGER : indexA;
+      const safeB = indexB === -1 ? Number.MAX_SAFE_INTEGER : indexB;
+      return safeA - safeB;
+    });
+
+    return orderedBackgrounds.map(bg => ({
+      id: `background-${bg.id}`,
+      title: bg.name,
+      category: 'background',
+      packageName: selectedBranch === 'cabang-1' ? 'Background Studio 1' : 'Background Studio 2',
+      icon: selectedBranch === 'cabang-1' ? '🎨' : '🖼️',
+      targetPackageId: 'sewa-studio-hourly',
+      imageUrl: bg.previewImage || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85',
+      images: [bg.previewImage || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85'],
+      description: bg.description,
+      conceptNote: `${bg.name} termasuk dalam pilihan background yang tersedia di ${currentBranchInfo.shortName}.`,
+      tags: [`#${bg.name.replace(/\s+/g, '')}`, `#${selectedBranch === 'cabang-1' ? 'Studio1' : 'Studio2'}`]
+    }));
+  }, [selectedBranch, currentBranchInfo.shortName]);
+
+  // Filter fasilitas & background untuk tab Fasilitas & Background sesuai studio yang dipilih
+  const filteredGalleryPhotos = useMemo(() => {
+    if (selectedGalleryCategory === 'background') {
+      return branchBackgroundPhotos;
+    }
+
+    const facilityPhotos = [...FACILITY_PHOTOS, ...branchFacilityPhotos];
+
+    if (selectedGalleryCategory === 'all') {
+      return [...branchBackgroundPhotos, ...facilityPhotos];
+    }
+
+    return facilityPhotos.filter(photo => photo.category === selectedGalleryCategory);
+  }, [selectedGalleryCategory, branchBackgroundPhotos, branchFacilityPhotos]);
 
   const activeMenuInfo = allCategoryButtons.find(m => m.id === activeMenuCategory) || studioFotoSubButtons[0] || mainMenuButtons[0];
   const activeMenuPackages = useMemo(() => {
@@ -907,7 +1035,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
           >
-            <span>Fasilitas</span>
+            <span>Fasilitas &amp; Background</span>
           </button>
 
           <button
@@ -1006,7 +1134,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
-                  <span>🏢 Fasilitas</span>
+                  <span>🏢 Fasilitas &amp; Background</span>
                 </button>
                 <button
                   onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -4313,7 +4441,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
-              <span>🏢 Fasilitas</span>
+              <span>🏢 Fasilitas &amp; Background</span>
             </button>
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -4336,10 +4464,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   <span>Fasilitas Alviero Studio</span>
                 </div>
                 <h3 className="text-lg sm:text-2xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase">
-                  Fasilitas Studio
+                  Fasilitas &amp; Background {currentBranchInfo.badge}
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-xl">
-                  Kenali sudut ruangan, peralatan, kenyamanan, dan layanan yang tersedia di studio kami. Foto background tidak ditampilkan di bagian ini.
+                  Koleksi fasilitas dan background yang tersedia khusus di {currentBranchInfo.shortName}. Daftar ini mengikuti latar pilihan pada studio aktif saat ini.
                 </p>
               </div>
 
@@ -4485,7 +4613,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
-              <span>🏢 Fasilitas</span>
+              <span>🏢 Fasilitas &amp; Background</span>
             </button>
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}

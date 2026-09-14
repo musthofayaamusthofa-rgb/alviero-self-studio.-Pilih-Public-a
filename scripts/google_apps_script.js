@@ -551,10 +551,11 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
     }
   }
 
-  if (outdoorTime && (outdoorSlotCountsForCheck[outdoorTime] || 0) >= 1) {
+  var outdoorMaxCapacity = getOutdoorSlotCapacity(outdoorTime);
+  if (outdoorTime && (outdoorSlotCountsForCheck[outdoorTime] || 0) >= outdoorMaxCapacity) {
     return {
       available: false,
-      message: 'Slot outdoor ' + outdoorTime + ' sudah terisi oleh klien lain.',
+      message: 'Slot outdoor ' + outdoorTime + ' sudah penuh untuk kapasitas ' + outdoorMaxCapacity + ' klien.',
       occupiedSlots: requestedSlots.concat([outdoorTime])
     };
   }
@@ -617,6 +618,12 @@ function extractOutdoorDuration(notes) {
   return 0;
 }
 
+function getOutdoorSlotCapacity(slotTime) {
+  var normalized = normalizeTime(slotTime);
+  if (normalized === '05:00' || normalized === '06:00') return 2;
+  return 1;
+}
+
 function addOutdoorOccupancy(slotCounts, bookedSlots, slotBackdrops, startSlot, durationMinutes, backdrop, maxCapacity) {
   var startMinutes = timeToMinutes(startSlot);
   if (isNaN(startMinutes)) return;
@@ -626,12 +633,14 @@ function addOutdoorOccupancy(slotCounts, bookedSlots, slotBackdrops, startSlot, 
   outdoorSlots.forEach(function(candidate) {
     var candidateMinutes = timeToMinutes(candidate);
     if (candidateMinutes >= startMinutes && candidateMinutes < endMinutes) {
+      var candidateCapacity = getOutdoorSlotCapacity(candidate);
+      var effectiveCapacity = typeof maxCapacity === 'number' && maxCapacity > 0 ? maxCapacity : candidateCapacity;
       slotCounts[candidate] = (slotCounts[candidate] || 0) + 1;
       if (slotBackdrops) {
         if (!slotBackdrops[candidate]) slotBackdrops[candidate] = [];
         if (backdrop) slotBackdrops[candidate] = slotBackdrops[candidate].concat(splitBackdropNames(backdrop));
       }
-      if (bookedSlots && slotCounts[candidate] >= maxCapacity && bookedSlots.indexOf(candidate) === -1) {
+      if (bookedSlots && slotCounts[candidate] >= effectiveCapacity && bookedSlots.indexOf(candidate) === -1) {
         bookedSlots.push(candidate);
       }
     }

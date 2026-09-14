@@ -9,7 +9,8 @@ import {
   SELF_STUDIO_TIME_SLOTS,
   STUDIO_BRANCHES,
   SELF_STUDIO_SUB_PACKAGES,
-  PRINT_OPTIONS
+  PRINT_OPTIONS,
+  MUA_VENDOR_OPTIONS
 } from '../data/pricelistData';
 import {
   X,
@@ -803,6 +804,12 @@ export const generateOutdoorTimeSlots = (): string[] => {
   return slots;
 };
 
+export const getOutdoorSlotCapacity = (slotTime: string): number => {
+  const normalizedSlot = normalizeSlotTime(slotTime);
+  if (normalizedSlot === '05:00' || normalizedSlot === '06:00') return 2;
+  return 1;
+};
+
 export const checkOutdoorSlotAvailability = (
   slotTime: string,
   existingBookings: { [slot: string]: number } = {},
@@ -816,11 +823,12 @@ export const checkOutdoorSlotAvailability = (
   const outdoorBookingsCount = Number(
     existingBookings[normalizedSlot] ?? existingBookings[slotTime] ?? 0
   );
+  const maxCapacity = getOutdoorSlotCapacity(normalizedSlot);
 
-  if (outdoorBookingsCount >= 1) {
+  if (outdoorBookingsCount >= maxCapacity) {
     return {
       isAvailable: false,
-      reason: 'Slot outdoor sudah terisi oleh klien lain di jam ini.'
+      reason: `Slot outdoor ${normalizedSlot} sudah penuh untuk kapasitas ${maxCapacity} klien.`
     };
   }
 
@@ -1179,6 +1187,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: number }>({});
   const [selectedAddOnGroup, setSelectedAddOnGroup] = useState<string | null>(null);
+  const [muaCart, setMuaCart] = useState<Array<{ vendorId: string; serviceId: string; quantity: number }>>([]);
+  const [selectedMuaVendorId, setSelectedMuaVendorId] = useState<string>(MUA_VENDOR_OPTIONS[0]?.id || '');
 
   const today = new Date().toISOString().split('T')[0];
   const [bookingDate, setBookingDate] = useState<string>(today);
@@ -1736,12 +1746,34 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     })
     .filter((item): item is NonNullable<typeof item> => item !== null);
 
+  const muaVendorOptions = MUA_VENDOR_OPTIONS;
+  const selectedMuaVendor = muaVendorOptions.find(v => v.id === selectedMuaVendorId) || muaVendorOptions[0];
+  const muaCartTotal = muaCart.reduce((sum, item) => {
+    const vendor = muaVendorOptions.find(v => v.id === item.vendorId);
+    const service = vendor?.services.find(s => s.id === item.serviceId);
+    return sum + (service ? service.price * item.quantity : 0);
+  }, 0);
+
+  const muaCartDetails = muaCart.map(item => {
+    const vendor = muaVendorOptions.find(v => v.id === item.vendorId);
+    const service = vendor?.services.find(s => s.id === item.serviceId);
+    return service && vendor ? {
+      vendorName: vendor.name,
+      serviceName: service.name,
+      quantity: item.quantity,
+      price: service.price,
+      subtotal: service.price * item.quantity
+    } : null;
+  }).filter((item): item is NonNullable<typeof item> => item !== null);
+
+  const muaCartSummary = muaCartDetails.map(item => `${item.serviceName} (${item.quantity}x)`).join(', ') || '-';
+
   // Biaya tambahan jika durasi 50 menit (Paket 2 keatas) mengambil slot jam 20:30 WIB (selesai 21:20 WIB / melebihi jam tutup 21:00 WIB)
   const isLateNightOvertime = sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30';
   const lateNightOvertimeFee = isLateNightOvertime ? 35000 : 0;
   const overtimeFee = lateNightOvertimeFee + outdoorOvertimeFee;
 
-  const subtotal = packagePrice + addOnsTotalPrice + overtimeFee;
+  const subtotal = packagePrice + addOnsTotalPrice + muaCartTotal + overtimeFee;
 
   let discountValue = 0;
   if (appliedPromo) {
@@ -1966,6 +1998,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         })
         .filter(Boolean)
         .join(', ') || '-';
+      const muaCartSummaryText = muaCartDetails.length > 0
+        ? muaCartDetails.map(item => `${item.vendorName} - ${item.serviceName} (${item.quantity}x)`).join(', ')
+        : '-';
 
       const studioType = isSelfStudio ? 'selfstudio' : 'studio_foto';
       const studioLabel = isSelfStudio ? 'Self Studio' : 'Studio Foto Profesional';
@@ -1992,6 +2027,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         phone: customerPhone || '-',
         package: currentPackage.name,
         addons: selectedAddOnsSummary,
+        mua_cart: muaCartSummaryText,
         print_size: hasFreePrint ? ukuranCetak : '',
         print_grid: hasFreePrint ? gridCetak : '',
         total: grandTotal,
@@ -2907,7 +2943,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               background: { label: 'Background', description: 'Tambahan pilihan latar foto', className: 'bg-cyan-50 border-cyan-200 text-cyan-950' },
               frame: { label: 'Cetak & Bingkai', description: 'Pilihan cetak dan pelengkap foto', className: 'bg-amber-50 border-amber-200 text-amber-950' },
               file: { label: 'File & Penyimpanan', description: 'Perpanjangan dan pengelolaan file', className: 'bg-sky-50 border-sky-200 text-sky-950' },
-              mua: { label: 'MUA & Kebaya', description: 'Make up, hairdo, dan layanan penampilan', className: 'bg-violet-50 border-violet-200 text-violet-950' },
               person: { label: 'Orang & Kostum', description: 'Tambahan peserta dan outfit', className: 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-950' },
               prop: { label: 'Properti & Aksesori', description: 'Tambahan properti sesi foto', className: 'bg-orange-50 border-orange-200 text-orange-950' },
               'pass-foto': { label: 'Pass Foto', description: 'Layanan tambahan pass foto', className: 'bg-lime-50 border-lime-200 text-lime-950' }
@@ -2916,8 +2951,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               const normalizedName = addOn.name.toLowerCase();
               if (normalizedName.includes('background')) return 'background';
               if (normalizedName.includes('cetak') || normalizedName.includes('bingkai')) return 'frame';
-              if (normalizedName.includes('make up') || normalizedName.includes('makeup') || normalizedName.includes('hairdo')) return 'mua';
-              return addOn.category;
+              return addOn.category || 'person';
             };
             const groupedAddOns = relevantAddOns.reduce<Record<string, typeof relevantAddOns>>((groups, addOn) => {
               const groupKey = getAddOnGroupKey(addOn);
@@ -3000,6 +3034,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           </button>
                         );
                       })}
+
                     </div>
                   )}
 
@@ -3346,37 +3381,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
-              {/* Opsi Pembayaran (DP 50% vs Lunas Full) */}
+              {/* Opsi Pembayaran (Hanya DP 50%) */}
               <div className="pt-2 border-t border-[#E8DDD6] space-y-2">
                 <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
                   <CreditCard className="w-3.5 h-3.5 text-[#6E856C]" />
                   OPSI PEMBAYARAN BOOKING:
                 </label>
-                <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs">
+                <div className="grid grid-cols-1 gap-2 sm:gap-3 text-xs">
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-1.5 sm:gap-2 ${paymentOption === 'dp'
-                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
-                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
-                      }`}
+                    className="min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-[9999px] border border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-1.5 sm:gap-2"
                   >
                     <span className="font-serif font-bold text-[11px] sm:text-xs uppercase text-[#3A3A3A] truncate">Bayar DP 50%</span>
-                    <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] sm:text-xs font-bold ${paymentOption === 'dp' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
-                      ✓
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setPaymentOption('full')}
-                    className={`min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-1.5 sm:gap-2 ${paymentOption === 'full'
-                      ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
-                      : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7] shadow-2xs'
-                      }`}
-                  >
-                    <span className="font-serif font-bold text-[11px] sm:text-xs uppercase text-[#3A3A3A] truncate">Bayar Lunas/Full</span>
-                    <div className={`w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] sm:text-xs font-bold ${paymentOption === 'full' ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'}`}>
+                    <div className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] sm:text-xs font-bold bg-[#3A3A3A] text-white shadow-2xs">
                       ✓
                     </div>
                   </button>
@@ -3456,6 +3474,24 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           <div key={addOn.id} className="flex justify-between gap-3 text-[11px] text-stone-300">
                             <span className="min-w-0">{addOn.name} × {addOn.quantity} <span className="text-stone-500">(Rp {addOn.price.toLocaleString('id-ID')}/{addOn.unit})</span></span>
                             <span className="shrink-0 text-stone-200">Rp {addOn.subtotal.toLocaleString('id-ID')}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {muaCartTotal > 0 && (
+                    <>
+                      <div className="flex justify-between text-stone-300">
+                        <span>Total Layanan MUA</span>
+                        <span>+ Rp {muaCartTotal.toLocaleString('id-ID')}</span>
+                      </div>
+                      <div className="rounded-xl border border-[#5A5A5A] bg-[#333333] p-3 space-y-1.5">
+                        <div className="text-[10px] font-bold uppercase tracking-wider text-[#A9BCA7]">Detail MUA Dipilih</div>
+                        {muaCartDetails.map(item => (
+                          <div key={`${item.vendorName}-${item.serviceName}`} className="flex justify-between gap-3 text-[11px] text-stone-300">
+                            <span className="min-w-0">{item.vendorName} • {item.serviceName} × {item.quantity}</span>
+                            <span className="shrink-0 text-stone-200">Rp {item.subtotal.toLocaleString('id-ID')}</span>
                           </div>
                         ))}
                       </div>

@@ -1299,6 +1299,16 @@ export const BACKGROUNDS: BackgroundOption[] = [
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
+  {
+    id: 'hitam-studio-1',
+    name: 'Hitam',
+    category: 'solid-color',
+    hex: '#111827',
+    description: 'Latar hitam elegan untuk studio formal dan karakter yang tegas.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio', 'self-studio'],
+    applicableBranches: ['cabang-1']
+  },
 
   // ==================== STUDIO 2 (DINOYO) - STUDIO FOTO (5 BACKGROUND) ====================
   {
@@ -1396,6 +1406,62 @@ export const BACKGROUNDS: BackgroundOption[] = [
 ];
 
 export const BACKDROPS = BACKGROUNDS;
+
+export interface MuaServiceOption {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  description: string;
+}
+
+export interface MuaVendorOption {
+  id: string;
+  name: string;
+  specialty: string;
+  location: string;
+  priceStart: number;
+  services: MuaServiceOption[];
+}
+
+export const MUA_VENDOR_OPTIONS: MuaVendorOption[] = [
+  {
+    id: 'mua-reni',
+    name: 'MUA Reni Beauty',
+    specialty: 'Natural glam & wisuda',
+    location: 'Malang Kota',
+    priceStart: 250000,
+    services: [
+      { id: 'mua-reni-basic', name: 'Makeup Basic', price: 250000, duration: '45 menit', description: 'Look clean & natural untuk acara formal' },
+      { id: 'mua-reni-wisuda', name: 'Makeup Wisuda', price: 350000, duration: '60 menit', description: 'Makeup tahan lama untuk sesi wisuda' },
+      { id: 'mua-reni-bridal', name: 'Makeup Prewedding', price: 550000, duration: '90 menit', description: 'Makeup soft glam cinematic untuk sesi spesial' }
+    ]
+  },
+  {
+    id: 'mua-dina',
+    name: 'MUA Dina Studio',
+    specialty: 'Soft glam & family shoot',
+    location: 'Lowokwaru',
+    priceStart: 220000,
+    services: [
+      { id: 'mua-dina-simply', name: 'Makeup Family', price: 220000, duration: '40 menit', description: 'Look classy untuk family photo session' },
+      { id: 'mua-dina-glam', name: 'Makeup Glam', price: 300000, duration: '60 menit', description: 'Soft glam dengan detail rias yang halus' },
+      { id: 'mua-dina-event', name: 'Makeup Event', price: 420000, duration: '75 menit', description: 'Riasan tahan lama untuk acara formal dan gathering' }
+    ]
+  },
+  {
+    id: 'mua-lila',
+    name: 'MUA Lila Art',
+    specialty: 'Editorial & beauty branding',
+    location: 'Karangploso',
+    priceStart: 300000,
+    services: [
+      { id: 'mua-lila-editorial', name: 'Editorial Beauty', price: 300000, duration: '60 menit', description: 'Look editorial yang lebih menonjol untuk branding' },
+      { id: 'mua-lila-portrait', name: 'Portrait Makeup', price: 350000, duration: '70 menit', description: 'Makeup untuk sesi portrait dan personal branding' },
+      { id: 'mua-lila-boudoir', name: 'Beauty Session', price: 500000, duration: '90 menit', description: 'Kustom untuk sesi foto special dan premium' }
+    ]
+  }
+];
 
 export const FRAME_TEMPLATES: FrameTemplate[] = [
   {

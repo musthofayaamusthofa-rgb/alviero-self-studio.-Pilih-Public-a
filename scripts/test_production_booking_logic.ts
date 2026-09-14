@@ -88,13 +88,33 @@ assert(
 );
 
 assert(
-  checkOutdoorSlotAvailability('06:00', { '06:00': 1 }).isAvailable === false,
-  'Slot outdoor dengan 1 booking existing otomatis dinonaktifkan untuk klien lain'
+  checkOutdoorSlotAvailability('06:00', { '06:00': 1 }).isAvailable === true,
+  'Slot outdoor 06:00 masih menerima booking kedua ketika kapasitas 2 belum penuh'
+);
+
+assert(
+  checkOutdoorSlotAvailability('06:00', { '06:00': 2 }).isAvailable === false,
+  'Slot outdoor 06:00 menolak booking ketiga ketika kapasitas 2 sudah penuh'
 );
 
 assert(
   checkOutdoorSlotAvailability('06:00', { '06:00': 0 }).isAvailable === true,
   'Slot outdoor yang masih kosong tetap aktif untuk booking baru'
+);
+
+assert(
+  checkOutdoorSlotAvailability('05:00', { '05:00': 2 }).isAvailable === false,
+  'Slot outdoor 05:00 menolak booking ke-3 ketika kapasitas 2 sudah penuh'
+);
+
+assert(
+  checkOutdoorSlotAvailability('05:00', { '05:00': 1 }).isAvailable === true,
+  'Slot outdoor 05:00 masih tersedia untuk booking kedua'
+);
+
+assert(
+  checkOutdoorSlotAvailability('12:00', { '12:00': 1 }).isAvailable === false,
+  'Slot outdoor daytime tetap dibatasi 1 booking per slot'
 );
 
 console.log('Production booking logic tests passed.');
