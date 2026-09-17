@@ -9,6 +9,7 @@ import {
   Copy,
   CreditCard,
   Instagram,
+  LoaderCircle,
   MapPin,
   Minus,
   Plus,
@@ -32,6 +33,8 @@ export interface ExtraCartItem {
   price: number;
   qty: number;
 }
+
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_RuTLV0Q0pMe3LRKvqGFELu4lV5j4cVx7YPuBdO6ux8ZWBmVONRs3g_qnN_5QXlL7-w/exec';
 
 interface ExtraCheckoutModalProps {
   isOpen: boolean;
@@ -77,6 +80,7 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
   const [isScheduleConfirmed, setIsScheduleConfirmed] = useState<boolean>(false);
   const [paymentProofImage, setPaymentProofImage] = useState<string | null>(null);
   const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setIsScheduleConfirmed(false);
@@ -124,24 +128,88 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     setPaymentProofFileName('');
   };
 
-  const handleSubmit = () => {
-    if (!canSubmit) return;
+  const submitExtraBookingToSheets = async () => {
+    const rincianItem = items
+      .map((item) => `- ${item.qty}x ${item.itemName}${item.vendor ? ` ${item.vendor}` : ''}`)
+      .join('\n');
 
-    onSubmit({
-      items,
-      selectedDate,
-      selectedTime,
-      pickupNote,
-      customerName,
-      customerPhone,
-      customerInstagram,
-      paymentType,
-      paymentMethod,
-      paymentAmount,
-      total: totalWithFee,
-      paymentProofImage: paymentProofImage || undefined,
-      paymentProofFileName: paymentProofFileName || undefined,
-    });
+    const payload = {
+      action: 'extra_booking',
+      jenisPesanan: 'EXTRA/MUA',
+      namaLengkap: customerName,
+      whatsapp: customerPhone,
+      instagram: customerInstagram,
+      jadwal: `${selectedDate} ${selectedTime}`,
+      lokasi: pickupNote,
+      rincianItem,
+      totalBiaya: totalWithFee,
+      opsiPembayaran: paymentType === 'dp' ? 'DP 50%' : 'LUNAS',
+      metodePembayaran: paymentMethod === 'qris' ? 'QRIS' : 'BCA',
+      paymentProofImage: paymentProofImage || '',
+      paymentProofFileName: paymentProofFileName || '',
+    };
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+    try {
+      await fetch(GOOGLE_APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      });
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!canSubmit || isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await submitExtraBookingToSheets();
+      onSubmit({
+        items,
+        selectedDate,
+        selectedTime,
+        pickupNote,
+        customerName,
+        customerPhone,
+        customerInstagram,
+        paymentType,
+        paymentMethod,
+        paymentAmount,
+        total: totalWithFee,
+        paymentProofImage: paymentProofImage || undefined,
+        paymentProofFileName: paymentProofFileName || undefined,
+      });
+    } catch (error) {
+      console.error('Gagal menyimpan extra booking ke Google Sheets:', error);
+      alert('Gagal menyimpan data ke server, namun Anda tetap akan dialihkan ke WhatsApp');
+      onSubmit({
+        items,
+        selectedDate,
+        selectedTime,
+        pickupNote,
+        customerName,
+        customerPhone,
+        customerInstagram,
+        paymentType,
+        paymentMethod,
+        paymentAmount,
+        total: totalWithFee,
+        paymentProofImage: paymentProofImage || undefined,
+        paymentProofFileName: paymentProofFileName || undefined,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCopyBankAccount = async () => {
@@ -155,8 +223,22 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
   };
 
   const handleScheduleConfirmation = () => {
+    const cartDetailsString = items
+      .map((item) => `- ${item.qty}x ${item.itemName}${item.vendor ? ` ${item.vendor}` : ''}`)
+      .join('\n');
+
     const message = encodeURIComponent(
-      `Halo admin, saya ingin konfirmasi ketersediaan untuk pesanan ekstra pada Tanggal: ${selectedDate}, Jam: ${selectedTime}, Lokasi: ${pickupNote || 'Belum diisi'}. Apakah slot ini tersedia?`
+      `Halo admin Alviero Studio, saya ingin konfirmasi ketersediaan jadwal untuk pesanan layanan ekstra berikut:
+
+*Rincian Pesanan:*
+${cartDetailsString}
+
+*Jadwal & Lokasi:*
+- Tanggal: ${selectedDate}
+- Jam: ${selectedTime}
+- Lokasi/Pengambilan: ${pickupNote || 'Belum diisi'}
+
+Apakah slot dan layanan di atas tersedia?`
     );
 
     window.open(`https://wa.me/6281234567890?text=${message}`, '_blank', 'noopener,noreferrer');
@@ -724,13 +806,22 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
 
               <button
                 type="button"
-                disabled={!canSubmit}
+                disabled={!canSubmit || isSubmitting}
                 onClick={handleSubmit}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <span className="text-base">✆</span>
-                Kirim Booking WA
-                <ArrowRight className="h-4 w-4" />
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle className="h-4 w-4 animate-spin" />
+                    Menyimpan...
+                  </>
+                ) : (
+                  <>
+                    <span className="text-base">✆</span>
+                    Kirim Booking WA
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
               </button>
             </div>
           )}

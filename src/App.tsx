@@ -11,6 +11,9 @@ import { ExtraCheckoutModal, type ExtraCartItem } from './components/ExtraChecko
 import { StudioBranch } from './types';
 import { useAutoHideScrollbar } from './hooks/useAutoHideScrollbar';
 
+// Nomor WhatsApp Admin Studio 1 dalam format internasional tanpa tanda plus.
+const ADMIN_STUDIO_1_WA = '6287777538164';
+
 export default function App() {
   useAutoHideScrollbar();
 
@@ -92,24 +95,36 @@ export default function App() {
     paymentAmount: number;
     total: number;
   }) => {
-    const message = encodeURIComponent(
-      `Pesanan Ekstra (Non-Studio Booking)\n` +
-        `Nama: ${payload.customerName}\n` +
-        `WhatsApp: ${payload.customerPhone}\n` +
-        `Instagram: ${payload.customerInstagram || '-'}\n` +
-        `Tanggal: ${payload.selectedDate}\n` +
-        `Jam: ${payload.selectedTime}\n` +
-        `Metode Pengambilan: ${payload.pickupNote || '-'}\n` +
-        `Status Pembayaran: ${payload.paymentType === 'dp' ? 'DP 50%' : 'Lunas / Full'} via ${payload.paymentMethod === 'qris' ? 'QRIS' : 'BCA'}\n` +
-        `Saya telah melakukan transfer sebesar: Rp ${payload.paymentAmount.toLocaleString('id-ID')}\n` +
-        `Item:\n${payload.items
-          .map((item) => `- ${item.itemName} (${item.category}) ${item.qty}x @ Rp ${item.price.toLocaleString('id-ID')}`)
-          .join('\n')}\n` +
-        `Total: Rp ${payload.total.toLocaleString('id-ID')}`
-    );
+    const cartDetailsString = payload.items
+      .map((item) => `- ${item.qty}x ${item.itemName}${item.vendor ? ` ${item.vendor}` : ''}`)
+      .join('\n');
+    const paymentOption = payload.paymentType === 'dp' ? 'DP 50%' : 'Lunas/Full';
+    const paymentMethod = payload.paymentMethod.toUpperCase();
 
-    const waNumber = '6281234567890';
-    window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+    const pesanTemplate = `Halo Admin Studio 1 Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).
+
+*👤 Data Pemesan:*
+- Nama: ${payload.customerName}
+- WA: ${payload.customerPhone}
+- IG: ${payload.customerInstagram || '-'}
+
+*🛍️ Rincian Pesanan:*
+${cartDetailsString}
+
+*📅 Jadwal & Pengambilan:*
+- Tanggal: ${payload.selectedDate}
+- Jam: ${payload.selectedTime}
+- Catatan/Lokasi: ${payload.pickupNote || 'Belum diisi'}
+
+*💳 Rincian Pembayaran:*
+- Total Estimasi: Rp ${payload.total.toLocaleString('id-ID')}
+- Pembayaran: ${paymentOption}
+- Metode: ${paymentMethod}
+
+Berikut saya lampirkan bukti transfer pembayarannya.`;
+
+    const encodedText = encodeURIComponent(pesanTemplate);
+    window.open(`https://wa.me/${ADMIN_STUDIO_1_WA}?text=${encodedText}`, '_blank', 'noopener,noreferrer');
     setExtraCart([]);
     setIsExtraCheckoutOpen(false);
   };

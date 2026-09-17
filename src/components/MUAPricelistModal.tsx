@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ArrowLeft, ChevronRight } from 'lucide-react';
+import { X, ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react';
 
 export interface MuaServiceDefinition {
   id: string;
@@ -14,13 +14,28 @@ export interface MuaVendorDefinition {
   coverImage: string;
 }
 
+const KEBAYA_PREVIEWS: Record<string, string> = {
+  Sage: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=85',
+  Nude: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=85',
+  Black: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85',
+  Navy: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=700&q=85',
+  Maroon: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=85',
+  Gold: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=85',
+  Silver: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85',
+};
+
 export const MUA_VENDORS: MuaVendorDefinition[] = [
   {
     id: 'novita',
     name: 'By Novita',
     coverImage: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
     services: [
-      { id: 'novita-mua', name: 'MUA', price: 0 },
+      { id: 'novita-mua-pass-foto', name: 'MUA - Pass Foto', price: 0 },
+      { id: 'novita-mua-wedding', name: 'MUA - Wedding', price: 0 },
+      { id: 'novita-mua-graduation-indoor', name: 'MUA - Graduation Indoor', price: 0 },
+      { id: 'novita-mua-graduation-outdoor', name: 'MUA - Graduation Outdoor', price: 0 },
+      { id: 'novita-mua-prewedding-indoor', name: 'MUA - Prewedding Indoor', price: 0 },
+      { id: 'novita-mua-prewedding-outdoor', name: 'MUA - Prewedding Outdoor', price: 0 },
       { id: 'novita-kebaya', name: 'Kebaya', price: 0 },
       { id: 'novita-hijabdo', name: 'Hijabdo', price: 0 }
     ]
@@ -30,7 +45,12 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     name: 'By Ananda',
     coverImage: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80',
     services: [
-      { id: 'ananda-mua', name: 'MUA', price: 0 },
+      { id: 'ananda-mua-pass-foto', name: 'MUA - Pass Foto', price: 0 },
+      { id: 'ananda-mua-wedding', name: 'MUA - Wedding', price: 0 },
+      { id: 'ananda-mua-graduation-indoor', name: 'MUA - Graduation Indoor', price: 0 },
+      { id: 'ananda-mua-graduation-outdoor', name: 'MUA - Graduation Outdoor', price: 0 },
+      { id: 'ananda-mua-prewedding-indoor', name: 'MUA - Prewedding Indoor', price: 0 },
+      { id: 'ananda-mua-prewedding-outdoor', name: 'MUA - Prewedding Outdoor', price: 0 },
       { id: 'ananda-kebaya', name: 'Kebaya', price: 0 },
       { id: 'ananda-hijabdo', name: 'Hijabdo', price: 0 }
     ]
@@ -40,7 +60,12 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     name: 'By Masaya',
     coverImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
     services: [
-      { id: 'masaya-mua', name: 'MUA', price: 0 },
+      { id: 'masaya-mua-pass-foto', name: 'MUA - Pass Foto', price: 0 },
+      { id: 'masaya-mua-wedding', name: 'MUA - Wedding', price: 0 },
+      { id: 'masaya-mua-graduation-indoor', name: 'MUA - Graduation Indoor', price: 0 },
+      { id: 'masaya-mua-graduation-outdoor', name: 'MUA - Graduation Outdoor', price: 0 },
+      { id: 'masaya-mua-prewedding-indoor', name: 'MUA - Prewedding Indoor', price: 0 },
+      { id: 'masaya-mua-prewedding-outdoor', name: 'MUA - Prewedding Outdoor', price: 0 },
       { id: 'masaya-kebaya', name: 'Kebaya', price: 0 },
       { id: 'masaya-hijabdo', name: 'Hijabdo', price: 0 }
     ]
@@ -85,7 +110,16 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   onOpenExtraCheckout,
 }) => {
   const [activePopupVendor, setActivePopupVendor] = useState<string | null>(null);
+  const [isMuaExpanded, setIsMuaExpanded] = useState(false);
+  const [isKebayaExpanded, setIsKebayaExpanded] = useState(false);
+  const [kebayaColor, setKebayaColor] = useState<string | null>(null);
+  const [kebayaSize, setKebayaSize] = useState<string | null>(null);
+  const [kebayaQty, setKebayaQty] = useState(1);
+  const [previewImagePopup, setPreviewImagePopup] = useState<string | null>(null);
   const activeVendor = MUA_VENDORS.find((vendor) => vendor.name === activePopupVendor) || null;
+
+  const kebayaColors = ['Sage', 'Nude', 'Black', 'Navy', 'Maroon', 'Gold', 'Silver'];
+  const kebayaSizes = ['S', 'M', 'L', 'XL', 'XXL'];
 
   const handleAddToMuaCart = (vendorName: string, service: MuaServiceDefinition) => {
     const item = {
@@ -98,6 +132,24 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
     };
 
     if (onAddExtraItem) onAddExtraItem(item);
+  };
+
+  const handleAddKebayaToCart = (vendorName: string) => {
+    if (!kebayaColor || !kebayaSize || !onAddExtraItem) return;
+
+    onAddExtraItem({
+      id: `${vendorName}-kebaya-${kebayaColor.toLowerCase()}-${kebayaSize.toLowerCase()}`,
+      category: 'MUA',
+      itemName: `Kebaya (Warna: ${kebayaColor}, Ukuran: ${kebayaSize})`,
+      vendor: vendorName,
+      price: 0,
+      qty: kebayaQty,
+    });
+
+    setKebayaColor(null);
+    setKebayaSize(null);
+    setKebayaQty(1);
+    setIsKebayaExpanded(false);
   };
 
   const muaCartTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -205,7 +257,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
         {activeVendor && (
           <div className="fixed inset-0 bg-black/50 z-[80] flex items-center justify-center p-4">
-            <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-[#E8DDD6]">
+            <div className="relative flex max-h-[90vh] w-full max-w-md flex-col rounded-2xl bg-white p-6 shadow-2xl border border-[#E8DDD6]">
               <button
                 type="button"
                 onClick={() => setActivePopupVendor(null)}
@@ -221,37 +273,191 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                 </h4>
               </div>
 
-              <div className="mt-5 space-y-3">
-                {activeVendor.services.map((service) => (
-                  <div key={service.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#EAE0D8] bg-[#F9F7F5] px-4 py-3">
-                    <div className="font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
-                      {service.name}
-                    </div>
+              <div className="flex-1 overflow-y-auto max-h-[50vh] pr-2 space-y-3 mt-5">
+                {activeVendor.services.some((service) => service.name.startsWith('MUA -')) && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setIsMuaExpanded(!isMuaExpanded)}
+                      className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-[#EAE0D8] bg-[#F9F7F5] px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                      aria-expanded={isMuaExpanded}
+                    >
+                      <span className="font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
+                        MUA (Makeup Artist)
+                      </span>
+                      {isMuaExpanded ? (
+                        <ChevronUp className="h-5 w-5 shrink-0 text-[#2E2E2E]" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5 shrink-0 text-[#2E2E2E]" />
+                      )}
+                    </button>
 
-                    <div className="flex items-center gap-3 shrink-0">
-                      <div className="flex items-center gap-1">
-                        <span className="text-[11px] font-mono font-bold uppercase text-stone-500">Rp.</span>
-                        <span className="font-mono text-sm font-black text-[#2E2E2E]">
-                          {service.price.toLocaleString('id-ID')}
-                        </span>
+                    {isMuaExpanded && (
+                      <div className="ml-3 space-y-3 rounded-xl bg-gray-50 p-3">
+                        {activeVendor.services
+                          .filter((service) => service.name.startsWith('MUA -'))
+                          .map((service) => (
+                            <div key={service.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#EAE0D8] bg-white px-4 py-3">
+                              <div className="font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
+                                {service.name.replace(/^MUA\s*-\s*/, '')}
+                              </div>
+
+                              <div className="flex items-center gap-3 shrink-0">
+                                <div className="flex items-center gap-1">
+                                  <span className="text-[11px] font-mono font-bold uppercase text-stone-500">Rp.</span>
+                                  <span className="font-mono text-sm font-black text-[#2E2E2E]">
+                                    {service.price.toLocaleString('id-ID')}
+                                  </span>
+                                </div>
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    handleAddToMuaCart(activeVendor.name, service);
+                                  }}
+                                  className="rounded-full bg-[#3A3A3A] px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white hover:bg-[#1f1f1f] transition-colors"
+                                >
+                                  + Tambah
+                                </button>
+                              </div>
+                            </div>
+                          ))}
                       </div>
+                    )}
+                  </>
+                )}
 
-                      <button
-                        type="button"
-                        onClick={() => {
-                          handleAddToMuaCart(activeVendor.name, service);
-                        }}
-                        className="rounded-full bg-[#3A3A3A] px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white hover:bg-[#1f1f1f] transition-colors"
-                      >
-                        + Tambah
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                {activeVendor.services
+                  .filter((service) => !service.name.startsWith('MUA -'))
+                  .map((service) => (
+                    service.name === 'Kebaya' ? (
+                      <div key={service.id}>
+                        <button
+                          type="button"
+                          onClick={() => setIsKebayaExpanded(!isKebayaExpanded)}
+                          className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl border border-[#EAE0D8] bg-[#F9F7F5] px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                          aria-expanded={isKebayaExpanded}
+                        >
+                          <span className="font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
+                            Kebaya
+                          </span>
+                          {isKebayaExpanded ? (
+                            <ChevronUp className="h-5 w-5 shrink-0 text-[#2E2E2E]" />
+                          ) : (
+                            <ChevronDown className="h-5 w-5 shrink-0 text-[#2E2E2E]" />
+                          )}
+                        </button>
+
+                        {isKebayaExpanded && (
+                          <div className="mt-2 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                            <div>
+                              <p className="mb-2 text-sm font-bold text-[#2E2E2E]">Warna</p>
+                              <div className="flex flex-wrap gap-2">
+                                {kebayaColors.map((color) => (
+                                  <button
+                                    key={color}
+                                    type="button"
+                                    onClick={() => {
+                                      setKebayaColor(color);
+                                      setPreviewImagePopup(color);
+                                    }}
+                                    className={`rounded-md bg-white px-3 py-2 text-sm transition-colors ${
+                                      kebayaColor === color
+                                        ? 'border-2 border-black font-bold'
+                                        : 'border border-gray-300 hover:border-gray-500'
+                                    }`}
+                                  >
+                                    {color}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="mt-4">
+                              <p className="mb-2 text-sm font-bold text-[#2E2E2E]">Ukuran</p>
+                              <div className="flex flex-wrap gap-2">
+                                {kebayaSizes.map((size) => (
+                                  <button
+                                    key={size}
+                                    type="button"
+                                    onClick={() => setKebayaSize(size)}
+                                    className={`min-w-11 rounded-md bg-white px-3 py-2 text-sm transition-colors ${
+                                      kebayaSize === size
+                                        ? 'border-2 border-black font-bold'
+                                        : 'border border-gray-300 hover:border-gray-500'
+                                    }`}
+                                  >
+                                    {size}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="mt-4 flex items-center justify-between">
+                              <p className="text-sm font-bold text-[#2E2E2E]">Kuantitas</p>
+                              <div className="flex items-center rounded-md border border-gray-300 bg-white">
+                                <button
+                                  type="button"
+                                  onClick={() => setKebayaQty((quantity) => Math.max(1, quantity - 1))}
+                                  className="px-3 py-1.5 text-lg leading-none hover:bg-gray-100"
+                                  aria-label="Kurangi kuantitas Kebaya"
+                                >
+                                  -
+                                </button>
+                                <span className="min-w-8 text-center text-sm font-bold">{kebayaQty}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => setKebayaQty((quantity) => quantity + 1)}
+                                  className="px-3 py-1.5 text-lg leading-none hover:bg-gray-100"
+                                  aria-label="Tambah kuantitas Kebaya"
+                                >
+                                  +
+                                </button>
+                              </div>
+                            </div>
+
+                            <button
+                              type="button"
+                              onClick={() => handleAddKebayaToCart(activeVendor.name)}
+                              disabled={!kebayaColor || !kebayaSize}
+                              className="mt-4 w-full rounded-full bg-[#3A3A3A] px-4 py-3 text-sm font-mono font-bold uppercase tracking-[0.12em] text-white transition-colors hover:bg-[#1f1f1f] disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+                            >
+                              + Masukkan Keranjang
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div key={service.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#EAE0D8] bg-[#F9F7F5] px-4 py-3">
+                        <div className="font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
+                          {service.name}
+                        </div>
+
+                        <div className="flex items-center gap-3 shrink-0">
+                          <div className="flex items-center gap-1">
+                            <span className="text-[11px] font-mono font-bold uppercase text-stone-500">Rp.</span>
+                            <span className="font-mono text-sm font-black text-[#2E2E2E]">
+                              {service.price.toLocaleString('id-ID')}
+                            </span>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleAddToMuaCart(activeVendor.name, service);
+                            }}
+                            className="rounded-full bg-[#3A3A3A] px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-white hover:bg-[#1f1f1f] transition-colors"
+                          >
+                            + Tambah
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  ))}
               </div>
 
               {cartItems.length > 0 && (
-                <div className="mt-5 rounded-2xl border border-[#DDE7DF] bg-[#F0F7F1] p-4 shadow-sm">
+                <div className="sticky bottom-0 mt-5 shrink-0 rounded-2xl border border-[#DDE7DF] bg-white p-4 shadow-[0_-8px_16px_-12px_rgba(0,0,0,0.35)]">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#6F7F6B]">
@@ -289,6 +495,33 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {previewImagePopup && (
+          <div
+            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+            onClick={() => setPreviewImagePopup(null)}
+            role="presentation"
+          >
+            <div className="relative w-full max-w-sm" onClick={(event) => event.stopPropagation()}>
+              <button
+                type="button"
+                onClick={() => setPreviewImagePopup(null)}
+                className="absolute -right-4 -top-4 z-10 cursor-pointer rounded-full bg-white p-2 text-black shadow-lg"
+                aria-label="Tutup preview warna"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <img
+                src={KEBAYA_PREVIEWS[previewImagePopup] || KEBAYA_PREVIEWS.Sage}
+                alt={`Preview kebaya warna ${previewImagePopup}`}
+                className="max-h-[70vh] w-full rounded-xl object-cover"
+              />
+              <p className="mt-3 text-center text-sm font-mono font-bold uppercase tracking-[0.16em] text-white">
+                Preview Warna: {previewImagePopup}
+              </p>
             </div>
           </div>
         )}

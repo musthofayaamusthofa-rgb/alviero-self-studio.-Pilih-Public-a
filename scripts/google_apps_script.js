@@ -14,7 +14,7 @@
  * 
  * -------------------------------------------------------------------------
  * PANDUAN PEMASANGAN / UPDATE (HANYA 1 MENIT):
- * 1. Buka Spreadsheet Anda: https://docs.google.com/spreadsheets/d/1lWjubRqu6khlmUYRHEr--kaRu_DlFbbRfUjbFXFFJ9c/edit
+ * 1. Buka Spreadsheet Anda: https://docs.google.com/spreadsheets/d/1Wahcv51L357M1K_JtJozY6JcKwZfJzUQW-JAnFH6sKg/edit
  * 2. Klik menu atas: "Ekstensi" (Extensions) > "Apps Script".
  * 3. Hapus seluruh isi script lama (tekan Ctrl+A lalu Delete).
  * 4. Salin (Copy) & Tempel (Paste) seluruh kode file ini ke editor Apps Script.
@@ -67,7 +67,7 @@ function handleRequest(e) {
     }
 
     var action = params.action || '';
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = SpreadsheetApp.openById('1Wahcv51L357M1K_JtJozY6JcKwZfJzUQW-JAnFH6sKg');
 
     // =========================================================================
     // 1. ACTION: CHECK SLOTS (Cek Ketersediaan Jam Slot & Background)
@@ -178,6 +178,70 @@ function handleRequest(e) {
 
       return ContentService.createTextOutput(JSON.stringify(responseData))
         .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // =========================================================================
+    // 1B. ACTION: EXTRA BOOKING (MUA / KEBAYA / LAYANAN TAMBAHAN)
+    // =========================================================================
+    if (action === 'extra_booking' || params.jenisPesanan === 'EXTRA/MUA') {
+      var extraSheetName = 'Extra Booking';
+      var extraSheet = ss.getSheetByName(extraSheetName);
+
+      if (!extraSheet) {
+        extraSheet = ss.insertSheet(extraSheetName);
+        setupExtraBookingHeaders(extraSheet);
+      } else {
+        ensureExtraBookingHeaders(extraSheet);
+      }
+
+      var extraProofUrl = 'Belum ada';
+      if (params.paymentProofImage && String(params.paymentProofImage).length > 50) {
+        try {
+          var extraFolderName = 'Bukti Pembayaran Alviero Studio';
+          var extraFolders = DriveApp.getFoldersByName(extraFolderName);
+          var extraFolder = extraFolders.hasNext() ? extraFolders.next() : DriveApp.createFolder(extraFolderName);
+          var extraBase64 = String(params.paymentProofImage);
+          var extraContentType = 'image/jpeg';
+
+          if (extraBase64.indexOf('data:') === 0) {
+            var extraParts = extraBase64.split(';base64,');
+            extraContentType = extraParts[0].replace('data:', '') || extraContentType;
+            extraBase64 = extraParts[1] || '';
+          }
+
+          var extraDecoded = Utilities.base64Decode(extraBase64);
+          var extraFileName = String(params.paymentProofFileName || 'bukti-pembayaran.jpg')
+            .replace(/[^a-zA-Z0-9._-]/g, '_');
+          var extraBlob = Utilities.newBlob(extraDecoded, extraContentType, extraFileName);
+          var extraFile = extraFolder.createFile(extraBlob);
+          extraFile.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+          extraProofUrl = extraFile.getUrl();
+        } catch (extraProofError) {
+          extraProofUrl = 'Gagal upload bukti: ' + extraProofError.toString();
+        }
+      }
+
+      extraSheet.appendRow([
+        new Date(),
+        params.jenisPesanan || 'EXTRA/MUA',
+        params.namaLengkap || '-',
+        params.whatsapp || '-',
+        params.instagram || '-',
+        params.jadwal || '-',
+        params.lokasi || '-',
+        params.rincianItem || '-',
+        Number(params.totalBiaya) || 0,
+        params.opsiPembayaran || '-',
+        params.metodePembayaran || '-',
+        extraProofUrl,
+        params.paymentProofFileName || '-'
+      ]);
+
+      return jsonResponse({
+        status: 'SUCCESS',
+        message: 'Extra booking berhasil disimpan.',
+        sheet: extraSheetName
+      });
     }
 
     // =========================================================================
@@ -400,7 +464,7 @@ function handleRequest(e) {
             extractOutdoorDuration(row[8]),
  */
 function testInsertBooking() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var ss = SpreadsheetApp.openById('1Wahcv51L357M1K_JtJozY6JcKwZfJzUQW-JAnFH6sKg');
   var sheet2 = ss.getSheetByName('Cabang 2') || ss.insertSheet('Cabang 2');
   ensureSheetHeaders(sheet2);
   
@@ -767,6 +831,32 @@ function extractOutdoorTime(notes) {
   var match = String(notes || '').match(/\[OUTDOOR_TIME:(\d{2}:\d{2})\]/);
   if (!match) match = String(notes || '').match(/(\d{1,2}[:.]\d{2})/);
   return match ? normalizeTime(match[1]) : '';
+}
+
+function setupExtraBookingHeaders(sheet) {
+  var headers = [
+    'Timestamp Submit', 'Jenis Pesanan', 'Nama Lengkap', 'WhatsApp',
+    'Instagram', 'Jadwal', 'Lokasi', 'Rincian Item', 'Total Biaya (Rp)',
+    'Opsi Pembayaran', 'Metode Pembayaran', 'Link Bukti Bayar', 'Nama File Bukti'
+  ];
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold').setBackground('#EFEFEF');
+}
+
+function ensureExtraBookingHeaders(sheet) {
+  var expectedHeaders = [
+    'Timestamp Submit', 'Jenis Pesanan', 'Nama Lengkap', 'WhatsApp',
+    'Instagram', 'Jadwal', 'Lokasi', 'Rincian Item', 'Total Biaya (Rp)',
+    'Opsi Pembayaran', 'Metode Pembayaran', 'Link Bukti Bayar', 'Nama File Bukti'
+  ];
+  var existingHeaders = sheet.getRange(1, 1, 1, expectedHeaders.length).getValues()[0];
+  var hasExpectedHeaders = expectedHeaders.every(function(header, index) {
+    return String(existingHeaders[index] || '').trim() === header;
+  });
+
+  if (!hasExpectedHeaders) {
+    setupExtraBookingHeaders(sheet);
+  }
 }
 
 // Inisialisasi Header Kolom
