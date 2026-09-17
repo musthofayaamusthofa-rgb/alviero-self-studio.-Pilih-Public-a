@@ -163,19 +163,19 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-[2px] flex items-end justify-center p-0 sm:p-4">
-      <div className="w-full max-w-4xl rounded-t-[28px] sm:rounded-[28px] bg-[#F7F4F1] shadow-2xl border border-[#E7E0D9] overflow-hidden">
-        <div className="sticky top-0 z-10 bg-[#F7F4F1] border-b border-[#E8DDD6] px-4 sm:px-6 py-4 sm:py-5">
+    <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 p-0 backdrop-blur-[2px] sm:p-4">
+      <div className="flex max-h-[92vh] w-full max-w-[min(92vw,920px)] flex-col overflow-hidden rounded-t-[28px] border border-[#E7E0D9] bg-[#F7F4F1] shadow-2xl sm:rounded-[24px]">
+        <div className="sticky top-0 z-10 shrink-0 border-b border-[#E8DDD6] bg-[#F7F4F1] px-4 py-3 sm:px-5 sm:py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] flex items-center justify-center shadow-2xs shrink-0">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] shadow-2xs">
                 <span className="text-base">✦</span>
               </div>
               <div className="min-w-0">
-                <h3 className="font-serif font-black text-base sm:text-xl uppercase tracking-wide text-[#2E2E2E] truncate">
+                <h3 className="truncate font-serif text-sm font-black uppercase tracking-wide text-[#2E2E2E] sm:text-lg">
                   PRICELIST MUA, KEBAYA, HAIRDO & HIJABDO
                 </h3>
-                <p className="text-[10px] sm:text-[11px] font-sans text-stone-600 uppercase tracking-[0.18em]">
+                <p className="text-[9px] font-sans uppercase tracking-[0.16em] text-stone-600 sm:text-[10px]">
                   Beauty & styling pilihan premium
                 </p>
               </div>
@@ -184,7 +184,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex items-center gap-2 rounded-full bg-[#2D2D2D] text-white px-4 py-2 text-[10px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.18em] shadow-sm hover:bg-[#1d1d1d] transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#2D2D2D] px-3 py-1.5 text-[9px] font-serif font-bold uppercase tracking-[0.16em] text-white shadow-sm transition-colors hover:bg-[#1d1d1d] sm:text-[10px]"
             >
               <span className="text-base leading-none">×</span>
               <span>Tutup</span>
@@ -192,25 +192,25 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
           </div>
         </div>
 
-        <div className="max-h-[82vh] overflow-y-auto bg-[#F7F4F1]">
-          <section className="px-4 sm:px-6 pt-5 sm:pt-6 pb-4">
+        <div className="min-h-0 flex-1 overflow-y-auto bg-[#F7F4F1]">
+          <section className="px-4 pb-3 pt-4 sm:px-5 sm:pb-4 sm:pt-5">
             <p className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[#6F7F6B]">
               Hasil Makeup & Styling
             </p>
             <div className="mt-2 flex items-end justify-between gap-3">
-              <h4 className="font-serif font-black text-2xl sm:text-4xl leading-none tracking-tight text-[#2E2E2E]">
+                <h4 className="max-w-2xl font-serif text-2xl font-black leading-[0.98] tracking-tight text-[#2E2E2E] sm:text-3xl">
                 Inspirasi MUA, KEBAYA, HAIRDO & HIJABDO
               </h4>
               <span className="hidden sm:inline text-[10px] font-sans text-stone-500">Geser ke samping</span>
             </div>
 
-            <div className="mt-4 flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 no-scrollbar">
+            <div className="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 no-scrollbar">
               {MUA_VENDORS.map((vendor) => (
-                <div key={vendor.id} className="min-w-[240px] sm:min-w-[280px] snap-start rounded-[22px] overflow-hidden border border-[#E2D9D3] bg-white shadow-sm">
-                  <div className="relative h-[360px] sm:h-[420px] overflow-hidden">
+                <div key={vendor.id} className="min-w-[210px] snap-start overflow-hidden rounded-[18px] border border-[#E2D9D3] bg-white shadow-sm sm:min-w-[235px]">
+                  <div className="relative h-[290px] overflow-hidden sm:h-[330px]">
                     <img src={vendor.coverImage} alt={vendor.name} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <div className="absolute bottom-0 left-0 right-0 p-2.5">
                       <div className="inline-flex rounded-full border border-white/70 bg-white/80 text-[#2E2E2E] px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.16em]">
                         {vendor.name}
                       </div>
@@ -221,8 +221,8 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
             </div>
           </section>
 
-          <section className="px-4 sm:px-6 pb-6">
-            <div className="rounded-[22px] border border-[#E8DDD6] bg-[#F4EFEA] p-3 sm:p-4">
+          <section className="px-4 pb-4 sm:px-5 sm:pb-5">
+            <div className="rounded-[18px] border border-[#E8DDD6] bg-[#F4EFEA] p-3 sm:p-4">
               <div className="mb-3 flex items-center justify-between gap-3">
                 <div>
                   <p className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-[#6F7F6B]">
@@ -237,15 +237,15 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                 {MUA_VENDORS.map((vendor) => (
                   <button
                     key={vendor.id}
                     type="button"
                     onClick={() => setActivePopupVendor(vendor.name)}
-                    className="group rounded-2xl border border-[#D8CEC7] bg-[#F7F4F1] p-6 sm:p-8 text-center shadow-sm hover:shadow-lg hover:border-[#B8B3AE] hover:-translate-y-0.5 transition-all duration-200 ease-out"
+                    className="group flex min-h-24 items-center justify-center rounded-xl border border-[#D8CEC7] bg-[#F7F4F1] p-3 text-center shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-[#B8B3AE] hover:shadow-lg sm:min-h-28 sm:rounded-2xl sm:p-6"
                   >
-                    <div className="font-serif text-xl sm:text-2xl font-black uppercase tracking-wide text-[#2E2E2E] group-hover:text-[#1d1d1d]">
+                    <div className="font-serif text-lg font-black uppercase leading-tight tracking-wide text-[#2E2E2E] group-hover:text-[#1d1d1d] sm:text-xl">
                       {vendor.name}
                     </div>
                   </button>
@@ -526,11 +526,11 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
           </div>
         )}
 
-        <div className="sticky bottom-0 left-0 right-0 z-10 border-t border-[#DAD0C8] bg-[#2B2F33] px-4 sm:px-6 py-4">
+        <div className="sticky bottom-0 left-0 right-0 z-10 border-t border-[#DAD0C8] bg-[#2B2F33] px-3 py-3 sm:px-5 sm:py-3.5">
           <button
             type="button"
             onClick={onClose}
-            className="w-full flex items-center justify-center gap-3 rounded-full bg-[#2A2A2A] text-white border border-[#3A3A3A] px-5 py-3 font-serif font-black uppercase tracking-[0.12em] text-sm sm:text-base shadow-md hover:bg-[#1d1d1d] transition-colors"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-[#3A3A3A] bg-[#2A2A2A] px-4 py-2.5 text-xs font-serif font-black uppercase tracking-[0.1em] text-white shadow-md transition-colors hover:bg-[#1d1d1d] sm:gap-3 sm:px-5 sm:py-3 sm:text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Tutup & Kembali ke Beranda</span>
