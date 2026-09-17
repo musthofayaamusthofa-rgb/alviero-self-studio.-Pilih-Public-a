@@ -208,6 +208,18 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     // Reserve a browser window during the tap; mobile browsers block a later
     // window.open call if it happens after the asynchronous Sheets request.
     const whatsappWindow = window.open('', '_blank');
+    if (whatsappWindow) {
+      whatsappWindow.document.write(`
+        <!doctype html>
+        <html lang="id">
+          <head><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Menghubungkan ke WhatsApp...</title></head>
+          <body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#f7f3ee;color:#2d2d2d;font-family:Arial,sans-serif;text-align:center">
+            <main style="padding:24px"><div style="font-size:38px;margin-bottom:12px">WhatsApp</div><strong>Menghubungkan ke WhatsApp...</strong><p style="color:#6b7280;font-size:14px">Pesanan sedang disimpan.</p></main>
+          </body>
+        </html>
+      `);
+      whatsappWindow.document.close();
+    }
 
     const checkoutPayload = {
       items,
