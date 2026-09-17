@@ -183,43 +183,21 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
       paymentProofFileName: paymentProofFileName || '',
     };
 
-    const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), 60000);
-
-    try {
-      await fetch(GOOGLE_APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal,
-      });
-    } finally {
-      window.clearTimeout(timeoutId);
-    }
+    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(payload),
+    });
   };
 
   const handleSubmit = async () => {
     if (!canSubmit || isSubmitting) return;
 
     setIsSubmitting(true);
-    // Reserve a browser window during the tap; mobile browsers block a later
-    // window.open call if it happens after the asynchronous Sheets request.
-    const whatsappWindow = window.open('', '_blank');
-    if (whatsappWindow) {
-      whatsappWindow.document.write(`
-        <!doctype html>
-        <html lang="id">
-          <head><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Menghubungkan ke WhatsApp...</title></head>
-          <body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#f7f3ee;color:#2d2d2d;font-family:Arial,sans-serif;text-align:center">
-            <main style="padding:24px"><div style="font-size:38px;margin-bottom:12px">WhatsApp</div><strong>Menghubungkan ke WhatsApp...</strong><p style="color:#6b7280;font-size:14px">Pesanan sedang disimpan.</p></main>
-          </body>
-        </html>
-      `);
-      whatsappWindow.document.close();
-    }
 
     const checkoutPayload = {
       items,
@@ -237,30 +215,16 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
       paymentProofFileName: paymentProofFileName || undefined,
     };
 
-    try {
-      await submitExtraBookingToSheets();
-      const whatsappUrl = onSubmit(checkoutPayload);
-      if (whatsappUrl) {
-        if (whatsappWindow && !whatsappWindow.closed) {
-          whatsappWindow.location.href = whatsappUrl;
-        } else {
-          window.location.href = whatsappUrl;
-        }
-      }
-    } catch (error) {
-      console.error('Gagal menyimpan extra booking ke Google Sheets:', error);
-      alert('Gagal menyimpan data ke server, namun Anda tetap akan dialihkan ke WhatsApp');
-      const whatsappUrl = onSubmit(checkoutPayload);
-      if (whatsappUrl) {
-        if (whatsappWindow && !whatsappWindow.closed) {
-          whatsappWindow.location.href = whatsappUrl;
-        } else {
-          window.location.href = whatsappUrl;
-        }
-      }
-    } finally {
-      setIsSubmitting(false);
+    const whatsappUrl = onSubmit(checkoutPayload);
+    setIsSubmitting(false);
+    if (whatsappUrl) {
+      // Open the final WhatsApp URL directly from the tap, keeping the booking tab intact.
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }
+    // Save in the background after WhatsApp has opened; keepalive lets navigation continue.
+    void submitExtraBookingToSheets().catch((error) => {
+      console.error('Gagal menyimpan extra booking ke Google Sheets:', error);
+    });
   };
 
   const handleCopyBankAccount = async () => {
