@@ -242,7 +242,14 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                   <button
                     key={vendor.id}
                     type="button"
-                    onClick={() => setActivePopupVendor(vendor.name)}
+                    onClick={() => {
+                      setActivePopupVendor(vendor.name);
+                      setIsMuaExpanded(false);
+                      setIsKebayaExpanded(false);
+                      setKebayaColor(null);
+                      setKebayaSize(null);
+                      setKebayaQty(1);
+                    }}
                     className="group flex min-h-24 items-center justify-center rounded-xl border border-[#D8CEC7] bg-[#F7F4F1] p-3 text-center shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-[#B8B3AE] hover:shadow-lg sm:min-h-28 sm:rounded-2xl sm:p-6"
                   >
                     <div className="font-serif text-lg font-black uppercase leading-tight tracking-wide text-[#2E2E2E] group-hover:text-[#1d1d1d] sm:text-xl">
@@ -257,7 +264,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
         {activeVendor && (
           <div className="fixed inset-0 bg-black/50 z-[80] flex items-center justify-center p-4">
-            <div className="relative flex max-h-[90vh] w-full max-w-md flex-col rounded-2xl bg-white p-6 shadow-2xl border border-[#E8DDD6]">
+            <div className="relative flex max-h-[92vh] w-full max-w-md flex-col rounded-2xl border border-[#E8DDD6] bg-white p-4 shadow-2xl sm:max-h-[90vh] sm:p-6">
               <button
                 type="button"
                 onClick={() => setActivePopupVendor(null)}
@@ -273,7 +280,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                 </h4>
               </div>
 
-              <div className="flex-1 overflow-y-auto max-h-[50vh] pr-2 space-y-3 mt-5">
+              <div className="mt-4 max-h-[58vh] flex-1 space-y-3 overflow-y-auto pr-1 sm:mt-5 sm:max-h-[50vh] sm:pr-2">
                 {activeVendor.services.some((service) => service.name.startsWith('MUA -')) && (
                   <>
                     <button

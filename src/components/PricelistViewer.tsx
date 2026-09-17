@@ -92,6 +92,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Fasilitas Studio), or 'guide' (Panduan, Disclaimer & FAQ)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>(initialTab);
+  const isTabActive = (tab: 'menu' | 'gallery' | 'guide') => activeTab === tab;
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
@@ -1020,7 +1021,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         <div className="bg-[#FDFBF7] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E8DDD6] rounded-xl sm:rounded-2xl">
           <button
             onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${activeTab === 'menu'
+                    className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${isTabActive('menu')
               ? 'bg-[#3A3A3A] text-white shadow-xs'
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
@@ -1030,7 +1031,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
           <button
             onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${activeTab === 'gallery'
+                    className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${isTabActive('gallery')
               ? 'bg-[#3A3A3A] text-white shadow-xs'
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
@@ -1040,7 +1041,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
           <button
             onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${activeTab === 'guide'
+                    className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${isTabActive('guide')
               ? 'bg-[#3A3A3A] text-white shadow-xs'
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
@@ -1068,7 +1069,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {onBackToLanding && (
                 <div className="w-full flex items-center justify-between gap-2 pb-2.5 border-b border-[#E8DDD6]">
                   <button
-                    onClick={onBackToLanding}
+                    onClick={() => onBackToLanding()}
                     className="px-3.5 py-1.5 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer border border-[#3A3A3A] shadow-xs active:scale-95"
                   >
                     <ChevronLeft className="w-3.5 h-3.5 stroke-[2]" />
@@ -1119,7 +1120,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 <button
                   onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
-                    activeTab === 'menu'
+                    isTabActive('menu')
                       ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
@@ -1129,7 +1130,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 <button
                   onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
-                    activeTab === 'gallery'
+                    isTabActive('gallery')
                       ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
@@ -1139,7 +1140,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 <button
                   onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
-                    activeTab === 'guide'
+                    isTabActive('guide')
                       ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
@@ -4426,7 +4427,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             <button
               onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
-                activeTab === 'menu'
+                isTabActive('menu')
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
@@ -4436,7 +4437,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             <button
               onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
-                activeTab === 'gallery'
+                isTabActive('gallery')
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
@@ -4446,7 +4447,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
-                activeTab === 'guide'
+                isTabActive('guide')
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
@@ -4598,7 +4599,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             <button
               onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
-                activeTab === 'menu'
+                isTabActive('menu')
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
@@ -4608,7 +4609,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             <button
               onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
-                activeTab === 'gallery'
+                isTabActive('gallery')
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
@@ -4618,7 +4619,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
-                activeTab === 'guide'
+                isTabActive('guide')
                   ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}

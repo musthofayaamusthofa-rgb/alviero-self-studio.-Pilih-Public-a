@@ -572,7 +572,7 @@ function getBookingAvailability(data, bookingDate, studioType, requestedSlots, b
         [],
         {},
         existingOutdoorTime,
-        extractOutdoorDuration(row[8]) || extractOutdoorDuration(rowInternalNote),
+        extractOutdoorDuration(row[8]) || extractOutdoorDuration(row[14]),
         row[7],
         maxCapacity
       );

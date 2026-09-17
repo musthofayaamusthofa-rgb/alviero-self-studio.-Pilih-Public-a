@@ -35,6 +35,13 @@ export interface ExtraCartItem {
 }
 
 const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_RuTLV0Q0pMe3LRKvqGFELu4lV5j4cVx7YPuBdO6ux8ZWBmVONRs3g_qnN_5QXlL7-w/exec';
+const ADMIN_STUDIO_1_WA = '6287777538164';
+const MUA_VENDOR_WA: Record<string, string> = {
+  'By Novita': '6281230118810',
+  'By Ananda': '628886660303',
+  'By Masaya': '6282111247248',
+  'By Tiwi': '6283834773060',
+};
 
 interface ExtraCheckoutModalProps {
   isOpen: boolean;
@@ -226,9 +233,12 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     const cartDetailsString = items
       .map((item) => `- ${item.qty}x ${item.itemName}${item.vendor ? ` ${item.vendor}` : ''}`)
       .join('\n');
+    const selectedVendor = items.find((item) => item.vendor)?.vendor;
+    const vendorWaNumber = selectedVendor ? MUA_VENDOR_WA[selectedVendor] : undefined;
+    const recipientWaNumber = vendorWaNumber || ADMIN_STUDIO_1_WA;
 
     const message = encodeURIComponent(
-      `Halo admin Alviero Studio, saya ingin konfirmasi ketersediaan jadwal untuk pesanan layanan ekstra berikut:
+      `Halo ${selectedVendor || 'admin Alviero Studio'}, saya ingin konfirmasi ketersediaan jadwal untuk pesanan layanan ekstra berikut:
 
 *Rincian Pesanan:*
 ${cartDetailsString}
@@ -241,7 +251,7 @@ ${cartDetailsString}
 Apakah slot dan layanan di atas tersedia?`
     );
 
-    window.open(`https://wa.me/6281234567890?text=${message}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/${recipientWaNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
     setIsScheduleConfirmed(true);
   };
 
@@ -254,9 +264,9 @@ Apakah slot dan layanan di atas tersedia?`
   ];
 
   return (
-    <div className="fixed inset-0 z-[90] bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3 sm:p-6">
-      <div className="flex w-full max-w-3xl max-h-[90vh] flex-col overflow-hidden rounded-[28px] border border-[#292929] bg-[#F7F3EE] shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
-        <div className="flex items-center justify-between gap-3 bg-[#1C1C1C] px-4 sm:px-6 py-4 text-white">
+    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/60 p-2 backdrop-blur-[2px] sm:p-6">
+      <div className="flex max-h-[96vh] w-full max-w-3xl flex-col overflow-hidden rounded-[20px] border border-[#292929] bg-[#F7F3EE] shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:max-h-[90vh] sm:rounded-[28px]">
+        <div className="flex items-center justify-between gap-2 bg-[#1C1C1C] px-3 py-3 text-white sm:gap-3 sm:px-6 sm:py-4">
           <div className="flex items-center gap-3 min-w-0">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/5 shadow-sm">
               <ShoppingBag className="h-5 w-5 text-[#A9BCA7]" />
@@ -282,7 +292,7 @@ Apakah slot dan layanan di atas tersedia?`
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3 sm:space-y-4 sm:p-6">
           <div className="flex flex-wrap items-center gap-2">
             {steps.map((item) => {
               const isActive = step === item.id;
@@ -756,7 +766,7 @@ Apakah slot dan layanan di atas tersedia?`
           )}
         </div>
 
-        <div className="border-t border-gray-200 bg-gray-50 p-4">
+        <div className="border-t border-gray-200 bg-gray-50 p-3 sm:p-4">
           {step === 2 && (
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button
