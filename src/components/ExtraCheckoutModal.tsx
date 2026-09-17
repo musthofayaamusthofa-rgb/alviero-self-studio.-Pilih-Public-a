@@ -63,7 +63,7 @@ interface ExtraCheckoutModalProps {
     total: number;
     paymentProofImage?: string;
     paymentProofFileName?: string;
-  }) => void;
+  }) => string | void;
 }
 
 export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
@@ -205,6 +205,9 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     if (!canSubmit || isSubmitting) return;
 
     setIsSubmitting(true);
+    // Reserve a browser window during the tap; mobile browsers block a later
+    // window.open call if it happens after the asynchronous Sheets request.
+    const whatsappWindow = window.open('', '_blank');
 
     const checkoutPayload = {
       items,
@@ -224,11 +227,25 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
 
     try {
       await submitExtraBookingToSheets();
-      onSubmit(checkoutPayload);
+      const whatsappUrl = onSubmit(checkoutPayload);
+      if (whatsappUrl) {
+        if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.location.href = whatsappUrl;
+        } else {
+          window.location.href = whatsappUrl;
+        }
+      }
     } catch (error) {
       console.error('Gagal menyimpan extra booking ke Google Sheets:', error);
       alert('Gagal menyimpan data ke server, namun Anda tetap akan dialihkan ke WhatsApp');
-      onSubmit(checkoutPayload);
+      const whatsappUrl = onSubmit(checkoutPayload);
+      if (whatsappUrl) {
+        if (whatsappWindow && !whatsappWindow.closed) {
+          whatsappWindow.location.href = whatsappUrl;
+        } else {
+          window.location.href = whatsappUrl;
+        }
+      }
     } finally {
       setIsSubmitting(false);
     }

@@ -124,9 +124,10 @@ ${cartDetailsString}
 Berikut saya lampirkan bukti transfer pembayarannya.`;
 
     const encodedText = encodeURIComponent(pesanTemplate);
-    window.open(`https://wa.me/${ADMIN_STUDIO_1_WA}?text=${encodedText}`, '_blank', 'noopener,noreferrer');
+    const whatsappUrl = `https://wa.me/${ADMIN_STUDIO_1_WA}?text=${encodedText}`;
     setExtraCart([]);
     setIsExtraCheckoutOpen(false);
+    return whatsappUrl;
   };
 
   const handleSelectBranch = (branch: StudioBranch) => {
