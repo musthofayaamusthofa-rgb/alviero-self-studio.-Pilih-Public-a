@@ -89,6 +89,31 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
   const [paymentProofFileName, setPaymentProofFileName] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const compressPaymentProof = (file: File): Promise<string> => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Bukti transfer tidak dapat dibaca.'));
+    reader.onload = () => {
+      const image = new Image();
+      image.onerror = () => reject(new Error('Format bukti transfer tidak valid.'));
+      image.onload = () => {
+        const maxDimension = 1400;
+        const scale = Math.min(1, maxDimension / Math.max(image.width, image.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(image.width * scale));
+        canvas.height = Math.max(1, Math.round(image.height * scale));
+        const context = canvas.getContext('2d');
+        if (!context) {
+          reject(new Error('Browser tidak mendukung kompresi gambar.'));
+          return;
+        }
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', 0.72));
+      };
+      image.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  });
+
   useEffect(() => {
     setIsScheduleConfirmed(false);
   }, [selectedDate, selectedTime, pickupNote]);
@@ -121,13 +146,15 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPaymentProofImage(String(reader.result));
+    try {
+      const compressedImage = await compressPaymentProof(file);
+      setPaymentProofImage(compressedImage);
       setPaymentProofFileName(file.name);
-    };
-    reader.readAsDataURL(file);
-    event.target.value = '';
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Bukti transfer tidak dapat diproses.');
+    } finally {
+      event.target.value = '';
+    }
   };
 
   const handleRemoveProof = () => {
@@ -157,7 +184,7 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     };
 
     const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+    const timeoutId = window.setTimeout(() => controller.abort(), 60000);
 
     try {
       await fetch(GOOGLE_APPS_SCRIPT_URL, {
@@ -179,41 +206,29 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
 
     setIsSubmitting(true);
 
+    const checkoutPayload = {
+      items,
+      selectedDate,
+      selectedTime,
+      pickupNote,
+      customerName,
+      customerPhone,
+      customerInstagram,
+      paymentType,
+      paymentMethod,
+      paymentAmount,
+      total: totalWithFee,
+      paymentProofImage: paymentProofImage || undefined,
+      paymentProofFileName: paymentProofFileName || undefined,
+    };
+
     try {
       await submitExtraBookingToSheets();
-      onSubmit({
-        items,
-        selectedDate,
-        selectedTime,
-        pickupNote,
-        customerName,
-        customerPhone,
-        customerInstagram,
-        paymentType,
-        paymentMethod,
-        paymentAmount,
-        total: totalWithFee,
-        paymentProofImage: paymentProofImage || undefined,
-        paymentProofFileName: paymentProofFileName || undefined,
-      });
+      onSubmit(checkoutPayload);
     } catch (error) {
       console.error('Gagal menyimpan extra booking ke Google Sheets:', error);
       alert('Gagal menyimpan data ke server, namun Anda tetap akan dialihkan ke WhatsApp');
-      onSubmit({
-        items,
-        selectedDate,
-        selectedTime,
-        pickupNote,
-        customerName,
-        customerPhone,
-        customerInstagram,
-        paymentType,
-        paymentMethod,
-        paymentAmount,
-        total: totalWithFee,
-        paymentProofImage: paymentProofImage || undefined,
-        paymentProofFileName: paymentProofFileName || undefined,
-      });
+      onSubmit(checkoutPayload);
     } finally {
       setIsSubmitting(false);
     }
