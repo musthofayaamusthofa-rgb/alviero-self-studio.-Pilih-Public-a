@@ -186,7 +186,6 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
-      keepalive: true,
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
@@ -221,7 +220,9 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
       // Open the final WhatsApp URL directly from the tap, keeping the booking tab intact.
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }
-    // Save in the background after WhatsApp has opened; keepalive lets navigation continue.
+    // Keep the booking tab alive while the normal request uploads the proof image.
+    // keepalive is intentionally avoided because Base64 proof images can exceed
+    // the browser's keepalive request-size limit.
     void submitExtraBookingToSheets().catch((error) => {
       console.error('Gagal menyimpan extra booking ke Google Sheets:', error);
     });
