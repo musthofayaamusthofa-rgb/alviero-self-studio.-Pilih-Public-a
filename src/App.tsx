@@ -207,7 +207,7 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
   };
 
   return (
-    <div className="min-h-screen bg-[#EFE8DD] text-[#2D2A26] font-sans flex flex-col selection:bg-[#8DA4B8] selection:text-white pb-16 md:pb-0">
+    <div className="min-h-screen bg-[#EFE8DD] text-[#2D2A26] font-libre flex flex-col selection:bg-[#8DA4B8] selection:text-white pb-16 md:pb-0">
       {/* Top Header */}
       <Header
         activeTab={activeTab}
