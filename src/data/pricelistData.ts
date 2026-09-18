@@ -1247,25 +1247,107 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
   }
 ];
 
+export const SELF_STUDIO_1_BACKGROUNDS: BackgroundOption[] = [
+  {
+    id: 'c1-self-polos-putih',
+    name: 'Polos Putih',
+    category: 'solid-color',
+    hex: '#F8FAFC',
+    colorClass: 'bg-slate-50',
+    description: 'Latar putih polos yang bersih untuk foto mandiri yang cerah.',
+    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
+  },
+  {
+    id: 'c1-self-polos-abu',
+    name: 'Polos Abu',
+    category: 'solid-color',
+    hex: '#9CA3AF',
+    colorClass: 'bg-gray-400',
+    description: 'Latar abu polos bernuansa netral untuk gaya foto yang modern.',
+    previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
+  },
+  {
+    id: 'c1-self-polos-coklat',
+    name: 'Polos Coklat',
+    category: 'solid-color',
+    hex: '#92400E',
+    colorClass: 'bg-amber-800',
+    description: 'Latar coklat polos untuk hasil foto mandiri yang hangat.',
+    previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
+  },
+  {
+    id: 'c1-self-tirai-coklat',
+    name: 'Tirai Coklat',
+    category: 'solid-color',
+    hex: '#78350F',
+    colorClass: 'bg-amber-900',
+    description: 'Latar tirai coklat dengan nuansa hangat dan intim.',
+    previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
+  },
+  {
+    id: 'c1-self-ivory-mediterania',
+    name: 'Ivory Mediterania',
+    category: 'solid-color',
+    hex: '#FFFFF0',
+    colorClass: 'bg-stone-100',
+    description: 'Latar ivory hangat bernuansa Mediterania untuk foto mandiri yang natural.',
+    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['self-studio'],
+    applicableBranches: ['cabang-1']
+  }
+];
+
 export const BACKGROUNDS: BackgroundOption[] = [
   // ==================== STUDIO 1 - BACKGROUNDS ====================
   {
-    id: 'hijau',
-    name: 'Hijau Pastel',
+    id: 'hitam-list',
+    name: 'Hitam List',
     category: 'solid-color',
-    hex: '#A7D7C5',
-    description: 'Latar hijau pastel lembut untuk nuansa foto estetik dan segar.',
+    hex: '#111827',
+    colorClass: 'bg-gray-950',
+    description: 'Latar hitam dengan aksen list untuk tampilan elegan dan tegas.',
     previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
   {
-    id: 'cream',
-    name: 'Cream',
+    id: 'putih-tematik',
+    name: 'Putih Tematik',
     category: 'solid-color',
-    hex: '#FEF3C7',
-    description: 'Latar cream hangat untuk tone pastel yang lembut.',
+    hex: '#F5F5F5',
+    colorClass: 'bg-slate-50',
+    description: 'Latar putih dengan sentuhan tematik untuk foto yang bersih dan cerah.',
     previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio', 'self-studio'],
+    applicableBranches: ['cabang-1']
+  },
+  {
+    id: 'putih-list',
+    name: 'Putih List',
+    category: 'solid-color',
+    hex: '#F5F5F5',
+    colorClass: 'bg-white',
+    description: 'Latar putih dengan aksen list untuk hasil foto minimalis dan rapi.',
+    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+    applicableTo: ['pro-studio', 'self-studio'],
+    applicableBranches: ['cabang-1']
+  },
+  {
+    id: 'coklat-tematik',
+    name: 'Coklat Tematik',
+    category: 'solid-color',
+    hex: '#8B5E3C',
+    colorClass: 'bg-amber-800',
+    description: 'Latar coklat bernuansa tematik untuk hasil foto hangat dan berkarakter.',
+    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
@@ -1273,42 +1355,26 @@ export const BACKGROUNDS: BackgroundOption[] = [
     id: 'limbo',
     name: 'Limbo',
     category: 'solid-color',
-    hex: '#E5E7EB',
-    description: 'Latar limbo mulus tanpa sudut untuk efek ruang tak terbatas.',
+    hex: '#FFFFFF',
+    colorClass: 'bg-gray-200',
+    description: 'Latar mulus tanpa sudut untuk efek ruang foto yang luas dan bersih.',
     previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
     applicableTo: ['pro-studio', 'self-studio'],
     applicableBranches: ['cabang-1']
   },
   {
-    id: 'putih-tengah',
-    name: 'Putih Tengah',
+    id: 'ivory-mediterania',
+    name: 'Ivory Mediterania',
     category: 'solid-color',
-    hex: '#F1F5F9',
-    description: 'Latar putih tengah dengan pencahayaan seimbang.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'putih-jendela',
-    name: 'Putih Jendela',
-    category: 'solid-color',
-    hex: '#FAFAFA',
-    description: 'Latar putih cerah dengan efek pencahayaan jendela natural.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'hitam-studio-1',
-    name: 'Hitam',
-    category: 'solid-color',
-    hex: '#111827',
-    description: 'Latar hitam elegan untuk studio formal dan karakter yang tegas.',
+    hex: '#FFFFF0',
+    colorClass: 'bg-stone-100',
+    description: 'Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.',
     previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
+    applicableTo: ['pro-studio'],
     applicableBranches: ['cabang-1']
   },
+
+  ...SELF_STUDIO_1_BACKGROUNDS,
 
   // ==================== STUDIO 2 (DINOYO) - STUDIO FOTO (5 BACKGROUND) ====================
   {

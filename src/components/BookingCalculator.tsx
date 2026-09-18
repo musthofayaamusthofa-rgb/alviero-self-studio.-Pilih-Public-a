@@ -9,6 +9,7 @@ import {
   SELF_STUDIO_TIME_SLOTS,
   STUDIO_BRANCHES,
   SELF_STUDIO_SUB_PACKAGES,
+  SELF_STUDIO_1_BACKGROUNDS,
   PRINT_OPTIONS,
   MUA_VENDOR_OPTIONS
 } from '../data/pricelistData';
@@ -216,18 +217,7 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   const a = idA.toLowerCase();
   const b = idB.toLowerCase();
 
-  // 1. Studio 1: Limbo vs Putih Tengah tidak bisa dipilih bersamaan oleh 1 klien (area panggung yang sama)
-  const isLimboA = a.includes('limbo');
-  const isPutihTengahA = a.includes('putih-tengah') || a.includes('putih_tengah') || (a.includes('putih') && !a.includes('c2'));
-  const isLimboB = b.includes('limbo');
-  const isPutihTengahB = b.includes('putih-tengah') || b.includes('putih_tengah') || (b.includes('putih') && !b.includes('c2'));
-
-  if ((isLimboA && isPutihTengahB) || (isPutihTengahA && isLimboB)) {
-    return true;
-  }
-
-  // 2. Studio 2:
-  // a. Coklat vs Cream bentrok panggung yang sama (mutually exclusive)
+  // Studio 2: Coklat vs Cream bentrok panggung yang sama (mutually exclusive)
   const isC2CoklatA = a.includes('coklat') || a.includes('cokelat');
   const isC2CreamA = a.includes('cream') || a.includes('krem');
   const isC2CoklatB = b.includes('coklat') || b.includes('cokelat');
@@ -1203,6 +1193,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [outdoorSlotClientCounts, setOutdoorSlotClientCounts] = useState<{ [slot: string]: number }>({});
   const [slotBackdrops, setSlotBackdrops] = useState<{ [slot: string]: string[] }>({});
   const [slotSelfStudioBookings, setSlotSelfStudioBookings] = useState<{ [slot: string]: number }>({});
+  const [ivoryConflictSlots, setIvoryConflictSlots] = useState<{ [slot: string]: number }>({});
+  const [selfStudioConflictSlots, setSelfStudioConflictSlots] = useState<{ [slot: string]: number }>({});
   const [, setIsLoadingSlots] = useState<boolean>(false);
 
   // Customer Data & Notes
@@ -1342,6 +1334,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setOutdoorSlotClientCounts({});
     setSlotBackdrops({});
     setSlotSelfStudioBookings({});
+    setIvoryConflictSlots({});
+    setSelfStudioConflictSlots({});
 
     const typeKey = selectedBranch === 'cabang-2' ? 'all' : (isSelfStudio ? 'selfstudio' : 'studio_foto');
 
@@ -1394,6 +1388,26 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           } else {
             setSlotSelfStudioBookings({});
           }
+          if (data.ivoryConflictSlots && typeof data.ivoryConflictSlots === 'object') {
+            const counts: { [s: string]: number } = {};
+            Object.entries(data.ivoryConflictSlots).forEach(([slotRaw, count]) => {
+              const sNorm = normalizeSlotTime(slotRaw);
+              if (sNorm) counts[sNorm] = Number(count) || 0;
+            });
+            setIvoryConflictSlots(counts);
+          } else {
+            setIvoryConflictSlots({});
+          }
+          if (data.selfStudioConflictSlots && typeof data.selfStudioConflictSlots === 'object') {
+            const counts: { [s: string]: number } = {};
+            Object.entries(data.selfStudioConflictSlots).forEach(([slotRaw, count]) => {
+              const sNorm = normalizeSlotTime(slotRaw);
+              if (sNorm) counts[sNorm] = Number(count) || 0;
+            });
+            setSelfStudioConflictSlots(counts);
+          } else {
+            setSelfStudioConflictSlots({});
+          }
         }
       })
       .catch(err => {
@@ -1404,6 +1418,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           setOutdoorSlotClientCounts({});
           setSlotBackdrops({});
           setSlotSelfStudioBookings({});
+          setIvoryConflictSlots({});
+          setSelfStudioConflictSlots({});
         }
       })
       .finally(() => {
@@ -1457,6 +1473,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         return {
           isAvailable: false,
           reason: i === 0 ? 'Slot jam ini sudah penuh' : `Slot lanjutan (${s}) sudah penuh`
+        };
+      }
+
+      if (selectedBranch === 'cabang-1' && isSelfStudio && (ivoryConflictSlots[s] || 0) > 0) {
+        return {
+          isAvailable: false,
+          reason: i === 0
+            ? 'Slot Self Studio tidak tersedia karena Ivory Mediterania sedang terpakai'
+            : `Slot lanjutan (${s}) bentrok dengan Ivory Mediterania`
         };
       }
 
@@ -1565,7 +1590,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         setTimeSlot(activeTimeSlots[0]);
       }
     }
-  }, [slotClientCounts, slotBackdrops, slotSelfStudioBookings, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch, outdoorTimeSlot, hasOutdoorSession, isOutdoorOnly]);
+  }, [slotClientCounts, slotBackdrops, slotSelfStudioBookings, ivoryConflictSlots, selfStudioConflictSlots, activeTimeSlots, timeSlot, sessionSlotsCount, selectedPackageId, maxBackdrops, selectedBranch, outdoorTimeSlot, hasOutdoorSession, isOutdoorOnly]);
 
   useEffect(() => {
     if (!hasOutdoorSession) return;
@@ -1581,10 +1606,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     if (preselectedFrameId) setSelectedFrameId(preselectedFrameId);
   }, [preselectedPackageId, preselectedBackdropId, preselectedFrameId]);
 
-  const availableBackdrops = BACKDROPS.filter(b =>
-    (b.applicableBranches || ['cabang-1']).includes((selectedBranch as StudioBranch) || 'cabang-1') &&
-    b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio')
-  );
+  const availableBackdrops = selectedBranch === 'cabang-1' && isSelfStudio
+    ? SELF_STUDIO_1_BACKGROUNDS
+    : BACKDROPS.filter(b =>
+      (b.applicableBranches || ['cabang-1']).includes((selectedBranch as StudioBranch) || 'cabang-1') &&
+      b.applicableTo?.includes(isSelfStudio ? 'self-studio' : 'pro-studio')
+    );
+
+  useEffect(() => {
+    setSelectedBackdropIds([]);
+  }, [isSelfStudio, selectedBranch]);
 
   // Cek ketersediaan backdrop spesifik berdasarkan slot jam yang dipilih & aturan validasi studio
   const getBackdropAvailability = (backdropId: string): { isAvailable: boolean; reason?: string } => {
@@ -1625,8 +1656,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       }
     }
 
-    // 2. Validasi Studio 1 (Cabang 1): Limbo vs Putih Tengah & Kuota 1x per Background
+    // 2. Validasi Studio 1 (Cabang 1): Kuota 1x per Background
     if (selectedBranch === 'cabang-1') {
+      if (!isSelfStudio && bdIdLower === 'ivory-mediterania' && (selfStudioConflictSlots[normTime] || 0) > 0) {
+        return {
+          isAvailable: false,
+          reason: `Area Ivory Mediterania sedang dipakai Self Studio pada jam ${normTime} WIB`
+        };
+      }
+
       const isAlreadyBooked = bookedForSlot.some(b => b.includes(bdObj.name.toLowerCase()) || b.includes(bdIdLower));
       if (isAlreadyBooked) {
         return {
@@ -1635,23 +1673,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         };
       }
 
-      if (bdIdLower.includes('limbo')) {
-        const hasPutihTengahBooked = bookedForSlot.some(b => b.includes('putih tengah') || b.includes('putih-tengah'));
-        if (hasPutihTengahBooked) {
-          return {
-            isAvailable: false,
-            reason: `Area panggung sama dengan Putih Tengah (terpakai di jam ${normTime} WIB)`
-          };
-        }
-      } else if (bdIdLower.includes('putih-tengah') || bdIdLower.includes('putih_tengah')) {
-        const hasLimboBooked = bookedForSlot.some(b => b.includes('limbo'));
-        if (hasLimboBooked) {
-          return {
-            isAvailable: false,
-            reason: `Area panggung sama dengan Limbo (terpakai di jam ${normTime} WIB)`
-          };
-        }
-      }
     }
 
     // 3. Pembatasan Khusus 1 Klien yang Mengambil Paket 2 Background
@@ -1677,15 +1698,14 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       return isApplicable && avail.isAvailable;
     });
 
-    if (validIds.length === 0 && availableBackdrops.length > 0) {
-      const firstAvail = availableBackdrops.find(b => getBackdropAvailability(b.id).isAvailable) || availableBackdrops[0];
-      setSelectedBackdropIds([firstAvail.id]);
+    if (validIds.length === 0 && selectedBackdropIds.length > 0) {
+      setSelectedBackdropIds([]);
     } else if (maxBackdrops === 1 && validIds.length > 1) {
       setSelectedBackdropIds([validIds[0]]);
     } else if (validIds.length !== selectedBackdropIds.length && validIds.length > 0) {
       setSelectedBackdropIds(validIds);
     }
-  }, [selectedPackageId, selectedBranch, timeSlot, isSelfStudio, availableBackdrops, maxBackdrops, slotBackdrops]);
+  }, [selectedPackageId, selectedBranch, timeSlot, isSelfStudio, availableBackdrops, maxBackdrops, slotBackdrops, ivoryConflictSlots, selfStudioConflictSlots, selectedBackdropIds]);
 
   const handleSelectBackdrop = (id: string) => {
     const avail = getBackdropAvailability(id);
@@ -2711,8 +2731,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           }`}
                       >
                         <div
-                          className="w-8 h-8 rounded-xl border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs"
-                          style={{ backgroundColor: backdrop.hex }}
+                          className={`w-8 h-8 rounded-xl border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs ${backdrop.colorClass || ''}`}
+                          style={backdrop.colorClass ? undefined : { backgroundColor: backdrop.hex }}
                         >
                           {isSelected && maxBackdrops > 1 && (
                             <span className="bg-black/50 w-full h-full rounded-xl flex items-center justify-center font-bold">
@@ -2777,16 +2797,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <span className="font-bold text-amber-700 text-xs shrink-0">⚠️</span>
                     <span>
                       <strong>Pemberitahuan Khusus Tematik Cream:</strong> Background <em>Tematik Cream (Studio 2)</em> memiliki batasan kapasitas panggung maksimal <strong>5 orang</strong>.
-                    </span>
-                  </div>
-                )}
-
-                {/* Info Studio 1: Limbo vs Putih Tengah */}
-                {availableBackdrops.some(b => b.id.includes('limbo')) && availableBackdrops.some(b => b.id.includes('putih-tengah')) && (
-                  <div className="mt-2.5 p-3.5 bg-white border border-[#E8DDD6] rounded-2xl text-stone-600 text-[11px] font-sans flex items-center gap-2 shadow-2xs">
-                    <span className="font-bold text-[#6E856C]">ℹ️</span>
-                    <span>
-                      <strong>Catatan Latar Studio:</strong> Background <em>Limbo</em> dan <em>Putih Tengah</em> berbagi area panggung yang sama, sehingga tidak dapat digunakan bersamaan pada jam yang sama atau dalam 1 sesi foto.
                     </span>
                   </div>
                 )}

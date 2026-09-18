@@ -68,6 +68,7 @@ export interface BackgroundOption {
   name: string;
   category: 'spotlight-special' | 'spotlight-normal' | 'solid-color';
   hex: string;
+  colorClass?: string;
   secondaryHex?: string;
   description: string;
   previewImage: string;

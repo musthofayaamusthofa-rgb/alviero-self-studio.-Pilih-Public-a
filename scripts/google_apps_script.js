@@ -9,7 +9,7 @@
  * 2. Upload bukti bayar ke Google Drive terisolasi aman (jika izin Drive belum dibuka, 
  *    data reservasi TETAP 100% tersimpan rapi).
  * 3. Mendukung reservasi Cabang 1 (Studio 1) dan Cabang 2 (Studio 2).
- * 4. Filter status 'BOOKED', 'CONFIRMED', 'LUNAS', 'DP' untuk kunci kuota 3 klien (Studio 2).
+ * 4. Filter status aktif, termasuk 'PENDING', untuk mengunci slot dan kuota Studio 2.
  * 5. Fungsi pengujian instan 'testInsertBooking' di editor untuk verifikasi 1 klik.
  * 
  * -------------------------------------------------------------------------
@@ -93,6 +93,8 @@ function handleRequest(e) {
       var outdoorSlotCounts = {};
       var slotBackdrops = {};
       var slotSelfStudioCounts = {};
+      var ivoryConflictSlots = {};
+      var selfStudioConflictSlots = {};
       var maxCap = (sheetName === 'Cabang 2') ? 3 : 1;
 
       for (var i = 1; i < data.length; i++) {
@@ -114,19 +116,40 @@ function handleRequest(e) {
         );
 
         /*
-         * PENDING menahan slot selama HOLD_MINUTES agar dua pelanggan tidak
-         * dapat mengambil slot yang sama sebelum admin mengonfirmasi.
+         * PENDING langsung menahan slot agar pelanggan lain tidak dapat
+         * mengambil slot yang sama sebelum admin menyelesaikan verifikasi.
          */
-        if (
-          isConfirmedBooking &&
-          rowDate === dateParam &&
-          (rowStudioType === studioTypeParam || !studioTypeParam || studioTypeParam === 'all')
-        ) {
+        if (isConfirmedBooking && rowDate === dateParam) {
           var outdoorSlot = extractOutdoorTime(row[8]) || extractOutdoorTime(rowInternalNote);
           var isOutdoorOnlyRow = isOutdoorOnlyBookingRow(rowSlot, row[6], outdoorSlot);
           var occupiedSlots = isOutdoorOnlyRow
             ? []
             : getOccupiedSlotsForRow(rowSlot, rowPackage, rowBackdrop);
+          var isRequestedStudioType = (
+            rowStudioType === studioTypeParam ||
+            !studioTypeParam ||
+            studioTypeParam === 'all'
+          );
+          var isStudio1 = sheetName === 'Cabang 1';
+          var rowBackdropText = rowBackdrop.toLowerCase();
+          var isIvoryBooking = rowBackdropText.indexOf('ivory mediterania') !== -1 || rowBackdropText.indexOf('ivory-mediterania') !== -1;
+          var isSelfStudioBooking = rowStudioType === 'selfstudio';
+
+          // Cross-validation untuk panggung fisik Ivory Studio 1.
+          if (isStudio1 && isIvoryBooking && rowStudioType === 'studio_foto') {
+            occupiedSlots.forEach(function(ivorySlot) {
+              if (ivorySlot) ivoryConflictSlots[ivorySlot] = (ivoryConflictSlots[ivorySlot] || 0) + 1;
+            });
+          }
+          if (isStudio1 && isSelfStudioBooking) {
+            occupiedSlots.forEach(function(selfSlot) {
+              if (selfSlot) selfStudioConflictSlots[selfSlot] = (selfStudioConflictSlots[selfSlot] || 0) + 1;
+            });
+          }
+
+          if (!isRequestedStudioType) {
+            continue;
+          }
 
           for (var sIdx = 0; sIdx < occupiedSlots.length; sIdx++) {
             var s = occupiedSlots[sIdx];
@@ -173,7 +196,9 @@ function handleRequest(e) {
         slotCounts: slotCounts,
         outdoorSlotCounts: outdoorSlotCounts,
         slotBackdrops: slotBackdrops,
-        slotSelfStudioCounts: slotSelfStudioCounts
+        slotSelfStudioCounts: slotSelfStudioCounts,
+        ivoryConflictSlots: ivoryConflictSlots,
+        selfStudioConflictSlots: selfStudioConflictSlots
       };
 
       return ContentService.createTextOutput(JSON.stringify(responseData))
@@ -502,32 +527,13 @@ function jsonResponse(data) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-var PENDING_HOLD_MINUTES = 15;
-
 function isActiveBookingStatus(status, submittedAt) {
   var normalizedStatus = String(status || '').toUpperCase();
   var confirmedStatuses = [
-    'BOOKED', 'CONFIRMED', 'LUNAS', 'DP', 'PAID', 'SUCCESS'
+    'BOOKED', 'PENDING', 'CONFIRMED', 'LUNAS', 'DP', 'PAID', 'SUCCESS'
   ];
 
-  if (confirmedStatuses.indexOf(normalizedStatus) !== -1) {
-    return true;
-  }
-
-  if (normalizedStatus !== 'PENDING' || !submittedAt) {
-    return false;
-  }
-
-  var submittedDate = submittedAt instanceof Date
-    ? submittedAt
-    : new Date(submittedAt);
-
-  if (isNaN(submittedDate.getTime())) {
-    return false;
-  }
-
-  var ageMinutes = (new Date().getTime() - submittedDate.getTime()) / 60000;
-  return ageMinutes >= 0 && ageMinutes <= PENDING_HOLD_MINUTES;
+  return confirmedStatuses.indexOf(normalizedStatus) !== -1;
 }
 
 function getBookingAvailability(data, bookingDate, studioType, requestedSlots, backdrop, outdoorTime, outdoorDuration, maxCapacity, packageName) {
