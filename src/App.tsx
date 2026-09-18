@@ -13,6 +13,7 @@ import { useAutoHideScrollbar } from './hooks/useAutoHideScrollbar';
 
 // Nomor WhatsApp Admin Studio 1 dalam format internasional tanpa tanda plus.
 const ADMIN_STUDIO_1_WA = '6287777538164';
+const ADMIN_STUDIO_2_WA = '6285168879214';
 
 export default function App() {
   useAutoHideScrollbar();
@@ -55,6 +56,7 @@ export default function App() {
 
   const [isBranchModalOpen, setIsBranchModalOpen] = useState<boolean>(false);
   const [isBeautyModalOpen, setIsBeautyModalOpen] = useState<boolean>(false);
+  const [selectedMuaStudio, setSelectedMuaStudio] = useState<'Studio 1' | 'Studio 2'>('Studio 1');
   const [extraCart, setExtraCart] = useState<ExtraCartItem[]>([]);
   const [isExtraCheckoutOpen, setIsExtraCheckoutOpen] = useState<boolean>(false);
 
@@ -100,8 +102,9 @@ export default function App() {
       .join('\n');
     const paymentOption = payload.paymentType === 'dp' ? 'DP 50%' : 'Lunas/Full';
     const paymentMethod = payload.paymentMethod.toUpperCase();
+    const targetWaNumber = selectedMuaStudio === 'Studio 2' ? ADMIN_STUDIO_2_WA : ADMIN_STUDIO_1_WA;
 
-    const pesanTemplate = `Halo Admin Studio 1 Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).
+    const pesanTemplate = `Halo Admin ${selectedMuaStudio} Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).
 
 *👤 Data Pemesan:*
 - Nama: ${payload.customerName}
@@ -124,7 +127,7 @@ ${cartDetailsString}
 Berikut saya lampirkan bukti transfer pembayarannya.`;
 
     const encodedText = encodeURIComponent(pesanTemplate);
-    const whatsappUrl = `https://wa.me/${ADMIN_STUDIO_1_WA}?text=${encodedText}`;
+    const whatsappUrl = `https://wa.me/${targetWaNumber}?text=${encodedText}`;
     setExtraCart([]);
     setIsExtraCheckoutOpen(false);
     return whatsappUrl;
@@ -143,6 +146,9 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
     if (branch) {
       setSelectedBranch(branch);
       localStorage.setItem('alviero_selected_branch', branch);
+    }
+    if (category === 'bingkai-album' && branch) {
+      setSelectedMuaStudio(branch === 'cabang-2' ? 'Studio 2' : 'Studio 1');
     }
     setInitialMenuCategory(category);
     setInitialCatalogTab('menu');
@@ -229,7 +235,10 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
               onSelectBranch={handleSelectBranch}
               onSelectCategory={handleSelectCategoryFromLanding}
               onOpenBooking={handleOpenBookingWithPromo}
-              onOpenBeautyModal={() => setIsBeautyModalOpen(true)}
+              onOpenBeautyModal={(studio) => {
+                setSelectedMuaStudio(studio);
+                setIsBeautyModalOpen(true);
+              }}
               onNavigateToLocation={() => {
                 setActiveTab('rules');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -320,6 +329,7 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
         onClose={() => setIsExtraCheckoutOpen(false)}
         onUpdateQty={handleUpdateExtraQty}
         onRemoveItem={handleRemoveExtraItem}
+        selectedMuaStudio={selectedMuaStudio}
         onSubmit={handleExtraCheckoutSubmit}
       />
 

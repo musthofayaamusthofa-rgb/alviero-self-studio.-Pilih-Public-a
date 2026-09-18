@@ -37,7 +37,7 @@ interface BranchSelectorViewProps {
   onSelectCategory?: (category: string, branch?: StudioBranch) => void;
   onOpenBooking?: (promoCode?: string, packageId?: string) => void;
   onNavigateToLocation?: () => void;
-  onOpenBeautyModal?: () => void;
+  onOpenBeautyModal?: (studio: 'Studio 1' | 'Studio 2') => void;
   onClose?: () => void;
   canDismiss?: boolean;
 }
@@ -1295,6 +1295,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const [isSelfStudioExpanded, setIsSelfStudioExpanded] = useState<boolean>(() => {
     return localStorage.getItem('alviero_expanded_service') === 'selfstudio';
   });
+  const [isMuaCardExpanded, setIsMuaCardExpanded] = useState<boolean>(false);
+  const [isCetakCardExpanded, setIsCetakCardExpanded] = useState<boolean>(false);
 
   const toggleStudioFoto = () => {
     setIsStudioFotoExpanded((prev) => {
@@ -1320,6 +1322,18 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
       }
       return next;
     });
+  };
+
+  const toggleMua = () => {
+    setIsMuaCardExpanded((previous) => !previous);
+    setIsStudioFotoExpanded(false);
+    setIsSelfStudioExpanded(false);
+  };
+
+  const toggleCetak = () => {
+    setIsCetakCardExpanded((previous) => !previous);
+    setIsStudioFotoExpanded(false);
+    setIsSelfStudioExpanded(false);
   };
 
   useEffect(() => {
@@ -1720,10 +1734,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 3. Cetak & Bingkai */}
                   <div
-                    onClick={() => onSelectCategory ? onSelectCategory('bingkai-album') : onSelectBranch(selectedBranch)}
-                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
+                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isCetakCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                    <div className="flex items-center justify-between gap-3 sm:gap-3.5 min-w-0">
+                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                         <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                       </div>
@@ -1742,10 +1756,49 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                      <span className="hidden xl:inline text-[11px]">Lihat</span>
-                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
+                      <button
+                        type="button"
+                        onClick={toggleCetak}
+                        className="flex shrink-0 items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
+                        aria-expanded={isCetakCardExpanded}
+                      >
+                        <span className="hidden sm:inline text-[10.5px]">{isCetakCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isCetakCardExpanded ? 'rotate-180 text-[#6E856C]' : ''}`} />
+                      </button>
                     </div>
+
+                    {isCetakCardExpanded && (
+                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
+                        <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600">
+                          <span className="font-playfair font-semibold">Pilih lokasi studio:</span>
+                          <span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          {[
+                            { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso' },
+                            { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo' },
+                          ].map((option) => (
+                            <button
+                              key={option.studio}
+                              type="button"
+                              onClick={() => {
+                                localStorage.setItem('alviero_expanded_service', 'cetak');
+                                onSelectCategory?.('bingkai-album', option.studio === 'Studio 2' ? 'cabang-2' : 'cabang-1');
+                                setIsCetakCardExpanded(false);
+                              }}
+                              className="group flex items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left text-[#3A3A3A] transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white"
+                            >
+                              <span className="min-w-0">
+                                <span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span>
+                                <span className="font-playfair text-xs font-bold">{option.location}</span>
+                                <span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span>
+                              </span>
+                              <span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">Buka <ArrowUpRight className="h-4 w-4" /></span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* 4. Wedding & Prewedding */}
@@ -1810,20 +1863,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 6. MUA, Kebaya, Hairdo & Hijabdo */}
                   <div
-                    onClick={() => {
-                      if (onOpenBeautyModal) {
-                        onOpenBeautyModal();
-                        return;
-                      }
-                      if (onSelectCategory) {
-                        onSelectCategory('beauty');
-                        return;
-                      }
-                      onSelectBranch(selectedBranch);
-                    }}
-                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
+                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                    <div className="flex items-center justify-between gap-3 sm:gap-3.5 min-w-0">
+                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                         <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                       </div>
@@ -1840,12 +1883,52 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           Makeup, kebaya, hairdo & hijabdo siap untuk sesi spesial
                         </p>
                       </div>
+                      </div>
                     </div>
 
-                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                      <span className="hidden xl:inline text-[11px]">Lihat</span>
-                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={toggleMua}
+                      className="flex shrink-0 items-center gap-1 rounded-xl border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
+                      aria-expanded={isMuaCardExpanded}
+                    >
+                      <span className="hidden sm:inline text-[10.5px]">{isMuaCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
+                      <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isMuaCardExpanded ? 'rotate-180 text-[#6E856C]' : ''}`} />
+                    </button>
+                    {isMuaCardExpanded && (
+                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
+                        <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600">
+                          <span className="font-playfair font-semibold">Pilih lokasi studio foto/MUA:</span>
+                          <span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          {[
+                            { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso' },
+                            { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo' },
+                          ].map((option) => (
+                            <button
+                              key={option.studio}
+                              type="button"
+                              onClick={() => {
+                                localStorage.setItem('alviero_expanded_service', 'mua');
+                                onOpenBeautyModal?.(option.studio);
+                                setIsMuaCardExpanded(false);
+                              }}
+                              className="group flex items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left text-[#3A3A3A] transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white"
+                            >
+                              <span className="min-w-0">
+                                <span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span>
+                                <span className="font-playfair text-xs font-bold">{option.location}</span>
+                                <span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span>
+                              </span>
+                              <span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">
+                                Buka <ArrowUpRight className="h-4 w-4" />
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                 </div>

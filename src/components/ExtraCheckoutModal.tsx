@@ -36,12 +36,7 @@ export interface ExtraCartItem {
 
 const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_RuTLV0Q0pMe3LRKvqGFELu4lV5j4cVx7YPuBdO6ux8ZWBmVONRs3g_qnN_5QXlL7-w/exec';
 const ADMIN_STUDIO_1_WA = '6287777538164';
-const MUA_VENDOR_WA: Record<string, string> = {
-  'By Novita': '6281230118810',
-  'By Ananda': '628886660303',
-  'By Masaya': '6282111247248',
-  'By Tiwi': '6283834773060',
-};
+const ADMIN_STUDIO_2_WA = '6285168879214';
 
 interface ExtraCheckoutModalProps {
   isOpen: boolean;
@@ -49,6 +44,7 @@ interface ExtraCheckoutModalProps {
   onClose: () => void;
   onUpdateQty: (id: string, nextQty: number) => void;
   onRemoveItem: (id: string) => void;
+  selectedMuaStudio: 'Studio 1' | 'Studio 2';
   onSubmit: (payload: {
     items: ExtraCartItem[];
     selectedDate: string;
@@ -72,6 +68,7 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
   onClose,
   onUpdateQty,
   onRemoveItem,
+  selectedMuaStudio,
   onSubmit,
 }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -242,12 +239,10 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     const cartDetailsString = items
       .map((item) => `- ${item.qty}x ${item.itemName}${item.vendor ? ` ${item.vendor}` : ''}`)
       .join('\n');
-    const selectedVendor = items.find((item) => item.vendor)?.vendor;
-    const vendorWaNumber = selectedVendor ? MUA_VENDOR_WA[selectedVendor] : undefined;
-    const recipientWaNumber = vendorWaNumber || ADMIN_STUDIO_1_WA;
+    const recipientWaNumber = selectedMuaStudio === 'Studio 2' ? ADMIN_STUDIO_2_WA : ADMIN_STUDIO_1_WA;
 
     const message = encodeURIComponent(
-      `Halo ${selectedVendor || 'admin Alviero Studio'}, saya ingin konfirmasi ketersediaan jadwal untuk pesanan layanan ekstra berikut:
+      `Halo Admin ${selectedMuaStudio} Alviero, saya ingin konfirmasi ketersediaan jadwal untuk pesanan layanan ekstra berikut:
 
 *Rincian Pesanan:*
 ${cartDetailsString}
