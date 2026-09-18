@@ -1873,36 +1873,36 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   <div
                     className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
-                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                        <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            MUA, KEBAYA, HAIRDO & HIJABDO
-                          </h4>
-                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                            Beauty
-                          </span>
+                    <div className="flex flex-row items-start justify-between gap-3 w-full min-w-0">
+                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+                          <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                          Makeup, kebaya, hairdo & hijabdo siap untuk sesi spesial
-                        </p>
+                        <div className="flex-1 min-w-0 flex flex-col items-start">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0">
+                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate max-w-full">
+                              MUA, KEBAYA, HAIRDO & HIJABDO
+                            </h4>
+                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                              Beauty
+                            </span>
+                          </div>
+                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] mt-1 line-clamp-2 text-left">
+                            Makeup, kebaya, hairdo & hijabdo siap untuk sesi spesial
+                          </p>
+                        </div>
                       </div>
-                      </div>
-                    </div>
 
-                    <button
-                      type="button"
-                      onClick={toggleMua}
-                      className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
-                      aria-expanded={isMuaCardExpanded}
-                    >
-                      <span className="hidden sm:inline text-[10.5px]">{isMuaCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
-                      <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isMuaCardExpanded ? 'rotate-180 text-[#6E856C]' : ''}`} />
-                    </button>
+                      <button
+                        type="button"
+                        onClick={toggleMua}
+                        className="flex shrink-0 whitespace-nowrap w-max items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
+                        aria-expanded={isMuaCardExpanded}
+                      >
+                        <span className="hidden sm:inline text-[10.5px]">{isMuaCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isMuaCardExpanded ? 'rotate-180 text-[#6E856C]' : ''}`} />
+                      </button>
+                    </div>
                     {isMuaCardExpanded && (
                       <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
                         <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600">

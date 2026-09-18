@@ -1988,6 +1988,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
     const waUrl = `https://wa.me/${studioWaNumber}?text=${encodeURIComponent(message)}`;
     const bookingId = getBookingId();
+    const waWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
+    if (waWindow) {
+      waWindow.opener = null;
+    }
 
     // Sinkronisasi background ke Google Spreadsheet via Google Apps Script
     try {
@@ -2040,31 +2044,45 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       };
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000);
+      const timeoutId = setTimeout(() => {
+        controller.abort(new DOMException('Booking request timeout after 30s', 'TimeoutError'));
+      }, 30000);
 
-      const response = await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8'
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal
-      });
+      try {
+        const response = await fetch(GOOGLE_SHEETS_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
 
-      if (!response.ok) {
-        throw new Error(`Booking server mengembalikan HTTP ${response.status}.`);
+        if (!response.ok) {
+          throw new Error(`Booking server mengembalikan HTTP ${response.status}.`);
+        }
+
+        const result = await response.json() as { status?: string; message?: string };
+        if (result.status !== 'SUCCESS') {
+          throw new Error(result.message || 'Booking tidak berhasil disimpan.');
+        }
+
+        bookingIdRef.current = null;
+      } finally {
+        clearTimeout(timeoutId);
       }
-
-      const result = await response.json() as { status?: string; message?: string };
-      if (result.status !== 'SUCCESS') {
-        throw new Error(result.message || 'Booking tidak berhasil disimpan.');
-      }
-
-      clearTimeout(timeoutId);
-      bookingIdRef.current = null;
-      window.open(waUrl, '_blank');
     } catch (e) {
       console.error('GAS sync error:', e);
+
+      if (waWindow) {
+        waWindow.close();
+      }
+
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        alert('⏱️ Koneksi ke server booking timeout. Mohon coba lagi dalam beberapa saat atau cek koneksi internet Anda.');
+        return;
+      }
+
       alert(e instanceof Error
         ? e.message
         : 'Booking gagal disinkronkan. Silakan coba lagi.');
