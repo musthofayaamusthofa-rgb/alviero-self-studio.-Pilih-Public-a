@@ -1297,6 +1297,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   });
   const [isMuaCardExpanded, setIsMuaCardExpanded] = useState<boolean>(false);
   const [isCetakCardExpanded, setIsCetakCardExpanded] = useState<boolean>(false);
+  const [isEventCardExpanded, setIsEventCardExpanded] = useState<boolean>(false);
+  const [isWeddingCardExpanded, setIsWeddingCardExpanded] = useState<boolean>(false);
 
   const toggleStudioFoto = () => {
     setIsStudioFotoExpanded((prev) => {
@@ -1332,6 +1334,18 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
   const toggleCetak = () => {
     setIsCetakCardExpanded((previous) => !previous);
+    setIsStudioFotoExpanded(false);
+    setIsSelfStudioExpanded(false);
+  };
+
+  const toggleEvent = () => {
+    setIsEventCardExpanded((previous) => !previous);
+    setIsStudioFotoExpanded(false);
+    setIsSelfStudioExpanded(false);
+  };
+
+  const toggleWedding = () => {
+    setIsWeddingCardExpanded((previous) => !previous);
     setIsStudioFotoExpanded(false);
     setIsSelfStudioExpanded(false);
   };
@@ -1510,20 +1524,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 1. Studio Foto (Expandable / Pilihan Studio 1 & Studio 2 Langsung Buka Pricelist) */}
                   <div
-                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
                       ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
                       : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
                       }`}
                   >
                     <div
                       onClick={toggleStudioFoto}
-                      className="cursor-pointer flex items-center justify-between gap-3 select-none"
+                      className="cursor-pointer flex w-full items-start justify-between gap-3 select-none"
                     >
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
                         <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                           <Camera className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                             <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                               STUDIO FOTO
@@ -1538,8 +1552,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1 shrink-0 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
-                        <span className="hidden sm:inline text-[10.5px]">
+                      <div className="flex shrink-0 whitespace-nowrap items-center gap-1 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
+                        <span className="hidden whitespace-nowrap sm:inline text-[10.5px]">
                           {isStudioFotoExpanded ? 'Tutup' : 'Pilih Studio'}
                         </span>
                         <ChevronDown
@@ -1618,20 +1632,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 2. SelfStudio (Expandable / Pilihan Studio 1 & Studio 2) */}
                   <div
-                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
                       ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
                       : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
                       }`}
                   >
                     <div
                       onClick={toggleSelfStudio}
-                      className="cursor-pointer flex items-center justify-between gap-3 select-none"
+                      className="cursor-pointer flex w-full items-start justify-between gap-3 select-none"
                     >
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
                         <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                           <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                             <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                               SELFSTUDIO
@@ -1646,7 +1660,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-1 shrink-0 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
+                      <div className="flex shrink-0 whitespace-nowrap items-center gap-1 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
                         <span className="hidden sm:inline text-[10.5px]">
                           {isSelfStudioExpanded ? 'Tutup' : 'Pilih Studio'}
                         </span>
@@ -1734,14 +1748,14 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 3. Cetak & Bingkai */}
                   <div
-                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isCetakCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isCetakCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex items-center justify-between gap-3 sm:gap-3.5 min-w-0">
+                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                         <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                       </div>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                             CETAK & BINGKAI
@@ -1759,7 +1773,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleCetak}
-                        className="flex shrink-0 items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
+                        className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
                         aria-expanded={isCetakCardExpanded}
                       >
                         <span className="hidden sm:inline text-[10.5px]">{isCetakCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
@@ -1803,74 +1817,68 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 4. Wedding & Prewedding */}
                   <div
-                    onClick={() => onSelectCategory ? onSelectCategory('wedding-package') : onSelectBranch(selectedBranch)}
-                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isWeddingCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                        <HeartHandshake className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            WEDDING & PREWEDDING OUTDOOR
-                          </h4>
-                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                            Suite
-                          </span>
+                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
+                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                          <HeartHandshake className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                          Paket Prewedding Outdoor/Studio, Akad Nikah & Resepsi
-                        </p>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">WEDDING & PREWEDDING OUTDOOR</h4>
+                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">Suite</span>
+                          </div>
+                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">Paket Prewedding Outdoor/Studio, Akad Nikah & Resepsi</p>
+                        </div>
                       </div>
+                      <button type="button" onClick={toggleWedding} className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7]" aria-expanded={isWeddingCardExpanded}>
+                        <span className="hidden sm:inline text-[10.5px]">{isWeddingCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isWeddingCardExpanded ? 'rotate-180' : ''}`} />
+                      </button>
                     </div>
-
-                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                      <span className="hidden xl:inline text-[11px]">Lihat</span>
-                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+                    {isWeddingCardExpanded && (
+                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
+                        <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600"><span className="font-playfair font-semibold">Pilih lokasi studio:</span><span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span></div>
+                        {[
+                          { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso', branch: 'cabang-1' as StudioBranch },
+                          { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo', branch: 'cabang-2' as StudioBranch },
+                        ].map((option) => (
+                          <button key={option.studio} type="button" onClick={() => { onSelectCategory?.('wedding-package', option.branch); setIsWeddingCardExpanded(false); }} className="group flex w-full items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white">
+                            <span className="min-w-0"><span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span><span className="font-playfair text-xs font-bold">{option.location}</span><span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span></span>
+                            <span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">Buka <ArrowUpRight className="h-4 w-4" /></span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* 5. Event */}
                   <div
-                    onClick={() => onSelectCategory ? onSelectCategory('event') : onSelectBranch(selectedBranch)}
-                    className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4] border border-[#E8DDD6] hover:border-[#A9BCA7] transition-all duration-200 cursor-pointer group text-left relative overflow-hidden flex items-center justify-between gap-3 sm:gap-4 shadow-md hover:shadow-lg active:scale-98"
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isEventCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                        <Calendar className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            EVENT
-                          </h4>
-                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                            Event
-                          </span>
-                        </div>
-                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                          Dokumentasi Birthday, Gathering, Seminar & Komunitas
-                        </p>
-                      </div>
+                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
+                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0"><div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs"><Calendar className="w-5 h-5 stroke-[1.8] text-[#6E856C]" /></div><div className="min-w-0"><div className="flex items-center gap-1.5 sm:gap-2 flex-wrap"><h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">EVENT</h4><span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">Event</span></div><p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">Dokumentasi Birthday, Gathering, Seminar & Komunitas</p></div></div>
+                      <button type="button" onClick={toggleEvent} className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7]" aria-expanded={isEventCardExpanded}><span className="hidden sm:inline text-[10.5px]">{isEventCardExpanded ? 'Tutup' : 'Pilih Studio'}</span><ChevronDown className={`h-3.5 w-3.5 transition-transform ${isEventCardExpanded ? 'rotate-180' : ''}`} /></button>
                     </div>
-
-                    <div className="text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1 shrink-0 group-hover:text-[#6E856C]">
-                      <span className="hidden xl:inline text-[11px]">Lihat</span>
-                      <span className="text-sm transition-transform group-hover:translate-x-1">→</span>
-                    </div>
+                    {isEventCardExpanded && (
+                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4"><div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600"><span className="font-playfair font-semibold">Pilih lokasi studio:</span><span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span></div>{[
+                        { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso', branch: 'cabang-1' as StudioBranch },
+                        { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo', branch: 'cabang-2' as StudioBranch },
+                      ].map((option) => (<button key={option.studio} type="button" onClick={() => { onSelectCategory?.('event', option.branch); setIsEventCardExpanded(false); }} className="group flex w-full items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white"><span className="min-w-0"><span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span><span className="font-playfair text-xs font-bold">{option.location}</span><span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span></span><span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">Buka <ArrowUpRight className="h-4 w-4" /></span></button>))}</div>
+                    )}
                   </div>
 
                   {/* 6. MUA, Kebaya, Hairdo & Hijabdo */}
                   <div
-                    className={`rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
-                    <div className="flex items-center justify-between gap-3 sm:gap-3.5 min-w-0">
+                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
                       <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
                         <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                       </div>
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
                             MUA, KEBAYA, HAIRDO & HIJABDO
@@ -1889,7 +1897,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     <button
                       type="button"
                       onClick={toggleMua}
-                      className="flex shrink-0 items-center gap-1 rounded-xl border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
+                      className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
                       aria-expanded={isMuaCardExpanded}
                     >
                       <span className="hidden sm:inline text-[10.5px]">{isMuaCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
