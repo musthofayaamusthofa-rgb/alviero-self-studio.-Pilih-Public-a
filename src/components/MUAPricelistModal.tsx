@@ -12,6 +12,7 @@ export interface MuaVendorDefinition {
   name: string;
   services: MuaServiceDefinition[];
   coverImage: string;
+  portfolioImages: string[];
 }
 
 const KEBAYA_PREVIEWS: Record<string, string> = {
@@ -29,6 +30,11 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     id: 'novita',
     name: 'By Novita',
     coverImage: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+    portfolioImages: [
+      'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&w=700&q=85'
+    ],
     services: [
       { id: 'novita-mua-pass-foto', name: 'MUA - Pass Foto', price: 0 },
       { id: 'novita-mua-wedding', name: 'MUA - Wedding', price: 0 },
@@ -44,6 +50,11 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     id: 'ananda',
     name: 'By Ananda',
     coverImage: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80',
+    portfolioImages: [
+      'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=85'
+    ],
     services: [
       { id: 'ananda-mua-pass-foto', name: 'MUA - Pass Foto', price: 0 },
       { id: 'ananda-mua-wedding', name: 'MUA - Wedding', price: 0 },
@@ -59,6 +70,11 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     id: 'masaya',
     name: 'By Masaya',
     coverImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80',
+    portfolioImages: [
+      'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?auto=format&fit=crop&w=700&q=85'
+    ],
     services: [
       { id: 'masaya-mua-pass-foto', name: 'MUA - Pass Foto', price: 0 },
       { id: 'masaya-mua-wedding', name: 'MUA - Wedding', price: 0 },
@@ -74,6 +90,11 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     id: 'tiwi',
     name: 'By Tiwi',
     coverImage: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80',
+    portfolioImages: [
+      'https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=700&q=85',
+      'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=700&q=85'
+    ],
     services: [
       { id: 'tiwi-hairdo', name: 'Hairdo', price: 0 }
     ]
@@ -275,6 +296,16 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
               </button>
 
               <div className="pr-10">
+                <div className="mb-4 h-40 flex snap-x gap-3 overflow-x-auto pb-4 no-scrollbar sm:h-48">
+                  {activeVendor.portfolioImages.map((image, index) => (
+                    <img
+                      key={`${activeVendor.id}-portfolio-${index}`}
+                      src={image}
+                      alt={`Portofolio ${activeVendor.name} ${index + 1}`}
+                      className="h-full w-auto shrink-0 snap-center rounded-xl object-cover shadow-sm"
+                    />
+                  ))}
+                </div>
                 <h4 className="mt-2 font-serif text-2xl sm:text-3xl font-black uppercase text-[#2E2E2E] leading-none">
                   {activeVendor.name}
                 </h4>
