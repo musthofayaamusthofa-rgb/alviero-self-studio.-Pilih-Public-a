@@ -888,7 +888,7 @@ export const checkTimeSlotAvailability = (
     existingSelfStudioBookings = existingSelfStudioBookingsParam || {};
     selectedBranch = selectedBranchParam || 'cabang-1';
     existingBackdrops = existingBackdropsParam || {};
-    maxCapacityPerSlot = selectedBranch === 'cabang-2' ? 3 : 1;
+    maxCapacityPerSlot = 3;
   } else {
     allSlots = allSlotsOrOptions.allSlots || [];
     selectedPackage = allSlotsOrOptions.selectedPackage;
@@ -896,7 +896,7 @@ export const checkTimeSlotAvailability = (
     existingSelfStudioBookings = allSlotsOrOptions.existingSelfStudioBookings || {};
     selectedBranch = allSlotsOrOptions.selectedBranch || 'cabang-1';
     existingBackdrops = allSlotsOrOptions.existingBackdrops || {};
-    maxCapacityPerSlot = allSlotsOrOptions.maxCapacityPerSlot || (selectedBranch === 'cabang-2' ? 3 : 1);
+    maxCapacityPerSlot = allSlotsOrOptions.maxCapacityPerSlot || 3;
   }
 
   const pkgObj = typeof selectedPackage === 'string'
@@ -1465,7 +1465,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const neededSlots = getOccupiedSlotsForStart(startSlot);
     if (neededSlots.length === 0) return { isAvailable: false, reason: 'Slot tidak valid' };
 
-    const maxCapacity = selectedBranch === 'cabang-2' ? 3 : 1;
+    const maxCapacity = 3;
     for (let i = 0; i < neededSlots.length; i++) {
       const s = neededSlots[i];
       const count = getSlotClientCount(s);
@@ -2534,7 +2534,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       const isStartSlot = timeSlot === slot;
                       const clientCount = getSlotClientCount(slot);
                       const availability = isSlotAvailableForBooking(slot);
-                      const maxCap = selectedBranch === 'cabang-2' ? 3 : 1;
+                      const maxCap = 3;
                       const isDisabled = !availability.isAvailable;
                       const isTooClose = Boolean(availability.reason?.includes('90 menit'));
 
@@ -2562,7 +2562,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             <span className="text-[8px] font-bold text-[#A9BCA7] uppercase mt-0.5 no-underline">
                               {sessionSlotsCount === 2 ? 'Terpilih (1 Jam)' : 'Terpilih'}
                             </span>
-                          ) : selectedBranch === 'cabang-2' && clientCount > 0 ? (
+                          ) : clientCount > 0 ? (
                             <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
                               {clientCount}/3 Terisi
                             </span>

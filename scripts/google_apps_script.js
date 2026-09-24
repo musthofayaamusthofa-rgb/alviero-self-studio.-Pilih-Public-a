@@ -9,7 +9,7 @@
  * 2. Upload bukti bayar ke Google Drive terisolasi aman (jika izin Drive belum dibuka, 
  *    data reservasi TETAP 100% tersimpan rapi).
  * 3. Mendukung reservasi Cabang 1 (Studio 1) dan Cabang 2 (Studio 2).
- * 4. Filter status aktif, termasuk 'PENDING', untuk mengunci slot dan kuota Studio 2.
+ * 4. Filter status aktif, termasuk 'PENDING', untuk mengunci slot dan kuota hingga 3 klien per cabang.
  * 5. Fungsi pengujian instan 'testInsertBooking' di editor untuk verifikasi 1 klik.
  * 
  * -------------------------------------------------------------------------
@@ -95,7 +95,7 @@ function handleRequest(e) {
       var slotSelfStudioCounts = {};
       var ivoryConflictSlots = {};
       var selfStudioConflictSlots = {};
-      var maxCap = (sheetName === 'Cabang 2') ? 3 : 1;
+      var maxCap = 3;
 
       for (var i = 1; i < data.length; i++) {
         var row = data[i];
@@ -376,7 +376,7 @@ function handleRequest(e) {
         backdrop,
         outdoorTime,
         outdoorDuration,
-        sheetName === 'Cabang 2' ? 3 : 1,
+        3,
         packageName
       );
 
@@ -735,6 +735,22 @@ function hasBackdropKeyword(backdrop, keywords) {
   return keywords.some(function(keyword) { return value.indexOf(keyword) !== -1; });
 }
 
+// Kuota background berlaku per slot yang sedang divalidasi, bukan sepanjang hari.
+// Karena itu booking Hitam pada 14:00 tidak mengunci Hitam pada 14:30.
+function isBackdropUsedInSlot(slotBackdrops, slot, requestedName) {
+  var existing = slotBackdrops[slot] || [];
+  return existing.some(function(existingName) {
+    return existingName === requestedName ||
+      (hasBackdropKeyword(requestedName, ['putih']) && hasBackdropKeyword(existingName, ['putih'])) ||
+      (hasBackdropKeyword(requestedName, ['abu']) && hasBackdropKeyword(existingName, ['abu'])) ||
+      (hasBackdropKeyword(requestedName, ['hitam']) && hasBackdropKeyword(existingName, ['hitam'])) ||
+      (hasBackdropKeyword(requestedName, ['cream', 'krem']) && hasBackdropKeyword(existingName, ['cream', 'krem'])) ||
+      (hasBackdropKeyword(requestedName, ['coklat', 'cokelat']) && hasBackdropKeyword(existingName, ['coklat', 'cokelat'])) ||
+      (hasBackdropKeyword(requestedName, ['limbo']) && hasBackdropKeyword(existingName, ['limbo'])) ||
+      (hasBackdropKeyword(requestedName, ['ivory']) && hasBackdropKeyword(existingName, ['ivory']));
+  });
+}
+
 function validateRequestedBackdrops(slotBackdrops, requestedSlots, backdrop, studioType, maxCapacity) {
   if (!backdrop || requestedSlots.length === 0) {
     return { available: true };
@@ -773,16 +789,7 @@ function validateRequestedBackdrops(slotBackdrops, requestedSlots, backdrop, stu
     if (studioType === 'studio_foto') {
       for (var r = 0; r < requested.length; r++) {
         var requestedName = requested[r];
-        var duplicate = existing.some(function(existingName) {
-          return existingName === requestedName ||
-            (hasBackdropKeyword(requestedName, ['putih']) && hasBackdropKeyword(existingName, ['putih'])) ||
-            (hasBackdropKeyword(requestedName, ['abu']) && hasBackdropKeyword(existingName, ['abu'])) ||
-            (hasBackdropKeyword(requestedName, ['hitam']) && hasBackdropKeyword(existingName, ['hitam'])) ||
-            (hasBackdropKeyword(requestedName, ['cream', 'krem']) && hasBackdropKeyword(existingName, ['cream', 'krem'])) ||
-            (hasBackdropKeyword(requestedName, ['coklat', 'cokelat']) && hasBackdropKeyword(existingName, ['coklat', 'cokelat'])) ||
-            (hasBackdropKeyword(requestedName, ['limbo']) && hasBackdropKeyword(existingName, ['limbo'])) ||
-            (hasBackdropKeyword(requestedName, ['putih tengah', 'putih-tengah']) && hasBackdropKeyword(existingName, ['putih tengah', 'putih-tengah']));
-        });
+        var duplicate = isBackdropUsedInSlot(slotBackdrops, slot, requestedName);
         if (duplicate) {
           return {
             available: false,
@@ -1090,7 +1097,7 @@ function getOccupiedSlotsForRow(rowSlotRaw, rowPackageRaw, rowBackdropRaw) {
         pkgLower.indexOf('50 menit') !== -1 ||
         bdLower.indexOf(',') !== -1 ||
         bdLower.indexOf('&') !== -1 ||
-        (matches.length > 1 && normalizeTime(matches[1]) !== startSlot)
+        (matches.length > 1 && timeToMinutes(normalizeTime(matches[1])) - timeToMinutes(startSlot) >= 60)
       );
 
       if (is2Slot && idx + 1 < ALL_30M_SLOTS.length) {
