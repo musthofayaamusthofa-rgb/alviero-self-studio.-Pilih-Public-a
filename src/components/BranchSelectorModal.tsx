@@ -1526,7 +1526,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 1. Studio Foto (Expandable / Pilihan Studio 1 & Studio 2 Langsung Buka Pricelist) */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#FFF5F2] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
                       ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
                       : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
                       }`}
@@ -1634,7 +1634,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 2. SelfStudio (Expandable / Pilihan Studio 1 & Studio 2) */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#F2F7F2] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
                       ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
                       : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
                       }`}
@@ -1750,7 +1750,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 3. Cetak & Bingkai */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isCetakCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#F6F4F9] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isCetakCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
                     <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
@@ -1819,7 +1819,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 4. Wedding & Prewedding */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isWeddingCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#FDF9F1] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isWeddingCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
                     <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
@@ -1857,7 +1857,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 5. Event */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isEventCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#F2F6F9] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isEventCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
                     <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0"><div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs"><Calendar className="w-5 h-5 stroke-[1.8] text-[#6E856C]" /></div><div className="min-w-0"><div className="flex items-center gap-1.5 sm:gap-2 flex-wrap"><h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">EVENT</h4><span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">Event</span></div><p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">Dokumentasi Birthday, Gathering, Seminar & Komunitas</p></div></div>
@@ -1873,7 +1873,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 6. MUA, Kebaya, Hairdo & Hijabdo */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-white border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#FCF4F6] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
                   >
                     <div className="flex flex-row items-start justify-between gap-3 w-full min-w-0">
                       <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
