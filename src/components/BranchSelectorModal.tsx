@@ -1380,84 +1380,86 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
             {/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 text-center">
-              {/* Item 1: Fast and convenient */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Clock className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
-                </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Fast & Convenient
-                </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Booking instan tanpa antre, jadwal pasti & all-file HD via Google Drive.
-                </p>
-              </div>
 
-              {/* Item 2: Style and function */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Sliders className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
-                </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Style & Function
-                </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  7+ tema background estetik, lighting studio profesional & arahan pose natural.
-                </p>
-              </div>
-
-              {/* Item 3: Live-View Preview */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Camera className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
-                </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Live-View Preview
-                </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Monitor realtime besar untuk cek hasil jepretan dan pose langsung seketika.
-                </p>
-              </div>
-
-              {/* Item 4: Fasilitas Lengkap */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Sparkles className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
-                </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Fasilitas Lengkap
-                </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Full AC sejuk, fitting room privat, toga wisuda & aneka properti siap pakai.
-                </p>
-              </div>
-
-              {/* Item 5: Reflect your lifestyle */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
-                  <Layers className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
-                </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Reflect Lifestyle
-                </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Paket wisuda, wedding, self studio, family, hingga cetak frame kayu eksklusif.
-                </p>
-              </div>
-
-              {/* Item 6: Continuous support */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-white hover:bg-[#F2E9E4]/40 border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              {/* Item 1: 10K+ Trusted Clients (Soft Sand) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#F9F6F0] hover:bg-[#F2ECE4] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <HeartHandshake className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
                 <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Continuous Support
+                  10K+ Trusted Clients
                 </h4>
                 <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Konsultasi konsep, outfit, & fitting kebaya/gaun gratis dengan admin ramah.
+                  Telah dipercaya oleh puluhan ribu klien untuk mengabadikan momen berharga dengan kepuasan maksimal.
+                </p>
+              </div>
+
+              {/* Item 2: Fully Equipped (Pale Sage) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#F4F7F4] hover:bg-[#EAF0EA] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+                  <Sparkles className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                  Fully Equipped
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
+                  Kenyamanan full AC, fitting room privat, ketersediaan wardrobe, serta aneka properti estetis siap pakai.
+                </p>
+              </div>
+
+              {/* Item 3: All-in-One Packages (Muted Rose) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#FCF5F5] hover:bg-[#F5EBEB] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+                  <Layers className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                  All-in-One Packages
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
+                  Solusi visual untuk self-studio, wisuda, wedding, sesi keluarga, hingga pilihan cetak frame eksklusif.
+                </p>
+              </div>
+
+              {/* Item 4: Fast & Friendly (Warm Oatmeal) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#FDF8F3] hover:bg-[#F4EBE0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+                  <Clock className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                  Fast & Friendly
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
+                  Sistem booking instan tanpa antre, respons layanan cepat, dan pendampingan staf yang selalu hangat.
+                </p>
+              </div>
+
+              {/* Item 5: Premium Quality (Light Slate) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#F5F6F8] hover:bg-[#EBECEF] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+                  <Sliders className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                  Premium Quality
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
+                  Kualitas gambar tajam didukung peralatan standar industri, pencahayaan presisi, dan resolusi tinggi (HD).
+                </p>
+              </div>
+
+              {/* Item 6: Experienced Team (Soft Lavender) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#F8F6F9] hover:bg-[#EBE9EE] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+                  <Camera className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+                </div>
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                  Experienced Team
+                </h4>
+                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
+                  Diarahkan langsung oleh tenaga ahli profesional yang siap memandu pose natural untuk hasil paling sempurna.
                 </p>
               </div>
             </div>
+
           </div>
 
           {/* 2. Client Reviews & Testimonials Carousel */}
