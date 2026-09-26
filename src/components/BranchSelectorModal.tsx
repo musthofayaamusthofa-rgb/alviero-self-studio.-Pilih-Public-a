@@ -1378,11 +1378,11 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               </p>
             </div>
 
-            {/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
+{/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 text-center">
-
-              {/* Item 1: 10K+ Trusted Clients (Soft Sand) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#F9F6F0] hover:bg-[#F2ECE4] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              
+              {/* Item 1: 10K+ Trusted Clients (Cream ke Sand) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <HeartHandshake className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
@@ -1394,8 +1394,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 2: Fully Equipped (Pale Sage) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#F4F7F4] hover:bg-[#EAF0EA] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              {/* Item 2: Fully Equipped (Sand ke Cream) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <Sparkles className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
@@ -1407,8 +1407,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 3: All-in-One Packages (Muted Rose) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#FCF5F5] hover:bg-[#F5EBEB] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              {/* Item 3: All-in-One Packages (Cream ke Sand) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <Layers className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
@@ -1420,8 +1420,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 4: Fast & Friendly (Warm Oatmeal) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#FDF8F3] hover:bg-[#F4EBE0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              {/* Item 4: Fast & Friendly (Sand ke Cream) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <Clock className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
@@ -1433,8 +1433,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 5: Premium Quality (Light Slate) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#F5F6F8] hover:bg-[#EBECEF] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              {/* Item 5: Premium Quality (Cream ke Sand) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <Sliders className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
@@ -1446,8 +1446,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 6: Experienced Team (Soft Lavender) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#F8F6F9] hover:bg-[#EBE9EE] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
+              {/* Item 6: Experienced Team (Sand ke Cream) */}
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
                   <Camera className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
