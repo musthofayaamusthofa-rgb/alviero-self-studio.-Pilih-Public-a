@@ -1,14 +1,46 @@
+/* ============================================================
+ * LOCAL FONT: Century Gothic (Body/Sans)
+ * ============================================================ */
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/fonts/centurygothic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/fonts/centurygothic_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+ * LOCAL FONT: Saka Semibold (Heading/Display)
+ * ============================================================ */
+@font-face {
+  font-family: 'Saka';
+  src: url('/fonts/SakaSemibold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @theme {
-  --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-  --font-libre: 'Libre Baskerville', Georgia, serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Libre Baskerville', Georgia, serif;
-  --font-luxury: 'Cormorant Garamond', Georgia, serif;
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Libre Baskerville', Georgia, serif;
+  --font-saka: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-century: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-playfair: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-cormorant: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-libre: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-serif: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-sans: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-luxury: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-heading: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-body: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
 :root {
@@ -45,16 +77,18 @@
   --studio-bg-card: #FFFFFF;
   --studio-border: #E8DDD6;
 
-  /* Editorial typography: Playfair headings, Cormorant accents, Libre body */
-  --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-  --font-libre: 'Libre Baskerville', Georgia, serif;
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-luxury: 'Cormorant Garamond', Georgia, serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-editorial: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Libre Baskerville', Georgia, serif;
-  --font-body: 'Libre Baskerville', Georgia, serif;
+  /* Studio Font System: Saka (heading) + Century Gothic (body) */
+  --font-saka: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-century: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-playfair: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-cormorant: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-libre: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-heading: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-luxury: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-serif: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-editorial: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-sans: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-body: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
 .font-heading {
@@ -87,7 +121,15 @@
 
 .font-sans,
 .font-body {
-  font-family: var(--font-libre);
+  font-family: var(--font-body);
+}
+
+.font-saka {
+  font-family: var(--font-saka);
+}
+
+.font-century {
+  font-family: var(--font-century);
 }
 
 .gold-gradient-text {
