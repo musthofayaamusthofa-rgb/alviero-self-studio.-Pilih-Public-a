@@ -31,16 +31,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-saka: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-century: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-playfair: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-cormorant: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-libre: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-serif: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-sans: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-luxury: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  /* ── Heading / Display: Saka ── */
+  --font-saka:    'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-heading: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-body: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-serif:   'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-playfair:'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-luxury:  'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-cormorant:'Saka','Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-editorial:'Saka','Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+  /* ── Body / UI: Century Gothic ── */
+  --font-century: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-sans:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-body:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-libre:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+  /* ── Mono override: Century Gothic (no jarring monospace) ── */
+  --font-mono:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
 :root {
@@ -77,59 +84,46 @@
   --studio-bg-card: #FFFFFF;
   --studio-border: #E8DDD6;
 
-  /* Studio Font System: Saka (heading) + Century Gothic (body) */
-  --font-saka: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-century: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  /* Studio Font System: Saka (heading/display) + Century Gothic (body/UI) */
+  --font-saka:     'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-heading:  'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-serif:    'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-playfair: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-cormorant: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-libre: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-heading: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-luxury: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-serif: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-editorial: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-sans: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-body: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-luxury:   'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-cormorant:'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-editorial:'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-century:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-sans:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-body:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-libre:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-mono:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
-.font-heading {
-  font-family: var(--font-playfair);
-}
+/* ============================================================
+ * FONT UTILITY OVERRIDES
+ * Saka → heading/display | Century Gothic → all other text
+ * ============================================================ */
 
-.font-luxury {
-  font-family: var(--font-cormorant);
-}
-
-.font-serif {
-  font-family: var(--font-playfair);
-}
-
-.font-playfair {
-  font-family: var(--font-playfair);
-}
-
-.font-cormorant {
-  font-family: var(--font-cormorant);
-}
-
-.font-libre {
-  font-family: var(--font-libre);
-}
-
+/* Headings & display classes → Saka Semibold */
+.font-heading,
+.font-saka,
+.font-serif,
+.font-playfair,
+.font-cormorant,
+.font-luxury,
 .font-editorial {
-  font-family: var(--font-editorial);
+  font-family: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-weight: 600;
 }
 
+/* Body/UI classes → Century Gothic */
 .font-sans,
-.font-body {
-  font-family: var(--font-body);
-}
-
-.font-saka {
-  font-family: var(--font-saka);
-}
-
-.font-century {
-  font-family: var(--font-century);
+.font-body,
+.font-libre,
+.font-century,
+.font-mono {
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-weight: 400;
 }
 
 .gold-gradient-text {
@@ -147,31 +141,33 @@
 }
 
 @layer base {
+  /* ── Base: Century Gothic for everything ── */
+  *,
+  *::before,
+  *::after {
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    font-family: var(--font-sans);
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     color: var(--studio-body);
     background-color: var(--studio-bg);
   }
 
   body {
-    font-family: var(--font-sans);
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     background-color: var(--studio-bg);
     line-height: 1.6;
   }
 
-  /* Playfair Display Luxury Headings */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-heading);
+  /* ── Headings → Saka Semibold ── */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Saka', 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     color: var(--studio-dark);
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
   }
 
   /* Transparent track & auto-hiding thumb */
