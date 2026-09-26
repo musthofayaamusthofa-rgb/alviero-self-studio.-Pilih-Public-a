@@ -1555,21 +1555,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    {/* Card Bottom: White Luxury Studio Selector Button */}
                     <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
                       <button
                         type="button"
                         onClick={toggleStudioFoto}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isStudioFotoExpanded
-                          ? 'bg-[#141414] text-white border-black shadow-inner'
-                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FEECD0]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
                           <span>{isStudioFotoExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-stone-400' : 'text-stone-400'}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 text-[#555555] ${isStudioFotoExpanded ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio Foto */}
@@ -1667,21 +1667,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    {/* Card Bottom: White Luxury Studio Selector Button */}
                     <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
                       <button
                         type="button"
                         onClick={toggleSelfStudio}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isSelfStudioExpanded
-                          ? 'bg-[#141414] text-white border-black shadow-inner'
-                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E5D5BC]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
                           <span>{isSelfStudioExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-stone-400' : 'text-stone-400'}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 text-[#555555] ${isSelfStudioExpanded ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk SelfStudio */}
@@ -1787,21 +1787,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    {/* Card Bottom: White Luxury Studio Selector Button */}
                     <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
                       <button
                         type="button"
                         onClick={toggleCetak}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isCetakCardExpanded
-                          ? 'bg-[#141414] text-white border-black shadow-inner'
-                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FEECD0]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
                           <span>{isCetakCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCetakCardExpanded ? 'rotate-180 text-stone-400' : 'text-stone-400'}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 text-[#555555] ${isCetakCardExpanded ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk Cetak & Bingkai */}
@@ -1907,21 +1907,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    {/* Card Bottom: White Luxury Studio Selector Button */}
                     <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
                       <button
                         type="button"
                         onClick={toggleWedding}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isWeddingCardExpanded
-                          ? 'bg-[#141414] text-white border-black shadow-inner'
-                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E5D5BC]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
                           <span>{isWeddingCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isWeddingCardExpanded ? 'rotate-180 text-stone-400' : 'text-stone-400'}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 text-[#555555] ${isWeddingCardExpanded ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk Wedding */}
@@ -2027,21 +2027,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    {/* Card Bottom: White Luxury Studio Selector Button */}
                     <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
                       <button
                         type="button"
                         onClick={toggleEvent}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isEventCardExpanded
-                          ? 'bg-[#141414] text-white border-black shadow-inner'
-                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FEECD0]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
                           <span>{isEventCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isEventCardExpanded ? 'rotate-180 text-stone-400' : 'text-stone-400'}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 text-[#555555] ${isEventCardExpanded ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk Event */}
@@ -2147,21 +2147,21 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    {/* Card Bottom: White Luxury Studio Selector Button */}
                     <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
                       <button
                         type="button"
                         onClick={toggleMua}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isMuaCardExpanded
-                          ? 'bg-[#141414] text-white border-black shadow-inner'
-                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E5D5BC]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
                           <span>{isMuaCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         </span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMuaCardExpanded ? 'rotate-180 text-stone-400' : 'text-stone-400'}`} />
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 text-[#555555] ${isMuaCardExpanded ? 'rotate-180' : ''}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk MUA */}
