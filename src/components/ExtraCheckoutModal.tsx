@@ -250,7 +250,7 @@ ${cartDetailsString}
 *Jadwal & Lokasi:*
 - Tanggal: ${selectedDate}
 - Jam: ${selectedTime}
-- Lokasi/Pengambilan: ${pickupNote || 'Belum diisi'}
+- Lokasi MakeUp: ${pickupNote || 'Belum diisi'}
 
 Apakah slot dan layanan di atas tersedia?`
     );
@@ -468,19 +468,22 @@ Apakah slot dan layanan di atas tersedia?`
                         className="w-full min-h-[46px] rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] pl-9 pr-3 text-sm text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
                       />
                     </div>
+                    <p className="mt-1.5 text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200/80 rounded-lg px-2.5 py-1 flex items-center gap-1.5 shadow-2xs">
+                      <span>⚠️</span> Jam Make Up wajib 1 jam sebelum sesi foto
+                    </p>
                   </div>
                 </div>
 
                 <div className="mt-4">
                   <label className="mb-2 flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
                     <MapPin className="h-4 w-4 text-[#6E856C]" />
-                    Lokasi MUA / Metode Pengambilan
+                    Lokasi MakeUp
                   </label>
                   <textarea
                     rows={3}
                     value={pickupNote}
                     onChange={(e) => setPickupNote(e.target.value)}
-                    placeholder="Contoh: Ambil di Studio / Dikirim via kurir / Lokasi MUA di rumah klien"
+                    placeholder="Contoh: Lokasi MakeUp di Studio / di rumah klien / alamat venue"
                     className="w-full rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] px-3 py-3 text-sm text-[#2E2E2E] placeholder:text-stone-400 focus:border-[#2D2D2D] focus:outline-none"
                   />
                 </div>

@@ -93,6 +93,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Fasilitas Studio), or 'guide' (Panduan, Disclaimer & FAQ)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>(initialTab);
   const isTabActive = (tab: 'menu' | 'gallery' | 'guide') => activeTab === tab;
+  const handleGoToDisclaimer = () => {
+    setActiveTab('guide');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
@@ -1046,7 +1050,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
               }`}
           >
-            <span>Panduan</span>
+            <span>Disclaimer</span>
           </button>
         </div>
       </div>
@@ -1145,7 +1149,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       : 'text-stone-600 hover:text-stone-900'
                   }`}
                 >
-                  <span>📖 Panduan</span>
+                  <span>📖 Disclaimer</span>
                 </button>
               </div>
 
@@ -1544,10 +1548,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <div className="text-center pt-2">
                           <button
                             type="button"
-                            onClick={() => onNavigateToRules?.()}
+                            onClick={handleGoToDisclaimer}
                             className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/80 hover:bg-white px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                           >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1704,10 +1708,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <div className="text-center pt-2">
                           <button
                             type="button"
-                            onClick={() => onNavigateToRules?.()}
+                            onClick={handleGoToDisclaimer}
                             className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/80 hover:bg-white px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                           >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -1874,10 +1878,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <div className="text-center pt-2">
                           <button
                             type="button"
-                            onClick={() => onNavigateToRules?.()}
+                            onClick={handleGoToDisclaimer}
                             className="inline-flex items-center gap-1.5 text-xs text-white hover:text-pink-200 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/20 hover:bg-white/30 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/30 shadow-2xs"
                           >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -2392,10 +2396,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <div className="text-center pt-2">
                           <button
                             type="button"
-                            onClick={() => onNavigateToRules?.()}
+                            onClick={handleGoToDisclaimer}
                             className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/80 hover:bg-white px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                           >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
@@ -2463,10 +2467,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -2506,10 +2510,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -2639,10 +2643,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -2718,10 +2722,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -2796,10 +2800,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -2875,10 +2879,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3009,10 +3013,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3090,10 +3094,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3199,10 +3203,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3287,10 +3291,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3418,10 +3422,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3563,10 +3567,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     <div className="text-center pt-2">
                       <button
                         type="button"
-                        onClick={() => onNavigateToRules?.()}
+                        onClick={handleGoToDisclaimer}
                         className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
@@ -3946,10 +3950,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         <button
                           type="button"
-                          onClick={() => onNavigateToRules?.()}
+                          onClick={handleGoToDisclaimer}
                           className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white px-4 py-2 rounded-full border border-rose-200 shadow-2xs"
                         >
-                          <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                          <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -4268,10 +4272,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         <button
                           type="button"
-                          onClick={() => onNavigateToRules?.()}
+                          onClick={handleGoToDisclaimer}
                           className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white px-4 py-2 rounded-full border border-rose-200 shadow-2xs"
                         >
-                          <span>⚠️ Harap Membaca Disclaimer pada halaman Panduan & Lokasi</span>
+                          <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </button>
                       </div>
@@ -4452,7 +4456,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
-              <span>📖 Panduan</span>
+              <span>📖 Disclaimer</span>
             </button>
           </div>
 
@@ -4624,7 +4628,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
               }`}
             >
-              <span>📖 Panduan</span>
+              <span>📖 Disclaimer</span>
             </button>
           </div>
 

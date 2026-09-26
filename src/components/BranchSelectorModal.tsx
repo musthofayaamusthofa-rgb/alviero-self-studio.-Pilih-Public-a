@@ -655,7 +655,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
           STUDIO SPACES & BACKGROUNDS
         </span>
         <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#3A3A3A] tracking-tight">
-          Koleksi Background & Suasana Studio
+          Koleksi Background & Hasil Foto
         </h3>
       </div>
 

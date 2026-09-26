@@ -254,7 +254,8 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
               onBackToLanding={handleBackToLanding}
               onSelectPackageForBooking={handleOpenBookingWithPackage}
               onNavigateToRules={() => {
-                setActiveTab('rules');
+                setInitialCatalogTab('guide');
+                setActiveTab('katalog');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               onNavigateToTab={(tab) => {
