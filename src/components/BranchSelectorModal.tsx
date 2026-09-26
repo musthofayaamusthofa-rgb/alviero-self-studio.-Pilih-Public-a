@@ -264,6 +264,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
   },
 ];
 
+export const GOOGLE_MAPS_REVIEW_URL =
+  'https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu';
+
 /**
  * Komponen Carousel Testimonial Klien (Desain Tegas, Bersih & Responsif Desktop)
  */
@@ -315,20 +318,46 @@ export const ClientReviewCarousel: React.FC = () => {
 
   return (
     <div
-      className="space-y-4 relative select-none"
+      className="space-y-3.5 relative select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="text-center space-y-0.5">
+      <div className="text-center space-y-1">
         <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
           WHAT OUR CLIENTS SAY
         </h3>
         <p className="text-[11px] font-sans text-[#666666]">
-          Ulasan jujur & kepuasan dari klien Alviero Studio
+          Ulasan jujur &amp; kepuasan dari klien Alviero Studio
         </p>
+
+        {/* Akses Langsung Ulasan Google Maps */}
+        <div className="pt-1 flex items-center justify-center">
+          <a
+            href={GOOGLE_MAPS_REVIEW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[10.5px] sm:text-[11px] font-sans transition-all group cursor-pointer"
+            title="Buka ulasan resmi Alviero Studio di Google Maps"
+          >
+            {/* Google G SVG */}
+            <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+            </svg>
+            <span className="font-bold">5.0</span>
+            <span className="text-amber-500 font-bold tracking-tight">★★★★★</span>
+            <span className="text-stone-300">•</span>
+            <span className="text-[#3A3A3A] group-hover:text-black font-medium underline decoration-stone-300 underline-offset-2">
+              Akses Review di Google Maps
+            </span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#6E856C] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+          </a>
+        </div>
       </div>
 
       {/* Container Slider dengan Tombol Panah Kiri & Kanan */}
@@ -356,16 +385,20 @@ export const ClientReviewCarousel: React.FC = () => {
         {/* Review Cards (Grid 2 Kolom di Desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 px-2 sm:px-4">
           {visibleReviews.map((review) => (
-            <div
+            <a
               key={review.id}
-              className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] shadow-sm hover:shadow-md pl-16 sm:pl-20 animate-in fade-in duration-300 flex flex-col justify-between"
+              href={GOOGLE_MAPS_REVIEW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-sm hover:shadow-md pl-16 sm:pl-20 animate-in fade-in duration-300 flex flex-col justify-between group/card transition-all cursor-pointer text-left block"
+              title="Klik untuk membuka ulasan langsung di Google Maps"
             >
               {/* Foto Avatar */}
               <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-stone-900 border-2 border-white shadow-sm overflow-hidden shrink-0">
                 <img
                   src={review.avatar}
                   alt={review.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
                 />
               </div>
 
@@ -376,10 +409,14 @@ export const ClientReviewCarousel: React.FC = () => {
 
               {/* Konten Review */}
               <div className="space-y-1 text-left">
-                <div className="flex items-center justify-between gap-1 flex-wrap">
-                  <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                  <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] group-hover/card:text-black uppercase tracking-wider leading-tight">
                     {review.name}
                   </h4>
+                  <span className="inline-flex items-center gap-1 text-[9px] font-sans font-semibold text-[#6E856C] bg-[#F2F7F2] px-2 py-0.5 rounded-full border border-[#D5E5D3]">
+                    <span>Google Maps</span>
+                    <ArrowUpRight className="w-2.5 h-2.5 text-[#6E856C] group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
+                  </span>
                 </div>
 
                 {/* Bintang Rating (5 Stars) */}
@@ -390,11 +427,11 @@ export const ClientReviewCarousel: React.FC = () => {
                 <div className="h-px bg-[#F2E9E4] my-1" />
 
                 {/* Teks Testimonial */}
-                <p className="text-[10.5px] sm:text-[11px] font-sans text-[#5A5A5A] leading-relaxed line-clamp-4">
+                <p className="text-[10.5px] sm:text-[11px] font-sans text-[#5A5A5A] group-hover/card:text-[#333333] leading-relaxed line-clamp-4">
                   {review.text}
                 </p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
