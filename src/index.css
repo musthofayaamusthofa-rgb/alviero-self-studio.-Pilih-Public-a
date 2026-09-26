@@ -1,5 +1,5 @@
 /* ============================================================
- * LOCAL FONT: Century Gothic (Regular & Bold)
+ * LOCAL FONTS: Century Gothic & Book Antiqua (from D:\FONT)
  * ============================================================ */
 @font-face {
   font-family: 'Century Gothic';
@@ -17,20 +17,38 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Book Antiqua';
+  src: url('/fonts/bookantiqua.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Book Antiqua';
+  src: url('/fonts/bookantiqua_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @theme {
   --font-century:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-sans:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-body:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-heading:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-serif:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-playfair:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-luxury:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-cormorant: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-editorial: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-libre:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-mono:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+  --font-antiqua:   'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-serif:     'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-heading:   'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-editorial: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-luxury:    'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-playfair:  'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-cormorant: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-libre:     'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
 }
 
 :root {
@@ -67,40 +85,41 @@
   --studio-bg-card: #FFFFFF;
   --studio-border: #E8DDD6;
 
-  /* Typography: Century Gothic across all text & headings */
+  /* Typography: Century Gothic (Sans & Body) & Book Antiqua (Serif & Headings) */
   --font-century:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-sans:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-body:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-heading:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-serif:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-playfair:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-luxury:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-cormorant: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-editorial: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  --font-libre:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
   --font-mono:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+  --font-antiqua:   'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-serif:     'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-heading:   'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-editorial: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-luxury:    'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-playfair:  'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-cormorant: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
+  --font-libre:     'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
 }
 
 /* ============================================================
- * FONT UTILITY OVERRIDES (Century Gothic Everywhere)
+ * FONT UTILITY OVERRIDES (Book Antiqua for Headings/Serif, Century Gothic for Body/Sans)
  * ============================================================ */
+.font-antiqua,
 .font-heading,
 .font-serif,
 .font-playfair,
 .font-cormorant,
 .font-luxury,
-.font-editorial {
-  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  font-weight: 700;
+.font-editorial,
+.font-libre {
+  font-family: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif !important;
 }
 
 .font-sans,
 .font-body,
-.font-libre,
 .font-century,
 .font-mono {
-  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  font-weight: 400;
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif !important;
 }
 
 .gold-gradient-text {
@@ -118,13 +137,6 @@
 }
 
 @layer base {
-  /* ── Universal Font: Century Gothic ── */
-  *,
-  *::before,
-  *::after {
-    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-  }
-
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
@@ -139,16 +151,15 @@
     line-height: 1.6;
   }
 
-  /* Century Gothic Clean Modern Headings */
+  /* Book Antiqua Editorial Luxury Headings */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+    font-family: 'Book Antiqua', Palatino, 'Palatino Linotype', Georgia, serif;
     color: var(--studio-dark);
-    font-weight: 700;
     letter-spacing: 0.02em;
   }
 

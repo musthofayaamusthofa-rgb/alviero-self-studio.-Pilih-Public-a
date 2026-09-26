@@ -1463,10 +1463,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                   <HeartHandshake className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
                 <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
-                  10K+ Trusted Clients
+                  10.000++ Trusted Clients
                 </h4>
                 <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
-                  Telah dipercaya puluhan ribu klien untuk mengabadikan momen berharga dengan kepuasan maksimal.
+                  Telah dipercaya 10.000++ klien untuk mengabadikan momen berharga dengan kepuasan maksimal.
                 </p>
               </div>
 
