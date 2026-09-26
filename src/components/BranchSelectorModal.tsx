@@ -1457,9 +1457,9 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             {/* Horizontal Scroll Carousel di Mobile (Lega, Lapang & Modern), Grid di Tablet/Desktop */}
             <div className="flex md:grid overflow-x-auto md:overflow-x-visible no-scrollbar snap-x snap-mandatory md:snap-none md:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4 pb-2 px-1 -mx-1 text-center">
 
-              {/* Item 1: 10K+ Trusted Clients (Cream ke Sand) */}
-              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
+              {/* Item 1: 10K+ Trusted Clients (#f3f2ed) */}
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-white border border-[#e2ddd5] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <HeartHandshake className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
                 <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
@@ -1470,22 +1470,22 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 2: Fully Equipped (Sand ke Cream) */}
-              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
-                  <Sparkles className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+              {/* Item 2: Fully Equipped (#ab8a77) */}
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200 text-white">
+                <div className="w-10 h-10 rounded-xl bg-white/95 border border-white/40 text-[#ab8a77] flex items-center justify-center mb-3 shadow-2xs">
+                  <Sparkles className="w-5 h-5 stroke-[1.6] text-[#ab8a77]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
+                <h4 className="font-serif font-bold text-xs text-white uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   Fully Equipped
                 </h4>
-                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                <p className="text-[11px] font-sans text-[#f3f2ed] leading-relaxed mt-1">
                   Kenyamanan pendingin ruangan, fitting room privat, wardrobe, serta properti estetis siap pakai.
                 </p>
               </div>
 
-              {/* Item 3: All-in-One Packages (Cream ke Sand) */}
-              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
+              {/* Item 3: All-in-One Packages (#f3f2ed) */}
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-white border border-[#e2ddd5] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Layers className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
                 <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
@@ -1496,22 +1496,22 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 4: Fast & Friendly (Sand ke Cream) */}
-              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
-                  <Clock className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+              {/* Item 4: Fast & Friendly (#ab8a77) */}
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200 text-white">
+                <div className="w-10 h-10 rounded-xl bg-white/95 border border-white/40 text-[#ab8a77] flex items-center justify-center mb-3 shadow-2xs">
+                  <Clock className="w-5 h-5 stroke-[1.6] text-[#ab8a77]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
+                <h4 className="font-serif font-bold text-xs text-white uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   Fast &amp; Friendly
                 </h4>
-                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                <p className="text-[11px] font-sans text-[#f3f2ed] leading-relaxed mt-1">
                   Sistem booking instan tanpa antre, respons layanan cepat, dan pendampingan staf yang selalu ramah.
                 </p>
               </div>
 
-              {/* Item 5: Premium Quality (Cream ke Sand) */}
-              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
+              {/* Item 5: Premium Quality (#f3f2ed) */}
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-white border border-[#e2ddd5] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Sliders className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
                 <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
@@ -1522,15 +1522,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </p>
               </div>
 
-              {/* Item 6: Experienced Team (Sand ke Cream) */}
-              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
-                  <Camera className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
+              {/* Item 6: Experienced Team (#ab8a77) */}
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200 text-white">
+                <div className="w-10 h-10 rounded-xl bg-white/95 border border-white/40 text-[#ab8a77] flex items-center justify-center mb-3 shadow-2xs">
+                  <Camera className="w-5 h-5 stroke-[1.6] text-[#ab8a77]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
+                <h4 className="font-serif font-bold text-xs text-white uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   Experienced Team
                 </h4>
-                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                <p className="text-[11px] font-sans text-[#f3f2ed] leading-relaxed mt-1">
                   Diarahkan langsung oleh fotografer profesional yang siap memandu pose natural untuk hasil terbaik.
                 </p>
               </div>
@@ -1604,16 +1604,16 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* 6 Pilihan Kategori Terurut Sesuai Permintaan */}
               <div className="pt-2 border-t border-[#3A3A3A] relative z-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 items-start">
-                  {/* 1. Studio Foto - Cream (#FEECD0) sesuai Foto 2 */}
+                  {/* 1. Studio Foto - (#f3f2ed) */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FEECD0] hover:bg-[#FBE4C2] border border-[#E8DDD6] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isStudioFotoExpanded
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isStudioFotoExpanded
                       ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
                       : ''
                       }`}
                   >
                     {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white border border-[#e2ddd5] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                         <Camera className="w-4 h-4 stroke-[1.8] text-[#6E856C]" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -1621,7 +1621,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] tracking-wider uppercase truncate">
                             STUDIO FOTO
                           </h4>
-                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#FDFBF7] text-[#6E856C] border border-[#E8DDD6] shrink-0 shadow-2xs">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white text-[#6E856C] border border-[#e2ddd5] shrink-0 shadow-2xs">
                             Foto Studio
                           </span>
                         </div>
@@ -1716,41 +1716,41 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 2. SelfStudio - Sand (#E5D5BC) sesuai Foto 2 */}
+                  {/* 2. SelfStudio - (#ab8a77) */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#E5D5BC] hover:bg-[#DBCABA] border border-[#E8DDD6] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isSelfStudioExpanded
-                      ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md text-white ${isSelfStudioExpanded
+                      ? 'ring-2 ring-white/40 shadow-md'
                       : ''
                       }`}
                   >
                     {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Sparkles className="w-4 h-4 stroke-[1.8] text-[#6E856C]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-white/40 text-[#ab8a77] flex items-center justify-center shrink-0 shadow-2xs">
+                        <Sparkles className="w-4 h-4 stroke-[1.8] text-[#ab8a77]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-white tracking-wider uppercase truncate">
                             SELFSTUDIO
                           </h4>
-                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#FDFBF7] text-[#6E856C] border border-[#E8DDD6] shrink-0 shadow-2xs">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30 shrink-0 shadow-2xs">
                             Self Photo
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#666666] font-medium truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#f3f2ed] font-medium truncate mt-0.5">
                           Foto Mandiri Wireless Shutter &amp; Cetak Kolase
                         </p>
                       </div>
                     </div>
 
                     {/* Card Bottom: White Luxury Studio Selector Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
+                    <div className="mt-2.5 pt-2 border-t border-white/20">
                       <button
                         type="button"
                         onClick={toggleSelfStudio}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isSelfStudioExpanded
-                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
-                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-white ring-1 ring-white/30 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-white'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
@@ -1836,16 +1836,16 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 3. Cetak & Bingkai - Cream (#FEECD0) sesuai Foto 2 */}
+                  {/* 3. Cetak & Bingkai - (#f3f2ed) */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FEECD0] hover:bg-[#FBE4C2] border border-[#E8DDD6] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isCetakCardExpanded
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isCetakCardExpanded
                       ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
                       : ''
                       }`}
                   >
                     {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white border border-[#e2ddd5] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                         <ImageIcon className="w-4 h-4 stroke-[1.8] text-[#6E856C]" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -1853,7 +1853,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] tracking-wider uppercase truncate">
                             CETAK &amp; BINGKAI
                           </h4>
-                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#FDFBF7] text-[#6E856C] border border-[#E8DDD6] shrink-0 shadow-2xs">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white text-[#6E856C] border border-[#e2ddd5] shrink-0 shadow-2xs">
                             Frame
                           </span>
                         </div>
@@ -1956,41 +1956,41 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 4. Wedding & Prewedding - Sand (#E5D5BC) sesuai Foto 2 */}
+                  {/* 4. Wedding & Prewedding - (#ab8a77) */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#E5D5BC] hover:bg-[#DBCABA] border border-[#E8DDD6] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isWeddingCardExpanded
-                      ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md text-white ${isWeddingCardExpanded
+                      ? 'ring-2 ring-white/40 shadow-md'
                       : ''
                       }`}
                   >
                     {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
-                        <HeartHandshake className="w-4 h-4 stroke-[1.8] text-[#6E856C]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-white/40 text-[#ab8a77] flex items-center justify-center shrink-0 shadow-2xs">
+                        <HeartHandshake className="w-4 h-4 stroke-[1.8] text-[#ab8a77]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-white tracking-wider uppercase truncate">
                             WEDDING &amp; PREWEDDING
                           </h4>
-                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#FDFBF7] text-[#6E856C] border border-[#E8DDD6] shrink-0 shadow-2xs">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30 shrink-0 shadow-2xs">
                             Suite
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#666666] font-medium truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#f3f2ed] font-medium truncate mt-0.5">
                           Prewedding Outdoor/Studio, Akad &amp; Resepsi
                         </p>
                       </div>
                     </div>
 
                     {/* Card Bottom: White Luxury Studio Selector Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
+                    <div className="mt-2.5 pt-2 border-t border-white/20">
                       <button
                         type="button"
                         onClick={toggleWedding}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isWeddingCardExpanded
-                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
-                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-white ring-1 ring-white/30 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-white'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
@@ -2076,16 +2076,16 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 5. Event - Cream (#FEECD0) sesuai Foto 2 */}
+                  {/* 5. Event - (#f3f2ed) */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FEECD0] hover:bg-[#FBE4C2] border border-[#E8DDD6] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isEventCardExpanded
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isEventCardExpanded
                       ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
                       : ''
                       }`}
                   >
                     {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white border border-[#e2ddd5] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                         <Calendar className="w-4 h-4 stroke-[1.8] text-[#6E856C]" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -2093,7 +2093,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                           <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] tracking-wider uppercase truncate">
                             EVENT DOKUMENTASI
                           </h4>
-                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#FDFBF7] text-[#6E856C] border border-[#E8DDD6] shrink-0 shadow-2xs">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white text-[#6E856C] border border-[#e2ddd5] shrink-0 shadow-2xs">
                             Event
                           </span>
                         </div>
@@ -2196,41 +2196,41 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 6. MUA, Kebaya, Hairdo & Hijabdo - Sand (#E5D5BC) sesuai Foto 2 */}
+                  {/* 6. MUA, Kebaya, Hairdo & Hijabdo - (#ab8a77) */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#E5D5BC] hover:bg-[#DBCABA] border border-[#E8DDD6] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isMuaCardExpanded
-                      ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md text-white ${isMuaCardExpanded
+                      ? 'ring-2 ring-white/40 shadow-md'
                       : ''
                       }`}
                   >
                     {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Sparkles className="w-4 h-4 stroke-[1.8] text-[#6E856C]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-white/40 text-[#ab8a77] flex items-center justify-center shrink-0 shadow-2xs">
+                        <Sparkles className="w-4 h-4 stroke-[1.8] text-[#ab8a77]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-white tracking-wider uppercase truncate">
                             MUA, KEBAYA &amp; HAIRDO
                           </h4>
-                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-[#FDFBF7] text-[#6E856C] border border-[#E8DDD6] shrink-0 shadow-2xs">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.15em] px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30 shrink-0 shadow-2xs">
                             Beauty
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#666666] font-medium truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#f3f2ed] font-medium truncate mt-0.5">
                           Makeup, kebaya, hairdo &amp; hijabdo siap sesi foto
                         </p>
                       </div>
                     </div>
 
                     {/* Card Bottom: White Luxury Studio Selector Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#E8DDD6]">
+                    <div className="mt-2.5 pt-2 border-t border-white/20">
                       <button
                         type="button"
                         onClick={toggleMua}
                         className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isMuaCardExpanded
-                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-[#3A3A3A] ring-1 ring-[#3A3A3A]/20 shadow-inner'
-                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-[#D8CDC5] hover:border-[#3A3A3A]'
+                          ? 'bg-[#FDFBF7] text-[#1E1E1E] border-white ring-1 ring-white/30 shadow-inner'
+                          : 'bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border-white'
                           }`}
                       >
                         <span className="flex items-center gap-1.5">
