@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Sparkles, MapPin, Calendar, MessageCircle, X } from 'lucide-react';
+import { Camera, Sparkles, MapPin, MessageCircle, X } from 'lucide-react';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 
 interface MobileBottomNavProps {
@@ -73,7 +73,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         </div>
       )}
 
-      <div className="grid grid-cols-5 gap-0.5 text-center max-w-md mx-auto">
+      <div className="grid grid-cols-4 gap-0.5 text-center max-w-md mx-auto">
         <button
           onClick={() => {
             if (onNavigateToPricelist) {
@@ -138,13 +138,6 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           <span className="text-[8px] uppercase tracking-wide leading-none font-bold">Lokasi</span>
         </button>
 
-        <button
-          onClick={onOpenBooking}
-          className="min-h-[42px] flex flex-col items-center justify-center py-1 text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#DFCFC5] border border-[#E8DDD6] font-bold shadow-2xs transition-all active:scale-95 cursor-pointer"
-        >
-          <Calendar className="w-4 h-4 mb-0.5 stroke-[1.8] text-[#6E856C]" />
-          <span className="text-[8px] uppercase tracking-wide leading-none font-bold">Booking</span>
-        </button>
       </div>
     </div>
   );

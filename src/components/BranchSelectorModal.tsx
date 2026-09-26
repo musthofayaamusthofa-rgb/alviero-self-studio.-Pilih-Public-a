@@ -1373,12 +1373,9 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
                 WHY CHOOSE ALVIERO STUDIO?
               </h3>
-              <p className="text-xs font-sans text-[#666666]">
-                Kenyamanan, kualitas visual premium & pelayanan terpercaya
-              </p>
             </div>
 
-{/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
+            {/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 text-center">
               
               {/* Item 1: 10K+ Trusted Clients (Cream ke Sand) */}
