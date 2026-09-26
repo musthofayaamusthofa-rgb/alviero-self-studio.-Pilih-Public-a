@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, Sparkles, MapPin, MessageCircle, X } from 'lucide-react';
+import { Camera, Sparkles, MapPin, X } from 'lucide-react';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 
 interface MobileBottomNavProps {
@@ -66,7 +66,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                   <span className="block text-[11px] font-bold text-[#3A3A3A]">{branch.shortName.replace('Alviero Studio — ', '')}</span>
                   <span className="block text-[10px] text-stone-500">{branch.whatsappDisplay}</span>
                 </span>
-                <MessageCircle className="h-4 w-4 text-[#25D366]" />
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 shrink-0">
+                  <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.672 4.8 1.84 6.796L2 30l7.41-1.814A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2Z" fill="#25D366"/>
+                  <path d="M22.5 19.5c-.3-.15-1.77-.873-2.044-.972-.274-.1-.474-.15-.673.15-.2.3-.773.972-.947 1.173-.174.2-.348.225-.648.075-.3-.15-1.267-.467-2.413-1.49-.892-.796-1.494-1.779-1.669-2.079-.174-.3-.018-.462.131-.61.134-.134.3-.35.45-.524.15-.174.2-.3.3-.5.1-.2.05-.374-.025-.524-.075-.15-.673-1.622-.922-2.22-.243-.583-.49-.504-.673-.513l-.574-.01c-.2 0-.524.075-.8.374-.274.3-1.047 1.023-1.047 2.495 0 1.472 1.072 2.895 1.222 3.095.15.2 2.11 3.22 5.11 4.514.714.308 1.272.492 1.707.63.717.228 1.37.196 1.886.119.575-.086 1.77-.724 2.02-1.423.248-.7.248-1.298.173-1.423-.074-.124-.274-.2-.574-.35Z" fill="white"/>
+                </svg>
               </button>
             ))}
           </div>
@@ -119,7 +122,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             : 'text-[#5A5A5A] hover:bg-[#EAF8EE] hover:text-[#168C45] font-medium'
             }`}
         >
-          <MessageCircle className={`w-4 h-4 mb-0.5 stroke-[1.8] ${isHelpOpen ? 'text-white' : 'text-[#25D366]'}`} />
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mb-0.5 shrink-0">
+            <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.672 4.8 1.84 6.796L2 30l7.41-1.814A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2Z" fill={isHelpOpen ? 'white' : '#25D366'}/>
+            <path d="M22.5 19.5c-.3-.15-1.77-.873-2.044-.972-.274-.1-.474-.15-.673.15-.2.3-.773.972-.947 1.173-.174.2-.348.225-.648.075-.3-.15-1.267-.467-2.413-1.49-.892-.796-1.494-1.779-1.669-2.079-.174-.3-.018-.462.131-.61.134-.134.3-.35.45-.524.15-.174.2-.3.3-.5.1-.2.05-.374-.025-.524-.075-.15-.673-1.622-.922-2.22-.243-.583-.49-.504-.673-.513l-.574-.01c-.2 0-.524.075-.8.374-.274.3-1.047 1.023-1.047 2.495 0 1.472 1.072 2.895 1.222 3.095.15.2 2.11 3.22 5.11 4.514.714.308 1.272.492 1.707.63.717.228 1.37.196 1.886.119.575-.086 1.77-.724 2.02-1.423.248-.7.248-1.298.173-1.423-.074-.124-.274-.2-.574-.35Z" fill={isHelpOpen ? '#25D366' : 'white'}/>
+          </svg>
           <span className="text-[8px] uppercase tracking-wide leading-none font-bold">Info Bantuan</span>
         </button>
 
