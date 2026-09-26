@@ -1528,53 +1528,59 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* 6 Pilihan Kategori Terurut Sesuai Permintaan */}
               <div className="pt-2 border-t border-[#3A3A3A] relative z-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 items-start">
-                  {/* 1. Studio Foto - Tone A: Warm Champagne Base + Sage Accent */}
+                  {/* 1. Studio Foto - Tone A: Warm Champagne Silk */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#FBF2EA] via-[#F6E3D3] to-[#EED3BD] border transition-all duration-200 text-left relative overflow-hidden shadow-sm ${isStudioFotoExpanded
-                      ? 'border-[#805830] ring-2 ring-[#805830]/40 shadow-md'
-                      : 'border-[#DEBEA2] hover:border-[#805830]'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#FCF8F4] via-[#F5ECE1] to-[#E9DDD0] border transition-all duration-300 text-left relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.9)] ${isStudioFotoExpanded
+                      ? 'border-[#8A6337] ring-2 ring-[#8A6337]/30 shadow-lg'
+                      : 'border-[#D8C4AE] hover:border-[#8A6337]'
                       }`}
                   >
-                    {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
+                    {/* Top Dual-Pastel Metallic Hairline */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#C5A880] via-[#EADBCE] to-[#A9BCA7]" />
+
+                    {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FDFBF7] border border-[#DEBEA2] text-[#805830] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Camera className="w-4 h-4 stroke-[1.8] text-[#805830]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-[#D8C4AE] text-[#805830] flex items-center justify-center shrink-0 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+                        <Camera className="w-4 h-4 stroke-[1.9] text-[#805830]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#2A2A2A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1E1E1E] tracking-wider uppercase truncate">
                             STUDIO FOTO
                           </h4>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#D6E6D4] text-[#244620] border border-[#A1C29E] shrink-0">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-full bg-[#E5EFE4] text-[#294B24] border border-[#A8C7A5] shrink-0 shadow-2xs">
                             Foto Studio
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#5C4A3C] truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#5C4A3C] font-medium truncate mt-0.5">
                           Graduation, Group, Family, Personal, Maternity
                         </p>
                       </div>
                     </div>
 
-                    {/* Card Bottom: Compact Action Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#DEBEA2]/70">
+                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    <div className="mt-2.5 pt-2 border-t border-[#D8C4AE]/70">
                       <button
                         type="button"
                         onClick={toggleStudioFoto}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isStudioFotoExpanded
-                          ? 'bg-[#2A2A2A] text-white border-[#2A2A2A] shadow-xs'
-                          : 'bg-[#FDFBF7] hover:bg-[#2A2A2A] hover:text-white text-[#2A2A2A] border-[#DEBEA2]'
+                        className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isStudioFotoExpanded
+                          ? 'bg-[#141414] text-white border-black shadow-inner'
+                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
                           }`}
                       >
-                        <span>{isStudioFotoExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-[#D6E6D4]' : 'text-[#805830]'}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7]" />
+                          <span>{isStudioFotoExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#E5CDB8]'}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio Foto */}
                       {isStudioFotoExpanded && (
-                        <div className="mt-2.5 pt-2 border-t border-[#DEBEA2] space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                          <div className="flex items-center justify-between text-[9.5px] font-sans text-[#5C4A3C] font-bold uppercase tracking-wider">
+                        <div className="mt-2.5 pt-2 border-t border-[#D8C4AE]/80 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[9px] font-sans text-[#5C4A3C] font-bold uppercase tracking-wider px-0.5">
                             <span>PILIH LOKASI STUDIO FOTO:</span>
-                            <span className="text-[8.5px] text-[#805830] font-mono">08:00 - 21:00</span>
+                            <span className="text-[8.5px] text-[#805830] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#D8C4AE]/50">08:00 - 21:00</span>
                           </div>
 
                           <div className="flex flex-col gap-1.5">
@@ -1586,20 +1592,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 localStorage.setItem('alviero_expanded_service', 'studio-foto');
                                 onSelectBranch('cabang-1');
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#DEBEA2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b1 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#D8C4AE]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/b1 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#6E5A4E] group-hover/b1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/b1:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/b1:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/b1:translate-x-0.5 group-hover/b1:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1613,20 +1619,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 localStorage.setItem('alviero_expanded_service', 'studio-foto');
                                 onSelectBranch('cabang-2');
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#DEBEA2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b2 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#D8C4AE]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/b2 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#6E5A4E] group-hover/b2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/b2:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/b2:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/b2:translate-x-0.5 group-hover/b2:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1637,53 +1643,59 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 2. SelfStudio - Tone B: Dusty Sage Base + Champagne Accent */}
+                  {/* 2. SelfStudio - Tone B: Dusty Sage Cashmere */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#EEF5EC] via-[#DBEADB] to-[#C9DFC7] border transition-all duration-200 text-left relative overflow-hidden shadow-sm ${isSelfStudioExpanded
-                      ? 'border-[#335C2F] ring-2 ring-[#335C2F]/40 shadow-md'
-                      : 'border-[#A6C5A2] hover:border-[#335C2F]'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#F7FAF6] via-[#EEF5EC] to-[#DFEBE0] border transition-all duration-300 text-left relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.9)] ${isSelfStudioExpanded
+                      ? 'border-[#335C2F] ring-2 ring-[#335C2F]/30 shadow-lg'
+                      : 'border-[#B2CAB1] hover:border-[#335C2F]'
                       }`}
                   >
-                    {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
+                    {/* Top Dual-Pastel Metallic Hairline */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#A9BCA7] via-[#EADBCE] to-[#C5A880]" />
+
+                    {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FDFBF7] border border-[#A6C5A2] text-[#335C2F] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Sparkles className="w-4 h-4 stroke-[1.8] text-[#335C2F]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-[#B2CAB1] text-[#335C2F] flex items-center justify-center shrink-0 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+                        <Sparkles className="w-4 h-4 stroke-[1.9] text-[#335C2F]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#2A2A2A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1E1E1E] tracking-wider uppercase truncate">
                             SELFSTUDIO
                           </h4>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#FCE9D8] text-[#6E441D] border border-[#DFC0A0] shrink-0">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-full bg-[#F8EFE4] text-[#6E4820] border border-[#DFC3A4] shrink-0 shadow-2xs">
                             Self Photo
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#3F543C] truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#3F543C] font-medium truncate mt-0.5">
                           Foto Mandiri Wireless Shutter &amp; Cetak Kolase
                         </p>
                       </div>
                     </div>
 
-                    {/* Card Bottom: Compact Action Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#A6C5A2]/70">
+                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    <div className="mt-2.5 pt-2 border-t border-[#B2CAB1]/70">
                       <button
                         type="button"
                         onClick={toggleSelfStudio}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isSelfStudioExpanded
-                          ? 'bg-[#2A2A2A] text-white border-[#2A2A2A] shadow-xs'
-                          : 'bg-[#FDFBF7] hover:bg-[#2A2A2A] hover:text-white text-[#2A2A2A] border-[#A6C5A2]'
+                        className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isSelfStudioExpanded
+                          ? 'bg-[#141414] text-white border-black shadow-inner'
+                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
                           }`}
                       >
-                        <span>{isSelfStudioExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-[#FCE9D8]' : 'text-[#335C2F]'}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E5CDB8]" />
+                          <span>{isSelfStudioExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-[#E5CDB8]' : 'text-[#A9BCA7]'}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk SelfStudio */}
                       {isSelfStudioExpanded && (
-                        <div className="mt-2.5 pt-2 border-t border-[#A6C5A2] space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                          <div className="flex items-center justify-between text-[9.5px] font-sans text-[#3F543C] font-bold uppercase tracking-wider">
+                        <div className="mt-2.5 pt-2 border-t border-[#B2CAB1]/80 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[9px] font-sans text-[#3F543C] font-bold uppercase tracking-wider px-0.5">
                             <span>PILIH LOKASI SELFSTUDIO:</span>
-                            <span className="text-[8.5px] text-[#335C2F] font-mono">08:00 - 21:00</span>
+                            <span className="text-[8.5px] text-[#335C2F] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#B2CAB1]/50">08:00 - 21:00</span>
                           </div>
 
                           <div className="flex flex-col gap-1.5">
@@ -1699,20 +1711,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-1');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#A6C5A2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s1 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#B2CAB1]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/s1 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#4F634B] group-hover/s1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/s1:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/s1:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/s1:translate-x-0.5 group-hover/s1:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1730,20 +1742,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-2');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#A6C5A2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s2 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#B2CAB1]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/s2 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#4F634B] group-hover/s2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/s2:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/s2:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/s2:translate-x-0.5 group-hover/s2:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1754,53 +1766,59 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 3. Cetak & Bingkai - Tone A: Warm Champagne Base + Sage Accent */}
+                  {/* 3. Cetak & Bingkai - Tone A: Warm Champagne Silk */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#FBF2EA] via-[#F6E3D3] to-[#EED3BD] border transition-all duration-200 text-left relative overflow-hidden shadow-sm ${isCetakCardExpanded
-                      ? 'border-[#805830] ring-2 ring-[#805830]/40 shadow-md'
-                      : 'border-[#DEBEA2] hover:border-[#805830]'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#FCF8F4] via-[#F5ECE1] to-[#E9DDD0] border transition-all duration-300 text-left relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.9)] ${isCetakCardExpanded
+                      ? 'border-[#8A6337] ring-2 ring-[#8A6337]/30 shadow-lg'
+                      : 'border-[#D8C4AE] hover:border-[#8A6337]'
                       }`}
                   >
-                    {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
+                    {/* Top Dual-Pastel Metallic Hairline */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#C5A880] via-[#EADBCE] to-[#A9BCA7]" />
+
+                    {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FDFBF7] border border-[#DEBEA2] text-[#805830] flex items-center justify-center shrink-0 shadow-2xs">
-                        <ImageIcon className="w-4 h-4 stroke-[1.8] text-[#805830]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-[#D8C4AE] text-[#805830] flex items-center justify-center shrink-0 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+                        <ImageIcon className="w-4 h-4 stroke-[1.9] text-[#805830]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#2A2A2A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1E1E1E] tracking-wider uppercase truncate">
                             CETAK &amp; BINGKAI
                           </h4>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#D6E6D4] text-[#244620] border border-[#A1C29E] shrink-0">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-full bg-[#E5EFE4] text-[#294B24] border border-[#A8C7A5] shrink-0 shadow-2xs">
                             Frame
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#5C4A3C] truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#5C4A3C] font-medium truncate mt-0.5">
                           Cetak Berkualitas, Bingkai Kayu &amp; Album
                         </p>
                       </div>
                     </div>
 
-                    {/* Card Bottom: Compact Action Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#DEBEA2]/70">
+                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    <div className="mt-2.5 pt-2 border-t border-[#D8C4AE]/70">
                       <button
                         type="button"
                         onClick={toggleCetak}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isCetakCardExpanded
-                          ? 'bg-[#2A2A2A] text-white border-[#2A2A2A] shadow-xs'
-                          : 'bg-[#FDFBF7] hover:bg-[#2A2A2A] hover:text-white text-[#2A2A2A] border-[#DEBEA2]'
+                        className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isCetakCardExpanded
+                          ? 'bg-[#141414] text-white border-black shadow-inner'
+                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
                           }`}
                       >
-                        <span>{isCetakCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCetakCardExpanded ? 'rotate-180 text-[#D6E6D4]' : 'text-[#805830]'}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7]" />
+                          <span>{isCetakCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCetakCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#E5CDB8]'}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk Cetak & Bingkai */}
                       {isCetakCardExpanded && (
-                        <div className="mt-2.5 pt-2 border-t border-[#DEBEA2] space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                          <div className="flex items-center justify-between text-[9.5px] font-sans text-[#5C4A3C] font-bold uppercase tracking-wider">
+                        <div className="mt-2.5 pt-2 border-t border-[#D8C4AE]/80 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[9px] font-sans text-[#5C4A3C] font-bold uppercase tracking-wider px-0.5">
                             <span>PILIH LOKASI STUDIO CETAK:</span>
-                            <span className="text-[8.5px] text-[#805830] font-mono">08:00 - 21:00</span>
+                            <span className="text-[8.5px] text-[#805830] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#D8C4AE]/50">08:00 - 21:00</span>
                           </div>
 
                           <div className="flex flex-col gap-1.5">
@@ -1816,20 +1834,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-1');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#DEBEA2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/c1 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#D8C4AE]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/c1 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#6E5A4E] group-hover/c1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/c1:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/c1:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/c1:translate-x-0.5 group-hover/c1:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1847,20 +1865,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-2');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#DEBEA2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/c2 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#D8C4AE]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/c2 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#6E5A4E] group-hover/c2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/c2:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/c2:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/c2:translate-x-0.5 group-hover/c2:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1871,53 +1889,59 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 4. Wedding & Prewedding - Tone B: Dusty Sage Base + Champagne Accent */}
+                  {/* 4. Wedding & Prewedding - Tone B: Dusty Sage Cashmere */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#EEF5EC] via-[#DBEADB] to-[#C9DFC7] border transition-all duration-200 text-left relative overflow-hidden shadow-sm ${isWeddingCardExpanded
-                      ? 'border-[#335C2F] ring-2 ring-[#335C2F]/40 shadow-md'
-                      : 'border-[#A6C5A2] hover:border-[#335C2F]'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#F7FAF6] via-[#EEF5EC] to-[#DFEBE0] border transition-all duration-300 text-left relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.9)] ${isWeddingCardExpanded
+                      ? 'border-[#335C2F] ring-2 ring-[#335C2F]/30 shadow-lg'
+                      : 'border-[#B2CAB1] hover:border-[#335C2F]'
                       }`}
                   >
-                    {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
+                    {/* Top Dual-Pastel Metallic Hairline */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#A9BCA7] via-[#EADBCE] to-[#C5A880]" />
+
+                    {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FDFBF7] border border-[#A6C5A2] text-[#335C2F] flex items-center justify-center shrink-0 shadow-2xs">
-                        <HeartHandshake className="w-4 h-4 stroke-[1.8] text-[#335C2F]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-[#B2CAB1] text-[#335C2F] flex items-center justify-center shrink-0 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+                        <HeartHandshake className="w-4 h-4 stroke-[1.9] text-[#335C2F]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#2A2A2A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1E1E1E] tracking-wider uppercase truncate">
                             WEDDING &amp; PREWEDDING
                           </h4>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#FCE9D8] text-[#6E441D] border border-[#DFC0A0] shrink-0">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-full bg-[#F8EFE4] text-[#6E4820] border border-[#DFC3A4] shrink-0 shadow-2xs">
                             Suite
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#3F543C] truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#3F543C] font-medium truncate mt-0.5">
                           Prewedding Outdoor/Studio, Akad &amp; Resepsi
                         </p>
                       </div>
                     </div>
 
-                    {/* Card Bottom: Compact Action Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#A6C5A2]/70">
+                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    <div className="mt-2.5 pt-2 border-t border-[#B2CAB1]/70">
                       <button
                         type="button"
                         onClick={toggleWedding}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isWeddingCardExpanded
-                          ? 'bg-[#2A2A2A] text-white border-[#2A2A2A] shadow-xs'
-                          : 'bg-[#FDFBF7] hover:bg-[#2A2A2A] hover:text-white text-[#2A2A2A] border-[#A6C5A2]'
+                        className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isWeddingCardExpanded
+                          ? 'bg-[#141414] text-white border-black shadow-inner'
+                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
                           }`}
                       >
-                        <span>{isWeddingCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isWeddingCardExpanded ? 'rotate-180 text-[#FCE9D8]' : 'text-[#335C2F]'}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E5CDB8]" />
+                          <span>{isWeddingCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isWeddingCardExpanded ? 'rotate-180 text-[#E5CDB8]' : 'text-[#A9BCA7]'}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk Wedding */}
                       {isWeddingCardExpanded && (
-                        <div className="mt-2.5 pt-2 border-t border-[#A6C5A2] space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                          <div className="flex items-center justify-between text-[9.5px] font-sans text-[#3F543C] font-bold uppercase tracking-wider">
+                        <div className="mt-2.5 pt-2 border-t border-[#B2CAB1]/80 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[9px] font-sans text-[#3F543C] font-bold uppercase tracking-wider px-0.5">
                             <span>PILIH LOKASI STUDIO:</span>
-                            <span className="text-[8.5px] text-[#335C2F] font-mono">08:00 - 21:00</span>
+                            <span className="text-[8.5px] text-[#335C2F] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#B2CAB1]/50">08:00 - 21:00</span>
                           </div>
 
                           <div className="flex flex-col gap-1.5">
@@ -1933,20 +1957,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-1');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#A6C5A2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/w1 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#B2CAB1]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/w1 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#4F634B] group-hover/w1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/w1:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/w1:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/w1:translate-x-0.5 group-hover/w1:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1964,20 +1988,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-2');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#A6C5A2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/w2 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#B2CAB1]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/w2 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#4F634B] group-hover/w2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/w2:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/w2:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/w2:translate-x-0.5 group-hover/w2:-translate-y-0.5 transition-transform" />
                               </div>
@@ -1988,53 +2012,59 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 5. Event - Tone A: Warm Champagne Base + Sage Accent */}
+                  {/* 5. Event - Tone A: Warm Champagne Silk */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#FBF2EA] via-[#F6E3D3] to-[#EED3BD] border transition-all duration-200 text-left relative overflow-hidden shadow-sm ${isEventCardExpanded
-                      ? 'border-[#805830] ring-2 ring-[#805830]/40 shadow-md'
-                      : 'border-[#DEBEA2] hover:border-[#805830]'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#FCF8F4] via-[#F5ECE1] to-[#E9DDD0] border transition-all duration-300 text-left relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.9)] ${isEventCardExpanded
+                      ? 'border-[#8A6337] ring-2 ring-[#8A6337]/30 shadow-lg'
+                      : 'border-[#D8C4AE] hover:border-[#8A6337]'
                       }`}
                   >
-                    {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
+                    {/* Top Dual-Pastel Metallic Hairline */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#C5A880] via-[#EADBCE] to-[#A9BCA7]" />
+
+                    {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FDFBF7] border border-[#DEBEA2] text-[#805830] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Calendar className="w-4 h-4 stroke-[1.8] text-[#805830]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-[#D8C4AE] text-[#805830] flex items-center justify-center shrink-0 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+                        <Calendar className="w-4 h-4 stroke-[1.9] text-[#805830]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#2A2A2A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1E1E1E] tracking-wider uppercase truncate">
                             EVENT DOKUMENTASI
                           </h4>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#D6E6D4] text-[#244620] border border-[#A1C29E] shrink-0">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-full bg-[#E5EFE4] text-[#294B24] border border-[#A8C7A5] shrink-0 shadow-2xs">
                             Event
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#5C4A3C] truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#5C4A3C] font-medium truncate mt-0.5">
                           Dokumentasi Birthday, Gathering &amp; Seminar
                         </p>
                       </div>
                     </div>
 
-                    {/* Card Bottom: Compact Action Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#DEBEA2]/70">
+                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    <div className="mt-2.5 pt-2 border-t border-[#D8C4AE]/70">
                       <button
                         type="button"
                         onClick={toggleEvent}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isEventCardExpanded
-                          ? 'bg-[#2A2A2A] text-white border-[#2A2A2A] shadow-xs'
-                          : 'bg-[#FDFBF7] hover:bg-[#2A2A2A] hover:text-white text-[#2A2A2A] border-[#DEBEA2]'
+                        className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isEventCardExpanded
+                          ? 'bg-[#141414] text-white border-black shadow-inner'
+                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
                           }`}
                       >
-                        <span>{isEventCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isEventCardExpanded ? 'rotate-180 text-[#D6E6D4]' : 'text-[#805830]'}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#A9BCA7]" />
+                          <span>{isEventCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isEventCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#E5CDB8]'}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk Event */}
                       {isEventCardExpanded && (
-                        <div className="mt-2.5 pt-2 border-t border-[#DEBEA2] space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                          <div className="flex items-center justify-between text-[9.5px] font-sans text-[#5C4A3C] font-bold uppercase tracking-wider">
+                        <div className="mt-2.5 pt-2 border-t border-[#D8C4AE]/80 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[9px] font-sans text-[#5C4A3C] font-bold uppercase tracking-wider px-0.5">
                             <span>PILIH LOKASI STUDIO:</span>
-                            <span className="text-[8.5px] text-[#805830] font-mono">08:00 - 21:00</span>
+                            <span className="text-[8.5px] text-[#805830] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#D8C4AE]/50">08:00 - 21:00</span>
                           </div>
 
                           <div className="flex flex-col gap-1.5">
@@ -2050,20 +2080,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-1');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#DEBEA2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/e1 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#D8C4AE]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/e1 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#6E5A4E] group-hover/e1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/e1:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/e1:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/e1:translate-x-0.5 group-hover/e1:-translate-y-0.5 transition-transform" />
                               </div>
@@ -2081,20 +2111,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   onSelectBranch('cabang-2');
                                 }
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#DEBEA2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/e2 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#D8C4AE]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/e2 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#6E5A4E] group-hover/e2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/e2:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#805830] group-hover/e2:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/e2:translate-x-0.5 group-hover/e2:-translate-y-0.5 transition-transform" />
                               </div>
@@ -2105,53 +2135,59 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                     </div>
                   </div>
 
-                  {/* 6. MUA, Kebaya, Hairdo & Hijabdo - Tone B: Dusty Sage Base + Champagne Accent */}
+                  {/* 6. MUA, Kebaya, Hairdo & Hijabdo - Tone B: Dusty Sage Cashmere */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#EEF5EC] via-[#DBEADB] to-[#C9DFC7] border transition-all duration-200 text-left relative overflow-hidden shadow-sm ${isMuaCardExpanded
-                      ? 'border-[#335C2F] ring-2 ring-[#335C2F]/40 shadow-md'
-                      : 'border-[#A6C5A2] hover:border-[#335C2F]'
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-gradient-to-br from-[#F7FAF6] via-[#EEF5EC] to-[#DFEBE0] border transition-all duration-300 text-left relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.9)] ${isMuaCardExpanded
+                      ? 'border-[#335C2F] ring-2 ring-[#335C2F]/30 shadow-lg'
+                      : 'border-[#B2CAB1] hover:border-[#335C2F]'
                       }`}
                   >
-                    {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
+                    {/* Top Dual-Pastel Metallic Hairline */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#A9BCA7] via-[#EADBCE] to-[#C5A880]" />
+
+                    {/* Card Top: Medallion Icon, Title + Jewel Badge, Description */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#FDFBF7] border border-[#A6C5A2] text-[#335C2F] flex items-center justify-center shrink-0 shadow-2xs">
-                        <Sparkles className="w-4 h-4 stroke-[1.8] text-[#335C2F]" />
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-white/95 border border-[#B2CAB1] text-[#335C2F] flex items-center justify-center shrink-0 shadow-[0_2px_6px_rgba(0,0,0,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+                        <Sparkles className="w-4 h-4 stroke-[1.9] text-[#335C2F]" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-1.5">
-                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#2A2A2A] tracking-wider uppercase truncate">
+                          <h4 className="font-serif font-bold text-xs sm:text-[13px] text-[#1E1E1E] tracking-wider uppercase truncate">
                             MUA, KEBAYA &amp; HAIRDO
                           </h4>
-                          <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#FCE9D8] text-[#6E441D] border border-[#DFC0A0] shrink-0">
+                          <span className="text-[7.5px] sm:text-[8px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-full bg-[#F8EFE4] text-[#6E4820] border border-[#DFC3A4] shrink-0 shadow-2xs">
                             Beauty
                           </span>
                         </div>
-                        <p className="text-[10px] sm:text-[11px] font-sans text-[#3F543C] truncate mt-0.5">
+                        <p className="text-[10px] sm:text-[11px] font-sans text-[#3F543C] font-medium truncate mt-0.5">
                           Makeup, kebaya, hairdo &amp; hijabdo siap sesi foto
                         </p>
                       </div>
                     </div>
 
-                    {/* Card Bottom: Compact Action Button */}
-                    <div className="mt-2.5 pt-2 border-t border-[#A6C5A2]/70">
+                    {/* Card Bottom: Obsidian Luxury Concierge Button */}
+                    <div className="mt-2.5 pt-2 border-t border-[#B2CAB1]/70">
                       <button
                         type="button"
                         onClick={toggleMua}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isMuaCardExpanded
-                          ? 'bg-[#2A2A2A] text-white border-[#2A2A2A] shadow-xs'
-                          : 'bg-[#FDFBF7] hover:bg-[#2A2A2A] hover:text-white text-[#2A2A2A] border-[#A6C5A2]'
+                        className={`w-full py-1.5 sm:py-2 px-3 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-[0.12em] flex items-center justify-between transition-all duration-200 cursor-pointer shadow-xs ${isMuaCardExpanded
+                          ? 'bg-[#141414] text-white border-black shadow-inner'
+                          : 'bg-[#222222] hover:bg-[#111111] text-[#FDFBF7] border-[#383838]'
                           }`}
                       >
-                        <span>{isMuaCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMuaCardExpanded ? 'rotate-180 text-[#FCE9D8]' : 'text-[#335C2F]'}`} />
+                        <span className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E5CDB8]" />
+                          <span>{isMuaCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        </span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMuaCardExpanded ? 'rotate-180 text-[#E5CDB8]' : 'text-[#A9BCA7]'}`} />
                       </button>
 
                       {/* Drawer Pilihan Studio untuk MUA */}
                       {isMuaCardExpanded && (
-                        <div className="mt-2.5 pt-2 border-t border-[#A6C5A2] space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
-                          <div className="flex items-center justify-between text-[9.5px] font-sans text-[#3F543C] font-bold uppercase tracking-wider">
+                        <div className="mt-2.5 pt-2 border-t border-[#B2CAB1]/80 space-y-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[9px] font-sans text-[#3F543C] font-bold uppercase tracking-wider px-0.5">
                             <span>PILIH LOKASI STUDIO / MUA:</span>
-                            <span className="text-[8.5px] text-[#335C2F] font-mono">08:00 - 21:00</span>
+                            <span className="text-[8.5px] text-[#335C2F] font-mono bg-white/80 px-1.5 py-0.5 rounded border border-[#B2CAB1]/50">08:00 - 21:00</span>
                           </div>
 
                           <div className="flex flex-col gap-1.5">
@@ -2164,20 +2200,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 onOpenBeautyModal?.('Studio 1');
                                 setIsMuaCardExpanded(false);
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#A6C5A2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/m1 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#B2CAB1]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/m1 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#4F634B] group-hover/m1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/m1:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/m1:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/m1:translate-x-0.5 group-hover/m1:-translate-y-0.5 transition-transform" />
                               </div>
@@ -2192,20 +2228,20 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 onOpenBeautyModal?.('Studio 2');
                                 setIsMuaCardExpanded(false);
                               }}
-                              className="p-2 rounded-lg bg-[#FDFBF7] hover:bg-[#2A2A2A] text-[#2A2A2A] hover:text-white border border-[#A6C5A2] hover:border-[#2A2A2A] transition-all flex items-center justify-between gap-2 shadow-2xs group/m2 cursor-pointer active:scale-98 text-left"
+                              className="p-2 sm:p-2.5 rounded-xl bg-white/95 hover:bg-[#1E1E1E] text-[#222222] hover:text-white border border-[#B2CAB1]/80 hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/m2 cursor-pointer active:scale-98 text-left"
                             >
                               <div className="min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-[8.5px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                  <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#4F634B] group-hover/m2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
                                 </p>
                               </div>
-                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/m2:text-[#F2E9E4] shrink-0">
+                              <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#335C2F] group-hover/m2:text-[#A9BCA7] shrink-0">
                                 <span>Buka</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/m2:translate-x-0.5 group-hover/m2:-translate-y-0.5 transition-transform" />
                               </div>
