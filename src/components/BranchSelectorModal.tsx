@@ -132,7 +132,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
       </div>
 
       {/* 2. Full Image Banner Container */}
-      <div className="w-full h-72 sm:h-84 md:h-[440px] lg:h-[500px] relative overflow-hidden bg-[#2A2A2A]">
+      <div className="w-full h-56 sm:h-72 md:h-[420px] lg:h-[480px] relative overflow-hidden bg-[#2A2A2A]">
         {/* Slide Photo with Smooth Transition */}
         <img
           key={currentItem.id}
@@ -193,21 +193,21 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
       </div>
 
       {/* 3. Hero Content Container */}
-      <div className="w-full bg-[#FDFBF7] px-4 py-6 sm:py-8 md:py-10 text-center flex flex-col items-center justify-center space-y-2.5 sm:space-y-3.5 border-t border-[#E8DDD6]">
-        <span className="text-[10px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#F2E9E4] px-3 py-1 border border-[#E8DDD6]">
+      <div className="w-full bg-[#FDFBF7] px-5 py-7 sm:py-9 md:py-11 text-center flex flex-col items-center justify-center space-y-3 sm:space-y-3.5 border-t border-[#E8DDD6]">
+        <span className="text-[9.5px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#F2E9E4] px-3 py-1 rounded-full border border-[#E8DDD6]">
           ALVIERO PHOTO STUDIO
         </span>
 
-        <h2 className="font-serif font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#3A3A3A] leading-tight tracking-wide uppercase max-w-2xl">
-          Studio Foto Modern dengan Fasilitas Mewah & Terlengkap
+        <h2 className="font-serif font-black text-lg sm:text-2xl md:text-3xl lg:text-4xl text-[#3A3A3A] leading-snug sm:leading-tight tracking-wide uppercase max-w-2xl px-2">
+          Studio Foto Modern dengan Fasilitas Mewah &amp; Terlengkap
         </h2>
 
-        <p className="font-serif font-semibold text-xs sm:text-sm md:text-base text-[#6E856C] tracking-[0.18em] uppercase">
+        <p className="font-serif font-semibold text-[11px] sm:text-sm md:text-base text-[#6E856C] tracking-[0.16em] uppercase">
           Kenyamanan Maksimal • Kualitas Visual Premium
         </p>
 
-        <p className="font-sans text-xs sm:text-sm md:text-base text-[#666666] max-w-xl mx-auto leading-relaxed">
-          Studio foto & self-studio modern di Malang dengan tema background estetik, pencahayaan profesional, dan fasilitas lengkap.
+        <p className="font-sans text-[11.5px] sm:text-sm md:text-base text-[#666666] max-w-xl mx-auto leading-relaxed px-2">
+          Studio foto &amp; self-studio modern di Malang dengan tema background estetik, pencahayaan profesional, dan fasilitas lengkap.
         </p>
       </div>
 
@@ -315,7 +315,7 @@ export const ClientReviewCarousel: React.FC = () => {
 
   return (
     <div
-      className="pt-5 pb-1 border-t border-[#E8DDD6] space-y-3 relative select-none"
+      className="space-y-4 relative select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -1365,107 +1365,115 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
         <BackgroundHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
 
         {/* Content Area */}
-        <div className="p-3.5 sm:p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8 bg-[#FDFBF7] flex-1">
+        <div className="px-4 py-7 sm:p-6 md:p-8 lg:p-10 space-y-8 sm:space-y-10 bg-[#FDFBF7] flex-1">
 
           {/* 1. Why Choose Alviero Studio? */}
-          <div className="pb-1 space-y-4">
+          <div className="space-y-4">
             <div className="text-center space-y-1">
-              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-[0.22em] text-[#6E856C] uppercase">
+                STANDAR LAYANAN TERBAIK
+              </span>
+              <h3 className="font-serif text-sm sm:text-base font-bold tracking-[0.18em] text-[#3A3A3A] uppercase">
                 WHY CHOOSE ALVIERO STUDIO?
               </h3>
             </div>
 
-            {/* 6 Kolom di Desktop, 3 Kolom di Tablet, 2 Kolom di Mobile */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5 text-center">
-              
+            {/* Horizontal Scroll Carousel di Mobile (Lega, Lapang & Modern), Grid di Tablet/Desktop */}
+            <div className="flex md:grid overflow-x-auto md:overflow-x-visible no-scrollbar snap-x snap-mandatory md:snap-none md:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4 pb-2 px-1 -mx-1 text-center">
+
               {/* Item 1: 10K+ Trusted Clients (Cream ke Sand) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <HeartHandshake className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   10K+ Trusted Clients
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Telah dipercaya oleh puluhan ribu klien untuk mengabadikan momen berharga dengan kepuasan maksimal.
+                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                  Telah dipercaya puluhan ribu klien untuk mengabadikan momen berharga dengan kepuasan maksimal.
                 </p>
               </div>
 
               {/* Item 2: Fully Equipped (Sand ke Cream) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Sparkles className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   Fully Equipped
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Kenyamanan full AC, fitting room privat, ketersediaan wardrobe, serta aneka properti estetis siap pakai.
+                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                  Kenyamanan pendingin ruangan, fitting room privat, wardrobe, serta properti estetis siap pakai.
                 </p>
               </div>
 
               {/* Item 3: All-in-One Packages (Cream ke Sand) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Layers className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   All-in-One Packages
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Solusi visual untuk self-studio, wisuda, wedding, sesi keluarga, hingga pilihan cetak frame eksklusif.
+                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                  Solusi visual untuk self-studio, wisuda, wedding, keluarga, hingga pilihan cetak frame eksklusif.
                 </p>
               </div>
 
               {/* Item 4: Fast & Friendly (Sand ke Cream) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Clock className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
-                  Fast & Friendly
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
+                  Fast &amp; Friendly
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Sistem booking instan tanpa antre, respons layanan cepat, dan pendampingan staf yang selalu hangat.
+                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                  Sistem booking instan tanpa antre, respons layanan cepat, dan pendampingan staf yang selalu ramah.
                 </p>
               </div>
 
               {/* Item 5: Premium Quality (Cream ke Sand) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#FEECD0] hover:bg-[#E5D5BC] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Sliders className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   Premium Quality
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Kualitas gambar tajam didukung peralatan standar industri, pencahayaan presisi, dan resolusi tinggi (HD).
+                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                  Kualitas visual tajam dengan peralatan standar industri, pencahayaan presisi, dan resolusi HD.
                 </p>
               </div>
 
               {/* Item 6: Experienced Team (Sand ke Cream) */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-sm hover:shadow-md flex flex-col items-center justify-start transition-all duration-200">
-                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-2.5 shadow-2xs">
+              <div className="min-w-[210px] w-[210px] md:min-w-0 md:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#E5D5BC] hover:bg-[#FEECD0] border border-[#E8DDD6] shadow-xs hover:shadow-md flex flex-col items-center justify-start text-center transition-all duration-200">
+                <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#3A3A3A] flex items-center justify-center mb-3 shadow-2xs">
                   <Camera className="w-5 h-5 stroke-[1.6] text-[#6E856C]" />
                 </div>
-                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-tight">
+                <h4 className="font-serif font-bold text-xs text-[#3A3A3A] uppercase tracking-wider leading-snug min-h-[1.75rem] flex items-center justify-center">
                   Experienced Team
                 </h4>
-                <p className="text-[10.5px] font-sans text-[#666666] leading-relaxed mt-1.5">
-                  Diarahkan langsung oleh tenaga ahli profesional yang siap memandu pose natural untuk hasil paling sempurna.
+                <p className="text-[11px] font-sans text-[#666666] leading-relaxed mt-1">
+                  Diarahkan langsung oleh fotografer profesional yang siap memandu pose natural untuk hasil terbaik.
                 </p>
               </div>
+            </div>
+
+            {/* Mobile Swipe Hint */}
+            <div className="flex md:hidden items-center justify-center gap-1.5 pt-1 text-[10px] font-mono text-stone-400">
+              <span>← Geser keunggulan studio →</span>
             </div>
 
           </div>
 
           {/* 2. Client Reviews & Testimonials Carousel */}
-          <div className="pt-4 border-t border-[#E8DDD6]">
+          <div className="pt-6 sm:pt-8 border-t border-[#E8DDD6]">
             <ClientReviewCarousel />
           </div>
 
           {/* 3. Spesifikasi Studio & Edukasi Ruang Lengkap */}
-          <div className="pt-4 border-t border-[#E8DDD6]">
+          <div className="pt-6 sm:pt-8 border-t border-[#E8DDD6]">
             <StudioTourAndEducationShowcase
               selectedBranch={selectedBranch}
               onSelectBranch={onSelectBranch}
@@ -1474,14 +1482,14 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           </div>
 
           {/* 3.5. Promo Spesial & Voucher Diskon (Gaya Aplikasi PLN Mobile) */}
-          <div className="pt-4 border-t border-[#E8DDD6]">
+          <div className="pt-6 sm:pt-8 border-t border-[#E8DDD6]">
             <PromoSpecialSection
               onSelectPromo={(promo) => setSelectedPromoModal(promo)}
             />
           </div>
 
           {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak */}
-          <div id="section-services" className="pt-4 pb-1 border-t border-[#E8DDD6]">
+          <div id="section-services" className="pt-6 sm:pt-8 pb-1 border-t border-[#E8DDD6]">
 
             {/* BIG EYE-CATCHING GRAND CALLOUT BOX & SPECIALIST SERVICES (Kontainer Border Hitam Sampai Bawah) */}
             <div className="w-full bg-[#2A2A2A] text-white p-4 sm:p-6 md:p-8 border border-[#3A3A3A] rounded-2xl sm:rounded-3xl shadow-xl relative overflow-hidden space-y-5 sm:space-y-6 text-left">
@@ -1522,11 +1530,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 items-start">
                   {/* 1. Studio Foto */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FFF5F2] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${
-                      isStudioFotoExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FFF5F2] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${isStudioFotoExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
                     <div className="flex items-center gap-2.5">
@@ -1553,11 +1560,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleStudioFoto}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
-                          isStudioFotoExpanded
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
-                        }`}
+                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isStudioFotoExpanded
+                          ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                          : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                          }`}
                       >
                         <span>{isStudioFotoExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1633,11 +1639,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 2. SelfStudio */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#F2F7F2] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${
-                      isSelfStudioExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#F2F7F2] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${isSelfStudioExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
                     <div className="flex items-center gap-2.5">
@@ -1664,11 +1669,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleSelfStudio}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
-                          isSelfStudioExpanded
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
-                        }`}
+                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isSelfStudioExpanded
+                          ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                          : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                          }`}
                       >
                         <span>{isSelfStudioExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1752,11 +1756,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 3. Cetak & Bingkai */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#F6F4F9] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${
-                      isCetakCardExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#F6F4F9] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${isCetakCardExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
                     <div className="flex items-center gap-2.5">
@@ -1769,7 +1772,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                             CETAK &amp; BINGKAI
                           </h4>
                           <span className="text-[8px] sm:text-[8.5px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
-                            Lab &amp; Frame
+                            Frame
                           </span>
                         </div>
                         <p className="text-[10px] sm:text-[11px] font-sans text-[#666666] truncate mt-0.5">
@@ -1783,11 +1786,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleCetak}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
-                          isCetakCardExpanded
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
-                        }`}
+                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isCetakCardExpanded
+                          ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                          : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                          }`}
                       >
                         <span>{isCetakCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCetakCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1871,11 +1873,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 4. Wedding & Prewedding */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FDF9F1] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${
-                      isWeddingCardExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FDF9F1] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${isWeddingCardExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
                     <div className="flex items-center gap-2.5">
@@ -1902,11 +1903,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleWedding}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
-                          isWeddingCardExpanded
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
-                        }`}
+                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isWeddingCardExpanded
+                          ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                          : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                          }`}
                       >
                         <span>{isWeddingCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isWeddingCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1990,11 +1990,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 5. Event */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#F2F6F9] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${
-                      isEventCardExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#F2F6F9] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${isEventCardExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
                     <div className="flex items-center gap-2.5">
@@ -2021,11 +2020,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleEvent}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
-                          isEventCardExpanded
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
-                        }`}
+                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isEventCardExpanded
+                          ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                          : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                          }`}
                       >
                         <span>{isEventCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isEventCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -2109,11 +2107,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
 
                   {/* 6. MUA, Kebaya, Hairdo & Hijabdo */}
                   <div
-                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FCF4F6] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${
-                      isMuaCardExpanded
-                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
-                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
-                    }`}
+                    className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#FCF4F6] border transition-all duration-200 text-left relative overflow-hidden shadow-xs ${isMuaCardExpanded
+                      ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-md'
+                      : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                      }`}
                   >
                     {/* Card Top: Icon on Left, Title + Badge on Line 1, Description on Line 2 */}
                     <div className="flex items-center gap-2.5">
@@ -2140,11 +2137,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       <button
                         type="button"
                         onClick={toggleMua}
-                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
-                          isMuaCardExpanded
-                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
-                        }`}
+                        className={`w-full py-1.5 px-2.5 rounded-lg border text-[10.5px] sm:text-[11px] font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${isMuaCardExpanded
+                          ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                          : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                          }`}
                       >
                         <span>{isMuaCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
                         <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMuaCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
