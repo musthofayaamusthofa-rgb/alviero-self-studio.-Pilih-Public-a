@@ -1520,422 +1520,714 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               {/* 6 Pilihan Kategori Terurut Sesuai Permintaan */}
               <div className="pt-2 border-t border-[#3A3A3A] relative z-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
-
-                  {/* 1. Studio Foto (Expandable / Pilihan Studio 1 & Studio 2 Langsung Buka Pricelist) */}
+                  {/* 1. Studio Foto */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#FFF5F2] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
+                    className={`flex h-full w-full flex-col justify-between rounded-2xl p-4 sm:p-5 bg-[#FFF5F2] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isStudioFotoExpanded
                       ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
                       : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
                       }`}
                   >
-                    <div
-                      onClick={toggleStudioFoto}
-                      className="cursor-pointer flex w-full items-start justify-between gap-3 select-none"
-                    >
-                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                    <div>
+                      {/* Top: Icon + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
                         <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                           <Camera className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                              STUDIO FOTO
-                            </h4>
-                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                              Foto Studio
-                            </span>
-                          </div>
-                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                            Graduation, Group, Family, Personal, Couple, Maternity
-                          </p>
-                        </div>
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                          Foto Studio
+                        </span>
                       </div>
 
-                      <div className="flex shrink-0 whitespace-nowrap items-center gap-1 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
-                        <span className="hidden whitespace-nowrap sm:inline text-[10.5px]">
-                          {isStudioFotoExpanded ? 'Tutup' : 'Pilih Studio'}
-                        </span>
-                        <ChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-[#6E856C]' : ''
-                            }`}
-                        />
+                      {/* Title & Description */}
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug min-h-[2.5rem] flex items-center">
+                          STUDIO FOTO
+                        </h4>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1 leading-relaxed min-h-[2rem]">
+                          Graduation, Group, Family, Personal, Couple, Maternity
+                        </p>
                       </div>
                     </div>
 
-                    {/* Drawer Pilihan Studio Foto (Muncul saat ditekan & langsung buka pricelist cabang) */}
-                    {isStudioFotoExpanded && (
-                      <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
-                        <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
-                          <span>PILIH LOKASI STUDIO FOTO:</span>
-                          <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
-                        </div>
+                    {/* Bottom Action: Pilih Studio Trigger */}
+                    <div className="mt-4 pt-3 border-t border-[#E8DDD6]/80">
+                      <button
+                        type="button"
+                        onClick={toggleStudioFoto}
+                        className={`w-full py-2 px-3 rounded-xl border text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
+                          isStudioFotoExpanded
+                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                        }`}
+                      >
+                        <span>{isStudioFotoExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isStudioFotoExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+                      </button>
 
-                        <div className="flex flex-col gap-2">
-                          {/* Opsi Studio 1 */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              localStorage.setItem('alviero_expanded_service', 'studio-foto');
-                              onSelectBranch('cabang-1');
-                            }}
-                            className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b1 cursor-pointer active:scale-98 text-left"
-                          >
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
-                                  Studio 1
-                                </span>
-                                <span className="font-serif font-bold text-xs">Karangploso</span>
-                              </div>
-                              <p className="text-[10px] text-stone-500 group-hover/b1:text-stone-300 truncate mt-0.5">
-                                Jl. Raya Kertanegara, Karangploso
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/b1:text-[#A9BCA7] shrink-0">
-                              <span>Buka</span>
-                              <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/b1:translate-x-0.5 group-hover/b1:-translate-y-0.5 transition-transform" />
-                            </div>
-                          </button>
+                      {/* Drawer Pilihan Studio Foto */}
+                      {isStudioFotoExpanded && (
+                        <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                            <span>PILIH LOKASI STUDIO FOTO:</span>
+                            <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                          </div>
 
-                          {/* Opsi Studio 2 */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              localStorage.setItem('alviero_expanded_service', 'studio-foto');
-                              onSelectBranch('cabang-2');
-                            }}
-                            className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b2 cursor-pointer active:scale-98 text-left"
-                          >
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
-                                  Studio 2
-                                </span>
-                                <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                          <div className="flex flex-col gap-2">
+                            {/* Opsi Studio 1 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'studio-foto');
+                                onSelectBranch('cabang-1');
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b1 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 1
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/b1:text-stone-300 truncate mt-0.5">
+                                  Jl. Raya Kertanegara, Karangploso
+                                </p>
                               </div>
-                              <p className="text-[10px] text-stone-500 group-hover/b2:text-stone-300 truncate mt-0.5">
-                                Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/b2:text-[#A9BCA7] shrink-0">
-                              <span>Buka</span>
-                              <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/b2:translate-x-0.5 group-hover/b2:-translate-y-0.5 transition-transform" />
-                            </div>
-                          </button>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/b1:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/b1:translate-x-0.5 group-hover/b1:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+
+                            {/* Opsi Studio 2 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'studio-foto');
+                                onSelectBranch('cabang-2');
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/b2 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 2
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/b2:text-stone-300 truncate mt-0.5">
+                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/b2:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/b2:translate-x-0.5 group-hover/b2:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
-                  {/* 2. SelfStudio (Expandable / Pilihan Studio 1 & Studio 2) */}
+                  {/* 2. SelfStudio */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#F2F7F2] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
+                    className={`flex h-full w-full flex-col justify-between rounded-2xl p-4 sm:p-5 bg-[#F2F7F2] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isSelfStudioExpanded
                       ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
                       : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
                       }`}
                   >
-                    <div
-                      onClick={toggleSelfStudio}
-                      className="cursor-pointer flex w-full items-start justify-between gap-3 select-none"
-                    >
-                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                    <div>
+                      {/* Top: Icon + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
                         <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                           <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                              SELFSTUDIO
-                            </h4>
-                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                              Self Photo
-                            </span>
-                          </div>
-                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
-                            Foto Mandiri dengan Wireless Remote Shutter & Cetak Kolase
-                          </p>
-                        </div>
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                          Self Photo
+                        </span>
                       </div>
 
-                      <div className="flex shrink-0 whitespace-nowrap items-center gap-1 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] transition-all">
-                        <span className="hidden sm:inline text-[10.5px]">
-                          {isSelfStudioExpanded ? 'Tutup' : 'Pilih Studio'}
-                        </span>
-                        <ChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-[#6E856C]' : ''
-                            }`}
-                        />
+                      {/* Title & Description */}
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug min-h-[2.5rem] flex items-center">
+                          SELFSTUDIO
+                        </h4>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1 leading-relaxed min-h-[2rem]">
+                          Foto Mandiri dengan Wireless Remote Shutter &amp; Cetak Kolase
+                        </p>
                       </div>
                     </div>
 
-                    {/* Drawer Pilihan Studio untuk SelfStudio */}
-                    {isSelfStudioExpanded && (
-                      <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
-                        <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
-                          <span>PILIH LOKASI SELFSTUDIO:</span>
-                          <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
-                        </div>
+                    {/* Bottom Action: Pilih Studio Trigger */}
+                    <div className="mt-4 pt-3 border-t border-[#E8DDD6]/80">
+                      <button
+                        type="button"
+                        onClick={toggleSelfStudio}
+                        className={`w-full py-2 px-3 rounded-xl border text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
+                          isSelfStudioExpanded
+                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                        }`}
+                      >
+                        <span>{isSelfStudioExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSelfStudioExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+                      </button>
 
-                        <div className="flex flex-col gap-2">
-                          {/* Opsi Studio 1 */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              localStorage.setItem('alviero_expanded_service', 'selfstudio');
-                              if (onSelectCategory) {
-                                onSelectCategory('selfstudio', 'cabang-1');
-                              } else {
-                                onSelectBranch('cabang-1');
-                              }
-                            }}
-                            className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s1 cursor-pointer active:scale-98 text-left"
-                          >
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
-                                  Studio 1
-                                </span>
-                                <span className="font-serif font-bold text-xs">Karangploso</span>
-                              </div>
-                              <p className="text-[10px] text-stone-500 group-hover/s1:text-stone-300 truncate mt-0.5">
-                                Jl. Raya Kertanegara, Karangploso
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/s1:text-[#A9BCA7] shrink-0">
-                              <span>Buka</span>
-                              <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/s1:translate-x-0.5 group-hover/s1:-translate-y-0.5 transition-transform" />
-                            </div>
-                          </button>
+                      {/* Drawer Pilihan Studio untuk SelfStudio */}
+                      {isSelfStudioExpanded && (
+                        <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                            <span>PILIH LOKASI SELFSTUDIO:</span>
+                            <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                          </div>
 
-                          {/* Opsi Studio 2 */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              localStorage.setItem('alviero_expanded_service', 'selfstudio');
-                              if (onSelectCategory) {
-                                onSelectCategory('selfstudio', 'cabang-2');
-                              } else {
-                                onSelectBranch('cabang-2');
-                              }
-                            }}
-                            className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s2 cursor-pointer active:scale-98 text-left"
-                          >
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
-                                  Studio 2
-                                </span>
-                                <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                          <div className="flex flex-col gap-2">
+                            {/* Opsi Studio 1 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'selfstudio');
+                                if (onSelectCategory) {
+                                  onSelectCategory('selfstudio', 'cabang-1');
+                                } else {
+                                  onSelectBranch('cabang-1');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s1 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 1
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/s1:text-stone-300 truncate mt-0.5">
+                                  Jl. Raya Kertanegara, Karangploso
+                                </p>
                               </div>
-                              <p className="text-[10px] text-stone-500 group-hover/s2:text-stone-300 truncate mt-0.5">
-                                Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
-                              </p>
-                            </div>
-                            <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/s2:text-[#A9BCA7] shrink-0">
-                              <span>Buka</span>
-                              <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/s2:translate-x-0.5 group-hover/s2:-translate-y-0.5 transition-transform" />
-                            </div>
-                          </button>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/s1:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/s1:translate-x-0.5 group-hover/s1:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+
+                            {/* Opsi Studio 2 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'selfstudio');
+                                if (onSelectCategory) {
+                                  onSelectCategory('selfstudio', 'cabang-2');
+                                } else {
+                                  onSelectBranch('cabang-2');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/s2 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 2
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/s2:text-stone-300 truncate mt-0.5">
+                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/s2:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/s2:translate-x-0.5 group-hover/s2:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                   {/* 3. Cetak & Bingkai */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#F6F4F9] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isCetakCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col justify-between rounded-2xl p-4 sm:p-5 bg-[#F6F4F9] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
+                      isCetakCardExpanded
+                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                    }`}
                   >
-                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
-                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-                        <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                          <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">
-                            CETAK & BINGKAI
-                          </h4>
-                          <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">
-                            Lab & Frame
-                          </span>
+                    <div>
+                      {/* Top: Icon + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                          <ImageIcon className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                          Lab & Frame
+                        </span>
+                      </div>
+
+                      {/* Title & Description */}
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug min-h-[2.5rem] flex items-center">
+                          CETAK & BINGKAI
+                        </h4>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1 leading-relaxed min-h-[2rem]">
                           Cetak Lab Anti-Luntur, Bingkai Kayu & Album Hardcover
                         </p>
                       </div>
                     </div>
 
+                    {/* Bottom Action: Pilih Studio Trigger */}
+                    <div className="mt-4 pt-3 border-t border-[#E8DDD6]/80">
                       <button
                         type="button"
                         onClick={toggleCetak}
-                        className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A]"
-                        aria-expanded={isCetakCardExpanded}
+                        className={`w-full py-2 px-3 rounded-xl border text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
+                          isCetakCardExpanded
+                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                        }`}
                       >
-                        <span className="hidden sm:inline text-[10.5px]">{isCetakCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isCetakCardExpanded ? 'rotate-180 text-[#6E856C]' : ''}`} />
+                        <span>{isCetakCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCetakCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
                       </button>
-                    </div>
 
-                    {isCetakCardExpanded && (
-                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
-                        <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600">
-                          <span className="font-playfair font-semibold">Pilih lokasi studio:</span>
-                          <span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          {[
-                            { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso' },
-                            { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo' },
-                          ].map((option) => (
+                      {/* Drawer Pilihan Studio untuk Cetak & Bingkai */}
+                      {isCetakCardExpanded && (
+                        <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                            <span>PILIH LOKASI STUDIO CETAK:</span>
+                            <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            {/* Opsi Studio 1 */}
                             <button
-                              key={option.studio}
                               type="button"
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.stopPropagation();
                                 localStorage.setItem('alviero_expanded_service', 'cetak');
-                                onSelectCategory?.('bingkai-album', option.studio === 'Studio 2' ? 'cabang-2' : 'cabang-1');
-                                setIsCetakCardExpanded(false);
+                                if (onSelectCategory) {
+                                  onSelectCategory('bingkai-album', 'cabang-1');
+                                } else {
+                                  onSelectBranch('cabang-1');
+                                }
                               }}
-                              className="group flex items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left text-[#3A3A3A] transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white"
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/c1 cursor-pointer active:scale-98 text-left"
                             >
-                              <span className="min-w-0">
-                                <span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span>
-                                <span className="font-playfair text-xs font-bold">{option.location}</span>
-                                <span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span>
-                              </span>
-                              <span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">Buka <ArrowUpRight className="h-4 w-4" /></span>
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 1
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/c1:text-stone-300 truncate mt-0.5">
+                                  Jl. Raya Kertanegara, Karangploso
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/c1:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/c1:translate-x-0.5 group-hover/c1:-translate-y-0.5 transition-transform" />
+                              </div>
                             </button>
-                          ))}
+
+                            {/* Opsi Studio 2 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'cetak');
+                                if (onSelectCategory) {
+                                  onSelectCategory('bingkai-album', 'cabang-2');
+                                } else {
+                                  onSelectBranch('cabang-2');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/c2 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 2
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/c2:text-stone-300 truncate mt-0.5">
+                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/c2:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/c2:translate-x-0.5 group-hover/c2:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                   {/* 4. Wedding & Prewedding */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#FDF9F1] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isWeddingCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col justify-between rounded-2xl p-4 sm:p-5 bg-[#FDF9F1] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
+                      isWeddingCardExpanded
+                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                    }`}
                   >
-                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
-                      <div className="flex items-start gap-3 sm:gap-3.5 min-w-0 flex-1">
-                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs mt-0.5">
+                    <div>
+                      {/* Top: Icon + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                           <HeartHandshake className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-0.5">
-                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug break-words">WEDDING &amp; PREWEDDING OUTDOOR</h4>
-                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">Suite</span>
-                          </div>
-                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1">Paket Prewedding Outdoor/Studio, Akad Nikah &amp; Resepsi</p>
-                        </div>
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                          Suite
+                        </span>
                       </div>
-                      <button type="button" onClick={toggleWedding} className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] mt-0.5" aria-expanded={isWeddingCardExpanded}>
-                        <span className="hidden sm:inline text-[10.5px]">{isWeddingCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isWeddingCardExpanded ? 'rotate-180' : ''}`} />
-                      </button>
+
+                      {/* Title & Description */}
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug min-h-[2.5rem] flex items-center">
+                          WEDDING &amp; PREWEDDING
+                        </h4>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1 leading-relaxed min-h-[2rem]">
+                          Paket Prewedding Outdoor/Studio, Akad Nikah &amp; Resepsi
+                        </p>
+                      </div>
                     </div>
-                    {isWeddingCardExpanded && (
-                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
-                        <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600"><span className="font-playfair font-semibold">Pilih lokasi studio:</span><span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span></div>
-                        {[
-                          { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso', branch: 'cabang-1' as StudioBranch },
-                          { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo', branch: 'cabang-2' as StudioBranch },
-                        ].map((option) => (
-                          <button key={option.studio} type="button" onClick={() => { onSelectCategory?.('wedding-package', option.branch); setIsWeddingCardExpanded(false); }} className="group flex w-full items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white">
-                            <span className="min-w-0"><span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span><span className="font-playfair text-xs font-bold">{option.location}</span><span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span></span>
-                            <span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">Buka <ArrowUpRight className="h-4 w-4" /></span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
+
+                    {/* Bottom Action: Pilih Studio Trigger */}
+                    <div className="mt-4 pt-3 border-t border-[#E8DDD6]/80">
+                      <button
+                        type="button"
+                        onClick={toggleWedding}
+                        className={`w-full py-2 px-3 rounded-xl border text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
+                          isWeddingCardExpanded
+                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                        }`}
+                      >
+                        <span>{isWeddingCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isWeddingCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+                      </button>
+
+                      {/* Drawer Pilihan Studio untuk Wedding */}
+                      {isWeddingCardExpanded && (
+                        <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                            <span>PILIH LOKASI STUDIO:</span>
+                            <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            {/* Opsi Studio 1 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'wedding');
+                                if (onSelectCategory) {
+                                  onSelectCategory('wedding-package', 'cabang-1');
+                                } else {
+                                  onSelectBranch('cabang-1');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/w1 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 1
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/w1:text-stone-300 truncate mt-0.5">
+                                  Jl. Raya Kertanegara, Karangploso
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/w1:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/w1:translate-x-0.5 group-hover/w1:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+
+                            {/* Opsi Studio 2 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'wedding');
+                                if (onSelectCategory) {
+                                  onSelectCategory('wedding-package', 'cabang-2');
+                                } else {
+                                  onSelectBranch('cabang-2');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/w2 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 2
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/w2:text-stone-300 truncate mt-0.5">
+                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/w2:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/w2:translate-x-0.5 group-hover/w2:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* 5. Event */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#F2F6F9] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isEventCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col justify-between rounded-2xl p-4 sm:p-5 bg-[#F2F6F9] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
+                      isEventCardExpanded
+                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                    }`}
                   >
-                    <div className="flex w-full items-start justify-between gap-3 sm:gap-3.5 min-w-0">
-                      <div className="flex items-center gap-3 sm:gap-3.5 min-w-0"><div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs"><Calendar className="w-5 h-5 stroke-[1.8] text-[#6E856C]" /></div><div className="min-w-0"><div className="flex items-center gap-1.5 sm:gap-2 flex-wrap"><h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase truncate">EVENT</h4><span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7]">Event</span></div><p className="text-[11px] sm:text-xs font-sans text-[#666666] truncate mt-1">Dokumentasi Birthday, Gathering, Seminar & Komunitas</p></div></div>
-                      <button type="button" onClick={toggleEvent} className="flex shrink-0 whitespace-nowrap items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7]" aria-expanded={isEventCardExpanded}><span className="hidden sm:inline text-[10.5px]">{isEventCardExpanded ? 'Tutup' : 'Pilih Studio'}</span><ChevronDown className={`h-3.5 w-3.5 transition-transform ${isEventCardExpanded ? 'rotate-180' : ''}`} /></button>
+                    <div>
+                      {/* Top: Icon + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
+                          <Calendar className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
+                        </div>
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                          Event
+                        </span>
+                      </div>
+
+                      {/* Title & Description */}
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug min-h-[2.5rem] flex items-center">
+                          EVENT DOKUMENTASI
+                        </h4>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1 leading-relaxed min-h-[2rem]">
+                          Dokumentasi Birthday, Gathering, Seminar &amp; Komunitas
+                        </p>
+                      </div>
                     </div>
-                    {isEventCardExpanded && (
-                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4"><div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600"><span className="font-playfair font-semibold">Pilih lokasi studio:</span><span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span></div>{[
-                        { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso', branch: 'cabang-1' as StudioBranch },
-                        { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo', branch: 'cabang-2' as StudioBranch },
-                      ].map((option) => (<button key={option.studio} type="button" onClick={() => { onSelectCategory?.('event', option.branch); setIsEventCardExpanded(false); }} className="group flex w-full items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white"><span className="min-w-0"><span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span><span className="font-playfair text-xs font-bold">{option.location}</span><span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span></span><span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">Buka <ArrowUpRight className="h-4 w-4" /></span></button>))}</div>
-                    )}
+
+                    {/* Bottom Action: Pilih Studio Trigger */}
+                    <div className="mt-4 pt-3 border-t border-[#E8DDD6]/80">
+                      <button
+                        type="button"
+                        onClick={toggleEvent}
+                        className={`w-full py-2 px-3 rounded-xl border text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
+                          isEventCardExpanded
+                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                        }`}
+                      >
+                        <span>{isEventCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isEventCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+                      </button>
+
+                      {/* Drawer Pilihan Studio untuk Event */}
+                      {isEventCardExpanded && (
+                        <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                            <span>PILIH LOKASI STUDIO:</span>
+                            <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            {/* Opsi Studio 1 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'event');
+                                if (onSelectCategory) {
+                                  onSelectCategory('event', 'cabang-1');
+                                } else {
+                                  onSelectBranch('cabang-1');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/e1 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 1
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/e1:text-stone-300 truncate mt-0.5">
+                                  Jl. Raya Kertanegara, Karangploso
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/e1:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/e1:translate-x-0.5 group-hover/e1:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+
+                            {/* Opsi Studio 2 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'event');
+                                if (onSelectCategory) {
+                                  onSelectCategory('event', 'cabang-2');
+                                } else {
+                                  onSelectBranch('cabang-2');
+                                }
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/e2 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 2
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/e2:text-stone-300 truncate mt-0.5">
+                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/e2:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/e2:translate-x-0.5 group-hover/e2:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* 6. MUA, Kebaya, Hairdo & Hijabdo */}
                   <div
-                    className={`flex h-full w-full flex-col rounded-2xl p-4 sm:p-5 bg-[#FCF4F6] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${isMuaCardExpanded ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg' : 'border-[#E8DDD6] hover:border-[#A9BCA7]'}`}
+                    className={`flex h-full w-full flex-col justify-between rounded-2xl p-4 sm:p-5 bg-[#FCF4F6] border transition-all duration-200 text-left relative overflow-hidden shadow-md ${
+                      isMuaCardExpanded
+                        ? 'border-[#A9BCA7] ring-2 ring-[#A9BCA7]/50 shadow-lg'
+                        : 'border-[#E8DDD6] hover:border-[#A9BCA7]'
+                    }`}
                   >
-                    <div className="flex flex-row items-start justify-between gap-2.5 sm:gap-3 w-full min-w-0">
-                      <div className="flex items-start gap-2.5 sm:gap-3.5 min-w-0 flex-1">
-                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs mt-0.5">
+                    <div>
+                      {/* Top: Icon + Category Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                           <Sparkles className="w-5 h-5 stroke-[1.8] text-[#6E856C]" />
                         </div>
-                        <div className="flex-1 min-w-0 flex flex-col items-start">
-                          <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap min-w-0 mb-1">
-                            <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug break-words">
-                              MUA, KEBAYA, HAIRDO &amp; HIJABDO
-                            </h4>
-                            <span className="text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
-                              Beauty
-                            </span>
-                          </div>
-                          <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 text-left">
-                            Makeup, kebaya, hairdo &amp; hijabdo siap untuk sesi spesial
-                          </p>
-                        </div>
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] shrink-0">
+                          Beauty
+                        </span>
                       </div>
 
+                      {/* Title & Description */}
+                      <div>
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] tracking-wider uppercase leading-snug min-h-[2.5rem] flex items-center">
+                          MUA, KEBAYA, HAIRDO &amp; HIJABDO
+                        </h4>
+                        <p className="text-[11px] sm:text-xs font-sans text-[#666666] line-clamp-2 mt-1 leading-relaxed min-h-[2rem]">
+                          Makeup, kebaya, hairdo &amp; hijabdo siap untuk sesi spesial
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Bottom Action: Pilih Studio Trigger */}
+                    <div className="mt-4 pt-3 border-t border-[#E8DDD6]/80">
                       <button
                         type="button"
                         onClick={toggleMua}
-                        className="flex shrink-0 whitespace-nowrap w-max items-center gap-1 rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1.5 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A] transition-all hover:bg-[#A9BCA7] hover:text-[#2A2A2A] mt-0.5"
-                        aria-expanded={isMuaCardExpanded}
+                        className={`w-full py-2 px-3 rounded-xl border text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-between transition-all cursor-pointer ${
+                          isMuaCardExpanded
+                            ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                            : 'bg-[#F2E9E4] hover:bg-[#A9BCA7] hover:text-[#2A2A2A] text-[#3A3A3A] border-[#E8DDD6]'
+                        }`}
                       >
-                        <span className="hidden sm:inline text-[10.5px]">{isMuaCardExpanded ? 'Tutup' : 'Pilih Studio'}</span>
-                        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isMuaCardExpanded ? 'rotate-180 text-[#6E856C]' : ''}`} />
+                        <span>{isMuaCardExpanded ? 'Tutup Pilihan Studio' : 'Pilih Studio'}</span>
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isMuaCardExpanded ? 'rotate-180 text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
                       </button>
-                    </div>
-                    {isMuaCardExpanded && (
-                      <div className="mt-4 space-y-2 border-t border-gray-200 pt-4">
-                        <div className="flex items-start justify-between gap-3 text-[10.5px] font-sans font-bold uppercase tracking-wider text-stone-600">
-                          <span className="font-playfair font-semibold">Pilih lokasi studio foto/MUA:</span>
-                          <span className="shrink-0 font-mono text-[#6E856C]">Buka 08:00 - 21:00</span>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          {[
-                            { studio: 'Studio 1' as const, location: 'Karangploso', address: 'Jl. Raya Kertanegara, Karangploso' },
-                            { studio: 'Studio 2' as const, location: 'Dinoyo Gajayana', address: 'Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo' },
-                          ].map((option) => (
+
+                      {/* Drawer Pilihan Studio untuk MUA */}
+                      {isMuaCardExpanded && (
+                        <div className="mt-3 pt-3 border-t border-[#E8DDD6] space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                          <div className="flex items-center justify-between text-[10.5px] font-sans text-stone-600 font-bold uppercase tracking-wider">
+                            <span>PILIH LOKASI STUDIO FOTO/MUA:</span>
+                            <span className="text-[9.5px] text-[#6E856C] font-mono">Buka 08:00 - 21:00</span>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            {/* Opsi Studio 1 */}
                             <button
-                              key={option.studio}
                               type="button"
-                              onClick={() => {
+                              onClick={(e) => {
+                                e.stopPropagation();
                                 localStorage.setItem('alviero_expanded_service', 'mua');
-                                onOpenBeautyModal?.(option.studio);
+                                onOpenBeautyModal?.('Studio 1');
                                 setIsMuaCardExpanded(false);
                               }}
-                              className="group flex items-center justify-between gap-3 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 text-left text-[#3A3A3A] transition-all hover:border-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white"
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/m1 cursor-pointer active:scale-98 text-left"
                             >
-                              <span className="min-w-0">
-                                <span className="mr-1.5 inline-block rounded bg-[#A9BCA7] px-1.5 py-0.5 text-[9px] font-mono font-bold text-[#2A2A2A]">{option.studio}</span>
-                                <span className="font-playfair text-xs font-bold">{option.location}</span>
-                                <span className="mt-0.5 block truncate font-libre text-sm text-stone-500 group-hover:text-stone-300">{option.address}</span>
-                              </span>
-                              <span className="flex shrink-0 items-center gap-1 font-playfair text-[11px] font-bold text-[#6E856C]">
-                                Buka <ArrowUpRight className="h-4 w-4" />
-                              </span>
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 1
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Karangploso</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/m1:text-stone-300 truncate mt-0.5">
+                                  Jl. Raya Kertanegara, Karangploso
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/m1:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/m1:translate-x-0.5 group-hover/m1:-translate-y-0.5 transition-transform" />
+                              </div>
                             </button>
-                          ))}
+
+                            {/* Opsi Studio 2 */}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                localStorage.setItem('alviero_expanded_service', 'mua');
+                                onOpenBeautyModal?.('Studio 2');
+                                setIsMuaCardExpanded(false);
+                              }}
+                              className="p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all flex items-center justify-between gap-2 shadow-2xs group/m2 cursor-pointer active:scale-98 text-left"
+                            >
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] font-mono font-bold bg-[#A9BCA7] text-[#2A2A2A] px-1.5 py-0.5 rounded">
+                                    Studio 2
+                                  </span>
+                                  <span className="font-serif font-bold text-xs">Dinoyo Gajayana</span>
+                                </div>
+                                <p className="text-[10px] text-stone-500 group-hover/m2:text-stone-300 truncate mt-0.5">
+                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-1 text-[11px] font-serif font-bold text-[#6E856C] group-hover/m2:text-[#A9BCA7] shrink-0">
+                                <span>Buka</span>
+                                <ArrowUpRight className="w-4 h-4 stroke-[2] group-hover/m2:translate-x-0.5 group-hover/m2:-translate-y-0.5 transition-transform" />
+                              </div>
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                 </div>
