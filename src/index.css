@@ -1,15 +1,36 @@
+/* ============================================================
+ * LOCAL FONT: Century Gothic (Regular & Bold)
+ * ============================================================ */
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/fonts/centurygothic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('/fonts/centurygothic_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @theme {
-  --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-  --font-libre: 'Libre Baskerville', Georgia, serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Libre Baskerville', Georgia, serif;
-  --font-luxury: 'Cormorant Garamond', Georgia, serif;
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body: 'Libre Baskerville', Georgia, serif;
-  --font-mono: 'Libre Baskerville', Georgia, serif;
+  --font-century:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-sans:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-body:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-heading:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-serif:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-playfair:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-luxury:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-cormorant: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-editorial: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-libre:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-mono:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
 :root {
@@ -46,51 +67,40 @@
   --studio-bg-card: #FFFFFF;
   --studio-border: #E8DDD6;
 
-  /* Editorial typography: Playfair headings, Cormorant accents, Libre body */
-  --font-playfair: 'Playfair Display', Georgia, serif;
-  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
-  --font-libre: 'Libre Baskerville', Georgia, serif;
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-luxury: 'Cormorant Garamond', Georgia, serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-editorial: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Libre Baskerville', Georgia, serif;
-  --font-body: 'Libre Baskerville', Georgia, serif;
-  --font-mono: 'Libre Baskerville', Georgia, serif;
+  /* Typography: Century Gothic across all text & headings */
+  --font-century:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-sans:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-body:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-heading:   'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-serif:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-playfair:  'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-luxury:    'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-cormorant: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-editorial: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-libre:     'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  --font-mono:      'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 }
 
-.font-heading {
-  font-family: var(--font-playfair);
-}
-
-.font-luxury {
-  font-family: var(--font-cormorant);
-}
-
-.font-serif {
-  font-family: var(--font-playfair);
-}
-
-.font-playfair {
-  font-family: var(--font-playfair);
-}
-
-.font-cormorant {
-  font-family: var(--font-cormorant);
-}
-
-.font-libre {
-  font-family: var(--font-libre);
-}
-
+/* ============================================================
+ * FONT UTILITY OVERRIDES (Century Gothic Everywhere)
+ * ============================================================ */
+.font-heading,
+.font-serif,
+.font-playfair,
+.font-cormorant,
+.font-luxury,
 .font-editorial {
-  font-family: var(--font-editorial);
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-weight: 700;
 }
 
 .font-sans,
 .font-body,
+.font-libre,
+.font-century,
 .font-mono {
-  font-family: var(--font-libre);
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  font-weight: 400;
 }
 
 .gold-gradient-text {
@@ -108,28 +118,35 @@
 }
 
 @layer base {
+  /* ── Universal Font: Century Gothic ── */
+  *,
+  *::before,
+  *::after {
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    font-family: var(--font-sans);
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     color: var(--studio-body);
     background-color: var(--studio-bg);
   }
 
   body {
-    font-family: var(--font-sans);
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     background-color: var(--studio-bg);
     line-height: 1.6;
   }
 
-  /* Playfair Display Luxury Headings */
+  /* Century Gothic Clean Modern Headings */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading);
+    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
     color: var(--studio-dark);
     font-weight: 700;
     letter-spacing: 0.02em;
