@@ -1949,7 +1949,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     const paymentMethodLabel = paymentMethod === 'bca' ? 'Transfer Bank BCA (No. Rek 0113324021 a.n Muhammad Azzam Fakhri)' : 'QRIS Resmi Alviero Studio';
-    message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : 'LUNAS FULL'} via ${paymentMethodLabel}\n`;
+    message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : `LUNAS FULL (Rp ${grandTotal.toLocaleString('id-ID')})`} via ${paymentMethodLabel}\n`;
     message += `🧾 *STATUS BUKTI TRANSFER:* ✅ Sudah Diunggah (${paymentProofFileName || (paymentMethod === 'bca' ? 'Bukti Transfer BCA' : 'Bukti Transfer QRIS')})\n`;
     message += `💰 *TOTAL BIAYA:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n`;
     message += `Bukti transfer pembayaran sudah terlampir bersama chat ini ya min. Mohon dikonfirmasi jadwalnya. Terima kasih! 🙏`;
@@ -3616,20 +3616,73 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
-              {/* Opsi Pembayaran (Hanya DP 50%) */}
+              {/* OPSI PEMBAYARAN: BAYAR DP 50% vs BAYAR LUNAS */}
               <div className="pt-2 border-t border-[#E8DDD6] space-y-2">
                 <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center gap-1.5">
                   <CreditCard className="w-3.5 h-3.5 text-[#6E856C]" />
                   OPSI PEMBAYARAN BOOKING:
                 </label>
-                <div className="grid grid-cols-1 gap-2 sm:gap-3 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-xs">
+                  {/* Opsi 1: Bayar DP 50% */}
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className="min-h-[44px] sm:min-h-[48px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-[9999px] border border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-1.5 sm:gap-2"
+                    className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${
+                      paymentOption === 'dp'
+                        ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                        : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                    }`}
                   >
-                    <span className="font-serif font-bold text-[11px] sm:text-xs uppercase text-[#3A3A3A] truncate">Bayar DP 50%</span>
-                    <div className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] sm:text-xs font-bold bg-[#3A3A3A] text-white shadow-2xs">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">
+                          Bayar DP 50%
+                        </span>
+                        <span className="text-[9.5px] font-mono font-bold bg-[#EBF2EA] text-[#6E856C] px-2 py-0.5 rounded-full border border-[#A9BCA7]">
+                          DP
+                        </span>
+                      </div>
+                      <div className="text-[11px] font-mono font-bold text-[#6E856C] mt-0.5">
+                        Rp {dpAmount.toLocaleString('id-ID')}
+                      </div>
+                    </div>
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
+                      paymentOption === 'dp'
+                        ? 'bg-[#3A3A3A] text-white shadow-2xs'
+                        : 'border border-stone-300 text-transparent'
+                    }`}>
+                      ✓
+                    </div>
+                  </button>
+
+                  {/* Opsi 2: Bayar Lunas */}
+                  <button
+                    type="button"
+                    onClick={() => setPaymentOption('full')}
+                    className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${
+                      paymentOption === 'full'
+                        ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                        : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                    }`}
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-serif font-bold text-xs uppercase text-[#3A3A3A]">
+                          Bayar Lunas
+                        </span>
+                        <span className="text-[9.5px] font-mono font-bold bg-[#F2E9E4] text-stone-700 px-2 py-0.5 rounded-full border border-[#E8DDD6]">
+                          100%
+                        </span>
+                      </div>
+                      <div className="text-[11px] font-mono font-bold text-[#3A3A3A] mt-0.5">
+                        Rp {grandTotal.toLocaleString('id-ID')}
+                      </div>
+                    </div>
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
+                      paymentOption === 'full'
+                        ? 'bg-[#3A3A3A] text-white shadow-2xs'
+                        : 'border border-stone-300 text-transparent'
+                    }`}>
                       ✓
                     </div>
                   </button>
@@ -3773,13 +3826,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <span className="text-[#A9BCA7]">Rp {grandTotal.toLocaleString('id-ID')}</span>
                   </div>
 
-                  {paymentOption === 'dp' && (
+                  {paymentOption === 'dp' ? (
                     <div className="mt-2.5 p-3 rounded-xl bg-[#1E241E] border border-[#A9BCA7]/40 flex justify-between items-center shadow-inner">
                       <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider text-stone-200">
                         Minimum Transfer DP 50%:
                       </span>
                       <span className="text-base sm:text-lg font-mono font-black text-[#A9BCA7]">
                         Rp {dpAmount.toLocaleString('id-ID')}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="mt-2.5 p-3 rounded-xl bg-[#1E241E] border border-[#A9BCA7]/40 flex justify-between items-center shadow-inner">
+                      <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider text-stone-200">
+                        Nominal Transfer Lunas:
+                      </span>
+                      <span className="text-base sm:text-lg font-mono font-black text-[#A9BCA7]">
+                        Rp {grandTotal.toLocaleString('id-ID')}
                       </span>
                     </div>
                   )}
@@ -3890,14 +3952,25 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         </div>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={handleCopyAccount}
-                        className="px-4 py-2.5 rounded-xl bg-[#005EAA] hover:bg-[#004b88] text-white text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-xs"
-                      >
-                        {copiedAccount ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
-                        <span>{copiedAccount ? 'No. Rek Tersalin!' : 'Salin No. Rekening'}</span>
-                      </button>
+                      <div className="flex items-center gap-2 flex-wrap shrink-0">
+                        <button
+                          type="button"
+                          onClick={handleCopyNominal}
+                          className="px-3.5 py-2.5 rounded-xl bg-[#F2E9E4] hover:bg-[#E8DDD6] text-stone-800 text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 border border-[#E8DDD6] shadow-2xs"
+                        >
+                          {copiedNominal ? <Check className="w-4 h-4 text-emerald-700" /> : <Copy className="w-4 h-4 text-stone-600" />}
+                          <span>{copiedNominal ? 'Nominal Tersalin!' : `Salin Nominal (Rp ${(paymentOption === 'dp' ? dpAmount : grandTotal).toLocaleString('id-ID')})`}</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleCopyAccount}
+                          className="px-4 py-2.5 rounded-xl bg-[#005EAA] hover:bg-[#004b88] text-white text-xs font-serif font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 shrink-0 shadow-xs"
+                        >
+                          {copiedAccount ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
+                          <span>{copiedAccount ? 'No. Rek Tersalin!' : 'Salin No. Rekening'}</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -4065,13 +4138,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <span className="text-[#A9BCA7]">Rp {grandTotal.toLocaleString('id-ID')}</span>
                 </div>
 
-                {paymentOption === 'dp' && (
+                {paymentOption === 'dp' ? (
                   <div className="mt-2.5 p-3 rounded-xl bg-[#1E241E] border border-[#A9BCA7]/40 flex justify-between items-center shadow-inner">
                     <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider text-stone-200">
                       Minimum Transfer DP 50%:
                     </span>
                     <span className="text-base sm:text-lg font-mono font-black text-[#A9BCA7]">
                       Rp {dpAmount.toLocaleString('id-ID')}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="mt-2.5 p-3 rounded-xl bg-[#1E241E] border border-[#A9BCA7]/40 flex justify-between items-center shadow-inner">
+                    <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider text-stone-200">
+                      Nominal Transfer Lunas:
+                    </span>
+                    <span className="text-base sm:text-lg font-mono font-black text-[#A9BCA7]">
+                      Rp {grandTotal.toLocaleString('id-ID')}
                     </span>
                   </div>
                 )}
