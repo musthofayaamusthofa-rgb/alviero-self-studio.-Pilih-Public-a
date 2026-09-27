@@ -160,7 +160,10 @@ function handleRequest(e) {
                 slotBackdrops[s] = [];
               }
               if (rowBackdrop) {
-                slotBackdrops[s].push(rowBackdrop);
+                var isPassFotoRow = rowBackdropText.indexOf('pass foto') !== -1 || rowBackdropText.indexOf('passfoto') !== -1 || String(rowPackage || '').toLowerCase().indexOf('pass foto') !== -1;
+                if (!isPassFotoRow) {
+                  slotBackdrops[s].push(rowBackdrop);
+                }
               }
               if (rowStudioType === 'selfstudio') {
                 slotSelfStudioCounts[s] = (slotSelfStudioCounts[s] || 0) + 1;
@@ -740,6 +743,8 @@ function hasBackdropKeyword(backdrop, keywords) {
 function isBackdropUsedInSlot(slotBackdrops, slot, requestedName) {
   var existing = slotBackdrops[slot] || [];
   return existing.some(function(existingName) {
+    var exText = String(existingName || '').toLowerCase();
+    if (exText.indexOf('pass foto') !== -1 || exText.indexOf('passfoto') !== -1) return false;
     return existingName === requestedName ||
       (hasBackdropKeyword(requestedName, ['putih']) && hasBackdropKeyword(existingName, ['putih'])) ||
       (hasBackdropKeyword(requestedName, ['abu']) && hasBackdropKeyword(existingName, ['abu'])) ||

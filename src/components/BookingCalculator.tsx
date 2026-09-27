@@ -264,6 +264,7 @@ export const getAvailableBackgroundsStudio2 = (
 
   existingBookings.forEach(raw => {
     const str = String(raw || '').toLowerCase();
+    if (str.includes('pass foto') || str.includes('passfoto')) return;
     if (str.includes('hitam')) {
       hasBookedHitam = true;
       bookedSet.add('c2-hitam');
@@ -370,6 +371,7 @@ export const checkPaket2Availability = (
 
   existingBookings.forEach(booking => {
     const text = String(booking || '').toLowerCase();
+    if (text.includes('pass foto') || text.includes('passfoto')) return;
 
     if (text.includes('hitam')) usageCounts['c2-hitam'] += 1;
     if (text.includes('putih')) usageCounts['c2-putih'] += 1;
@@ -497,6 +499,7 @@ export const checkDualDynamicAvailability = (
 
   existingBookings.forEach(booking => {
     const text = String(booking || '').toLowerCase();
+    if (text.includes('pass foto') || text.includes('passfoto')) return;
 
     // Hitung Pemakaian Hitam
     if (text.includes('hitam')) {
@@ -1130,7 +1133,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     if (newStep >= 2 && !isStep1Valid) {
-      alert('Lengkapi pilihan background sesuai paket terlebih dahulu.');
+      if (isPassFoto && !isPassFotoValid) {
+        alert('Mohon pilih warna background cetak atau isi warna yang diinginkan terlebih dahulu.');
+      } else {
+        alert('Lengkapi pilihan background sesuai paket terlebih dahulu.');
+      }
       return;
     }
 
@@ -1174,6 +1181,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [gridCetak, setGridCetak] = useState<string>('');
   const [selectedBackdropIds, setSelectedBackdropIds] = useState<string[]>([preselectedBackdropId || BACKDROPS[0].id]);
   const [activeBackdropDetail, setActiveBackdropDetail] = useState<typeof BACKDROPS[number] | null>(null);
+  const [passFotoBgOption, setPassFotoBgOption] = useState<'Biru' | 'Merah' | 'Putih' | 'custom'>('Biru');
+  const [passFotoCustomColor, setPassFotoCustomColor] = useState<string>('');
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: number }>({});
   const [selectedAddOnGroup, setSelectedAddOnGroup] = useState<string | null>(null);
@@ -1255,6 +1264,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
   const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
+  const isPassFoto = (
+    currentPackage.category === 'pass-foto' ||
+    currentPackage.id.toLowerCase().includes('passfoto') ||
+    currentPackage.name.toLowerCase().includes('pass foto')
+  );
+  const passFotoColor = passFotoBgOption === 'custom' ? passFotoCustomColor.trim() : passFotoBgOption;
+  const isPassFotoValid = !isPassFoto || (
+    passFotoBgOption !== 'custom' ? Boolean(passFotoBgOption) : passFotoCustomColor.trim().length > 0
+  );
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
   const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
   const isGraduationPackage = (
@@ -1500,6 +1518,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         let countSelfStudio = 0;
 
         bdsInSlot.forEach(b => {
+          if (b.includes('pass foto') || b.includes('passfoto')) return;
           if (b.includes('putih')) countPutih++;
           if (b.includes('abu')) countAbu++;
           if (b.includes('cream') || b.includes('krem')) countCream++;
@@ -1614,8 +1633,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     );
 
   useEffect(() => {
+    if (isPassFoto) return;
     setSelectedBackdropIds([]);
-  }, [isSelfStudio, selectedBranch]);
+  }, [isSelfStudio, selectedBranch, isPassFoto]);
 
   // Cek ketersediaan backdrop spesifik berdasarkan slot jam yang dipilih & aturan validasi studio
   const getBackdropAvailability = (backdropId: string): { isAvailable: boolean; reason?: string } => {
@@ -1691,6 +1711,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   useEffect(() => {
+    if (isPassFoto) return;
     // Reset selected backdrop jika tidak applicable atau tidak available
     const validIds = selectedBackdropIds.filter(id => {
       const isApplicable = availableBackdrops.some(b => b.id === id);
@@ -1705,7 +1726,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     } else if (validIds.length !== selectedBackdropIds.length && validIds.length > 0) {
       setSelectedBackdropIds(validIds);
     }
-  }, [selectedPackageId, selectedBranch, timeSlot, isSelfStudio, availableBackdrops, maxBackdrops, slotBackdrops, ivoryConflictSlots, selfStudioConflictSlots, selectedBackdropIds]);
+  }, [selectedPackageId, selectedBranch, timeSlot, isSelfStudio, isPassFoto, availableBackdrops, maxBackdrops, slotBackdrops, ivoryConflictSlots, selfStudioConflictSlots, selectedBackdropIds]);
 
   const handleSelectBackdrop = (id: string) => {
     const avail = getBackdropAvailability(id);
@@ -1743,9 +1764,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     .map(id => BACKDROPS.find(b => b.id === id))
     .filter(Boolean);
 
-  const backdropDisplayName = selectedBackdropObjects.length > 1
-    ? `Background 1: ${selectedBackdropObjects[0]?.name} & Background 2: ${selectedBackdropObjects[1]?.name}`
-    : (isOutdoorOnly ? '-' : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Background Standar'));
+  const backdropDisplayName = isPassFoto
+    ? `Background Cetak: ${passFotoColor || 'Belum Dipilih'}`
+    : selectedBackdropObjects.length > 1
+      ? `Background 1: ${selectedBackdropObjects[0]?.name} & Background 2: ${selectedBackdropObjects[1]?.name}`
+      : (isOutdoorOnly ? '-' : (selectedBackdropObjects[0]?.name || availableBackdrops[0]?.name || 'Background Standar'));
 
   const currentFrame = FRAME_TEMPLATES.find(f => f.id === selectedFrameId) || FRAME_TEMPLATES[0];
 
@@ -1884,7 +1907,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     message += `📷 *PAKET & KONSEP STUDIO:*\n`;
     message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
-    message += `• Pencahayaan / Background: ${backdropDisplayName}\n`;
+    if (isPassFoto) {
+      message += `• Warna Background Cetak: *${passFotoColor || '-'}*\n`;
+    } else {
+      message += `• Pencahayaan / Background: ${backdropDisplayName}\n`;
+    }
     if (isSelfStudio) {
       message += `• Template Layout Grid: ${currentFrame.name}\n`;
       if (hasFreePrint) {
@@ -1938,7 +1965,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const handleSendBookingWA = async () => {
     if (!isStep1Valid) {
-      alert('Pilih seluruh background sesuai paket terlebih dahulu.');
+      if (isPassFoto && !isPassFotoValid) {
+        alert('Mohon pilih warna background cetak atau isi warna yang diinginkan terlebih dahulu.');
+      } else {
+        alert('Pilih seluruh background sesuai paket terlebih dahulu.');
+      }
       goToStep(1);
       return;
     }
@@ -2045,7 +2076,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         studio_label: studioLabel,
         branch: selectedBranch,
         branch_name: currentBranchInfo.name,
-        backdrop: backdropDisplayName,
+        backdrop: isPassFoto ? `Pass Foto (Warna Cetak: ${passFotoColor || '-'})` : backdropDisplayName,
         frame: isSelfStudio ? currentFrame.name : '-',
         name: customerName || 'Pelanggan',
         phone: customerPhone || '-',
@@ -2147,8 +2178,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && allowSocialUpload !== null && !!paymentProofImage && (!hasOutdoorSession || outdoorLocation.trim().length > 0);
 
-  // Validasi Step 1: Jika klien memilih paket 2 background ke atas, mereka wajib memilih semua background (misal 2/2) baru bisa menekan tombol "Lanjut"
-  const isStep1Valid = (isOutdoorOnly || selectedBackdropIds.length >= maxBackdrops) &&
+  // Validasi Step 1:
+  // - Untuk Pass Foto: wajib memilih warna background cetak (Biru, Merah, Putih, atau teks warna jika isi sendiri)
+  // - Untuk Paket Studio Foto umum: jika memilih paket 2 background ke atas, wajib memilih semua background (misal 2/2)
+  const isStep1Valid = (isPassFoto ? isPassFotoValid : (isOutdoorOnly || selectedBackdropIds.length >= maxBackdrops)) &&
     (!hasOutdoorSession || outdoorLocation.trim().length > 0) &&
     (!hasOutdoorSession || (
       isOutdoorTimeSlotAvailable(outdoorTimeSlot).isAvailable &&
@@ -2665,8 +2698,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   )}
 
-                  {/* Pemberitahuan ini hanya berlaku untuk booking Studio Foto. */}
-                  {!isSelfStudio && (
+                  {/* Pemberitahuan ini berlaku untuk booking Studio Foto non-Pass Foto. */}
+                  {!isSelfStudio && !isPassFoto && (
                     <div className="mt-2.5 p-3.5 bg-[#F2E9E4]/70 border border-[#DFCFC5] rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
                       <span className="font-bold text-sm shrink-0 mt-0.5 text-[#6E856C]">⚠️</span>
                       <div className="space-y-0.5">
@@ -2682,147 +2715,321 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       </div>
                     </div>
                   )}
+
+                  {/* Pemberitahuan Khusus Pass Foto */}
+                  {!isSelfStudio && isPassFoto && (
+                    <div className="mt-2.5 p-3.5 bg-[#F2E9E4]/70 border border-[#DFCFC5] rounded-2xl text-stone-900 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
+                      <span className="font-bold text-sm shrink-0 mt-0.5 text-[#6E856C]">ℹ️</span>
+                      <div className="space-y-0.5">
+                        <p className="font-bold text-stone-900 leading-tight">
+                          Pemberitahuan Sesi Pass Foto Resmi:
+                        </p>
+                        <p className="text-stone-700 text-[11px] sm:text-xs leading-snug">
+                          1. Foto dilakukan langsung di studio dengan pencahayaan formal &amp; profesional.<br />
+                          2. Warna background cetak (Biru, Merah, Putih, atau Custom) diselaraskan saat proses editing retouching &amp; cetak foto.<br />
+                          3. Harap hadir tepat waktu sesuai slot agar sesi foto dan pemilihan hasil optimal.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* 3. Pemilihan Background */}
+              {/* 3. Pemilihan Background / Warna Background Cetak */}
               <div className={`pt-2 border-t border-[#E8DDD6] ${isOutdoorOnly ? 'hidden' : ''}`}>
-                <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
-                  <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
-                    3. {maxBackdrops > 1 ? 'PILIH 2 BACKGROUND FOTO / PENCAHAYAAN:' : 'PILIH BACKGROUND FOTO / PENCAHAYAAN:'}
-                  </label>
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[10px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
-                      {isSelfStudio ? '✨ Bilik Self Studio' : '📸 Studio Foto Pro'}
-                    </span>
-                    {maxBackdrops > 1 ? (
-                      <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-3 py-1 rounded-full shadow-2xs">
-                        Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
-                      </span>
-                    ) : (
-                      <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-3 py-1 rounded-full shadow-2xs">
-                        1 Background
-                      </span>
-                    )}
-                  </div>
-                </div>
+                {isPassFoto ? (
+                  <div>
+                    <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
+                      <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
+                        3. PILIH WARNA BACKGROUND CETAK:
+                      </label>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                          🪪 Pass Foto Resmi
+                        </span>
+                        <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-3 py-1 rounded-full shadow-2xs">
+                          {passFotoColor ? `Warna: ${passFotoColor}` : 'Pilih 1 Warna'}
+                        </span>
+                      </div>
+                    </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {availableBackdrops.map((backdrop) => {
-                    const isSelected = selectedBackdropIds.includes(backdrop.id);
-                    const selectionIndex = selectedBackdropIds.indexOf(backdrop.id);
-                    const availability = getBackdropAvailability(backdrop.id);
-                    const isAvailable = availability.isAvailable;
-
-                    return (
-                      <div
-                        key={backdrop.id}
-                        onClick={() => {
-                          if (isAvailable || isSelected) handleSelectBackdrop(backdrop.id);
-                        }}
-                        role="button"
-                        tabIndex={isAvailable || isSelected ? 0 : -1}
-                        aria-disabled={!isAvailable && !isSelected}
-                        className={`min-h-[56px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all relative ${!isAvailable && !isSelected
-                          ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
-                          : isSelected
-                            ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm cursor-pointer active:scale-98'
-                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] cursor-pointer active:scale-98 shadow-2xs'
-                          }`}
+                    {/* 4 Opsi Warna Cetak: Biru, Merah, Putih, dan Isi Sendiri */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                      {/* Opsi 1: Biru */}
+                      <button
+                        type="button"
+                        onClick={() => setPassFotoBgOption('Biru')}
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
+                          passFotoBgOption === 'Biru'
+                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                        }`}
                       >
-                        <div
-                          className={`w-8 h-8 rounded-xl border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs ${backdrop.colorClass || ''}`}
-                          style={backdrop.colorClass ? undefined : { backgroundColor: backdrop.hex }}
-                        >
-                          {isSelected && maxBackdrops > 1 && (
-                            <span className="bg-black/50 w-full h-full rounded-xl flex items-center justify-center font-bold">
-                              {selectionIndex + 1}
-                            </span>
-                          )}
+                        <div className="w-8 h-8 rounded-xl border border-blue-900/20 bg-[#155DFC] shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs">
+                          {passFotoBgOption === 'Biru' && <Check className="w-4 h-4 stroke-[3]" />}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className={`font-serif font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-stone-400 line-through' : 'text-[#3A3A3A]'}`}>
-                              {backdrop.name}
-                            </span>
-                            {(backdrop.id.includes('cream') || backdrop.name.toLowerCase().includes('cream')) && (
-                              <span className="text-[8.5px] font-sans font-bold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.2 rounded-full">
-                                Maks. 5 Orang
-                              </span>
-                            )}
-                            {isSelected && maxBackdrops > 1 && (
-                              <span className="text-[9px] font-bold bg-[#3A3A3A] text-white px-2 py-0.2 rounded-full">
-                                Background {selectionIndex + 1}
-                              </span>
-                            )}
-                            {!isAvailable && !isSelected && (
-                              <span className="text-[8.5px] font-bold bg-rose-100 text-rose-700 px-2 py-0.2 rounded-full border border-rose-200">
-                                Tidak Tersedia
-                              </span>
-                            )}
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-serif font-bold text-xs text-[#3A3A3A]">Biru</span>
                           </div>
-                          <div className="text-[10.5px] text-stone-500 truncate mt-0.5">
-                            {!isAvailable && !isSelected ? (
-                              <span className="text-rose-600 font-medium">{availability.reason}</span>
-                            ) : (
-                              backdrop.description
-                            )}
+                          <div className="text-[10px] text-stone-500 truncate mt-0.5">
+                            Latar Biru Resmi
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          <button
-                            type="button"
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              setActiveBackdropDetail(backdrop);
-                            }}
-                            className="min-h-[28px] rounded-lg border border-[#E8DDD6] bg-white px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-stone-600 hover:border-[#6E856C] hover:text-[#3A3A3A] cursor-pointer"
-                          >
-                            Detail
-                          </button>
-                          {isSelected && (
-                            <div className="w-5 h-5 rounded-full bg-[#3A3A3A] text-white flex items-center justify-center text-xs shadow-2xs">
-                              <Check className="w-3.5 h-3.5 stroke-[3]" />
-                            </div>
-                          )}
+                      </button>
+
+                      {/* Opsi 2: Merah */}
+                      <button
+                        type="button"
+                        onClick={() => setPassFotoBgOption('Merah')}
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
+                          passFotoBgOption === 'Merah'
+                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                        }`}
+                      >
+                        <div className="w-8 h-8 rounded-xl border border-red-900/20 bg-[#DC2626] shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs">
+                          {passFotoBgOption === 'Merah' && <Check className="w-4 h-4 stroke-[3]" />}
                         </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-serif font-bold text-xs text-[#3A3A3A]">Merah</span>
+                          </div>
+                          <div className="text-[10px] text-stone-500 truncate mt-0.5">
+                            Latar Merah Resmi
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* Opsi 3: Putih */}
+                      <button
+                        type="button"
+                        onClick={() => setPassFotoBgOption('Putih')}
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
+                          passFotoBgOption === 'Putih'
+                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                        }`}
+                      >
+                        <div className="w-8 h-8 rounded-xl border border-stone-300 bg-[#FFFFFF] shrink-0 flex items-center justify-center text-[#3A3A3A] text-[11px] font-bold shadow-2xs">
+                          {passFotoBgOption === 'Putih' && <Check className="w-4 h-4 stroke-[3] text-[#3A3A3A]" />}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-serif font-bold text-xs text-[#3A3A3A]">Putih</span>
+                          </div>
+                          <div className="text-[10px] text-stone-500 truncate mt-0.5">
+                            Latar Putih Formal
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* Opsi 4: Isi Sendiri */}
+                      <button
+                        type="button"
+                        onClick={() => setPassFotoBgOption('custom')}
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
+                          passFotoBgOption === 'custom'
+                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                        }`}
+                      >
+                        <div className="w-8 h-8 rounded-xl border border-stone-300 bg-gradient-to-br from-amber-100 via-rose-100 to-sky-100 shrink-0 flex items-center justify-center text-[#3A3A3A] text-[11px] font-bold shadow-2xs">
+                          {passFotoBgOption === 'custom' ? <Check className="w-4 h-4 stroke-[3] text-[#3A3A3A]" /> : <span className="text-xs">✏️</span>}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-serif font-bold text-xs text-[#3A3A3A]">Isi Sendiri</span>
+                          </div>
+                          <div className="text-[10px] text-stone-500 truncate mt-0.5">
+                            Warna Custom Manual
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+
+                    {/* Kolom Input untuk Isi Sendiri */}
+                    {passFotoBgOption === 'custom' && (
+                      <div className="mt-3 p-3.5 bg-white border border-[#E8DDD6] rounded-2xl shadow-xs space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                        <label className="block text-[11px] font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
+                          Tuliskan Warna Background Cetak yang Diinginkan:
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value={passFotoCustomColor}
+                            onChange={(e) => setPassFotoCustomColor(e.target.value)}
+                            placeholder="Contoh: Kuning, Abu-abu, Hijau Tosca, Pastel Peach, dll..."
+                            className="w-full min-h-[42px] px-3.5 py-2 rounded-xl border border-[#D8CDC5] text-xs font-medium text-[#3A3A3A] bg-[#FDFBF7] focus:bg-white focus:outline-none focus:border-[#3A3A3A] focus:ring-1 focus:ring-[#3A3A3A] transition-all"
+                            autoFocus
+                          />
+                        </div>
+                        <p className="text-[10.5px] font-sans text-stone-500 leading-tight">
+                          💡 Warna akan disesuaikan dan diterapkan oleh tim editor saat proses editing dan cetak fisik pass foto.
+                        </p>
                       </div>
-                    );
-                  })}
-                </div>
+                    )}
 
-                {/* Info Studio 2: Tematik Cream Maksimal 5 Orang */}
-                {selectedBranch === 'cabang-2' && selectedBackdropIds.some(id => id.includes('cream')) && (
-                  <div className="mt-2.5 p-3 bg-amber-50/90 border border-amber-300/80 rounded-2xl text-amber-900 text-[11px] font-sans flex items-center gap-2 animate-fadeIn shadow-2xs">
-                    <span className="font-bold text-amber-700 text-xs shrink-0">⚠️</span>
-                    <span>
-                      <strong>Pemberitahuan Khusus Tematik Cream:</strong> Background <em>Tematik Cream (Studio 2)</em> memiliki batasan kapasitas panggung maksimal <strong>5 orang</strong>.
-                    </span>
-                  </div>
-                )}
-
-                {/* Helper notice for 2 backdrops */}
-                {maxBackdrops > 1 && (
-                  <div className={`mt-2.5 p-3.5 border rounded-2xl text-xs font-sans flex items-center justify-between gap-2 transition-all shadow-2xs ${selectedBackdropIds.length >= maxBackdrops
-                    ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
-                    : 'bg-amber-50 border-amber-300 text-amber-900'
-                    }`}>
-                    <span className="font-medium flex items-center gap-2">
-                      {selectedBackdropIds.length >= maxBackdrops ? (
-                        <>
-                          <Check className="w-4 h-4 text-emerald-700 shrink-0 stroke-[2.5]" />
-                          <span><strong>{maxBackdrops} Background Lengkap:</strong> {backdropDisplayName}</span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="text-amber-700 text-sm shrink-0">⚠️</span>
-                          <span>
-                            <strong>Wajib Pilih {maxBackdrops} Background ({selectedBackdropIds.length}/{maxBackdrops}):</strong> Silakan klik {maxBackdrops - selectedBackdropIds.length} background lagi di atas untuk mengaktifkan tombol <strong>Lanjut</strong>.
+                    {/* Notice konfirmasi warna terpilih */}
+                    <div className="mt-2.5 p-3 bg-white border border-[#E8DDD6] rounded-2xl text-xs font-sans flex items-center justify-between gap-2 shadow-2xs">
+                      <span className="flex items-center gap-2 text-stone-700">
+                        <Check className="w-4 h-4 text-[#6E856C] stroke-[2.5]" />
+                        <span>
+                          <strong>Warna Background Cetak:</strong>{' '}
+                          <span className="font-serif font-bold text-[#3A3A3A]">
+                            {passFotoBgOption === 'custom'
+                              ? (passFotoCustomColor.trim() ? passFotoCustomColor.trim() : '(Belum diisi)')
+                              : passFotoBgOption}
                           </span>
-                        </>
+                        </span>
+                      </span>
+                      {passFotoBgOption === 'custom' && !passFotoCustomColor.trim() && (
+                        <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                          Wajib Diisi
+                        </span>
                       )}
-                    </span>
+                    </div>
                   </div>
+                ) : (
+                  <>
+                    <div className="flex items-center justify-between mb-2 flex-wrap gap-1.5">
+                      <label className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wider">
+                        3. {maxBackdrops > 1 ? 'PILIH 2 BACKGROUND FOTO / PENCAHAYAAN:' : 'PILIH BACKGROUND FOTO / PENCAHAYAAN:'}
+                      </label>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] bg-[#EBF2EA] text-[#6E856C] border border-[#A9BCA7] font-bold px-2.5 py-0.5 rounded-full shadow-2xs">
+                          {isSelfStudio ? '✨ Bilik Self Studio' : '📸 Studio Foto Pro'}
+                        </span>
+                        {maxBackdrops > 1 ? (
+                          <span className="text-[10.5px] bg-[#FDFBF7] text-stone-800 border border-[#E8DDD6] font-bold px-3 py-1 rounded-full shadow-2xs">
+                            Bebas Pilih 2 Background ({selectedBackdropIds.length}/2 Dipilih)
+                          </span>
+                        ) : (
+                          <span className="text-[10.5px] bg-white text-stone-600 border border-[#E8DDD6] font-medium px-3 py-1 rounded-full shadow-2xs">
+                            1 Background
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {availableBackdrops.map((backdrop) => {
+                        const isSelected = selectedBackdropIds.includes(backdrop.id);
+                        const selectionIndex = selectedBackdropIds.indexOf(backdrop.id);
+                        const availability = getBackdropAvailability(backdrop.id);
+                        const isAvailable = availability.isAvailable;
+
+                        return (
+                          <div
+                            key={backdrop.id}
+                            onClick={() => {
+                              if (isAvailable || isSelected) handleSelectBackdrop(backdrop.id);
+                            }}
+                            role="button"
+                            tabIndex={isAvailable || isSelected ? 0 : -1}
+                            aria-disabled={!isAvailable && !isSelected}
+                            className={`min-h-[56px] p-3 rounded-2xl border text-left flex items-center gap-3 transition-all relative ${!isAvailable && !isSelected
+                              ? 'border-stone-200 bg-stone-100/70 text-stone-400 opacity-60 cursor-not-allowed'
+                              : isSelected
+                                ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm cursor-pointer active:scale-98'
+                                : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] cursor-pointer active:scale-98 shadow-2xs'
+                              }`}
+                          >
+                            <div
+                              className={`w-8 h-8 rounded-xl border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs ${backdrop.colorClass || ''}`}
+                              style={backdrop.colorClass ? undefined : { backgroundColor: backdrop.hex }}
+                            >
+                              {isSelected && maxBackdrops > 1 && (
+                                <span className="bg-black/50 w-full h-full rounded-xl flex items-center justify-center font-bold">
+                                  {selectionIndex + 1}
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className={`font-serif font-bold text-xs truncate ${!isAvailable && !isSelected ? 'text-stone-400 line-through' : 'text-[#3A3A3A]'}`}>
+                                  {backdrop.name}
+                                </span>
+                                {(backdrop.id.includes('cream') || backdrop.name.toLowerCase().includes('cream')) && (
+                                  <span className="text-[8.5px] font-sans font-bold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.2 rounded-full">
+                                    Maks. 5 Orang
+                                  </span>
+                                )}
+                                {isSelected && maxBackdrops > 1 && (
+                                  <span className="text-[9px] font-bold bg-[#3A3A3A] text-white px-2 py-0.2 rounded-full">
+                                    Background {selectionIndex + 1}
+                                  </span>
+                                )}
+                                {!isAvailable && !isSelected && (
+                                  <span className="text-[8.5px] font-bold bg-rose-100 text-rose-700 px-2 py-0.2 rounded-full border border-rose-200">
+                                    Tidak Tersedia
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[10.5px] text-stone-500 truncate mt-0.5">
+                                {!isAvailable && !isSelected ? (
+                                  <span className="text-rose-600 font-medium">{availability.reason}</span>
+                                ) : (
+                                  backdrop.description
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              <button
+                                type="button"
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  setActiveBackdropDetail(backdrop);
+                                }}
+                                className="min-h-[28px] rounded-lg border border-[#E8DDD6] bg-white px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-stone-600 hover:border-[#6E856C] hover:text-[#3A3A3A] cursor-pointer"
+                              >
+                                Detail
+                              </button>
+                              {isSelected && (
+                                <div className="w-5 h-5 rounded-full bg-[#3A3A3A] text-white flex items-center justify-center text-xs shadow-2xs">
+                                  <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Info Studio 2: Tematik Cream Maksimal 5 Orang */}
+                    {selectedBranch === 'cabang-2' && selectedBackdropIds.some(id => id.includes('cream')) && (
+                      <div className="mt-2.5 p-3 bg-amber-50/90 border border-amber-300/80 rounded-2xl text-amber-900 text-[11px] font-sans flex items-center gap-2 animate-fadeIn shadow-2xs">
+                        <span className="font-bold text-amber-700 text-xs shrink-0">⚠️</span>
+                        <span>
+                          <strong>Pemberitahuan Khusus Tematik Cream:</strong> Background <em>Tematik Cream (Studio 2)</em> memiliki batasan kapasitas panggung maksimal <strong>5 orang</strong>.
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Helper notice for 2 backdrops */}
+                    {maxBackdrops > 1 && (
+                      <div className={`mt-2.5 p-3.5 border rounded-2xl text-xs font-sans flex items-center justify-between gap-2 transition-all shadow-2xs ${selectedBackdropIds.length >= maxBackdrops
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+                        : 'bg-amber-50 border-amber-300 text-amber-900'
+                        }`}>
+                        <span className="font-medium flex items-center gap-2">
+                          {selectedBackdropIds.length >= maxBackdrops ? (
+                            <>
+                              <Check className="w-4 h-4 text-emerald-700 shrink-0 stroke-[2.5]" />
+                              <span><strong>{maxBackdrops} Background Lengkap:</strong> {backdropDisplayName}</span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-amber-700 text-sm shrink-0">⚠️</span>
+                              <span>
+                                <strong>Wajib Pilih {maxBackdrops} Background ({selectedBackdropIds.length}/{maxBackdrops}):</strong> Silakan klik {maxBackdrops - selectedBackdropIds.length} background lagi di atas untuk mengaktifkan tombol <strong>Lanjut</strong>.
+                              </span>
+                            </>
+                          )}
+                        </span>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
 
@@ -3490,6 +3697,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
                   </div>
 
+                  {isPassFoto && (
+                    <div className="flex justify-between text-stone-300">
+                      <span>Warna Background Cetak</span>
+                      <span className="text-[#A9BCA7] font-serif font-bold">{passFotoColor || '-'}</span>
+                    </div>
+                  )}
+
                   {addOnsTotalPrice > 0 && (
                     <>
                       <div className="flex justify-between text-stone-300">
@@ -3800,6 +4014,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <span>Rp {packagePrice.toLocaleString('id-ID')}</span>
                 </div>
 
+                {isPassFoto && (
+                  <div className="flex justify-between text-stone-300">
+                    <span>Warna Background Cetak</span>
+                    <span className="text-[#A9BCA7] font-serif font-bold">{passFotoColor || '-'}</span>
+                  </div>
+                )}
+
                 {addOnsTotalPrice > 0 && (
                   <>
                     <div className="flex justify-between text-stone-300">
@@ -3900,7 +4121,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs cursor-pointer active:scale-95'
                     : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
                 }`}
-                title={!isStep1Valid ? `Wajib memilih ${maxBackdrops} background terlebih dahulu sebelum lanjut` : 'Lanjut ke Add-Ons'}
+                title={
+                  !isStep1Valid
+                    ? (isPassFoto
+                        ? (passFotoBgOption === 'custom' && !passFotoCustomColor.trim()
+                            ? 'Wajib mengisi warna background cetak yang diinginkan terlebih dahulu'
+                            : 'Wajib memilih warna background cetak terlebih dahulu')
+                        : `Wajib memilih ${maxBackdrops} background terlebih dahulu sebelum lanjut`)
+                    : 'Lanjut ke Add-Ons'
+                }
               >
                 <span>Lanjut</span>
                 <ChevronRight className="w-4 h-4 stroke-[2]" />
