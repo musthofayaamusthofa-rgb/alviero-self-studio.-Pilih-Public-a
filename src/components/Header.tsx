@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Calendar, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
+import { Camera, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 
@@ -8,7 +8,7 @@ interface HeaderProps {
   setActiveTab: (tab: string) => void;
   selectedBranch?: StudioBranch;
   onOpenBranchModal?: () => void;
-  onOpenBooking: () => void;
+  onOpenBooking?: () => void;
   onBackToLanding?: () => void;
   onNavigateToPricelist?: () => void;
 }
@@ -179,28 +179,19 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </nav>
 
-        {/* CTA & Branch Switcher */}
+        {/* Branch Switcher */}
         <div className="flex items-center gap-2.5">
           {onOpenBranchModal && (
             <button
               type="button"
               onClick={onOpenBranchModal}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#F2E9E4] text-[#3A3A3A] font-bold text-xs border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all cursor-pointer shadow-2xs uppercase tracking-wider"
+              className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-[#F2E9E4] text-[#3A3A3A] font-bold text-xs border border-[#E8DDD6] hover:border-[#3A3A3A] transition-all cursor-pointer shadow-2xs uppercase tracking-wider"
             >
               <MapPin className="w-3.5 h-3.5 text-[#6E856C] stroke-[1.8]" />
               <span>{currentBranchInfo.shortName}</span>
               <span className="text-[10px] text-[#6E856C] font-black underline underline-offset-2 ml-0.5">Ganti</span>
             </button>
           )}
-
-          <button
-            onClick={onOpenBooking}
-            className="relative group bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs px-5 py-2.5 shadow-xs hover:shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer border border-[#3A3A3A] uppercase tracking-wider"
-          >
-            <Calendar className="w-4 h-4 text-[#A9BCA7] stroke-[1.8] group-hover:scale-110 transition-transform" />
-            <span>Reservasi</span>
-            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#A9BCA7] animate-ping"></span>
-          </button>
         </div>
       </div>
     </header>
