@@ -1640,16 +1640,130 @@ export const ADD_ONS: AddOnOption[] = [
     category: 'file'
   },
 
-  // ==================== 1. GRADUATION INDOOR ====================
+  // ==================== GLOBAL CETAK & BINGKAI ADD-ONS (SEMUA PAKET) ====================
+  // Berlaku untuk seluruh paket foto (Maternity, Family, Graduation, Group, Personal, Couple, Birthday, Prewed, dll.)
   {
-    id: 'grad-indoor-frame-10rs',
-    name: 'Bingkai Uk 10Rs / Foto',
-    price: 35000,
+    id: 'global-print-4r',
+    name: 'Cetak Lab Uk 4R',
+    price: 5000,
     unit: 'foto',
-    description: 'Bingkai pigura minimalis ukuran 10Rs (20x30 cm).',
-    category: 'frame',
-    applicableCategories: ['grad-indoor']
+    description: 'Cetak foto lab ukuran 4R (10.2 x 15.2 cm) kertas Glossy Lab premium.',
+    category: 'frame'
   },
+  {
+    id: 'global-print-5r',
+    name: 'Cetak Lab Uk 5R',
+    price: 8000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 5R (12.7 x 17.8 cm) kertas Glossy Lab premium.',
+    category: 'frame'
+  },
+  {
+    id: 'global-print-6r',
+    name: 'Cetak Lab Uk 6R',
+    price: 9000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 6R (15.2 x 20.3 cm) meja kantor/kamar.',
+    category: 'frame'
+  },
+  {
+    id: 'global-print-10rs',
+    name: 'Cetak Lab Uk 10Rs',
+    price: 15000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm) resolusi tinggi tahan pudar.',
+    category: 'frame'
+  },
+  {
+    id: 'global-print-12rs',
+    name: 'Cetak Lab Uk 12Rs',
+    price: 50000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 12Rs (30.5 x 45 cm) pigura dinding.',
+    category: 'frame'
+  },
+  {
+    id: 'global-print-16rs',
+    name: 'Cetak Lab Uk 16Rs',
+    price: 100000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 16Rs (40 x 60 cm) pajangan dinding besar.',
+    category: 'frame'
+  },
+  {
+    id: 'global-print-20rs',
+    name: 'Cetak Lab Uk 20Rs',
+    price: 137000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 20Rs (50 x 75 cm) pajangan ruang tamu.',
+    category: 'frame'
+  },
+  {
+    id: 'global-print-24rs',
+    name: 'Cetak Lab Uk 24Rs',
+    price: 172000,
+    unit: 'foto',
+    description: 'Cetak foto lab ukuran 24Rs (60 x 90 cm) ukuran kanvas jumbo.',
+    category: 'frame'
+  },
+  {
+    id: 'global-frame-4r',
+    name: 'Bingkai Uk 4R',
+    price: 17000,
+    unit: 'bingkai',
+    description: 'Bingkai pigura minimalis modern ukuran 4R (15 x 20 cm) dengan penyangga meja.',
+    category: 'frame'
+  },
+  {
+    id: 'global-frame-10rs',
+    name: 'Bingkai Uk 10Rs',
+    price: 35000,
+    unit: 'bingkai',
+    description: 'Bingkai pigura minimalis elegan ukuran 10Rs (20 x 30 cm) untuk meja & dinding.',
+    category: 'frame'
+  },
+  {
+    id: 'global-frame-12rs',
+    name: 'Bingkai Uk 12Rs',
+    price: 50000,
+    unit: 'bingkai',
+    description: 'Bingkai pigura dinding minimalis modern ukuran 12Rs (30 x 45 cm).',
+    category: 'frame'
+  },
+  {
+    id: 'global-frame-16rs',
+    name: 'Bingkai Uk 16Rs',
+    price: 145000,
+    unit: 'bingkai',
+    description: 'Bingkai eksklusif mewah ukuran 16Rs (40 x 60 cm) list linen ganda.',
+    category: 'frame'
+  },
+  {
+    id: 'global-frame-20rs',
+    name: 'Bingkai Uk 20Rs',
+    price: 175000,
+    unit: 'bingkai',
+    description: 'Bingkai pigura dinding jumbo ukuran 20Rs (50 x 75 cm) sangat megah.',
+    category: 'frame'
+  },
+  {
+    id: 'global-bundle-10rs',
+    name: 'Paket Cetak + Bingkai 10Rs',
+    price: 50000,
+    unit: 'paket',
+    description: 'Paket hemat lengkap: 1x Cetak Lab 10Rs + 1x Bingkai Minimalis 10Rs siap pajang.',
+    category: 'frame'
+  },
+  {
+    id: 'global-bundle-12rs',
+    name: 'Paket Cetak + Bingkai 12Rs',
+    price: 100000,
+    unit: 'paket',
+    description: 'Paket hemat lengkap: 1x Cetak Lab 12Rs + 1x Bingkai Minimalis 12Rs siap pajang.',
+    category: 'frame'
+  },
+
+  // ==================== 1. GRADUATION INDOOR ====================
   {
     id: 'grad-indoor-extra-bg',
     name: 'Tambahan Background',
@@ -1704,33 +1818,6 @@ export const ADD_ONS: AddOnOption[] = [
     category: 'file',
     applicableCategories: ['grad-indoor']
   },
-  {
-    id: 'grad-indoor-print-10rs',
-    name: 'Cetak Uk 10Rs',
-    price: 15000,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm).',
-    category: 'print',
-    applicableCategories: ['grad-indoor']
-  },
-  {
-    id: 'grad-indoor-print-12rs',
-    name: 'Cetak Uk 12Rs',
-    price: 50000,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 12Rs (30.5 x 45 cm).',
-    category: 'print',
-    applicableCategories: ['grad-indoor']
-  },
-  {
-    id: 'grad-indoor-print-16rs',
-    name: 'Cetak Uk 16Rs',
-    price: 100000,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 16Rs (40 x 60 cm).',
-    category: 'print',
-    applicableCategories: ['grad-indoor']
-  },
 
   // ==================== 2. GRADUATION OUTDOOR ====================
   {
@@ -1742,15 +1829,7 @@ export const ADD_ONS: AddOnOption[] = [
     category: 'file',
     applicableCategories: ['grad-outdoor']
   },
-  {
-    id: 'grad-outdoor-print-10rs',
-    name: 'Cetak Uk 10Rs',
-    price: 15000,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm).',
-    category: 'print',
-    applicableCategories: ['grad-outdoor']
-  },
+
   {
     id: 'grad-outdoor-makeup',
     name: 'Make Up Wisuda Outdoor',
@@ -1899,33 +1978,7 @@ export const ADD_ONS: AddOnOption[] = [
     category: 'file',
     applicableCategories: ['group']
   },
-  {
-    id: 'group-print-4r',
-    name: 'Cetak Uk 4R',
-    price: 3500,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 4R (10.2 x 15.2 cm).',
-    category: 'print',
-    applicableCategories: ['group']
-  },
-  {
-    id: 'group-print-5r',
-    name: 'Cetak Uk 5R',
-    price: 5000,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 5R (12.7 x 17.8 cm).',
-    category: 'print',
-    applicableCategories: ['group']
-  },
-  {
-    id: 'group-print-10rs',
-    name: 'Cetak Uk 10Rs',
-    price: 15000,
-    unit: 'foto',
-    description: 'Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm).',
-    category: 'print',
-    applicableCategories: ['group']
-  },
+
   {
     id: 'group-foto-sendiri',
     name: 'Foto Sendiri (Solo Shot)',
@@ -1937,15 +1990,7 @@ export const ADD_ONS: AddOnOption[] = [
   },
 
   // ==================== 5. PAKET FAMILY ====================
-  {
-    id: 'family-frame-10rs',
-    name: 'Bingkai Uk 10Rs',
-    price: 35000,
-    unit: 'bingkai',
-    description: 'Bingkai kayu minimalis elegan ukuran 10Rs.',
-    category: 'frame',
-    applicableCategories: ['family']
-  },
+
   {
     id: 'family-extra-bg',
     name: 'Tambahan Background',
@@ -2293,15 +2338,7 @@ export const ADD_ONS: AddOnOption[] = [
     category: 'file',
     applicableCategories: ['undangan', 'sewa-studio']
   },
-  {
-    id: 'undangan-print-10rs',
-    name: 'Cetak Uk 10Rs Display',
-    price: 15000,
-    unit: 'foto',
-    description: 'Cetak foto display meja tamu ukuran 10Rs.',
-    category: 'print',
-    applicableCategories: ['undangan', 'sewa-studio']
-  },
+
   {
     id: 'undangan-makeup',
     name: 'Make Up Sesi Undangan',

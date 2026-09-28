@@ -1474,6 +1474,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
   const [selectedAddOns, setSelectedAddOns] = useState<{ [id: string]: number }>({});
   const [selectedAddOnGroup, setSelectedAddOnGroup] = useState<string | null>(null);
+  const [frameAddOnSubTab, setFrameAddOnSubTab] = useState<'all' | 'print' | 'frame' | 'bundle'>('all');
   const [muaCart, setMuaCart] = useState<Array<{ vendorId: string; serviceId: string; quantity: number }>>([]);
   const [selectedMuaVendorId, setSelectedMuaVendorId] = useState<string>(MUA_VENDOR_OPTIONS[0]?.id || '');
 
@@ -3740,12 +3741,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               return addOn.applicableCategories.includes(packageCatInfo.key);
             });
             const addOnGroupMeta: Record<string, { label: string; description: string; className: string }> = {
-              selfstudio: { label: 'Self Studio', description: 'Tambahan khusus sesi foto mandiri', className: 'bg-emerald-50 border-emerald-200 text-emerald-950' },
-              background: { label: 'Background', description: 'Tambahan pilihan latar foto', className: 'bg-cyan-50 border-cyan-200 text-cyan-950' },
-              frame: { label: 'Cetak & Bingkai', description: 'Pilihan cetak dan pelengkap foto', className: 'bg-amber-50 border-amber-200 text-amber-950' },
+              frame: { label: 'Cetak & Bingkai', description: 'Cetak Lab foto & pigura bingkai minimalis', className: 'bg-amber-50/90 border-amber-200 text-amber-950' },
               file: { label: 'File & Penyimpanan', description: 'Perpanjangan dan pengelolaan file', className: 'bg-sky-50 border-sky-200 text-sky-950' },
-              person: { label: 'Orang & Kostum', description: 'Tambahan peserta dan outfit', className: 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-950' },
+              background: { label: 'Background', description: 'Tambahan pilihan latar foto', className: 'bg-cyan-50 border-cyan-200 text-cyan-950' },
               prop: { label: 'Properti & Aksesori', description: 'Tambahan properti sesi foto', className: 'bg-orange-50 border-orange-200 text-orange-950' },
+              person: { label: 'Orang & Kostum', description: 'Tambahan peserta dan outfit', className: 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-950' },
+              selfstudio: { label: 'Self Studio', description: 'Tambahan khusus sesi foto mandiri', className: 'bg-emerald-50 border-emerald-200 text-emerald-950' },
               'pass-foto': { label: 'Pass Foto', description: 'Layanan tambahan pass foto', className: 'bg-lime-50 border-lime-200 text-lime-950' }
             };
             const getAddOnGroupKey = (addOn: typeof relevantAddOns[number]): string => {
@@ -3812,83 +3813,148 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {Object.entries(groupedAddOns).map(([groupKey, groupItems]) => {
-                        const meta = addOnGroupMeta[groupKey] || { label: groupKey, description: 'Layanan tambahan', className: 'bg-stone-50 border-stone-200 text-stone-950' };
-                        const selectedCount = groupItems.reduce((total, addOn) => total + (selectedAddOns[addOn.id] || 0), 0);
-                        return (
-                          <button
-                            key={groupKey}
-                            type="button"
-                            onClick={() => setSelectedAddOnGroup(groupKey)}
-                            className={`min-h-[92px] rounded-2xl border p-4 text-left transition-all hover:-translate-y-0.5 hover:shadow-md ${meta.className}`}
-                          >
-                            <div className="flex items-start justify-between gap-2">
-                              <div>
-                                <span className="block font-serif font-bold text-sm uppercase tracking-wide">{meta.label}</span>
-                                <span className="mt-1 block text-[11px] opacity-75">{meta.description}</span>
-                              </div>
-                              <span className="rounded-full bg-white/70 px-2 py-0.5 text-[10px] font-bold">
-                                {selectedCount > 0 ? `${selectedCount} dipilih` : `${groupItems.length} opsi`}
-                              </span>
-                            </div>
-                            <span className="mt-3 block text-[10px] font-bold uppercase tracking-wider opacity-70">Tekan untuk melihat opsi →</span>
-                          </button>
-                        );
-                      })}
-
-                    </div>
-                  )}
-
-                  {activeAddOnGroup && (
-                    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4">
-                      <div className="max-h-[86vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl bg-[#FDFBF7] p-4 shadow-2xl sm:rounded-3xl sm:p-5">
-                        <div className="mb-4 flex items-start justify-between gap-3 border-b border-[#E8DDD6] pb-3">
-                          <div>
-                            <h5 className="font-serif text-base font-bold uppercase tracking-wide text-[#3A3A3A]">
-                              {addOnGroupMeta[selectedAddOnGroup || '']?.label || selectedAddOnGroup}
-                            </h5>
-                            <p className="mt-1 text-[11px] text-stone-500">Pilih jumlah layanan tambahan yang diperlukan.</p>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => setSelectedAddOnGroup(null)}
-                            aria-label="Tutup kelompok add-on"
-                            className="rounded-full p-2 text-stone-500 hover:bg-[#F2E9E4]"
-                          >
-                            <X className="h-5 w-5" />
-                          </button>
-                        </div>
-
-                        <div className="space-y-2.5">
-                          {activeAddOnGroup.map(addOn => {
-                            const qty = selectedAddOns[addOn.id] || 0;
+                      {(() => {
+                        const groupOrder = ['frame', 'file', 'background', 'prop', 'person', 'selfstudio', 'pass-foto'];
+                        return Object.entries(groupedAddOns)
+                          .sort(([a], [b]) => {
+                            const idxA = groupOrder.indexOf(a);
+                            const idxB = groupOrder.indexOf(b);
+                            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+                          })
+                          .map(([groupKey, groupItems]) => {
+                            const meta = addOnGroupMeta[groupKey] || { label: groupKey, description: 'Layanan tambahan', className: 'bg-stone-50 border-stone-200 text-stone-950' };
+                            const selectedCount = groupItems.reduce((total, addOn) => total + (selectedAddOns[addOn.id] || 0), 0);
                             return (
-                              <div key={addOn.id} className={`flex items-center justify-between gap-3 rounded-2xl border p-3.5 transition-all ${qty > 0 ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A]' : 'border-[#E8DDD6] bg-white'}`}>
-                                <div className="min-w-0 flex-1">
-                                  <span className="block font-serif text-xs font-bold text-[#3A3A3A] sm:text-sm">{addOn.name}</span>
-                                  <span className="mt-0.5 block text-[11px] leading-snug text-stone-500">{addOn.description}</span>
-                                  <span className="mt-1 block text-xs font-bold text-[#6E856C]">Rp {addOn.price.toLocaleString('id-ID')} <span className="font-normal text-stone-400">/ {addOn.unit}</span></span>
+                              <button
+                                key={groupKey}
+                                type="button"
+                                onClick={() => {
+                                  setSelectedAddOnGroup(groupKey);
+                                  setFrameAddOnSubTab('all');
+                                }}
+                                className={`min-h-[92px] rounded-2xl border p-4 text-left transition-all hover:-translate-y-0.5 hover:shadow-md ${meta.className}`}
+                              >
+                                <div className="flex items-start justify-between gap-2">
+                                  <div>
+                                    <span className="block font-serif font-bold text-sm uppercase tracking-wide">{meta.label}</span>
+                                    <span className="mt-1 block text-[11px] opacity-75">{meta.description}</span>
+                                  </div>
+                                  <span className="rounded-full bg-white/70 px-2 py-0.5 text-[10px] font-bold">
+                                    {selectedCount > 0 ? `${selectedCount} dipilih` : `${groupItems.length} opsi`}
+                                  </span>
                                 </div>
-                                <div className="flex shrink-0 items-center gap-1.5 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-1">
-                                  <button type="button" onClick={() => handleAddOnQtyChange(addOn.id, -1)} disabled={qty === 0} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E8DDD6] bg-white text-stone-700 disabled:opacity-30">
-                                    <Minus className="h-3.5 w-3.5" />
-                                  </button>
-                                  <span className="w-6 text-center font-mono text-xs font-bold text-[#3A3A3A]">{qty}</span>
-                                  <button type="button" onClick={() => handleAddOnQtyChange(addOn.id, 1)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3A3A3A] text-white">
-                                    <Plus className="h-3.5 w-3.5" />
-                                  </button>
-                                </div>
-                              </div>
+                                <span className="mt-3 block text-[10px] font-bold uppercase tracking-wider opacity-70">Tekan untuk melihat opsi →</span>
+                              </button>
                             );
-                          })}
-                        </div>
-
-                        <button type="button" onClick={() => setSelectedAddOnGroup(null)} className="mt-4 min-h-[42px] w-full rounded-xl bg-[#3A3A3A] text-xs font-bold uppercase tracking-wider text-white">
-                          Selesai Memilih
-                        </button>
-                      </div>
+                          });
+                      })()}
                     </div>
                   )}
+
+                  {activeAddOnGroup && (() => {
+                    const filteredGroupItems = activeAddOnGroup.filter(addOn => {
+                      if (selectedAddOnGroup !== 'frame') return true;
+                      if (frameAddOnSubTab === 'all') return true;
+                      const nameLower = addOn.name.toLowerCase();
+                      const idLower = addOn.id.toLowerCase();
+                      if (frameAddOnSubTab === 'bundle') {
+                        return nameLower.includes('paket') || idLower.includes('bundle');
+                      }
+                      if (frameAddOnSubTab === 'print') {
+                        return (nameLower.includes('cetak') || idLower.includes('print')) && !nameLower.includes('paket') && !idLower.includes('bundle');
+                      }
+                      if (frameAddOnSubTab === 'frame') {
+                        return (nameLower.includes('bingkai') || idLower.includes('frame')) && !nameLower.includes('paket') && !idLower.includes('bundle');
+                      }
+                      return true;
+                    });
+
+                    return (
+                      <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4">
+                        <div className="max-h-[86vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl bg-[#FDFBF7] p-4 shadow-2xl sm:rounded-3xl sm:p-5">
+                          <div className="mb-4 flex items-start justify-between gap-3 border-b border-[#E8DDD6] pb-3">
+                            <div>
+                              <h5 className="font-serif text-base font-bold uppercase tracking-wide text-[#3A3A3A]">
+                                {addOnGroupMeta[selectedAddOnGroup || '']?.label || selectedAddOnGroup}
+                              </h5>
+                              <p className="mt-1 text-[11px] text-stone-500">Pilih jumlah layanan tambahan yang diperlukan.</p>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedAddOnGroup(null);
+                                setFrameAddOnSubTab('all');
+                              }}
+                              aria-label="Tutup kelompok add-on"
+                              className="rounded-full p-2 text-stone-500 hover:bg-[#F2E9E4]"
+                            >
+                              <X className="h-5 w-5" />
+                            </button>
+                          </div>
+
+                          {/* Khusus Grup Cetak & Bingkai: Tampilkan Sub-Tab Filter */}
+                          {selectedAddOnGroup === 'frame' && (
+                            <div className="flex items-center gap-1.5 overflow-x-auto pb-2.5 mb-3 border-b border-[#E8DDD6]/60">
+                              {[
+                                { id: 'all', label: 'Semua Opsi' },
+                                { id: 'print', label: 'Cetak Lab' },
+                                { id: 'frame', label: 'Bingkai Saja' },
+                                { id: 'bundle', label: 'Paket Hemat' }
+                              ].map(tab => (
+                                <button
+                                  key={tab.id}
+                                  type="button"
+                                  onClick={() => setFrameAddOnSubTab(tab.id as any)}
+                                  className={`px-3 py-1.5 rounded-xl text-xs font-century font-medium transition-all ${
+                                    frameAddOnSubTab === tab.id
+                                      ? 'bg-[#3A3A3A] text-white shadow-xs'
+                                      : 'bg-white border border-[#E8DDD6] text-stone-600 hover:bg-[#F2E9E4]'
+                                  }`}
+                                >
+                                  {tab.label}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+
+                          <div className="space-y-2.5">
+                            {filteredGroupItems.map(addOn => {
+                              const qty = selectedAddOns[addOn.id] || 0;
+                              return (
+                                <div key={addOn.id} className={`flex items-center justify-between gap-3 rounded-2xl border p-3.5 transition-all ${qty > 0 ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A]' : 'border-[#E8DDD6] bg-white'}`}>
+                                  <div className="min-w-0 flex-1">
+                                    <span className="block font-serif text-xs font-bold text-[#3A3A3A] sm:text-sm">{addOn.name}</span>
+                                    <span className="mt-0.5 block text-[11px] leading-snug text-stone-500">{addOn.description}</span>
+                                    <span className="mt-1 block text-xs font-bold text-[#6E856C]">Rp {addOn.price.toLocaleString('id-ID')} <span className="font-normal text-stone-400">/ {addOn.unit}</span></span>
+                                  </div>
+                                  <div className="flex shrink-0 items-center gap-1.5 rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-1">
+                                    <button type="button" onClick={() => handleAddOnQtyChange(addOn.id, -1)} disabled={qty === 0} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E8DDD6] bg-white text-stone-700 disabled:opacity-30">
+                                      <Minus className="h-3.5 w-3.5" />
+                                    </button>
+                                    <span className="w-6 text-center font-mono text-xs font-bold text-[#3A3A3A]">{qty}</span>
+                                    <button type="button" onClick={() => handleAddOnQtyChange(addOn.id, 1)} className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#3A3A3A] text-white">
+                                      <Plus className="h-3.5 w-3.5" />
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedAddOnGroup(null);
+                              setFrameAddOnSubTab('all');
+                            }}
+                            className="mt-4 min-h-[42px] w-full rounded-xl bg-[#3A3A3A] text-xs font-bold uppercase tracking-wider text-white hover:bg-stone-800 transition-colors"
+                          >
+                            Selesai Memilih
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Promo Voucher Section */}
