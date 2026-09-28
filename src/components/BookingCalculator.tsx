@@ -37,7 +37,9 @@ import {
   Trash2,
   Instagram,
   GraduationCap,
-  Trees
+  Trees,
+  ChevronDown,
+  Search
 } from 'lucide-react';
 
 interface BookingCalculatorProps {
@@ -162,6 +164,292 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
   }
   return { key: cat, label: pkg.name, badge: 'Studio Foto', note: '' };
 };
+
+export interface PackagePastelTheme {
+  key: string;
+  categoryLabel: string;
+  bg: string;
+  hoverBg: string;
+  border: string;
+  activeBorder: string;
+  text: string;
+  badgeBg: string;
+  badgeText: string;
+  accent: string;
+  dotColor: string;
+  description: string;
+}
+
+/**
+ * Palet Warna Pastel Harmonis & Mewah per Kategori Paket
+ * Family wajib Pastel Pink sesuai permintaan user
+ */
+export const getPackagePastelTheme = (pkg?: { id?: string; category?: string; name?: string } | null): PackagePastelTheme => {
+  if (!pkg) {
+    return {
+      key: 'default',
+      categoryLabel: 'Studio Foto',
+      bg: '#FAF8F5',
+      hoverBg: '#F3EFEA',
+      border: '#E8DDD6',
+      activeBorder: '#6E856C',
+      text: '#3A3A3A',
+      badgeBg: '#F2E9E4',
+      badgeText: '#5A4A42',
+      accent: '#6E856C',
+      dotColor: '#A9BCA7',
+      description: 'Studio Foto'
+    };
+  }
+
+  const categoryInfo = getPackageCategoryInfo({
+    id: pkg.id || '',
+    category: pkg.category || '',
+    name: pkg.name || ''
+  });
+
+  const catKey = categoryInfo.key;
+
+  switch (catKey) {
+    case 'family':
+      // Wajib Pastel Pink (Permintaan Khusus: paket family berlatar belakang pink pastel)
+      return {
+        key: 'family',
+        categoryLabel: 'Family Studio',
+        bg: '#FDF2F8',          // Soft pastel pink
+        hoverBg: '#FCE7F3',     // Richer pastel pink
+        border: '#FBCFE8',      // Pastel pink border
+        activeBorder: '#F472B6',
+        text: '#831843',        // Deep rose for perfect readability
+        badgeBg: '#FCE7F3',
+        badgeText: '#9D174D',
+        accent: '#DB2777',
+        dotColor: '#F472B6',
+        description: 'Tema Pastel Pink Rose'
+      };
+
+    case 'grad-indoor':
+      // Pastel Mint Herb / Soft Sage
+      return {
+        key: 'grad-indoor',
+        categoryLabel: 'Wisuda Indoor',
+        bg: '#F0F7F1',
+        hoverBg: '#E4F0E6',
+        border: '#CDE4D1',
+        activeBorder: '#6E856C',
+        text: '#224426',
+        badgeBg: '#E4F1E6',
+        badgeText: '#2D5A32',
+        accent: '#527D56',
+        dotColor: '#6E856C',
+        description: 'Tema Pastel Mint Herb'
+      };
+
+    case 'grad-outdoor':
+      // Pastel Sky Blue
+      return {
+        key: 'grad-outdoor',
+        categoryLabel: 'Wisuda Outdoor',
+        bg: '#F0F9FF',
+        hoverBg: '#E0F2FE',
+        border: '#BAE6FD',
+        activeBorder: '#0284C7',
+        text: '#075985',
+        badgeBg: '#E0F2FE',
+        badgeText: '#0369A1',
+        accent: '#0284C7',
+        dotColor: '#38BDF8',
+        description: 'Tema Pastel Sky Blue'
+      };
+
+    case 'group':
+      // Pastel Soft Lavender
+      return {
+        key: 'group',
+        categoryLabel: 'Group Studio',
+        bg: '#F5F3FF',
+        hoverBg: '#EDE9FE',
+        border: '#DDD6FE',
+        activeBorder: '#7C3AED',
+        text: '#5B21B6',
+        badgeBg: '#EDE9FE',
+        badgeText: '#6D28D9',
+        accent: '#7C3AED',
+        dotColor: '#A78BFA',
+        description: 'Tema Pastel Lavender'
+      };
+
+    case 'maternity':
+      // Pastel Warm Peach
+      return {
+        key: 'maternity',
+        categoryLabel: 'Maternity Studio',
+        bg: '#FFF7ED',
+        hoverBg: '#FFEDD5',
+        border: '#FED7AA',
+        activeBorder: '#EA580C',
+        text: '#9A3412',
+        badgeBg: '#FFEDD5',
+        badgeText: '#C2410C',
+        accent: '#EA580C',
+        dotColor: '#FB923C',
+        description: 'Tema Pastel Warm Peach'
+      };
+
+    case 'personal':
+      // Pastel Buttercream
+      return {
+        key: 'personal',
+        categoryLabel: 'Personal Studio',
+        bg: '#FFFBEB',
+        hoverBg: '#FEF3C7',
+        border: '#FDE68A',
+        activeBorder: '#D97706',
+        text: '#92400E',
+        badgeBg: '#FEF3C7',
+        badgeText: '#B45309',
+        accent: '#D97706',
+        dotColor: '#FBBF24',
+        description: 'Tema Pastel Buttercream'
+      };
+
+    case 'couple':
+      // Pastel Coral Blush
+      return {
+        key: 'couple',
+        categoryLabel: 'Couple Studio',
+        bg: '#FFF1F2',
+        hoverBg: '#FFE4E6',
+        border: '#FECDD3',
+        activeBorder: '#E11D48',
+        text: '#9F1239',
+        badgeBg: '#FFE4E6',
+        badgeText: '#BE123C',
+        accent: '#E11D48',
+        dotColor: '#FB7185',
+        description: 'Tema Pastel Coral Blush'
+      };
+
+    case 'birthday':
+      // Pastel Sunshine Lemon
+      return {
+        key: 'birthday',
+        categoryLabel: 'Birthday Studio',
+        bg: '#FEFCE8',
+        hoverBg: '#FEF9C3',
+        border: '#FEF08A',
+        activeBorder: '#CA8A04',
+        text: '#854D0E',
+        badgeBg: '#FEF9C3',
+        badgeText: '#A16207',
+        accent: '#CA8A04',
+        dotColor: '#FACC15',
+        description: 'Tema Pastel Sunshine Lemon'
+      };
+
+    case 'prewedding':
+      // Pastel Orchid Mauve
+      return {
+        key: 'prewedding',
+        categoryLabel: 'Prewedding Suite',
+        bg: '#FAF5FF',
+        hoverBg: '#F3E8FF',
+        border: '#E9D5FF',
+        activeBorder: '#9333EA',
+        text: '#6B21A8',
+        badgeBg: '#F3E8FF',
+        badgeText: '#7E22CE',
+        accent: '#9333EA',
+        dotColor: '#C084FC',
+        description: 'Tema Pastel Orchid'
+      };
+
+    case 'pass-foto':
+      // Pastel Ice Aqua / Cyan
+      return {
+        key: 'pass-foto',
+        categoryLabel: 'Pass Foto',
+        bg: '#F0FDFA',
+        hoverBg: '#CCFBF1',
+        border: '#99F6E4',
+        activeBorder: '#0D9488',
+        text: '#115E59',
+        badgeBg: '#CCFBF1',
+        badgeText: '#0F766E',
+        accent: '#0D9488',
+        dotColor: '#2DD4BF',
+        description: 'Tema Pastel Mint Aqua'
+      };
+
+    case 'sewa-studio':
+      // Pastel Warm Oat / Sand Taupe
+      return {
+        key: 'sewa-studio',
+        categoryLabel: 'Sewa Studio',
+        bg: '#FAF6F0',
+        hoverBg: '#F3EDE2',
+        border: '#E6D9C8',
+        activeBorder: '#8D6E57',
+        text: '#574235',
+        badgeBg: '#EFE7DA',
+        badgeText: '#785E48',
+        accent: '#8D6E57',
+        dotColor: '#A88870',
+        description: 'Tema Pastel Warm Oat'
+      };
+
+    case 'undangan':
+      // Pastel Almond Cream
+      return {
+        key: 'undangan',
+        categoryLabel: 'Paket Undangan',
+        bg: '#FAF7F2',
+        hoverBg: '#F4EFE6',
+        border: '#E9E0D3',
+        activeBorder: '#7D7063',
+        text: '#4A4036',
+        badgeBg: '#EFE9DE',
+        badgeText: '#6B5E51',
+        accent: '#7D7063',
+        dotColor: '#968574',
+        description: 'Tema Pastel Almond'
+      };
+
+    case 'self-studio':
+      // Pastel Dusty Sage Alviero
+      return {
+        key: 'self-studio',
+        categoryLabel: 'Self Studio',
+        bg: '#F2F6F1',
+        hoverBg: '#E5EDE3',
+        border: '#C9DBC7',
+        activeBorder: '#5E8763',
+        text: '#2F4832',
+        badgeBg: '#E5EDE3',
+        badgeText: '#416345',
+        accent: '#5E8763',
+        dotColor: '#729B77',
+        description: 'Tema Pastel Dusty Sage'
+      };
+
+    default:
+      return {
+        key: 'other',
+        categoryLabel: 'Studio Foto',
+        bg: '#FAF8F5',
+        hoverBg: '#F3EFEA',
+        border: '#E8DDD6',
+        activeBorder: '#6E856C',
+        text: '#3A3A3A',
+        badgeBg: '#F2E9E4',
+        badgeText: '#5A4A42',
+        accent: '#6E856C',
+        dotColor: '#A9BCA7',
+        description: 'Tema Pastel Ivory'
+      };
+  }
+};
+
 
 /**
  * Menghitung batas maksimum background yang bisa dipilih berdasarkan jenis paket
@@ -1321,6 +1609,50 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     });
   }, [isSelfStudio]);
 
+  // Tema Warna Pastel untuk Paket Aktif
+  const currentPackagePastelTheme = useMemo(() => getPackagePastelTheme(currentPackage), [currentPackage]);
+
+  // Dropdown Paket Studio Foto Interaktif Berwarna Pastel
+  const [isPackageDropdownOpen, setIsPackageDropdownOpen] = useState<boolean>(false);
+  const [packageCategoryFilter, setPackageCategoryFilter] = useState<string>('all');
+  const [packageSearchQuery, setPackageSearchQuery] = useState<string>('');
+  const packageDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Click Outside Listener untuk menutup dropdown paket
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (packageDropdownRef.current && !packageDropdownRef.current.contains(event.target as Node)) {
+        setIsPackageDropdownOpen(false);
+      }
+    };
+    if (isPackageDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isPackageDropdownOpen]);
+
+  // Filter paket pada dropdown berdasarkan tab kategori & keyword pencarian
+  const displayedDropdownPackages = useMemo(() => {
+    return filteredPackages.filter(pkg => {
+      const theme = getPackagePastelTheme(pkg);
+      const matchesCategory =
+        packageCategoryFilter === 'all' ||
+        (packageCategoryFilter === 'grad-indoor' && theme.key === 'grad-indoor') ||
+        (packageCategoryFilter === 'grad-outdoor' && theme.key === 'grad-outdoor') ||
+        (packageCategoryFilter === theme.key);
+
+      const matchesSearch =
+        !packageSearchQuery.trim() ||
+        pkg.name.toLowerCase().includes(packageSearchQuery.toLowerCase()) ||
+        (pkg.description && pkg.description.toLowerCase().includes(packageSearchQuery.toLowerCase())) ||
+        theme.categoryLabel.toLowerCase().includes(packageSearchQuery.toLowerCase());
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [filteredPackages, packageCategoryFilter, packageSearchQuery]);
+
   const selectedSelfStudioCategory = SELF_STUDIO_SUB_PACKAGES.find(group => group.category === selfStudioCategory)
     || SELF_STUDIO_SUB_PACKAGES[0];
   const selectedSelfStudioOption = selectedSelfStudioCategory.options.find(option => option.id === selfStudioSubPackage)
@@ -1595,7 +1927,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     ? formattedOutdoorTime
     : hasOutdoorSession
       ? `Indoor ${formattedIndoorTime} | Outdoor ${formattedOutdoorTime}`
-    : formattedIndoorTime;
+      : formattedIndoorTime;
   const currentOccupiedSlots = getOccupiedSlotsForStart(timeSlot);
 
   // Otomatis pindah ke slot yang tersedia jika slot yang sedang aktif ternyata tidak valid / tidak ada di activeTimeSlots / penuh / terlalu dekat
@@ -2205,7 +2537,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             </div>
             <div>
               <h3 className="font-serif font-bold text-sm sm:text-base md:text-lg text-white uppercase tracking-wider leading-tight">
-                KALKULATOR & RESERVASI JADWAL
+                RESERVASI JADWAL
               </h3>
               <p className="text-[11px] sm:text-xs text-stone-300 font-sans tracking-wide">
                 Alviero Studio Foto • Konfirmasi Cepat & Otomatis via WhatsApp
@@ -2357,42 +2689,280 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   </div>
                 ) : (
-                  <select
-                    value={selectedPackageId}
-                    onChange={(e) => setSelectedPackageId(e.target.value)}
-                    className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
-                  >
-                    {filteredPackages.map((pkg) => (
-                      <option key={pkg.id} value={pkg.id}>
-                        {pkg.name} — Rp {pkg.price.toLocaleString('id-ID')} ({pkg.durationMinutes} Min)
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative" ref={packageDropdownRef}>
+                    {/* Hidden Native Select for Form State & Accessibility */}
+                    <select
+                      value={selectedPackageId}
+                      onChange={(e) => setSelectedPackageId(e.target.value)}
+                      className="sr-only"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                    >
+                      {filteredPackages.map((pkg) => (
+                        <option key={pkg.id} value={pkg.id}>
+                          {pkg.name} — Rp {pkg.price.toLocaleString('id-ID')} ({pkg.durationMinutes} Min)
+                        </option>
+                      ))}
+                    </select>
+
+                    {/* Interactive Luxury Pastel Trigger Button */}
+                    <button
+                      type="button"
+                      onClick={() => setIsPackageDropdownOpen(!isPackageDropdownOpen)}
+                      style={{
+                        backgroundColor: currentPackagePastelTheme.bg,
+                        borderColor: isPackageDropdownOpen ? currentPackagePastelTheme.activeBorder : currentPackagePastelTheme.border,
+                      }}
+                      className="w-full p-3 sm:p-3.5 rounded-2xl border text-left transition-all duration-200 cursor-pointer shadow-xs hover:shadow-md flex items-center justify-between gap-3 group ring-1 ring-black/5"
+                    >
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div
+                          className="w-3.5 h-3.5 rounded-full shrink-0 shadow-xs border border-white"
+                          style={{ backgroundColor: currentPackagePastelTheme.accent }}
+                        />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                            <span
+                              className="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide uppercase border font-century"
+                              style={{
+                                backgroundColor: currentPackagePastelTheme.badgeBg,
+                                color: currentPackagePastelTheme.badgeText,
+                                borderColor: currentPackagePastelTheme.border
+                              }}
+                            >
+                              {currentPackagePastelTheme.categoryLabel}
+                            </span>
+                            <span className="text-[11px] font-medium text-stone-500 font-century">
+                              {currentPackage.durationMinutes} Menit • {currentPackage.includedPeople} Orang
+                            </span>
+                          </div>
+                          <div className="font-serif font-bold text-sm sm:text-[15px] text-[#3A3A3A] truncate">
+                            {currentPackage.name}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2.5 shrink-0">
+                        <div className="text-right">
+                          <span className="text-[10px] uppercase font-bold text-stone-400 block font-century">Biaya</span>
+                          <span className="font-serif font-bold text-sm sm:text-base text-[#3A3A3A]">
+                            Rp {currentPackage.price.toLocaleString('id-ID')}
+                          </span>
+                        </div>
+                        <div
+                          className={`w-8 h-8 rounded-xl flex items-center justify-center border transition-transform duration-200 ${
+                            isPackageDropdownOpen ? 'rotate-180 bg-white shadow-xs' : 'bg-white/80'
+                          }`}
+                          style={{ borderColor: currentPackagePastelTheme.border }}
+                        >
+                          <ChevronDown className="w-4 h-4 text-stone-600" />
+                        </div>
+                      </div>
+                    </button>
+
+                    {/* Popover Dropdown with Category Tabs & Pastel Cards */}
+                    {isPackageDropdownOpen && (
+                      <div className="absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-[#FCFAF7] border border-[#E8DDD6] rounded-2xl shadow-2xl p-3 sm:p-4 space-y-3 max-h-[460px] flex flex-col animate-in fade-in slide-in-from-top-2 duration-150">
+                        {/* Search & Category Filter Header */}
+                        <div className="space-y-2 shrink-0">
+                          {/* Search Input */}
+                          <div className="relative">
+                            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <input
+                              type="text"
+                              value={packageSearchQuery}
+                              onChange={(e) => setPackageSearchQuery(e.target.value)}
+                              placeholder="Cari nama paket (misal: Family, Scholar, Group)..."
+                              className="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-white border border-[#E8DDD6] text-[#3A3A3A] placeholder:text-stone-400 focus:outline-none focus:border-[#3A3A3A] transition-colors"
+                            />
+                            {packageSearchQuery && (
+                              <button
+                                type="button"
+                                onClick={() => setPackageSearchQuery('')}
+                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 p-0.5"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+
+                          {/* Quick Filter Category Chips */}
+                          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
+                            {[
+                              { id: 'all', label: 'Semua Paket', pastelDot: '#A9BCA7' },
+                              { id: 'family', label: 'Family (Pink)', pastelDot: '#F472B6' },
+                              { id: 'grad-indoor', label: 'Wisuda Indoor', pastelDot: '#6E856C' },
+                              { id: 'grad-outdoor', label: 'Wisuda Outdoor', pastelDot: '#38BDF8' },
+                              { id: 'group', label: 'Group', pastelDot: '#A78BFA' },
+                              { id: 'maternity', label: 'Maternity', pastelDot: '#FB923C' },
+                              { id: 'personal', label: 'Personal', pastelDot: '#FBBF24' },
+                              { id: 'couple', label: 'Couple', pastelDot: '#FB7185' },
+                              { id: 'birthday', label: 'Birthday', pastelDot: '#FACC15' },
+                              { id: 'prewedding', label: 'Prewedding', pastelDot: '#C084FC' },
+                              { id: 'pass-foto', label: 'Pass Foto', pastelDot: '#2DD4BF' },
+                              { id: 'sewa-studio', label: 'Sewa Studio', pastelDot: '#A88870' },
+                            ].map((tab) => {
+                              const isActive = packageCategoryFilter === tab.id;
+                              return (
+                                <button
+                                  key={tab.id}
+                                  type="button"
+                                  onClick={() => setPackageCategoryFilter(tab.id)}
+                                  className={`px-2.5 py-1 rounded-lg text-[11px] font-century font-medium whitespace-nowrap transition-all flex items-center gap-1.5 border cursor-pointer ${
+                                    isActive
+                                      ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                                      : 'bg-white text-stone-600 border-[#E8DDD6] hover:bg-[#F2E9E4]'
+                                  }`}
+                                >
+                                  <span
+                                    className="w-2 h-2 rounded-full shrink-0"
+                                    style={{ backgroundColor: tab.pastelDot }}
+                                  />
+                                  {tab.label}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* List of Pastel Package Cards */}
+                        <div className="overflow-y-auto space-y-2 flex-1 pr-1 max-h-[300px]">
+                          {displayedDropdownPackages.length === 0 ? (
+                            <div className="py-8 text-center text-xs text-stone-500 bg-white rounded-xl border border-dashed border-[#E8DDD6]">
+                              Tidak ditemukan paket yang sesuai dengan pencarian.
+                            </div>
+                          ) : (
+                            displayedDropdownPackages.map((pkg) => {
+                              const pkgTheme = getPackagePastelTheme(pkg);
+                              const isSelected = selectedPackageId === pkg.id;
+
+                              return (
+                                <button
+                                  key={pkg.id}
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedPackageId(pkg.id);
+                                    setIsPackageDropdownOpen(false);
+                                  }}
+                                  style={{
+                                    backgroundColor: pkgTheme.bg,
+                                    borderColor: isSelected ? pkgTheme.activeBorder : pkgTheme.border,
+                                    boxShadow: isSelected ? `0 0 0 2px ${pkgTheme.activeBorder}` : undefined
+                                  }}
+                                  className="w-full p-3 rounded-xl border text-left transition-all duration-150 cursor-pointer flex items-center justify-between gap-3 group hover:shadow-xs"
+                                >
+                                  <div className="min-w-0 flex-1">
+                                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                      <span
+                                        className="px-2 py-0.5 rounded-md text-[9.5px] font-bold uppercase tracking-wider font-century border"
+                                        style={{
+                                          backgroundColor: pkgTheme.badgeBg,
+                                          color: pkgTheme.badgeText,
+                                          borderColor: pkgTheme.border,
+                                        }}
+                                      >
+                                        {pkgTheme.categoryLabel}
+                                      </span>
+                                      <span className="text-[10.5px] font-century text-stone-500">
+                                        {pkg.durationMinutes} Min • {pkg.includedPeople} Orang
+                                      </span>
+                                    </div>
+                                    <div className="font-serif font-bold text-xs sm:text-[13px] text-[#3A3A3A] group-hover:text-stone-900 leading-tight">
+                                      {pkg.name}
+                                    </div>
+                                    <div className="text-[10.5px] font-century text-stone-500 truncate mt-0.5">
+                                      {pkg.description}
+                                    </div>
+                                  </div>
+
+                                  <div className="flex items-center gap-2.5 shrink-0">
+                                    <span className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A]">
+                                      Rp {pkg.price.toLocaleString('id-ID')}
+                                    </span>
+                                    <div
+                                      className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-all ${
+                                        isSelected
+                                          ? 'text-white'
+                                          : 'bg-white/70 border-stone-200 text-transparent'
+                                      }`}
+                                      style={{
+                                        backgroundColor: isSelected ? pkgTheme.accent : undefined,
+                                        borderColor: isSelected ? pkgTheme.accent : undefined,
+                                      }}
+                                    >
+                                      <Check className="w-3.5 h-3.5" />
+                                    </div>
+                                  </div>
+                                </button>
+                              );
+                            })
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
 
               {/* Package Summary Card */}
-              <div className="bg-white border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-sm">
+              <div
+                style={{
+                  backgroundColor: currentPackagePastelTheme.bg,
+                  borderColor: currentPackagePastelTheme.border,
+                }}
+                className="border rounded-2xl p-4 sm:p-5 space-y-3 shadow-xs transition-colors duration-200"
+              >
                 <div className="flex justify-between items-start gap-2">
                   <div>
-                    <h4 className="font-serif font-bold text-[#3A3A3A] text-sm sm:text-base uppercase tracking-wide">{currentPackage.name}</h4>
-                    <p className="text-xs font-sans text-stone-600 mt-0.5 leading-relaxed">{currentPackage.description}</p>
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span
+                        className="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide uppercase border font-century"
+                        style={{
+                          backgroundColor: currentPackagePastelTheme.badgeBg,
+                          color: currentPackagePastelTheme.badgeText,
+                          borderColor: currentPackagePastelTheme.border
+                        }}
+                      >
+                        {currentPackagePastelTheme.categoryLabel}
+                      </span>
+                      <span className="text-[11px] font-century text-stone-500">
+                        {currentPackagePastelTheme.description}
+                      </span>
+                    </div>
+                    <h4 className="font-serif font-bold text-[#3A3A3A] text-sm sm:text-base uppercase tracking-wide">
+                      {currentPackage.name}
+                    </h4>
+                    <p className="text-xs font-sans text-stone-600 mt-0.5 leading-relaxed">
+                      {currentPackage.description}
+                    </p>
                   </div>
                   <span className="font-serif font-bold text-[#3A3A3A] text-base sm:text-lg shrink-0">
                     Rp {currentPackage.price.toLocaleString('id-ID')}
                   </span>
                 </div>
-                <div className="text-[11px] text-stone-700 pt-2.5 border-t border-[#F2E9E4] flex items-center gap-2 flex-wrap">
-                  <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5 shadow-2xs">
-                    <Clock className="w-3.5 h-3.5 text-[#6E856C]" />
+                <div
+                  className="text-[11px] text-stone-700 pt-2.5 border-t flex items-center gap-2 flex-wrap"
+                  style={{ borderColor: currentPackagePastelTheme.border }}
+                >
+                  <span
+                    className="bg-white/85 px-3 py-1 rounded-full border font-sans font-medium flex items-center gap-1.5 shadow-2xs"
+                    style={{ borderColor: currentPackagePastelTheme.border, color: currentPackagePastelTheme.text }}
+                  >
+                    <Clock className="w-3.5 h-3.5" style={{ color: currentPackagePastelTheme.accent }} />
                     {currentPackage.durationMinutes} Menit Sesi
                   </span>
-                  <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5 shadow-2xs">
-                    <User className="w-3.5 h-3.5 text-[#6E856C]" />
+                  <span
+                    className="bg-white/85 px-3 py-1 rounded-full border font-sans font-medium flex items-center gap-1.5 shadow-2xs"
+                    style={{ borderColor: currentPackagePastelTheme.border, color: currentPackagePastelTheme.text }}
+                  >
+                    <User className="w-3.5 h-3.5" style={{ color: currentPackagePastelTheme.accent }} />
                     {currentPackage.includedPeople} Peserta
                   </span>
-                  <span className="bg-[#FDFBF7] px-3 py-1 rounded-full border border-[#E8DDD6] font-sans font-medium flex items-center gap-1.5 shadow-2xs">
-                    <ImageIcon className="w-3.5 h-3.5 text-[#6E856C]" />
+                  <span
+                    className="bg-white/85 px-3 py-1 rounded-full border font-sans font-medium flex items-center gap-1.5 shadow-2xs"
+                    style={{ borderColor: currentPackagePastelTheme.border, color: currentPackagePastelTheme.text }}
+                  >
+                    <ImageIcon className="w-3.5 h-3.5" style={{ color: currentPackagePastelTheme.accent }} />
                     {currentPackage.includedPrints}
                   </span>
                 </div>
@@ -2759,11 +3329,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         type="button"
                         onClick={() => setPassFotoBgOption('Biru')}
-                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
-                          passFotoBgOption === 'Biru'
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'Biru'
                             ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
                             : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
-                        }`}
+                          }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-blue-900/20 bg-[#155DFC] shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs">
                           {passFotoBgOption === 'Biru' && <Check className="w-4 h-4 stroke-[3]" />}
@@ -2782,11 +3351,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         type="button"
                         onClick={() => setPassFotoBgOption('Merah')}
-                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
-                          passFotoBgOption === 'Merah'
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'Merah'
                             ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
                             : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
-                        }`}
+                          }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-red-900/20 bg-[#DC2626] shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs">
                           {passFotoBgOption === 'Merah' && <Check className="w-4 h-4 stroke-[3]" />}
@@ -2805,11 +3373,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         type="button"
                         onClick={() => setPassFotoBgOption('Putih')}
-                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
-                          passFotoBgOption === 'Putih'
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'Putih'
                             ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
                             : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
-                        }`}
+                          }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-stone-300 bg-[#FFFFFF] shrink-0 flex items-center justify-center text-[#3A3A3A] text-[11px] font-bold shadow-2xs">
                           {passFotoBgOption === 'Putih' && <Check className="w-4 h-4 stroke-[3] text-[#3A3A3A]" />}
@@ -2828,11 +3395,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <button
                         type="button"
                         onClick={() => setPassFotoBgOption('custom')}
-                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${
-                          passFotoBgOption === 'custom'
+                        className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'custom'
                             ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
                             : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
-                        }`}
+                          }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-stone-300 bg-gradient-to-br from-amber-100 via-rose-100 to-sky-100 shrink-0 flex items-center justify-center text-[#3A3A3A] text-[11px] font-bold shadow-2xs">
                           {passFotoBgOption === 'custom' ? <Check className="w-4 h-4 stroke-[3] text-[#3A3A3A]" /> : <span className="text-xs">✏️</span>}
@@ -3627,11 +4193,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('dp')}
-                    className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${
-                      paymentOption === 'dp'
+                    className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'dp'
                         ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
                         : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
-                    }`}
+                      }`}
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
@@ -3646,11 +4211,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         Rp {dpAmount.toLocaleString('id-ID')}
                       </div>
                     </div>
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
-                      paymentOption === 'dp'
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${paymentOption === 'dp'
                         ? 'bg-[#3A3A3A] text-white shadow-2xs'
                         : 'border border-stone-300 text-transparent'
-                    }`}>
+                      }`}>
                       ✓
                     </div>
                   </button>
@@ -3659,11 +4223,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <button
                     type="button"
                     onClick={() => setPaymentOption('full')}
-                    className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${
-                      paymentOption === 'full'
+                    className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'full'
                         ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
                         : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
-                    }`}
+                      }`}
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
@@ -3678,11 +4241,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         Rp {grandTotal.toLocaleString('id-ID')}
                       </div>
                     </div>
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
-                      paymentOption === 'full'
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${paymentOption === 'full'
                         ? 'bg-[#3A3A3A] text-white shadow-2xs'
                         : 'border border-stone-300 text-transparent'
-                    }`}>
+                      }`}>
                       ✓
                     </div>
                   </button>
@@ -4198,18 +4760,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   }
                 }}
                 disabled={!isStep1Valid}
-                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${
-                  isStep1Valid
+                className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${isStep1Valid
                     ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs cursor-pointer active:scale-95'
                     : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
-                }`}
+                  }`}
                 title={
                   !isStep1Valid
                     ? (isPassFoto
-                        ? (passFotoBgOption === 'custom' && !passFotoCustomColor.trim()
-                            ? 'Wajib mengisi warna background cetak yang diinginkan terlebih dahulu'
-                            : 'Wajib memilih warna background cetak terlebih dahulu')
-                        : `Wajib memilih ${maxBackdrops} background terlebih dahulu sebelum lanjut`)
+                      ? (passFotoBgOption === 'custom' && !passFotoCustomColor.trim()
+                        ? 'Wajib mengisi warna background cetak yang diinginkan terlebih dahulu'
+                        : 'Wajib memilih warna background cetak terlebih dahulu')
+                      : `Wajib memilih ${maxBackdrops} background terlebih dahulu sebelum lanjut`)
                     : 'Lanjut ke Add-Ons'
                 }
               >
