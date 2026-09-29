@@ -38,12 +38,15 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       whatsappNumber: '6287777538164',
       whatsappDisplay: '0877-7753-8164',
       operationalHours: 'Setiap Hari: 08:00 - 21:00 WIB',
-      backdrops: ['Hijau Pastel', 'Cream', 'Limbo', 'Putih Tengah', 'Putih Jendela'],
+      backdrops: [
+        'Studio Foto: Hitam List, Putih List, Limbo, Putih Tematik, Coklat Tematik, Ivory Mediterania',
+        'SelfStudio: Abu-abu, Coklat, Putih, Tematik Coklat'
+      ],
     },
     {
       id: 'cabang-2',
       name: 'Alviero Studio — Studio 2',
-      subtitle: 'Dinoyo Gajayana, Kota Malang',
+      subtitle: 'Dinoyo, Kota Malang',
       badge: 'Studio 2',
       address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
       mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9',
@@ -75,7 +78,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
         </h1>
 
         <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio hadir di dua lokasi strategis di Malang: <strong>Studio 1 Karangploso</strong> dan <strong>Studio 2 Dinoyo Gajayana</strong>. Seluruh studio buka setiap hari pukul <strong>08:00 - 21:00 WIB</strong>.
+          Alviero Studio hadir di dua lokasi strategis di Malang: <strong>Studio 1 Karangploso</strong> dan <strong>Studio 2 Dinoyo</strong>. Seluruh studio buka setiap hari pukul <strong>08:00 - 21:00 WIB</strong>.
         </p>
       </div>
 

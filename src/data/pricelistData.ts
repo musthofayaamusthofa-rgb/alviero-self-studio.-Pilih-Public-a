@@ -1235,8 +1235,8 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
   {
     id: 'cabang-2',
     name: 'Alviero Studio — Studio 2',
-    shortName: 'Studio 2 (Dinoyo Gajayana)',
-    tagline: 'Dinoyo Gajayana, Kota Malang',
+    shortName: 'Studio 2 (Dinoyo)',
+    tagline: 'Dinoyo, Kota Malang',
     address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
     badge: 'Studio 2',
     description: 'Self Studio & Studio Foto',

@@ -1032,7 +1032,7 @@ export const STUDIO_PROMOS: StudioPromo[] = [
     imageUrl: '/images/categories/couple.jpg',
     terms: [
       'Berlaku untuk Paket Foto Couple dan Paket Prewedding Studio.',
-      'Berlaku untuk sesi foto di Studio 1 (Karangploso) & Studio 2 (Dinoyo Gajayana).',
+      'Berlaku untuk sesi foto di Studio 1 (Karangploso) & Studio 2 (Dinoyo).',
       'Wajib melakukan reservasi jadwal sesi terlebih dahulu via website.',
       'Sudah termasuk cetak foto berbingkai estetis dan all soft files Google Drive.'
     ],
@@ -1867,7 +1867,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/b2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
@@ -1987,7 +1987,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/s2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
@@ -2107,7 +2107,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/c2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
@@ -2227,7 +2227,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/w2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
@@ -2347,7 +2347,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/e2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
@@ -2461,7 +2461,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 2
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo Gajayana</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/m2:text-stone-300 truncate mt-0.5">
                                   Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
