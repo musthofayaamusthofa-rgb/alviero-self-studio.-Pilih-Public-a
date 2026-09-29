@@ -2755,9 +2755,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           </span>
                         </div>
                         <div
-                          className={`w-8 h-8 rounded-xl flex items-center justify-center border transition-transform duration-200 ${
-                            isPackageDropdownOpen ? 'rotate-180 bg-white shadow-xs' : 'bg-white/80'
-                          }`}
+                          className={`w-8 h-8 rounded-xl flex items-center justify-center border transition-transform duration-200 ${isPackageDropdownOpen ? 'rotate-180 bg-white shadow-xs' : 'bg-white/80'
+                            }`}
                           style={{ borderColor: currentPackagePastelTheme.border }}
                         >
                           <ChevronDown className="w-4 h-4 text-stone-600" />
@@ -2813,11 +2812,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                   key={tab.id}
                                   type="button"
                                   onClick={() => setPackageCategoryFilter(tab.id)}
-                                  className={`px-2.5 py-1 rounded-lg text-[11px] font-century font-medium whitespace-nowrap transition-all flex items-center gap-1.5 border cursor-pointer ${
-                                    isActive
-                                      ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                                      : 'bg-white text-stone-600 border-[#E8DDD6] hover:bg-[#F2E9E4]'
-                                  }`}
+                                  className={`px-2.5 py-1 rounded-lg text-[11px] font-century font-medium whitespace-nowrap transition-all flex items-center gap-1.5 border cursor-pointer ${isActive
+                                    ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                                    : 'bg-white text-stone-600 border-[#E8DDD6] hover:bg-[#F2E9E4]'
+                                    }`}
                                 >
                                   <span
                                     className="w-2 h-2 rounded-full shrink-0"
@@ -2885,11 +2883,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                       Rp {pkg.price.toLocaleString('id-ID')}
                                     </span>
                                     <div
-                                      className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-all ${
-                                        isSelected
-                                          ? 'text-white'
-                                          : 'bg-white/70 border-stone-200 text-transparent'
-                                      }`}
+                                      className={`w-6 h-6 rounded-lg flex items-center justify-center border transition-all ${isSelected
+                                        ? 'text-white'
+                                        : 'bg-white/70 border-stone-200 text-transparent'
+                                        }`}
                                       style={{
                                         backgroundColor: isSelected ? pkgTheme.accent : undefined,
                                         borderColor: isSelected ? pkgTheme.accent : undefined,
@@ -3282,9 +3279,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           Pemberitahuan Jam Tutup & Keterlambatan:
                         </p>
                         <p className="text-stone-700 text-[11px] sm:text-xs leading-snug">
-                          1. Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan<br />
-                          2. Difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-stone-900">Rp. 25.000</strong><br />
-                          3. Dipindahkan ke hari berikutnya<br />
+                          1. Apabila terjadi keterlambatan durasi akan dipotong sesuai lama keterlambatan, atau<br />
+                          2. Difotokan pada background yang tersedia dengan tambahan biaya <strong className="font-bold text-stone-900">Rp. 25.000</strong>, atau<br />
+                          3. Dipindahkan ke hari berikutnya.<br />
                           4. Jika melebihi jam <strong>21.00 WIB</strong> akan dikenakan tambahan biaya sebesar <strong className="font-bold text-stone-900">Rp. 35.000</strong>.
                         </p>
                       </div>
@@ -3335,8 +3332,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         onClick={() => setPassFotoBgOption('Biru')}
                         className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'Biru'
-                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
-                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                          ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                          : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
                           }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-blue-900/20 bg-[#155DFC] shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs">
@@ -3357,8 +3354,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         onClick={() => setPassFotoBgOption('Merah')}
                         className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'Merah'
-                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
-                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                          ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                          : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
                           }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-red-900/20 bg-[#DC2626] shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs">
@@ -3379,8 +3376,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         onClick={() => setPassFotoBgOption('Putih')}
                         className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'Putih'
-                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
-                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                          ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                          : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
                           }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-stone-300 bg-[#FFFFFF] shrink-0 flex items-center justify-center text-[#3A3A3A] text-[11px] font-bold shadow-2xs">
@@ -3401,8 +3398,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         type="button"
                         onClick={() => setPassFotoBgOption('custom')}
                         className={`min-h-[58px] p-3 rounded-2xl border text-left flex items-center gap-2.5 sm:gap-3 transition-all relative cursor-pointer active:scale-98 ${passFotoBgOption === 'custom'
-                            ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
-                            : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                          ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                          : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
                           }`}
                       >
                         <div className="w-8 h-8 rounded-xl border border-stone-300 bg-gradient-to-br from-amber-100 via-rose-100 to-sky-100 shrink-0 flex items-center justify-center text-[#3A3A3A] text-[11px] font-bold shadow-2xs">
@@ -3909,11 +3906,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                   key={tab.id}
                                   type="button"
                                   onClick={() => setFrameAddOnSubTab(tab.id as any)}
-                                  className={`px-3 py-1.5 rounded-xl text-xs font-century font-medium transition-all ${
-                                    frameAddOnSubTab === tab.id
-                                      ? 'bg-[#3A3A3A] text-white shadow-xs'
-                                      : 'bg-white border border-[#E8DDD6] text-stone-600 hover:bg-[#F2E9E4]'
-                                  }`}
+                                  className={`px-3 py-1.5 rounded-xl text-xs font-century font-medium transition-all ${frameAddOnSubTab === tab.id
+                                    ? 'bg-[#3A3A3A] text-white shadow-xs'
+                                    : 'bg-white border border-[#E8DDD6] text-stone-600 hover:bg-[#F2E9E4]'
+                                    }`}
                                 >
                                   {tab.label}
                                 </button>
@@ -4264,8 +4260,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     type="button"
                     onClick={() => setPaymentOption('dp')}
                     className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'dp'
-                        ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
-                        : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                      ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                      : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
                     <div className="min-w-0">
@@ -4282,8 +4278,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       </div>
                     </div>
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${paymentOption === 'dp'
-                        ? 'bg-[#3A3A3A] text-white shadow-2xs'
-                        : 'border border-stone-300 text-transparent'
+                      ? 'bg-[#3A3A3A] text-white shadow-2xs'
+                      : 'border border-stone-300 text-transparent'
                       }`}>
                       ✓
                     </div>
@@ -4294,8 +4290,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     type="button"
                     onClick={() => setPaymentOption('full')}
                     className={`min-h-[46px] sm:min-h-[50px] px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center justify-between gap-2 ${paymentOption === 'full'
-                        ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
-                        : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
+                      ? 'border-[#3A3A3A] bg-white ring-2 ring-[#3A3A3A] shadow-sm'
+                      : 'border-[#E8DDD6] bg-white hover:bg-[#FDFBF7] shadow-2xs'
                       }`}
                   >
                     <div className="min-w-0">
@@ -4312,8 +4308,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       </div>
                     </div>
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${paymentOption === 'full'
-                        ? 'bg-[#3A3A3A] text-white shadow-2xs'
-                        : 'border border-stone-300 text-transparent'
+                      ? 'bg-[#3A3A3A] text-white shadow-2xs'
+                      : 'border border-stone-300 text-transparent'
                       }`}>
                       ✓
                     </div>
@@ -4831,8 +4827,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 }}
                 disabled={!isStep1Valid}
                 className={`min-h-[44px] px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider flex items-center gap-2 transition-all ${isStep1Valid
-                    ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs cursor-pointer active:scale-95'
-                    : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
+                  ? 'bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white border border-[#3A3A3A] shadow-xs cursor-pointer active:scale-95'
+                  : 'bg-stone-200 text-stone-400 border-stone-300 cursor-not-allowed opacity-75'
                   }`}
                 title={
                   !isStep1Valid
