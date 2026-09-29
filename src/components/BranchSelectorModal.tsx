@@ -325,7 +325,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
   {
     id: '7',
     name: 'Rania Maharani',
-    avatar: '/images/reviews/citra-hudaya.jpg',
+    avatar: '/images/reviews/rania-maharani.jpg',
     reviewerMeta: 'Local Guide · 18 ulasan',
     date: '1 bulan lalu',
     package: 'Self Studio Dinoyo',
@@ -338,7 +338,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
   {
     id: '8',
     name: 'Dimas Prasetyo',
-    avatar: '/images/reviews/faisal-ardiansyah.jpg',
+    avatar: '/images/reviews/dimas-prasetyo.jpg',
     reviewerMeta: '5 ulasan · 3 foto',
     date: '2 bulan lalu',
     package: 'Paket Wisuda & Group',
@@ -351,7 +351,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
   {
     id: '9',
     name: 'Nabilla Putri Azzahra',
-    avatar: '/images/reviews/salshabilla-hmp.jpg',
+    avatar: '/images/reviews/nabilla-putri.jpg',
     reviewerMeta: '3 ulasan · 4 foto',
     date: '3 minggu lalu',
     package: 'Paket Couple Studio',
@@ -364,7 +364,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
   {
     id: '10',
     name: 'Kevin Jonathan',
-    avatar: '/images/reviews/naila-fatimatus.jpg',
+    avatar: '/images/reviews/kevin-jonathan.jpg',
     reviewerMeta: 'Local Guide · 42 ulasan',
     date: '1 bulan lalu',
     package: 'Personal & Pass Photo',
