@@ -8,54 +8,47 @@ import {
   Clock,
   Check,
   ShoppingBag,
-  Palette,
   Camera,
   Layers,
   GraduationCap,
   Shirt,
-  Scissors
+  Scissors,
+  Heart,
+  Sun
 } from 'lucide-react';
 
-// ==========================================
+// =========================================================================
 // 1. DATA STRUCTURE (3-LEVEL HIERARCHY)
 // Level 1: Vendor (By Novita, By Ananda, By Masaya, By Tiwi)
-// Level 2: Kategori Layanan (Pass Foto, Wisuda, Prewedding, Kebaya, dll)
+// Level 2: Kategori Layanan (Pass Foto, Wedding, Graduation, Prewedding, dll)
 // Level 3: Sub-Paket (Paket 1, Paket 2, Paket 3 + Harga + Fasilitas Lengkap)
-// ==========================================
+// =========================================================================
 
 export interface MuaSubPackage {
   id: string;
-  name: string;
-  price: number;
-  duration?: string;
-  badge?: string;
-  features: string[];
+  name: string;        // Contoh: "Paket 1 — Basic Touch Look"
+  price: number;       // Contoh: 75000
+  duration?: string;   // Contoh: "30 Menit"
+  badge?: string;      // Contoh: "Best Seller", "Favorit"
+  features: string[];  // Rincian fasilitas lengkap yang didapat
   note?: string;
 }
 
 export interface MuaCategory {
   id: string;
-  name: string;
-  iconName?: 'camera' | 'graduation' | 'sparkles' | 'shirt' | 'scissors' | 'layers';
+  name: string;        // Contoh: "Pass Foto", "Wedding", "Graduation Indoor"
+  iconType?: 'camera' | 'wedding' | 'graduation' | 'outdoor' | 'prewedding' | 'kebaya' | 'hairdo' | 'sparkles';
   description?: string;
   subPackages: MuaSubPackage[];
 }
 
 export interface MuaVendorDefinition {
   id: string;
-  name: string;
+  name: string;        // "By Novita", "By Ananda", dst.
   tagline: string;
   coverImage: string;
   portfolioImages: string[];
   categories: MuaCategory[];
-}
-
-// Kompatibilitas mundur
-export type MuaVendor = MuaVendorDefinition;
-export interface MuaServiceDefinition {
-  id: string;
-  name: string;
-  price: number;
 }
 
 export const KEBAYA_PREVIEWS: Record<string, string> = {
@@ -68,9 +61,9 @@ export const KEBAYA_PREVIEWS: Record<string, string> = {
   Silver: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85',
 };
 
-// ==========================================
-// MOCK DATA RESMI 4 VENDOR DENGAN 3 LEVEL
-// ==========================================
+// =========================================================================
+// MOCK DATA RESMI 4 VENDOR DENGAN DETAIL SUB-PAKET LENGKAP
+// =========================================================================
 export const MUA_VENDORS: MuaVendorDefinition[] = [
   {
     id: 'novita',
@@ -85,8 +78,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     categories: [
       {
         id: 'novita-pass-foto',
-        name: 'Makeup Pass Foto & Formal',
-        iconName: 'camera',
+        name: 'Pass Foto',
+        iconType: 'camera',
         description: 'Riasan wajah natural berkarakter, disesuaikan khusus dengan pencahayaan studio foto formal.',
         subPackages: [
           {
@@ -98,7 +91,7 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
               'Complexion Natural Flawless & Matte Finish',
               'Rapikan Alis & Natural Blush On',
               'Penataan Rambut Simple / Rapikan Hijab Segiempat',
-              'Free Bedak Touch-Up sebelum masuk studio foto',
+              'Free Bedak Touch-Up sebelum masuk sesi foto',
             ],
           },
           {
@@ -132,13 +125,60 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
         ],
       },
       {
-        id: 'novita-wisuda',
-        name: 'Makeup Wisuda & Graduation',
-        iconName: 'graduation',
-        description: 'Tampil anggun mempesona di momen wisuda berharga dengan ketahanan makeup seharian penuh.',
+        id: 'novita-wedding',
+        name: 'Wedding',
+        iconType: 'wedding',
+        description: 'Riasan pengantin berkelas untuk momen sakral akad nikah dan pesta resepsi pernikahan.',
         subPackages: [
           {
-            id: 'novita-ws-1',
+            id: 'novita-wd-1',
+            name: 'Paket 1 — Akad / Simple Wedding Look',
+            price: 450000,
+            duration: '90 Menit',
+            features: [
+              'Full Airbrush Complexion Waterproof Tahan 16 Jam',
+              'Bulu Mata 3D Fluffy + Softlens Normal Studio',
+              'Hijabdo / Sanggul Modern Pengantin Elegan',
+              'Pemasangan Melati Sintetis / Fresh & Ronce',
+            ],
+          },
+          {
+            id: 'novita-wd-2',
+            name: 'Paket 2 — Glamour Wedding Resepsi',
+            price: 750000,
+            duration: '120 Menit',
+            badge: 'Favorit Pengantin',
+            features: [
+              'High-End Luxury Complexion Anti-Luntur & Anti-Retak',
+              '2x Pergantian Lip Look & Retouch Khusus',
+              'Hairdo Paes / Sanggul Pengantin Adat / Hijabdo Glamour',
+              'Free Touch-Up Kit Pribadi & Serum Pengantin',
+              'Pemasangan Mahkota / Sigar / Aksesoris Adat',
+            ],
+          },
+          {
+            id: 'novita-wd-3',
+            name: 'Paket 3 — Royal Bride All-Inclusive',
+            price: 1200000,
+            duration: '150 Menit',
+            badge: 'VIP All-In',
+            features: [
+              'Rias Pengantin Wanita & Groom Touch-Up Pengantin Pria',
+              'Full High-End Cosmetics (Dior / Chanel Look)',
+              'Standby Retouch Penuh selama sesi pemotretan studio',
+              'Free Peminjaman Tiara, Bros Dada & Aksesoris Mewah',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'novita-grad-indoor',
+        name: 'Graduation Indoor',
+        iconType: 'graduation',
+        description: 'Tampil anggun mempesona di momen wisuda dengan ketahanan makeup di studio indoor.',
+        subPackages: [
+          {
+            id: 'novita-gi-1',
             name: 'Paket 1 — Soft Wisuda Fresh',
             price: 180000,
             duration: '45 Menit',
@@ -150,7 +190,7 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             ],
           },
           {
-            id: 'novita-ws-2',
+            id: 'novita-gi-2',
             name: 'Paket 2 — Glamour Wisuda Paripurna',
             price: 250000,
             duration: '60 Menit',
@@ -164,7 +204,7 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             ],
           },
           {
-            id: 'novita-ws-3',
+            id: 'novita-gi-3',
             name: 'Paket 3 — Royal Graduation + Free Hijab',
             price: 320000,
             duration: '75 Menit',
@@ -180,13 +220,46 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
         ],
       },
       {
-        id: 'novita-prewed',
-        name: 'Makeup Prewedding & Photoshoot',
-        iconName: 'sparkles',
+        id: 'novita-grad-outdoor',
+        name: 'Graduation Outdoor',
+        iconType: 'outdoor',
+        description: 'Formula riasan khusus tahan terik matahari, angin kencang, dan keringat sesi luar ruangan.',
+        subPackages: [
+          {
+            id: 'novita-go-1',
+            name: 'Paket 1 — Natural Sweatproof Outdoor',
+            price: 195000,
+            duration: '45 Menit',
+            features: [
+              'Complexion Khusus Tahan Panas & Keringat Luar Ruangan',
+              'Bulu Mata Ringan Anti-Angin & Tidak Menusuk Mata',
+              'Hijabdo Rapi Kencang / Hairdo Ponytail Curled Tahan Angin',
+              'UV Protection Primer Base',
+            ],
+          },
+          {
+            id: 'novita-go-2',
+            name: 'Paket 2 — Full Glam Outdoor + Retouch',
+            price: 280000,
+            duration: '65 Menit',
+            badge: 'Best Outdoor',
+            features: [
+              'Waterproof & UV Protection Foundation Tahan Luntur',
+              'Standby Touch-Up selama sesi foto outdoor berlangsung',
+              'Bulu Mata 3D Luxury Waterproof',
+              'Free Blotting Paper & Setting Spray Tahan Panas',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'novita-prewed-indoor',
+        name: 'Prewedding Indoor',
+        iconType: 'prewedding',
         description: 'Konsep riasan editorial dan cinematic khusus sesi foto studio pasangan.',
         subPackages: [
           {
-            id: 'novita-pw-1',
+            id: 'novita-pwi-1',
             name: 'Paket 1 — Indoor Concept Natural',
             price: 300000,
             duration: '60 Menit',
@@ -198,7 +271,7 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             ],
           },
           {
-            id: 'novita-pw-2',
+            id: 'novita-pwi-2',
             name: 'Paket 2 — Luxury Concept + Standby Retouch',
             price: 450000,
             duration: '90 Menit',
@@ -213,9 +286,40 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
         ],
       },
       {
+        id: 'novita-prewed-outdoor',
+        name: 'Prewedding Outdoor',
+        iconType: 'outdoor',
+        description: 'Riasan tahan lama seharian untuk foto prewedding di alam bebas atau taman terbuka.',
+        subPackages: [
+          {
+            id: 'novita-pwo-1',
+            name: 'Paket 1 — Outdoor Scenic Look',
+            price: 350000,
+            duration: '60 Menit',
+            features: [
+              'Heavy Duty Waterproof & Sweatproof Complexion',
+              'Hairdo / Hijabdo Kuat Angin & Cuaca Terbuka',
+              'Free Bulu Mata 3D Tahan Badai & Hairspray Kuat',
+            ],
+          },
+          {
+            id: 'novita-pwo-2',
+            name: 'Paket 2 — All Day Prewedding Outdoor',
+            price: 550000,
+            duration: '120 Menit',
+            badge: 'Complete',
+            features: [
+              'Standby MUA Penuh di Lokasi Outdoor Malang & Sekitarnya',
+              '2x Ganti Konsep Makeup & Rambut/Hijab',
+              'Free Touch Up Kit Lengkap Pribadi',
+            ],
+          },
+        ],
+      },
+      {
         id: 'novita-kebaya',
-        name: 'Sewa Busana & Kebaya',
-        iconName: 'shirt',
+        name: 'Kebaya',
+        iconType: 'kebaya',
         description: 'Koleksi kebaya modern dan brokat anggun siap pakai untuk sesi foto.',
         subPackages: [
           {
@@ -244,6 +348,37 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
           },
         ],
       },
+      {
+        id: 'novita-hijabdo',
+        name: 'Hijabdo',
+        iconType: 'hairdo',
+        description: 'Layanan penataan jilbab kreasi modern, tegak rapi dan membingkai wajah.',
+        subPackages: [
+          {
+            id: 'novita-hj-1',
+            name: 'Paket 1 — Simple Hijab Styling',
+            price: 50000,
+            duration: '20 Menit',
+            features: [
+              'Rapikan Pasmina / Segiempat Tegak Sempurna',
+              'Bentuk Wajah Proporsional & Rapi di Kamera',
+              'Free Jarum Pentul Premium & Bobby Pins',
+            ],
+          },
+          {
+            id: 'novita-hj-2',
+            name: 'Paket 2 — Creative Modern Hijabdo',
+            price: 85000,
+            duration: '35 Menit',
+            badge: 'Favorit',
+            features: [
+              'Kreasi Hijab Turban / Wisuda Layering Modern',
+              'Pemasangan Aksesoris Mahkota / Bros Mewah',
+              'Garansi Bentuk Hijab Tidak Berubah Selama Sesi Foto',
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -259,8 +394,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     categories: [
       {
         id: 'ananda-pass-foto',
-        name: 'Makeup Pass Foto & ID Look',
-        iconName: 'camera',
+        name: 'Pass Foto',
+        iconType: 'camera',
         description: 'Look segar alami khas Korea yang mencerahkan wajah di foto identitas.',
         subPackages: [
           {
@@ -291,13 +426,46 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
         ],
       },
       {
-        id: 'ananda-wisuda-event',
-        name: 'Makeup Wisuda & Engagement',
-        iconName: 'graduation',
-        description: 'Sentuhan riasan glowing natural yang tahan lama dan tidak cakey.',
+        id: 'ananda-wedding',
+        name: 'Wedding',
+        iconType: 'wedding',
+        description: 'Korean Bride Look yang mempesona dengan riasan glass-skin bercahaya alami.',
         subPackages: [
           {
-            id: 'ananda-we-1',
+            id: 'ananda-wd-1',
+            name: 'Paket 1 — Korean Sweet Bride',
+            price: 480000,
+            duration: '90 Menit',
+            features: [
+              'Signature Glass-Skin Makeup Tahan 16 Jam',
+              'Custom Eye Makeup & Glitter Detail Korea',
+              'Styling Rambut Korean Wave / Hijab Turban Glam',
+              'Free Ampoule Hydration Sheet Mask',
+            ],
+          },
+          {
+            id: 'ananda-wd-2',
+            name: 'Paket 2 — Royal Korean Goddess',
+            price: 800000,
+            duration: '120 Menit',
+            badge: 'Best Look',
+            features: [
+              'Ultra Flawless Dewy Foundation Waterproof',
+              'Double Layer Eyelash Korea Super Ringan',
+              'Hairdo Korean Updo dengan Tiara Mutiara',
+              'Retouch Standby selama pemotretan studio',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'ananda-grad-indoor',
+        name: 'Graduation Indoor',
+        iconType: 'graduation',
+        description: 'Riasan wisuda manis cerah ala drakor dengan ketahanan studio ber-AC.',
+        subPackages: [
+          {
+            id: 'ananda-gi-1',
             name: 'Paket 1 — Wisuda Korean Glowing Fresh',
             price: 200000,
             duration: '50 Menit',
@@ -309,8 +477,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             ],
           },
           {
-            id: 'ananda-we-2',
-            name: 'Paket 2 — Engagement & Wisuda Luxury Look',
+            id: 'ananda-gi-2',
+            name: 'Paket 2 — Wisuda Luxury Sparkle Look',
             price: 275000,
             duration: '65 Menit',
             badge: 'Favorit',
@@ -324,31 +492,103 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
         ],
       },
       {
-        id: 'ananda-hair-hijab',
-        name: 'Hairdo & Hijabdo Only',
-        iconName: 'scissors',
-        description: 'Layanan penataan rambut dan jilbab tanpa makeup wajah.',
+        id: 'ananda-grad-outdoor',
+        name: 'Graduation Outdoor',
+        iconType: 'outdoor',
+        description: 'Tampilan fresh dewy yang tahan terik sinar matahari di kampus atau taman.',
         subPackages: [
           {
-            id: 'ananda-hh-1',
-            name: 'Paket 1 — Simple Hijab Styling / Blow',
+            id: 'ananda-go-1',
+            name: 'Paket 1 — Outdoor Fresh Radiance',
+            price: 210000,
+            duration: '50 Menit',
+            features: [
+              'Sunproof & Sweatproof Glow Base Foundation',
+              'Bulu Mata Korea Kuat Terpaan Angin',
+              'Hijabdo Rapi Anti-Kusut',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'ananda-prewed-indoor',
+        name: 'Prewedding Indoor',
+        iconType: 'prewedding',
+        description: 'Romantisme ala drama Korea untuk foto prewedding studio.',
+        subPackages: [
+          {
+            id: 'ananda-pwi-1',
+            name: 'Paket 1 — Korean Studio Romance',
+            price: 320000,
+            duration: '60 Menit',
+            features: [
+              'Riasan Soft Romantic Glowing Studio',
+              'Hairdo Wave / Hijabdo Berselendang Organza',
+              'Free Softlens & Lip Gloss Hydration',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'ananda-prewed-outdoor',
+        name: 'Prewedding Outdoor',
+        iconType: 'outdoor',
+        description: 'Riasan cerah natural untuk foto prewedding outdoor sunset dan alam.',
+        subPackages: [
+          {
+            id: 'ananda-pwo-1',
+            name: 'Paket 1 — Sunset Glow Outdoor',
+            price: 360000,
+            duration: '70 Menit',
+            features: [
+              'Glow Complexion Water-Resistant',
+              'Styling Rambut Curls / Hijab Modern',
+              'Free Setting Spray Khusus Outdoor',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'ananda-kebaya',
+        name: 'Kebaya',
+        iconType: 'kebaya',
+        description: 'Sewa busana kebaya pastel modern.',
+        subPackages: [
+          {
+            id: 'ananda-kb-1',
+            name: 'Paket 1 — Kebaya Pastel Modern',
+            price: 100000,
+            features: [
+              'Pilihan Warna: Sage, Nude, Silver, Pink Pastel',
+              'Termasuk Jarik / Rok Batik Modern',
+              'Ukuran S, M, L, XL',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'ananda-hijabdo',
+        name: 'Hijabdo',
+        iconType: 'hairdo',
+        description: 'Layanan penataan jilbab clean look ala selebgram.',
+        subPackages: [
+          {
+            id: 'ananda-hj-1',
+            name: 'Paket 1 — Clean Girl Hijab Styling',
             price: 50000,
             duration: '20 Menit',
             features: [
-              'Rapikan Pasmina / Segiempat Tegak Sempurna',
-              'Penataan Blow Dry / Natural Curls',
-              'Free Jarum Pentul Premium & Bobby Pins',
+              'Pashmina Silk / Segiempat Paris Rapi Tegak',
+              'Bentuk Wajah Tirus & Bersih di Kamera',
             ],
           },
           {
-            id: 'ananda-hh-2',
-            name: 'Paket 2 — Creative Modern Hijabdo / Updo',
+            id: 'ananda-hj-2',
+            name: 'Paket 2 — Creative Layering Hijab',
             price: 85000,
             duration: '35 Menit',
-            badge: 'Favorit',
             features: [
-              'Kreasi Hijab Turban / Wisuda Layering Modern',
-              'Hairdo Updo / Sanggul Modern Wisuda Berkelas',
+              'Kreasi Hijab Silang / Turban Wisuda Modern',
               'Free Bobby Pins & Hairspray Strong Hold',
             ],
           },
@@ -368,24 +608,54 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     ],
     categories: [
       {
-        id: 'masaya-wisuda',
-        name: 'Makeup Wisuda & Group Photoshoot',
-        iconName: 'graduation',
-        description: 'Tampilan tegas, berkarakter, dan mewah di hadapan lensa kamera studio.',
+        id: 'masaya-pass-foto',
+        name: 'Pass Foto',
+        iconType: 'camera',
+        description: 'Tampilan tegas berkarakter dengan shading presisi tinggi.',
         subPackages: [
           {
-            id: 'masaya-ws-1',
+            id: 'masaya-pf-1',
+            name: 'Paket 1 — Sculpted ID Look',
+            price: 85000,
+            duration: '30 Menit',
+            features: ['Contour Wajah Tajam & Matte', 'Rapikan Alis & Natural Lips'],
+          },
+        ],
+      },
+      {
+        id: 'masaya-wedding',
+        name: 'Wedding',
+        iconType: 'wedding',
+        description: 'Riasan pengantin bold glamour bergaya kerajaan.',
+        subPackages: [
+          {
+            id: 'masaya-wd-1',
+            name: 'Paket 1 — Royal Bold Bride',
+            price: 650000,
+            duration: '100 Menit',
+            features: ['Full Airbrush Luxury Finish Waterproof', 'Full Sanggul Paes / Hijabdo Pengantin Mewah'],
+          },
+        ],
+      },
+      {
+        id: 'masaya-grad-indoor',
+        name: 'Graduation Indoor',
+        iconType: 'graduation',
+        description: 'Tampilan wisuda tegas, berkarakter, dan mewah di hadapan lensa kamera studio.',
+        subPackages: [
+          {
+            id: 'masaya-gi-1',
             name: 'Paket 1 — Velvet Matte Wisuda',
             price: 185000,
             duration: '45 Menit',
             features: [
-              'Velvet Matte Complexion Khusus Kulit Cenderung Berminyak',
+              'Velvet Matte Complexion Khusus Tipe Kulit Berminyak',
               'Bulu Mata Natural Wisuda 1 Layer',
               'Hairdo / Hijabdo Standar Wisuda Rapi',
             ],
           },
           {
-            id: 'masaya-ws-2',
+            id: 'masaya-gi-2',
             name: 'Paket 2 — Bold Glamour Wisuda',
             price: 260000,
             duration: '60 Menit',
@@ -399,33 +669,76 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
         ],
       },
       {
-        id: 'masaya-prewed',
-        name: 'Makeup Prewedding & Photoshoot Studio',
-        iconName: 'sparkles',
-        description: 'Riasan premium dengan kontras tinggi yang sempurna untuk konsep gaun mewah.',
+        id: 'masaya-grad-outdoor',
+        name: 'Graduation Outdoor',
+        iconType: 'outdoor',
+        description: 'Riasan tebal berkarakter yang tidak mudah pudar oleh keringat luar ruangan.',
         subPackages: [
           {
-            id: 'masaya-pw-1',
-            name: 'Paket 1 — Prewedding Studio Lighting Look',
-            price: 320000,
-            duration: '60 Menit',
-            features: [
-              'Complexion Tahan Sorotan Flash Studio Profesional',
-              'Hairdo / Hijabdo Konseptual Sesuai Tema Gaun',
-              'Free Bulu Mata 3D Premium Fluffy',
-            ],
+            id: 'masaya-go-1',
+            name: 'Paket 1 — Outdoor High Glam',
+            price: 220000,
+            duration: '50 Menit',
+            features: ['Heavy Duty Base Anti-Keringat', 'Bold Eyelashes Tahan Angin'],
           },
+        ],
+      },
+      {
+        id: 'masaya-prewed-indoor',
+        name: 'Prewedding Indoor',
+        iconType: 'prewedding',
+        description: 'Riasan editorial pencahayaan dramatis studio.',
+        subPackages: [
           {
-            id: 'masaya-pw-2',
-            name: 'Paket 2 — Full Session + Retouch Ganti Konsep',
-            price: 480000,
-            duration: '90 Menit',
-            badge: 'All Inclusive',
-            features: [
-              'Makeup Tahan Lama Tahan Gesekan Masker & Keringat',
-              'Standby Retouch Selama Sesi Foto 2x Ganti Wardrobe',
-              'Hairdo & Hijabdo 2 Look Berbeda',
-            ],
+            id: 'masaya-pwi-1',
+            name: 'Paket 1 — Studio Editorial Drama',
+            price: 330000,
+            duration: '60 Menit',
+            features: ['Contour Tajam Studio', 'Hairdo / Hijabdo Chic'],
+          },
+        ],
+      },
+      {
+        id: 'masaya-prewed-outdoor',
+        name: 'Prewedding Outdoor',
+        iconType: 'outdoor',
+        description: 'Foto prewedding konsep megah di alam bebas.',
+        subPackages: [
+          {
+            id: 'masaya-pwo-1',
+            name: 'Paket 1 — Majestic Outdoor Prewed',
+            price: 450000,
+            duration: '80 Menit',
+            features: ['Waterproof Extreme', 'Standby Touch Up di Lokasi'],
+          },
+        ],
+      },
+      {
+        id: 'masaya-kebaya',
+        name: 'Kebaya',
+        iconType: 'kebaya',
+        description: 'Kebaya brokat berpayet mewah.',
+        subPackages: [
+          {
+            id: 'masaya-kb-1',
+            name: 'Paket 1 — Kebaya Glamour Brokat',
+            price: 120000,
+            features: ['Pilihan Warna: Maroon, Black, Gold, Navy', 'Lengkap dengan Jarik & Manset'],
+          },
+        ],
+      },
+      {
+        id: 'masaya-hijabdo',
+        name: 'Hijabdo',
+        iconType: 'hairdo',
+        description: 'Styling hijab tegas berturban atau berselendang mewah.',
+        subPackages: [
+          {
+            id: 'masaya-hj-1',
+            name: 'Paket 1 — Bold Modern Hijabdo',
+            price: 60000,
+            duration: '25 Menit',
+            features: ['Gaya Turban / Silang Bersudut Tajam', 'Free Pins & Hold Spray'],
           },
         ],
       },
@@ -444,8 +757,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
     categories: [
       {
         id: 'tiwi-hairdo',
-        name: 'Hairdo Styling Studio',
-        iconName: 'scissors',
+        name: 'Hairdo',
+        iconType: 'hairdo',
         description: 'Penataan rambut profesional dari curly natural hingga sanggul wisuda modern.',
         subPackages: [
           {
@@ -475,8 +788,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
       },
       {
         id: 'tiwi-hijabdo',
-        name: 'Hijabdo Artistry Studio',
-        iconName: 'layers',
+        name: 'Hijabdo',
+        iconType: 'hairdo',
         description: 'Bentuk jilbab simetris, tegak rapi dan membingkai wajah dengan proporsional.',
         subPackages: [
           {
@@ -509,20 +822,24 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
 ];
 
 // Helper icon renderer
-const renderCategoryIcon = (iconName?: string) => {
-  switch (iconName) {
+const renderIcon = (type?: string) => {
+  switch (type) {
     case 'camera':
-      return <Camera className="w-4 h-4 text-[#6E856C]" />;
+      return <Camera className="w-4 h-4 text-[#5C725A]" />;
+    case 'wedding':
+      return <Heart className="w-4 h-4 text-[#5C725A]" />;
     case 'graduation':
-      return <GraduationCap className="w-4 h-4 text-[#6E856C]" />;
-    case 'shirt':
-      return <Shirt className="w-4 h-4 text-[#6E856C]" />;
-    case 'scissors':
-      return <Scissors className="w-4 h-4 text-[#6E856C]" />;
-    case 'layers':
-      return <Layers className="w-4 h-4 text-[#6E856C]" />;
+      return <GraduationCap className="w-4 h-4 text-[#5C725A]" />;
+    case 'outdoor':
+      return <Sun className="w-4 h-4 text-[#5C725A]" />;
+    case 'prewedding':
+      return <Sparkles className="w-4 h-4 text-[#5C725A]" />;
+    case 'kebaya':
+      return <Shirt className="w-4 h-4 text-[#5C725A]" />;
+    case 'hairdo':
+      return <Scissors className="w-4 h-4 text-[#5C725A]" />;
     default:
-      return <Sparkles className="w-4 h-4 text-[#6E856C]" />;
+      return <Sparkles className="w-4 h-4 text-[#5C725A]" />;
   }
 };
 
@@ -555,34 +872,39 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   onAddExtraItem,
   onOpenExtraCheckout,
 }) => {
-  // Step 1: Active Vendor selection (default: 'novita')
-  const [selectedVendorId, setSelectedVendorId] = useState<string>('novita');
+  // Step 1: Active Popup Vendor (when user clicks a vendor button in grid, e.g. "BY NOVITA")
+  const [activePopupVendor, setActivePopupVendor] = useState<string | null>(null);
 
-  // Step 3: Accordion state for service category (default to first category of selected vendor)
-  const [expandedCategoryId, setExpandedCategoryId] = useState<string | null>('novita-pass-foto');
+  // Step 2 & 3: Accordion state for category (e.g. "novita-pass-foto")
+  const [expandedCategoryId, setExpandedCategoryId] = useState<string | null>(null);
 
-  // State untuk feedback toast saat paket ditambahkan
+  // Temporary visual feedback when a sub-package is added to cart
   const [addedPackageId, setAddedPackageId] = useState<string | null>(null);
 
-  // Modal preview foto kebaya
+  // Kebaya preview image modal
   const [previewImagePopup, setPreviewImagePopup] = useState<string | null>(null);
 
-  // Selected vendor object
-  const activeVendor = MUA_VENDORS.find((v) => v.id === selectedVendorId) || MUA_VENDORS[0];
+  // Active vendor object based on activePopupVendor
+  const currentPopupVendor =
+    MUA_VENDORS.find(
+      (v) => v.name.toLowerCase() === (activePopupVendor || '').toLowerCase()
+    ) || null;
 
-  // Handler pergantian vendor
-  const handleSelectVendor = (vendorId: string) => {
-    setSelectedVendorId(vendorId);
-    const targetVendor = MUA_VENDORS.find((v) => v.id === vendorId);
-    // Buka kategori pertama dari vendor yang baru dipilih
-    if (targetVendor && targetVendor.categories.length > 0) {
-      setExpandedCategoryId(targetVendor.categories[0].id);
+  // Handler klik vendor dari grid
+  const handleOpenVendorPopup = (vendorName: string) => {
+    setActivePopupVendor(vendorName);
+    const vendor = MUA_VENDORS.find(
+      (v) => v.name.toLowerCase() === vendorName.toLowerCase()
+    );
+    // Buka kategori pertama (Pass Foto) secara otomatis agar langsung terlihat sub-paketnya!
+    if (vendor && vendor.categories.length > 0) {
+      setExpandedCategoryId(vendor.categories[0].id);
     } else {
       setExpandedCategoryId(null);
     }
   };
 
-  // Handler buka-tutup accordion kategori
+  // Handler toggle accordion kategori
   const handleToggleCategory = (categoryId: string) => {
     setExpandedCategoryId((prev) => (prev === categoryId ? null : categoryId));
   };
@@ -604,7 +926,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
       qty: 1,
     });
 
-    // Beri visual feedback tombol
+    // Umpan balik tombol
     setAddedPackageId(subPackage.id);
     setTimeout(() => {
       setAddedPackageId((cur) => (cur === subPackage.id ? null : cur));
@@ -615,6 +937,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
   const handleGoToCheckout = () => {
     if (cartItems.length === 0) return;
+    setActivePopupVendor(null);
     if (onOpenExtraCheckout) onOpenExtraCheckout();
   };
 
@@ -623,9 +946,9 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/65 p-0 backdrop-blur-sm sm:p-4 animate-in fade-in duration-200">
       <div className="flex max-h-[94vh] w-full max-w-[min(94vw,980px)] flex-col overflow-hidden rounded-t-[28px] border border-[#E7E0D9] bg-[#F7F4F1] shadow-2xl sm:rounded-[24px]">
-        {/* ========================================== */}
-        {/* HEADER MODAL */}
-        {/* ========================================== */}
+        {/* ========================================================================= */}
+        {/* HEADER UTAMA */}
+        {/* ========================================================================= */}
         <div className="sticky top-0 z-20 shrink-0 border-b border-[#E8DDD6] bg-[#FDFBF7] px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
@@ -653,400 +976,345 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
           </div>
         </div>
 
-        {/* ========================================== */}
-        {/* SCROLLABLE CONTENT BODY */}
-        {/* ========================================== */}
+        {/* ========================================================================= */}
+        {/* BODY UTAMA: CAROUSEL & GRID VENDOR */}
+        {/* ========================================================================= */}
         <div className="min-h-0 flex-1 overflow-y-auto bg-[#F7F4F1] overscroll-contain">
-          {/* A. CAROUSEL INSPIRASI HASIL KARYA */}
+          {/* A. CAROUSEL PORTOFOLIO */}
           <section className="px-4 pb-3 pt-4 sm:px-6 sm:pb-4 sm:pt-5 border-b border-[#EAE2DC]/60">
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[#6E856C]">
-                  Portofolio & Inspirasi
+                  Hasil Makeup & Styling
                 </p>
                 <h4 className="mt-1 font-serif text-xl sm:text-2xl font-black leading-tight tracking-tight text-[#2E2E2E]">
-                  Karya MUA & Styling Alviero
+                  Inspirasi MUA, KEBAYA, HAIRDO & HIJABDO
                 </h4>
               </div>
               <span className="text-[10px] font-sans text-stone-500 bg-white/70 px-2.5 py-1 rounded-full border border-[#E8DDD6]">
-                Geser portofolio →
+                Geser ke samping →
               </span>
             </div>
 
             <div className="mt-3.5 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 no-scrollbar">
-              {MUA_VENDORS.map((vendor) => {
-                const isCurrent = vendor.id === selectedVendorId;
-                return (
-                  <button
-                    key={vendor.id}
-                    type="button"
-                    onClick={() => handleSelectVendor(vendor.id)}
-                    className={`group relative min-w-[190px] sm:min-w-[220px] snap-start overflow-hidden rounded-[20px] border text-left transition-all duration-300 hover:scale-[1.02] ${
-                      isCurrent
-                        ? 'border-2 border-[#5C725A] shadow-md ring-2 ring-[#A9BCA7]/40'
-                        : 'border-[#E2D9D3] bg-white shadow-xs opacity-90 hover:opacity-100'
-                    }`}
-                  >
-                    <div className="relative h-[250px] sm:h-[280px] overflow-hidden">
-                      <img
-                        src={vendor.coverImage}
-                        alt={vendor.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-                      
-                      {isCurrent && (
-                        <div className="absolute top-2.5 right-2.5 rounded-full bg-[#5C725A] px-2 py-0.5 text-[9px] font-mono font-bold uppercase text-white shadow-xs">
-                          ✓ Aktif
-                        </div>
-                      )}
-
-                      <div className="absolute bottom-0 left-0 right-0 p-3">
-                        <span className="inline-block rounded-full bg-white/90 backdrop-blur-xs px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-[0.14em] text-[#2E2E2E]">
-                          {vendor.categories.length} Kategori
-                        </span>
-                        <h5 className="font-serif text-lg font-black text-white mt-1 leading-tight">
-                          {vendor.name}
-                        </h5>
-                        <p className="text-[10px] text-stone-200 line-clamp-1 mt-0.5">
-                          {vendor.tagline}
-                        </p>
-                      </div>
+              {MUA_VENDORS.map((vendor) => (
+                <button
+                  key={vendor.id}
+                  type="button"
+                  onClick={() => handleOpenVendorPopup(vendor.name)}
+                  className="group relative min-w-[200px] sm:min-w-[230px] snap-start overflow-hidden rounded-[20px] border border-[#E2D9D3] bg-white shadow-xs text-left transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+                >
+                  <div className="relative h-[260px] sm:h-[300px] overflow-hidden">
+                    <img
+                      src={vendor.coverImage}
+                      alt={vendor.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-3">
+                      <span className="inline-block rounded-full bg-white/90 px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-[0.14em] text-[#2E2E2E]">
+                        {vendor.name}
+                      </span>
+                      <p className="text-[10px] text-stone-200 line-clamp-1 mt-1 font-sans">
+                        {vendor.tagline}
+                      </p>
                     </div>
-                  </button>
-                );
-              })}
+                  </div>
+                </button>
+              ))}
             </div>
           </section>
 
-          {/* B. STEP 1: VENDOR SELECTOR GRID */}
+          {/* B. GRID 4 TOMBOL VENDOR */}
           <section className="px-4 py-4 sm:px-6 sm:py-5">
-            <div className="rounded-[22px] border border-[#E8DDD6] bg-[#F2E9E4]/60 p-4 sm:p-5">
+            <div className="rounded-[22px] border border-[#E8DDD6] bg-[#F4EFEA] p-4 sm:p-5">
               <div className="mb-3.5 flex items-center justify-between gap-3">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-[#5C725A] border border-[#E8DDD6]">
-                    <span>Step 1</span> • Pilih Vendor MUA
-                  </span>
-                  <h4 className="font-serif text-lg sm:text-xl font-black uppercase text-[#2E2E2E] mt-1.5">
-                    Daftar Vendor Tersedia
-                  </h4>
+                  <p className="text-[10px] font-mono font-bold uppercase tracking-[0.22em] text-[#6E856C]">
+                    Pricelist Detail
+                  </p>
+                  <h5 className="font-serif text-lg sm:text-xl font-black uppercase text-[#2E2E2E] mt-1">
+                    Vendor & Layanan
+                  </h5>
                 </div>
                 <span className="rounded-full bg-white border border-[#EAE0D8] px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#2E2E2E]">
-                  {MUA_VENDORS.length} Vendor
+                  {MUA_VENDORS.length} vendor
                 </span>
               </div>
 
-              {/* Grid 4 Tombol Vendor */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
-                {MUA_VENDORS.map((vendor) => {
-                  const isSelected = vendor.id === selectedVendorId;
-                  return (
-                    <button
-                      key={vendor.id}
-                      type="button"
-                      onClick={() => handleSelectVendor(vendor.id)}
-                      className={`group relative flex flex-col justify-between rounded-xl sm:rounded-2xl p-3.5 sm:p-4 text-left transition-all duration-200 ease-out active:scale-[0.98] ${
-                        isSelected
-                          ? 'border-2 border-[#5C725A] bg-[#2E2E2E] text-white shadow-md ring-2 ring-[#A9BCA7]/30 -translate-y-0.5'
-                          : 'border border-[#D8CEC7] bg-[#FDFBF7] text-[#2E2E2E] hover:border-[#6E856C] hover:bg-white hover:shadow-sm'
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <span
-                          className={`text-[9px] font-mono font-bold uppercase tracking-[0.16em] px-2 py-0.5 rounded-md ${
-                            isSelected
-                              ? 'bg-white/20 text-[#F2E9E4]'
-                              : 'bg-[#F2E9E4] text-[#5C725A]'
-                          }`}
-                        >
-                          {vendor.categories.length} Kategori
-                        </span>
-                        {isSelected && (
-                          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#5C725A] text-white text-[10px]">
-                            <Check className="w-3 h-3 stroke-[3]" />
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="mt-3">
-                        <div
-                          className={`font-serif text-base sm:text-lg font-black uppercase leading-tight tracking-wide ${
-                            isSelected ? 'text-white' : 'text-[#2E2E2E]'
-                          }`}
-                        >
-                          {vendor.name}
-                        </div>
-                        <p
-                          className={`text-[10px] line-clamp-1 mt-1 font-sans ${
-                            isSelected ? 'text-stone-300' : 'text-stone-500'
-                          }`}
-                        >
-                          {vendor.tagline}
-                        </p>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          {/* C. STEP 2 & 3: KATEGORI LAYANAN & ACCORDION SUB-PAKET */}
-          <section className="px-4 pb-8 sm:px-6 sm:pb-10">
-            <div className="rounded-[22px] border border-[#E8DDD6] bg-white p-4 sm:p-6 shadow-sm">
-              {/* Header Vendor Terpilih */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EAE2DC] pb-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F2E9E4] px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-[#5C725A]">
-                      <span>Step 2 & 3</span> • Kategori & Sub-Paket
-                    </span>
-                    <span className="text-[10px] font-mono font-bold text-[#6E856C]">
-                      • {activeVendor.name}
-                    </span>
-                  </div>
-                  <h4 className="mt-1 font-serif text-xl sm:text-2xl font-black uppercase text-[#2E2E2E]">
-                    Pricelist Layanan {activeVendor.name}
-                  </h4>
-                  <p className="text-xs font-sans text-stone-500 mt-0.5">
-                    {activeVendor.tagline} — Klik kategori di bawah untuk membuka daftar sub-paket.
-                  </p>
-                </div>
-
-                {/* Mini Portfolio Thumbnails */}
-                <div className="flex items-center gap-2 shrink-0">
-                  {activeVendor.portfolioImages.map((img, idx) => (
-                    <img
-                      key={`${activeVendor.id}-thumb-${idx}`}
-                      src={img}
-                      alt={`Portofolio ${activeVendor.name} ${idx + 1}`}
-                      className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl object-cover border border-[#E8DDD6] shadow-2xs"
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* LIST ACCORDION KATEGORI LAYANAN */}
-              <div className="mt-5 space-y-3.5">
-                {activeVendor.categories.map((category) => {
-                  const isExpanded = expandedCategoryId === category.id;
-
-                  return (
-                    <div
-                      key={category.id}
-                      className={`overflow-hidden rounded-2xl border transition-all duration-300 ${
-                        isExpanded
-                          ? 'border-[#A9BCA7] bg-[#FAF7F2] shadow-sm'
-                          : 'border-[#E8DDD6] bg-[#FDFBF7] hover:border-[#D1C6BD]'
-                      }`}
-                    >
-                      {/* ACCORDION HEADER (KATEGORI) */}
-                      <button
-                        type="button"
-                        onClick={() => handleToggleCategory(category.id)}
-                        className="flex w-full cursor-pointer items-center justify-between gap-3 p-3.5 sm:p-4 text-left transition-colors select-none"
-                        aria-expanded={isExpanded}
-                      >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div
-                            className={`flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl border transition-colors ${
-                              isExpanded
-                                ? 'border-[#5C725A] bg-[#5C725A] text-white shadow-xs'
-                                : 'border-[#E8DDD6] bg-white text-[#5C725A]'
-                            }`}
-                          >
-                            {renderCategoryIcon(category.iconName)}
-                          </div>
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <h5 className="font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
-                                {category.name}
-                              </h5>
-                              <span className="rounded-full bg-[#F2E9E4] border border-[#E8DDD6] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-[#5C725A]">
-                                {category.subPackages.length} Sub-Paket
-                              </span>
-                            </div>
-                            {category.description && (
-                              <p className="text-[11px] sm:text-xs font-sans text-stone-500 line-clamp-1 mt-0.5">
-                                {category.description}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Chevron Indicator with Smooth Rotation */}
-                        <div className="flex items-center gap-2 shrink-0">
-                          <span className="hidden sm:inline text-[10px] font-mono font-bold uppercase text-stone-500">
-                            {isExpanded ? 'Tutup' : 'Buka'}
-                          </span>
-                          <div
-                            className={`flex h-7 w-7 items-center justify-center rounded-full border border-[#E8DDD6] bg-white text-[#2E2E2E] transition-transform duration-300 ${
-                              isExpanded ? 'rotate-180 bg-[#5C725A] text-white border-[#5C725A]' : ''
-                            }`}
-                          >
-                            <ChevronDown className="h-4 w-4" />
-                          </div>
-                        </div>
-                      </button>
-
-                      {/* ACCORDION CONTENT (SUB-PAKET LIST) */}
-                      {isExpanded && (
-                        <div className="border-t border-[#EAE2DC] px-3.5 pb-4 pt-3.5 sm:px-5 sm:pb-5">
-                          {/* Garis batas indentasi hierarki level 3 */}
-                          <div className="border-l-2 sm:border-l-4 border-[#5C725A] pl-3 sm:pl-4 space-y-3">
-                            <p className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#6E856C]">
-                              Pilihan Sub-Paket {category.name}
-                            </p>
-
-                            <div className="grid grid-cols-1 gap-3">
-                              {category.subPackages.map((pkg) => {
-                                const isAdded = addedPackageId === pkg.id;
-
-                                return (
-                                  <div
-                                    key={pkg.id}
-                                    className="group relative rounded-xl sm:rounded-2xl border border-[#E8DDD6] bg-white p-3.5 sm:p-4.5 shadow-2xs transition-all duration-200 hover:border-[#5C725A] hover:shadow-md"
-                                  >
-                                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5 sm:gap-4">
-                                      {/* Detail Nama & Fasilitas Paket */}
-                                      <div className="min-w-0 flex-1">
-                                        <div className="flex items-center gap-2 flex-wrap">
-                                          <h6 className="font-serif text-base sm:text-lg font-black text-[#2E2E2E]">
-                                            {pkg.name}
-                                          </h6>
-                                          {pkg.badge && (
-                                            <span className="rounded-full bg-[#5C725A] text-white px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider shadow-2xs">
-                                              ★ {pkg.badge}
-                                            </span>
-                                          )}
-                                          {pkg.duration && (
-                                            <span className="inline-flex items-center gap-1 rounded-md bg-[#F2E9E4] text-[#5C725A] px-2 py-0.5 text-[9px] font-mono font-bold">
-                                              <Clock className="w-3 h-3" />
-                                              <span>{pkg.duration}</span>
-                                            </span>
-                                          )}
-                                        </div>
-
-                                        {/* Daftar Fasilitas / Item yang didapat (Level 3 Items) */}
-                                        <div className="mt-2.5 space-y-1.5">
-                                          {pkg.features.map((feature, fIdx) => (
-                                            <div
-                                              key={fIdx}
-                                              className="flex items-start gap-2 text-xs sm:text-[13px] font-sans text-stone-700 leading-snug"
-                                            >
-                                              <CheckCircle2 className="w-4 h-4 shrink-0 text-[#5C725A] mt-0.5" />
-                                              <span>{feature}</span>
-                                            </div>
-                                          ))}
-                                        </div>
-
-                                        {pkg.note && (
-                                          <p className="mt-2 text-[10px] font-sans italic text-stone-500">
-                                            * {pkg.note}
-                                          </p>
-                                        )}
-                                      </div>
-
-                                      {/* Harga & Tombol Tambah ke Keranjang */}
-                                      <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#F0EBE7] shrink-0">
-                                        <div className="text-left sm:text-right">
-                                          <span className="text-[10px] font-mono font-bold uppercase text-stone-500 block">
-                                            Investasi
-                                          </span>
-                                          <div className="flex items-baseline gap-1">
-                                            <span className="text-xs font-mono font-bold text-[#5C725A]">
-                                              Rp
-                                            </span>
-                                            <span className="font-mono text-base sm:text-xl font-black text-[#2E2E2E]">
-                                              {pkg.price.toLocaleString('id-ID')}
-                                            </span>
-                                          </div>
-                                        </div>
-
-                                        <button
-                                          type="button"
-                                          onClick={() =>
-                                            handleAddSubPackageToCart(
-                                              activeVendor.name,
-                                              category.name,
-                                              pkg
-                                            )
-                                          }
-                                          className={`inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2 text-xs font-serif font-black uppercase tracking-[0.12em] transition-all duration-200 active:scale-95 ${
-                                            isAdded
-                                              ? 'bg-[#5C725A] text-white shadow-sm'
-                                              : 'bg-[#2E2E2E] text-white hover:bg-[#1a1a1a] hover:shadow-md'
-                                          }`}
-                                        >
-                                          {isAdded ? (
-                                            <>
-                                              <Check className="w-3.5 h-3.5 stroke-[3]" />
-                                              <span>Ditambahkan</span>
-                                            </>
-                                          ) : (
-                                            <>
-                                              <ShoppingBag className="w-3.5 h-3.5" />
-                                              <span>+ Pilih Paket</span>
-                                            </>
-                                          )}
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                      )}
+              {/* Grid 4 Vendor */}
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                {MUA_VENDORS.map((vendor) => (
+                  <button
+                    key={vendor.id}
+                    type="button"
+                    onClick={() => handleOpenVendorPopup(vendor.name)}
+                    className="group flex min-h-24 sm:min-h-28 flex-col items-center justify-center rounded-xl border border-[#D8CEC7] bg-[#F7F4F1] p-3 text-center shadow-xs transition-all duration-200 ease-out hover:-translate-y-0.5 hover:border-[#5C725A] hover:bg-white hover:shadow-md sm:rounded-2xl sm:p-6 active:scale-[0.98]"
+                  >
+                    <div className="font-serif text-lg sm:text-xl font-black uppercase leading-tight tracking-wide text-[#2E2E2E] group-hover:text-[#1d1d1d]">
+                      {vendor.name}
                     </div>
-                  );
-                })}
+                    <span className="text-[10px] font-mono font-semibold text-[#6E856C] mt-1">
+                      {vendor.categories.length} Kategori Layanan
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </section>
         </div>
 
-        {/* ========================================== */}
-        {/* RINGKASAN KERANJANG STICKY (JIKA ADA ITEM DIPILIH) */}
-        {/* ========================================== */}
-        {cartItems.length > 0 && (
-          <div className="sticky bottom-0 z-20 shrink-0 border-t border-[#DDE7DF] bg-[#FDFBF7] px-4 py-3 sm:px-6 shadow-[0_-8px_20px_-10px_rgba(0,0,0,0.15)]">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#5C725A] text-white">
-                  <ShoppingBag className="w-4 h-4" />
+        {/* ========================================================================= */}
+        {/* FOOTER MODAL UTAMA */}
+        {/* ========================================================================= */}
+        <div className="sticky bottom-0 left-0 right-0 z-10 border-t border-[#DAD0C8] bg-[#2B2F33] px-4 py-3 sm:px-6 sm:py-3.5">
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-[#3A3A3A] bg-[#222222] px-4 py-2.5 text-xs font-serif font-black uppercase tracking-[0.12em] text-white shadow-md transition-all hover:bg-[#161616] hover:scale-[1.005] active:scale-[0.99] sm:gap-3 sm:px-5 sm:py-3 sm:text-sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Tutup & Kembali ke Beranda</span>
+          </button>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* POPUP DETAIL VENDOR (SESUAI SCREENSHOT PENGGUNA) */}
+        {/* DILENGKAPI ACCORDION BUKA-TUTUP SUB-PAKET DI SETIAP LAYANAN */}
+        {/* ========================================================================= */}
+        {currentPopupVendor && (
+          <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150">
+            <div className="relative flex max-h-[92vh] w-full max-w-lg flex-col rounded-2xl border border-[#E8DDD6] bg-white p-4 sm:p-6 shadow-2xl overflow-hidden">
+              {/* Tombol Tutup X Popup */}
+              <button
+                type="button"
+                onClick={() => setActivePopupVendor(null)}
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#F2E9E4] text-[#2E2E2E] border border-[#E8DDD6] hover:bg-[#E4D9D3] transition-colors"
+                aria-label="Tutup popup"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              {/* Portofolio Carousel Vendor di Atas */}
+              <div className="pr-10 shrink-0">
+                <div className="mb-3.5 h-36 sm:h-44 flex snap-x gap-2.5 overflow-x-auto pb-2 no-scrollbar">
+                  {currentPopupVendor.portfolioImages.map((image, index) => (
+                    <img
+                      key={`${currentPopupVendor.id}-portfolio-${index}`}
+                      src={image}
+                      alt={`Portofolio ${currentPopupVendor.name} ${index + 1}`}
+                      className="h-full w-auto shrink-0 snap-center rounded-xl object-cover shadow-xs border border-[#E8DDD6]"
+                    />
+                  ))}
                 </div>
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#5C725A]">
-                    Keranjang Layanan MUA ({cartItems.length} Layanan)
-                  </span>
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-xs font-mono font-bold text-stone-500">Total:</span>
-                    <span className="font-mono text-base sm:text-lg font-black text-[#2E2E2E]">
-                      Rp {muaCartTotal.toLocaleString('id-ID')}
-                    </span>
-                  </div>
-                </div>
+                <h4 className="font-serif text-2xl sm:text-3xl font-black uppercase text-[#2E2E2E] leading-none">
+                  {currentPopupVendor.name}
+                </h4>
+                <p className="text-xs font-sans text-stone-500 mt-1">
+                  {currentPopupVendor.tagline} — Klik kategori layanan untuk melihat detail sub-paket.
+                </p>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleGoToCheckout}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-xs sm:text-sm font-serif font-black uppercase tracking-[0.14em] text-white shadow-md hover:bg-[#1ebc5a] transition-all duration-200 active:scale-95"
-                >
-                  <span>Lanjut ke Checkout Extra</span>
-                  <span>→</span>
-                </button>
+              {/* ===================================================================== */}
+              {/* DAFTAR KATEGORI LAYANAN DENGAN ACCORDION SUB-PAKET */}
+              {/* Contoh: PASS FOTO di-klik -> muncul Paket 1, Paket 2, Paket 3 */}
+              {/* ===================================================================== */}
+              <div className="mt-4 flex-1 space-y-2.5 overflow-y-auto pr-1 sm:pr-2 overscroll-contain">
+                {currentPopupVendor.categories.map((category) => {
+                  const isExpanded = expandedCategoryId === category.id;
+
+                  return (
+                    <div
+                      key={category.id}
+                      className={`overflow-hidden rounded-xl border transition-all duration-200 ${
+                        isExpanded
+                          ? 'border-[#5C725A] bg-[#FAF7F2] shadow-xs'
+                          : 'border-[#EAE0D8] bg-[#F9F7F5] hover:border-[#D1C6BD]'
+                      }`}
+                    >
+                      {/* TOMBOL HEADER KATEGORI (ACCORDION TRIGGER) */}
+                      <button
+                        type="button"
+                        onClick={() => handleToggleCategory(category.id)}
+                        className="flex w-full cursor-pointer items-center justify-between gap-3 p-3.5 text-left transition-colors select-none"
+                        aria-expanded={isExpanded}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div
+                            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-colors ${
+                              isExpanded
+                                ? 'border-[#5C725A] bg-[#5C725A] text-white'
+                                : 'border-[#E8DDD6] bg-white text-[#5C725A]'
+                            }`}
+                          >
+                            {renderIcon(category.iconType)}
+                          </div>
+                          <div className="min-w-0">
+                            <span className="font-serif text-sm sm:text-base font-black uppercase tracking-wide text-[#2E2E2E] block">
+                              {category.name}
+                            </span>
+                            <span className="text-[10px] font-mono text-stone-500">
+                              {category.subPackages.length} Pilihan Sub-Paket
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Chevron Icon Berputar */}
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[9px] font-mono font-bold uppercase text-[#5C725A] bg-white px-2 py-0.5 rounded-full border border-[#E8DDD6]">
+                            {isExpanded ? 'Tutup' : 'Lihat Paket'}
+                          </span>
+                          <div
+                            className={`flex h-6 w-6 items-center justify-center rounded-full border border-[#E8DDD6] bg-white text-[#2E2E2E] transition-transform duration-300 ${
+                              isExpanded ? 'rotate-180 bg-[#5C725A] text-white border-[#5C725A]' : ''
+                            }`}
+                          >
+                            <ChevronDown className="h-3.5 w-3.5" />
+                          </div>
+                        </div>
+                      </button>
+
+                      {/* ============================================================= */}
+                      {/* KONTEN EXPANDED: SUB-PAKET (PAKET 1, PAKET 2, PAKET 3, DST) */}
+                      {/* ============================================================= */}
+                      {isExpanded && (
+                        <div className="border-t border-[#EAE2DC] px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
+                          {/* Garis batas indentasi hierarki level 3 */}
+                          <div className="border-l-3 border-[#5C725A] pl-3 space-y-2.5">
+                            <p className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#6E856C]">
+                              Daftar Sub-Paket {category.name}
+                            </p>
+
+                            {category.subPackages.map((pkg) => {
+                              const isAdded = addedPackageId === pkg.id;
+
+                              return (
+                                <div
+                                  key={pkg.id}
+                                  className="rounded-xl border border-[#E8DDD6] bg-white p-3 shadow-2xs transition-all hover:border-[#5C725A] hover:shadow-xs"
+                                >
+                                  {/* Baris Atas: Judul Paket & Harga */}
+                                  <div className="flex items-start justify-between gap-2">
+                                    <div className="min-w-0">
+                                      <div className="flex items-center gap-1.5 flex-wrap">
+                                        <h6 className="font-serif text-sm font-black text-[#2E2E2E]">
+                                          {pkg.name}
+                                        </h6>
+                                        {pkg.badge && (
+                                          <span className="rounded-full bg-[#5C725A] text-white px-1.5 py-0.2 text-[8px] font-mono font-bold uppercase tracking-wider">
+                                            {pkg.badge}
+                                          </span>
+                                        )}
+                                      </div>
+                                      {pkg.duration && (
+                                        <span className="inline-flex items-center gap-1 text-[9px] font-mono text-stone-500 mt-0.5">
+                                          <Clock className="w-2.5 h-2.5 text-[#5C725A]" />
+                                          <span>Estimasi {pkg.duration}</span>
+                                        </span>
+                                      )}
+                                    </div>
+
+                                    {/* Harga */}
+                                    <div className="text-right shrink-0">
+                                      <span className="text-[9px] font-mono font-bold text-stone-500 uppercase block">
+                                        Harga
+                                      </span>
+                                      <div className="flex items-baseline gap-0.5 justify-end">
+                                        <span className="text-[10px] font-mono font-bold text-[#5C725A]">
+                                          Rp
+                                        </span>
+                                        <span className="font-mono text-sm sm:text-base font-black text-[#2E2E2E]">
+                                          {pkg.price.toLocaleString('id-ID')}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Detail Fasilitas / Item yang didapatkan */}
+                                  <div className="mt-2 space-y-1 border-t border-[#F2ECE7] pt-2">
+                                    {pkg.features.map((feature, fIdx) => (
+                                      <div
+                                        key={fIdx}
+                                        className="flex items-start gap-1.5 text-[11px] font-sans text-stone-700 leading-tight"
+                                      >
+                                        <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-[#5C725A] mt-0.5" />
+                                        <span>{feature}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+
+                                  {/* Tombol Aksi Tambah ke Keranjang */}
+                                  <div className="mt-2.5 flex justify-end">
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        handleAddSubPackageToCart(
+                                          currentPopupVendor.name,
+                                          category.name,
+                                          pkg
+                                        )
+                                      }
+                                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-serif font-black uppercase tracking-[0.14em] transition-all duration-200 active:scale-95 ${
+                                        isAdded
+                                          ? 'bg-[#5C725A] text-white shadow-2xs'
+                                          : 'bg-[#2E2E2E] text-white hover:bg-[#1a1a1a]'
+                                      }`}
+                                    >
+                                      {isAdded ? (
+                                        <>
+                                          <Check className="w-3 h-3 stroke-[3]" />
+                                          <span>Ditambahkan</span>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <span>+ Tambah</span>
+                                        </>
+                                      )}
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
+
+              {/* ===================================================================== */}
+              {/* RINGKASAN KERANJANG DI POPUP (JIKA SUDAH PILIH PAKET) */}
+              {/* ===================================================================== */}
+              {cartItems.length > 0 && (
+                <div className="mt-3 shrink-0 rounded-xl border border-[#DDE7DF] bg-[#FAF7F2] p-3 shadow-xs">
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <span className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#5C725A] block">
+                        Total {cartItems.length} Layanan Dipilih
+                      </span>
+                      <div className="font-mono text-sm sm:text-base font-black text-[#2E2E2E]">
+                        Rp {muaCartTotal.toLocaleString('id-ID')}
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleGoToCheckout}
+                      className="rounded-full bg-[#25D366] px-4 py-2 text-[11px] font-serif font-black uppercase tracking-[0.12em] text-white shadow-xs hover:bg-[#1ebc5a] transition-colors"
+                    >
+                      Lanjut ke Checkout →
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
 
-        {/* ========================================== */}
-        {/* MODAL POPUP PREVIEW KEBAYA */}
-        {/* ========================================== */}
+        {/* ========================================================================= */}
+        {/* PREVIEW KEBAYA */}
+        {/* ========================================================================= */}
         {previewImagePopup && (
           <div
             className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in"
@@ -1076,20 +1344,6 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
             </div>
           </div>
         )}
-
-        {/* ========================================== */}
-        {/* FOOTER BAR: KEMBALI KE BERANDA */}
-        {/* ========================================== */}
-        <div className="sticky bottom-0 left-0 right-0 z-10 border-t border-[#DAD0C8] bg-[#2B2F33] px-4 py-3 sm:px-6 sm:py-3.5">
-          <button
-            type="button"
-            onClick={onClose}
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-[#3A3A3A] bg-[#222222] px-4 py-2.5 text-xs font-serif font-black uppercase tracking-[0.12em] text-white shadow-md transition-all hover:bg-[#161616] hover:scale-[1.005] active:scale-[0.99] sm:gap-3 sm:px-5 sm:py-3 sm:text-sm"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Tutup & Kembali ke Beranda</span>
-          </button>
-        </div>
       </div>
     </div>
   );
