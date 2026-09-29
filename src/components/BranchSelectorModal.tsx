@@ -36,6 +36,7 @@ import {
   Users
 } from 'lucide-react';
 import { AlvieroHistoryModal } from './AlvieroHistoryModal';
+import { useMobileBackButton } from '../hooks/useMobileBackButton';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
@@ -1335,6 +1336,9 @@ export const PromoDetailModal: React.FC<{
 }> = ({ promo, onClose, onApplyPromo, selectedBranch = 'cabang-1' }) => {
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
   const [activeView, setActiveView] = useState<'default' | 'struktur' | 'galeri'>('default');
+
+  // Integrasi tombol Back fisik / Swipe Back HP untuk modal info & promo
+  useMobileBackButton(Boolean(promo), onClose, 'promo-detail');
 
   useEffect(() => {
     setActiveView('default');
@@ -2808,6 +2812,9 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
   onClose,
   canDismiss = true,
 }) => {
+  // Integrasi tombol Back fisik / Swipe Back HP untuk popup selector studio
+  useMobileBackButton(isOpen && canDismiss, () => onClose?.(), 'branch-selector');
+
   if (!isOpen) return null;
 
   const handleChoose = (branchId: StudioBranch) => {

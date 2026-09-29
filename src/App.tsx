@@ -10,6 +10,7 @@ import { MUAPricelistModal } from './components/MUAPricelistModal';
 import { ExtraCheckoutModal, type ExtraCartItem } from './components/ExtraCheckoutModal';
 import { StudioBranch } from './types';
 import { useAutoHideScrollbar } from './hooks/useAutoHideScrollbar';
+import { useMobileBackButton } from './hooks/useMobileBackButton';
 
 // Nomor WhatsApp Admin Studio 1 dalam format internasional tanpa tanda plus.
 const ADMIN_STUDIO_1_WA = '6287777538164';
@@ -211,6 +212,18 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
     }
     setIsBookingOpen(true);
   };
+
+  // =========================================================================
+  // INTEGRASI HARDWARE BACK BUTTON / SWIPE BACK MOBILE (NATIVE PWA EXPERIENCE)
+  // =========================================================================
+  // 1. Jika modal MUA / Beauty aktif, tutup modal saat ditekan Back
+  useMobileBackButton(isBeautyModalOpen, () => setIsBeautyModalOpen(false), 'mua-modal');
+  // 2. Jika modal Extra Checkout aktif, tutup modal saat ditekan Back
+  useMobileBackButton(isExtraCheckoutOpen, () => setIsExtraCheckoutOpen(false), 'extra-checkout-modal');
+  // 3. Jika user sedang membuka katalog cabang, kembali ke halaman utama pemilihan studio
+  useMobileBackButton(hasEnteredBranch, () => handleBackToLanding(), 'branch-catalog');
+  // 4. Jika user sedang membuka tab selain 'katalog' (Strip / Lokasi), kembali ke tab utama katalog
+  useMobileBackButton(activeTab !== 'katalog', () => setActiveTab('katalog'), 'main-tab');
 
   return (
     <div className="min-h-screen bg-[#EFE8DD] text-[#2D2A26] font-libre flex flex-col selection:bg-[#8DA4B8] selection:text-white pb-16 md:pb-0">

@@ -41,6 +41,7 @@ import {
   ChevronDown,
   Search
 } from 'lucide-react';
+import { useMobileBackButton } from '../hooks/useMobileBackButton';
 
 interface BookingCalculatorProps {
   isOpen: boolean;
@@ -1403,6 +1404,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   preselectedFrameId,
   initialPromoCode
 }) => {
+  // Integrasi tombol Back fisik / Swipe Back HP (Native PWA Experience)
+  useMobileBackButton(isOpen, onClose, 'booking-modal');
+
   const [step, setStep] = useState<number>(1);
   const modalBodyRef = useRef<HTMLDivElement>(null);
 

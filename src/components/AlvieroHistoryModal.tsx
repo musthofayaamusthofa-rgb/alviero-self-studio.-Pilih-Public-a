@@ -15,6 +15,8 @@ import {
   Star
 } from 'lucide-react';
 
+import { useMobileBackButton } from '../hooks/useMobileBackButton';
+
 interface AlvieroHistoryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,6 +28,9 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
   onClose,
   onExploreStudios
 }) => {
+  // Dukungan tombol Back fisik / Swipe Back HP (Native PWA Experience)
+  useMobileBackButton(isOpen, onClose, 'alviero-history');
+
   if (!isOpen) return null;
 
   return (

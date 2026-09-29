@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Camera, Sparkles, MapPin, X } from 'lucide-react';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
+import { useMobileBackButton } from '../hooks/useMobileBackButton';
 
 interface MobileBottomNavProps {
   activeTab: string;
@@ -28,6 +29,9 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   onNavigateToPricelist
 }) => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+
+  // Integrasi tombol Back fisik / Swipe Back HP untuk popup Info Bantuan
+  useMobileBackButton(isHelpOpen, () => setIsHelpOpen(false), 'bottom-nav-help');
 
   const openWhatsApp = (branchId: string) => {
     const branch = STUDIO_BRANCHES.find(item => item.id === branchId) || STUDIO_BRANCHES[0];
