@@ -1022,35 +1022,38 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         </div>
 
         {/* Tab Switcher */}
-        <div className="bg-[#FDFBF7] p-1 flex items-center gap-1 w-full sm:w-auto border border-[#E8DDD6] rounded-xl sm:rounded-2xl">
+        <div className="bg-[#FAF8F5] p-1.5 flex items-center gap-1.5 w-full sm:w-auto border border-[#E8DDD6] rounded-xl sm:rounded-2xl shadow-xs">
           <button
             onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                    className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${isTabActive('menu')
-              ? 'bg-[#3A3A3A] text-white shadow-xs'
-              : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
-              }`}
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl border ${
+              isTabActive('menu')
+                ? 'bg-[#3F613E] text-white border-[#334F32] shadow-sm font-extrabold ring-2 ring-[#3F613E]/20'
+                : 'bg-[#EFF6EE] text-[#345333] border-[#CCE0CB] hover:bg-[#E2EFE1] font-bold'
+            }`}
           >
-            <span>Menu Pricelist</span>
+            <span>📱 Menu Pricelist</span>
           </button>
 
           <button
             onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                    className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${isTabActive('gallery')
-              ? 'bg-[#3A3A3A] text-white shadow-xs'
-              : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
-              }`}
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl border ${
+              isTabActive('gallery')
+                ? 'bg-[#2B5777] text-white border-[#21435D] shadow-sm font-extrabold ring-2 ring-[#2B5777]/20'
+                : 'bg-[#F0F5F9] text-[#224762] border-[#C8DCED] hover:bg-[#E3EFF7] font-bold'
+            }`}
           >
-            <span>Fasilitas &amp; Background</span>
+            <span>🏢 Fasilitas &amp; Background</span>
           </button>
 
           <button
             onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                    className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl ${isTabActive('guide')
-              ? 'bg-[#3A3A3A] text-white shadow-xs'
-              : 'text-stone-600 hover:text-[#3A3A3A] hover:bg-white'
-              }`}
+            className={`flex-1 sm:flex-initial px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5 rounded-lg sm:rounded-xl border ${
+              isTabActive('guide')
+                ? 'bg-[#A33636] text-white border-[#872929] shadow-sm font-extrabold ring-2 ring-[#A33636]/20'
+                : 'bg-[#FDF2F2] text-[#8C2B2B] border-[#F4CDCD] hover:bg-[#FCE5E5] font-bold'
+            }`}
           >
-            <span>Disclaimer</span>
+            <span>📖 Disclaimer</span>
           </button>
         </div>
       </div>
@@ -1120,33 +1123,33 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
 
               {/* 4. Switcher Mode: Menu Pricelist vs Fasilitas vs Panduan (Khusus HP) */}
-              <div className="w-full lg:hidden bg-[#f4f3ee] p-1 rounded-2xl flex items-center gap-1 border border-stone-200 shadow-2xs">
+              <div className="w-full lg:hidden bg-[#FAF8F5] p-1.5 rounded-2xl flex items-stretch gap-1.5 border border-[#E8DDD6] shadow-xs">
                 <button
                   onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[42px] px-2 py-1.5 rounded-xl text-[11px] sm:text-xs transition-all flex items-center justify-center text-center leading-tight gap-1 cursor-pointer active:scale-95 border ${
                     isTabActive('menu')
-                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-[#3F613E] text-white border-[#334F32] shadow-sm font-extrabold ring-2 ring-[#3F613E]/20'
+                      : 'bg-[#EFF6EE] text-[#345333] border-[#CCE0CB] hover:bg-[#E2EFE1] font-bold'
                   }`}
                 >
                   <span>📱 Menu</span>
                 </button>
                 <button
                   onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[42px] px-2 py-1.5 rounded-xl text-[11px] sm:text-xs transition-all flex items-center justify-center text-center leading-tight gap-1 cursor-pointer active:scale-95 border ${
                     isTabActive('gallery')
-                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-[#2B5777] text-white border-[#21435D] shadow-sm font-extrabold ring-2 ring-[#2B5777]/20'
+                      : 'bg-[#F0F5F9] text-[#224762] border-[#C8DCED] hover:bg-[#E3EFF7] font-bold'
                   }`}
                 >
                   <span>🏢 Fasilitas &amp; Background</span>
                 </button>
                 <button
                   onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className={`flex-1 min-h-[34px] px-2 py-1 rounded-xl text-[11px] font-bold transition-all flex items-center justify-center gap-1 cursor-pointer active:scale-95 ${
+                  className={`flex-1 min-h-[42px] px-2 py-1.5 rounded-xl text-[11px] sm:text-xs transition-all flex items-center justify-center text-center leading-tight gap-1 cursor-pointer active:scale-95 border ${
                     isTabActive('guide')
-                      ? 'bg-white text-stone-900 shadow-xs border border-stone-200 font-extrabold'
-                      : 'text-stone-600 hover:text-stone-900'
+                      ? 'bg-[#A33636] text-white border-[#872929] shadow-sm font-extrabold ring-2 ring-[#A33636]/20'
+                      : 'bg-[#FDF2F2] text-[#8C2B2B] border-[#F4CDCD] hover:bg-[#FCE5E5] font-bold'
                   }`}
                 >
                   <span>📖 Disclaimer</span>
@@ -4427,33 +4430,33 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-300">
 
           {/* Switcher Mode: Menu Pricelist vs Fasilitas vs Panduan */}
-          <div className="w-full max-w-lg mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs rounded-xl sm:rounded-2xl">
+          <div className="w-full max-w-lg mx-auto bg-[#FAF8F5] p-1.5 flex items-stretch gap-1.5 border border-[#E8DDD6] shadow-xs rounded-xl sm:rounded-2xl">
             <button
               onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+              className={`flex-1 min-h-[40px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center text-center leading-tight gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 isTabActive('menu')
-                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+                  ? 'bg-[#3F613E] text-white border-[#334F32] shadow-sm font-extrabold ring-2 ring-[#3F613E]/20'
+                  : 'bg-[#EFF6EE] text-[#345333] border-[#CCE0CB] hover:bg-[#E2EFE1] font-bold'
               }`}
             >
               <span>📱 Menu Pricelist</span>
             </button>
             <button
               onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+              className={`flex-1 min-h-[40px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center text-center leading-tight gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 isTabActive('gallery')
-                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+                  ? 'bg-[#2B5777] text-white border-[#21435D] shadow-sm font-extrabold ring-2 ring-[#2B5777]/20'
+                  : 'bg-[#F0F5F9] text-[#224762] border-[#C8DCED] hover:bg-[#E3EFF7] font-bold'
               }`}
             >
               <span>🏢 Fasilitas &amp; Background</span>
             </button>
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+              className={`flex-1 min-h-[40px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center text-center leading-tight gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 isTabActive('guide')
-                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+                  ? 'bg-[#A33636] text-white border-[#872929] shadow-sm font-extrabold ring-2 ring-[#A33636]/20'
+                  : 'bg-[#FDF2F2] text-[#8C2B2B] border-[#F4CDCD] hover:bg-[#FCE5E5] font-bold'
               }`}
             >
               <span>📖 Disclaimer</span>
@@ -4599,33 +4602,33 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-300 max-w-5xl mx-auto w-full">
 
           {/* Switcher Mode: Menu Pricelist vs Fasilitas vs Panduan */}
-          <div className="w-full max-w-lg mx-auto bg-white p-1 flex items-center gap-1 border border-[#E8DDD6] shadow-2xs rounded-xl sm:rounded-2xl">
+          <div className="w-full max-w-lg mx-auto bg-[#FAF8F5] p-1.5 flex items-stretch gap-1.5 border border-[#E8DDD6] shadow-xs rounded-xl sm:rounded-2xl">
             <button
               onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+              className={`flex-1 min-h-[40px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center text-center leading-tight gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 isTabActive('menu')
-                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+                  ? 'bg-[#3F613E] text-white border-[#334F32] shadow-sm font-extrabold ring-2 ring-[#3F613E]/20'
+                  : 'bg-[#EFF6EE] text-[#345333] border-[#CCE0CB] hover:bg-[#E2EFE1] font-bold'
               }`}
             >
               <span>📱 Menu Pricelist</span>
             </button>
             <button
               onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+              className={`flex-1 min-h-[40px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center text-center leading-tight gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 isTabActive('gallery')
-                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+                  ? 'bg-[#2B5777] text-white border-[#21435D] shadow-sm font-extrabold ring-2 ring-[#2B5777]/20'
+                  : 'bg-[#F0F5F9] text-[#224762] border-[#C8DCED] hover:bg-[#E3EFF7] font-bold'
               }`}
             >
               <span>🏢 Fasilitas &amp; Background</span>
             </button>
             <button
               onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className={`flex-1 min-h-[38px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
+              className={`flex-1 min-h-[40px] px-3 py-1.5 font-serif text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center text-center leading-tight gap-1.5 cursor-pointer rounded-lg sm:rounded-xl border ${
                 isTabActive('guide')
-                  ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                  : 'bg-transparent text-stone-600 hover:text-[#3A3A3A] hover:bg-[#FDFBF7] border-transparent'
+                  ? 'bg-[#A33636] text-white border-[#872929] shadow-sm font-extrabold ring-2 ring-[#A33636]/20'
+                  : 'bg-[#FDF2F2] text-[#8C2B2B] border-[#F4CDCD] hover:bg-[#FCE5E5] font-bold'
               }`}
             >
               <span>📖 Disclaimer</span>
