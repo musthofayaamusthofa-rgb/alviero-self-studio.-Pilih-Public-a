@@ -28,8 +28,10 @@ import {
   Tag,
   Copy,
   Gift,
-  CheckCircle2
+  CheckCircle2,
+  BookOpen
 } from 'lucide-react';
+import { AlvieroHistoryModal } from './AlvieroHistoryModal';
 
 interface BranchSelectorViewProps {
   selectedBranch: StudioBranch;
@@ -59,6 +61,7 @@ export const BACKDROP_BANNER_IMAGES = BACKGROUND_BANNER_IMAGES;
 
 interface BackgroundHeroSliderProps {
   onViewPlans?: () => void;
+  onOpenAbout?: () => void;
 }
 
 export type BackdropHeroSliderProps = BackgroundHeroSliderProps;
@@ -66,7 +69,7 @@ export type BackdropHeroSliderProps = BackgroundHeroSliderProps;
 /**
  * Hero Slider Banner Background Studio (Desain Tegas, Modern, Responsif Mobile & Desktop)
  */
-export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onViewPlans }) => {
+export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onViewPlans, onOpenAbout }) => {
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
@@ -209,6 +212,22 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
         <p className="font-sans text-[11.5px] sm:text-sm md:text-base text-[#666666] max-w-xl mx-auto leading-relaxed px-2">
           Studio foto &amp; self-studio modern di Malang dengan tema background estetik, pencahayaan profesional, dan fasilitas lengkap.
         </p>
+
+        {/* Tombol Tentang Alviero & Sejarah Berdirinya Studio */}
+        {onOpenAbout && (
+          <div className="pt-2 sm:pt-3">
+            <button
+              type="button"
+              onClick={onOpenAbout}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white text-xs sm:text-sm font-serif font-bold tracking-wider uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border border-[#3A3A3A] group"
+              aria-label="Buka Sejarah Berdirinya Alviero Studio Foto"
+            >
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A9BCA7] group-hover:rotate-12 transition-transform" />
+              <span>Tentang Alviero</span>
+              <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#A9BCA7]" />
+            </button>
+          </div>
+        )}
       </div>
 
     </div>
@@ -1511,6 +1530,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   onOpenBeautyModal
 }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
   const [selectedPromoModal, setSelectedPromoModal] = useState<StudioPromo | null>(null);
   const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
 
@@ -1606,7 +1626,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
       <div className="bg-[#FDFBF7] border-x-0 sm:border sm:border-[#E8DDD6] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
 
         {/* Top Hero Banner Slider */}
-        <BackgroundHeroSlider onViewPlans={() => onSelectBranch(selectedBranch)} />
+        <BackgroundHeroSlider 
+          onViewPlans={() => onSelectBranch(selectedBranch)} 
+          onOpenAbout={() => setIsAboutModalOpen(true)}
+        />
 
         {/* Content Area */}
         <div className="px-4 py-7 sm:p-6 md:p-8 lg:p-10 space-y-8 sm:space-y-10 bg-[#FDFBF7] flex-1">
@@ -2616,6 +2639,16 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           }
         }}
         selectedBranch={selectedBranch}
+      />
+
+      {/* Modal Sejarah Berdirinya Alviero Studio Foto */}
+      <AlvieroHistoryModal
+        isOpen={isAboutModalOpen}
+        onClose={() => setIsAboutModalOpen(false)}
+        onExploreStudios={() => {
+          setIsAboutModalOpen(false);
+          onSelectBranch(selectedBranch);
+        }}
       />
     </div>
   );
