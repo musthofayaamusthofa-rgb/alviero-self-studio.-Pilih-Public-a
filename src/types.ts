@@ -59,6 +59,7 @@ export interface BranchInfo {
   highlights: string[];
   icon: string;
   mapsUrl?: string;
+  reviewUrl?: string;
   whatsappNumber: string;
   whatsappDisplay: string;
 }

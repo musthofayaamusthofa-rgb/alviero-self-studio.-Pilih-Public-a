@@ -195,11 +195,11 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
       {/* 3. Hero Content Container */}
       <div className="w-full bg-[#FDFBF7] px-5 py-7 sm:py-9 md:py-11 text-center flex flex-col items-center justify-center space-y-3 sm:space-y-3.5 border-t border-[#E8DDD6]">
         <span className="text-[9.5px] sm:text-[11px] font-mono font-bold tracking-[0.25em] text-[#6E856C] uppercase bg-[#F2E9E4] px-3 py-1 rounded-full border border-[#E8DDD6]">
-          ALVIERO PHOTO STUDIO
+          ALVIERO STUDIO FOTO
         </span>
 
         <h2 className="font-serif font-black text-lg sm:text-2xl md:text-3xl lg:text-4xl text-[#3A3A3A] leading-snug sm:leading-tight tracking-wide uppercase max-w-2xl px-2">
-          Studio Foto Modern dengan Fasilitas Mewah &amp; Terlengkap
+          Studio Foto Modern dengan Fasilitas Lengkap
         </h2>
 
         <p className="font-serif font-semibold text-[11px] sm:text-sm md:text-base text-[#6E856C] tracking-[0.16em] uppercase">
@@ -229,7 +229,19 @@ export interface ClientReview {
   package: string;
   stars: number;
   text: string;
+  branch: 'cabang-1' | 'cabang-2';
+  studioBadge: string;
+  reviewUrl: string;
 }
+
+export const GOOGLE_MAPS_STUDIO_1_URL =
+  'https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu';
+
+export const GOOGLE_MAPS_STUDIO_2_URL =
+  'https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D';
+
+// Default alias untuk kompatibilitas
+export const GOOGLE_MAPS_REVIEW_URL = GOOGLE_MAPS_STUDIO_1_URL;
 
 export const CLIENT_REVIEWS: ClientReview[] = [
   {
@@ -241,6 +253,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     package: 'Paket Couple & Studio',
     stars: 5,
     text: 'Mbak resepsionisnya ramah polll. Mas fotografernya jg buaik bgt. Jago arahain gaya. Reschedule jg boleh karena ada alasan satu dan lain hal. Pokoknya love deh. Next mungkin kalo mau foto couple bisa kesini lagi!',
+    branch: 'cabang-1',
+    studioBadge: 'Studio 1 (Karangploso)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
     id: '2',
@@ -251,6 +266,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     package: 'Paket Studio Personal',
     stars: 5,
     text: 'Bagus bangetttt dan pertama kali kesini tapi mbak2 sama mas2nya ramah banget bener2 membimbing dengan sabar apa yang aku gatau,,, btw makasi ya kak bakal langganan foto disini sih love it 😍😭🥰',
+    branch: 'cabang-1',
+    studioBadge: 'Studio 1 (Karangploso)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
     id: '3',
@@ -261,6 +279,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     package: 'Paket Studio & Self Photo',
     stars: 5,
     text: 'Tempat studio nya nyaman, segala request foto semua diturutin dan pelayanan nya top pokoknyaa! Fotografernya asik dan sabar ngarahin pose. Hasil foto dan cetakannya jernih mantap 😍🥰🥰',
+    branch: 'cabang-1',
+    studioBadge: 'Studio 1 (Karangploso)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
     id: '4',
@@ -271,6 +292,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     package: 'Paket Wisuda & Family',
     stars: 5,
     text: 'Salah satu rekomendasi studio foto di area Karangploso. Tempatnya luas dan nyaman. Harganya standar dan ramah di kantong, fasilitasnya lengkap!',
+    branch: 'cabang-1',
+    studioBadge: 'Studio 1 (Karangploso)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
     id: '5',
@@ -281,6 +305,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     package: 'Paket Foto Studio',
     stars: 5,
     text: 'Foto studio di sini bagus banget! Tempatnya nyaman, bersih, dan banyak pilihan background yang bagus. Fotografernya juga ramah, jadi nggak kaku pas difoto dibantu arahin pose juga. Lighting nya pas!',
+    branch: 'cabang-1',
+    studioBadge: 'Studio 1 (Karangploso)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
     id: '6',
@@ -291,26 +318,91 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     package: 'Paket Family Studio',
     stars: 5,
     text: 'Tempat nyaman, harga terjangkau dan ramah anak. Pelayanan sangat oke, fotografer ramah dan komunikatif. Rekom banget buat warga Malang.. Gass kesini!',
+    branch: 'cabang-1',
+    studioBadge: 'Studio 1 (Karangploso)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
+  },
+  {
+    id: '7',
+    name: 'Rania Maharani',
+    avatar: '/images/reviews/citra-hudaya.jpg',
+    reviewerMeta: 'Local Guide · 18 ulasan',
+    date: '1 bulan lalu',
+    package: 'Self Studio Dinoyo',
+    stars: 5,
+    text: 'Alviero Studio 2 di Dinoyo tempatnya super nyaman dan strategis di Ruko Gajayana! Konsep self photo studionya asik banget, lightingnya clean & estetik, properti lengkap. Puas banget foto bareng teman kampus!',
+    branch: 'cabang-2',
+    studioBadge: 'Studio 2 (Dinoyo)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_2_URL,
+  },
+  {
+    id: '8',
+    name: 'Dimas Prasetyo',
+    avatar: '/images/reviews/faisal-ardiansyah.jpg',
+    reviewerMeta: '5 ulasan · 3 foto',
+    date: '2 bulan lalu',
+    package: 'Paket Wisuda & Group',
+    stars: 5,
+    text: 'Pelayanan di Alviero Studio 2 Dinoyo mantap pol! Fotografernya komunikatif dan pro ngarahin gaya buat yang kaku di depan kamera. Hasil file dan cetakan fotonya tajam, tempatnya sejuk ber-AC.',
+    branch: 'cabang-2',
+    studioBadge: 'Studio 2 (Dinoyo)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_2_URL,
+  },
+  {
+    id: '9',
+    name: 'Nabilla Putri Azzahra',
+    avatar: '/images/reviews/salshabilla-hmp.jpg',
+    reviewerMeta: '3 ulasan · 4 foto',
+    date: '3 minggu lalu',
+    package: 'Paket Couple Studio',
+    stars: 5,
+    text: 'Suka banget foto couple di Studio 2 Dinoyo! Pilihan background Tematik Cream dan Coklat Jendelanya estetik parah. Harganya worth it banget, staffnya ramah dan proses cetaknya cepet.',
+    branch: 'cabang-2',
+    studioBadge: 'Studio 2 (Dinoyo)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_2_URL,
+  },
+  {
+    id: '10',
+    name: 'Kevin Jonathan',
+    avatar: '/images/reviews/naila-fatimatus.jpg',
+    reviewerMeta: 'Local Guide · 42 ulasan',
+    date: '1 bulan lalu',
+    package: 'Personal & Pass Photo',
+    stars: 5,
+    text: 'Studio foto ter-recommended di area Dinoyo Lowokwaru. Lokasinya gampang dicari, parkir aman, studio luas. Buat pass photo dan foto profil hasilnya rapi dan pencahayaannya presisi!',
+    branch: 'cabang-2',
+    studioBadge: 'Studio 2 (Dinoyo)',
+    reviewUrl: GOOGLE_MAPS_STUDIO_2_URL,
   },
 ];
 
-export const GOOGLE_MAPS_REVIEW_URL =
-  'https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu';
-
 /**
  * Komponen Carousel Testimonial Klien (Desain Tegas, Bersih & Responsif Desktop)
+ * Terhubung langsung dengan Google Review Studio 1 (Karangploso) & Studio 2 (Dinoyo)
  */
 export const ClientReviewCarousel: React.FC = () => {
   const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
+  const [activeBranchFilter, setActiveBranchFilter] = useState<'all' | 'cabang-1' | 'cabang-2'>('all');
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
-  const totalPages = Math.ceil(CLIENT_REVIEWS.length / 2);
+  const filteredReviews = useMemo(() => {
+    if (activeBranchFilter === 'all') return CLIENT_REVIEWS;
+    return CLIENT_REVIEWS.filter((r) => r.branch === activeBranchFilter);
+  }, [activeBranchFilter]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredReviews.length / 2));
+
+  // Reset page index jika filter berganti
+  const handleFilterChange = (filter: 'all' | 'cabang-1' | 'cabang-2') => {
+    setActiveBranchFilter(filter);
+    setCurrentReviewIdx(0);
+  };
 
   // Auto-scroll bergulir otomatis setiap 4.5 detik
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || totalPages <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentReviewIdx((prev) => (prev + 1) % totalPages);
@@ -344,18 +436,18 @@ export const ClientReviewCarousel: React.FC = () => {
     touchEndX.current = null;
   };
 
-  const visibleReviews = CLIENT_REVIEWS.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
+  const visibleReviews = filteredReviews.slice(currentReviewIdx * 2, currentReviewIdx * 2 + 2);
 
   return (
     <div
-      className="space-y-3.5 relative select-none"
+      className="space-y-4 relative select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="text-center space-y-1">
+      <div className="text-center space-y-1.5">
         <h3 className="font-serif text-xs sm:text-sm font-bold tracking-[0.2em] text-[#3A3A3A] uppercase">
           WHAT OUR CLIENTS SAY
         </h3>
@@ -363,14 +455,15 @@ export const ClientReviewCarousel: React.FC = () => {
           Ulasan jujur &amp; kepuasan dari klien Alviero Studio
         </p>
 
-        {/* Akses Langsung Ulasan Google Maps & Rating Resmi */}
-        <div className="pt-1 flex items-center justify-center">
+        {/* Akses Langsung Ulasan Google Maps Resmi Kedua Cabang (Studio 1 & Studio 2) */}
+        <div className="pt-1.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+          {/* Studio 1 (Karangploso) Google Review Link */}
           <a
-            href={GOOGLE_MAPS_REVIEW_URL}
+            href={GOOGLE_MAPS_STUDIO_1_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
-            title="Buka ulasan resmi Alviero Studio di Google Maps (4.9 Rating & 775+ Ulasan)"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
+            title="Buka ulasan resmi Alviero Studio 1 (Karangploso) di Google Maps (4.9 Rating & 775+ Ulasan)"
           >
             {/* Google G SVG */}
             <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
@@ -379,51 +472,114 @@ export const ClientReviewCarousel: React.FC = () => {
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
             </svg>
+            <span className="font-bold text-[#3A3A3A]">Studio 1:</span>
             <span className="font-bold text-[#3A3A3A]">4.9</span>
             <span className="text-amber-500 font-bold tracking-tight text-xs">★★★★★</span>
             <span className="text-stone-300">•</span>
             <span className="font-bold text-[#2A2A2A]">775+ Ulasan</span>
-            <span className="text-stone-300 hidden sm:inline">•</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#6E856C] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
+          </a>
+
+          {/* Studio 2 (Dinoyo) Google Review Link */}
+          <a
+            href={GOOGLE_MAPS_STUDIO_2_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
+            title="Buka ulasan resmi Alviero Studio 2 (Dinoyo) di Google Maps"
+          >
+            {/* Google G SVG */}
+            <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+            </svg>
+            <span className="font-bold text-[#3A3A3A]">Studio 2 (Dinoyo):</span>
+            <span className="font-bold text-[#3A3A3A]">5.0</span>
+            <span className="text-amber-500 font-bold tracking-tight text-xs">★★★★★</span>
+            <span className="text-stone-300">•</span>
             <span className="text-[#3A3A3A] group-hover:text-black font-medium underline decoration-stone-300 underline-offset-2">
-              Akses di Google Maps
+              Google Review
             </span>
             <ArrowUpRight className="w-3.5 h-3.5 text-[#6E856C] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
           </a>
+        </div>
+
+        {/* Filter Tab Studio (Semua / Studio 1 / Studio 2) */}
+        <div className="pt-1 flex items-center justify-center gap-1.5 flex-wrap">
+          <button
+            type="button"
+            onClick={() => handleFilterChange('all')}
+            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${
+              activeBranchFilter === 'all'
+                ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] font-semibold shadow-xs'
+                : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
+            }`}
+          >
+            Semua Ulasan ({CLIENT_REVIEWS.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => handleFilterChange('cabang-1')}
+            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${
+              activeBranchFilter === 'cabang-1'
+                ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] font-semibold shadow-xs'
+                : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
+            }`}
+          >
+            Studio 1 (Karangploso)
+          </button>
+          <button
+            type="button"
+            onClick={() => handleFilterChange('cabang-2')}
+            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${
+              activeBranchFilter === 'cabang-2'
+                ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] font-semibold shadow-xs'
+                : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
+            }`}
+          >
+            Studio 2 (Dinoyo)
+          </button>
         </div>
       </div>
 
       {/* Container Slider dengan Tombol Panah Kiri & Kanan */}
       <div className="relative px-1 sm:px-2 md:px-6">
         {/* Tombol Panah Kiri (<) */}
-        <button
-          type="button"
-          onClick={handlePrev}
-          aria-label="Previous Reviews"
-          className="absolute -left-1 sm:left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white shadow-md border border-[#E8DDD6] flex items-center justify-center cursor-pointer z-10 transition-colors"
-        >
-          <ChevronLeft className="w-4 h-4 stroke-[2]" />
-        </button>
+        {totalPages > 1 && (
+          <button
+            type="button"
+            onClick={handlePrev}
+            aria-label="Previous Reviews"
+            className="absolute -left-1 sm:left-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white shadow-md border border-[#E8DDD6] flex items-center justify-center cursor-pointer z-10 transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4 stroke-[2]" />
+          </button>
+        )}
 
         {/* Tombol Panah Kanan (>) */}
-        <button
-          type="button"
-          onClick={handleNext}
-          aria-label="Next Reviews"
-          className="absolute -right-1 sm:right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white shadow-md border border-[#E8DDD6] flex items-center justify-center cursor-pointer z-10 transition-colors"
-        >
-          <ChevronRight className="w-4 h-4 stroke-[2]" />
-        </button>
+        {totalPages > 1 && (
+          <button
+            type="button"
+            onClick={handleNext}
+            aria-label="Next Reviews"
+            className="absolute -right-1 sm:right-0 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#3A3A3A] hover:bg-[#3A3A3A] hover:text-white shadow-md border border-[#E8DDD6] flex items-center justify-center cursor-pointer z-10 transition-colors"
+          >
+            <ChevronRight className="w-4 h-4 stroke-[2]" />
+          </button>
+        )}
 
         {/* Review Cards (Grid 2 Kolom di Desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 px-2 sm:px-4">
           {visibleReviews.map((review) => (
             <a
               key={review.id}
-              href={GOOGLE_MAPS_REVIEW_URL}
+              href={review.reviewUrl || GOOGLE_MAPS_REVIEW_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-sm hover:shadow-md pl-16 sm:pl-20 animate-in fade-in duration-300 flex flex-col justify-between group/card transition-all cursor-pointer text-left block"
-              title="Klik untuk membuka ulasan langsung di Google Maps"
+              title={`Klik untuk membuka ulasan langsung di Google Maps (${review.studioBadge})`}
             >
               {/* Foto Avatar Asli Reviewer dari Google Maps */}
               <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-stone-900 border-2 border-white shadow-sm overflow-hidden shrink-0">
@@ -443,9 +599,18 @@ export const ClientReviewCarousel: React.FC = () => {
               <div className="space-y-1 text-left">
                 <div className="flex items-center justify-between gap-1.5 flex-wrap">
                   <div className="flex flex-col">
-                    <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] group-hover/card:text-black uppercase tracking-wider leading-tight">
-                      {review.name}
-                    </h4>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] group-hover/card:text-black uppercase tracking-wider leading-tight">
+                        {review.name}
+                      </h4>
+                      <span className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded-full border ${
+                        review.branch === 'cabang-2'
+                          ? 'bg-[#F4EBE2] text-[#8C6D58] border-[#E5D7CA]'
+                          : 'bg-[#EBF2EA] text-[#6E856C] border-[#D5E5D3]'
+                      }`}>
+                        {review.studioBadge}
+                      </span>
+                    </div>
                     {review.reviewerMeta && (
                       <span className="text-[9.5px] font-sans text-stone-500 mt-0.5">
                         {review.reviewerMeta} {review.date && `• ${review.date}`}
@@ -475,19 +640,22 @@ export const ClientReviewCarousel: React.FC = () => {
         </div>
 
         {/* Bar Indikator Pagination */}
-        <div className="flex items-center justify-center gap-1.5 pt-2.5">
-          {Array.from({ length: totalPages }).map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentReviewIdx(idx)}
-              aria-label={`Review page ${idx + 1}`}
-              className={`transition-all rounded-full cursor-pointer ${currentReviewIdx === idx
-                ? 'w-6 h-1 bg-[#3A3A3A]'
-                : 'w-2 h-1 bg-stone-300 hover:bg-stone-500'
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-1.5 pt-2.5">
+            {Array.from({ length: totalPages }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentReviewIdx(idx)}
+                aria-label={`Review page ${idx + 1}`}
+                className={`transition-all rounded-full cursor-pointer ${
+                  currentReviewIdx === idx
+                    ? 'w-6 h-1 bg-[#3A3A3A]'
+                    : 'w-2 h-1 bg-stone-300 hover:bg-stone-500'
                 }`}
-            />
-          ))}
-        </div>
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -2557,17 +2725,31 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
                         </span>
                       </div>
 
-                      {/* Link Maps */}
-                      <a
-                        href={branch.mapsUrl || '#'}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 mt-2.5 text-[11px] font-sans font-semibold text-[#6E856C] hover:text-[#3A3A3A] underline underline-offset-2 transition-colors cursor-pointer"
-                      >
-                        <span>Buka Petunjuk Arah di Google Maps</span>
-                        <span className="text-[10px]">↗</span>
-                      </a>
+                      {/* Link Maps & Google Review */}
+                      <div className="flex items-center gap-3 mt-2.5 flex-wrap">
+                        <a
+                          href={branch.mapsUrl || '#'}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 text-[11px] font-sans font-semibold text-[#6E856C] hover:text-[#3A3A3A] underline underline-offset-2 transition-colors cursor-pointer"
+                        >
+                          <span>Petunjuk Arah Google Maps</span>
+                          <span className="text-[10px]">↗</span>
+                        </a>
+                        {branch.reviewUrl && (
+                          <a
+                            href={branch.reviewUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 text-[11px] font-sans font-semibold text-[#8C6D58] hover:text-[#3A3A3A] underline underline-offset-2 transition-colors cursor-pointer"
+                          >
+                            <span>Ulasan Google Maps</span>
+                            <span className="text-[10px]">↗</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
 

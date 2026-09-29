@@ -37,10 +37,10 @@ Dokumen ini berisi seluruh memori proyek, aturan desain, struktur data, dan inst
 ---
 
 ## 📍 4. Data Lokasi & WhatsApp Studio
-| Studio | Nama Tampilan | Alamat Lengkap | Link Google Maps | Nomor WhatsApp | Pilihan Background |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Studio 1** | Alviero Studio — Studio 1 (Karangploso) | Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151 | [https://maps.app.goo.gl/oxtptpr3RSDL9zCj6](https://maps.app.goo.gl/oxtptpr3RSDL9zCj6) | **087777538164** (`6287777538164`) | Hijau Pastel, Cream, Limbo, Putih Tengah, Putih Jendela |
-| **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | **085168879214** (`6285168879214`) | **• Studio Foto:** 1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream (Maks. 5 Orang)<br>**• SelfStudio:** 1. Abu-abu, 2. Biru, 3. Putih, 4. Tematik Cream (Maks. 5 Orang) |
+| Studio | Nama Tampilan | Alamat Lengkap | Link Google Maps | Link Google Review | Nomor WhatsApp | Pilihan Background |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Studio 1** | Alviero Studio — Studio 1 (Karangploso) | Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151 | [https://maps.app.goo.gl/oxtptpr3RSDL9zCj6](https://maps.app.goo.gl/oxtptpr3RSDL9zCj6) | [Google Review Studio 1](https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu) | **087777538164** (`6287777538164`) | Hijau Pastel, Cream, Limbo, Putih Tengah, Putih Jendela |
+| **Studio 2** | Alviero Studio — Studio 2 (Dinoyo) | Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144 | [https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9](https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9) | [Google Review Studio 2](https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D) | **085168879214** (`6285168879214`) | **• Studio Foto:** 1. Hitam, 2. Putih, 3. Abu-abu, 4. Coklat Jendela, 5. Tematik Cream (Maks. 5 Orang)<br>**• SelfStudio:** 1. Abu-abu, 2. Biru, 3. Putih, 4. Tematik Cream (Maks. 5 Orang) |
 
 > ⚠️ **Sistem Logika Pemesanan & Validasi Background (Booking Validation Rules):**
 > - **A. Aturan Studio 2 (Kapasitas, Kuota Background & Bentrok Posisi):**
