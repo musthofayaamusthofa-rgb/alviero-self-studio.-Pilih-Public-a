@@ -29,7 +29,11 @@ import {
   Copy,
   Gift,
   CheckCircle2,
-  BookOpen
+  BookOpen,
+  Network,
+  Images,
+  ArrowLeft,
+  Users
 } from 'lucide-react';
 import { AlvieroHistoryModal } from './AlvieroHistoryModal';
 
@@ -1330,6 +1334,11 @@ export const PromoDetailModal: React.FC<{
   selectedBranch?: StudioBranch;
 }> = ({ promo, onClose, onApplyPromo, selectedBranch = 'cabang-1' }) => {
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
+  const [activeView, setActiveView] = useState<'default' | 'struktur' | 'galeri'>('default');
+
+  useEffect(() => {
+    setActiveView('default');
+  }, [promo?.id]);
 
   if (!promo) return null;
 
@@ -1453,38 +1462,168 @@ export const PromoDetailModal: React.FC<{
             </p>
           </div>
 
-          {/* Syarat & Ketentuan (S&K) */}
-          <div className="bg-white p-4 rounded-2xl border border-[#E8DDD6] space-y-2.5 shadow-2xs">
-            <div className="flex items-center gap-2 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A]">
-              <ShieldCheck className="w-4 h-4 text-[#6E856C]" />
-              <span>Syarat & Ketentuan:</span>
-            </div>
-            <ul className="space-y-1.5">
-              {promo.terms.map((term, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs font-sans text-stone-600 leading-relaxed">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#6E856C] shrink-0 mt-0.5" />
-                  <span>{term}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Tombol Aksi Tambahan untuk Detail Informasi Tim Alviero: "Struktur" & "Our Galery" */}
+          {(promo.kind === 'tim' || promo.id === 'team-alviero') && (
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-3 pt-1">
+              <button
+                type="button"
+                onClick={() => setActiveView(activeView === 'struktur' ? 'default' : 'struktur')}
+                className={`w-full py-2.5 px-3 rounded-xl border text-xs sm:text-[12.5px] font-serif font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs active:scale-98 ${
+                  activeView === 'struktur'
+                    ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                    : 'bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] border-[#E8DDD6] hover:border-[#D5C7BE]'
+                }`}
+                aria-label="Tampilkan Bagan Struktur Tim"
+              >
+                <Network className={`w-4 h-4 shrink-0 transition-transform ${activeView === 'struktur' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+                <span>Struktur</span>
+              </button>
 
-          {/* Cara penggunaan promo atau tindak lanjut informasi */}
-          <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8DDD6] space-y-2 text-left">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C] block">
-              {promo.kind === 'promo' ? 'CARA KLAIM PROMO:' : 'INFORMASI UNTUK KLIEN:'}
-            </span>
-            <ol className="space-y-1.5 text-xs text-stone-700 font-sans">
-              {promo.howToUse.map((step, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="w-4 h-4 rounded-full bg-[#EBF2EA] text-[#6E856C] font-mono font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
-                    {i + 1}
-                  </span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
+              <button
+                type="button"
+                onClick={() => setActiveView(activeView === 'galeri' ? 'default' : 'galeri')}
+                className={`w-full py-2.5 px-3 rounded-xl border text-xs sm:text-[12.5px] font-serif font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs active:scale-98 ${
+                  activeView === 'galeri'
+                    ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
+                    : 'bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] border-[#E8DDD6] hover:border-[#D5C7BE]'
+                }`}
+                aria-label="Tampilkan Kumpulan Foto Galeri Tim"
+              >
+                <Images className={`w-4 h-4 shrink-0 transition-transform ${activeView === 'galeri' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+                <span>Our Galery</span>
+              </button>
+            </div>
+          )}
+
+          {/* Conditional Rendering Area Konten: Default (S&K & Info) vs Struktur vs Galeri */}
+          {activeView === 'default' ? (
+            <>
+              {/* Syarat & Ketentuan (S&K) */}
+              <div className="bg-white p-4 rounded-2xl border border-[#E8DDD6] space-y-2.5 shadow-2xs">
+                <div className="flex items-center gap-2 text-xs font-serif font-bold uppercase tracking-wider text-[#3A3A3A]">
+                  <ShieldCheck className="w-4 h-4 text-[#6E856C]" />
+                  <span>Syarat & Ketentuan:</span>
+                </div>
+                <ul className="space-y-1.5">
+                  {promo.terms.map((term, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs font-sans text-stone-600 leading-relaxed">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#6E856C] shrink-0 mt-0.5" />
+                      <span>{term}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Cara penggunaan promo atau tindak lanjut informasi */}
+              <div className="bg-[#FAF8F5] p-4 rounded-2xl border border-[#E8DDD6] space-y-2 text-left">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C] block">
+                  {promo.kind === 'promo' ? 'CARA KLAIM PROMO:' : 'INFORMASI UNTUK KLIEN:'}
+                </span>
+                <ol className="space-y-1.5 text-xs text-stone-700 font-sans">
+                  {promo.howToUse.map((step, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="w-4 h-4 rounded-full bg-[#EBF2EA] text-[#6E856C] font-mono font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </>
+          ) : activeView === 'struktur' ? (
+            /* Tampilan Placeholder Struktur Tim Alviero Studio */
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-3.5 shadow-2xs animate-in fade-in duration-200">
+              <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#EBF2EA] text-[#6E856C] flex items-center justify-center">
+                    <Network className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h6 className="font-serif font-bold text-xs uppercase tracking-wider text-[#3A3A3A]">
+                      Bagan Struktur Tim Alviero
+                    </h6>
+                    <span className="text-[10px] font-mono text-stone-500 block">
+                      Struktur Organisasi & Pembagian Peran
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveView('default')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  <span>Kembali</span>
+                </button>
+              </div>
+
+              {/* Area Placeholder Bagan Tim */}
+              <div className="border-2 border-dashed border-[#E8DDD6] rounded-xl p-4 sm:p-6 bg-[#FDFBF7] text-center space-y-3">
+                <div className="w-12 h-12 rounded-full bg-[#F2E9E4] text-[#6E856C] mx-auto flex items-center justify-center border border-[#E8DDD6]">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <p className="font-serif font-bold text-sm text-[#3A3A3A]">
+                    Komponen Bagan Struktur Tim
+                  </p>
+                  <p className="font-sans text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+                    Area ini disiapkan untuk merender bagan interaktif susunan tim fotografer, asisten studio, lighting crew, dan customer service Alviero Studio.
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#A9BCA7]">
+                  <span>Status: Siap Dirender</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Tampilan Placeholder Galeri Foto Tim (Our Galery) */
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-3.5 shadow-2xs animate-in fade-in duration-200">
+              <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#EBF2EA] text-[#6E856C] flex items-center justify-center">
+                    <Images className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h6 className="font-serif font-bold text-xs uppercase tracking-wider text-[#3A3A3A]">
+                      Our Galery — Tim Alviero Studio
+                    </h6>
+                    <span className="text-[10px] font-mono text-stone-500 block">
+                      Dokumentasi & Behind The Scenes
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveView('default')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  <span>Kembali</span>
+                </button>
+              </div>
+
+              {/* Area Placeholder Kumpulan Foto Galeri Tim */}
+              <div className="border-2 border-dashed border-[#E8DDD6] rounded-xl p-4 sm:p-6 bg-[#FDFBF7] text-center space-y-3">
+                <div className="w-12 h-12 rounded-full bg-[#F2E9E4] text-[#6E856C] mx-auto flex items-center justify-center border border-[#E8DDD6]">
+                  <Images className="w-6 h-6" />
+                </div>
+                <div className="space-y-1">
+                  <p className="font-serif font-bold text-sm text-[#3A3A3A]">
+                    Komponen Galeri Foto Tim
+                  </p>
+                  <p className="font-sans text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+                    Area ini disiapkan untuk merender kumpulan foto aktivitas tim, momen seru saat pemotretan, dan dokumentasi kru Alviero Studio.
+                  </p>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#A9BCA7]">
+                  <span>Status: Siap Dirender</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Sticky Action Footer */}
