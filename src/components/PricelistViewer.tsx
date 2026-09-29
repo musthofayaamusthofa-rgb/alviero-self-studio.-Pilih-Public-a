@@ -8,6 +8,7 @@ import {
   Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye, MapPin,
   HelpCircle, ShieldCheck, AlertCircle, FileText, ChevronDown, ChevronUp, BookOpen
 } from 'lucide-react';
+import { StudioFacilityGallery } from './StudioFacilityGallery';
 
 interface PricelistViewerProps {
   onSelectPackageForBooking: (packageId: string) => void;
@@ -521,15 +522,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA
-  const studioGalleryCategories = [
-    { id: 'all', label: 'Semua Fasilitas & Background', icon: '🏢' },
-    { id: 'background', label: 'Background Studio', icon: '🖼️' },
-    { id: 'ruangan', label: 'Sudut Ruangan', icon: '🛋️' },
-    { id: 'peralatan', label: 'Peralatan Studio', icon: '💡' },
-    { id: 'kenyamanan', label: 'Kenyamanan', icon: '✨' },
-    { id: 'layanan', label: 'Layanan & Akses', icon: '💳' }
-  ];
-
   const STUDIO_GALLERY_PHOTOS: StudioGalleryPhoto[] = [
     {
       id: 'photo-2-grad-indoor',
@@ -4463,135 +4455,19 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             </button>
           </div>
 
-          {/* Header Fasilitas */}
-          <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-xs space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="space-y-1 text-left">
-                <div className="inline-flex items-center gap-1.5 bg-[#FDFBF7] text-[#6E856C] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 border border-[#E8DDD6]">
-                  <Camera className="w-3.5 h-3.5 text-[#6E856C]" />
-                  <span>Fasilitas Alviero Studio</span>
-                </div>
-                <h3 className="text-lg sm:text-2xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase">
-                  Fasilitas &amp; Background {currentBranchInfo.badge}
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-xl">
-                  Koleksi fasilitas dan background yang tersedia khusus di {currentBranchInfo.shortName}. Daftar ini mengikuti latar pilihan pada studio aktif saat ini.
-                </p>
-              </div>
-
-            </div>
-
-            {/* Pilihan Kelompok Fasilitas */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar pt-1">
-              {studioGalleryCategories.map((cat) => {
-                const isSelected = selectedGalleryCategory === cat.id;
-
-                return (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSelectedGalleryCategory(cat.id)}
-                    className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 border ${
-                      isSelected
-                        ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
-                        : 'bg-white text-stone-700 border-[#E8DDD6] hover:border-[#3A3A3A] hover:bg-[#FDFBF7]'
-                    }`}
-                  >
-                    <span>{cat.icon}</span>
-                    <span>{cat.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Grid Kartu Foto */}
-          {filteredGalleryPhotos.length === 0 ? (
-            <div className="bg-white p-8 text-center rounded-2xl border border-[#E8DDD6] space-y-2">
-              <p className="text-stone-600 font-serif font-bold text-sm uppercase">Tidak ada fasilitas pada kategori ini.</p>
-              <button
-                onClick={() => setSelectedGalleryCategory('all')}
-                className="text-xs font-serif font-bold text-[#6E856C] hover:underline cursor-pointer uppercase tracking-wider"
-              >
-                Tampilkan Semua Fasilitas
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 text-left">
-              {filteredGalleryPhotos.map((photo) => {
-                return (
-                  <div
-                    key={photo.id}
-                    className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-2xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group hover:-translate-y-0.5"
-                  >
-                    {/* Foto Preview */}
-                    <div
-                      className="relative aspect-[4/3] bg-[#2A2A2A] overflow-hidden cursor-pointer group rounded-t-2xl sm:rounded-t-3xl"
-                      onClick={() => {
-                        setActiveModalPhoto(photo);
-                        setModalImageIndex(0);
-                      }}
-                    >
-                      <img
-                        src={photo.imageUrl}
-                        alt={photo.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-90 group-hover:opacity-75 transition-opacity" />
-
-                      {/* Label Paket */}
-                      <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-[#A9BCA7] text-[9px] font-mono font-bold tracking-wider px-2.5 py-1 border border-[#A9BCA7]/50 flex items-center gap-1 z-10 uppercase">
-                        <span>{photo.icon}</span>
-                        <span>{photo.packageName}</span>
-                      </div>
-
-                      {/* Tombol Perbesar */}
-                      <div className="absolute top-2.5 right-2.5 w-7 h-7 rounded-lg bg-black/60 backdrop-blur-xs text-white flex items-center justify-center border border-white/20 group-hover:bg-black/90 transition-colors z-10">
-                        <ZoomIn className="w-3.5 h-3.5" />
-                      </div>
-
-                      {/* Judul & Indikator di Atas Foto */}
-                      <div className="absolute bottom-0 inset-x-0 p-3 pt-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white z-10">
-                        <h4 className="font-serif font-bold text-xs sm:text-sm text-white uppercase tracking-wide leading-snug drop-shadow-md line-clamp-1">
-                          {photo.title}
-                        </h4>
-                        {photo.images && photo.images.length > 1 && (
-                          <div className="flex items-center gap-1 mt-0.5 text-[9.5px] text-[#A9BCA7] font-mono font-bold uppercase drop-shadow-xs">
-                            <span>📸 {photo.images.length} Foto Preview • Geser ↔️</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Konten & Tombol */}
-                    <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between space-y-2.5">
-                      <div className="space-y-1">
-                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] uppercase tracking-wide leading-snug line-clamp-1">
-                          {photo.title}
-                        </h4>
-                        <p className="text-xs text-stone-600 font-sans line-clamp-2 leading-relaxed">
-                          {photo.description}
-                        </p>
-                      </div>
-
-                      <div className="pt-2 border-t border-[#F2E9E4]">
-                        <button
-                          onClick={() => {
-                            setActiveModalPhoto(photo);
-                            setModalImageIndex(0);
-                          }}
-                          className="w-full min-h-[38px] bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif font-bold text-xs uppercase tracking-wider py-2 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 border border-[#3A3A3A] shadow-xs"
-                        >
-                          <ZoomIn className="w-3.5 h-3.5 text-[#A9BCA7]" />
-                          <span>{photo.images && photo.images.length > 1 ? `Lihat ${photo.images.length} Foto HD (Bisa Digeser)` : 'Lihat Foto HD'}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          {/* Komponen Galeri Interaktif: 3 Section Berurutan (Fasilitas, Alat Studio, Background) dengan Slider Sinkron */}
+          <StudioFacilityGallery
+            selectedBranch={selectedBranch}
+            currentBranchName={currentBranchInfo.shortName}
+            onPhotoZoom={(photo) => {
+              setActiveModalPhoto(photo);
+              setModalImageIndex(0);
+            }}
+            onBackToPricelist={() => {
+              setActiveTab('menu');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
         </div>
       )}
 
