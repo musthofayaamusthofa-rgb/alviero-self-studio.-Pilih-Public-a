@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -50,12 +50,17 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
   onPhotoZoom
 }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isDescExpanded, setIsDescExpanded] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
   // Fallback if items array changes (e.g. branch switched)
   const safeIndex = items.length === 0 ? 0 : Math.min(activeIndex, items.length - 1);
   const activeItem = items[safeIndex] || items[0];
+
+  useEffect(() => {
+    setIsDescExpanded(false);
+  }, [safeIndex]);
 
   const handlePrev = () => {
     if (items.length <= 1) return;
@@ -97,31 +102,31 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
   return (
     <section 
       id={sectionId} 
-      className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-sm p-4 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 scroll-mt-24 transition-all duration-300"
+      className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-sm p-3.5 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 scroll-mt-20 sm:scroll-mt-24 transition-all duration-300"
     >
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E8DDD6]/70">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 pb-3 sm:pb-4 border-b border-[#E8DDD6]/70">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#3A3A3A] text-white text-[11px] font-mono font-bold">
+            <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#3A3A3A] text-white text-[10px] sm:text-[11px] font-mono font-bold">
               {sectionNumber}
             </span>
-            <div className="inline-flex items-center gap-1.5 bg-[#FAF6F0] text-[#5C725A] text-[11px] font-mono font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full border border-[#E8DDD6]">
+            <div className="inline-flex items-center gap-1.5 bg-[#FAF6F0] text-[#5C725A] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-2.5 py-0.5 rounded-full border border-[#E8DDD6]">
               {sectionIcon}
               <span>{badgeLabel || 'Alviero Studio'}</span>
             </div>
           </div>
-          <h3 className="text-xl sm:text-2xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase pt-1">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase pt-0.5 sm:pt-1 leading-snug">
             {sectionTitle}
           </h3>
-          <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-xl">
+          <p className="text-[11.5px] sm:text-sm text-stone-600 font-sans max-w-xl leading-relaxed">
             {sectionSubtitle}
           </p>
         </div>
 
-        {/* Fraction Counter & Quick Navigation Controls */}
-        <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-1 sm:pt-0">
-          <div className="bg-[#FAF8F5] border border-[#E8DDD6] px-3 py-1.5 rounded-xl flex items-center gap-1.5 text-xs font-mono font-bold text-[#3A3A3A] shadow-2xs">
+        {/* Counter & Optional Desktop Controls */}
+        <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0 pt-0.5 sm:pt-0">
+          <div className="bg-[#FAF8F5] border border-[#E8DDD6] px-2.5 py-1 rounded-xl flex items-center gap-1.5 text-xs font-mono font-bold text-[#3A3A3A] shadow-2xs">
             <span className="text-[#5C725A]">
               {String(safeIndex + 1).padStart(2, '0')}
             </span>
@@ -131,18 +136,18 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="hidden sm:flex items-center gap-1.5">
             <button
               onClick={handlePrev}
               aria-label="Item Sebelumnya"
-              className="w-9 h-9 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+              className="w-8 h-8 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
             >
               <ChevronLeft className="w-4 h-4 stroke-[2.2]" />
             </button>
             <button
               onClick={handleNext}
               aria-label="Item Selanjutnya"
-              className="w-9 h-9 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+              className="w-8 h-8 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
             >
               <ChevronRight className="w-4 h-4 stroke-[2.2]" />
             </button>
@@ -151,12 +156,12 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
       </div>
 
       {/* Main Interactive Showcase (Grid Desktop: Image Left, Reactive Content Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
         
         {/* LEFT COLUMN: Main Featured Image with Touch/Swipe */}
         <div className="lg:col-span-7 flex flex-col justify-center">
           <div
-            className="relative aspect-[16/10] sm:aspect-[4/3] w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#242424] shadow-md border border-[#E8DDD6] group select-none cursor-pointer"
+            className="relative aspect-video sm:aspect-[16/10] md:aspect-[4/3] max-h-[250px] sm:max-h-[380px] lg:max-h-none w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-[#242424] shadow-md border border-[#E8DDD6] group select-none cursor-pointer"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -176,9 +181,9 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent opacity-60" />
 
             {/* Category / Package Badge Top Left */}
-            <div className="absolute top-3.5 left-3.5 flex items-center gap-2 z-10">
-              <div className="bg-black/75 backdrop-blur-md text-[#A9BCA7] text-[10.5px] font-mono font-bold tracking-wider px-3 py-1.5 rounded-full border border-[#A9BCA7]/40 flex items-center gap-1.5 shadow-sm uppercase">
-                <span className="text-sm">{activeItem.icon}</span>
+            <div className="absolute top-2.5 sm:top-3.5 left-2.5 sm:left-3.5 flex items-center gap-2 z-10">
+              <div className="bg-black/75 backdrop-blur-md text-[#A9BCA7] text-[9.5px] sm:text-[10.5px] font-mono font-bold tracking-wider px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-[#A9BCA7]/40 flex items-center gap-1.5 shadow-sm uppercase">
+                <span className="text-xs sm:text-sm">{activeItem.icon}</span>
                 <span>{activeItem.packageName}</span>
               </div>
             </div>
@@ -190,22 +195,22 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
                 if (onPhotoZoom) onPhotoZoom(activeItem);
               }}
               aria-label="Lihat Foto HD Penuh"
-              className="absolute top-3.5 right-3.5 px-2.5 py-1.5 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md text-white text-[11px] font-bold border border-white/30 flex items-center gap-1 transition-all z-10 cursor-pointer shadow-xs active:scale-95"
+              className="absolute top-2.5 sm:top-3.5 right-2.5 sm:right-3.5 px-2.5 py-1 sm:py-1.5 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md text-white text-[10px] sm:text-[11px] font-bold border border-white/30 flex items-center gap-1 transition-all z-10 cursor-pointer shadow-xs active:scale-95"
             >
               <ZoomIn className="w-3.5 h-3.5 text-[#A9BCA7]" />
               <span className="hidden sm:inline">Perbesar HD</span>
             </button>
 
-            {/* Floating Navigation Arrows Inside Viewport */}
+            {/* Floating Navigation Arrows Inside Viewport (Overlay On Image for Mobile & Desktop) */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 handlePrev();
               }}
               aria-label="Foto Sebelumnya"
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md flex items-center justify-center border border-white/20 transition-all opacity-85 hover:opacity-100 hover:scale-105 active:scale-95 z-10 cursor-pointer"
+              className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md flex items-center justify-center border border-white/20 transition-all opacity-90 hover:opacity-100 hover:scale-105 active:scale-90 z-20 cursor-pointer"
             >
-              <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
             </button>
 
             <button
@@ -214,15 +219,15 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
                 handleNext();
               }}
               aria-label="Foto Selanjutnya"
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md flex items-center justify-center border border-white/20 transition-all opacity-85 hover:opacity-100 hover:scale-105 active:scale-95 z-10 cursor-pointer"
+              className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-md flex items-center justify-center border border-white/20 transition-all opacity-90 hover:opacity-100 hover:scale-105 active:scale-90 z-20 cursor-pointer"
             >
-              <ChevronRight className="w-5 h-5 stroke-[2.2]" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
             </button>
 
             {/* Bottom Caption Pill & Dots Overlay for Mobile */}
-            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-xs z-10 pointer-events-none">
-              <span className="bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-md text-[11px] font-mono text-stone-200">
-                Geser (swipe) untuk melihat lainnya
+            <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 right-2.5 sm:right-3 flex items-center justify-between text-white text-xs z-10 pointer-events-none">
+              <span className="bg-black/60 backdrop-blur-sm px-2 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-mono text-stone-200">
+                Geser (swipe) foto
               </span>
               
               <div className="flex items-center gap-1 pointer-events-auto">
@@ -236,7 +241,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
                     aria-label={`Ke slide ${i + 1}`}
                     className={`h-1.5 transition-all rounded-full cursor-pointer ${
                       i === safeIndex 
-                        ? 'w-5 bg-[#A9BCA7]' 
+                        ? 'w-4 sm:w-5 bg-[#A9BCA7]' 
                         : 'w-1.5 bg-white/50 hover:bg-white/80'
                     }`}
                   />
@@ -247,68 +252,81 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
         </div>
 
         {/* RIGHT COLUMN: Synchronized Text & Specification Details */}
-        <div className="lg:col-span-5 flex flex-col justify-between bg-[#FAF8F5] rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-[#E8DDD6] space-y-4">
+        <div className="lg:col-span-5 flex flex-col justify-between bg-[#FAF8F5] rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 lg:p-6 border border-[#E8DDD6] space-y-3 sm:space-y-4">
           
-          <div className="space-y-3.5">
+          <div className="space-y-2.5 sm:space-y-3.5">
             {/* Badge & Item Counter */}
             <div className="flex items-center justify-between gap-2">
-              <div className="inline-flex items-center gap-1.5 text-xs font-serif font-bold text-[#5C725A] bg-[#EFF6EE] px-3 py-1 rounded-full border border-[#CCE0CB]">
+              <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-serif font-bold text-[#5C725A] bg-[#EFF6EE] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full border border-[#CCE0CB]">
                 <span>{activeItem.icon}</span>
                 <span>{activeItem.subtitle}</span>
               </div>
-              <span className="text-[11px] font-mono font-bold text-stone-400">
+              <span className="text-[10px] sm:text-[11px] font-mono font-bold text-stone-400">
                 No. {safeIndex + 1} dari {items.length}
               </span>
             </div>
 
             {/* Synchronized Reactive Title */}
-            <div className="space-y-1">
+            <div className="space-y-0.5 sm:space-y-1">
               <h4 
                 key={`title-${activeItem.id}`}
-                className="font-serif font-bold text-xl sm:text-2xl text-[#3A3A3A] tracking-tight leading-snug animate-in fade-in slide-in-from-bottom-2 duration-300"
+                className="font-serif font-bold text-lg sm:text-xl md:text-2xl text-[#3A3A3A] tracking-tight leading-snug animate-in fade-in slide-in-from-bottom-2 duration-300"
               >
                 {activeItem.title}
               </h4>
-              <p className="text-xs text-[#6E856C] font-mono uppercase tracking-wider font-semibold">
+              <p className="text-[11px] sm:text-xs text-[#6E856C] font-mono uppercase tracking-wider font-semibold">
                 {activeItem.badge || 'Standar Pelayanan Alviero Studio'}
               </p>
             </div>
 
-            {/* Synchronized Reactive Description */}
-            <p 
-              key={`desc-${activeItem.id}`}
-              className="text-xs sm:text-sm text-stone-700 font-sans leading-relaxed pt-1 animate-in fade-in duration-300"
-            >
-              {activeItem.description}
-            </p>
+            {/* Synchronized Reactive Description with Line-clamp & Read more */}
+            <div className="pt-0.5">
+              <p 
+                key={`desc-${activeItem.id}`}
+                className={`text-xs sm:text-sm text-stone-700 font-sans leading-relaxed transition-all animate-in fade-in duration-300 ${
+                  isDescExpanded ? '' : 'line-clamp-2 sm:line-clamp-3'
+                }`}
+              >
+                {activeItem.description}
+              </p>
+              {activeItem.description.length > 90 && (
+                <button
+                  type="button"
+                  onClick={() => setIsDescExpanded(!isDescExpanded)}
+                  className="text-[11px] font-sans font-bold text-[#5C725A] hover:text-[#3A3A3A] mt-1 inline-flex items-center gap-0.5 cursor-pointer underline underline-offset-2 transition-colors"
+                >
+                  {isDescExpanded ? 'Tutup Deskripsi' : 'Baca Selengkapnya'}
+                </button>
+              )}
+            </div>
 
-            {/* Highlights List / Features */}
+            {/* Highlights List / Features (Flexible Wrap Pill on Mobile) */}
             {activeItem.highlights && activeItem.highlights.length > 0 && (
-              <div className="space-y-2 pt-2 border-t border-[#E8DDD6]/60">
-                <p className="text-[11px] font-mono font-bold text-stone-500 uppercase tracking-wider">
+              <div className="space-y-1.5 pt-1.5 sm:pt-2 border-t border-[#E8DDD6]/60">
+                <p className="text-[10px] sm:text-[11px] font-mono font-bold text-stone-500 uppercase tracking-wider">
                   Keunggulan &amp; Fitur:
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {activeItem.highlights.map((h, i) => (
                     <div 
                       key={i} 
-                      className="flex items-center gap-2 bg-white px-2.5 py-1.5 rounded-xl border border-[#E8DDD6] text-stone-700 text-xs shadow-2xs"
+                      className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 sm:py-1.5 rounded-xl border border-[#E8DDD6] text-stone-700 text-[11px] sm:text-xs shadow-2xs"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#5C725A] shrink-0" />
-                      <span className="truncate font-medium">{h}</span>
+                      <span className="font-medium">{h}</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Concept Note / Tips Studio */}
+            {/* Concept Note / Tips Studio (Compact on Mobile) */}
             {activeItem.conceptNote && (
-              <div className="bg-[#F2E9E4]/60 border border-[#E8DDD6] rounded-xl p-3 text-left space-y-1 text-xs">
-                <span className="font-bold text-[#3A3A3A] flex items-center gap-1 text-[11px] font-mono uppercase tracking-wider">
-                  <Sparkles className="w-3.5 h-3.5 text-[#5C725A]" /> Catatan Khusus:
+              <div className="bg-[#F2E9E4]/60 border border-[#E8DDD6] rounded-xl p-2.5 sm:p-3 text-left space-y-0.5 sm:space-y-1 text-xs">
+                <span className="font-bold text-[#3A3A3A] flex items-center gap-1 text-[10.5px] sm:text-[11px] font-mono uppercase tracking-wider">
+                  <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#5C725A]" /> Catatan Khusus:
                 </span>
-                <p className="text-stone-600 text-xs italic">
+                <p className="text-stone-600 text-[11px] sm:text-xs italic leading-relaxed">
                   "{activeItem.conceptNote}"
                 </p>
               </div>
@@ -316,12 +334,12 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
           </div>
 
           {/* Action Row & Tag Badges */}
-          <div className="pt-2 border-t border-[#E8DDD6]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex flex-wrap gap-1.5">
+          <div className="pt-2 border-t border-[#E8DDD6]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {activeItem.tags.map((tag, idx) => (
                 <span 
                   key={idx}
-                  className="text-[10px] font-mono font-medium text-stone-600 bg-white px-2 py-0.5 rounded-md border border-[#E8DDD6]"
+                  className="text-[9.5px] sm:text-[10px] font-mono font-medium text-stone-600 bg-white px-2 py-0.5 rounded-md border border-[#E8DDD6]"
                 >
                   {tag}
                 </span>
@@ -330,7 +348,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
 
             <button
               onClick={() => onPhotoZoom && onPhotoZoom(activeItem)}
-              className="px-4 py-2 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white text-xs font-serif font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95 shrink-0"
+              className="w-full sm:w-auto px-4 py-2 bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white text-xs font-serif font-bold uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95 shrink-0"
             >
               <Maximize2 className="w-3.5 h-3.5 text-[#A9BCA7]" />
               <span>Lihat Detail HD</span>
@@ -766,17 +784,17 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-7 sm:space-y-10 animate-in fade-in duration-300">
       
       {/* Top Banner / Hero Overview Card */}
-      <div className="bg-white p-4 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-xs space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white p-3.5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-xs space-y-3.5 sm:space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 sm:gap-4">
           <div className="space-y-1.5 text-left">
-            <div className="inline-flex items-center gap-1.5 bg-[#FAF6F0] text-[#5C725A] text-[10.5px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-[#E8DDD6]">
+            <div className="inline-flex items-center gap-1.5 bg-[#FAF6F0] text-[#5C725A] text-[10px] sm:text-[11px] font-mono font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-[#E8DDD6]">
               <Camera className="w-3.5 h-3.5 text-[#5C725A]" />
               <span>Tur Fasilitas &amp; Galeri Studio</span>
             </div>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase">
+            <h2 className="text-lg sm:text-2xl lg:text-3xl font-serif font-black text-[#3A3A3A] tracking-wide uppercase leading-snug">
               Fasilitas &amp; Background {branchBadgeLabel}
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-2xl leading-relaxed">
@@ -784,49 +802,49 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
             </p>
           </div>
 
-          {/* Quick Stats Pill */}
-          <div className="flex items-center gap-2 self-start md:self-center shrink-0 bg-[#FAF8F5] p-2.5 rounded-2xl border border-[#E8DDD6]">
-            <div className="text-center px-2 border-r border-[#E8DDD6]">
-              <span className="block text-base font-serif font-bold text-[#3A3A3A]">
+          {/* Quick Stats Pill (Proportional 3-column Grid on Mobile) */}
+          <div className="w-full md:w-auto grid grid-cols-3 divide-x divide-[#E8DDD6] bg-[#FAF8F5] p-2 sm:p-2.5 rounded-2xl border border-[#E8DDD6] text-center shrink-0">
+            <div className="px-2 sm:px-3">
+              <span className="block text-sm sm:text-base font-serif font-bold text-[#3A3A3A]">
                 {STUDIO_FACILITY_DATA.length}
               </span>
-              <span className="text-[10px] font-mono text-stone-500 uppercase">Fasilitas</span>
+              <span className="text-[9.5px] sm:text-[10px] font-mono text-stone-500 uppercase">Fasilitas</span>
             </div>
-            <div className="text-center px-2 border-r border-[#E8DDD6]">
-              <span className="block text-base font-serif font-bold text-[#3A3A3A]">
+            <div className="px-2 sm:px-3">
+              <span className="block text-sm sm:text-base font-serif font-bold text-[#3A3A3A]">
                 {STUDIO_EQUIPMENT_DATA.length}
               </span>
-              <span className="text-[10px] font-mono text-stone-500 uppercase">Alat Studio</span>
+              <span className="text-[9.5px] sm:text-[10px] font-mono text-stone-500 uppercase">Alat Studio</span>
             </div>
-            <div className="text-center px-2">
-              <span className="block text-base font-serif font-bold text-[#5C725A]">
+            <div className="px-2 sm:px-3">
+              <span className="block text-sm sm:text-base font-serif font-bold text-[#5C725A]">
                 {dynamicBackgrounds.length}
               </span>
-              <span className="text-[10px] font-mono text-stone-500 uppercase">Background</span>
+              <span className="text-[9.5px] sm:text-[10px] font-mono text-stone-500 uppercase">Background</span>
             </div>
           </div>
         </div>
 
-        {/* Quick Jump Anchors Bar */}
-        <div className="pt-2 border-t border-[#E8DDD6]/80 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-mono font-bold text-stone-500 uppercase tracking-wider mr-1">
-            Lompat ke Bagian:
+        {/* Quick Jump Anchors Bar (Horizontally scrollable with no-scrollbar on Mobile) */}
+        <div className="pt-2 border-t border-[#E8DDD6]/80 flex items-center gap-2 overflow-x-auto no-scrollbar whitespace-nowrap py-1">
+          <span className="text-[10.5px] sm:text-xs font-mono font-bold text-stone-500 uppercase tracking-wider shrink-0 mr-1">
+            Lompat ke:
           </span>
           <button
             onClick={() => scrollToSection('section-fasilitas')}
-            className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-stone-700 hover:text-white border border-[#E8DDD6] text-xs font-serif font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
+            className="shrink-0 px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-stone-700 hover:text-white border border-[#E8DDD6] text-[11px] sm:text-xs font-serif font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
           >
             <span>🛋️ 1. Fasilitas</span>
           </button>
           <button
             onClick={() => scrollToSection('section-alat')}
-            className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-stone-700 hover:text-white border border-[#E8DDD6] text-xs font-serif font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
+            className="shrink-0 px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-stone-700 hover:text-white border border-[#E8DDD6] text-[11px] sm:text-xs font-serif font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
           >
             <span>💡 2. Alat Studio</span>
           </button>
           <button
             onClick={() => scrollToSection('section-background')}
-            className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-stone-700 hover:text-white border border-[#E8DDD6] text-xs font-serif font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
+            className="shrink-0 px-3 py-1.5 rounded-xl bg-[#FAF8F5] hover:bg-[#3A3A3A] text-stone-700 hover:text-white border border-[#E8DDD6] text-[11px] sm:text-xs font-serif font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95"
           >
             <span>🎨 3. Background ({branchBadgeLabel})</span>
           </button>
