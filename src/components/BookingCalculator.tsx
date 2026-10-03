@@ -3109,7 +3109,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
 
                 {/* Room & Studio Type Identifier Banner */}
-                {isSelfStudio ? (
+                {isOutdoorOnly ? (
+                  <div className="p-3.5 sm:p-4 bg-emerald-50/80 border border-emerald-200 rounded-2xl flex items-center gap-3 text-xs font-sans shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-white border border-emerald-200 text-emerald-800 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Trees className="w-5 h-5 text-emerald-700" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-serif font-bold text-emerald-950 uppercase tracking-wider flex items-center gap-2">
+                        SESI KHUSUS: FOTO GRADUATION OUTDOOR
+                        <span className="text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 rounded-full font-bold">OUTDOOR</span>
+                      </p>
+                      <p className="text-[11px] text-emerald-900 mt-0.5">Sesi foto wisuda di lokasi luar ruangan bersama fotografer profesional.</p>
+                    </div>
+                  </div>
+                ) : isSelfStudio ? (
                   <div className="p-3.5 sm:p-4 bg-white border border-[#E8DDD6] rounded-2xl flex items-center gap-3 text-xs font-sans shadow-2xs">
                     <div className="w-10 h-10 rounded-xl bg-[#FDFBF7] border border-[#E8DDD6] text-[#6E856C] flex items-center justify-center shrink-0 shadow-2xs">
                       <Sparkles className="w-5 h-5" />
@@ -3137,8 +3150,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
                 )}
 
-                {/* 60 Minutes Duration Badge Notice for 2 Background Packages */}
-                {maxBackdrops > 1 && (
+                {/* 60 Minutes Duration Badge Notice for 2 Background Packages (Hanya untuk Paket Studio Indoor non-Outdoor) */}
+                {!isOutdoorOnly && currentPackage.category !== 'graduation-outdoor' && maxBackdrops > 1 && (
                   <div className="p-3 bg-[#F2E9E4]/60 border border-[#E8DDD6] rounded-xl flex items-center justify-between gap-2 text-xs font-sans shadow-2xs">
                     <div className="flex items-center gap-2">
                       <span className="w-5 h-5 rounded-md bg-[#3A3A3A] text-[#A9BCA7] text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
@@ -3344,8 +3357,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </div>
                   )}
 
-                  {/* Pemberitahuan ini berlaku untuk booking Studio Foto non-Pass Foto. */}
-                  {!isSelfStudio && !isPassFoto && (
+                  {/* Pemberitahuan ini berlaku untuk booking Studio Foto non-Pass Foto dan non-Outdoor. */}
+                  {!isSelfStudio && !isPassFoto && !isOutdoorOnly && (
                     <div className="mt-2.5 p-3.5 bg-[#F2E9E4]/70 border border-[#DFCFC5] rounded-2xl text-amber-950 text-xs font-sans flex items-start gap-2.5 shadow-2xs">
                       <span className="font-bold text-sm shrink-0 mt-0.5 text-[#6E856C]">⚠️</span>
                       <div className="space-y-0.5">
