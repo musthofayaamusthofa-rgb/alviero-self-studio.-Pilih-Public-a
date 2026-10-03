@@ -1600,10 +1600,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const isOutdoorOvertime = hasOutdoorSession && (outdoorTimeSlot === '05:00' || outdoorTimeSlot === '06:00');
   const outdoorOvertimeFee = isOutdoorOvertime ? 35000 : 0;
 
-  // Jika Paket 2 ke atas (durasi 60 menit): Hanya tampilkan jam kelipatan 1 jam (08:00, 09:00, 10:00, dst)
+  // Jika Paket 2 ke atas (durasi 60 menit): Tampilkan jam kelipatan 1 jam (08:00, 09:00, dst) plus slot overtime 20:30
   // Jika Paket 1 (durasi 30 menit): Tampilkan seluruh 26 slot (08:00, 08:30, 09:00, dst)
   const activeTimeSlots = maxBackdrops > 1
-    ? baseTimeSlots.filter(s => s.endsWith(':00'))
+    ? baseTimeSlots.filter(s => s.endsWith(':00') || s === '20:30')
     : baseTimeSlots;
 
   // Filter paket berdasarkan tipe ruangan yang aktif (SelfStudio vs Studio Foto)
@@ -2273,6 +2273,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       message += `⏰ *BIAYA TAMBAHAN OVERTIME:* +Rp 35.000 (Sesi 60 Menit Melebihi Jam 21.00 WIB)\n\n`;
     }
 
+    if (outdoorOvertimeFee > 0) {
+      message += `⏰ *BIAYA TAMBAHAN OUTDOOR DI LUAR JAM KERJA:* +Rp 35.000 (Sesi Pagi Sebelum 08.00 WIB)\n\n`;
+    }
+
     if (appliedPromo) {
       message += `🎟️ *KODE PROMO:* ${appliedPromo.code} (Hemat Rp ${discountValue.toLocaleString('id-ID')})\n`;
     }
@@ -2347,7 +2351,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       goToStep(1);
       return;
     }
-    if (!socialUsername.trim()) {
+    if (allowSocialUpload === true && !socialUsername.trim()) {
       alert('⚠️ Mohon masukkan Username Akun Instagram Anda terlebih dahulu.');
       const socialEl = document.getElementById('social-username-section');
       if (socialEl) {
@@ -2376,10 +2380,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
     const waUrl = `https://wa.me/${studioWaNumber}?text=${encodeURIComponent(message)}`;
     const bookingId = getBookingId();
-    const waWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
-    if (waWindow) {
-      waWindow.opener = null;
-    }
+
+    // Buka tab placeholder sebelum async fetch agar tidak terblokir oleh browser popup blocker
+    const waWindow = window.open('about:blank', '_blank');
 
     // Sinkronisasi background ke Google Spreadsheet via Google Apps Script
     try {
@@ -2456,13 +2459,21 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         }
 
         bookingIdRef.current = null;
+
+        // Navigasi ke WhatsApp setelah data berhasil terverifikasi di Google Sheets
+        if (waWindow && !waWindow.closed) {
+          waWindow.location.href = waUrl;
+        } else {
+          window.open(waUrl, '_blank', 'noopener,noreferrer');
+        }
       } finally {
         clearTimeout(timeoutId);
       }
     } catch (e) {
       console.error('GAS sync error:', e);
 
-      if (waWindow) {
+      // Tutup tab kosong jika sinkronisasi gagal
+      if (waWindow && !waWindow.closed) {
         waWindow.close();
       }
 
@@ -2513,7 +2524,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     setTimeout(() => setCopiedNominal(false), 2000);
   };
 
-  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && socialUsername.trim().length > 0 && allowSocialUpload !== null && !!paymentProofImage && (!hasOutdoorSession || outdoorLocation.trim().length > 0);
+  const isSocialValid = allowSocialUpload !== null && (allowSocialUpload === false || socialUsername.trim().length > 0);
+  const canSubmitBooking = customerName.trim().length > 0 && customerPhone.trim().length > 0 && isSocialValid && !!paymentProofImage && (!hasOutdoorSession || outdoorLocation.trim().length > 0);
 
   // Validasi Step 1:
   // - Untuk Pass Foto: wajib memilih warna background cetak (Biru, Merah, Putih, atau teks warna jika isi sendiri)
@@ -3127,7 +3139,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   <div className={`flex items-center justify-between mb-2 flex-wrap gap-1.5 ${isOutdoorOnly ? 'hidden' : ''}`}>
                     <label className="text-xs font-serif font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5 text-[#6E856C]" />
-                      PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN{maxBackdrops > 1 ? ' • KELIPATAN 1 JAM' : ''}):
+                      PILIH JAM SLOT {isSelfStudio ? 'SELF STUDIO' : 'STUDIO FOTO'} ({activeTimeSlots.length} PILIHAN{maxBackdrops > 1 ? ' • KELIPATAN 1 JAM & 20:30' : ''}):
                     </label>
                     <span className="text-[10.5px] font-sans font-bold text-[#3A3A3A] bg-white px-3 py-1 rounded-full border border-[#E8DDD6] shadow-2xs">
                       Terpilih: {formattedSessionTime} WIB ({sessionDurationMinutes} Menit)
@@ -3170,6 +3182,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           ) : clientCount > 0 ? (
                             <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
                               {clientCount}/3 Terisi
+                            </span>
+                          ) : (sessionSlotsCount === 2 && slot === '20:30') ? (
+                            <span className="text-[8px] font-bold text-amber-600 uppercase mt-0.5 no-underline">
+                              +OT 35k
                             </span>
                           ) : null}
                         </button>
@@ -4111,12 +4127,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <button
                       type="button"
                       onClick={() => setAllowSocialUpload(false)}
-                      className={`min-h-[50px] p-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center gap-3 ${!allowSocialUpload
+                      className={`min-h-[50px] p-3 rounded-2xl border text-left font-sans transition-all cursor-pointer active:scale-98 flex items-center gap-3 ${allowSocialUpload === false
                         ? 'border-[#3A3A3A] bg-white ring-1 ring-[#3A3A3A] shadow-sm'
                         : 'border-[#E8DDD6] bg-white text-stone-600 hover:bg-[#FDFBF7] shadow-2xs'
                         }`}
                     >
-                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${!allowSocialUpload ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'
+                      <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold ${allowSocialUpload === false ? 'bg-[#3A3A3A] text-white shadow-2xs' : 'border border-stone-300 text-transparent'
                         }`}>
                         ✓
                       </div>
@@ -4128,15 +4144,19 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
                 </div>
 
-                {/* 2. Slot Input Username Instagram (Wajib) */}
+                {/* 2. Slot Input Username Instagram */}
                 <div id="social-username-section" className="space-y-1.5 scroll-mt-6">
                   <label className="block text-xs font-serif font-bold text-[#3A3A3A] uppercase flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
                       <span className="text-[#6E856C] font-mono font-bold text-sm">@</span>
-                      USERNAME AKUN INSTAGRAM: <span className="text-rose-600">*</span>
+                      USERNAME AKUN INSTAGRAM: {allowSocialUpload === true ? (
+                        <span className="text-rose-600">*</span>
+                      ) : (
+                        <span className="text-stone-400 font-normal lowercase">(opsional jika privat)</span>
+                      )}
                     </span>
                     <span className="text-[10px] text-stone-500 font-sans font-normal">
-                      (Wajib diisi)
+                      {allowSocialUpload === true ? '(Wajib diisi)' : '(Boleh dikosongkan jika privat)'}
                     </span>
                   </label>
                   <div className="relative">
