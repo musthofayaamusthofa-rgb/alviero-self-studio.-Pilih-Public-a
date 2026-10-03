@@ -162,6 +162,7 @@ export const TIME_SLOTS: TimeSlotConfig[] = [
   { time: '19:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
   { time: '20:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
   { time: '20:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
+  { time: '21:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Malam Overtime (+Rp 35.000 Melebihi Tutup Studio)', earlyCharge: 35000 },
 ];
 
 /**
@@ -279,6 +280,8 @@ export function calculateBookingFee(
 
   // Aturan 1: Jam 07:00 untuk Foto Studio (Indoor) dikenakan biaya tambahan Rp 35.000
   const isEarlyIndoorSlot = service === 'indoor' && normTime === '07:00';
+  // Aturan 2: Jam 21:00 (melebihi jam operasional studio 21:00) dikenakan biaya tambahan Rp 35.000
+  const isNightOvertimeSlot = normTime === '21:00';
 
   let earlyCharge = 0;
   let description = 'Harga Reguler (Tanpa biaya tambahan)';
@@ -286,8 +289,11 @@ export function calculateBookingFee(
   if (isEarlyIndoorSlot) {
     earlyCharge = 35000;
     description = 'Dikenakan biaya tambahan sesi ekstra pagi studio (+Rp 35.000 Early Charge)';
+  } else if (isNightOvertimeSlot) {
+    earlyCharge = 35000;
+    description = 'Dikenakan biaya tambahan sesi overtime malam melebihi jam tutup studio (+Rp 35.000 Overtime)';
   } else if (service === 'outdoor' && slotMinutes < 480) {
-    // Aturan 2: Jam pagi Outdoor (05.00 s.d. 07.00) TIDAK ADA biaya tambahan
+    // Aturan 3: Jam pagi Outdoor (05.00 s.d. 07.00) TIDAK ADA biaya tambahan
     earlyCharge = 0;
     description = 'Sesi khusus Outdoor Pagi (Bebas biaya tambahan)';
   }

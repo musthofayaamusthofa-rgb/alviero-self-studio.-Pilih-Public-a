@@ -2501,10 +2501,11 @@ export const PRO_STUDIO_TIME_SLOTS = [
   '17:00', '17:30',
   '18:00', '18:30',
   '19:00', '19:30',
-  '20:00', '20:30'
+  '20:00', '20:30',
+  '21:00'
 ];
 
-// 26 Slot Jadwal untuk Ruang Bilik Self Studio (08:00 - 21:00 WIB, Interval 30 Menit/Sesi)
+// Slot Jadwal untuk Ruang Bilik Self Studio (08:00 - 21:30 WIB, Interval 30 Menit/Sesi)
 export const SELF_STUDIO_TIME_SLOTS = [
   '08:00', '08:30',
   '09:00', '09:30',
@@ -2518,7 +2519,8 @@ export const SELF_STUDIO_TIME_SLOTS = [
   '17:00', '17:30',
   '18:00', '18:30',
   '19:00', '19:30',
-  '20:00', '20:30'
+  '20:00', '20:30',
+  '21:00'
 ];
 
 export const TIME_SLOTS = PRO_STUDIO_TIME_SLOTS;

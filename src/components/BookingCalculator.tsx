@@ -2163,8 +2163,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const isEarlyMorningStudio = !isSelfStudio && !isOutdoorOnly && normalizeSlotTime(timeSlot) === '07:00';
   const earlyMorningFee = isEarlyMorningStudio ? 35000 : 0;
 
-  // Biaya tambahan jika durasi 60 menit (Paket 2 ke atas) mengambil slot jam 20:30 WIB (selesai 21:30 WIB / melebihi jam tutup 21:00 WIB): Rp 35.000
-  const isLateNightOvertime = !isSelfStudio && !isOutdoorOnly && sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30';
+  // Biaya tambahan jika sesi melebihi jam operasional tutup studio (21:00 WIB):
+  // 1. Paket 60 menit di slot jam 20:30 (selesai 21:30 WIB)
+  // 2. Semua paket di slot jam 21:00 (selesai 21:30 atau 22:00 WIB)
+  const isLateNightOvertime = !isSelfStudio && !isOutdoorOnly && (
+    (sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30') ||
+    normalizeSlotTime(timeSlot) === '21:00'
+  );
   const lateNightOvertimeFee = isLateNightOvertime ? 35000 : 0;
   const overtimeFee = earlyMorningFee + lateNightOvertimeFee;
 
@@ -2289,7 +2294,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     if (lateNightOvertimeFee > 0) {
-      message += `⏰ *BIAYA TAMBAHAN OVERTIME MALAM:* +Rp 35.000 (Sesi 60 Menit Melebihi Jam Tutup 21.00 WIB)\n\n`;
+      message += `⏰ *BIAYA TAMBAHAN OVERTIME MALAM:* +Rp 35.000 (Sesi ${timeSlot} WIB Melebihi Jam Tutup Studio 21.00 WIB)\n\n`;
     }
 
     if (appliedPromo) {
@@ -3168,12 +3173,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
                         <strong>07:00 WIB:</strong> Jam Ekstra Pagi (+Rp 35.000)
                       </span>
-                      {maxBackdrops > 1 && (
-                        <span className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
-                          <strong>20:30 WIB:</strong> Overtime Selesai 21:30 (+Rp 35.000)
-                        </span>
-                      )}
+                      <span className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                        <strong>{maxBackdrops > 1 ? '20:30 & 21:00 WIB:' : '21:00 WIB:'}</strong> Overtime Melebihi Jam Tutup (+Rp 35.000)
+                      </span>
                     </div>
                   )}
 
@@ -3187,7 +3190,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       const isTooClose = Boolean(availability.reason?.includes('90 menit'));
 
                       const isEarlySlot = !isSelfStudio && !isOutdoorOnly && slot === '07:00';
-                      const isLateSlot = !isSelfStudio && !isOutdoorOnly && sessionSlotsCount === 2 && slot === '20:30';
+                      const isLateSlot = !isSelfStudio && !isOutdoorOnly && ((sessionSlotsCount === 2 && slot === '20:30') || slot === '21:00');
                       const isExtraChargeSlot = isEarlySlot || isLateSlot;
 
                       return (
@@ -3244,7 +3247,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         <p className="text-[11px] text-amber-900/90 mt-0.5 leading-relaxed">
                           {isEarlyMorningStudio
                             ? `Slot jam 07:00 WIB merupakan Sesi Khusus Ekstra Pagi Studio Foto sebelum jam operasional reguler.`
-                            : `Slot jam 20:30 WIB dengan paket 60 menit (selesai 21:30 WIB) melebihi jam tutup operasional studio (21:00 WIB).`}
+                            : `Slot jam ${timeSlot} WIB (selesai ${calculateEndTime(timeSlot, sessionDurationMinutes)} WIB) melebihi jam operasional tutup studio (21:00 WIB).`}
                         </p>
                       </div>
                     </div>
@@ -4505,7 +4508,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                   {lateNightOvertimeFee > 0 && (
                     <div className="flex justify-between text-amber-300 font-medium">
-                      <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
+                      <span>Tambahan Melebihi Jam 21.00 WIB (Overtime {timeSlot} WIB)</span>
                       <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
                     </div>
                   )}
