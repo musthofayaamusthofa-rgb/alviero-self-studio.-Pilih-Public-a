@@ -2159,8 +2159,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const muaCartSummary = muaCartDetails.map(item => `${item.serviceName} (${item.quantity}x)`).join(', ') || '-';
 
-  // Biaya tambahan jam ekstra pagi (06:00 - 07:30 WIB) untuk Foto Studio (Indoor): Rp 35.000
-  const isEarlyMorningStudio = !isSelfStudio && !isOutdoorOnly && ['06:00', '06:30', '07:00', '07:30'].includes(normalizeSlotTime(timeSlot));
+  // Biaya tambahan jam ekstra pagi (07:00 WIB) untuk Foto Studio (Indoor): Rp 35.000
+  const isEarlyMorningStudio = !isSelfStudio && !isOutdoorOnly && normalizeSlotTime(timeSlot) === '07:00';
   const earlyMorningFee = isEarlyMorningStudio ? 35000 : 0;
 
   // Biaya tambahan jika durasi 60 menit (Paket 2 ke atas) mengambil slot jam 20:30 WIB (selesai 21:30 WIB / melebihi jam tutup 21:00 WIB): Rp 35.000
@@ -2285,7 +2285,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     }
 
     if (earlyMorningFee > 0) {
-      message += `⏰ *BIAYA TAMBAHAN EKSTRA PAGI:* +Rp 35.000 (Sesi Khusus Studio Pagi 06:00 - 08:00 WIB)\n\n`;
+      message += `⏰ *BIAYA TAMBAHAN EKSTRA PAGI:* +Rp 35.000 (Sesi Khusus Studio Foto Pagi 07:00 WIB)\n\n`;
     }
 
     if (lateNightOvertimeFee > 0) {
@@ -3166,7 +3166,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <div className="mb-2 flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
                       <span className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
-                        <strong>06:00 - 07:30 WIB:</strong> Jam Ekstra Pagi (+Rp 35.000)
+                        <strong>07:00 WIB:</strong> Jam Ekstra Pagi (+Rp 35.000)
                       </span>
                       {maxBackdrops > 1 && (
                         <span className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">
@@ -3186,7 +3186,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       const isDisabled = !availability.isAvailable;
                       const isTooClose = Boolean(availability.reason?.includes('90 menit'));
 
-                      const isEarlySlot = !isSelfStudio && !isOutdoorOnly && ['06:00', '06:30', '07:00', '07:30'].includes(slot);
+                      const isEarlySlot = !isSelfStudio && !isOutdoorOnly && slot === '07:00';
                       const isLateSlot = !isSelfStudio && !isOutdoorOnly && sessionSlotsCount === 2 && slot === '20:30';
                       const isExtraChargeSlot = isEarlySlot || isLateSlot;
 
@@ -3243,7 +3243,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         </div>
                         <p className="text-[11px] text-amber-900/90 mt-0.5 leading-relaxed">
                           {isEarlyMorningStudio
-                            ? `Slot jam ${timeSlot} WIB merupakan Sesi Khusus Ekstra Pagi Studio Foto (06:00 - 08:00 WIB) sebelum jam operasional reguler.`
+                            ? `Slot jam 07:00 WIB merupakan Sesi Khusus Ekstra Pagi Studio Foto sebelum jam operasional reguler.`
                             : `Slot jam 20:30 WIB dengan paket 60 menit (selesai 21:30 WIB) melebihi jam tutup operasional studio (21:00 WIB).`}
                         </p>
                       </div>
@@ -3304,8 +3304,6 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                 <span className="text-[7.5px] font-bold text-amber-700 uppercase no-underline">
                                   {isTooClose ? '< 90m' : 'Penuh'}
                                 </span>
-                              ) : (slot === '05:00' || slot === '06:00') ? (
-                                <span className="block text-[8px] text-amber-600 no-underline">+OT</span>
                               ) : null}
                             </button>
                           );
@@ -4500,7 +4498,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
                   {earlyMorningFee > 0 && (
                     <div className="flex justify-between text-amber-300 font-medium">
-                      <span>Tambahan Sesi Ekstra Pagi (06:00 - 08:00 WIB)</span>
+                      <span>Tambahan Sesi Ekstra Pagi (07:00 WIB)</span>
                       <span>+ Rp {earlyMorningFee.toLocaleString('id-ID')}</span>
                     </div>
                   )}

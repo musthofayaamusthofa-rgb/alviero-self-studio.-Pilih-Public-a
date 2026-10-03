@@ -2486,10 +2486,9 @@ export const REVIEWS: ReviewItem[] = [
   }
 ];
 
-// Slot Jadwal untuk Studio Foto Profesional (Termasuk Jam Ekstra Pagi 06:00 - 08:00 WIB & Reguler 08:00 - 21:00 WIB)
+// Slot Jadwal untuk Studio Foto Profesional (Termasuk Jam Ekstra Pagi 07:00 WIB & Reguler 08:00 - 21:00 WIB)
 export const PRO_STUDIO_TIME_SLOTS = [
-  '06:00', '06:30',
-  '07:00', '07:30',
+  '07:00',
   '08:00', '08:30',
   '09:00', '09:30',
   '10:00', '10:30',

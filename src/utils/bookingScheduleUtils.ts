@@ -94,49 +94,42 @@ export function normalizeServiceType(rawService: string): ServiceType {
  * - 11:30 - 20:30 : Shift Gabungan (Kapasitas: 3, Extra: Rp 0)
  */
 export const TIME_SLOTS: TimeSlotConfig[] = [
-  // --- A. Jam Ekstra Pagi Outdoor Only (05.00 - 06.00) ---
+  // --- A. Jam Ekstra Pagi Outdoor Only (05.00 - 06.30) Tanpa Biaya Tambahan ---
   {
     time: '05:00',
     maxCapacity: 2,
     allowedServices: ['outdoor'],
-    shiftName: 'Ekstra Pagi Outdoor (05.00 - 06.00)',
+    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
     earlyCharge: 0
   },
   {
     time: '05:30',
     maxCapacity: 2,
     allowedServices: ['outdoor'],
-    shiftName: 'Ekstra Pagi Outdoor (05.00 - 06.00)',
+    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
     earlyCharge: 0
   },
-
-  // --- B. Jam Ekstra Pagi Indoor Studio (06.00 - 07.59) dengan Early Charge Rp 35.000 ---
   {
     time: '06:00',
     maxCapacity: 2,
-    allowedServices: ['indoor', 'outdoor'],
-    shiftName: 'Ekstra Pagi Studio (+Rp 35.000 Early Charge)',
-    earlyCharge: 35000
+    allowedServices: ['outdoor'],
+    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
+    earlyCharge: 0
   },
   {
     time: '06:30',
     maxCapacity: 2,
-    allowedServices: ['indoor', 'outdoor'],
-    shiftName: 'Ekstra Pagi Studio (+Rp 35.000 Early Charge)',
-    earlyCharge: 35000
+    allowedServices: ['outdoor'],
+    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
+    earlyCharge: 0
   },
+
+  // --- B. Jam Ekstra Pagi Indoor Studio (Hanya Jam 07:00) dengan Biaya Tambahan Rp 35.000 ---
   {
     time: '07:00',
     maxCapacity: 2,
     allowedServices: ['indoor', 'outdoor'],
-    shiftName: 'Ekstra Pagi Studio (+Rp 35.000 Early Charge)',
-    earlyCharge: 35000
-  },
-  {
-    time: '07:30',
-    maxCapacity: 2,
-    allowedServices: ['indoor', 'outdoor'],
-    shiftName: 'Ekstra Pagi Studio (+Rp 35.000 Early Charge)',
+    shiftName: 'Ekstra Pagi Studio (+Rp 35.000 Biaya Tambahan)',
     earlyCharge: 35000
   },
 
@@ -284,9 +277,8 @@ export function calculateBookingFee(
 
   const slotMinutes = timeToMinutes(normTime);
 
-  // Aturan 1: Jam 06.00 s.d. 07.59 untuk Foto Studio (Indoor) dikenakan biaya tambahan Rp 35.000
-  // (360 menit = 06:00, 479 menit = 07:59)
-  const isEarlyIndoorSlot = service === 'indoor' && slotMinutes >= 360 && slotMinutes < 480;
+  // Aturan 1: Jam 07:00 untuk Foto Studio (Indoor) dikenakan biaya tambahan Rp 35.000
+  const isEarlyIndoorSlot = service === 'indoor' && normTime === '07:00';
 
   let earlyCharge = 0;
   let description = 'Harga Reguler (Tanpa biaya tambahan)';
@@ -294,8 +286,8 @@ export function calculateBookingFee(
   if (isEarlyIndoorSlot) {
     earlyCharge = 35000;
     description = 'Dikenakan biaya tambahan sesi ekstra pagi studio (+Rp 35.000 Early Charge)';
-  } else if (service === 'outdoor' && slotMinutes >= 300 && slotMinutes < 360) {
-    // Aturan 2: Jam 05.00 s.d. 06.00 Outdoor TIDAK ADA biaya tambahan
+  } else if (service === 'outdoor' && slotMinutes < 480) {
+    // Aturan 2: Jam pagi Outdoor (05.00 s.d. 07.00) TIDAK ADA biaya tambahan
     earlyCharge = 0;
     description = 'Sesi khusus Outdoor Pagi (Bebas biaya tambahan)';
   }
