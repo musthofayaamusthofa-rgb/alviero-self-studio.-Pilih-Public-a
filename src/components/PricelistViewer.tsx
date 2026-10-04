@@ -6,7 +6,7 @@ import {
   Camera, Calendar, ChevronRight, MessageCircle,
   Instagram, Music2, CheckCircle2, ChevronLeft, Heart, Image as ImageIcon,
   Grid, PhoneCall, GraduationCap, Check, Trees, UserCheck, Users, Home, Cake, Baby, User, Gem, Building2, Mail, Star, Eye, MapPin,
-  HelpCircle, ShieldCheck, AlertCircle, FileText, ChevronDown, ChevronUp, BookOpen
+  HelpCircle, ShieldCheck, AlertCircle, FileText, ChevronDown, ChevronUp, BookOpen, Clock, Video
 } from 'lucide-react';
 import { StudioFacilityGallery } from './StudioFacilityGallery';
 
@@ -105,6 +105,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [selectedGridFilter, setSelectedGridFilter] = useState<'all' | 'grid-1' | 'grid-3' | 'grid-4' | 'grid-6'>('all');
   const [selectedKebayaFilter, setSelectedKebayaFilter] = useState<'all' | 'adat' | 'modern' | 'gaun'>('all');
   const [selectedBingkaiSubTab, setSelectedBingkaiSubTab] = useState<'all' | 'cetak' | 'bingkai' | 'album'>('all');
+  const [selectedGradSubTab, setSelectedGradSubTab] = useState<'all' | 'indoor' | 'bundling' | 'outdoor' | 'additional'>('all');
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(!!initialCategory);
 
   const handleClosePopup = () => {
@@ -3296,292 +3297,741 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </div>
                 )}
 
-                {/* 12. SPECIAL FIGMA VIEW FOR GRADUATION INDOOR */}
+                {/* 12. UNIFIED LUXURY GRADUATION VIEW (INDOOR, BUNDLING, OUTDOOR & ADDITIONAL) */}
                 {activeMenuCategory === 'grad-indoor' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET GRADUATION INDOOR
+                    
+                    {/* Editorial Header */}
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                       </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Graduation Studio & Outdoor
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Abadikan momen kelulusan bersejarah Anda bersama keluarga & sahabat dengan pencahayaan studio mewah dan sesi kampus profesional.
+                      </p>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      {/* Elegant Scholar */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Elegant Scholar</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Indoor 1</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
-                          <p><span className="text-rose-600 font-bold">1 Wisudawan</span> + Family Maks 10 Org/frame | Unlimited Foto 25 Menit</p>
-                          <p><span className="font-bold text-rose-600">1 Background</span> | Edit 6 foto | Cetak Uk 10Rs 2 foto / 3 foto 4R | Allfile Drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">295K</div>
+                    {/* Sub-Kategori Navigation Pills */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
+                      {[
+                        { id: 'all', label: '🎓 Semua Paket' },
+                        { id: 'indoor', label: '🏛️ Studio Indoor' },
+                        { id: 'bundling', label: '👑 Bundling Hemat ⭐' },
+                        { id: 'outdoor', label: '🌳 Outdoor Kampus' },
+                        { id: 'additional', label: '➕ Additional' },
+                      ].map((tab) => {
+                        const isSelected = selectedGradSubTab === tab.id;
+                        return (
                           <button
-                            onClick={() => onSelectPackageForBooking('grad-indoor-elegant-scholar')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
+                            key={tab.id}
+                            onClick={() => setSelectedGradSubTab(tab.id as any)}
+                            className={`min-h-[36px] px-3.5 py-1.5 rounded-full text-xs font-bold font-century transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${
+                              isSelected
+                                ? 'bg-[#2A2A2A] text-white shadow-sm'
+                                : 'bg-[#F2E9E4] text-[#3A3A3A] hover:bg-[#E8DDD6]'
+                            }`}
                           >
-                            KLIK UNTUK PESAN
+                            <span>{tab.label}</span>
                           </button>
-                        </div>
-                      </div>
-
-                      {/* Supreme Scholar */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Graduation Indoor 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Supreme Scholar</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
-                          <p><span className="text-rose-600 font-bold">1 Wisudawan</span> + Family Maks 10 Org/Frame | Unlimited Foto 40 Menit</p>
-                          <p><span className="font-bold text-rose-600">2 Background</span> | Edit 8 Foto | Cetak Uk 10Rs 2 foto / 6 foto 4R | Allfile Drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">415K</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('grad-indoor-supreme-scholar')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Infinity Scholar */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Infinity Scholar</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Indoor 3</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
-                          <p><span className="text-rose-600 font-bold">2 Wisudawan</span> + Family Maks 10 Org/frame | Unlimited Foto 45 Menit</p>
-                          <p><span className="font-bold text-rose-600">2 Background</span> | Edit 12 foto | Cetak Uk 10Rs 4 foto / 6 foto 4R | Allfile Drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">595K</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('grad-indoor-infinity-scholar')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Bundling 1 (Bundling Smart 1) */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Bundling 1 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bundling Smart 1</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
-                          <p><span className="text-rose-600 font-bold">Paket Indoor 1 (Elegant Scholar)</span> + Outdoor Smart 60 Menit</p>
-                          <p>Unlimited Foto Indoor & Outdoor Kampus | 1 Background Studio | Cetak 2 Foto 10Rs / 3 Foto 4R + All File Drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">625K</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-1')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Bundling 2 (Bundling Smart 2) */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bundling Smart 2</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Bundling 2</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
-                          <p><span className="text-rose-600 font-bold">Paket Indoor 2 (Supreme Scholar)</span> + Outdoor Smart 60 Menit</p>
-                          <p>Unlimited Foto Indoor & Outdoor Kampus | 2 Background Studio | Cetak 2 Foto 10Rs / 6 Foto 4R + All File Drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">745K</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-2')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Additional Graduation */}
-                      <div className="bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5">
-                        <h4 className="text-center font-serif font-black text-base text-slate-900">Additional Graduation</h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-800 font-century">
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background Tambahan</span><span className="font-bold">75K</span></div>
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Orang Tambahan</span><span className="font-bold">40K</span></div>
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit Foto Tambahan</span><span className="font-bold">10K</span></div>
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Kostum / Ganti Baju</span><span className="font-bold">50K</span></div>
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Softfile Cetak</span><span className="font-bold">15K</span></div>
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Bingkai 10Rs Minimalis</span><span className="font-bold">55K</span></div>
-                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Cetak Foto 10Rs</span><span className="font-bold">25K</span></div>
-                        </div>
-                      </div>
+                        );
+                      })}
                     </div>
 
+                    {/* SECTION: STUDIO INDOOR */}
+                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'indoor') && (
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between pt-1">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                            <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                              Studio Indoor Packages
+                            </h4>
+                          </div>
+                          <span className="text-[11px] font-medium text-slate-500 font-century">
+                            3 Pilihan Paket
+                          </span>
+                        </div>
+
+                        {/* Card 1: Elegant Scholar */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                  Graduation Indoor 1
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EBF2EA] text-[#3D6345] border border-[#CDE0CB]">
+                                  <Star className="w-3 h-3 fill-[#3D6345]" />
+                                  Favorit
+                                </span>
+                              </div>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Elegant Scholar
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 350.000</span>
+                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                295K
+                              </div>
+                              <span className="text-[10px] text-slate-500 font-century">per sesi • all-in</span>
+                            </div>
+                          </div>
+
+                          {/* Specification Badges */}
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">25 Menit</strong> Unlimited Foto</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Background</strong> Studio</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 6 Foto</strong> High-Res</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 3 Uk 4R</strong></span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                            <span className="text-[11px] text-slate-500 font-century italic">
+                              *Maksimal 1 kostum wisuda (disediakan oleh klien)
+                            </span>
+                            <button
+                              onClick={() => onSelectPackageForBooking('grad-indoor-elegant-scholar')}
+                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                            >
+                              <span>Pilih Paket Ini</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Card 2: Supreme Scholar */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                  Graduation Indoor 2
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
+                                  <Sparkles className="w-3 h-3 text-[#8A5A36]" />
+                                  2 Background
+                                </span>
+                              </div>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Supreme Scholar
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 480.000</span>
+                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                415K
+                              </div>
+                              <span className="text-[10px] text-slate-500 font-century">per sesi • all-in</span>
+                            </div>
+                          </div>
+
+                          {/* Specification Badges */}
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">40 Menit</strong> Unlimited Foto</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">2 Background</strong> Studio</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 8 Foto</strong> High-Res</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 6 Uk 4R</strong></span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                            <span className="text-[11px] text-slate-500 font-century italic">
+                              *Maksimal 1 kostum wisuda (disediakan oleh klien)
+                            </span>
+                            <button
+                              onClick={() => onSelectPackageForBooking('grad-indoor-supreme-scholar')}
+                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                            >
+                              <span>Pilih Paket Ini</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Card 3: Infinity Scholar */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                  Graduation Indoor 3
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#F0F4F8] text-[#2C4A6F] border border-[#D5E1ED]">
+                                  <Users className="w-3 h-3 text-[#2C4A6F]" />
+                                  2 Wisudawan
+                                </span>
+                              </div>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Infinity Scholar
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 680.000</span>
+                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                595K
+                              </div>
+                              <span className="text-[10px] text-slate-500 font-century">per sesi • all-in</span>
+                            </div>
+                          </div>
+
+                          {/* Specification Badges */}
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">45 Menit</strong> Unlimited Foto</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">2 Background</strong> Studio</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Users className="w-4 h-4 text-[#2C4A6F] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2C4A6F]">2 Wisudawan</strong> + Maks 10 Org</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 12 Foto</strong> High-Res</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">4 Uk 10Rs / 6 Uk 4R</strong></span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                            <span className="text-[11px] text-slate-500 font-century italic">
+                              *Maksimal 1 kostum wisuda (disediakan oleh klien)
+                            </span>
+                            <button
+                              onClick={() => onSelectPackageForBooking('grad-indoor-infinity-scholar')}
+                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                            >
+                              <span>Pilih Paket Ini</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* SECTION: BUNDLING INDOOR + OUTDOOR */}
+                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'bundling') && (
+                      <div className="space-y-4 pt-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-[#8A5A36]"></span>
+                            <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                              Bundling Packages (Indoor + Outdoor)
+                            </h4>
+                          </div>
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#EAD5C3]">
+                            <Sparkles className="w-3 h-3" />
+                            Hemat Rp 75.000
+                          </span>
+                        </div>
+
+                        {/* Bundling 1 */}
+                        <div className="bg-gradient-to-br from-[#FAF8F5] via-[#FFFDF9] to-[#F5ECE5] rounded-2xl sm:rounded-3xl border-2 border-[#D8C7B9] p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.06)] hover:shadow-lg transition-all duration-200 space-y-4 relative overflow-hidden">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[11px] font-bold text-[#8A5A36] uppercase tracking-wider font-century">
+                                  Bundling 1 • Best Seller
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EBF2EA] text-[#3D6345] border border-[#CDE0CB]">
+                                  ⭐ Rekomendasi
+                                </span>
+                              </div>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Bundling Smart 1
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 700.000</span>
+                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                625K
+                              </div>
+                              <span className="text-[10px] text-[#8A5A36] font-bold font-century">Paket Bundling Hemat</span>
+                            </div>
+                          </div>
+
+                          {/* Combination Pill */}
+                          <div className="bg-white/80 backdrop-blur-xs border border-[#E2D2C6] rounded-xl p-3 flex flex-wrap items-center gap-2 text-xs font-century">
+                            <span className="font-bold text-[#2A2A2A] flex items-center gap-1.5">
+                              <span>🏛️</span> Sesi Indoor: Elegant Scholar (1 Background)
+                            </span>
+                            <span className="text-slate-400 font-bold">+</span>
+                            <span className="font-bold text-[#3D6345] flex items-center gap-1.5">
+                              <span>🌳</span> Sesi Outdoor: Smart Kampus (60 Menit)
+                            </span>
+                          </div>
+
+                          {/* Specification Badges */}
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Total 60M</strong> Indoor & Outdoor</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Background</strong> Studio</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Free Transport</strong> Fotografer</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 3 Uk 4R</strong></span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DDD6]">
+                            <span className="text-[11px] text-[#5C725A] font-bold font-century">
+                              ✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)
+                            </span>
+                            <button
+                              onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-1')}
+                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black active:bg-slate-900 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                            >
+                              <span>Pesan Bundling 1</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Bundling 2 */}
+                        <div className="bg-gradient-to-br from-[#FAF8F5] via-[#FFFDF9] to-[#F5ECE5] rounded-2xl sm:rounded-3xl border-2 border-[#D8C7B9] p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.06)] hover:shadow-lg transition-all duration-200 space-y-4 relative overflow-hidden">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[11px] font-bold text-[#8A5A36] uppercase tracking-wider font-century">
+                                  Bundling 2 • Supreme
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
+                                  👑 Paling Lengkap
+                                </span>
+                              </div>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Bundling Smart 2
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 820.000</span>
+                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                745K
+                              </div>
+                              <span className="text-[10px] text-[#8A5A36] font-bold font-century">Paket Bundling Hemat</span>
+                            </div>
+                          </div>
+
+                          {/* Combination Pill */}
+                          <div className="bg-white/80 backdrop-blur-xs border border-[#E2D2C6] rounded-xl p-3 flex flex-wrap items-center gap-2 text-xs font-century">
+                            <span className="font-bold text-[#2A2A2A] flex items-center gap-1.5">
+                              <span>🏛️</span> Sesi Indoor: Supreme Scholar (2 Background)
+                            </span>
+                            <span className="text-slate-400 font-bold">+</span>
+                            <span className="font-bold text-[#3D6345] flex items-center gap-1.5">
+                              <span>🌳</span> Sesi Outdoor: Smart Kampus (60 Menit)
+                            </span>
+                          </div>
+
+                          {/* Specification Badges */}
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Total 60M</strong> Indoor & Outdoor</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">2 Background</strong> Studio</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Free Transport</strong> Fotografer</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 6 Uk 4R</strong></span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
+                            </div>
+                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DDD6]">
+                            <span className="text-[11px] text-[#5C725A] font-bold font-century">
+                              ✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)
+                            </span>
+                            <button
+                              onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-2')}
+                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black active:bg-slate-900 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                            >
+                              <span>Pesan Bundling 2</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* SECTION: OUTDOOR SESSIONS */}
+                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'outdoor') && (
+                      <div className="space-y-4 pt-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-[#3D6345]"></span>
+                            <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                              Outdoor Campus Sessions
+                            </h4>
+                          </div>
+                          <span className="text-[11px] font-medium text-slate-500 font-century">
+                            Area Kampus Malang & Sekitarnya
+                          </span>
+                        </div>
+
+                        {/* Outdoor 1: Smart Outdoor */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                Graduation Outdoor 1
+                              </span>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Smart Outdoor
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-xs text-slate-500 font-century">Pilihan Durasi Sesi:</span>
+                              <div className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                                280K <span className="text-xs font-normal text-slate-400 font-century">(30m)</span> / 355K <span className="text-xs font-normal text-slate-400 font-century">(60m)</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Keluarga / Teman</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Unlimited Around Campus</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 10 Foto</strong> High-Res</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Free Transport Fotografer</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                            <span className="text-[11px] text-slate-500 font-century italic">
+                              *Fotografer siap datang langsung ke kampus pilihan Anda di Malang
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => onSelectPackageForBooking('grad-outdoor-smart-30')}
+                                className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-[#EBF2EA] hover:bg-[#DEE9DD] text-[#3D6345] border border-[#CDE0CB] font-bold text-xs cursor-pointer active:scale-95 transition-all"
+                              >
+                                Pesan 30M (280K)
+                              </button>
+                              <button
+                                onClick={() => onSelectPackageForBooking('grad-outdoor-smart-60')}
+                                className="flex-1 sm:flex-none px-5 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white font-bold text-xs cursor-pointer active:scale-95 shadow-sm transition-all"
+                              >
+                                Pesan 60M (355K)
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Outdoor 2: Cumlaude Foto + Video */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                  Graduation Outdoor 2
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
+                                  <Video className="w-3 h-3 text-[#8A5A36]" />
+                                  Include Video Cinematic
+                                </span>
+                              </div>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Cumlaude (Foto + Video)
+                              </h4>
+                            </div>
+                            <div className="sm:text-right">
+                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 850.000</span>
+                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                710K
+                              </div>
+                              <span className="text-[10px] text-slate-500 font-century">75 Menit • Full Package</span>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">75 Menit</strong> Sesi Foto & Video</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Video className="w-4 h-4 text-[#8A5A36] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">1 Video Cinematic</strong> (30-60s)</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 10 Foto</strong> High-Res</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Unlimited Shoots Kampus</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium">Free Transport Fotografer</span>
+                            </div>
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                            <span className="text-[11px] text-slate-500 font-century italic">
+                              *Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok
+                            </span>
+                            <button
+                              onClick={() => onSelectPackageForBooking('grad-outdoor-cumlaude')}
+                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                            >
+                              <span>Pilih Paket Cumlaude</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Outdoor 3: Group Wisuda Outdoor */}
+                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                            <div>
+                              <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                Graduation Outdoor 3
+                              </span>
+                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                Group Wisuda Outdoor
+                              </h4>
+                              <p className="text-xs text-slate-600 font-century mt-0.5">
+                                Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga).
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                            {/* Group 2 */}
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                              <div>
+                                <span className="text-[10px] font-bold text-[#5C725A] bg-[#EBF2EA] px-2 py-0.5 rounded-full uppercase">
+                                  2 Wisudawan
+                                </span>
+                                <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">Group 2 Orang</div>
+                                <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
+                                  <p>⏱️ 75 Menit Sesi Foto</p>
+                                  <p>✨ Edit 20 Foto High-Res</p>
+                                  <p className="text-[11px] text-slate-500 font-semibold pt-1">Rp 255.000 / wisudawan</p>
+                                </div>
+                              </div>
+                              <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
+                                <span className="text-xl font-serif font-black text-[#2A2A2A]">510K</span>
+                                <button
+                                  onClick={() => onSelectPackageForBooking('grad-outdoor-group-2')}
+                                  className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
+                                >
+                                  Pesan
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Group 3 */}
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                              <div>
+                                <span className="text-[10px] font-bold text-[#5C725A] bg-[#EBF2EA] px-2 py-0.5 rounded-full uppercase">
+                                  3 Wisudawan
+                                </span>
+                                <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">Group 3 Orang</div>
+                                <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
+                                  <p>⏱️ 90 Menit Sesi Foto</p>
+                                  <p>✨ Edit 30 Foto High-Res</p>
+                                  <p className="text-[11px] text-slate-500 font-semibold pt-1">Rp 210.000 / wisudawan</p>
+                                </div>
+                              </div>
+                              <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
+                                <span className="text-xl font-serif font-black text-[#2A2A2A]">630K</span>
+                                <button
+                                  onClick={() => onSelectPackageForBooking('grad-outdoor-group-3')}
+                                  className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
+                                >
+                                  Pesan
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Group 4-5 */}
+                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                              <div>
+                                <span className="text-[10px] font-bold text-[#8A5A36] bg-[#FAF0E6] px-2 py-0.5 rounded-full uppercase">
+                                  4-5 Wisudawan
+                                </span>
+                                <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">Group 4-5 Orang</div>
+                                <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
+                                  <p>⏱️ 120 Menit Sesi Foto</p>
+                                  <p>✨ Edit 40 Foto High-Res</p>
+                                  <p className="text-[11px] text-slate-500 font-semibold pt-1">Rp 180.000 / wisudawan</p>
+                                </div>
+                              </div>
+                              <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
+                                <span className="text-xl font-serif font-black text-[#2A2A2A]">900K</span>
+                                <button
+                                  onClick={() => onSelectPackageForBooking('grad-outdoor-group-4-5')}
+                                  className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
+                                >
+                                  Pesan
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* SECTION: ADDITIONAL GRADUATION */}
+                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'additional') && (
+                      <div className="bg-gradient-to-br from-[#FAF8F5] to-[#F2E9E4]/60 rounded-2xl sm:rounded-3xl p-5 sm:p-6 border border-[#E8DDD6] shadow-xs space-y-4">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <div>
+                            <h4 className="font-serif font-bold text-base text-[#2A2A2A] tracking-wide">
+                              Layanan Tambahan (Additional Graduation)
+                            </h4>
+                            <p className="text-xs text-slate-500 font-century">
+                              Kustomisasi sesi wisuda Anda dengan opsi add-on resmi Alviero Studio.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-[#2A2A2A] font-century">
+                          {[
+                            { name: 'Background Studio Tambahan', price: '75K', icon: '🎨' },
+                            { name: 'Anggota / Orang Tambahan', price: '40K', icon: '👥' },
+                            { name: 'Edit Foto Tambahan', price: '10K', icon: '✨' },
+                            { name: 'Ganti Kostum / Outfit Tambahan', price: '50K', icon: '👗' },
+                            { name: 'Softfile Cetak Full Resolution', price: '15K', icon: '💾' },
+                            { name: 'Bingkai 10Rs Minimalis', price: '55K', icon: '🖼️' },
+                            { name: 'Cetak Foto Lab Ukuran 10Rs', price: '25K', icon: '🖨️' },
+                          ].map((item, idx) => (
+                            <div
+                              key={idx}
+                              className="bg-white/90 border border-[#E8DDD6] rounded-xl px-3.5 py-2.5 flex items-center justify-between shadow-2xs hover:bg-white transition-colors"
+                            >
+                              <span className="flex items-center gap-2 font-medium">
+                                <span>{item.icon}</span>
+                                <span>+ {item.name}</span>
+                              </span>
+                              <span className="font-serif font-black text-sm text-[#2A2A2A] bg-[#FAF8F5] px-2 py-0.5 rounded-md border border-[#EFE5DC]">
+                                {item.price}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Disclaimer Banner Link */}
                     <div className="text-center pt-2">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-2 text-xs text-[#3D6345] hover:text-[#2A4630] font-bold font-century cursor-pointer transition-all hover:scale-102 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#CDE0CB] shadow-2xs"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <AlertCircle className="w-3.5 h-3.5 text-[#5C725A]" />
+                        <span>Harap membaca panduan & disclaimer sebelum melakukan reservasi</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                  </div>
-                )}
 
-                {/* 13. SPECIAL FIGMA VIEW FOR GRADUATION OUTDOOR */}
-                {activeMenuCategory === 'grad-indoor' && (
-                  <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">OUTDOOR SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET GRADUATION OUTDOOR
-                      </div>
-                    </div>
-
-                    <div className="space-y-6 pt-1">
-                      {/* Smart */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Smart Outdoor</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Outdoor 1</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">1 Wisudawan</span> + Family / Teman | Unlimited foto around campus | Free Transport</p>
-                          <p>All file via Google Drive | Edit 10 Foto (High-Res)</p>
-                        </div>
-                        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                            <span className="text-rose-600">280K</span> <span className="text-sm font-normal text-slate-400">(30m)</span> / 355K <span className="text-sm font-normal text-slate-400">(60m)</span>
-                          </div>
-                          <div className="flex gap-2">
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-outdoor-smart-30')}
-                              className="px-4 py-2 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs uppercase shadow-md transition-all cursor-pointer active:scale-95"
-                            >
-                              Pesan 30M (280K)
-                            </button>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-outdoor-smart-60')}
-                              className="px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-black text-xs uppercase shadow-md transition-all cursor-pointer active:scale-95"
-                            >
-                              Pesan 60M (355K)
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Cumlaude (Video) */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Graduation Outdoor 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Cumlaude (Foto + Video)</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">75 Menit</span> Unlimited Foto Around Campus + <span className="text-rose-600 font-bold">1 Video Cinematic / Reels (30-60 detik)</span></p>
-                          <p>All file via Google Drive | Edit 10 Foto High-Res | Free Transport Kampus</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">710K</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('grad-outdoor-cumlaude')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Group Outdoor */}
-                      <div className="border-b border-slate-100 pb-5 space-y-3">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Group Wisuda Outdoor</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Outdoor 3</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Sesi foto wisuda bersama kelompok / sahabat di area kampus outdoor (bisa foto bareng keluarga).</p>
-                          <p>All file via Google Drive | Free Transport Area Kampus</p>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                          {/* 2 Orang */}
-                          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 flex flex-col justify-between">
-                            <div>
-                              <div className="font-serif font-black text-slate-900 text-sm">Group 2 Wisudawan</div>
-                              <p className="text-[11px] text-slate-600">75 Menit | Edit 20 Foto</p>
-                              <p className="text-[10px] text-slate-500 font-medium mt-0.5">255K / wisudawan</p>
-                            </div>
-                            <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-                              <span className="font-black text-base text-slate-900">510K</span>
-                              <button
-                                onClick={() => onSelectPackageForBooking('grad-outdoor-group-2')}
-                                className="px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-[11px] cursor-pointer active:scale-95"
-                              >
-                                Pesan
-                              </button>
-                            </div>
-                          </div>
-
-                          {/* 3 Orang */}
-                          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 flex flex-col justify-between">
-                            <div>
-                              <div className="font-serif font-black text-slate-900 text-sm">Group 3 Wisudawan</div>
-                              <p className="text-[11px] text-slate-600">90 Menit | Edit 30 Foto</p>
-                              <p className="text-[10px] text-slate-500 font-medium mt-0.5">210K / wisudawan</p>
-                            </div>
-                            <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-                              <span className="font-black text-base text-slate-900">630K</span>
-                              <button
-                                onClick={() => onSelectPackageForBooking('grad-outdoor-group-3')}
-                                className="px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-[11px] cursor-pointer active:scale-95"
-                              >
-                                Pesan
-                              </button>
-                            </div>
-                          </div>
-
-                          {/* 4-5 Orang */}
-                          <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-3.5 space-y-2 flex flex-col justify-between">
-                            <div>
-                              <div className="font-serif font-black text-slate-900 text-sm">Group 4-5 Wisudawan</div>
-                              <p className="text-[11px] text-slate-600">120 Menit | Edit 40 Foto</p>
-                              <p className="text-[10px] text-slate-500 font-medium mt-0.5">180K / wisudawan</p>
-                            </div>
-                            <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-                              <span className="font-black text-base text-slate-900">900K</span>
-                              <button
-                                onClick={() => onSelectPackageForBooking('grad-outdoor-group-4-5')}
-                                className="px-3 py-1.5 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-[11px] cursor-pointer active:scale-95"
-                              >
-                                Pesan
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
-                      <button
-                        type="button"
-                        onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
-                      >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
                   </div>
                 )}
 
