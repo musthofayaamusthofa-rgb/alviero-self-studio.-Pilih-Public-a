@@ -455,13 +455,22 @@ export const getPackagePastelTheme = (pkg?: { id?: string; category?: string; na
 /**
  * Menghitung batas maksimum background yang bisa dipilih berdasarkan jenis paket
  */
-export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[] }): number => {
+export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name: string; description?: string; highlights?: string[]; backdropCount?: number }): number => {
+  if (pkg.backdropCount !== undefined && pkg.backdropCount !== null) {
+    return pkg.backdropCount;
+  }
+  const fullPkg = PACKAGES.find(p => p.id === pkg.id);
+  if (fullPkg && fullPkg.backdropCount !== undefined && fullPkg.backdropCount !== null) {
+    return fullPkg.backdropCount;
+  }
+
   const id = pkg.id.toLowerCase();
   const cat = pkg.category.toLowerCase();
   const name = (pkg.name || '').toLowerCase();
 
   if (
     id === 'grad-bundling-ultimate-1' ||
+    name.includes('bundling smart 1') ||
     name === 'bundling 1 ——ultimate scholar 1' ||
     name === 'ultimate scholar 1 (graduation bundling)'
   ) {

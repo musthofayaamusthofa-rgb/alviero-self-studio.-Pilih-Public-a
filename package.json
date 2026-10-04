@@ -12,7 +12,8 @@
     "lint": "tsc --noEmit",
     "pull": "git pull origin main",
     "push": "git add . && git commit -m \"Auto update\" && git push origin main",
-    "sync": "git pull origin main && git add . && git commit -m \"Auto sync\" && git push origin main"
+    "sync": "git pull origin main && git add . && git commit -m \"Auto sync\" && git push origin main",
+    "admin": "node scripts/admin-server.cjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

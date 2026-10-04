@@ -41,6 +41,7 @@ export interface PackageItem {
   highlights: string[];
   popular?: boolean;
   image: string;
+  backdropCount?: number;
   hasOutdoorSession?: boolean;
   indoorPackageId?: string;
   serviceGroup?: 'graduation';

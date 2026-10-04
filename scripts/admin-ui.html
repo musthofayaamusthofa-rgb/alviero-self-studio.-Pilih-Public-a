@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alviero Studio Manager - Control Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --sage-primary: #5C725A;
+      --sage-light: #6E856C;
+      --sage-subtle: #A9BCA7;
+      --sage-bg: #F0F4EF;
+      --charcoal: #262626;
+      --charcoal-light: #444444;
+      --champagne: #F5EFEB;
+      --ivory: #FDFBF7;
+      --body-bg: #F8F6F2;
+      --card-bg: #FFFFFF;
+      --border: #E8E1D9;
+      --border-light: #F0EAE3;
+      --danger: #DC2626;
+      --danger-bg: #FEE2E2;
+      --warning: #D97706;
+      --warning-bg: #FEF3C7;
+      --success: #15803D;
+      --success-bg: #DCFCE7;
+      --blue: #2563EB;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 14px -2px rgba(0,0,0,0.05), 0 2px 6px -1px rgba(0,0,0,0.03);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.07), 0 4px 10px -2px rgba(0,0,0,0.03);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--body-bg); color: var(--charcoal); min-height: 100vh; display: flex; flex-direction: column; line-height: 1.5; }
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; letter-spacing: -0.01em; }
+    header { background: var(--card-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+    .header-inner { max-width: 1400px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .brand-box { display: flex; align-items: center; gap: 1rem; }
+    .brand-logo-img { height: 38px; width: auto; object-fit: contain; }
+    .brand-titles { display: flex; flex-direction: column; }
+    .brand-title-row { display: flex; align-items: center; gap: 0.5rem; }
+    .brand-title { font-size: 1.22rem; font-weight: 700; color: var(--charcoal); line-height: 1.2; }
+    .brand-tag { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--sage-bg); color: var(--sage-primary); border: 1px solid rgba(92,114,90,0.2); }
+    .brand-sub { font-size: 0.76rem; color: #71717A; font-weight: 500; margin-top: 1px; }
+    .header-actions { display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap; }
+    .btn { padding: 0.55rem 1.15rem; border-radius: 11px; font-size: 0.84rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid transparent; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); font-family: inherit; white-space: nowrap; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-preview { background: #FFFFFF; border-color: var(--border); color: var(--charcoal); }
+    .btn-preview:hover { background: var(--champagne); border-color: #D6CCC2; }
+    .btn-save-local { background: var(--sage-primary); color: #FFFFFF; box-shadow: 0 3px 10px rgba(92,114,90,0.22); }
+    .btn-save-local:hover { background: var(--sage-light); box-shadow: 0 4px 14px rgba(92,114,90,0.3); }
+    .btn-publish { background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #FFFFFF; box-shadow: 0 3px 12px rgba(37,99,235,0.28); }
+    .btn-publish:hover { background: linear-gradient(135deg, #1D4ED8, #1E40AF); box-shadow: 0 5px 16px rgba(37,99,235,0.36); }
+    .btn-add { background: var(--sage-primary); color: #FFFFFF; border-radius: 10px; padding: 0.5rem 1rem; font-size: 0.82rem; }
+    .btn-add:hover { background: var(--sage-light); }
+    .status-banner { background: #FFFFFF; border-bottom: 1px solid var(--border-light); padding: 0.45rem 1.5rem; font-size: 0.78rem; }
+    .status-banner-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+    .status-pills { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .status-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.73rem; font-weight: 600; background: #F4F4F5; color: #52525B; border: 1px solid #E4E4E7; }
+    .status-badge.online { background: #F0FDF4; color: #15803D; border-color: #DCFCE7; }
+    .status-badge.changed { background: #FFFBEB; color: #B45309; border-color: #FDE68A; }
+    .dot-live { width: 7px; height: 7px; border-radius: 50%; background: #22C55E; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.85); } }
+    .commit-text { color: #71717A; font-size: 0.74rem; }
+    main { max-width: 1400px; margin: 1.25rem auto 3rem; padding: 0 1.5rem; width: 100%; flex: 1; }
+    .tabs-wrapper { background: #FFFFFF; padding: 0.4rem; border-radius: 14px; border: 1px solid var(--border); display: inline-flex; gap: 0.35rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm); overflow-x: auto; max-width: 100%; }
+    .tab-btn { padding: 0.6rem 1.15rem; font-size: 0.86rem; font-weight: 600; color: #71717A; cursor: pointer; border: none; background: transparent; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease; white-space: nowrap; font-family: inherit; }
+    .tab-btn:hover { color: var(--charcoal); background: #F4F4F5; }
+    .tab-btn.active { background: var(--sage-primary); color: #FFFFFF; box-shadow: 0 2px 8px rgba(92,114,90,0.25); }
+    .tab-badge { font-size: 0.72rem; padding: 0.1rem 0.45rem; border-radius: 999px; background: rgba(0,0,0,0.08); color: inherit; font-weight: 700; }
+    .tab-btn.active .tab-badge { background: rgba(255,255,255,0.22); color: #FFFFFF; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 18px; padding: 1.5rem; box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem; }
+    .card-title { font-size: 1.2rem; font-weight: 700; color: var(--charcoal); }
+    .card-desc { font-size: 0.82rem; color: #71717A; margin-top: 0.2rem; }
+    .filter-panel { background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 0.9rem 1.15rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .filter-group { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-label { font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8C827A; margin-right: 0.2rem; }
+    .pill-btn { padding: 0.38rem 0.85rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: #FFFFFF; color: #52525B; transition: all 0.15s ease; font-family: inherit; }
+    .pill-btn:hover { background: #F4F4F5; color: var(--charcoal); }
+    .pill-btn.active { background: var(--charcoal); color: #FFFFFF; border-color: var(--charcoal); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+    .search-box { position: relative; min-width: 240px; }
+    .search-input { width: 100%; padding: 0.42rem 0.85rem 0.42rem 2.1rem; border: 1px solid var(--border); border-radius: 999px; font-size: 0.82rem; font-family: inherit; background: #FFFFFF; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .search-input:focus { border-color: var(--sage-primary); box-shadow: 0 0 0 3px rgba(92,114,90,0.15); }
+    .search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: #A1A1AA; pointer-events: none; }
+    .bg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1.35rem; }
+    .bg-card { background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: var(--shadow-sm); position: relative; }
+    .bg-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #D6CCC2; }
+    .bg-card.inactive { opacity: 0.58; background: #FAFAFA; }
+    .bg-photo-area { height: 155px; position: relative; background-size: cover; background-position: center; background-color: #F4F4F5; display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem; }
+    .bg-photo-gradient { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%); pointer-events: none; }
+    .badge-branch-tag { position: relative; z-index: 2; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 6px; backdrop-filter: blur(8px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .badge-branch-1 { background: rgba(254, 243, 199, 0.92); color: #92400E; }
+    .badge-branch-2 { background: rgba(224, 231, 255, 0.92); color: #3730A3; }
+    .badge-branch-both { background: rgba(243, 232, 255, 0.92); color: #6B21A8; }
+    .status-indicator-chip { position: relative; z-index: 2; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 6px; backdrop-filter: blur(8px); display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+    .status-indicator-chip.active { background: rgba(220, 252, 231, 0.92); color: #166534; }
+    .status-indicator-chip.inactive { background: rgba(244, 244, 245, 0.92); color: #71717A; }
+    .bg-content-area { padding: 1.1rem; display: flex; flex-direction: column; flex: 1; }
+    .bg-main-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem; }
+    .bg-title-wrap { display: flex; align-items: center; gap: 0.6rem; }
+    .color-swatch-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px var(--border); flex-shrink: 0; }
+    .bg-item-name { font-size: 1.05rem; font-weight: 700; color: var(--charcoal); }
+    .bg-hex-badge { font-size: 0.72rem; font-family: monospace; color: #71717A; background: #F4F4F5; padding: 0.15rem 0.45rem; border-radius: 6px; font-weight: 600; border: 1px solid #E4E4E7; }
+    .bg-item-desc { font-size: 0.8rem; color: #71717A; line-height: 1.45; margin: 0.35rem 0 0.85rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .bg-chips-row { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+    .service-chip { font-size: 0.68rem; font-weight: 600; padding: 0.18rem 0.5rem; border-radius: 6px; background: #F4F4F5; color: #52525B; }
+    .service-chip.pro { background: #DCFCE7; color: #166534; }
+    .service-chip.self { background: #FCE7F3; color: #9D174D; }
+    .bg-card-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 0.75rem; border-top: 1px solid var(--border-light); }
+    .toggle-label-wrap { display: flex; align-items: center; gap: 0.45rem; cursor: pointer; }
+    .toggle-text { font-size: 0.76rem; font-weight: 600; color: #52525B; }
+    .switch { position: relative; display: inline-block; width: 38px; height: 22px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #D4D4D8; transition: .25s ease; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .25s ease; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    input:checked + .slider { background-color: var(--sage-primary); }
+    input:checked + .slider:before { transform: translateX(16px); }
+    .card-actions-group { display: flex; gap: 0.4rem; }
+    .btn-action { padding: 0.35rem 0.65rem; border-radius: 8px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border); background: #FFFFFF; color: var(--charcoal); cursor: pointer; transition: all 0.15s ease; font-family: inherit; }
+    .btn-action:hover { background: #F4F4F5; }
+    .btn-action.delete { color: var(--danger); border-color: #FECACA; background: #FEF2F2; }
+    .btn-action.delete:hover { background: #FEE2E2; }
+    .preset-box { background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .preset-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .btn-preset { padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.78rem; font-weight: 600; border: 1px solid var(--border); background: #FFFFFF; color: var(--charcoal); cursor: pointer; transition: all 0.15s ease; font-family: inherit; }
+    .btn-preset:hover { background: var(--champagne); }
+    .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; background: #FFFFFF; box-shadow: var(--shadow-sm); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+    th { background: #F8F6F2; padding: 0.85rem 1.15rem; color: #52525B; font-weight: 700; border-bottom: 1px solid var(--border); white-space: nowrap; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    td { padding: 0.9rem 1.15rem; border-bottom: 1px solid #F4F4F5; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #FCFAF8; }
+    .time-slot-badge { font-size: 1.05rem; font-weight: 800; font-family: 'Outfit', sans-serif; color: var(--charcoal); display: inline-flex; align-items: center; gap: 0.4rem; }
+    .capacity-badge { font-size: 0.78rem; font-weight: 600; color: #3F3F46; background: #F4F4F5; padding: 0.2rem 0.55rem; border-radius: 6px; }
+    .charge-badge { font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 700; }
+    .charge-badge.free { background: #F4F4F5; color: #52525B; }
+    .charge-badge.extra { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.45); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay.open { display: flex; }
+    .modal-card { background: #FFFFFF; border-radius: 20px; max-width: 620px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); border: 1px solid var(--border); animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.96) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .modal-title { font-size: 1.15rem; font-weight: 700; color: var(--charcoal); }
+    .btn-close { background: transparent; border: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #A1A1AA; padding: 0.25rem; border-radius: 8px; }
+    .btn-close:hover { color: var(--charcoal); background: #F4F4F5; }
+    .modal-body { padding: 1.5rem; }
+    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 0.75rem; background: #FAF8F5; border-radius: 0 0 20px 20px; }
+    .form-group { margin-bottom: 1.15rem; }
+    .form-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.35rem; }
+    .form-control { width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 0.86rem; outline: none; background: #FFFFFF; transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-control:focus { border-color: var(--sage-primary); box-shadow: 0 0 0 3px rgba(92,114,90,0.15); }
+    .color-picker-row { display: flex; gap: 0.6rem; align-items: center; }
+    .color-picker-input { width: 44px; height: 40px; padding: 2px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; background: #FFFFFF; }
+    .checkbox-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .checkbox-item { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.84rem; cursor: pointer; font-weight: 500; }
+    .terminal-window { background: #18181B; color: #34D399; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.82rem; padding: 1.25rem; border-radius: 14px; min-height: 150px; max-height: 320px; overflow-y: auto; white-space: pre-wrap; line-height: 1.55; box-shadow: inset 0 2px 8px rgba(0,0,0,0.5); }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--charcoal); color: #FFFFFF; padding: 0.85rem 1.4rem; border-radius: 12px; font-size: 0.86rem; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 200; display: flex; align-items: center; gap: 0.75rem; opacity: 0; transform: translateY(15px); transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    @media (max-width: 768px) { .header-inner { flex-direction: column; align-items: stretch; } .header-actions { justify-content: space-between; } .status-banner-inner { flex-direction: column; align-items: flex-start; } .filter-panel { flex-direction: column; align-items: stretch; } .search-box { min-width: 100%; } .bg-grid { grid-template-columns: 1fr; } }
+
+
+    /* Promo Cards & Manager Styles */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .promo-item-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .promo-item-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: var(--sage-subtle);
+    }
+    .promo-item-card.inactive-promo {
+      opacity: 0.65;
+      background: #FAF9F7;
+      border-style: dashed;
+    }
+    .promo-card-image-wrap {
+      position: relative;
+      height: 180px;
+      width: 100%;
+      background: #202022;
+      overflow: hidden;
+    }
+    .promo-card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .promo-item-card:hover .promo-card-image-wrap img {
+      transform: scale(1.04);
+    }
+    .promo-image-badge-top-left {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .promo-image-badge-top-right {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      color: #262626;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .promo-image-highlight-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.88) 100%);
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 18px 14px 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .promo-card-body {
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .promo-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.45rem;
+    }
+    .promo-category-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--sage-primary);
+      text-transform: uppercase;
+    }
+    .status-indicator {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .status-indicator.online {
+      background: #ECFDF5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+    }
+    .status-indicator.offline {
+      background: #F1F5F9;
+      color: #64748B;
+      border: 1px solid #CBD5E1;
+    }
+    .promo-card-title {
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.35;
+      margin-bottom: 0.45rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .promo-card-desc {
+      font-size: 0.8rem;
+      color: #64748B;
+      line-height: 1.45;
+      margin-bottom: 0.85rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex-grow: 1;
+    }
+    .promo-card-footer {
+      padding-top: 0.75rem;
+      border-top: 1px solid #F1F5F9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .promo-code-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--champagne);
+      border: 1px solid #E2D9D0;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      color: var(--charcoal);
+    }
+    .promo-code-label {
+      font-weight: 600;
+      color: #78716C;
+      font-size: 0.68rem;
+    }
+    .promo-card-actions {
+      display: flex;
+      gap: 0.35rem;
+      align-items: center;
+    }
+    .btn-action-toggle {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .btn-action-toggle.btn-active {
+      background: #DCFCE7;
+      color: #166534;
+    }
+    .btn-action-toggle.btn-active:hover {
+      background: #BBF7D0;
+    }
+    .btn-action-toggle.btn-inactive {
+      background: #F1F5F9;
+      color: #64748B;
+    }
+    .btn-action-toggle.btn-inactive:hover {
+      background: #E2E8F0;
+    }
+    .btn-icon-sm {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--charcoal);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .btn-icon-sm:hover {
+      background: var(--champagne);
+      border-color: var(--sage-subtle);
+    }
+    .btn-icon-sm.delete:hover {
+      background: #FEE2E2;
+      border-color: #F87171;
+      color: #DC2626;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+  
+    /* Milestone Row Styles */
+    .milestone-item-row {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.95rem 1.15rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.2s;
+    }
+    .milestone-item-row:hover {
+      border-color: var(--sage-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .milestone-badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+    .milestone-badge-pill.green { background: #EFF6EE; color: #5C725A; border: 1px solid #C8DBC5; }
+    .milestone-badge-pill.dark { background: #F2E9E4; color: #3A3A3A; border: 1px solid #E8DDD6; }
+    .milestone-badge-pill.amber { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+
+  
+    /* Service Card Items in Admin */
+    .service-card-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .service-card-item.theme-cream {
+      background: #FDFBF7;
+      border-color: #E2DDD5;
+    }
+    .service-card-item.theme-brown {
+      background: #FBF8F5;
+      border-left: 5px solid #AB8A77;
+    }
+    .service-card-item.inactive-card {
+      opacity: 0.55;
+      background: #F4F4F5;
+      border-style: dashed;
+    }
+    .service-card-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+  
+    /* Milestone Row Styles */
+    .milestone-item-row {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.95rem 1.15rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.2s;
+    }
+    .milestone-item-row:hover {
+      border-color: var(--sage-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .milestone-badge-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+    .milestone-badge-pill.green { background: #EFF6EE; color: #5C725A; border: 1px solid #C8DBC5; }
+    .milestone-badge-pill.dark { background: #F2E9E4; color: #3A3A3A; border: 1px solid #E8DDD6; }
+    .milestone-badge-pill.amber { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
+
+  
+    /* Service Card Items in Admin */
+    .service-card-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .service-card-item.theme-cream {
+      background: #FDFBF7;
+      border-color: #E2DDD5;
+    }
+    .service-card-item.theme-brown {
+      background: #FBF8F5;
+      border-left: 5px solid #AB8A77;
+    }
+    .service-card-item.inactive-card {
+      opacity: 0.55;
+      background: #F4F4F5;
+      border-style: dashed;
+    }
+    .service-card-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+  
+    /* Service Category Cards Styles */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .service-card-item {
+      border-radius: 16px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 180px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .service-card-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .service-card-item.theme-cream {
+      background: #F3F2ED;
+      border-color: #E2DDD5;
+      color: var(--charcoal);
+    }
+    .service-card-item.theme-brown {
+      background: #AB8A77;
+      border-color: #9C7B69;
+      color: #FFFFFF;
+    }
+    .service-card-item.inactive-card {
+      opacity: 0.55;
+      border-style: dashed;
+    }
+    .service-card-badge-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-family: monospace;
+    }
+    .service-card-item.theme-cream .service-card-badge-pill {
+      background: #FFFFFF;
+      color: #5C725A;
+      border: 1px solid #E2DDD5;
+    }
+    .service-card-item.theme-brown .service-card-badge-pill {
+      background: rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .service-drawer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 8px;
+      margin-top: 0.6rem;
+    }
+    .service-card-item.theme-cream .service-drawer-pill {
+      background: #FFFFFF;
+      border: 1px solid #E2DDD5;
+      color: #52525B;
+    }
+    .service-card-item.theme-brown .service-drawer-pill {
+      background: rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FDFBF7;
+    }
+
+  
+    </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-box">
+        <img src="/images/alviero-logo-official.png" alt="Alviero Studio" class="brand-logo-img" onerror="this.style.display='none'">
+        <div class="brand-titles">
+          <div class="brand-title-row">
+            <span class="brand-title">Alviero Studio Manager</span>
+            <span class="brand-tag">Control Panel</span>
+          </div>
+          <span class="brand-sub">Pengaturan Background, Jadwal Booking, Promo & Publikasi Web</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-preview" onclick="openLiveLocal()" title="Buka tampilan web di komputer Anda">
+          💻 Pratinjau Web (3000)
+        </button>
+        <button class="btn btn-save-local" onclick="saveConfigLocally()" title="Simpan ke file konfigurasi lokal">
+          💾 Simpan ke Web Lokal
+        </button>
+        <button class="btn btn-publish" onclick="saveAndSyncToInternet()" title="Upload dan publikasikan ke internet via GitHub & Vercel">
+          🚀 Publikasikan ke Web Internet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Friendly Status Banner -->
+  <div class="status-banner">
+    <div class="status-banner-inner">
+      <div class="status-pills">
+        <span class="status-badge online">
+          <span class="dot-live"></span>
+          Server Aktif: Port 3001
+        </span>
+        <span class="status-badge" id="gitBranchBadge">Branch: main</span>
+        <span class="status-badge" id="gitStatusBadge">✅ Sinkron dengan Git</span>
+      </div>
+      <div class="commit-text" id="lastCommitText">
+        Memeriksa riwayat commit terakhir...
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Work Area -->
+  <main>
+    <!-- Navigation Tabs -->
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" onclick="switchTab('tab-backgrounds', this)">
+        🎨 Background Studio <span class="tab-badge" id="bgCountBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-slots', this)">
+        ⏰ Jam & Jadwal Booking <span class="tab-badge" id="slotCountBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-promos', this)">
+        🎁 Promo & Informasi Studio <span class="tab-badge" id="promoCountBadge">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-history', this)">
+        📖 Sejarah & Filosofi Studio
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-branches', this)">
+        🏢 Kontak & Info Studio
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-sync', this)">
+        🚀 Panduan & Sinkronisasi Internet
+      </button>
+    </div>
+
+    <!-- TAB 1: BACKGROUNDS MANAGER -->
+    <section id="tab-backgrounds" class="tab-pane active">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Daftar Background & Backdrop Studio</h2>
+            <p class="card-desc">Kelola warna latar, preview foto, dan status buka/tutup background untuk Studio 1 & Studio 2.</p>
+          </div>
+          <button class="btn btn-add" onclick="openAddBgModal()">
+            + Tambah Background Baru
+          </button>
+        </div>
+
+        <div class="filter-panel">
+          <div class="filter-group">
+            <span class="filter-label">Studio:</span>
+            <button class="pill-btn active" onclick="filterBackgrounds('all', this)">Semua Cabang</button>
+            <button class="pill-btn" onclick="filterBackgrounds('cabang-1', this)">Studio 1 (Junrejo)</button>
+            <button class="pill-btn" onclick="filterBackgrounds('cabang-2', this)">Studio 2 (Dinoyo)</button>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Layanan:</span>
+            <button class="pill-btn active" onclick="filterBgService('all', this)">Semua</button>
+            <button class="pill-btn" onclick="filterBgService('pro-studio', this)">Pro Studio</button>
+            <button class="pill-btn" onclick="filterBgService('self-studio', this)">Self Studio</button>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="bgSearchInput" class="search-input" placeholder="Cari background..." oninput="renderBackgrounds()">
+          </div>
+        </div>
+
+        <div class="bg-grid" id="backgroundsGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: TIME SLOTS MANAGER -->
+    <section id="tab-slots" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Jam Operasional & Slot Booking</h2>
+            <p class="card-desc">Atur jam buka/tutup, batas kapasitas per slot, jenis layanan, dan biaya tambahan overtime/early morning.</p>
+          </div>
+          <button class="btn btn-add" onclick="openAddSlotModal()">
+            + Tambah Slot Jam Baru
+          </button>
+        </div>
+
+        <div class="preset-box">
+          <div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);">Label Jam Operasional Studio (Header Web)</div>
+            <div style="font-size: 0.76rem; color: #71717A;">Teks yang ditampilkan kepada klien di bagian header dan selector studio.</div>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex: 1; max-width: 420px;">
+            <input type="text" id="operationalHoursInput" class="form-control" placeholder="Contoh: Buka Setiap Hari: 08:00 - 21:00 WIB">
+            <button class="btn btn-preview" onclick="updateOperationalHours()">Update</button>
+          </div>
+        </div>
+
+        <div class="preset-box" style="background: #FFFFFF; border-style: dashed;">
+          <div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);">⚡ Pengaturan Cepat (Preset):</div>
+            <div style="font-size: 0.75rem; color: #71717A;">Klik untuk menerapkan status jam slot secara instan.</div>
+          </div>
+          <div class="preset-buttons">
+            <button class="btn-preset" onclick="applyPreset('all-on')">🟢 Buka Semua Slot</button>
+            <button class="btn-preset" onclick="applyPreset('night-off')">🌙 Tutup Slot Malam (20:30 & 21:00)</button>
+            <button class="btn-preset" onclick="applyPreset('early-on')">☀️ Buka Ekstra Pagi 07:00</button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 80px;">Status</th>
+                <th>Jam Slot</th>
+                <th>Kapasitas</th>
+                <th>Layanan Diizinkan</th>
+                <th>Biaya Tambahan</th>
+                <th>Keterangan Shift</th>
+                <th style="text-align: right; width: 130px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="slotsTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: PROMO & INFORMASI STUDIO -->
+    
+    <section id="tab-promos" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Promo, Berita & Informasi Studio</h2>
+            <p class="card-desc">Kelola kartu promo diskon, berita pembaruan fasilitas, dan profil tim yang tampil pada carousel halaman utama web.</p>
+          </div>
+          <button class="btn btn-add" onclick="openAddPromoModal()">
+            + Tambah Promo / Informasi Baru
+          </button>
+        </div>
+
+        <!-- Section Title & Subtitle Customizer -->
+        <div class="preset-box" style="margin-bottom: 1.25rem;">
+          <div style="flex: 1; max-width: 480px;">
+            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);">Judul Bagian Promo di Web</div>
+            <input type="text" id="promoSectionTitleInput" class="form-control" style="margin-top: 0.35rem;" placeholder="Promo dan Informasi Alviero Studio">
+          </div>
+          <div style="flex: 1.5; max-width: 550px;">
+            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);">Teks Petunjuk (Sub-judul)</div>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.35rem;">
+              <input type="text" id="promoSectionSubInput" class="form-control" placeholder="Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:">
+              <button class="btn btn-preview" onclick="updatePromoSectionMeta()">Simpan</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Bar Promos -->
+        <div class="filter-panel">
+          <div class="filter-group">
+            <span class="filter-label">Jenis Kartu:</span>
+            <button class="pill-btn active" onclick="filterPromosKind('all', this)">Semua Kartu</button>
+            <button class="pill-btn" onclick="filterPromosKind('promo', this)">🏷️ Promo Diskon</button>
+            <button class="pill-btn" onclick="filterPromosKind('berita', this)">📰 Berita Terbaru</button>
+            <button class="pill-btn" onclick="filterPromosKind('tim', this)">👥 Tim Studio</button>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="promoSearchInput" class="search-input" placeholder="Cari promo / berita..." oninput="renderPromos()">
+          </div>
+        </div>
+
+        <!-- Promos Grid -->
+        <div class="bg-grid" id="promosGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    
+    
+    <section id="tab-history" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Sejarah, Filosofi & Dokumentasi Studio</h2>
+            <p class="card-desc">Atur teks narasi sejarah berdirinya Alviero Studio, tonggak perjalanan cabang, nilai luhur pelayanan, dan kutipan filosofis yang tampil pada pop-up resmi website.</p>
+          </div>
+          <button class="btn btn-save-local" onclick="saveHistoryConfig()">
+            💾 Simpan Sejarah & Filosofi
+          </button>
+        </div>
+
+        <!-- 1. Header Judul Popup -->
+        <div class="card" style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>✨</span> Header Pop-up Sejarah
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Label Sub-badge Atas *</label>
+              <input type="text" id="histHeaderTagInput" class="form-control" placeholder="Dokumentasi Resmi Alviero Studio">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Judul Utama Modal *</label>
+              <input type="text" id="histHeaderTitleInput" class="form-control" placeholder="Sejarah & Perjalanan Alviero Studio">
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Awal Mula Pendirian (Prologue) -->
+        <div class="card" style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>📖</span> Awal Mula Pendirian (Prolog & Filosofi Dasar)
+          </h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Label Badge Prolog *</label>
+              <input type="text" id="histPrologueBadgeInput" class="form-control" placeholder="Awal Mula Pendirian">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Judul Narasi Pendirian *</label>
+              <input type="text" id="histPrologueTitleInput" class="form-control" placeholder="Dedikasi Mengabadikan Setiap Detik Berharga Tanpa Batas Rasa Kaku">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Paragraf 1 (Latar Belakang & Konsep Segar) *</label>
+            <textarea id="histPrologueP1Input" class="form-control" rows="3" placeholder="Ceritakan alasan dan latar belakang berdirinya Alviero Studio..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Paragraf 2 (Komitmen Pelayanan & Fasilitas)</label>
+            <textarea id="histPrologueP2Input" class="form-control" rows="3" placeholder="Komitmen memberikan seluruh file asli, pengarahan pose sabar, dan tata cahaya profesional..."></textarea>
+          </div>
+        </div>
+
+        <!-- 3. Tonggak Perjalanan / Milestones -->
+        <div class="card" style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1rem;">📍</span>
+              <span style="font-size: 0.95rem; font-weight: 700; color: var(--charcoal);">Tonggak Perjalanan Alviero Studio</span>
+            </div>
+            <button class="btn btn-add" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;" onclick="openAddMilestoneModal()">
+              + Tambah Tonggak / Cabang
+            </button>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">Judul Bagian Garis Waktu</label>
+            <input type="text" id="histMilestonesSectionTitleInput" class="form-control" placeholder="Tonggak Perjalanan Alviero Studio">
+          </div>
+
+          <div id="milestonesListContainer" style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- 4. Tiga Nilai Luhur Pelayanan (Values) -->
+        <div class="card" style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.25rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>💎</span> Tiga Pilar Nilai Luhur Pelayanan
+          </h3>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">Judul Bagian Nilai Luhur</label>
+            <input type="text" id="histValuesSectionTitleInput" class="form-control" placeholder="Tiga Nilai Luhur Pelayanan Alviero Studio">
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+            <!-- Value 1 -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+              <div style="font-weight: 700; font-size: 0.85rem; color: var(--sage-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>❤️</span> Nilai 1 (Keramahan)
+              </div>
+              <div class="form-group">
+                <label class="form-label">Judul Nilai</label>
+                <input type="text" id="histVal1Title" class="form-control" placeholder="Keramahan Tulus">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Uraian Nilai</label>
+                <textarea id="histVal1Desc" class="form-control" rows="2" placeholder="Fotografer dan staf yang sabar, hangat..."></textarea>
+              </div>
+            </div>
+
+            <!-- Value 2 -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+              <div style="font-weight: 700; font-size: 0.85rem; color: var(--sage-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>🛡️</span> Nilai 2 (Kejujuran & Transparansi)
+              </div>
+              <div class="form-group">
+                <label class="form-label">Judul Nilai</label>
+                <input type="text" id="histVal2Title" class="form-control" placeholder="Transparan & Jujur">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Uraian Nilai</label>
+                <textarea id="histVal2Desc" class="form-control" rows="2" placeholder="Tidak ada biaya tersembunyi. Seluruh file asli..."></textarea>
+              </div>
+            </div>
+
+            <!-- Value 3 -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+              <div style="font-weight: 700; font-size: 0.85rem; color: var(--sage-primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                <span>⭐</span> Nilai 3 (Kualitas Hasil)
+              </div>
+              <div class="form-group">
+                <label class="form-label">Judul Nilai</label>
+                <input type="text" id="histVal3Title" class="form-control" placeholder="Kualitas Abadi">
+              </div>
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Uraian Nilai</label>
+                <textarea id="histVal3Desc" class="form-control" rows="2" placeholder="Pencahayaan presisi dan kalibrasi warna tajam..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Kutipan Filosofis Penutup -->
+        <div class="card" style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>📜</span> Kutipan Filosofis Penutup
+          </h3>
+          <div class="form-group">
+            <label class="form-label">Kalimat Kutipan (Quote) *</label>
+            <textarea id="histQuoteTextInput" class="form-control" rows="2" placeholder="Bagi kami, setiap jepretan bukan sekadar gambar..."></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Nama Pengutip / Penulis *</label>
+            <input type="text" id="histQuoteAuthorInput" class="form-control" placeholder="— Tim Manajemen Alviero Studio Foto Malang">
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+          <button class="btn btn-save-local" style="padding: 0.75rem 1.6rem; font-size: 0.92rem;" onclick="saveHistoryConfig()">
+            💾 Simpan Semua Perubahan Sejarah & Filosofi
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    
+    <!-- TAB 4: BRANCHES & CONTACTS -->
+    <section id="tab-branches" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Kontak & Informasi Cabang Studio</h2>
+            <p class="card-desc">Atur nomor WhatsApp admin, alamat resmi, dan link Google Maps untuk Studio 1 & Studio 2.</p>
+          </div>
+          <button class="btn btn-save-local" onclick="saveBranchInfo()">
+            💾 Simpan Info Cabang
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem;" id="branchesContainer">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: SYNC & DEPLOY -->
+    <section id="tab-sync" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Panduan & Sinkronisasi ke Web Internet</h2>
+            <p class="card-desc">Kirim seluruh perubahan background, jam slot, dan data studio langsung ke website internet Anda di Vercel.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="background: #FAF8F5; padding: 1.35rem; border-radius: 14px; border: 1px solid var(--border);">
+            <h3 style="font-size: 1rem; margin-bottom: 0.6rem; color: var(--charcoal);">🌐 Alur Kerja Sangat Aman & Mudah:</h3>
+            <ol style="font-size: 0.83rem; color: #52525B; line-height: 1.65; padding-left: 1.25rem;">
+              <li><strong>Edit Data:</strong> Ubah background, jam slot, atau promo sesuai kebutuhan Anda.</li>
+              <li><strong>Uji Lokal:</strong> Klik tombol <em>'Simpan ke Web Lokal'</em> dan cek di <em>'Pratinjau Web (3000)'</em>.</li>
+              <li><strong>Publikasikan:</strong> Klik tombol <em>'Publikasikan ke Web Internet'</em>. Sistem otomatis melakukan upload ke GitHub.</li>
+              <li><strong>Live:</strong> Server Vercel otomatis mengupdate website di internet dalam waktu <strong>~30-60 detik</strong>.</li>
+            </ol>
+          </div>
+
+          <div style="background: #FAF8F5; padding: 1.35rem; border-radius: 14px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <h3 style="font-size: 1rem; margin-bottom: 0.6rem; color: var(--charcoal);">🚀 Publikasi Sekali Klik:</h3>
+              <div class="form-group">
+                <label class="form-label">Catatan Perubahan (Opsional):</label>
+                <input type="text" id="customCommitMessage" class="form-control" placeholder="Contoh: Update promo wisuda dan slot jam malam">
+              </div>
+            </div>
+            <button class="btn btn-publish" style="width: 100%; justify-content: center; padding: 0.75rem;" onclick="saveAndSyncToInternet()">
+              🚀 Publikasikan Perubahan ke Internet Sekarang
+            </button>
+          </div>
+        </div>
+
+        <h3 style="font-size: 0.92rem; margin-bottom: 0.6rem; color: #52525B;">Terminal Log Sinkronisasi:</h3>
+        <div class="terminal-window" id="terminalLog">Menunggu instruksi... Klik 'Publikasikan ke Web Internet' untuk memulai pengiriman.</div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- MODAL: ADD / EDIT BACKGROUND -->
+  <div class="modal-overlay" id="bgModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="bgModalTitle">Tambah Background Baru</h3>
+        <button class="btn-close" onclick="closeModal('bgModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="bgEditIndex" value="-1">
+        
+        <div class="form-group">
+          <label class="form-label">Nama Background *</label>
+          <input type="text" id="bgNameInput" class="form-control" placeholder="Contoh: Ivory Mediterania">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Warna Hex & Pemilih Warna *</label>
+          <div class="color-picker-row">
+            <input type="color" id="bgColorPicker" class="color-picker-input" value="#A9BCA7" onchange="syncColorInput(this.value)">
+            <input type="text" id="bgHexInput" class="form-control" value="#A9BCA7" placeholder="#A9BCA7" oninput="syncColorPicker(this.value)">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">URL Foto Preview *</label>
+          <input type="text" id="bgImageInput" class="form-control" placeholder="https://images.unsplash.com/... atau /images/..." oninput="previewBgImage(this.value)">
+          <div id="imagePreviewBox" style="margin-top: 0.6rem; height: 120px; border-radius: 10px; background-size: cover; background-position: center; border: 1px solid var(--border); display: none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Deskripsi Singkat</label>
+          <input type="text" id="bgDescInput" class="form-control" placeholder="Contoh: Latar natural hangat untuk hasil foto elegan.">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Berlaku untuk Studio / Cabang: *</label>
+          <div class="checkbox-row">
+            <label class="checkbox-item">
+              <input type="checkbox" id="bgBranch1" checked> Studio 1 (Junrejo)
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="bgBranch2" checked> Studio 2 (Dinoyo)
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Berlaku untuk Layanan: *</label>
+          <div class="checkbox-row">
+            <label class="checkbox-item">
+              <input type="checkbox" id="bgServicePro" checked> Studio Foto (Pro Studio)
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="bgServiceSelf" checked> Self Studio
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('bgModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveBackgroundItem()">Simpan Background</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT TIME SLOT -->
+  <div class="modal-overlay" id="slotModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="slotModalTitle">Tambah Slot Jam Baru</h3>
+        <button class="btn-close" onclick="closeModal('slotModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="slotEditIndex" value="-1">
+
+        <div class="form-group">
+          <label class="form-label">Waktu Slot (Format HH:MM) *</label>
+          <input type="text" id="slotTimeInput" class="form-control" placeholder="Contoh: 07:30 atau 21:30">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Kapasitas Maksimal Klien Bersamaan *</label>
+          <select id="slotCapacityInput" class="form-control">
+            <option value="2">2 Klien (Shift Pagi / Terbatas)</option>
+            <option value="3" selected>3 Klien (Shift Reguler / Standar)</option>
+            <option value="1">1 Klien (Eksklusif)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Layanan yang Diizinkan *</label>
+          <select id="slotServicesInput" class="form-control">
+            <option value="indoor,outdoor">Foto Studio (Indoor) & Outdoor</option>
+            <option value="outdoor">Khusus Foto Outdoor Saja</option>
+            <option value="indoor">Khusus Foto Studio (Indoor) Saja</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Biaya Tambahan (Early Charge / Overtime)</label>
+          <select id="slotChargeSelect" class="form-control" onchange="toggleCustomCharge(this.value)">
+            <option value="0">Rp 0 (Bebas Biaya Tambahan)</option>
+            <option value="35000">Rp 35.000 (Standar Overtime / Early Charge)</option>
+            <option value="custom">Nominal Kustom...</option>
+          </select>
+          <input type="number" id="slotCustomChargeInput" class="form-control" style="margin-top: 0.5rem; display:none;" placeholder="Masukkan nominal (contoh: 50000)">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keterangan / Nama Shift</label>
+          <input type="text" id="slotShiftNameInput" class="form-control" placeholder="Contoh: Shift Gabungan (Maks. 3 Klien)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('slotModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveSlotItem()">Simpan Slot</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT PROMO / BERITA / TIM -->
+  <div class="modal-overlay" id="promoModal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="promoModalTitle">Tambah Promo / Informasi Baru</h3>
+        <button class="btn-close" onclick="closeModal('promoModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: 75vh; overflow-y: auto;">
+        <input type="hidden" id="promoEditIndex" value="-1">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Jenis Konten *</label>
+            <select id="promoKindSelect" class="form-control" onchange="handlePromoKindChange(this.value)">
+              <option value="promo">🏷️ Promo Diskon / Kupon</option>
+              <option value="berita">📰 Berita & Pembaruan Studio</option>
+              <option value="tim">👥 Tim Alviero Studio</option>
+            </select>
+          </div>
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 0.5rem;">
+            <label class="checkbox-item" style="font-weight: 700; color: var(--charcoal);">
+              <input type="checkbox" id="promoActiveCheckbox" checked>
+              <span>Tampilkan di Web (Aktif)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Judul Utama Kartu *</label>
+          <input type="text" id="promoTitleInput" class="form-control" placeholder="Contoh: Promo Spesial Wisuda: Diskon 10% All Package">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Kategori / Label Kecil Atas *</label>
+            <input type="text" id="promoCategoryInput" class="form-control" placeholder="Contoh: WISUDA & MAHASISWA">
+          </div>
+          <div class="form-group">
+            <label class="form-label" id="promoCodeLabel">Kode Kupon / Label Tag *</label>
+            <input type="text" id="promoCodeInput" class="form-control" placeholder="Contoh: STUDENT10">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Badge Pojok Kiri Atas Gambar *</label>
+            <input type="text" id="promoBadgeInput" class="form-control" placeholder="Contoh: DISKON 10% atau BERITA TERBARU">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Keterangan Pojok Kanan Atas Gambar *</label>
+            <input type="text" id="promoPeriodInput" class="form-control" placeholder="Contoh: Berlaku Setiap Hari • Kuota Terbatas">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Highlight Teks Bawah Gambar (Bar Banner) *</label>
+          <input type="text" id="promoDiscountHighlightInput" class="form-control" placeholder="Contoh: Potongan 10% Total Transaksi">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">URL Gambar / Foto *</label>
+          <input type="text" id="promoImageUrlInput" class="form-control" placeholder="/images/categories/graduation.jpg atau https://images.unsplash.com/..." oninput="previewPromoImage(this.value)">
+          <div id="promoImagePreviewBox" style="margin-top: 0.6rem; height: 130px; border-radius: 12px; background-size: cover; background-position: center; border: 1px solid var(--border); display: none;"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Deskripsi Singkat (Tampil di Kartu Carousel) *</label>
+          <textarea id="promoShortDescInput" class="form-control" rows="2" placeholder="Ringkasan 1-2 baris yang langsung dibaca pengunjung pada kartu..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Deskripsi Lengkap (Tampil di Popup Saat Kartu Diklik)</label>
+          <textarea id="promoFullDescInput" class="form-control" rows="3" placeholder="Penjelasan rinci isi promo atau berita..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Syarat & Ketentuan (1 Baris per Poin)</label>
+            <textarea id="promoTermsInput" class="form-control" rows="3" placeholder="Berlaku untuk Studio 1 & 2&#10;Tunjukkan KTM saat registrasi&#10;Khusus booking online"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cara Pakai / Klaim (1 Baris per Poin)</label>
+            <textarea id="promoHowToUseInput" class="form-control" rows="3" placeholder="Salin kode kupon&#10;Pilih paket pada web&#10;Diskon langsung terpotong"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ID Paket Terpilih Otomatis (Opsional)</label>
+          <input type="text" id="promoPreselectedPackageInput" class="form-control" placeholder="Contoh: grad-indoor-1, couple-1, selfstudio-special (opsional)">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('promoModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="savePromoItem()">Simpan Kartu</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- MODAL: ADD / EDIT MILESTONE -->
+  <div class="modal-overlay" id="milestoneModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="milestoneModalTitle">Tambah Tonggak Perjalanan Baru</h3>
+        <button class="btn-close" onclick="closeModal('milestoneModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="milestoneEditIndex" value="-1">
+
+        <div class="form-group">
+          <label class="form-label">Judul Tonggak / Peristiwa *</label>
+          <input type="text" id="milestoneTitleInput" class="form-control" placeholder="Contoh: Lahirnya Alviero Studio 1 — Junrejo">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Teks Badge / Label *</label>
+            <input type="text" id="milestoneBadgeInput" class="form-control" placeholder="Contoh: Cabang Pertama (Pusat)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Warna / Tema Badge *</label>
+            <select id="milestoneBadgeStyleSelect" class="form-control">
+              <option value="green">🟢 Sage Green (Pusat / Alami)</option>
+              <option value="dark">⚫ Charcoal Black (Modern / Pusat Kota)</option>
+              <option value="amber">🟠 Amber Gold (Prestasi / Kepercayaan)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pilihan Ikon *</label>
+          <select id="milestoneIconSelect" class="form-control">
+            <option value="pin">📍 Pin Lokasi (Cabang Studio)</option>
+            <option value="sparkles">✨ Sparkles (Ekspansi & Fasilitas)</option>
+            <option value="award">🏆 Trophy / Award (Pencapaian & Klien)</option>
+            <option value="camera">📷 Kamera (Studio & Fotografi)</option>
+            <option value="users">👥 Users (Tim & Komunitas)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Uraian / Deskripsi Tonggak *</label>
+          <textarea id="milestoneDescInput" class="form-control" rows="3" placeholder="Ceritakan peristiwa atau fasilitas yang dihadirkan pada momen ini..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('milestoneModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveMilestoneItem()">Simpan Tonggak</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Toast Notification Element -->
+  <div class="toast" id="toastBox">
+    <span id="toastIcon">💾</span>
+    <span id="toastMessage">Pesan notifikasi</span>
+  </div>
+
+  <script>
+
+    let currentPromoKindFilter = 'all';
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    
+    
+    /* LAYANAN & PRICELIST LOGIC */
+    function renderHistory() {
+      if (!appConfig) return;
+      const hist = appConfig.history || {};
+
+      // Header
+      const header = hist.header || {};
+      const tagEl = document.getElementById('histHeaderTagInput');
+      const titleEl = document.getElementById('histHeaderTitleInput');
+      if (tagEl) tagEl.value = header.tag || 'Dokumentasi Resmi Alviero Studio';
+      if (titleEl) titleEl.value = header.title || 'Sejarah & Perjalanan Alviero Studio';
+
+      // Prologue
+      const prologue = hist.prologue || {};
+      const pBadgeEl = document.getElementById('histPrologueBadgeInput');
+      const pTitleEl = document.getElementById('histPrologueTitleInput');
+      const p1El = document.getElementById('histPrologueP1Input');
+      const p2El = document.getElementById('histPrologueP2Input');
+      if (pBadgeEl) pBadgeEl.value = prologue.badge || 'Awal Mula Pendirian';
+      if (pTitleEl) pTitleEl.value = prologue.title || '';
+      if (p1El) p1El.value = prologue.paragraph1 || '';
+      if (p2El) p2El.value = prologue.paragraph2 || '';
+
+      // Milestones Section Title
+      const mTitleEl = document.getElementById('histMilestonesSectionTitleInput');
+      if (mTitleEl) mTitleEl.value = hist.milestonesSectionTitle || 'Tonggak Perjalanan Alviero Studio';
+
+      // Milestones List
+      renderMilestonesList();
+
+      // Values Section Title
+      const vTitleEl = document.getElementById('histValuesSectionTitleInput');
+      if (vTitleEl) vTitleEl.value = hist.valuesSectionTitle || 'Tiga Nilai Luhur Pelayanan Alviero Studio';
+
+      // Values (3 values)
+      const values = hist.values || [];
+      const val1 = values[0] || {};
+      const val2 = values[1] || {};
+      const val3 = values[2] || {};
+
+      const v1Title = document.getElementById('histVal1Title');
+      const v1Desc = document.getElementById('histVal1Desc');
+      if (v1Title) v1Title.value = val1.title || 'Keramahan Tulus';
+      if (v1Desc) v1Desc.value = val1.description || '';
+
+      const v2Title = document.getElementById('histVal2Title');
+      const v2Desc = document.getElementById('histVal2Desc');
+      if (v2Title) v2Title.value = val2.title || 'Transparan & Jujur';
+      if (v2Desc) v2Desc.value = val2.description || '';
+
+      const v3Title = document.getElementById('histVal3Title');
+      const v3Desc = document.getElementById('histVal3Desc');
+      if (v3Title) v3Title.value = val3.title || 'Kualitas Abadi';
+      if (v3Desc) v3Desc.value = val3.description || '';
+
+      // Quote
+      const quote = hist.quote || {};
+      const qText = document.getElementById('histQuoteTextInput');
+      const qAuthor = document.getElementById('histQuoteAuthorInput');
+      if (qText) qText.value = quote.text || '';
+      if (qAuthor) qAuthor.value = quote.author || '';
+    }
+
+    function renderMilestonesList() {
+      const container = document.getElementById('milestonesListContainer');
+      if (!container || !appConfig) return;
+      container.innerHTML = '';
+
+      if (!appConfig.history) appConfig.history = {};
+      const milestones = appConfig.history.milestones || [];
+
+      if (milestones.length === 0) {
+        container.innerHTML = '<div style="padding: 1.5rem; text-align: center; color: #78716C; background: #FAF9F7; border-radius: 10px; border: 1px dashed var(--border);">Belum ada tonggak perjalanan. Klik tombol di atas untuk menambah.</div>';
+        return;
+      }
+
+      milestones.forEach((m, idx) => {
+        const row = document.createElement('div');
+        row.className = 'milestone-item-row';
+
+        const iconSymbol = m.icon === 'sparkles' ? '✨' : m.icon === 'award' ? '🏆' : m.icon === 'camera' ? '📷' : m.icon === 'users' ? '👥' : '📍';
+        const badgeClass = m.badgeStyle || 'green';
+
+        row.innerHTML = `
+          <div style="display: flex; gap: 0.85rem; align-items: flex-start; flex: 1;">
+            <div style="width: 36px; height: 36px; border-radius: 10px; background: #F4F4F5; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; shrink: 0;">
+              ${iconSymbol}
+            </div>
+            <div style="flex: 1;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+                <span style="font-weight: 700; font-size: 0.9rem; color: var(--charcoal);">${escapeHtml(m.title)}</span>
+                ${m.badge ? `<span class="milestone-badge-pill ${badgeClass}">${escapeHtml(m.badge)}</span>` : ''}
+              </div>
+              <p style="font-size: 0.78rem; color: #52525B; line-height: 1.45; margin: 0;">
+                ${escapeHtml(m.description)}
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.3rem; align-items: center; shrink: 0;">
+            ${idx > 0 ? `<button class="btn-icon-sm" onclick="moveMilestone(${idx}, -1)" title="Geser ke Atas">↑</button>` : ''}
+            ${idx < milestones.length - 1 ? `<button class="btn-icon-sm" onclick="moveMilestone(${idx}, 1)" title="Geser ke Bawah">↓</button>` : ''}
+            <button class="btn-icon-sm" onclick="openEditMilestoneModal(${idx})" title="Edit Tonggak">✏️</button>
+            <button class="btn-icon-sm delete" onclick="deleteMilestone(${idx})" title="Hapus Tonggak">🗑️</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function openAddMilestoneModal() {
+      document.getElementById('milestoneEditIndex').value = '-1';
+      document.getElementById('milestoneModalTitle').textContent = 'Tambah Tonggak Perjalanan Baru';
+      document.getElementById('milestoneTitleInput').value = '';
+      document.getElementById('milestoneBadgeInput').value = '';
+      document.getElementById('milestoneBadgeStyleSelect').value = 'green';
+      document.getElementById('milestoneIconSelect').value = 'pin';
+      document.getElementById('milestoneDescInput').value = '';
+      openModal('milestoneModal');
+    }
+
+    function openEditMilestoneModal(idx) {
+      if (!appConfig || !appConfig.history || !appConfig.history.milestones) return;
+      const m = appConfig.history.milestones[idx];
+      if (!m) return;
+
+      document.getElementById('milestoneEditIndex').value = idx;
+      document.getElementById('milestoneModalTitle').textContent = 'Edit Tonggak: ' + m.title;
+      document.getElementById('milestoneTitleInput').value = m.title || '';
+      document.getElementById('milestoneBadgeInput').value = m.badge || '';
+      document.getElementById('milestoneBadgeStyleSelect').value = m.badgeStyle || 'green';
+      document.getElementById('milestoneIconSelect').value = m.icon || 'pin';
+      document.getElementById('milestoneDescInput').value = m.description || '';
+      openModal('milestoneModal');
+    }
+
+    function saveMilestoneItem() {
+      const editIndex = parseInt(document.getElementById('milestoneEditIndex').value, 10);
+      const title = document.getElementById('milestoneTitleInput').value.trim();
+      const badge = document.getElementById('milestoneBadgeInput').value.trim();
+      const badgeStyle = document.getElementById('milestoneBadgeStyleSelect').value;
+      const icon = document.getElementById('milestoneIconSelect').value;
+      const description = document.getElementById('milestoneDescInput').value.trim();
+
+      if (!title || !description) {
+        alert('Harap isi Judul Tonggak dan Deskripsi!');
+        return;
+      }
+
+      if (!appConfig.history) appConfig.history = {};
+      if (!appConfig.history.milestones) appConfig.history.milestones = [];
+
+      const itemData = {
+        id: editIndex >= 0 ? appConfig.history.milestones[editIndex].id : ('milestone-' + Date.now()),
+        icon,
+        title,
+        badge,
+        badgeStyle,
+        description
+      };
+
+      if (editIndex >= 0) {
+        appConfig.history.milestones[editIndex] = itemData;
+      } else {
+        appConfig.history.milestones.push(itemData);
+      }
+
+      closeModal('milestoneModal');
+      renderMilestonesList();
+      saveConfigLocally();
+      showToast(editIndex >= 0 ? 'Tonggak perjalanan berhasil diperbarui!' : 'Tonggak baru berhasil ditambahkan!');
+    }
+
+    function deleteMilestone(idx) {
+      if (!appConfig || !appConfig.history || !appConfig.history.milestones) return;
+      const m = appConfig.history.milestones[idx];
+      if (!m) return;
+      if (!confirm(`Hapus tonggak '${m.title}'?`)) return;
+
+      appConfig.history.milestones.splice(idx, 1);
+      renderMilestonesList();
+      saveConfigLocally();
+      showToast(`Tonggak '${m.title}' berhasil dihapus!`, '🗑️');
+    }
+
+    function moveMilestone(idx, direction) {
+      if (!appConfig || !appConfig.history || !appConfig.history.milestones) return;
+      const list = appConfig.history.milestones;
+      const targetIdx = idx + direction;
+      if (targetIdx < 0 || targetIdx >= list.length) return;
+
+      const temp = list[idx];
+      list[idx] = list[targetIdx];
+      list[targetIdx] = temp;
+
+      renderMilestonesList();
+      saveConfigLocally(true);
+      showToast('Urutan tonggak diperbarui!');
+    }
+
+    function saveHistoryConfig() {
+      if (!appConfig) return;
+      if (!appConfig.history) appConfig.history = {};
+
+      const tag = (document.getElementById('histHeaderTagInput')?.value || '').trim();
+      const title = (document.getElementById('histHeaderTitleInput')?.value || '').trim();
+
+      const pBadge = (document.getElementById('histPrologueBadgeInput')?.value || '').trim();
+      const pTitle = (document.getElementById('histPrologueTitleInput')?.value || '').trim();
+      const p1 = (document.getElementById('histPrologueP1Input')?.value || '').trim();
+      const p2 = (document.getElementById('histPrologueP2Input')?.value || '').trim();
+
+      const mSecTitle = (document.getElementById('histMilestonesSectionTitleInput')?.value || '').trim();
+      const vSecTitle = (document.getElementById('histValuesSectionTitleInput')?.value || '').trim();
+
+      const v1Title = (document.getElementById('histVal1Title')?.value || '').trim();
+      const v1Desc = (document.getElementById('histVal1Desc')?.value || '').trim();
+      const v2Title = (document.getElementById('histVal2Title')?.value || '').trim();
+      const v2Desc = (document.getElementById('histVal2Desc')?.value || '').trim();
+      const v3Title = (document.getElementById('histVal3Title')?.value || '').trim();
+      const v3Desc = (document.getElementById('histVal3Desc')?.value || '').trim();
+
+      const qText = (document.getElementById('histQuoteTextInput')?.value || '').trim();
+      const qAuthor = (document.getElementById('histQuoteAuthorInput')?.value || '').trim();
+
+      appConfig.history = {
+        header: {
+          tag: tag || 'Dokumentasi Resmi Alviero Studio',
+          title: title || 'Sejarah & Perjalanan Alviero Studio'
+        },
+        prologue: {
+          badge: pBadge || 'Awal Mula Pendirian',
+          title: pTitle || 'Dedikasi Mengabadikan Setiap Detik Berharga Tanpa Batas Rasa Kaku',
+          paragraph1: p1,
+          paragraph2: p2
+        },
+        milestonesSectionTitle: mSecTitle || 'Tonggak Perjalanan Alviero Studio',
+        milestones: appConfig.history.milestones || [],
+        valuesSectionTitle: vSecTitle || 'Tiga Nilai Luhur Pelayanan Alviero Studio',
+        values: [
+          { id: 'value-1', icon: 'heart', title: v1Title || 'Keramahan Tulus', description: v1Desc },
+          { id: 'value-2', icon: 'shield', title: v2Title || 'Transparan & Jujur', description: v2Desc },
+          { id: 'value-3', icon: 'star', title: v3Title || 'Kualitas Abadi', description: v3Desc }
+        ],
+        quote: {
+          text: qText,
+          author: qAuthor
+        }
+      };
+
+      saveConfigLocally();
+      showToast('Sejarah & filosofi studio berhasil disimpan!');
+    }
+
+    /* PROMOS, NEWS & TEAM MANAGER LOGIC */
+    function renderPromos() {
+      const container = document.getElementById('promosGrid');
+      if (!container || !appConfig) return;
+      const search = (document.getElementById('promoSearchInput')?.value || '').toLowerCase().trim();
+      container.innerHTML = '';
+
+      const promos = (appConfig.promos || []).filter((p, idx) => {
+        p._origIndex = idx;
+        if (currentPromoKindFilter !== 'all' && p.kind !== currentPromoKindFilter) return false;
+        if (search) {
+          const matchTitle = (p.title || '').toLowerCase().includes(search);
+          const matchDesc = (p.shortDesc || '').toLowerCase().includes(search);
+          const matchCat = (p.category || '').toLowerCase().includes(search);
+          const matchCode = (p.code || '').toLowerCase().includes(search);
+          if (!matchTitle && !matchDesc && !matchCat && !matchCode) return false;
+        }
+        return true;
+      });
+
+      if (promos.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 2.5rem; text-align: center; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 16px;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎁</div>
+            <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 0.25rem;">Tidak Ada Promo atau Berita Ditemukan</div>
+            <div style="font-size: 0.84rem; color: #78716C;">Klik tombol "+ Tambah Promo / Informasi Baru" untuk menambahkan kartu baru.</div>
+          </div>
+        `;
+        return;
+      }
+
+      promos.forEach(p => {
+        const origIdx = p._origIndex;
+        const isAct = p.active !== false;
+        const kindIcon = p.kind === 'berita' ? '📰' : p.kind === 'tim' ? '👥' : '🏷️';
+        const tagCodePrefix = p.kind === 'berita' ? 'INFO:' : p.kind === 'tim' ? 'PROFIL:' : 'KODE:';
+
+        const card = document.createElement('div');
+        card.className = 'promo-item-card' + (isAct ? '' : ' inactive-promo');
+        card.innerHTML = `
+          <div class="promo-card-image-wrap">
+            <img src="${escapeHtml(p.imageUrl || '/images/categories/selfphoto.jpg')}" alt="${escapeHtml(p.title)}" onerror="this.src='/images/categories/selfphoto.jpg'">
+            <div class="promo-image-badge-top-left">${kindIcon} ${escapeHtml(p.badge || 'PROMO')}</div>
+            ${p.period ? `<div class="promo-image-badge-top-right">${escapeHtml(p.period)}</div>` : ''}
+            ${p.discountHighlight ? `<div class="promo-image-highlight-bar"><span>✨</span> ${escapeHtml(p.discountHighlight)}</div>` : ''}
+          </div>
+          <div class="promo-card-body">
+            <div class="promo-card-meta">
+              <span class="promo-category-tag">${escapeHtml(p.category || 'INFORMASI')}</span>
+              <span class="status-indicator ${isAct ? 'online' : 'offline'}">${isAct ? '● Aktif di Web' : '○ Disembunyikan'}</span>
+            </div>
+            <h3 class="promo-card-title">${escapeHtml(p.title)}</h3>
+            <p class="promo-card-desc">${escapeHtml(p.shortDesc || '')}</p>
+            <div class="promo-card-footer">
+              <div class="promo-code-pill" title="Kode atau Tipe">
+                <span class="promo-code-label">${tagCodePrefix}</span>
+                <strong>${escapeHtml(p.code || '-')}</strong>
+              </div>
+              <div class="promo-card-actions">
+                <button class="btn-action-toggle ${isAct ? 'btn-active' : 'btn-inactive'}" onclick="togglePromoActive(${origIdx})" title="${isAct ? 'Klik untuk sembunyikan dari web' : 'Klik untuk tampilkan di web'}">
+                  ${isAct ? '👁️ Tampil' : '🙈 Tutup'}
+                </button>
+                <button class="btn-icon-sm" onclick="openEditPromoModal(${origIdx})" title="Edit Kartu">✏️</button>
+                <button class="btn-icon-sm delete" onclick="deletePromo(${origIdx})" title="Hapus Kartu">🗑️</button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterPromosKind(kind, btn) {
+      currentPromoKindFilter = kind;
+      if (btn && btn.parentElement) {
+        btn.parentElement.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderPromos();
+    }
+
+    function togglePromoActive(index) {
+      if (!appConfig || !appConfig.promos || !appConfig.promos[index]) return;
+      const p = appConfig.promos[index];
+      p.active = p.active === false ? true : false;
+      renderPromos();
+      saveConfigLocally(true);
+      showToast(`Status '${p.title}' diubah: ${p.active ? 'Aktif di Web' : 'Disembunyikan'}`, p.active ? '👁️' : '🙈');
+    }
+
+    function openAddPromoModal() {
+      document.getElementById('promoEditIndex').value = '-1';
+      document.getElementById('promoModalTitle').textContent = 'Tambah Promo / Informasi Baru';
+      document.getElementById('promoKindSelect').value = 'promo';
+      document.getElementById('promoActiveCheckbox').checked = true;
+      document.getElementById('promoTitleInput').value = '';
+      document.getElementById('promoCategoryInput').value = '';
+      document.getElementById('promoCodeInput').value = '';
+      document.getElementById('promoBadgeInput').value = 'DISKON 10%';
+      document.getElementById('promoPeriodInput').value = 'Berlaku Setiap Hari • Kuota Terbatas';
+      document.getElementById('promoDiscountHighlightInput').value = 'Potongan 10% Total Transaksi';
+      document.getElementById('promoImageUrlInput').value = '/images/categories/selfphoto.jpg';
+      document.getElementById('promoShortDescInput').value = '';
+      document.getElementById('promoFullDescInput').value = '';
+      document.getElementById('promoTermsInput').value = 'Berlaku untuk pemesanan online via website Alviero Studio.\nKuota voucher promo terbatas setiap harinya.\nTidak dapat digabungkan dengan promo sejenis lainnya.';
+      document.getElementById('promoHowToUseInput').value = 'Salin kode kupon promo.\nTekan tombol reservasi atau booking.\nKode akan otomatis memotong total biaya.';
+      document.getElementById('promoPreselectedPackageInput').value = '';
+      
+      handlePromoKindChange('promo');
+      previewPromoImage('/images/categories/selfphoto.jpg');
+      openModal('promoModal');
+    }
+
+    function openEditPromoModal(index) {
+      if (!appConfig || !appConfig.promos || !appConfig.promos[index]) return;
+      const p = appConfig.promos[index];
+      document.getElementById('promoEditIndex').value = index;
+      document.getElementById('promoModalTitle').textContent = 'Edit Promo / Informasi';
+      document.getElementById('promoKindSelect').value = p.kind || 'promo';
+      document.getElementById('promoActiveCheckbox').checked = p.active !== false;
+      document.getElementById('promoTitleInput').value = p.title || '';
+      document.getElementById('promoCategoryInput').value = p.category || '';
+      document.getElementById('promoCodeInput').value = p.code || '';
+      document.getElementById('promoBadgeInput').value = p.badge || '';
+      document.getElementById('promoPeriodInput').value = p.period || '';
+      document.getElementById('promoDiscountHighlightInput').value = p.discountHighlight || '';
+      document.getElementById('promoImageUrlInput').value = p.imageUrl || '';
+      document.getElementById('promoShortDescInput').value = p.shortDesc || '';
+      document.getElementById('promoFullDescInput').value = p.fullDesc || '';
+      document.getElementById('promoTermsInput').value = Array.isArray(p.terms) ? p.terms.join('\n') : (p.terms || '');
+      document.getElementById('promoHowToUseInput').value = Array.isArray(p.howToUse) ? p.howToUse.join('\n') : (p.howToUse || '');
+      document.getElementById('promoPreselectedPackageInput').value = p.preselectedPackageId || '';
+
+      handlePromoKindChange(p.kind || 'promo');
+      previewPromoImage(p.imageUrl || '');
+      openModal('promoModal');
+    }
+
+    function handlePromoKindChange(kind) {
+      const codeLabel = document.getElementById('promoCodeLabel');
+      const codeInput = document.getElementById('promoCodeInput');
+      if (kind === 'berita') {
+        codeLabel.textContent = 'Label Tag Berita *';
+        if (!codeInput.value || codeInput.value === 'STUDENT10' || codeInput.value === 'TEAM') codeInput.value = 'INFO';
+      } else if (kind === 'tim') {
+        codeLabel.textContent = 'Label Tag Tim *';
+        if (!codeInput.value || codeInput.value === 'STUDENT10' || codeInput.value === 'INFO') codeInput.value = 'TEAM';
+      } else {
+        codeLabel.textContent = 'Kode Kupon / Voucher *';
+        if (!codeInput.value || codeInput.value === 'INFO' || codeInput.value === 'TEAM') codeInput.value = 'PROMO10';
+      }
+    }
+
+    function previewPromoImage(url) {
+      const box = document.getElementById('promoImagePreviewBox');
+      if (!box) return;
+      if (url && url.trim()) {
+        box.style.display = 'block';
+        box.style.backgroundImage = `url('${url.trim()}')`;
+      } else {
+        box.style.display = 'none';
+      }
+    }
+
+    function savePromoItem() {
+      const editIndex = parseInt(document.getElementById('promoEditIndex').value, 10);
+      const kind = document.getElementById('promoKindSelect').value;
+      const active = document.getElementById('promoActiveCheckbox').checked;
+      const title = document.getElementById('promoTitleInput').value.trim();
+      const category = document.getElementById('promoCategoryInput').value.trim();
+      const code = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+      const badge = document.getElementById('promoBadgeInput').value.trim();
+      const period = document.getElementById('promoPeriodInput').value.trim();
+      const discountHighlight = document.getElementById('promoDiscountHighlightInput').value.trim();
+      const imageUrl = document.getElementById('promoImageUrlInput').value.trim();
+      const shortDesc = document.getElementById('promoShortDescInput').value.trim();
+      const fullDesc = document.getElementById('promoFullDescInput').value.trim();
+      const termsRaw = document.getElementById('promoTermsInput').value;
+      const howToUseRaw = document.getElementById('promoHowToUseInput').value;
+      const preselectedPackageId = document.getElementById('promoPreselectedPackageInput').value.trim();
+
+      if (!title || !category || !imageUrl) {
+        alert('Harap lengkapi Judul, Kategori, dan URL Gambar!');
+        return;
+      }
+
+      const terms = termsRaw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+      const howToUse = howToUseRaw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+
+      if (!appConfig.promos) appConfig.promos = [];
+
+      const promoData = {
+        id: editIndex >= 0 ? appConfig.promos[editIndex].id : ('promo-' + Date.now()),
+        kind,
+        code: code || (kind === 'berita' ? 'INFO' : kind === 'tim' ? 'TEAM' : 'PROMO'),
+        badge: badge || (kind === 'berita' ? 'BERITA TERBARU' : kind === 'tim' ? 'TIM ALVIERO' : 'PROMO'),
+        category,
+        title,
+        shortDesc,
+        fullDesc: fullDesc || shortDesc,
+        discountHighlight: discountHighlight || (kind === 'berita' ? 'Pembaruan Studio' : 'Penawaran Spesial'),
+        period: period || 'Informasi Studio',
+        imageUrl,
+        terms,
+        howToUse,
+        active
+      };
+
+      if (preselectedPackageId) {
+        promoData.preselectedPackageId = preselectedPackageId;
+      }
+
+      if (editIndex >= 0) {
+        appConfig.promos[editIndex] = promoData;
+      } else {
+        appConfig.promos.push(promoData);
+      }
+
+      closeModal('promoModal');
+      renderPromos();
+      document.getElementById('promoCountBadge').textContent = appConfig.promos.length;
+      saveConfigLocally();
+      showToast(editIndex >= 0 ? 'Kartu promo berhasil diperbarui!' : 'Kartu promo baru berhasil ditambahkan!');
+    }
+
+    function deletePromo(index) {
+      if (!appConfig || !appConfig.promos || !appConfig.promos[index]) return;
+      const p = appConfig.promos[index];
+      if (!confirm(`Hapus kartu '${p.title}' dari daftar promo?`)) return;
+
+      appConfig.promos.splice(index, 1);
+      renderPromos();
+      document.getElementById('promoCountBadge').textContent = appConfig.promos.length;
+      saveConfigLocally();
+      showToast(`Kartu '${p.title}' berhasil dihapus!`, '🗑️');
+    }
+
+    function updatePromoSectionMeta() {
+      if (!appConfig) return;
+      const title = (document.getElementById('promoSectionTitleInput')?.value || '').trim();
+      const subtitle = (document.getElementById('promoSectionSubInput')?.value || '').trim();
+
+      if (!appConfig.promoSection) {
+        appConfig.promoSection = {
+          tag: "PROMO & INFORMASI",
+          badge: "Terbatas"
+        };
+      }
+      appConfig.promoSection.title = title || 'Promo dan Informasi Alviero Studio';
+      appConfig.promoSection.subtitle = subtitle || 'Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:';
+
+      saveConfigLocally();
+      showToast('Judul bagian promo berhasil diperbarui!');
+    }
+
+
+    let appConfig = null;
+    let currentBranchFilter = 'all';
+    let currentServiceFilter = 'all';
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('/api/config');
+        const data = await res.json();
+        if (data.success && data.data) {
+          appConfig = data.data;
+          renderAll();
+          checkGitStatus();
+        } else {
+          showToast('Gagal memuat konfigurasi: ' + (data.error || 'Unknown'), '❌');
+        }
+      } catch (err) {
+        showToast('Koneksi ke server admin gagal: ' + err.message, '❌');
+      }
+    }
+
+    function renderAll() {
+      if (!appConfig) return;
+      document.getElementById('bgCountBadge').textContent = (appConfig.backgrounds || []).length;
+      document.getElementById('slotCountBadge').textContent = (appConfig.timeSlots || []).length;
+      const promoBadge = document.getElementById('promoCountBadge');
+      if (promoBadge) promoBadge.textContent = (appConfig.promos || []).length;
+      if (appConfig.promoSection) {
+        const titleInput = document.getElementById('promoSectionTitleInput');
+        const subInput = document.getElementById('promoSectionSubInput');
+        if (titleInput) titleInput.value = appConfig.promoSection.title || 'Promo dan Informasi Alviero Studio';
+        if (subInput) subInput.value = appConfig.promoSection.subtitle || 'Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:';
+      }
+      document.getElementById('operationalHoursInput').value = appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
+
+      renderBackgrounds();
+      renderSlots();
+      
+      renderPromos();
+      renderHistory();
+      renderBranches();
+    }
+
+    function renderBackgrounds() {
+      const container = document.getElementById('backgroundsGrid');
+      const searchQuery = (document.getElementById('bgSearchInput').value || '').toLowerCase().trim();
+      container.innerHTML = '';
+
+      const items = (appConfig.backgrounds || []).filter((bg, idx) => {
+        bg._origIndex = idx;
+        if (currentBranchFilter !== 'all') {
+          if (!bg.applicableBranches || !bg.applicableBranches.includes(currentBranchFilter)) return false;
+        }
+        if (currentServiceFilter !== 'all') {
+          if (!bg.applicableTo || !bg.applicableTo.includes(currentServiceFilter)) return false;
+        }
+        if (searchQuery) {
+          return bg.name.toLowerCase().includes(searchQuery) || (bg.description || '').toLowerCase().includes(searchQuery);
+        }
+        return true;
+      });
+
+      if (items.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 3.5rem 1rem; color: #A1A1AA;">🔍 Tidak ada background yang cocok dengan filter.</div>';
+        return;
+      }
+
+      items.forEach(bg => {
+        const isInactive = bg.active === false;
+        const card = document.createElement('div');
+        card.className = 'bg-card' + (isInactive ? ' inactive' : '');
+
+        let branchTagHtml = '';
+        const branches = bg.applicableBranches || [];
+        if (branches.includes('cabang-1') && branches.includes('cabang-2')) {
+          branchTagHtml = '<span class="badge-branch-tag badge-branch-both">Studio 1 & 2</span>';
+        } else if (branches.includes('cabang-2')) {
+          branchTagHtml = '<span class="badge-branch-tag badge-branch-2">Studio 2 (Dinoyo)</span>';
+        } else {
+          branchTagHtml = '<span class="badge-branch-tag badge-branch-1">Studio 1 (Junrejo)</span>';
+        }
+
+        const statusTagHtml = isInactive 
+          ? '<span class="status-indicator-chip inactive">⚪ Disembunyikan</span>'
+          : '<span class="status-indicator-chip active">🟢 Aktif di Web</span>';
+
+        card.innerHTML = `
+          <div class="bg-photo-area" style="background-image: url('${bg.previewImage || ''}');">
+            <div class="bg-photo-gradient"></div>
+            ${branchTagHtml}
+            ${statusTagHtml}
+          </div>
+          <div class="bg-content-area">
+            <div class="bg-main-row">
+              <div class="bg-title-wrap">
+                <div class="color-swatch-circle" style="background-color: ${bg.hex || '#E5E7EB'};" title="HEX: ${bg.hex}"></div>
+                <span class="bg-item-name">${bg.name}</span>
+              </div>
+              <span class="bg-hex-badge">${bg.hex}</span>
+            </div>
+            
+            <div class="bg-item-desc">${bg.description || 'Pilihan latar foto Alviero Studio.'}</div>
+            
+            <div class="bg-chips-row">
+              ${(bg.applicableTo || []).map(s => `<span class="service-chip ${s === 'pro-studio' ? 'pro' : 'self'}">${s === 'pro-studio' ? 'Pro Studio' : 'Self Studio'}</span>`).join('')}
+            </div>
+
+            <div class="bg-card-bottom">
+              <label class="toggle-label-wrap" title="Aktifkan atau sembunyikan dari web">
+                <div class="switch">
+                  <input type="checkbox" ${!isInactive ? 'checked' : ''} onchange="toggleBgActive(${bg._origIndex}, this.checked)">
+                  <span class="slider"></span>
+                </div>
+                <span class="toggle-text">${!isInactive ? 'Aktif' : 'Tutup'}</span>
+              </label>
+
+              <div class="card-actions-group">
+                <button class="btn-action" onclick="openEditBgModal(${bg._origIndex})">✏️ Edit</button>
+                <button class="btn-action delete" onclick="deleteBackground(${bg._origIndex})">🗑️ Hapus</button>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleBgActive(origIdx, isActive) {
+      if (!appConfig.backgrounds[origIdx]) return;
+      appConfig.backgrounds[origIdx].active = isActive;
+      renderBackgrounds();
+      showToast(`Background '${appConfig.backgrounds[origIdx].name}' ${isActive ? 'diaktifkan' : 'disembunyikan'}. Klik 'Simpan' untuk menerapkan.`);
+    }
+
+    function filterBackgrounds(branch, btn) {
+      currentBranchFilter = branch;
+      btn.parentElement.querySelectorAll('.pill-btn').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderBackgrounds();
+    }
+
+    function filterBgService(service, btn) {
+      currentServiceFilter = service;
+      btn.parentElement.querySelectorAll('.pill-btn').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderBackgrounds();
+    }
+
+    function openAddBgModal() {
+      document.getElementById('bgEditIndex').value = -1;
+      document.getElementById('bgModalTitle').textContent = 'Tambah Background Baru';
+      document.getElementById('bgNameInput').value = '';
+      document.getElementById('bgColorPicker').value = '#A9BCA7';
+      document.getElementById('bgHexInput').value = '#A9BCA7';
+      document.getElementById('bgImageInput').value = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+      document.getElementById('bgDescInput').value = '';
+      document.getElementById('bgBranch1').checked = true;
+      document.getElementById('bgBranch2').checked = false;
+      document.getElementById('bgServicePro').checked = true;
+      document.getElementById('bgServiceSelf').checked = false;
+      previewBgImage(document.getElementById('bgImageInput').value);
+      openModal('bgModal');
+    }
+
+    function openEditBgModal(origIdx) {
+      const bg = appConfig.backgrounds[origIdx];
+      if (!bg) return;
+      document.getElementById('bgEditIndex').value = origIdx;
+      document.getElementById('bgModalTitle').textContent = 'Edit Background: ' + bg.name;
+      document.getElementById('bgNameInput').value = bg.name || '';
+      document.getElementById('bgColorPicker').value = bg.hex || '#A9BCA7';
+      document.getElementById('bgHexInput').value = bg.hex || '#A9BCA7';
+      document.getElementById('bgImageInput').value = bg.previewImage || '';
+      document.getElementById('bgDescInput').value = bg.description || '';
+      document.getElementById('bgBranch1').checked = (bg.applicableBranches || []).includes('cabang-1');
+      document.getElementById('bgBranch2').checked = (bg.applicableBranches || []).includes('cabang-2');
+      document.getElementById('bgServicePro').checked = (bg.applicableTo || []).includes('pro-studio');
+      document.getElementById('bgServiceSelf').checked = (bg.applicableTo || []).includes('self-studio');
+      previewBgImage(bg.previewImage || '');
+      openModal('bgModal');
+    }
+
+    function syncColorInput(val) { document.getElementById('bgHexInput').value = val.toUpperCase(); }
+    function syncColorPicker(val) { if (/^#[0-9A-F]{6}$/i.test(val)) document.getElementById('bgColorPicker').value = val; }
+    function previewBgImage(url) {
+      const box = document.getElementById('imagePreviewBox');
+      if (url && url.length > 5) {
+        box.style.display = 'block';
+        box.style.backgroundImage = `url('${url}')`;
+      } else {
+        box.style.display = 'none';
+      }
+    }
+
+    function saveBackgroundItem() {
+      const name = document.getElementById('bgNameInput').value.trim();
+      const hex = document.getElementById('bgHexInput').value.trim();
+      const previewImage = document.getElementById('bgImageInput').value.trim();
+      const description = document.getElementById('bgDescInput').value.trim();
+      const origIdx = parseInt(document.getElementById('bgEditIndex').value);
+
+      if (!name) return alert('Nama background tidak boleh kosong!');
+      if (!hex) return alert('Kode warna HEX tidak boleh kosong!');
+
+      const branches = [];
+      if (document.getElementById('bgBranch1').checked) branches.push('cabang-1');
+      if (document.getElementById('bgBranch2').checked) branches.push('cabang-2');
+      if (branches.length === 0) return alert('Pilih minimal 1 cabang studio!');
+
+      const applicableTo = [];
+      if (document.getElementById('bgServicePro').checked) applicableTo.push('pro-studio');
+      if (document.getElementById('bgServiceSelf').checked) applicableTo.push('self-studio');
+      if (applicableTo.length === 0) return alert('Pilih minimal 1 layanan (Pro Studio / Self Studio)!');
+
+      if (origIdx === -1) {
+        const id = 'bg-' + Date.now();
+        appConfig.backgrounds.push({
+          id,
+          name,
+          category: 'solid-color',
+          hex,
+          description,
+          previewImage: previewImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          applicableBranches: branches,
+          applicableTo: applicableTo,
+          active: true
+        });
+        showToast(`Background '${name}' berhasil ditambahkan!`);
+      } else {
+        const item = appConfig.backgrounds[origIdx];
+        item.name = name;
+        item.hex = hex;
+        item.previewImage = previewImage;
+        item.description = description;
+        item.applicableBranches = branches;
+        item.applicableTo = applicableTo;
+        showToast(`Background '${name}' berhasil diperbarui!`);
+      }
+
+      closeModal('bgModal');
+      renderBackgrounds();
+    }
+
+    function deleteBackground(origIdx) {
+      const item = appConfig.backgrounds[origIdx];
+      if (!item) return;
+      if (confirm(`Yakin ingin menghapus background '${item.name}'?`)) {
+        appConfig.backgrounds.splice(origIdx, 1);
+        renderBackgrounds();
+        showToast(`Background '${item.name}' telah dihapus.`);
+      }
+    }
+
+    function renderSlots() {
+      const tbody = document.getElementById('slotsTableBody');
+      tbody.innerHTML = '';
+
+      (appConfig.timeSlots || []).forEach((slot, idx) => {
+        const isInactive = slot.active === false;
+        const tr = document.createElement('tr');
+        if (isInactive) tr.style.opacity = '0.55';
+
+        const serviceNames = (slot.allowedServices || []).map(s => s === 'indoor' ? '🏠 Studio (Indoor)' : '🌳 Outdoor').join(' & ');
+        const isExtra = (slot.earlyCharge || 0) > 0;
+
+        tr.innerHTML = `
+          <td>
+            <label class="switch">
+              <input type="checkbox" ${!isInactive ? 'checked' : ''} onchange="toggleSlotActive(${idx}, this.checked)">
+              <span class="slider"></span>
+            </label>
+          </td>
+          <td>
+            <span class="time-slot-badge">
+              🕒 ${slot.time} WIB
+            </span>
+          </td>
+          <td>
+            <span class="capacity-badge">👥 ${slot.maxCapacity || 3} Klien</span>
+          </td>
+          <td>
+            <span style="font-size: 0.8rem; background: #F4F4F5; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 500;">${serviceNames}</span>
+          </td>
+          <td>
+            <span class="charge-badge ${isExtra ? 'extra' : 'free'}">
+              ${isExtra ? `+Rp ${(slot.earlyCharge).toLocaleString('id-ID')}` : 'Rp 0 (Reguler)'}
+            </span>
+          </td>
+          <td style="color: #71717A; font-size: 0.78rem;">
+            ${slot.shiftName || '-'}
+          </td>
+          <td style="text-align: right;">
+            <button class="btn-action" onclick="openEditSlotModal(${idx})">✏️ Edit</button>
+            <button class="btn-action delete" onclick="deleteSlot(${idx})">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function toggleSlotActive(idx, isActive) {
+      if (!appConfig.timeSlots[idx]) return;
+      appConfig.timeSlots[idx].active = isActive;
+      renderSlots();
+      showToast(`Slot jam ${appConfig.timeSlots[idx].time} ${isActive ? 'diaktifkan' : 'dinonaktifkan'}.`);
+    }
+
+    function applyPreset(presetType) {
+      if (!appConfig || !appConfig.timeSlots) return;
+      if (presetType === 'all-on') {
+        appConfig.timeSlots.forEach(s => s.active = true);
+        showToast('Semua slot jam telah diaktifkan!');
+      } else if (presetType === 'night-off') {
+        appConfig.timeSlots.forEach(s => {
+          if (s.time === '20:30' || s.time === '21:00') s.active = false;
+        });
+        showToast('Slot jam 20:30 & 21:00 telah ditutup!');
+      } else if (presetType === 'early-on') {
+        appConfig.timeSlots.forEach(s => {
+          if (s.time === '07:00') s.active = true;
+        });
+        showToast('Slot jam ekstra pagi 07:00 telah diaktifkan!');
+      }
+      renderSlots();
+    }
+
+    function openAddSlotModal() {
+      document.getElementById('slotEditIndex').value = -1;
+      document.getElementById('slotModalTitle').textContent = 'Tambah Slot Jam Baru';
+      document.getElementById('slotTimeInput').value = '';
+      document.getElementById('slotCapacityInput').value = '3';
+      document.getElementById('slotServicesInput').value = 'indoor,outdoor';
+      document.getElementById('slotChargeSelect').value = '0';
+      document.getElementById('slotCustomChargeInput').style.display = 'none';
+      document.getElementById('slotShiftNameInput').value = 'Shift Reguler';
+      openModal('slotModal');
+    }
+
+    function openEditSlotModal(idx) {
+      const slot = appConfig.timeSlots[idx];
+      if (!slot) return;
+      document.getElementById('slotEditIndex').value = idx;
+      document.getElementById('slotModalTitle').textContent = 'Edit Slot Jam: ' + slot.time;
+      document.getElementById('slotTimeInput').value = slot.time || '';
+      document.getElementById('slotCapacityInput').value = slot.maxCapacity || '3';
+      
+      const srv = (slot.allowedServices || []).join(',');
+      document.getElementById('slotServicesInput').value = srv.includes('indoor') && srv.includes('outdoor') ? 'indoor,outdoor' : (srv.includes('outdoor') ? 'outdoor' : 'indoor');
+
+      const charge = slot.earlyCharge || 0;
+      if (charge === 0 || charge === 35000) {
+        document.getElementById('slotChargeSelect').value = String(charge);
+        document.getElementById('slotCustomChargeInput').style.display = 'none';
+      } else {
+        document.getElementById('slotChargeSelect').value = 'custom';
+        document.getElementById('slotCustomChargeInput').style.display = 'block';
+        document.getElementById('slotCustomChargeInput').value = charge;
+      }
+
+      document.getElementById('slotShiftNameInput').value = slot.shiftName || '';
+      openModal('slotModal');
+    }
+
+    function toggleCustomCharge(val) {
+      document.getElementById('slotCustomChargeInput').style.display = val === 'custom' ? 'block' : 'none';
+    }
+
+    function saveSlotItem() {
+      const time = document.getElementById('slotTimeInput').value.trim();
+      const maxCapacity = parseInt(document.getElementById('slotCapacityInput').value) || 3;
+      const srvVal = document.getElementById('slotServicesInput').value;
+      const allowedServices = srvVal.split(',');
+      const chargeSelect = document.getElementById('slotChargeSelect').value;
+      const earlyCharge = chargeSelect === 'custom' 
+        ? (parseInt(document.getElementById('slotCustomChargeInput').value) || 0)
+        : parseInt(chargeSelect);
+      const shiftName = document.getElementById('slotShiftNameInput').value.trim() || 'Shift Jadwal';
+      const origIdx = parseInt(document.getElementById('slotEditIndex').value);
+
+      if (!time || !/^\d{1,2}:\d{2}$/.test(time)) {
+        return alert('Format jam harus HH:MM (contoh: 08:00 atau 14:30)!');
+      }
+
+      const formattedTime = time.length === 4 ? '0' + time : time;
+
+      if (origIdx === -1) {
+        appConfig.timeSlots.push({
+          time: formattedTime,
+          maxCapacity,
+          allowedServices,
+          shiftName,
+          earlyCharge,
+          active: true
+        });
+        appConfig.timeSlots.sort((a,b) => a.time.localeCompare(b.time));
+        showToast(`Slot jam ${formattedTime} berhasil ditambahkan!`);
+      } else {
+        appConfig.timeSlots[origIdx] = {
+          ...appConfig.timeSlots[origIdx],
+          time: formattedTime,
+          maxCapacity,
+          allowedServices,
+          shiftName,
+          earlyCharge
+        };
+        showToast(`Slot jam ${formattedTime} berhasil diperbarui!`);
+      }
+
+      closeModal('slotModal');
+      renderSlots();
+    }
+
+    function deleteSlot(idx) {
+      const slot = appConfig.timeSlots[idx];
+      if (!slot) return;
+      if (confirm(`Yakin ingin menghapus slot jam ${slot.time}?`)) {
+        appConfig.timeSlots.splice(idx, 1);
+        renderSlots();
+        showToast(`Slot jam ${slot.time} telah dihapus.`);
+      }
+    }
+
+    function updateOperationalHours() {
+      const val = document.getElementById('operationalHoursInput').value.trim();
+      if (!val) return alert('Teks jam operasional tidak boleh kosong!');
+      appConfig.operationalHours = val;
+      showToast('Label jam operasional diperbarui. Klik Simpan untuk menerapkan.');
+    }
+
+    function renderBranches() {
+      const container = document.getElementById('branchesContainer');
+      container.innerHTML = '';
+
+      (appConfig.branches || []).forEach((b, idx) => {
+        const card = document.createElement('div');
+        card.style.background = '#FFFFFF';
+        card.style.padding = '1.35rem';
+        card.style.borderRadius = '16px';
+        card.style.border = '1px solid var(--border)';
+        card.style.boxShadow = 'var(--shadow-sm)';
+        card.innerHTML = `
+          <h3 style="font-size: 1.15rem; margin-bottom: 0.95rem; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem;">
+            <span>${b.icon || '📍'}</span>
+            <span>${b.name} (${b.badge})</span>
+          </h3>
+          
+          <div class="form-group">
+            <label class="form-label">Nama Tampilan Singkat</label>
+            <input type="text" class="form-control" value="${b.shortName || ''}" onchange="appConfig.branches[${idx}].shortName = this.value">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nomor WhatsApp (Format: 628...)</label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="text" class="form-control" value="${b.whatsappNumber || ''}" onchange="appConfig.branches[${idx}].whatsappNumber = this.value">
+              <a href="https://wa.me/${b.whatsappNumber}" target="_blank" class="btn btn-preview" style="padding: 0.5rem 0.8rem; font-size: 0.76rem;" title="Test chat ke nomor ini">💬 Test</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tampilan Nomor WA (Formatted)</label>
+            <input type="text" class="form-control" value="${b.whatsappDisplay || ''}" onchange="appConfig.branches[${idx}].whatsappDisplay = this.value">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Alamat Lengkap Studio</label>
+            <textarea class="form-control" rows="2" onchange="appConfig.branches[${idx}].address = this.value">${b.address || ''}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Link Google Maps</label>
+            <input type="text" class="form-control" value="${b.mapsUrl || ''}" onchange="appConfig.branches[${idx}].mapsUrl = this.value">
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function saveBranchInfo() {
+      saveConfigLocally();
+    }
+
+    async function saveConfigLocally() {
+      if (!appConfig) return;
+      try {
+        const res = await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(appConfig)
+        });
+        const result = await res.json();
+        if (result.success) {
+          showToast('✅ Tersimpan ke file lokal! Web di port 3000 langsung update.', '💾');
+          checkGitStatus();
+        } else {
+          showToast('Gagal menyimpan: ' + result.error, '❌');
+        }
+      } catch (err) {
+        showToast('Error saat menyimpan: ' + err.message, '❌');
+      }
+    }
+
+    async function saveAndSyncToInternet() {
+      if (!confirm('Publikasikan seluruh perubahan ini ke Web Internet (Push ke GitHub & Live Vercel)?')) {
+        return;
+      }
+
+      const term = document.getElementById('terminalLog');
+      term.textContent = '[1/3] Menyimpan konfigurasi lokal...\n';
+
+      await saveConfigLocally();
+
+      term.textContent += '[2/3] Mengirim perubahan ke GitHub repository (main branch)...\n';
+      const commitMsg = document.getElementById('customCommitMessage').value.trim();
+
+      try {
+        const res = await fetch('/api/sync-github', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ commitMessage: commitMsg || undefined })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          term.textContent += `[3/3] ✅ SUKSES!\n${data.message}\nCommit: ${data.lastCommit}\n\nWeb Vercel Anda di internet sedang memproses pembaruan. Dalam ~30-60 detik seluruh pelanggan akan melihat update ini!`;
+          showToast('🚀 Berhasil dipublikasikan ke internet!', '🎉');
+          checkGitStatus();
+        } else {
+          term.textContent += `❌ GAGAL PUSH KE GITHUB:\n${data.error}\n` + JSON.stringify(data.details || '', null, 2);
+          showToast('Gagal sinkronisasi internet. Cek log terminal.', '❌');
+        }
+      } catch (err) {
+        term.textContent += `❌ Exception: ${err.message}`;
+        showToast('Error koneksi: ' + err.message, '❌');
+      }
+    }
+
+    async function checkGitStatus() {
+      try {
+        const res = await fetch('/api/git-status');
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('gitBranchBadge').textContent = 'Branch: ' + data.branch;
+          document.getElementById('gitStatusBadge').textContent = data.hasChanges ? '⚡ Ada Perubahan Baru' : '✅ Sinkron dengan Git';
+          document.getElementById('gitStatusBadge').className = 'status-badge ' + (data.hasChanges ? 'changed' : 'online');
+          document.getElementById('lastCommitText').textContent = 'Commit Terakhir: ' + data.lastCommit;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    function showToast(msg, icon = '✅') {
+      const toast = document.getElementById('toastBox');
+      document.getElementById('toastMessage').textContent = msg;
+      document.getElementById('toastIcon').textContent = icon;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    function openLiveLocal() { window.open('http://localhost:3000', '_blank'); }
+
+    loadConfig();
+  
+</script>
+</body>
+</html>

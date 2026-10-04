@@ -3313,12 +3313,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Elegant Scholar</h4>
                           <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Indoor 1</span>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">1 Wisudawan</span> + Family Maks 10 Org/frame</p>
-                          <p>Unlimited Foto 30 menit | 1 Background | Edit 6 foto | Cetak Uk 10Rs 2 foto</p>
+                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
+                          <p><span className="text-rose-600 font-bold">1 Wisudawan</span> + Family Maks 10 Org/frame | Unlimited Foto 25 Menit</p>
+                          <p><span className="font-bold text-rose-600">1 Background</span> | Edit 6 foto | Cetak Uk 10Rs 2 foto / 3 foto 4R | Allfile Drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">330K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">295K</div>
                           <button
                             onClick={() => onSelectPackageForBooking('grad-indoor-elegant-scholar')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3334,12 +3334,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <span className="text-xs text-slate-400 font-medium font-serif">Graduation Indoor 2 ——</span>
                           <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Supreme Scholar</h4>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">1 wisudawan</span> + family Maks 10 Org/Frame | Unlimited 40 Menit</p>
-                          <p>2 Background | Edit 8 Foto | Cetak Uk 10Rs 2 foto</p>
+                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
+                          <p><span className="text-rose-600 font-bold">1 Wisudawan</span> + Family Maks 10 Org/Frame | Unlimited Foto 40 Menit</p>
+                          <p><span className="font-bold text-rose-600">2 Background</span> | Edit 8 Foto | Cetak Uk 10Rs 2 foto / 6 foto 4R | Allfile Drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">380K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">415K</div>
                           <button
                             onClick={() => onSelectPackageForBooking('grad-indoor-supreme-scholar')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3355,13 +3355,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Infinity Scholar</h4>
                           <span className="text-xs text-slate-400 font-medium font-serif">—— Graduation Indoor 3</span>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">2 Wisudawan</span> + Family Maks 10 Org/frame | Unlimited 40 Menit</p>
-                          <p>2 Background | all file via Google Drive | Edit 10 foto | Cetak Uk 10Rs 2 foto</p>
-                          <p className="text-[11px] text-rose-600 font-semibold">*Khusus 2 wisudawan saudara kandung jadi 425K</p>
+                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
+                          <p><span className="text-rose-600 font-bold">2 Wisudawan</span> + Family Maks 10 Org/frame | Unlimited Foto 45 Menit</p>
+                          <p><span className="font-bold text-rose-600">2 Background</span> | Edit 12 foto | Cetak Uk 10Rs 4 foto / 6 foto 4R | Allfile Drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">530K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">595K</div>
                           <button
                             onClick={() => onSelectPackageForBooking('grad-indoor-infinity-scholar')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3371,18 +3370,18 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </div>
                       </div>
 
-                      {/* Bundling 1 (Ultimate Scholar 1) */}
+                      {/* Bundling 1 (Bundling Smart 1) */}
                       <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <span className="text-xs text-slate-400 font-medium font-serif">Bundling 1 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Ultimate Scholar 1</h4>
+                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bundling Smart 1</h4>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Paket Indoor 1 (Elegant)</span> + Outdoor Smart 60 Menit (Hemat 50K)</p>
-                          <p>Unlimited Foto Indoor & Outdoor Kampus | Cetak Uk 10Rs 2 Foto + All File Drive</p>
+                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
+                          <p><span className="text-rose-600 font-bold">Paket Indoor 1 (Elegant Scholar)</span> + Outdoor Smart 60 Menit</p>
+                          <p>Unlimited Foto Indoor & Outdoor Kampus | 1 Background Studio | Cetak 2 Foto 10Rs / 3 Foto 4R + All File Drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">630K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">625K</div>
                           <button
                             onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-1')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3392,24 +3391,38 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </div>
                       </div>
 
-                      {/* Bundling 2 (Ultimate Scholar 2) */}
+                      {/* Bundling 2 (Bundling Smart 2) */}
                       <div className="border-b border-slate-100 pb-5 space-y-2">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Ultimate Scholar 2</h4>
+                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bundling Smart 2</h4>
                           <span className="text-xs text-slate-400 font-medium font-serif">—— Bundling 2</span>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Paket Indoor 2 (Supreme)</span> + Outdoor Smart 60 Menit (Hemat 50K)</p>
-                          <p>Unlimited Foto Indoor & Outdoor Kampus | 2 Background Indoor | Cetak Uk 10Rs 2 Foto + All File Drive</p>
+                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed font-century">
+                          <p><span className="text-rose-600 font-bold">Paket Indoor 2 (Supreme Scholar)</span> + Outdoor Smart 60 Menit</p>
+                          <p>Unlimited Foto Indoor & Outdoor Kampus | 2 Background Studio | Cetak 2 Foto 10Rs / 6 Foto 4R + All File Drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">680K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">745K</div>
                           <button
                             onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-2')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
                           >
                             KLIK UNTUK PESAN
                           </button>
+                        </div>
+                      </div>
+
+                      {/* Additional Graduation */}
+                      <div className="bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5">
+                        <h4 className="text-center font-serif font-black text-base text-slate-900">Additional Graduation</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-800 font-century">
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background Tambahan</span><span className="font-bold">75K</span></div>
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Orang Tambahan</span><span className="font-bold">40K</span></div>
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit Foto Tambahan</span><span className="font-bold">10K</span></div>
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Kostum / Ganti Baju</span><span className="font-bold">50K</span></div>
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Softfile Cetak</span><span className="font-bold">15K</span></div>
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Bingkai 10Rs Minimalis</span><span className="font-bold">55K</span></div>
+                          <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Cetak Foto 10Rs</span><span className="font-bold">25K</span></div>
                         </div>
                       </div>
                     </div>

@@ -1,0 +1,972 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-10-04T11:43:44.603Z",
+  "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
+  "announcement": "",
+  "branches": [
+    {
+      "id": "cabang-1",
+      "name": "Alviero Studio – Studio 1",
+      "shortName": "Studio 1 (Junrejo)",
+      "tagline": "Junrejo, Kota Batu",
+      "address": "Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151",
+      "badge": "Studio 1",
+      "description": "Pusat Self Studio & Studio Foto",
+      "icon": "🏛️",
+      "mapsUrl": "https://maps.app.goo.gl/oxtptpr3RSDL9zCj6",
+      "reviewUrl": "https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu",
+      "whatsappNumber": "6287777538164",
+      "whatsappDisplay": "0877-7753-8164"
+    },
+    {
+      "id": "cabang-2",
+      "name": "Alviero Studio – Studio 2",
+      "shortName": "Studio 2 (Dinoyo)",
+      "tagline": "Dinoyo, Kota Malang",
+      "address": "Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144",
+      "badge": "Studio 2",
+      "description": "Self Studio & Studio Foto",
+      "icon": "🏢",
+      "mapsUrl": "https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9",
+      "reviewUrl": "https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
+      "whatsappNumber": "6285168879214",
+      "whatsappDisplay": "0851-6887-9214"
+    }
+  ],
+  "backgrounds": [
+    {
+      "id": "hitam-list",
+      "name": "Hitam List",
+      "category": "solid-color",
+      "hex": "#111827",
+      "colorClass": "bg-gray-950",
+      "description": "Latar hitam dengan aksen list untuk tampilan elegan dan tegas.",
+      "previewImage": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 0
+    },
+    {
+      "id": "putih-tematik",
+      "name": "Putih Tematik",
+      "category": "solid-color",
+      "hex": "#F5F5F5",
+      "colorClass": "bg-slate-50",
+      "description": "Latar putih dengan sentuhan tematik untuk foto yang bersih dan cerah.",
+      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 1
+    },
+    {
+      "id": "putih-list",
+      "name": "Putih List",
+      "category": "solid-color",
+      "hex": "#F5F5F5",
+      "colorClass": "bg-white",
+      "description": "Latar putih dengan aksen list untuk hasil foto minimalis dan rapi.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 2
+    },
+    {
+      "id": "coklat-tematik",
+      "name": "Coklat Tematik",
+      "category": "solid-color",
+      "hex": "#8B5E3C",
+      "colorClass": "bg-amber-800",
+      "description": "Latar coklat bernuansa tematik untuk hasil foto hangat dan berkarakter.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 3
+    },
+    {
+      "id": "limbo",
+      "name": "Limbo",
+      "category": "solid-color",
+      "hex": "#FFFFFF",
+      "colorClass": "bg-gray-200",
+      "description": "Latar mulus tanpa sudut untuk efek ruang foto yang luas dan bersih.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 4
+    },
+    {
+      "id": "ivory-mediterania",
+      "name": "Ivory Mediterania",
+      "category": "solid-color",
+      "hex": "#FFFFF0",
+      "colorClass": "bg-stone-100",
+      "description": "Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.",
+      "previewImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio",
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 5
+    },
+    {
+      "id": "c1-self-polos-putih",
+      "name": "Polos Putih",
+      "category": "solid-color",
+      "hex": "#F8FAFC",
+      "colorClass": "bg-slate-50",
+      "description": "Latar putih polos yang bersih untuk foto mandiri yang cerah.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 6
+    },
+    {
+      "id": "c1-self-polos-abu",
+      "name": "Polos Abu",
+      "category": "solid-color",
+      "hex": "#9CA3AF",
+      "colorClass": "bg-gray-400",
+      "description": "Latar abu polos bernuansa netral untuk gaya foto yang modern.",
+      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 7
+    },
+    {
+      "id": "c1-self-polos-coklat",
+      "name": "Polos Coklat",
+      "category": "solid-color",
+      "hex": "#92400E",
+      "colorClass": "bg-amber-800",
+      "description": "Latar coklat polos untuk hasil foto mandiri yang hangat.",
+      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 8
+    },
+    {
+      "id": "c1-self-tirai-coklat",
+      "name": "Tirai Coklat",
+      "category": "solid-color",
+      "hex": "#78350F",
+      "colorClass": "bg-amber-900",
+      "description": "Latar tirai coklat dengan nuansa hangat dan intim.",
+      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 9
+    },
+    {
+      "id": "c2-hitam",
+      "name": "Hitam",
+      "category": "solid-color",
+      "hex": "#111827",
+      "description": "Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.",
+      "previewImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 10
+    },
+    {
+      "id": "c2-putih",
+      "name": "Putih",
+      "category": "solid-color",
+      "hex": "#F8FAFC",
+      "description": "Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 11
+    },
+    {
+      "id": "c2-abu",
+      "name": "Abu-abu",
+      "category": "solid-color",
+      "hex": "#64748B",
+      "description": "Latar abu-abu netral elegan untuk kesan modern & aesthetic.",
+      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 12
+    },
+    {
+      "id": "c2-coklat-jendela",
+      "name": "Coklat Jendela",
+      "category": "solid-color",
+      "hex": "#92400E",
+      "description": "Latar coklat klasik dengan ornamen jendela mewah berkarakter.",
+      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 13
+    },
+    {
+      "id": "c2-tematik-cream",
+      "name": "Tematik Cream",
+      "category": "solid-color",
+      "hex": "#FEF3C7",
+      "description": "Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).",
+      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 14
+    },
+    {
+      "id": "c2-self-abu",
+      "name": "Abu-abu",
+      "category": "solid-color",
+      "hex": "#64748B",
+      "description": "Latar abu-abu netral aesthetic untuk foto mandiri kekinian.",
+      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 15
+    },
+    {
+      "id": "c2-self-biru",
+      "name": "Biru",
+      "category": "solid-color",
+      "hex": "#2563EB",
+      "description": "Latar biru aesthetic & fresh khas bilik foto mandiri Alviero.",
+      "previewImage": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 16
+    },
+    {
+      "id": "c2-self-putih",
+      "name": "Putih",
+      "category": "solid-color",
+      "hex": "#F8FAFC",
+      "description": "Latar putih bersih minimalis untuk ekspresi gaya bebas.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 17
+    },
+    {
+      "id": "c2-self-tematik-cream",
+      "name": "Tematik Cream",
+      "category": "solid-color",
+      "hex": "#FEF3C7",
+      "description": "Latar tematik cream hangat untuk nuansa pastel aesthetic (Maksimal 5 Orang).",
+      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 18
+    }
+  ],
+  "timeSlots": [
+    {
+      "time": "05:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "05:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "06:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "06:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "07:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Studio (+Rp 35.000 Biaya Tambahan)",
+      "earlyCharge": 35000,
+      "active": true
+    },
+    {
+      "time": "08:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "08:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "09:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "09:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "10:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "10:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "11:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "11:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "12:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "12:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "13:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "13:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "14:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "14:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "15:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "15:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "16:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "16:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "17:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "17:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "18:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "18:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "19:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "19:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "20:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "20:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true
+    },
+    {
+      "time": "21:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Malam Overtime (+Rp 35.000 Melebihi Tutup Studio)",
+      "earlyCharge": 35000,
+      "active": true
+    }
+  ],
+  "promoSection": {
+    "tag": "PROMO & INFORMASI",
+    "badge": "Terbatas",
+    "title": "Promo dan Informasi Alviero Studio",
+    "subtitle": "Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:"
+  },
+  "promos": [
+    {
+      "id": "promo-wisuda",
+      "kind": "promo",
+      "code": "STUDENT10",
+      "badge": "DISKON 10%",
+      "category": "WISUDA & MAHASISWA",
+      "title": "Promo Spesial Wisuda: Diskon 10% All Package",
+      "shortDesc": "Rayakan kelulusan bersama teman & keluarga dengan potongan 10% untuk semua paket wisuda.",
+      "fullDesc": "Dapatkan diskon istimewa 10% untuk seluruh paket Foto Wisuda Indoor (Studio) dan Wisuda Outdoor di Alviero Studio. Fasilitas lengkap mencakup ruang ganti privat, peminjaman toga wisuda, serta seluruh soft file resolusi tinggi via Google Drive.",
+      "discountHighlight": "Potongan 10% Total Transaksi",
+      "period": "Berlaku Setiap Hari • Kuota Terbatas",
+      "imageUrl": "/images/categories/graduation.jpg",
+      "terms": [
+        "Berlaku untuk paket Graduation Indoor dan Outdoor di Studio 1 maupun Studio 2.",
+        "Wajib menunjukkan Kartu Tanda Mahasiswa (KTM) aktif saat registrasi atau konfirmasi WhatsApp.",
+        "Berlaku untuk pemesanan jadwal secara online via website Alviero Studio.",
+        "Kuota voucher promo terbatas setiap harinya.",
+        "Tidak dapat diuangkan atau digabungkan dengan diskon promosi sejenis lainnya."
+      ],
+      "howToUse": [
+        "Salin kode kupon STUDENT10 di kotak voucher.",
+        "Tekan tombol \"Gunakan Promo & Booking\" di bawah.",
+        "Kode akan langsung memotong total biaya saat simulasi pembayaran."
+      ],
+      "preselectedPackageId": "grad-indoor-1",
+      "active": true,
+      "_origIndex": 0
+    },
+    {
+      "id": "promo-couple",
+      "kind": "promo",
+      "code": "COUPLE15",
+      "badge": "HEMAT 15%",
+      "category": "COUPLE & PREWEDDING",
+      "title": "Sweet Romance: Hemat 15% Sesi Foto Pasangan",
+      "shortDesc": "Abadikan momen romantis dan prewedding bersama orang tersayang dengan potongan 15%.",
+      "fullDesc": "Momen berharga bersama pasangan semakin berkesan dengan penawaran spesial hemat 15% untuk Paket Foto Couple Studio dan Paket Prewedding. Termasuk cetak foto premium berbingkai dan arahan pose natural dari fotografer berpengalaman.",
+      "discountHighlight": "Potongan 15% Paket Couple & Prewed",
+      "period": "Berlaku s.d. Akhir Bulan",
+      "imageUrl": "/images/categories/couple.jpg",
+      "terms": [
+        "Berlaku untuk Paket Foto Couple dan Paket Prewedding Studio.",
+        "Berlaku untuk sesi foto di Studio 1 (Junrejo) & Studio 2 (Dinoyo).",
+        "Wajib melakukan reservasi jadwal sesi terlebih dahulu via website.",
+        "Sudah termasuk cetak foto berbingkai estetis dan all soft files Google Drive."
+      ],
+      "howToUse": [
+        "Salin kode kupon COUPLE15.",
+        "Tekan tombol \"Gunakan Promo & Booking\" di bawah.",
+        "Potongan diskon 15% otomatis teraplikasikan pada tagihan reservasi."
+      ],
+      "preselectedPackageId": "couple-1",
+      "active": true,
+      "_origIndex": 1
+    },
+    {
+      "id": "promo-welcome",
+      "kind": "promo",
+      "code": "ALVIERO",
+      "badge": "POTONGAN 10K",
+      "category": "SEMUA LAYANAN & SELFSTUDIO",
+      "title": "Welcome Voucher: Potongan Langsung Rp 10.000",
+      "shortDesc": "Klaim voucher potongan langsung Rp 10.000 untuk semua pemesanan online di website.",
+      "fullDesc": "Sebagai apresiasi untuk Anda yang melakukan reservasi online melalui website resmi Alviero Studio, nikmati potongan langsung Rp 10.000 tanpa minimal transaksi tinggi. Berlaku untuk SelfStudio, Foto Grup, Personal, hingga Sewa Studio.",
+      "discountHighlight": "Potongan Langsung Rp 10.000",
+      "period": "Eksklusif Pemesanan Website",
+      "imageUrl": "/images/categories/selfphoto.jpg",
+      "terms": [
+        "Berlaku untuk semua paket foto (SelfStudio, Studio Foto, Sewa Studio).",
+        "Khusus reservasi jadwal mandiri melalui website resmi Alviero Studio.",
+        "Dapat digunakan 1 kali per nomor WhatsApp pelanggan.",
+        "Langsung memotong nominal pembayaran DP atau pelunasan."
+      ],
+      "howToUse": [
+        "Salin kode kupon ALVIERO.",
+        "Pilih paket foto yang Anda inginkan pada form booking.",
+        "Voucher otomatis memotong Rp 10.000 dari total tagihan."
+      ],
+      "preselectedPackageId": "selfstudio-special",
+      "active": true,
+      "_origIndex": 2
+    },
+    {
+      "id": "news-new-lighting",
+      "kind": "berita",
+      "code": "INFO",
+      "badge": "BERITA TERBARU",
+      "category": "BERITA ALVIERO",
+      "title": "Setup Lighting Baru untuk Hasil Foto Lebih Berkarakter",
+      "shortDesc": "Alviero Studio terus memperbarui peralatan lighting untuk mendukung foto portrait, wisuda, dan self studio.",
+      "fullDesc": "Kami sedang menghadirkan pembaruan setup lighting agar pencahayaan sesi foto semakin fleksibel. Tim studio dapat membantu menyesuaikan karakter cahaya dengan konsep dan kebutuhan setiap klien.",
+      "discountHighlight": "Pembaruan Fasilitas Studio",
+      "period": "Informasi Studio",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "terms": [
+        "Ketersediaan setup menyesuaikan jenis sesi dan paket.",
+        "Konsultasikan kebutuhan lighting kepada admin atau fotografer."
+      ],
+      "howToUse": [
+        "Pilih paket dan jadwal sesi foto.",
+        "Sampaikan referensi konsep kepada admin.",
+        "Tim Alviero akan membantu menyiapkan setup yang sesuai."
+      ],
+      "active": true,
+      "_origIndex": 3
+    },
+    {
+      "id": "team-alviero",
+      "kind": "tim",
+      "code": "TEAM",
+      "badge": "TIM ALVIERO",
+      "category": "TIM ALVIERO STUDIO",
+      "title": "Kenali Tim yang Menemani Sesi Foto Anda",
+      "shortDesc": "Tim Alviero Studio siap membantu pengarahan pose, persiapan konsep, dan kebutuhan teknis selama sesi foto.",
+      "fullDesc": "Di balik setiap sesi foto ada tim yang memastikan pengalaman Anda tetap nyaman dan terarah. Fotografer, admin, dan kru studio bekerja bersama untuk membantu persiapan, pencahayaan, pose, hingga proses konfirmasi jadwal.",
+      "discountHighlight": "Fotografer & Kru Studio",
+      "period": "Tentang Tim Kami",
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85",
+      "terms": [
+        "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
+        "Konsultasi konsep dapat dilakukan sebelum sesi foto."
+      ],
+      "howToUse": [
+        "Hubungi admin untuk konsultasi konsep.",
+        "Datang sesuai jadwal reservasi.",
+        "Nikmati sesi foto dengan pendampingan tim Alviero."
+      ],
+      "active": true,
+      "_origIndex": 4
+    }
+  ],
+  "history": {
+    "header": {
+      "tag": "Dokumentasi Resmi Alviero Studio",
+      "title": "Sejarah & Perjalanan Alviero Studio"
+    },
+    "prologue": {
+      "badge": "Awal Mula Pendirian",
+      "title": "Dedikasi Mengabadikan Setiap Detik Berharga Tanpa Batas Rasa Kaku",
+      "paragraph1": "Alviero Studio Foto didirikan atas dasar kecintaan mendalam terhadap seni visual fotografi serta tekad untuk menghadirkan ruang studio yang hangat, ramah, dan bebas dari rasa canggung bagi siapa saja. Berangkat dari keresahan masyarakat bahwa sesi foto studio kerap kali terkesan kaku, mahal, dan penuh batasan, Alviero Studio hadir membawa konsep segar: \"Kenyamanan maksimal, pelayanan bersahabat, dan kualitas visual setara majalah terkemuka.\"",
+      "paragraph2": "Sejak hari pertama berdiri di Malang, komitmen Alviero Studio tetap teguh: memberikan seluruh file asli tanpa biaya tambahan, mengutamakan pengarahan pose yang sabar dan natural, serta menyediakan tata cahaya berstandar profesional yang menonjolkan kecantikan asli setiap klien."
+    },
+    "milestonesSectionTitle": "Tonggak Perjalanan Alviero Studio",
+    "milestones": [
+      {
+        "id": "milestone-1",
+        "icon": "pin",
+        "title": "Lahirnya Alviero Studio 1 — Junrejo",
+        "badge": "Cabang Pertama (Pusat)",
+        "badgeStyle": "green",
+        "description": "Dibuka di kawasan sejuk Junrejo. Hadir dengan fasilitas ikonik Limbo Putih Seamless (Infinity Curve) tanpa batas sudut lantai, pencahayaan softbox besar berdifuser ganda, dan ruangan berdaya tampung luas yang menjadi favorit wisudawan serta keluarga besar di Malang Raya."
+      },
+      {
+        "id": "milestone-2",
+        "icon": "sparkles",
+        "title": "Ekspansi Alviero Studio 2 — Dinoyo (Gajayana)",
+        "badge": "Cabang Kedua (Pusat Kota)",
+        "badgeStyle": "dark",
+        "description": "Merespons antusiasme ribuan mahasiswa dan keluarga muda di pusat Kota Malang, Alviero Studio membuka cabang kedua di Ruko Gajayana Dinoyo. Menghadirkan teknologi modern Self Studio Nirkabel mandiri tanpa rasa canggung, spotlight pencahayaan warna warni (RGB), serta dekorasi tematik cream yang homey dan berkarakter."
+      },
+      {
+        "id": "milestone-3",
+        "icon": "award",
+        "title": "Lebih dari 10.000++ Momen Berharga Terabadikan",
+        "badge": "Kepercayaan Pelanggan",
+        "badgeStyle": "amber",
+        "description": "Mulai dari wisuda sarjana, pernikahan & prewedding romantis, momen kehamilan ibu (maternity), ulang tahun ceria, hingga potret kebersamaan keluarga dan sahabat. Alviero Studio terus bertumbuh sebagai studio foto terpercaya dengan rating ulasan bintang 5 di Google Maps."
+      }
+    ],
+    "valuesSectionTitle": "Tiga Nilai Luhur Pelayanan Alviero Studio",
+    "values": [
+      {
+        "id": "value-1",
+        "icon": "heart",
+        "title": "Keramahan Tulus",
+        "description": "Fotografer dan staf yang sabar, hangat, serta siap membimbing pose hingga klien merasa percaya diri."
+      },
+      {
+        "id": "value-2",
+        "icon": "shield",
+        "title": "Transparan & Jujur",
+        "description": "Tidak ada biaya tersembunyi. Seluruh file asli beresolusi penuh dibagikan langsung via Google Drive."
+      },
+      {
+        "id": "value-3",
+        "icon": "star",
+        "title": "Kualitas Abadi",
+        "description": "Pencahayaan presisi dan kalibrasi warna tajam untuk hasil cetak bingkai yang awet dinikmati puluhan tahun."
+      }
+    ],
+    "quote": {
+      "text": "\"Bagi kami, setiap jepretan bukan sekadar gambar, melainkan prasasti kenangan indah yang akan Anda tersenyumi kembali di masa depan.\"",
+      "author": "— Tim Manajemen Alviero Studio Foto Malang"
+    }
+  },
+  "pricelistSection": {
+    "tag": "RESERVASI JADWAL ONLINE",
+    "title": "Siap Berekspresi? Jelajahi Pricelist & Booking!",
+    "subtitle": "Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:",
+    "services": [
+      {
+        "id": "studio-foto",
+        "title": "STUDIO FOTO",
+        "badge": "Foto Studio",
+        "description": "Graduation, Group, Family, Personal, Maternity",
+        "drawerTitle": "PILIH LOKASI STUDIO FOTO:",
+        "theme": "cream",
+        "icon": "camera",
+        "active": true
+      },
+      {
+        "id": "self-studio",
+        "title": "SELFSTUDIO",
+        "badge": "Self Photo",
+        "description": "Foto Mandiri Wireless Shutter & Cetak Kolase",
+        "drawerTitle": "PILIH LOKASI SELFSTUDIO:",
+        "theme": "brown",
+        "icon": "sparkles",
+        "active": true
+      },
+      {
+        "id": "cetak-bingkai",
+        "title": "CETAK & BINGKAI",
+        "badge": "Frame",
+        "description": "Cetak Berkualitas, Bingkai Kayu & Album",
+        "drawerTitle": "PILIH LOKASI STUDIO CETAK:",
+        "theme": "cream",
+        "icon": "image",
+        "active": true
+      },
+      {
+        "id": "wedding-prewedding",
+        "title": "WEDDING & PREWEDDING",
+        "badge": "Suite",
+        "description": "Prewedding Outdoor/Studio, Akad & Resepsi",
+        "drawerTitle": "PILIH LOKASI STUDIO:",
+        "theme": "brown",
+        "icon": "heart",
+        "active": true
+      },
+      {
+        "id": "event-dokumentasi",
+        "title": "EVENT DOKUMENTASI",
+        "badge": "Event",
+        "description": "Dokumentasi Birthday, Gathering & Seminar",
+        "drawerTitle": "PILIH LOKASI STUDIO:",
+        "theme": "cream",
+        "icon": "calendar",
+        "active": true
+      },
+      {
+        "id": "mua-kebaya",
+        "title": "MUA, KEBAYA & HAIRDO",
+        "badge": "Beauty",
+        "description": "Makeup, kebaya, hairdo & hijabdo siap sesi foto",
+        "drawerTitle": "PILIH LOKASI STUDIO / MUA:",
+        "theme": "brown",
+        "icon": "sparkles",
+        "active": true
+      }
+    ]
+  }
+}
