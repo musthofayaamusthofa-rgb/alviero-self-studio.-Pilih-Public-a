@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 /**
  * Alviero Studio — Scheduling & Pricing Logic Utility
  * 
@@ -93,77 +94,7 @@ export function normalizeServiceType(rawService: string): ServiceType {
  * - 08:00 - 11:00 : Shift Pagi (Kapasitas: 2, Extra: Rp 0)
  * - 11:30 - 20:30 : Shift Gabungan (Kapasitas: 3, Extra: Rp 0)
  */
-export const TIME_SLOTS: TimeSlotConfig[] = [
-  // --- A. Jam Ekstra Pagi Outdoor Only (05.00 - 06.30) Tanpa Biaya Tambahan ---
-  {
-    time: '05:00',
-    maxCapacity: 2,
-    allowedServices: ['outdoor'],
-    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
-    earlyCharge: 0
-  },
-  {
-    time: '05:30',
-    maxCapacity: 2,
-    allowedServices: ['outdoor'],
-    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
-    earlyCharge: 0
-  },
-  {
-    time: '06:00',
-    maxCapacity: 2,
-    allowedServices: ['outdoor'],
-    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
-    earlyCharge: 0
-  },
-  {
-    time: '06:30',
-    maxCapacity: 2,
-    allowedServices: ['outdoor'],
-    shiftName: 'Ekstra Pagi Outdoor (Bebas Biaya Tambahan)',
-    earlyCharge: 0
-  },
-
-  // --- B. Jam Ekstra Pagi Indoor Studio (Hanya Jam 07:00) dengan Biaya Tambahan Rp 35.000 ---
-  {
-    time: '07:00',
-    maxCapacity: 2,
-    allowedServices: ['indoor', 'outdoor'],
-    shiftName: 'Ekstra Pagi Studio (+Rp 35.000 Biaya Tambahan)',
-    earlyCharge: 35000
-  },
-
-  // --- C. Shift Pagi Reguler: 08.00 s.d. 11.00 (Maksimal 2 Klien) ---
-  { time: '08:00', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-  { time: '08:30', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-  { time: '09:00', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-  { time: '09:30', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-  { time: '10:00', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-  { time: '10:30', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-  { time: '11:00', maxCapacity: 2, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Pagi (Maks. 2 Klien)', earlyCharge: 0 },
-
-  // --- D. Shift Gabungan: 11.30 s.d. 20.30 (Maksimal 3 Klien) ---
-  { time: '11:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '12:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '12:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '13:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '13:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '14:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '14:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '15:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '15:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '16:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '16:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '17:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '17:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '18:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '18:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '19:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '19:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '20:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '20:30', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Gabungan (Maks. 3 Klien)', earlyCharge: 0 },
-  { time: '21:00', maxCapacity: 3, allowedServices: ['indoor', 'outdoor'], shiftName: 'Shift Malam Overtime (+Rp 35.000 Melebihi Tutup Studio)', earlyCharge: 35000 },
-];
+export const TIME_SLOTS: TimeSlotConfig[] = (studioConfig.timeSlots.filter(s => s.active !== false) as unknown as TimeSlotConfig[]);
 
 /**
  * Mencari konfigurasi slot berdasarkan string jam

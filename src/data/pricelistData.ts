@@ -1,3 +1,4 @@
+import studioConfig from './studioConfig.json';
 import { PackageItem, CategoryInfo, BackdropOption, BackgroundOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
 
 export interface SelfStudioSubPackageOption {
@@ -1216,263 +1217,14 @@ export const PACKAGES: PackageItem[] = [
   }
 ];
 
-export const STUDIO_BRANCHES: BranchInfo[] = [
-  {
-    id: 'cabang-1',
-    name: 'Alviero Studio — Studio 1',
-    shortName: 'Studio 1 (Junrejo)',
-    tagline: 'Junrejo, Kota Batu',
-    address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
-    badge: 'Studio 1',
-    description: 'Pusat Self Studio & Studio Foto',
-    highlights: [],
-    icon: '📍',
-    mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6',
-    reviewUrl: 'https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu',
-    whatsappNumber: '6287777538164',
-    whatsappDisplay: '0877-7753-8164'
-  },
-  {
-    id: 'cabang-2',
-    name: 'Alviero Studio — Studio 2',
-    shortName: 'Studio 2 (Dinoyo)',
-    tagline: 'Dinoyo, Kota Malang',
-    address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
-    badge: 'Studio 2',
-    description: 'Self Studio & Studio Foto',
-    highlights: [],
-    icon: '🏢',
-    mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9',
-    reviewUrl: 'https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D',
-    whatsappNumber: '6285168879214',
-    whatsappDisplay: '0851-6887-9214'
-  }
-];
+export const OPERATIONAL_HOURS = studioConfig.operationalHours || "Buka Setiap Hari: 08:00 - 21:00 WIB";
 
-export const SELF_STUDIO_1_BACKGROUNDS: BackgroundOption[] = [
-  {
-    id: 'c1-self-polos-putih',
-    name: 'Polos Putih',
-    category: 'solid-color',
-    hex: '#F8FAFC',
-    colorClass: 'bg-slate-50',
-    description: 'Latar putih polos yang bersih untuk foto mandiri yang cerah.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'c1-self-polos-abu',
-    name: 'Polos Abu',
-    category: 'solid-color',
-    hex: '#9CA3AF',
-    colorClass: 'bg-gray-400',
-    description: 'Latar abu polos bernuansa netral untuk gaya foto yang modern.',
-    previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'c1-self-polos-coklat',
-    name: 'Polos Coklat',
-    category: 'solid-color',
-    hex: '#92400E',
-    colorClass: 'bg-amber-800',
-    description: 'Latar coklat polos untuk hasil foto mandiri yang hangat.',
-    previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'c1-self-tirai-coklat',
-    name: 'Tirai Coklat',
-    category: 'solid-color',
-    hex: '#78350F',
-    colorClass: 'bg-amber-900',
-    description: 'Latar tirai coklat dengan nuansa hangat dan intim.',
-    previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'c1-self-ivory-mediterania',
-    name: 'Ivory Mediterania',
-    category: 'solid-color',
-    hex: '#FFFFF0',
-    colorClass: 'bg-stone-100',
-    description: 'Latar ivory hangat bernuansa Mediterania untuk foto mandiri yang natural.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-1']
-  }
-];
+export const STUDIO_BRANCHES: BranchInfo[] = (studioConfig.branches as BranchInfo[]);
 
-export const BACKGROUNDS: BackgroundOption[] = [
-  // ==================== STUDIO 1 - BACKGROUNDS ====================
-  {
-    id: 'hitam-list',
-    name: 'Hitam List',
-    category: 'solid-color',
-    hex: '#111827',
-    colorClass: 'bg-gray-950',
-    description: 'Latar hitam dengan aksen list untuk tampilan elegan dan tegas.',
-    previewImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'putih-tematik',
-    name: 'Putih Tematik',
-    category: 'solid-color',
-    hex: '#F5F5F5',
-    colorClass: 'bg-slate-50',
-    description: 'Latar putih dengan sentuhan tematik untuk foto yang bersih dan cerah.',
-    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'putih-list',
-    name: 'Putih List',
-    category: 'solid-color',
-    hex: '#F5F5F5',
-    colorClass: 'bg-white',
-    description: 'Latar putih dengan aksen list untuk hasil foto minimalis dan rapi.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'coklat-tematik',
-    name: 'Coklat Tematik',
-    category: 'solid-color',
-    hex: '#8B5E3C',
-    colorClass: 'bg-amber-800',
-    description: 'Latar coklat bernuansa tematik untuk hasil foto hangat dan berkarakter.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'limbo',
-    name: 'Limbo',
-    category: 'solid-color',
-    hex: '#FFFFFF',
-    colorClass: 'bg-gray-200',
-    description: 'Latar mulus tanpa sudut untuk efek ruang foto yang luas dan bersih.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio', 'self-studio'],
-    applicableBranches: ['cabang-1']
-  },
-  {
-    id: 'ivory-mediterania',
-    name: 'Ivory Mediterania',
-    category: 'solid-color',
-    hex: '#FFFFF0',
-    colorClass: 'bg-stone-100',
-    description: 'Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-1']
-  },
 
-  ...SELF_STUDIO_1_BACKGROUNDS,
+export const SELF_STUDIO_1_BACKGROUNDS: BackgroundOption[] = (studioConfig.backgrounds.filter(b => b.applicableBranches?.includes('cabang-1') && b.applicableTo?.includes('self-studio') && b.active !== false) as BackgroundOption[]);
 
-  // ==================== STUDIO 2 (DINOYO) - STUDIO FOTO (5 BACKGROUND) ====================
-  {
-    id: 'c2-hitam',
-    name: 'Hitam',
-    category: 'solid-color',
-    hex: '#111827',
-    description: 'Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.',
-    previewImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-putih',
-    name: 'Putih',
-    category: 'solid-color',
-    hex: '#F8FAFC',
-    description: 'Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-abu',
-    name: 'Abu-abu',
-    category: 'solid-color',
-    hex: '#64748B',
-    description: 'Latar abu-abu netral elegan untuk kesan modern & aesthetic.',
-    previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-coklat-jendela',
-    name: 'Coklat Jendela',
-    category: 'solid-color',
-    hex: '#92400E',
-    description: 'Latar coklat klasik dengan ornamen jendela mewah berkarakter.',
-    previewImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-tematik-cream',
-    name: 'Tematik Cream',
-    category: 'solid-color',
-    hex: '#FEF3C7',
-    description: 'Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).',
-    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['pro-studio'],
-    applicableBranches: ['cabang-2']
-  },
-
-  // ==================== STUDIO 2 (DINOYO) - SELFSTUDIO (4 BACKGROUND) ====================
-  {
-    id: 'c2-self-abu',
-    name: 'Abu-abu',
-    category: 'solid-color',
-    hex: '#64748B',
-    description: 'Latar abu-abu netral aesthetic untuk foto mandiri kekinian.',
-    previewImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-self-biru',
-    name: 'Biru',
-    category: 'solid-color',
-    hex: '#2563EB',
-    description: 'Latar biru aesthetic & fresh khas bilik foto mandiri Alviero.',
-    previewImage: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-self-putih',
-    name: 'Putih',
-    category: 'solid-color',
-    hex: '#F8FAFC',
-    description: 'Latar putih bersih minimalis untuk ekspresi gaya bebas.',
-    previewImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  },
-  {
-    id: 'c2-self-tematik-cream',
-    name: 'Tematik Cream',
-    category: 'solid-color',
-    hex: '#FEF3C7',
-    description: 'Latar tematik cream hangat untuk nuansa pastel aesthetic (Maksimal 5 Orang).',
-    previewImage: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80',
-    applicableTo: ['self-studio'],
-    applicableBranches: ['cabang-2']
-  }
-];
-
+export const BACKGROUNDS: BackgroundOption[] = (studioConfig.backgrounds.filter(b => b.active !== false) as BackgroundOption[]);
 export const BACKDROPS = BACKGROUNDS;
 
 export interface MuaServiceOption {
@@ -2486,42 +2238,15 @@ export const REVIEWS: ReviewItem[] = [
   }
 ];
 
-// Slot Jadwal untuk Studio Foto Profesional (Termasuk Jam Ekstra Pagi 07:00 WIB & Reguler 08:00 - 21:00 WIB)
-export const PRO_STUDIO_TIME_SLOTS = [
-  '07:00',
-  '08:00', '08:30',
-  '09:00', '09:30',
-  '10:00', '10:30',
-  '11:00', '11:30',
-  '12:00', '12:30',
-  '13:00', '13:30',
-  '14:00', '14:30',
-  '15:00', '15:30',
-  '16:00', '16:30',
-  '17:00', '17:30',
-  '18:00', '18:30',
-  '19:00', '19:30',
-  '20:00', '20:30',
-  '21:00'
-];
+// Slot Jadwal untuk Studio Foto Profesional (Dikelola via studioConfig.json / Alviero Studio Manager)
+export const PRO_STUDIO_TIME_SLOTS = studioConfig.timeSlots
+  .filter(s => s.active !== false && s.allowedServices.includes('indoor'))
+  .map(s => s.time);
 
-// Slot Jadwal untuk Ruang Bilik Self Studio (08:00 - 21:30 WIB, Interval 30 Menit/Sesi)
-export const SELF_STUDIO_TIME_SLOTS = [
-  '08:00', '08:30',
-  '09:00', '09:30',
-  '10:00', '10:30',
-  '11:00', '11:30',
-  '12:00', '12:30',
-  '13:00', '13:30',
-  '14:00', '14:30',
-  '15:00', '15:30',
-  '16:00', '16:30',
-  '17:00', '17:30',
-  '18:00', '18:30',
-  '19:00', '19:30',
-  '20:00', '20:30',
-  '21:00'
-];
+// Slot Jadwal untuk Ruang Bilik Self Studio
+export const SELF_STUDIO_TIME_SLOTS = studioConfig.timeSlots
+  .filter(s => s.active !== false && s.allowedServices.includes('indoor') && s.time >= '08:00')
+  .map(s => s.time);
 
 export const TIME_SLOTS = PRO_STUDIO_TIME_SLOTS;
 
