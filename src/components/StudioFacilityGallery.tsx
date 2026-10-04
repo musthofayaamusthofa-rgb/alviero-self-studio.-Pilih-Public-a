@@ -565,7 +565,7 @@ export const STUDIO_EQUIPMENT_DATA: GalleryItem[] = [
 ];
 
 // ============================================================================
-// DATA SECTION 3: BACKGROUND STUDIO 1 (Karangploso) - SINKRON DENGAN BOOKING
+// DATA SECTION 3: BACKGROUND STUDIO 1 (Junrejo) - SINKRON DENGAN BOOKING
 // ============================================================================
 export const STUDIO_1_BACKGROUNDS_DATA: GalleryItem[] = [
   {
@@ -580,7 +580,7 @@ export const STUDIO_1_BACKGROUNDS_DATA: GalleryItem[] = [
     description: 'Latar hitam dengan aksen list untuk tampilan elegan, tegas, dan kontras tinggi yang menonjolkan pakaian dan karakter subjek.',
     conceptNote: 'Sangat cocok untuk sesi foto formal, personal branding, maupun busana terang bertema kontras tinggi.',
     highlights: ['Aksen List Elegan', 'Kontras Tinggi & Pekat', 'Menonjolkan Subjek Utama', 'Formal & Karismatik'],
-    tags: ['#HitamList', '#Studio1Karangploso', '#Elegan']
+    tags: ['#HitamList', '#Studio1Junrejo', '#Elegan']
   },
   {
     id: 'putih-tematik',
@@ -634,9 +634,9 @@ export const STUDIO_1_BACKGROUNDS_DATA: GalleryItem[] = [
     badge: 'Khas Studio 1 (Infinity)',
     imageUrl: '/images/gallery/graduation-indoor/grad-indoor-1.jpg',
     description: 'Latar mulus tanpa sudut antara lantai dan dinding (infinity cove) untuk efek ruang foto yang sangat luas, bersih, dan mewah.',
-    conceptNote: 'Panggung pilar utama Studio 1 Karangploso untuk sesi grup besar, wisuda sekeluarga, dan rombongan sahabat.',
+    conceptNote: 'Panggung pilar utama Studio 1 Junrejo untuk sesi grup besar, wisuda sekeluarga, dan rombongan sahabat.',
     highlights: ['Efek Infinity Bersih', 'Bebas Garis Sudut Lantai', 'Cahaya Merata Luas', 'Muat Banyak Orang'],
-    tags: ['#Limbo', '#InfinityWall', '#Studio1Karangploso']
+    tags: ['#Limbo', '#InfinityWall', '#Studio1Junrejo']
   },
   {
     id: 'ivory-mediterania',
@@ -755,7 +755,7 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
 
   const branchBadgeLabel = selectedBranch === 'cabang-2' 
     ? 'Studio 2 (Dinoyo)' 
-    : 'Studio 1 (Karangploso)';
+    : 'Studio 1 (Junrejo)';
 
   const handlePhotoZoomWrapper = (item: GalleryItem) => {
     if (!onPhotoZoom) return;

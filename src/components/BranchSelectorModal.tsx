@@ -278,7 +278,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     stars: 5,
     text: 'Mbak resepsionisnya ramah polll. Mas fotografernya jg buaik bgt. Jago arahain gaya. Reschedule jg boleh karena ada alasan satu dan lain hal. Pokoknya love deh. Next mungkin kalo mau foto couple bisa kesini lagi!',
     branch: 'cabang-1',
-    studioBadge: 'Studio 1 (Karangploso)',
+    studioBadge: 'Studio 1 (Junrejo)',
     reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
@@ -291,7 +291,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     stars: 5,
     text: 'Bagus bangetttt dan pertama kali kesini tapi mbak2 sama mas2nya ramah banget bener2 membimbing dengan sabar apa yang aku gatau,,, btw makasi ya kak bakal langganan foto disini sih love it 😍😭🥰',
     branch: 'cabang-1',
-    studioBadge: 'Studio 1 (Karangploso)',
+    studioBadge: 'Studio 1 (Junrejo)',
     reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
@@ -304,7 +304,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     stars: 5,
     text: 'Tempat studio nya nyaman, segala request foto semua diturutin dan pelayanan nya top pokoknyaa! Fotografernya asik dan sabar ngarahin pose. Hasil foto dan cetakannya jernih mantap 😍🥰🥰',
     branch: 'cabang-1',
-    studioBadge: 'Studio 1 (Karangploso)',
+    studioBadge: 'Studio 1 (Junrejo)',
     reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
@@ -315,9 +315,9 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     date: '6 bulan lalu',
     package: 'Paket Wisuda & Family',
     stars: 5,
-    text: 'Salah satu rekomendasi studio foto di area Karangploso. Tempatnya luas dan nyaman. Harganya standar dan ramah di kantong, fasilitasnya lengkap!',
+    text: 'Salah satu rekomendasi studio foto di area Junrejo. Tempatnya luas dan nyaman. Harganya standar dan ramah di kantong, fasilitasnya lengkap!',
     branch: 'cabang-1',
-    studioBadge: 'Studio 1 (Karangploso)',
+    studioBadge: 'Studio 1 (Junrejo)',
     reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
@@ -330,7 +330,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     stars: 5,
     text: 'Foto studio di sini bagus banget! Tempatnya nyaman, bersih, dan banyak pilihan background yang bagus. Fotografernya juga ramah, jadi nggak kaku pas difoto dibantu arahin pose juga. Lighting nya pas!',
     branch: 'cabang-1',
-    studioBadge: 'Studio 1 (Karangploso)',
+    studioBadge: 'Studio 1 (Junrejo)',
     reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
@@ -343,7 +343,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
     stars: 5,
     text: 'Tempat nyaman, harga terjangkau dan ramah anak. Pelayanan sangat oke, fotografer ramah dan komunikatif. Rekom banget buat warga Malang.. Gass kesini!',
     branch: 'cabang-1',
-    studioBadge: 'Studio 1 (Karangploso)',
+    studioBadge: 'Studio 1 (Junrejo)',
     reviewUrl: GOOGLE_MAPS_STUDIO_1_URL,
   },
   {
@@ -402,7 +402,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
 
 /**
  * Komponen Carousel Testimonial Klien (Desain Tegas, Bersih & Responsif Desktop)
- * Terhubung langsung dengan Google Review Studio 1 (Karangploso) & Studio 2 (Dinoyo)
+ * Terhubung langsung dengan Google Review Studio 1 (Junrejo) & Studio 2 (Dinoyo)
  */
 export const ClientReviewCarousel: React.FC = () => {
   const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
@@ -481,13 +481,13 @@ export const ClientReviewCarousel: React.FC = () => {
 
         {/* Akses Langsung Ulasan Google Maps Resmi Kedua Cabang (Studio 1 & Studio 2) */}
         <div className="pt-1.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-          {/* Studio 1 (Karangploso) Google Review Link */}
+          {/* Studio 1 (Junrejo) Google Review Link */}
           <a
             href={GOOGLE_MAPS_STUDIO_1_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
-            title="Buka ulasan resmi Alviero Studio 1 (Karangploso) di Google Maps (4.9 Rating & 775+ Ulasan)"
+            title="Buka ulasan resmi Alviero Studio 1 (Junrejo) di Google Maps (4.9 Rating & 775+ Ulasan)"
           >
             {/* Google G SVG */}
             <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
@@ -496,7 +496,7 @@ export const ClientReviewCarousel: React.FC = () => {
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
             </svg>
-            <span className="font-bold text-[#3A3A3A]">Studio 1:</span>
+            <span className="font-bold text-[#3A3A3A]">Studio 1 (Junrejo):</span>
             <span className="font-bold text-[#3A3A3A]">4.9</span>
             <span className="text-amber-500 font-bold tracking-tight text-xs">★★★★★</span>
             <span className="text-stone-300">•</span>
@@ -552,7 +552,7 @@ export const ClientReviewCarousel: React.FC = () => {
                 : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
             }`}
           >
-            Studio 1 (Karangploso)
+            Studio 1 (Junrejo)
           </button>
           <button
             type="button"
@@ -703,7 +703,7 @@ export interface StudioRoomData {
 export const STUDIO_ROOMS_DATA: StudioRoomData[] = [
   {
     id: 'studio-1',
-    name: 'STUDIO 1 — KARANGPLOSO',
+    name: 'STUDIO 1 — JUNREJO',
     badge: 'STUDIO UTAMA & WISUDA',
     branchId: 'cabang-1',
     images: [
@@ -1056,7 +1056,7 @@ export const STUDIO_PROMOS: StudioPromo[] = [
     imageUrl: '/images/categories/couple.jpg',
     terms: [
       'Berlaku untuk Paket Foto Couple dan Paket Prewedding Studio.',
-      'Berlaku untuk sesi foto di Studio 1 (Karangploso) & Studio 2 (Dinoyo).',
+      'Berlaku untuk sesi foto di Studio 1 (Junrejo) & Studio 2 (Dinoyo).',
       'Wajib melakukan reservasi jadwal sesi terlebih dahulu via website.',
       'Sudah termasuk cetak foto berbingkai estetis dan all soft files Google Drive.'
     ],
@@ -2006,7 +2006,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/b1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
@@ -2122,7 +2122,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/s1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
@@ -2242,7 +2242,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/c1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
@@ -2362,7 +2362,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/w1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
@@ -2482,7 +2482,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/e1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
@@ -2599,7 +2599,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="text-[8px] font-mono font-bold bg-[#A9BCA7] text-[#1E1E1E] px-1.5 py-0.5 rounded tracking-wider uppercase">
                                     Studio 1
                                   </span>
-                                  <span className="font-serif font-bold text-xs tracking-wide">Karangploso</span>
+                                  <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/m1:text-stone-300 truncate mt-0.5">
                                   Jl. Raya Kertanegara, Karangploso
@@ -2673,7 +2673,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 Photography <span className="text-[#A9BCA7] px-1">•</span> Videography <span className="text-[#A9BCA7] px-1">•</span> Creative Production
               </p>
               <p className="text-[11px] text-stone-400 mt-1">
-                Studio 1 Karangploso & Studio 2 Cabang Eksklusif
+                Studio 1 Junrejo & Studio 2 Cabang Eksklusif
               </p>
             </div>
           </div>

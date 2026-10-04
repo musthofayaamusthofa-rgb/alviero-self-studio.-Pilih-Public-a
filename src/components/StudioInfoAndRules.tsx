@@ -30,7 +30,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
     {
       id: 'cabang-1',
       name: 'Alviero Studio — Studio 1',
-      subtitle: 'Karangploso, Kabupaten Malang',
+      subtitle: 'Junrejo, Kota Batu',
       badge: 'Studio 1',
       address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
       mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6',
@@ -78,7 +78,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
         </h1>
 
         <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-2xl mx-auto leading-relaxed">
-          Alviero Studio hadir di dua lokasi strategis di Malang: <strong>Studio 1 Karangploso</strong> dan <strong>Studio 2 Dinoyo</strong>. Seluruh studio buka setiap hari pukul <strong>08:00 - 21:00 WIB</strong>.
+          Alviero Studio hadir di dua lokasi strategis: <strong>Studio 1 Junrejo</strong> dan <strong>Studio 2 Dinoyo</strong>. Seluruh studio buka setiap hari pukul <strong>08:00 - 21:00 WIB</strong>.
         </p>
       </div>
 

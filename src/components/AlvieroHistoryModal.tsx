@@ -107,7 +107,7 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
 
             <div className="space-y-4 relative before:absolute before:inset-0 before:left-4 sm:before:left-5 before:w-0.5 before:bg-[#E8DDD6]">
               
-              {/* Milestone 1: Studio 1 Karangploso */}
+              {/* Milestone 1: Studio 1 Junrejo */}
               <div className="relative flex items-start gap-4 sm:gap-5 pl-1">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#5C725A] text-white flex items-center justify-center shrink-0 shadow-sm border-2 border-white z-10">
                   <MapPin className="w-4 h-4 stroke-[2]" />
@@ -115,14 +115,14 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
                 <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] shadow-xs flex-1 space-y-1.5">
                   <div className="flex flex-wrap items-center justify-between gap-1.5">
                     <span className="text-xs font-serif font-bold text-[#3A3A3A] uppercase tracking-wide">
-                      Lahirnya Alviero Studio 1 — Karangploso
+                      Lahirnya Alviero Studio 1 — Junrejo
                     </span>
                     <span className="text-[10px] font-mono font-bold text-[#5C725A] bg-[#EFF6EE] px-2 py-0.5 rounded-full border border-[#CCE0CB]">
                       Cabang Pertama (Pusat)
                     </span>
                   </div>
                   <p className="text-xs text-stone-600 font-sans leading-relaxed">
-                    Dibuka di kawasan sejuk Karangploso, Kabupaten Malang. Hadir dengan fasilitas ikonik <strong>Limbo Putih Seamless (Infinity Curve)</strong> tanpa batas sudut lantai, pencahayaan softbox besar berdifuser ganda, dan ruangan berdaya tampung luas yang menjadi favorit wisudawan serta keluarga besar di Malang Raya.
+                    Dibuka di kawasan sejuk Junrejo. Hadir dengan fasilitas ikonik <strong>Limbo Putih Seamless (Infinity Curve)</strong> tanpa batas sudut lantai, pencahayaan softbox besar berdifuser ganda, dan ruangan berdaya tampung luas yang menjadi favorit wisudawan serta keluarga besar di Malang Raya.
                   </p>
                 </div>
               </div>
@@ -224,7 +224,7 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
         {/* Modal Bottom Actions */}
         <div className="p-4 sm:p-5 bg-white border-t border-[#E8DDD6] flex flex-col sm:flex-row items-center justify-between gap-3 sticky bottom-0 z-20">
           <div className="text-xs text-stone-500 font-sans hidden sm:block">
-            Buka setiap hari: <strong>08:00 - 21:00 WIB</strong> di Karangploso &amp; Dinoyo
+            Buka setiap hari: <strong>08:00 - 21:00 WIB</strong> di Junrejo &amp; Dinoyo
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto">

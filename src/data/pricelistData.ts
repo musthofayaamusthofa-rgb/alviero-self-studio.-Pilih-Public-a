@@ -1220,8 +1220,8 @@ export const STUDIO_BRANCHES: BranchInfo[] = [
   {
     id: 'cabang-1',
     name: 'Alviero Studio — Studio 1',
-    shortName: 'Studio 1 (Karangploso)',
-    tagline: 'Karangploso, Kab. Malang',
+    shortName: 'Studio 1 (Junrejo)',
+    tagline: 'Junrejo, Kota Batu',
     address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
     badge: 'Studio 1',
     description: 'Pusat Self Studio & Studio Foto',
@@ -1521,7 +1521,7 @@ export const MUA_VENDOR_OPTIONS: MuaVendorOption[] = [
     id: 'mua-lila',
     name: 'MUA Lila Art',
     specialty: 'Editorial & beauty branding',
-    location: 'Karangploso',
+    location: 'Junrejo',
     priceStart: 300000,
     services: [
       { id: 'mua-lila-editorial', name: 'Editorial Beauty', price: 300000, duration: '60 menit', description: 'Look editorial yang lebih menonjol untuk branding' },
