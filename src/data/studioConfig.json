@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-04T11:43:49.513Z",
+  "lastUpdated": "2026-10-04T17:36:43.477Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -881,20 +881,20 @@
       {
         "id": "value-1",
         "icon": "heart",
-        "title": "Keramahan Tulus",
-        "description": "Fotografer dan staf yang sabar, hangat, serta siap membimbing pose hingga klien merasa percaya diri."
+        "title": "Visi",
+        "description": "Menjadi bagian dari setiap momen berharga dengan menciptakan pengalaman dan karya visual yang membuat setiap kebahagian layak untuk dikenang."
       },
       {
         "id": "value-2",
         "icon": "shield",
-        "title": "Transparan & Jujur",
-        "description": "Tidak ada biaya tersembunyi. Seluruh file asli beresolusi penuh dibagikan langsung via Google Drive."
+        "title": "Misi",
+        "description": "Menghadirkan pengalaman yang hangat, karya yang kreatif, serta layanan yang profesional melalui inovasi dan perkembangan berkelanjutan agar setiap momen dapat dikenang sepanjang waktu"
       },
       {
         "id": "value-3",
         "icon": "star",
-        "title": "Kualitas Abadi",
-        "description": "Pencahayaan presisi dan kalibrasi warna tajam untuk hasil cetak bingkai yang awet dinikmati puluhan tahun."
+        "title": "Misi",
+        "description": "The Velues behind every moment \n*CREATE*\n*C - Capture*\nmengabadikan momen dengan karya yang bermakna dan berkualitas\n*R - Relationship*\nMembangun hubungan yang hangat tulus dan berkesan dengan setiap pelanggan\n*E-Experience*\nMenciptakan pengalaman berfoto yang nyaman menyenangkan dan memorable\n*A - ART & Creativity*\nMenghadirkan konsep dan karya fotografi yang kreatif, modern dan memiliki karakter\n*T - Technology & Growth*\nTerus berkembang melalui inovasi, teknologi dan peningkatan kualitas tim\n*E - Excellence*\nMemberikan pelayanan dan hasil terbaik dengan standar kualitas yang konsisten"
       }
     ],
     "quote": {
@@ -966,6 +966,59 @@
         "theme": "brown",
         "icon": "sparkles",
         "active": true
+      }
+    ]
+  },
+  "disclaimer": {
+    "tag": "Ketentuan & Tata Tertib Resmi",
+    "title": "DISCLAIMER",
+    "subtitle": "Kebijakan Operasional, Ketentuan Booking & Prosedur Layanan Alviero Studio",
+    "sections": [
+      {
+        "id": "sec-operasional",
+        "title": "1. Ketentuan Umum Operasional",
+        "items": [
+          "Jam operasional buka setiap hari 08:00 - 21:00 WIB. Bisa request di luar jam operasional dengan biaya tambahan charge Rp 35.000 (kecuali wisuda outdoor tanpa biaya charge).",
+          "Jika terlambat dikenakan biaya tambahan Rp 25.000 dan jika sesi melebihi jam 21.00 WIB dikenakan biaya overtime sebesar Rp 35.000.",
+          "Link all file asli via Google Drive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio sedang ramai."
+        ]
+      },
+      {
+        "id": "sec-file-edit",
+        "title": "2. File Edit dan Pengambilan Cetak Foto",
+        "items": [
+          "Proses File edit maksimal 7 hari dan Cetak 5 hari (kecuali pass foto langsung jadi kilat) dihitung sejak Anda selesai memilih nomor foto di Google Drive.",
+          "Hasil cetakan foto diambil kembali di Studio Alviero. Pengiriman via kurir online (Grab / Gojek / Gosend) diperbolehkan dengan pemesanan mandiri oleh klien.",
+          "Batas waktu pengambilan cetakan foto maksimal 1 bulan. Di atas 1 bulan, kerusakan atau kehilangan cetakan berada di luar tanggung jawab studio.",
+          "Pilihan foto yang akan diedit dan dicetak maksimal 1 bulan dari tanggal sesi foto.",
+          "Retouch editing foto sebatas pembersihan background, pencahayaan, dan tone warna dasar studio."
+        ]
+      },
+      {
+        "id": "sec-reschedule",
+        "title": "3. Keterlambatan dan Reschedule Jadwal",
+        "items": [
+          "Apabila kondisi studio tidak ramai, keterlambatan diperbolehkan tanpa pengurangan menit atau dapat digeser ke jam kosong berikutnya.",
+          "Dalam kondisi studio ramai/penuh, toleransi keterlambatan dihitung dari 5 menit pertama dari jam booking dan akan dialihkan ke klien berikutnya yang sudah siap.",
+          "Boleh mengajukan reschedule ke hari lain tanpa biaya tambahan selama hari dan jam yang diajukan masih tersedia."
+        ]
+      },
+      {
+        "id": "sec-pembayaran",
+        "title": "4. Reservasi dan Ketentuan Pembayaran",
+        "items": [
+          "Booking jadwal sah setelah pembayaran DP minimal 50% dari total biaya.",
+          "Pelunasan dapat diselesaikan sebelum atau setelah sesi foto di studio melalui Cash atau Transfer QRIS.",
+          "Pembatalan sepihak oleh klien mengakibatkan DP tidak dapat dikembalikan (non-refundable).",
+          "Klien diperbolehkan untuk upgrade paket, namun tidak dapat melakukan downgrade paket."
+        ]
+      },
+      {
+        "id": "sec-properti",
+        "title": "5. Background dan Properti Studio",
+        "items": [
+          "Properti studio bersifat fleksibel sesuai ketersediaan. Klien boleh me-request properti yang ada di studio selama keadaan tidak sedang padat."
+        ]
       }
     ]
   }
