@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-04T17:37:06.975Z",
+  "lastUpdated": "2026-10-04T17:36:28.867Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -876,25 +876,25 @@
         "description": "Mulai dari wisuda sarjana, pernikahan & prewedding romantis, momen kehamilan ibu (maternity), ulang tahun ceria, hingga potret kebersamaan keluarga dan sahabat. Alviero Studio terus bertumbuh sebagai studio foto terpercaya dengan rating ulasan bintang 5 di Google Maps."
       }
     ],
-    "valuesSectionTitle": "Visi, Misi & Nilai Luhur Pelayanan Alviero Studio",
+    "valuesSectionTitle": "Tiga Nilai Luhur Pelayanan Alviero Studio",
     "values": [
       {
         "id": "value-1",
         "icon": "heart",
         "title": "Visi",
-        "description": "Menjadi bagian dari setiap momen berharga dengan menciptakan pengalaman dan karya visual yang membuat setiap kebahagiaan layak untuk dikenang."
+        "description": "Menjadi bagian dari setiap momen berharga dengan menciptakan pengalaman dan karya visual yang membuat setiap kebahagian layak untuk dikenang."
       },
       {
         "id": "value-2",
         "icon": "shield",
         "title": "Misi",
-        "description": "Menghadirkan pengalaman yang hangat, karya yang kreatif, serta layanan yang profesional melalui inovasi dan perkembangan berkelanjutan agar setiap momen dapat dikenang sepanjang waktu."
+        "description": "Menghadirkan pengalaman yang hangat, karya yang kreatif, serta layanan yang profesional melalui inovasi dan perkembangan berkelanjutan agar setiap momen dapat dikenang sepanjang waktu"
       },
       {
         "id": "value-3",
         "icon": "star",
-        "title": "Nilai Luhur Pelayanan (C.R.E.A.T.E.)",
-        "description": "The Values behind every moment\n*CREATE*\n*C - Capture*\nMengabadikan momen dengan karya yang bermakna dan berkualitas.\n*R - Relationship*\nMembangun hubungan yang hangat, tulus, dan berkesan dengan setiap pelanggan.\n*E - Experience*\nMenciptakan pengalaman berfoto yang nyaman, menyenangkan, dan memorable.\n*A - Art & Creativity*\nMenghadirkan konsep dan karya fotografi yang kreatif, modern, dan memiliki karakter.\n*T - Technology & Growth*\nTerus berkembang melalui inovasi, teknologi, dan peningkatan kualitas tim.\n*E - Excellence*\nMemberikan pelayanan dan hasil terbaik dengan standar kualitas yang konsisten."
+        "title": "Misi",
+        "description": "The Velues behind every moment \n*CREATE*\n*C - Capture*\nmengabadikan momen dengan karya yang bermakna dan berkualitas\n*R - Relationship*\nMembangun hubungan yang hangat tulus dan berkesan dengan setiap pelanggan\n*E-Experience*\nMenciptakan pengalaman berfoto yang nyaman menyenangkan dan memorable\n*A - ART & Creativity*\nMenghadirkan konsep dan karya fotografi yang kreatif, modern dan memiliki karakter\n*T - Technology & Growth*\nTerus berkembang melalui inovasi, teknologi dan peningkatan kualitas tim\n*E - Excellence*\nMemberikan pelayanan dan hasil terbaik dengan standar kualitas yang konsisten"
       }
     ],
     "quote": {
