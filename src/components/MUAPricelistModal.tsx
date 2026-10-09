@@ -14,7 +14,9 @@ import {
   Shirt,
   Scissors,
   Heart,
-  Sun
+  Sun,
+  Eye,
+  Ruler
 } from 'lucide-react';
 
 // =========================================================================
@@ -32,6 +34,8 @@ export interface MuaSubPackage {
   badge?: string;      // Contoh: "Best Seller", "Favorit"
   features: string[];  // Rincian fasilitas lengkap yang didapat
   note?: string;
+  colors?: string[];   // Opsi varian warna kebaya (misal: Sage, Nude, Maroon)
+  sizes?: string[];    // Opsi ukuran kebaya (misal: S, M, L, XL, XXL)
 }
 
 export interface MuaCategory {
@@ -51,15 +55,91 @@ export interface MuaVendorDefinition {
   categories: MuaCategory[];
 }
 
-export const KEBAYA_PREVIEWS: Record<string, string> = {
-  Sage: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=85',
-  Nude: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=85',
-  Black: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85',
-  Navy: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=700&q=85',
-  Maroon: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=85',
-  Gold: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=700&q=85',
-  Silver: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=85',
+export interface KebayaColorInfo {
+  name: string;
+  image: string;
+  hex: string;
+  tag: string;
+  desc: string;
+}
+
+export const KEBAYA_COLOR_CATALOG: Record<string, KebayaColorInfo> = {
+  Sage: {
+    name: 'Sage',
+    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85',
+    hex: '#8FA38D',
+    tag: 'Best Seller Wisuda',
+    desc: 'Hijau sage pastel redup berpadu brokat payet halus timbul. Sangat fotogenik di studio foto dan menjadi warna terfavorit para wisudawati.',
+  },
+  Nude: {
+    name: 'Nude',
+    image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85',
+    hex: '#D8B89E',
+    tag: 'Warm Natural',
+    desc: 'Nuansa krem nude hangat yang menyatu lembut dengan warna kulit alami. Memberi kesan anggun, bersih, dan memancarkan aura natural.',
+  },
+  Black: {
+    name: 'Black',
+    image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85',
+    hex: '#242424',
+    tag: 'Royal Classic',
+    desc: 'Hitam elegan mewah klasik dengan aksen payet berkilau. Memberikan efek siluet tubuh yang ramping, tegas, dan berwibawa.',
+  },
+  Maroon: {
+    name: 'Maroon',
+    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85',
+    hex: '#7A1C29',
+    tag: 'Bold Elegance',
+    desc: 'Merah maroon anggun berkarakter mewah. Pilihan sempurna untuk sesi foto wisuda resmi, lamaran, maupun foto keluarga.',
+  },
+  Navy: {
+    name: 'Navy',
+    image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85',
+    hex: '#1D2A44',
+    tag: 'Exclusive Modern',
+    desc: 'Biru navy tua berkilau payet kristal mewah. Kontras sangat tajam dan memukau di bawah pencahayaan softbox studio Alviero.',
+  },
+  Gold: {
+    name: 'Gold',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85',
+    hex: '#C8A34A',
+    tag: 'Glamour Luxury',
+    desc: 'Kuning keemasan berpayet timbul premium. Memancarkan aura megah, cerah, dan berkelas khas pesta formal.',
+  },
+  Silver: {
+    name: 'Silver',
+    image: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85',
+    hex: '#B8BAC2',
+    tag: 'Chic Futuristic',
+    desc: 'Abu-abu perak berkilau dingin yang modern dan bersih. Tampil sangat modis dan kekinian untuk konsep wisuda minimalis.',
+  },
+  'Dusty Pink': {
+    name: 'Dusty Pink',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85',
+    hex: '#DDA7A5',
+    tag: 'Sweet Feminine',
+    desc: 'Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria.',
+  },
 };
+
+export const KEBAYA_PREVIEWS: Record<string, string> = {
+  Sage: KEBAYA_COLOR_CATALOG.Sage.image,
+  Nude: KEBAYA_COLOR_CATALOG.Nude.image,
+  Black: KEBAYA_COLOR_CATALOG.Black.image,
+  Navy: KEBAYA_COLOR_CATALOG.Navy.image,
+  Maroon: KEBAYA_COLOR_CATALOG.Maroon.image,
+  Gold: KEBAYA_COLOR_CATALOG.Gold.image,
+  Silver: KEBAYA_COLOR_CATALOG.Silver.image,
+  'Dusty Pink': KEBAYA_COLOR_CATALOG['Dusty Pink'].image,
+};
+
+export const KEBAYA_SIZE_CHART = [
+  { size: 'S', ld: '86 – 88 cm', waist: '68 – 72 cm', length: '65 cm', weight: '40 – 48 kg' },
+  { size: 'M', ld: '90 – 94 cm', waist: '74 – 78 cm', length: '68 cm', weight: '48 – 55 kg' },
+  { size: 'L', ld: '96 – 100 cm', waist: '80 – 84 cm', length: '70 cm', weight: '55 – 63 kg' },
+  { size: 'XL', ld: '102 – 106 cm', waist: '86 – 90 cm', length: '72 cm', weight: '63 – 72 kg' },
+  { size: 'XXL', ld: '108 – 114 cm', waist: '92 – 98 cm', length: '75 cm', weight: '72 – 82 kg' },
+];
 
 // =========================================================================
 // MOCK DATA RESMI 4 VENDOR DENGAN DETAIL SUB-PAKET LENGKAP
@@ -327,6 +407,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             name: 'Paket 1 — Kebaya Modern Standard',
             price: 100000,
             badge: 'Ready to Wear',
+            colors: ['Sage', 'Nude', 'Black', 'Maroon'],
+            sizes: ['S', 'M', 'L', 'XL', 'XXL'],
             features: [
               'Pilihan Warna Elegan: Sage, Nude, Black, Maroon',
               'Termasuk Jarik Batik Span / Rok Lilit Premium',
@@ -339,6 +421,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             name: 'Paket 2 — Kebaya Brokat Premium + Selendang',
             price: 150000,
             badge: 'Best Choice',
+            colors: ['Navy', 'Gold', 'Silver', 'Sage', 'Nude'],
+            sizes: ['S', 'M', 'L', 'XL', 'XXL'],
             features: [
               'Kebaya Brokat Payet Halus & Mewah Timbul',
               'Pilihan Warna Eksklusif (Navy, Gold, Silver, Sage, Nude)',
@@ -558,6 +642,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             id: 'ananda-kb-1',
             name: 'Paket 1 — Kebaya Pastel Modern',
             price: 100000,
+            colors: ['Sage', 'Nude', 'Silver', 'Dusty Pink'],
+            sizes: ['S', 'M', 'L', 'XL'],
             features: [
               'Pilihan Warna: Sage, Nude, Silver, Pink Pastel',
               'Termasuk Jarik / Rok Batik Modern',
@@ -723,6 +809,8 @@ export const MUA_VENDORS: MuaVendorDefinition[] = [
             id: 'masaya-kb-1',
             name: 'Paket 1 — Kebaya Glamour Brokat',
             price: 120000,
+            colors: ['Maroon', 'Black', 'Gold', 'Navy'],
+            sizes: ['S', 'M', 'L', 'XL', 'XXL'],
             features: ['Pilihan Warna: Maroon, Black, Gold, Navy', 'Lengkap dengan Jarik & Manset'],
           },
         ],
@@ -881,8 +969,53 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   // Temporary visual feedback when a sub-package is added to cart
   const [addedPackageId, setAddedPackageId] = useState<string | null>(null);
 
-  // Kebaya preview image modal
-  const [previewImagePopup, setPreviewImagePopup] = useState<string | null>(null);
+  // Kebaya preview modal: holds active preview color, package context, and available colors
+  const [previewKebayaModal, setPreviewKebayaModal] = useState<{
+    color: string;
+    pkgId: string;
+    pkgName: string;
+    availableColors: string[];
+  } | null>(null);
+
+  // Size chart guide modal
+  const [isSizeChartOpen, setIsSizeChartOpen] = useState<boolean>(false);
+
+  // Kebaya selection state: pkgId -> { color: string, size: string }
+  const [kebayaSelections, setKebayaSelections] = useState<Record<string, { color: string; size: string }>>({});
+
+  const getSelectedColor = (pkg: MuaSubPackage) => {
+    if (kebayaSelections[pkg.id]?.color) {
+      return kebayaSelections[pkg.id].color;
+    }
+    return pkg.colors && pkg.colors.length > 0 ? pkg.colors[0] : 'Sage';
+  };
+
+  const getSelectedSize = (pkg: MuaSubPackage) => {
+    if (kebayaSelections[pkg.id]?.size) {
+      return kebayaSelections[pkg.id].size;
+    }
+    return pkg.sizes && pkg.sizes.length > 0 ? pkg.sizes[0] : 'M';
+  };
+
+  const handleSelectKebayaColor = (pkgId: string, color: string) => {
+    setKebayaSelections((prev) => ({
+      ...prev,
+      [pkgId]: {
+        color,
+        size: prev[pkgId]?.size || 'M',
+      },
+    }));
+  };
+
+  const handleSelectKebayaSize = (pkgId: string, size: string) => {
+    setKebayaSelections((prev) => ({
+      ...prev,
+      [pkgId]: {
+        color: prev[pkgId]?.color || 'Sage',
+        size,
+      },
+    }));
+  };
 
   // Active vendor object based on activePopupVendor
   const currentPopupVendor =
@@ -917,10 +1050,25 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   ) => {
     if (!onAddExtraItem) return;
 
+    const hasVariants =
+      (subPackage.colors && subPackage.colors.length > 0) ||
+      (subPackage.sizes && subPackage.sizes.length > 0);
+
+    const selectedColor = getSelectedColor(subPackage);
+    const selectedSize = getSelectedSize(subPackage);
+
+    const itemId = hasVariants
+      ? `${vendorName.toLowerCase().replace(/\s+/g, '-')}-${subPackage.id}-${selectedColor.toLowerCase().replace(/\s+/g, '-')}-${selectedSize.toLowerCase()}`
+      : `${vendorName.toLowerCase().replace(/\s+/g, '-')}-${subPackage.id}`;
+
+    const displayName = hasVariants
+      ? `${subPackage.name} (Warna: ${selectedColor}, Size: ${selectedSize})`
+      : `${subPackage.name} (${categoryName})`;
+
     onAddExtraItem({
-      id: `${vendorName.toLowerCase().replace(/\s+/g, '-')}-${subPackage.id}`,
+      id: itemId,
       category: 'MUA',
-      itemName: `${subPackage.name} (${categoryName})`,
+      itemName: displayName,
       vendor: vendorName,
       price: subPackage.price,
       qty: 1,
@@ -1187,6 +1335,10 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
                             {category.subPackages.map((pkg) => {
                               const isAdded = addedPackageId === pkg.id;
+                              const selectedColor = getSelectedColor(pkg);
+                              const selectedSize = getSelectedSize(pkg);
+                              const hasColors = Boolean(pkg.colors && pkg.colors.length > 0);
+                              const hasSizes = Boolean(pkg.sizes && pkg.sizes.length > 0);
 
                               return (
                                 <div
@@ -1243,8 +1395,163 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                     ))}
                                   </div>
 
+                                  {/* SECTION PILIH VARIAN WARNA & UKURAN KEBAYA (SHOPEE STYLE LUXURY) */}
+                                  {(hasColors || hasSizes) && (
+                                    <div className="mt-2.5 space-y-2.5 rounded-xl border border-[#E8DDD6] bg-[#FAF8F5] p-2.5 sm:p-3">
+                                      {/* PILIH WARNA */}
+                                      {hasColors && pkg.colors && (
+                                        <div>
+                                          <div className="mb-2 flex items-center justify-between gap-2">
+                                            <div className="flex items-center gap-1.5 min-w-0">
+                                              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#2E2E2E]">
+                                                Warna:
+                                              </span>
+                                              <span className="rounded-full bg-[#5C725A]/15 px-2 py-0.5 text-[10px] font-mono font-bold text-[#5C725A] truncate">
+                                                {selectedColor}
+                                              </span>
+                                            </div>
+
+                                            {/* Tombol Lihat Contoh Baju */}
+                                            <button
+                                              type="button"
+                                              onClick={() =>
+                                                setPreviewKebayaModal({
+                                                  color: selectedColor,
+                                                  pkgId: pkg.id,
+                                                  pkgName: pkg.name,
+                                                  availableColors: pkg.colors || [],
+                                                })
+                                              }
+                                              className="inline-flex items-center gap-1 rounded-full border border-[#DCD3CB] bg-white px-2 py-0.5 text-[9px] sm:text-[10px] font-sans font-bold text-[#5C725A] hover:bg-[#F2E9E4] transition-colors shadow-2xs shrink-0 cursor-pointer"
+                                            >
+                                              <Eye className="w-3 h-3 text-[#5C725A]" />
+                                              <span>Lihat Contoh Baju</span>
+                                            </button>
+                                          </div>
+
+                                          {/* Grid Thumbnail Pilihan Warna ala Shopee */}
+                                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                                            {pkg.colors.map((colorName) => {
+                                              const isColorSelected = selectedColor === colorName;
+                                              const colorInfo = KEBAYA_COLOR_CATALOG[colorName];
+                                              const colorImg = colorInfo?.image || KEBAYA_PREVIEWS[colorName];
+                                              const colorHex = colorInfo?.hex || '#999999';
+
+                                              return (
+                                                <button
+                                                  key={colorName}
+                                                  type="button"
+                                                  onClick={() => handleSelectKebayaColor(pkg.id, colorName)}
+                                                  className={`group flex items-center gap-1.5 rounded-lg border p-1 text-left transition-all cursor-pointer ${
+                                                    isColorSelected
+                                                      ? 'border-[#5C725A] bg-[#EFF6EE] ring-1.5 ring-[#5C725A] shadow-2xs'
+                                                      : 'border-[#E2D8CF] bg-white hover:border-[#5C725A]/60 hover:bg-[#FAF7F2]'
+                                                  }`}
+                                                >
+                                                  {/* Mini Foto Baju */}
+                                                  <div className="relative h-7 w-7 sm:h-8 sm:w-8 shrink-0 overflow-hidden rounded-md border border-[#D9CEBF] bg-[#EAE3DC]">
+                                                    {colorImg ? (
+                                                      <img
+                                                        src={colorImg}
+                                                        alt={`Kebaya ${colorName}`}
+                                                        className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                                                      />
+                                                    ) : (
+                                                      <div
+                                                        className="h-full w-full"
+                                                        style={{ backgroundColor: colorHex }}
+                                                      />
+                                                    )}
+                                                    {/* Dot warna hex di pojok */}
+                                                    <span
+                                                      className="absolute bottom-0 right-0 h-2 w-2 rounded-tl border-t border-l border-white shadow-2xs"
+                                                      style={{ backgroundColor: colorHex }}
+                                                    />
+                                                  </div>
+
+                                                  <div className="min-w-0 flex-1">
+                                                    <span
+                                                      className={`block truncate text-[11px] font-sans font-semibold leading-tight ${
+                                                        isColorSelected ? 'text-[#2E2E2E]' : 'text-stone-700'
+                                                      }`}
+                                                    >
+                                                      {colorName}
+                                                    </span>
+                                                    <span className="text-[8px] font-mono text-stone-500 block truncate">
+                                                      {colorInfo?.tag || 'Tersedia'}
+                                                    </span>
+                                                  </div>
+
+                                                  {isColorSelected && (
+                                                    <Check className="h-3 w-3 shrink-0 text-[#5C725A] mr-0.5" />
+                                                  )}
+                                                </button>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                      )}
+
+                                      {/* PILIH UKURAN */}
+                                      {hasSizes && pkg.sizes && (
+                                        <div className="pt-2 border-t border-[#EDE5DE]">
+                                          <div className="mb-1.5 flex items-center justify-between gap-2">
+                                            <div className="flex items-center gap-1.5">
+                                              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#2E2E2E]">
+                                                Ukuran:
+                                              </span>
+                                              <span className="rounded-full bg-[#2E2E2E] px-2 py-0.5 text-[9px] font-mono font-bold text-white">
+                                                {selectedSize}
+                                              </span>
+                                            </div>
+
+                                            {/* Link Tabel Ukuran > */}
+                                            <button
+                                              type="button"
+                                              onClick={() => setIsSizeChartOpen(true)}
+                                              className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#5C725A] hover:text-[#445542] hover:underline cursor-pointer"
+                                            >
+                                              <Ruler className="w-3 h-3 text-[#5C725A]" />
+                                              <span>Tabel Ukuran &gt;</span>
+                                            </button>
+                                          </div>
+
+                                          {/* Button Row Pilihan Ukuran */}
+                                          <div className="flex flex-wrap gap-1.5">
+                                            {pkg.sizes.map((size) => {
+                                              const isSizeSelected = selectedSize === size;
+
+                                              return (
+                                                <button
+                                                  key={size}
+                                                  type="button"
+                                                  onClick={() => handleSelectKebayaSize(pkg.id, size)}
+                                                  className={`flex h-8 min-w-[40px] items-center justify-center rounded-lg border px-3 text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
+                                                    isSizeSelected
+                                                      ? 'border-[#2E2E2E] bg-[#2E2E2E] text-white shadow-xs'
+                                                      : 'border-[#E2D8CF] bg-white text-stone-700 hover:border-[#5C725A] hover:bg-[#FDFBF7]'
+                                                  }`}
+                                                >
+                                                  {size}
+                                                </button>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+
                                   {/* Tombol Aksi Tambah ke Keranjang */}
-                                  <div className="mt-2.5 flex justify-end">
+                                  <div className="mt-2.5 flex items-center justify-between pt-1">
+                                    {(hasColors || hasSizes) ? (
+                                      <div className="text-[10px] font-mono text-stone-500">
+                                        <span className="font-semibold text-[#5C725A]">{selectedColor}</span>
+                                        <span className="mx-1">•</span>
+                                        <span>Size <strong className="text-[#2E2E2E]">{selectedSize}</strong></span>
+                                      </div>
+                                    ) : <div />}
+
                                     <button
                                       type="button"
                                       onClick={() =>
@@ -1254,7 +1561,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                           pkg
                                         )
                                       }
-                                      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-serif font-black uppercase tracking-[0.14em] transition-all duration-200 active:scale-95 ${
+                                      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-serif font-black uppercase tracking-[0.14em] transition-all duration-200 active:scale-95 cursor-pointer ${
                                         isAdded
                                           ? 'bg-[#5C725A] text-white shadow-2xs'
                                           : 'bg-[#2E2E2E] text-white hover:bg-[#1a1a1a]'
@@ -1313,34 +1620,261 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
         )}
 
         {/* ========================================================================= */}
-        {/* PREVIEW KEBAYA */}
+        {/* MODAL LIHAT CONTOH BAJU KEBAYA (FOTO BESAR & COLOR SWITCHER) */}
         {/* ========================================================================= */}
-        {previewImagePopup && (
+        {previewKebayaModal && (() => {
+          const activeColor = previewKebayaModal.color;
+          const colorInfo = KEBAYA_COLOR_CATALOG[activeColor] || {
+            name: activeColor,
+            image: KEBAYA_PREVIEWS[activeColor] || KEBAYA_PREVIEWS.Sage,
+            hex: '#8FA38D',
+            tag: 'Koleksi Studio',
+            desc: 'Kebaya modern berpayet timbul anggun untuk sesi foto studio Alviero.',
+          };
+
+          return (
+            <div
+              className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-sm animate-in fade-in duration-200"
+              onClick={() => setPreviewKebayaModal(null)}
+              role="presentation"
+            >
+              <div
+                className="relative flex max-h-[92vh] w-full max-w-md flex-col overflow-hidden rounded-2xl border border-[#E8DDD6] bg-[#FDFBF7] shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header Modal */}
+                <div className="flex items-center justify-between border-b border-[#E8DDD6] bg-[#FAF7F2] px-4 py-3">
+                  <div className="min-w-0 pr-2">
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#5C725A] block">
+                      Contoh Model & Detail Busana
+                    </span>
+                    <h5 className="truncate font-serif text-base font-black text-[#2E2E2E]">
+                      Kebaya Warna: {colorInfo.name}
+                    </h5>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewKebayaModal(null)}
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EAE1DA] text-[#2E2E2E] hover:bg-[#DBD0C7] transition-colors"
+                    aria-label="Tutup preview"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                {/* Konten Scrollable */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-3.5">
+                  {/* Foto Besar Contoh Baju */}
+                  <div className="relative overflow-hidden rounded-xl border border-[#E8DDD6] bg-stone-100 shadow-xs">
+                    <img
+                      src={colorInfo.image}
+                      alt={`Contoh baju kebaya warna ${colorInfo.name}`}
+                      className="h-72 sm:h-80 w-full object-cover object-top"
+                    />
+                    {/* Tag Badge */}
+                    <div className="absolute top-2.5 left-2.5 rounded-full bg-black/70 backdrop-blur-md px-2.5 py-1 text-[10px] font-mono font-bold text-white shadow-sm flex items-center gap-1.5">
+                      <span
+                        className="h-2 w-2 rounded-full"
+                        style={{ backgroundColor: colorInfo.hex }}
+                      />
+                      <span>{colorInfo.tag}</span>
+                    </div>
+                  </div>
+
+                  {/* Deskripsi & Karakter Warna */}
+                  <div className="rounded-xl border border-[#E8DDD6] bg-white p-3 space-y-1.5 shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <span className="font-serif text-sm font-black text-[#2E2E2E]">
+                        {previewKebayaModal.pkgName}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setIsSizeChartOpen(true)}
+                        className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-[#5C725A] cursor-pointer hover:underline"
+                      >
+                        <Ruler className="w-3 h-3" />
+                        <span>Lihat Ukuran</span>
+                      </button>
+                    </div>
+                    <p className="text-xs font-sans text-stone-600 leading-relaxed">
+                      {colorInfo.desc}
+                    </p>
+                  </div>
+
+                  {/* Switcher Cepat Warna Lainnya */}
+                  {previewKebayaModal.availableColors.length > 1 && (
+                    <div>
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#2E2E2E] block mb-2">
+                        Pilih Warna Lain untuk Dilihat:
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {previewKebayaModal.availableColors.map((colorName) => {
+                          const isActive = colorName === activeColor;
+                          const itemInfo = KEBAYA_COLOR_CATALOG[colorName];
+                          const itemImg = itemInfo?.image || KEBAYA_PREVIEWS[colorName];
+
+                          return (
+                            <button
+                              key={colorName}
+                              type="button"
+                              onClick={() => {
+                                setPreviewKebayaModal((prev) =>
+                                  prev ? { ...prev, color: colorName } : null
+                                );
+                                handleSelectKebayaColor(previewKebayaModal.pkgId, colorName);
+                              }}
+                              className={`flex items-center gap-1.5 rounded-lg border p-1 text-xs font-sans font-semibold transition-all cursor-pointer ${
+                                isActive
+                                  ? 'border-[#5C725A] bg-[#EFF6EE] ring-1.5 ring-[#5C725A] text-[#2E2E2E]'
+                                  : 'border-[#E2D8CF] bg-white text-stone-600 hover:border-[#5C725A]/60'
+                              }`}
+                            >
+                              <div className="h-6 w-6 overflow-hidden rounded border border-[#D9CEBF]">
+                                <img
+                                  src={itemImg}
+                                  alt={colorName}
+                                  className="h-full w-full object-cover"
+                                />
+                              </div>
+                              <span className="pr-1">{colorName}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Footer Modal: Tombol Terapkan & Pilih */}
+                <div className="border-t border-[#E8DDD6] bg-[#FAF7F2] p-3 flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsSizeChartOpen(true)}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#DCD3CB] bg-white px-3 py-2 text-[10px] font-mono font-bold text-[#2E2E2E] hover:bg-[#F2E9E4] transition-colors cursor-pointer"
+                  >
+                    <Ruler className="w-3.5 h-3.5 text-[#5C725A]" />
+                    <span>Tabel Ukuran</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleSelectKebayaColor(previewKebayaModal.pkgId, activeColor);
+                      setPreviewKebayaModal(null);
+                    }}
+                    className="flex-1 rounded-full bg-[#5C725A] px-4 py-2 text-center text-xs font-serif font-black uppercase tracking-wider text-white shadow-xs hover:bg-[#4E624C] transition-colors cursor-pointer"
+                  >
+                    Gunakan Warna {activeColor} ✓
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* ========================================================================= */}
+        {/* MODAL TABEL PANDUAN UKURAN KEBAYA (SIZE CHART) */}
+        {/* ========================================================================= */}
+        {isSizeChartOpen && (
           <div
-            className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm animate-in fade-in"
-            onClick={() => setPreviewImagePopup(null)}
+            className="fixed inset-0 z-[95] flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-sm animate-in fade-in duration-200"
+            onClick={() => setIsSizeChartOpen(false)}
             role="presentation"
           >
             <div
-              className="relative w-full max-w-sm rounded-2xl bg-white p-4 shadow-2xl"
+              className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-[#E8DDD6] bg-[#FDFBF7] shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                type="button"
-                onClick={() => setPreviewImagePopup(null)}
-                className="absolute -right-3 -top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-[#2E2E2E] text-white shadow-lg hover:bg-black"
-                aria-label="Tutup preview"
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <img
-                src={KEBAYA_PREVIEWS[previewImagePopup] || KEBAYA_PREVIEWS.Sage}
-                alt={`Preview kebaya warna ${previewImagePopup}`}
-                className="max-h-[65vh] w-full rounded-xl object-cover"
-              />
-              <p className="mt-3 text-center text-xs font-mono font-bold uppercase tracking-[0.16em] text-[#2E2E2E]">
-                Preview Kebaya Warna: {previewImagePopup}
-              </p>
+              {/* Header Modal */}
+              <div className="flex items-center justify-between border-b border-[#E8DDD6] bg-[#FAF7F2] px-4 py-3 sm:px-5 sm:py-3.5">
+                <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#E8DDD6] bg-[#F2E9E4] text-[#5C725A]">
+                    <Ruler className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h5 className="font-serif text-base font-black uppercase text-[#2E2E2E]">
+                      Tabel Panduan Ukuran Kebaya
+                    </h5>
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#6E856C]">
+                      Standar Fitting Alviero Studio Malang
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsSizeChartOpen(false)}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EAE1DA] text-[#2E2E2E] hover:bg-[#DBD0C7] transition-colors cursor-pointer"
+                  aria-label="Tutup tabel ukuran"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Body Modal */}
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+                {/* Tabel Ukuran */}
+                <div className="overflow-x-auto rounded-xl border border-[#E8DDD6] bg-white shadow-2xs">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="border-b border-[#E8DDD6] bg-[#FAF7F2] text-[10px] font-mono font-bold uppercase text-[#5C725A]">
+                        <th className="py-2.5 px-3">Size</th>
+                        <th className="py-2.5 px-3">Lingkar Dada (LD)</th>
+                        <th className="py-2.5 px-3">Pinggang</th>
+                        <th className="py-2.5 px-3">Panjang</th>
+                        <th className="py-2.5 px-3">Est. Berat Badan</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F2ECE7] font-sans">
+                      {KEBAYA_SIZE_CHART.map((row) => (
+                        <tr key={row.size} className="hover:bg-[#FAF8F5] transition-colors">
+                          <td className="py-2.5 px-3 font-mono font-black text-[#2E2E2E]">
+                            <span className="inline-block rounded-md bg-[#2E2E2E] px-2 py-0.5 text-white text-[11px]">
+                              {row.size}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 font-medium text-stone-700">{row.ld}</td>
+                          <td className="py-2.5 px-3 text-stone-600">{row.waist}</td>
+                          <td className="py-2.5 px-3 text-stone-600">{row.length}</td>
+                          <td className="py-2.5 px-3 font-mono font-bold text-[#5C725A]">{row.weight}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Informasi Tambahan & Layanan Fitting Ruang Ganti */}
+                <div className="space-y-2 rounded-xl border border-[#E8DDD6] bg-[#FAF7F2] p-3.5 text-xs text-stone-700">
+                  <div className="flex items-start gap-2">
+                    <span className="text-base shrink-0">👗</span>
+                    <p>
+                      <strong className="text-[#2E2E2E]">Free Fitting Langsung di Ruang Ganti:</strong> Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-base shrink-0">✨</span>
+                    <p>
+                      <strong className="text-[#2E2E2E]">Karet Pinggang Fleksibel:</strong> Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-base shrink-0">🧕</span>
+                    <p>
+                      <strong className="text-[#2E2E2E]">Kelengkapan Paket:</strong> Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer Modal */}
+              <div className="border-t border-[#E8DDD6] bg-[#FAF7F2] p-3 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setIsSizeChartOpen(false)}
+                  className="rounded-full bg-[#2E2E2E] px-5 py-2 text-xs font-serif font-black uppercase tracking-wider text-white hover:bg-black transition-colors cursor-pointer"
+                >
+                  Tutup Panduan Ukuran
+                </button>
+              </div>
             </div>
           </div>
         )}
