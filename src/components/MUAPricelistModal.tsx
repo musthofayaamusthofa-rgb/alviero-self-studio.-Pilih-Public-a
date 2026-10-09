@@ -16,7 +16,9 @@ import {
   Heart,
   Sun,
   Eye,
-  Ruler
+  Ruler,
+  Minus,
+  Plus
 } from 'lucide-react';
 
 // =========================================================================
@@ -950,6 +952,10 @@ interface MUAPricelistModalProps {
     price: number;
     qty: number;
   }) => void;
+  onRemoveExtraItem?: (id: string) => void;
+  onUpdateQty?: (id: string, nextQty: number) => void;
+  onRemoveExtraItem?: (id: string) => void;
+  onUpdateQty?: (id: string, nextQty: number) => void;
   onOpenExtraCheckout?: () => void;
 }
 
@@ -958,6 +964,8 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   onClose,
   cartItems = [],
   onAddExtraItem,
+  onRemoveExtraItem,
+  onUpdateQty,
   onOpenExtraCheckout,
 }) => {
   // Step 1: Active Popup Vendor (when user clicks a vendor button in grid, e.g. "BY NOVITA")
@@ -1079,6 +1087,26 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
     setTimeout(() => {
       setAddedPackageId((cur) => (cur === subPackage.id ? null : cur));
     }, 1800);
+  };
+
+  // Handler batalkan / hapus sub-paket dari keranjang
+  const handleRemoveSubPackageFromCart = (itemId: string) => {
+    if (onRemoveExtraItem) {
+      onRemoveExtraItem(itemId);
+    }
+  };
+
+  // Handler kurangi kuantitas sub-paket
+  const handleDecreaseSubPackageQty = (itemId: string, currentQty: number) => {
+    if (currentQty <= 1) {
+      if (onRemoveExtraItem) {
+        onRemoveExtraItem(itemId);
+      }
+    } else {
+      if (onUpdateQty) {
+        onUpdateQty(itemId, currentQty - 1);
+      }
+    }
   };
 
   const muaCartTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
@@ -1542,42 +1570,116 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                     </div>
                                   )}
 
-                                  {/* Tombol Aksi Tambah ke Keranjang */}
-                                  <div className="mt-2.5 flex items-center justify-between pt-1">
+                                  {/* Info varian lain di keranjang jika ada */}
+                                  {otherPkgCartEntries.length > 0 && (
+                                    <div className="mt-2 flex flex-wrap items-center gap-1.5 rounded-lg border border-[#E8DDD6] bg-[#FAF8F5] p-2 text-[10px] text-stone-700">
+                                      <span className="font-mono font-bold text-[#5C725A]">Varian lain terpilih:</span>
+                                      {otherPkgCartEntries.map((otherItem) => (
+                                        <span
+                                          key={otherItem.id}
+                                          className="inline-flex items-center gap-1 rounded-md bg-white px-2 py-0.5 border border-[#E2D8CF] font-sans font-medium shadow-2xs"
+                                        >
+                                          <span>{otherItem.itemName.replace(pkg.name, '').trim()} ({otherItem.qty}x)</span>
+                                          <button
+                                            type="button"
+                                            onClick={() => handleRemoveSubPackageFromCart(otherItem.id)}
+                                            className="text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
+                                            title="Batalkan varian ini"
+                                          >
+                                            <X className="w-3 h-3 stroke-[2.5]" />
+                                          </button>
+                                        </span>
+                                      ))}
+                                    </div>
+                                  )}
+
+                                  {/* Tombol Aksi Tambah / Batalkan ke Keranjang */}
+                                  <div className="mt-2.5 flex items-center justify-between pt-1 gap-2">
                                     {(hasColors || hasSizes) ? (
-                                      <div className="text-[10px] font-mono text-stone-500">
+                                      <div className="text-[10px] font-mono text-stone-500 min-w-0">
                                         <span className="font-semibold text-[#5C725A]">{selectedColor}</span>
                                         <span className="mx-1">•</span>
                                         <span>Size <strong className="text-[#2E2E2E]">{selectedSize}</strong></span>
                                       </div>
                                     ) : <div />}
 
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        handleAddSubPackageToCart(
-                                          currentPopupVendor.name,
-                                          category.name,
-                                          pkg
-                                        )
-                                      }
-                                      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[10px] font-serif font-black uppercase tracking-[0.14em] transition-all duration-200 active:scale-95 cursor-pointer ${
-                                        isAdded
-                                          ? 'bg-[#5C725A] text-white shadow-2xs'
-                                          : 'bg-[#2E2E2E] text-white hover:bg-[#1a1a1a]'
-                                      }`}
-                                    >
-                                      {isAdded ? (
-                                        <>
-                                          <Check className="w-3 h-3 stroke-[3]" />
-                                          <span>Ditambahkan</span>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <span>+ Tambah</span>
-                                        </>
-                                      )}
-                                    </button>
+                                    {cartEntry ? (
+                                      <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                                        {/* Tombol Membatalkan yang Jelas & Menonjol */}
+                                        <button
+                                          type="button"
+                                          onClick={() => handleRemoveSubPackageFromCart(currentItemId)}
+                                          className="inline-flex items-center gap-1.5 rounded-full border border-rose-300 bg-rose-50/90 px-3 py-1.5 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.12em] text-rose-700 hover:bg-rose-100 hover:border-rose-400 active:scale-95 transition-all cursor-pointer shadow-2xs"
+                                          title="Batalkan pilihan paket ini dari keranjang"
+                                        >
+                                          <X className="w-3.5 h-3.5 stroke-[2.5] text-rose-600" />
+                                          <span>Batalkan</span>
+                                        </button>
+
+                                        {/* Stepper Jumlah / Status Terpilih */}
+                                        <div className="inline-flex items-center rounded-full border border-[#5C725A] bg-[#EFF6EE] p-0.5 shadow-2xs">
+                                          <button
+                                            type="button"
+                                            onClick={() => handleDecreaseSubPackageQty(currentItemId, cartEntry.qty)}
+                                            className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-white text-[#2E2E2E] hover:bg-[#FAF7F2] active:scale-90 transition-all cursor-pointer shadow-2xs"
+                                            title={cartEntry.qty === 1 ? 'Batalkan paket' : 'Kurangi jumlah'}
+                                          >
+                                            <Minus className="w-3 h-3 stroke-[2.5]" />
+                                          </button>
+
+                                          <div className="px-2 text-center min-w-[48px]">
+                                            <span className="text-[11px] font-mono font-bold text-[#5C725A] block leading-none">
+                                              {cartEntry.qty}x
+                                            </span>
+                                            <span className="text-[8px] font-mono font-semibold uppercase text-stone-500 block leading-none mt-0.5">
+                                              Dipilih
+                                            </span>
+                                          </div>
+
+                                          <button
+                                            type="button"
+                                            onClick={() =>
+                                              handleAddSubPackageToCart(
+                                                currentPopupVendor.name,
+                                                category.name,
+                                                pkg
+                                              )
+                                            }
+                                            className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-[#5C725A] text-white hover:bg-[#4E624C] active:scale-90 transition-all cursor-pointer shadow-2xs"
+                                            title="Tambah jumlah paket"
+                                          >
+                                            <Plus className="w-3 h-3 stroke-[2.5]" />
+                                          </button>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          handleAddSubPackageToCart(
+                                            currentPopupVendor.name,
+                                            category.name,
+                                            pkg
+                                          )
+                                        }
+                                        className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.14em] transition-all duration-200 active:scale-95 cursor-pointer shrink-0 ${
+                                          isAdded
+                                            ? 'bg-[#5C725A] text-white shadow-2xs'
+                                            : 'bg-[#2E2E2E] text-white hover:bg-[#1a1a1a] shadow-2xs'
+                                        }`}
+                                      >
+                                        {isAdded ? (
+                                          <>
+                                            <Check className="w-3.5 h-3.5 stroke-[3]" />
+                                            <span>Ditambahkan</span>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <span>+ Tambah</span>
+                                          </>
+                                        )}
+                                      </button>
+                                    )}
                                   </div>
                                 </div>
                               );

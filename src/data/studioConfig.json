@@ -1021,5 +1021,55 @@
         ]
       }
     ]
-  }
+  },
+  "indoorPackages": [
+    {
+      "id": "grad-indoor-elegant-scholar",
+      "subtitle": "Graduation Indoor 1",
+      "badge": "Favorit",
+      "name": "Elegant Scholar",
+      "originalPrice": "Rp 350.000",
+      "price": "295K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "25 Menit Unlimited Foto",
+      "background": "1 Background Studio",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)"
+    },
+    {
+      "id": "grad-indoor-supreme-scholar",
+      "subtitle": "Graduation Indoor 2",
+      "badge": "2 Background",
+      "name": "Supreme Scholar",
+      "originalPrice": "Rp 480.000",
+      "price": "415K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "40 Menit Unlimited Foto",
+      "background": "2 Background Studio",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)"
+    },
+    {
+      "id": "grad-indoor-infinity-scholar",
+      "subtitle": "Graduation Indoor 3",
+      "badge": "2 Wisudawan",
+      "name": "Infinity Scholar",
+      "originalPrice": "Rp 680.000",
+      "price": "595K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "45 Menit Unlimited Foto",
+      "background": "2 Background Studio",
+      "people": "2 Wisudawan + Maks 10 Org",
+      "edit": "Edit 12 Foto High-Res",
+      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)"
+    }
+  ]
 }

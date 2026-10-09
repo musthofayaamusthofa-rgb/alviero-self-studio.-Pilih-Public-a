@@ -334,6 +334,8 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
         onClose={() => setIsBeautyModalOpen(false)}
         cartItems={extraCart}
         onAddExtraItem={handleAddExtraItem}
+        onRemoveExtraItem={handleRemoveExtraItem}
+        onUpdateQty={handleUpdateExtraQty}
         onOpenExtraCheckout={() => setIsExtraCheckoutOpen(true)}
       />
 

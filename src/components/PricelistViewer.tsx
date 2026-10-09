@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 import React, { useState, useMemo } from 'react';
 import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
@@ -3355,213 +3356,159 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </h4>
                           </div>
                           <span className="text-[11px] font-medium text-slate-500 font-century">
-                            3 Pilihan Paket
+                            {(studioConfig.indoorPackages || []).length} Pilihan Paket
                           </span>
                         </div>
 
-                        {/* Card 1: Elegant Scholar */}
-                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
-                                  Graduation Indoor 1
-                                </span>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EBF2EA] text-[#3D6345] border border-[#CDE0CB]">
-                                  <Star className="w-3 h-3 fill-[#3D6345]" />
-                                  Favorit
-                                </span>
-                              </div>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Elegant Scholar
-                              </h4>
-                            </div>
-                            <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 350.000</span>
-                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                295K
-                              </div>
-                              <span className="text-[10px] text-slate-500 font-century">per sesi • all-in</span>
-                            </div>
-                          </div>
+                        {(studioConfig.indoorPackages || [
+                          {
+                            id: 'grad-indoor-elegant-scholar',
+                            subtitle: 'Graduation Indoor 1',
+                            badge: 'Favorit',
+                            name: 'Elegant Scholar',
+                            originalPrice: 'Rp 350.000',
+                            price: '295K',
+                            priceUnit: 'per sesi • all-in',
+                            duration: '25 Menit Unlimited Foto',
+                            background: '1 Background Studio',
+                            people: '1 Wisudawan + Maks 10 Org',
+                            edit: 'Edit 6 Foto High-Res',
+                            print: 'Cetak 2 Uk 10Rs / 3 Uk 4R',
+                            fileDelivery: 'All File via Google Drive',
+                            note: '*Maksimal 1 kostum wisuda (disediakan oleh klien)'
+                          },
+                          {
+                            id: 'grad-indoor-supreme-scholar',
+                            subtitle: 'Graduation Indoor 2',
+                            badge: '2 Background',
+                            name: 'Supreme Scholar',
+                            originalPrice: 'Rp 480.000',
+                            price: '415K',
+                            priceUnit: 'per sesi • all-in',
+                            duration: '40 Menit Unlimited Foto',
+                            background: '2 Background Studio',
+                            people: '1 Wisudawan + Maks 10 Org',
+                            edit: 'Edit 8 Foto High-Res',
+                            print: 'Cetak 2 Uk 10Rs / 6 Uk 4R',
+                            fileDelivery: 'All File via Google Drive',
+                            note: '*Maksimal 1 kostum wisuda (disediakan oleh klien)'
+                          },
+                          {
+                            id: 'grad-indoor-infinity-scholar',
+                            subtitle: 'Graduation Indoor 3',
+                            badge: '2 Wisudawan',
+                            name: 'Infinity Scholar',
+                            originalPrice: 'Rp 680.000',
+                            price: '595K',
+                            priceUnit: 'per sesi • all-in',
+                            duration: '45 Menit Unlimited Foto',
+                            background: '2 Background Studio',
+                            people: '2 Wisudawan + Maks 10 Org',
+                            edit: 'Edit 12 Foto High-Res',
+                            print: 'Cetak 4 Uk 10Rs / 6 Uk 4R',
+                            fileDelivery: 'All File via Google Drive',
+                            note: '*Maksimal 1 kostum wisuda (disediakan oleh klien)'
+                          }
+                        ]).map((pkg, idx) => {
+                          const badgeColorClass =
+                            idx === 0
+                              ? 'bg-[#EBF2EA] text-[#3D6345] border-[#CDE0CB]'
+                              : idx === 1
+                              ? 'bg-[#FAF0E6] text-[#8A5A36] border-[#EAD5C3]'
+                              : 'bg-[#F0F4F8] text-[#2C4A6F] border-[#D5E1ED]';
 
-                          {/* Specification Badges */}
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">25 Menit</strong> Unlimited Foto</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Background</strong> Studio</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 6 Foto</strong> High-Res</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 3 Uk 4R</strong></span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
-                            <span className="text-[11px] text-slate-500 font-century italic">
-                              *Maksimal 1 kostum wisuda (disediakan oleh klien)
-                            </span>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-indoor-elegant-scholar')}
-                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                          return (
+                            <div
+                              key={pkg.id || idx}
+                              className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4"
                             >
-                              <span>Pilih Paket Ini</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Card 2: Supreme Scholar */}
-                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
-                                  Graduation Indoor 2
-                                </span>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
-                                  <Sparkles className="w-3 h-3 text-[#8A5A36]" />
-                                  2 Background
-                                </span>
+                              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                      {pkg.subtitle}
+                                    </span>
+                                    {pkg.badge && (
+                                      <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeColorClass}`}>
+                                        {idx === 0 ? <Star className="w-3 h-3 fill-current" /> : idx === 1 ? <Sparkles className="w-3 h-3" /> : <Users className="w-3 h-3" />}
+                                        {pkg.badge}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                    {pkg.name}
+                                  </h4>
+                                </div>
+                                <div className="sm:text-right">
+                                  {pkg.originalPrice && (
+                                    <span className="text-[11px] text-slate-400 line-through font-century block">
+                                      {pkg.originalPrice}
+                                    </span>
+                                  )}
+                                  <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                    {pkg.price}
+                                  </div>
+                                  <span className="text-[10px] text-slate-500 font-century">
+                                    {pkg.priceUnit || 'per sesi • all-in'}
+                                  </span>
+                                </div>
                               </div>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Supreme Scholar
-                              </h4>
-                            </div>
-                            <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 480.000</span>
-                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                415K
+
+                              {/* Specification Badges */}
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
+                                {pkg.duration && (
+                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                    <span className="text-[#3A3A3A] font-medium">{pkg.duration}</span>
+                                  </div>
+                                )}
+                                {pkg.background && (
+                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                    <span className="text-[#3A3A3A] font-medium">{pkg.background}</span>
+                                  </div>
+                                )}
+                                {pkg.people && (
+                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                    <span className="text-[#3A3A3A] font-medium">{pkg.people}</span>
+                                  </div>
+                                )}
+                                {pkg.edit && (
+                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                    <span className="text-[#3A3A3A] font-medium">{pkg.edit}</span>
+                                  </div>
+                                )}
+                                {pkg.print && (
+                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                    <span className="text-[#3A3A3A] font-medium">{pkg.print}</span>
+                                  </div>
+                                )}
+                                {pkg.fileDelivery && (
+                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                    <span className="text-[#3A3A3A] font-medium">{pkg.fileDelivery}</span>
+                                  </div>
+                                )}
                               </div>
-                              <span className="text-[10px] text-slate-500 font-century">per sesi • all-in</span>
-                            </div>
-                          </div>
 
-                          {/* Specification Badges */}
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">40 Menit</strong> Unlimited Foto</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">2 Background</strong> Studio</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 8 Foto</strong> High-Res</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 6 Uk 4R</strong></span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
-                            <span className="text-[11px] text-slate-500 font-century italic">
-                              *Maksimal 1 kostum wisuda (disediakan oleh klien)
-                            </span>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-indoor-supreme-scholar')}
-                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
-                            >
-                              <span>Pilih Paket Ini</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Card 3: Infinity Scholar */}
-                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
-                                  Graduation Indoor 3
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                                <span className="text-[11px] text-slate-500 font-century italic">
+                                  {pkg.note || '*Maksimal 1 kostum wisuda (disediakan oleh klien)'}
                                 </span>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#F0F4F8] text-[#2C4A6F] border border-[#D5E1ED]">
-                                  <Users className="w-3 h-3 text-[#2C4A6F]" />
-                                  2 Wisudawan
-                                </span>
+                                <button
+                                  onClick={() => onSelectPackageForBooking(pkg.id || 'grad-indoor-elegant-scholar')}
+                                  className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                                >
+                                  <span>Pilih Paket Ini</span>
+                                  <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
                               </div>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Infinity Scholar
-                              </h4>
                             </div>
-                            <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 680.000</span>
-                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                595K
-                              </div>
-                              <span className="text-[10px] text-slate-500 font-century">per sesi • all-in</span>
-                            </div>
-                          </div>
-
-                          {/* Specification Badges */}
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">45 Menit</strong> Unlimited Foto</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">2 Background</strong> Studio</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Users className="w-4 h-4 text-[#2C4A6F] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2C4A6F]">2 Wisudawan</strong> + Maks 10 Org</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 12 Foto</strong> High-Res</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">4 Uk 10Rs / 6 Uk 4R</strong></span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
-                            <span className="text-[11px] text-slate-500 font-century italic">
-                              *Maksimal 1 kostum wisuda (disediakan oleh klien)
-                            </span>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-indoor-infinity-scholar')}
-                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
-                            >
-                              <span>Pilih Paket Ini</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
+                          );
+                        })}
                       </div>
                     )}
 
