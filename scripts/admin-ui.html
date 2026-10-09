@@ -658,6 +658,9 @@
       <button class="tab-btn" onclick="switchTab('tab-promos', this)">
         🎁 Promo & Informasi Studio <span class="tab-badge" id="promoCountBadge">0</span>
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-indoor', this)">
+        📸 Seluruh Paket Studio <span class="tab-badge" id="indoorCountBadge">0</span>
+      </button>
       <button class="tab-btn" onclick="switchTab('tab-history', this)">
         📖 Sejarah & Filosofi Studio
       </button>
@@ -820,6 +823,54 @@
 
     
     
+    
+    <!-- TAB: PAKET STUDIO INDOOR -->
+    <section id="tab-indoor" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Kelola Seluruh Paket Studio & Harga</h2>
+            <p class="card-desc">Atur nama paket, harga promo, harga asli coret, durasi, fasilitas & catatan untuk seluruh kategori paket studio (Foto Studio Indoor, Bundling, Outdoor Kampus, Self Studio, Pass Foto, Family, Group, Prewedding, Maternity, Birthday, Sewa Studio) secara dinamis.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-add" onclick="openAddIndoorPackageModal()">
+              ➕ Tambah Paket Baru
+            </button>
+            <button class="btn btn-save-local" onclick="saveIndoorPackagesConfig()">
+              💾 Simpan Semua Paket
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Filter & Search Bar -->
+        <div class="filter-panel" style="margin-bottom: 1.25rem;">
+          <div class="filter-group">
+            <span class="filter-label">Kategori Studio:</span>
+            <button class="pill-btn active" onclick="filterPackagesCategory('all', this)">🌟 Semua (<span id="catCountAll">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('grad-indoor', this)">🎓 Studio Indoor (<span id="catCountIndoor">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('grad-bundling', this)">🎒 Bundling (<span id="catCountBundling">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('grad-outdoor', this)">🌳 Outdoor Kampus (<span id="catCountOutdoor">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('self-studio', this)">📸 Self Studio (<span id="catCountSelf">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('group-family', this)">👥 Family & Group (<span id="catCountGroup">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('prewed-couple', this)">💍 Prewed & Couple (<span id="catCountPrewed">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('pass-foto', this)">🪪 Pass Foto (<span id="catCountPass">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('birthday', this)">🎂 Birthday (<span id="catCountBirthday">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('personal-maternity', this)">🤰 Personal & Maternity (<span id="catCountMaternity">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('sewa-event', this)">🏢 Sewa & Undangan (<span id="catCountSewa">0</span>)</button>
+          </div>
+          <div class="search-box" style="margin-top: 0.75rem;">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="pkgSearchInput" class="search-input" placeholder="Cari paket berdasarkan nama, kategori, harga, fasilitas..." oninput="renderIndoorPackages()">
+          </div>
+        </div>
+
+        <!-- Interactive Package Cards Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;" id="indoorPackagesGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
     <section id="tab-history" class="tab-pane">
       <div class="card">
         <div class="card-header">
@@ -1314,6 +1365,121 @@
   </div>
 
   
+  
+  <!-- MODAL: EDIT INDOOR PACKAGE -->
+  <div class="modal-overlay" id="indoorPackageModal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="indoorModalTitle">Edit Rincian Paket</h3>
+        <button class="btn-close" onclick="closeModal('indoorPackageModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: 75vh; overflow-y: auto;">
+        <input type="hidden" id="indoorEditIndex" value="-1">
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1.4;">
+            <label class="form-label">Kategori Layanan Studio *</label>
+            <select id="indoorCategoryInput" class="form-control" onchange="handlePkgCategoryChange(this.value)">
+              <option value="grad-indoor">🎓 Foto Studio - Indoor (Wisuda)</option>
+              <option value="grad-bundling">🎒 Foto Studio - Bundling (Indoor + Outdoor)</option>
+              <option value="grad-outdoor">🌳 Foto Studio - Outdoor (Wisuda Kampus)</option>
+              <option value="self-studio">📸 Self Photo Studio</option>
+              <option value="group-family">👥 Family & Group Photo</option>
+              <option value="prewed-couple">💍 Prewedding & Couple</option>
+              <option value="pass-foto">🪪 Pass Foto Studio</option>
+              <option value="birthday">🎂 Birthday Celebration</option>
+              <option value="personal-maternity">🤰 Personal & Maternity</option>
+              <option value="sewa-event">🏢 Sewa Studio & Undangan</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">ID Paket (Sistem)</label>
+            <input type="text" id="indoorIdInput" class="form-control" readonly style="background: #F4F4F5; cursor: not-allowed;">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1.2;">
+            <label class="form-label">Nama Paket *</label>
+            <input type="text" id="indoorNameInput" class="form-control" placeholder="Contoh: Elegant Scholar">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Sub-Judul Atas (Label)</label>
+            <input type="text" id="indoorSubtitleInput" class="form-control" placeholder="Contoh: Graduation Indoor 1">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Badge Sorotan</label>
+            <input type="text" id="indoorBadgeInput" class="form-control" placeholder="Contoh: Favorit, Rekomendasi, Best Seller">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Harga Asli (Coret)</label>
+            <input type="text" id="indoorOrigPriceInput" class="form-control" placeholder="Contoh: Rp 350.000">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label class="form-label">Harga Promo (Tampil Besar) *</label>
+            <input type="text" id="indoorPriceInput" class="form-control" placeholder="Contoh: 295K">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keterangan Satuan Harga</label>
+          <input type="text" id="indoorPriceUnitInput" class="form-control" placeholder="Contoh: per sesi • all-in">
+        </div>
+
+        <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+          <h4 style="font-size: 0.82rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
+            Spesifikasi & Fasilitas Paket
+          </h4>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">⏰ Durasi Foto</label>
+              <input type="text" id="indoorDurationInput" class="form-control" placeholder="Contoh: 25 Menit Unlimited Foto">
+            </div>
+            <div class="form-group">
+              <label class="form-label">✨ Background Studio / Lokasi</label>
+              <input type="text" id="indoorBackgroundInput" class="form-control" placeholder="Contoh: 1 Background Studio">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">👥 Kapasitas Orang</label>
+              <input type="text" id="indoorPeopleInput" class="form-control" placeholder="Contoh: 1 Wisudawan + Maks 10 Org">
+            </div>
+            <div class="form-group">
+              <label class="form-label">✏️ Jatah Edit Foto</label>
+              <input type="text" id="indoorEditInput" class="form-control" placeholder="Contoh: Edit 6 Foto High-Res">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">🖼️ Jatah Cetak Foto</label>
+              <input type="text" id="indoorPrintInput" class="form-control" placeholder="Contoh: Cetak 2 Uk 10Rs / 3 Uk 4R">
+            </div>
+            <div class="form-group">
+              <label class="form-label">📁 Pengiriman Softfile</label>
+              <input type="text" id="indoorDeliveryInput" class="form-control" placeholder="Contoh: All File via Google Drive">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label">Catatan Kaki (Footnote / Syarat Khusus)</label>
+          <input type="text" id="indoorNoteInput" class="form-control" placeholder="Contoh: *Maksimal 1 kostum wisuda (disediakan oleh klien)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('indoorPackageModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveIndoorPackageItem()">Simpan Rincian Paket</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Element -->
   <div class="toast" id="toastBox">
     <span id="toastIcon">💾</span>
@@ -1589,7 +1755,406 @@
       showToast('Sejarah & filosofi studio berhasil disimpan!');
     }
 
-    /* PROMOS, NEWS & TEAM MANAGER LOGIC */
+    
+    /* ==========================================================================
+       SELURUH PAKET STUDIO LOGIC (INDOOR, BUNDLING, OUTDOOR, SELF STUDIO, DLL.)
+       ========================================================================== */
+    let currentPkgCategoryFilter = 'all';
+
+    function filterPackagesCategory(cat, btn) {
+      currentPkgCategoryFilter = cat;
+      const parent = btn.parentElement;
+      if (parent) {
+        parent.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      }
+      btn.classList.add('active');
+      renderIndoorPackages();
+    }
+
+    function getCategoryBadgeMeta(cat) {
+      switch (cat) {
+        case 'grad-indoor':
+          return { label: 'Studio Indoor', bg: '#EFF6EE', color: '#3D6345', border: '#CDE0CB', icon: '🎓' };
+        case 'grad-bundling':
+          return { label: 'Bundling', bg: '#FAF0E6', color: '#8A5A36', border: '#EAD5C3', icon: '🎒' };
+        case 'grad-outdoor':
+          return { label: 'Outdoor Kampus', bg: '#EAF3ED', color: '#2E6038', border: '#BFDDC6', icon: '🌳' };
+        case 'self-studio':
+          return { label: 'Self Studio', bg: '#F5EFFB', color: '#6B3894', border: '#E2CEF2', icon: '📸' };
+        case 'group-family':
+          return { label: 'Family & Group', bg: '#EBF4FA', color: '#255D83', border: '#C8E1F2', icon: '👥' };
+        case 'prewed-couple':
+          return { label: 'Prewed & Couple', bg: '#FDF0F3', color: '#A13253', border: '#F8CBD5', icon: '💍' };
+        case 'pass-foto':
+          return { label: 'Pass Foto', bg: '#F3F4F6', color: '#374151', border: '#D1D5DB', icon: '🪪' };
+        case 'birthday':
+          return { label: 'Birthday', bg: '#FFF7ED', color: '#9A3412', border: '#FED7AA', icon: '🎂' };
+        case 'personal-maternity':
+          return { label: 'Maternity/Personal', bg: '#FFF1F2', color: '#9F1239', border: '#FECDD3', icon: '🤰' };
+        case 'sewa-event':
+          return { label: 'Sewa & Undangan', bg: '#F0FDFA', color: '#0F766E', border: '#99F6E4', icon: '🏢' };
+        default:
+          return { label: 'Paket Studio', bg: '#F4F4F5', color: '#52525B', border: '#E4E4E7', icon: '📸' };
+      }
+    }
+
+    function syncPackagesSubArrays() {
+      if (!appConfig.studioPackages) appConfig.studioPackages = [];
+      appConfig.indoorPackages = appConfig.studioPackages.filter(p => p.category === 'grad-indoor');
+      appConfig.bundlingPackages = appConfig.studioPackages.filter(p => p.category === 'grad-bundling');
+      appConfig.outdoorPackages = appConfig.studioPackages.filter(p => p.category === 'grad-outdoor');
+    }
+
+    function renderIndoorPackages() {
+      const container = document.getElementById('indoorPackagesGrid');
+      if (!container || !appConfig) return;
+
+      if (!appConfig.studioPackages || !Array.isArray(appConfig.studioPackages) || appConfig.studioPackages.length === 0) {
+        if (appConfig.indoorPackages && Array.isArray(appConfig.indoorPackages) && appConfig.indoorPackages.length > 0) {
+          appConfig.studioPackages = [...appConfig.indoorPackages];
+        } else {
+          appConfig.studioPackages = [];
+        }
+      }
+
+      syncPackagesSubArrays();
+
+      const pkgs = appConfig.studioPackages;
+      const countBadge = document.getElementById('indoorCountBadge');
+      if (countBadge) countBadge.textContent = pkgs.length;
+
+      // Update category count labels
+      const updateCount = (id, count) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = count;
+      };
+      updateCount('catCountAll', pkgs.length);
+      updateCount('catCountIndoor', pkgs.filter(p => p.category === 'grad-indoor').length);
+      updateCount('catCountBundling', pkgs.filter(p => p.category === 'grad-bundling').length);
+      updateCount('catCountOutdoor', pkgs.filter(p => p.category === 'grad-outdoor').length);
+      updateCount('catCountSelf', pkgs.filter(p => p.category === 'self-studio').length);
+      updateCount('catCountGroup', pkgs.filter(p => p.category === 'group-family').length);
+      updateCount('catCountPrewed', pkgs.filter(p => p.category === 'prewed-couple').length);
+      updateCount('catCountPass', pkgs.filter(p => p.category === 'pass-foto').length);
+      updateCount('catCountBirthday', pkgs.filter(p => p.category === 'birthday').length);
+      updateCount('catCountMaternity', pkgs.filter(p => p.category === 'personal-maternity').length);
+      updateCount('catCountSewa', pkgs.filter(p => p.category === 'sewa-event').length);
+
+      const searchInput = document.getElementById('pkgSearchInput');
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+      container.innerHTML = '';
+
+      const filtered = pkgs.filter((pkg, idx) => {
+        pkg._origIndex = idx;
+        if (currentPkgCategoryFilter !== 'all' && pkg.category !== currentPkgCategoryFilter) return false;
+        if (query) {
+          const match = (pkg.name || '').toLowerCase().includes(query) ||
+                        (pkg.subtitle || '').toLowerCase().includes(query) ||
+                        (pkg.price || '').toLowerCase().includes(query) ||
+                        (pkg.duration || '').toLowerCase().includes(query) ||
+                        (pkg.categoryLabel || '').toLowerCase().includes(query) ||
+                        (pkg.note || '').toLowerCase().includes(query);
+          if (!match) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: #FAF8F5; border: 2px dashed var(--border); border-radius: 16px;">
+            <p style="color: #8A8580; margin-bottom: 1rem; font-size: 0.9rem;">Tidak ada paket ditemukan pada kategori atau pencarian ini.</p>
+            <button class="btn btn-add" onclick="openAddIndoorPackageModal()">➕ Tambah Paket di Kategori Ini</button>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((pkg) => {
+        const idx = pkg._origIndex;
+        const meta = getCategoryBadgeMeta(pkg.category);
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: all 0.2s ease;';
+
+        const badgeHtml = pkg.badge ? `
+          <span style="font-size: 0.72rem; font-weight: 700; color: #8A5A36; background: #FAF0E6; border: 1px solid #EAD5C3; padding: 0.2rem 0.55rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.25rem;">
+            ⭐ ${escapeHtml(pkg.badge)}
+          </span>
+        ` : '';
+
+        const origPriceHtml = pkg.originalPrice ? `
+          <span style="font-size: 0.82rem; color: #9CA3AF; text-decoration: line-through; display: block; line-height: 1.2;">
+            ${escapeHtml(pkg.originalPrice)}
+          </span>
+        ` : '';
+
+        card.innerHTML = `
+          <div>
+            <!-- Top Badges & Actions -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
+                <span style="font-size: 0.7rem; font-weight: 800; background: ${meta.bg}; color: ${meta.color}; border: 1px solid ${meta.border}; padding: 0.2rem 0.55rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.25rem;">
+                  ${meta.icon} ${meta.label}
+                </span>
+                <span style="font-size: 0.7rem; font-weight: 700; color: #8A7D71; background: #FAF8F5; border: 1px solid var(--border); padding: 0.2rem 0.5rem; border-radius: 6px; text-transform: uppercase;">
+                  ${escapeHtml(pkg.subtitle || 'Paket ' + (idx + 1))}
+                </span>
+                ${badgeHtml}
+              </div>
+              <div style="display: flex; gap: 0.25rem;">
+                <button class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''} title="Geser ke Atas">⬆️</button>
+                <button class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, 1)" ${idx === pkgs.length - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''} title="Geser ke Bawah">⬇️</button>
+              </div>
+            </div>
+
+            <!-- Title & Price -->
+            <div style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.85rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--charcoal); margin: 0 0 0.35rem 0; letter-spacing: -0.01em;">
+                ${escapeHtml(pkg.name || 'Nama Paket')}
+              </h3>
+              <div style="display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;">
+                ${origPriceHtml}
+                <span style="font-size: 1.6rem; font-weight: 900; color: var(--charcoal); line-height: 1;">
+                  ${escapeHtml(pkg.price || '0K')}
+                </span>
+                <span style="font-size: 0.75rem; color: #6B7280;">
+                  ${escapeHtml(pkg.priceUnit || 'per sesi')}
+                </span>
+              </div>
+            </div>
+
+            <!-- Specification Badges -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.85rem; font-size: 0.75rem;">
+              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
+                ⏰ <strong>${escapeHtml(pkg.duration || '-')}</strong>
+              </div>
+              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
+                ✨ <strong>${escapeHtml(pkg.background || '-')}</strong>
+              </div>
+              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
+                👥 <strong>${escapeHtml(pkg.people || '-')}</strong>
+              </div>
+              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
+                ✏️ <strong>${escapeHtml(pkg.edit || '-')}</strong>
+              </div>
+              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
+                🖼️ <strong>${escapeHtml(pkg.print || '-')}</strong>
+              </div>
+              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
+                📁 <strong>${escapeHtml(pkg.fileDelivery || '-')}</strong>
+              </div>
+            </div>
+
+            ${pkg.note ? `
+              <div style="font-size: 0.72rem; color: #8A8580; font-style: italic; margin-bottom: 0.85rem; padding: 0.4rem 0.6rem; background: #FDFCFA; border-left: 2px solid var(--border); border-radius: 4px;">
+                ${escapeHtml(pkg.note)}
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Bottom Actions -->
+          <div style="display: flex; gap: 0.5rem; border-top: 1px solid var(--border); margin-top: auto; padding-top: 0.75rem;">
+            <button class="btn btn-preview" style="flex: 1; font-size: 0.78rem; padding: 0.45rem 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.35rem;" onclick="openEditIndoorPackageModal(${idx})">
+              ✏️ <span>Edit Rincian Paket</span>
+            </button>
+            <button class="btn btn-action delete" style="font-size: 0.78rem; padding: 0.45rem 0.75rem;" onclick="deleteIndoorPackage(${idx})" title="Hapus Paket">
+              🗑️
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function handlePkgCategoryChange(val) {
+      const sub = document.getElementById('indoorSubtitleInput');
+      const dur = document.getElementById('indoorDurationInput');
+      const bg = document.getElementById('indoorBackgroundInput');
+      const peop = document.getElementById('indoorPeopleInput');
+      const edit = document.getElementById('indoorEditInput');
+      const print = document.getElementById('indoorPrintInput');
+      const del = document.getElementById('indoorDeliveryInput');
+      const unit = document.getElementById('indoorPriceUnitInput');
+      const note = document.getElementById('indoorNoteInput');
+
+      if (val === 'grad-indoor') {
+        if (!sub.value) sub.value = 'Graduation Indoor';
+        if (!dur.value) dur.value = '25 Menit Unlimited Foto';
+        if (!bg.value) bg.value = '1 Background Studio';
+        if (!peop.value) peop.value = '1 Wisudawan + Maks 10 Org';
+        if (!edit.value) edit.value = 'Edit 6 Foto High-Res';
+        if (!print.value) print.value = 'Cetak 2 Uk 10Rs / 3 Uk 4R';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi • all-in';
+        if (!note.value) note.value = '*Maksimal 1 kostum wisuda (disediakan oleh klien)';
+      } else if (val === 'grad-bundling') {
+        if (!sub.value) sub.value = 'Bundling Hemat';
+        if (!dur.value) dur.value = 'Total 60M Indoor & Outdoor';
+        if (!bg.value) bg.value = '1 Background + Area Kampus';
+        if (!peop.value) peop.value = '1 Wisudawan + Maks 10 Org';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Cetak 2 Uk 10Rs / 3 Uk 4R';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'Paket Bundling Hemat';
+        if (!note.value) note.value = '✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam';
+      } else if (val === 'grad-outdoor') {
+        if (!sub.value) sub.value = 'Graduation Outdoor';
+        if (!dur.value) dur.value = '60 Menit Sesi Foto';
+        if (!bg.value) bg.value = 'Area Kampus Malang & Sekitarnya';
+        if (!peop.value) peop.value = 'Wisudawan + Pendamping';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Softfile Only';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi foto';
+        if (!note.value) note.value = '*Fotografer siap datang langsung ke kampus pilihan Anda di Malang';
+      } else if (val === 'self-studio') {
+        if (!sub.value) sub.value = 'Self Photo Studio';
+        if (!dur.value) dur.value = '15-20 Menit Sesi Foto';
+        if (!bg.value) bg.value = 'Pilihan Background Studio';
+        if (!peop.value) peop.value = '1-2 Orang (Bisa tambah orang)';
+        if (!edit.value) edit.value = 'Template Kolase Siap Cetak';
+        if (!print.value) print.value = 'Free 1 Lembar Cetak 4R';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi (1-2 Orang)';
+        if (!note.value) note.value = '*Wireless remote shutter otomatis tanpa fotografer';
+      }
+    }
+
+    function openAddIndoorPackageModal() {
+      document.getElementById('indoorEditIndex').value = '-1';
+      document.getElementById('indoorModalTitle').textContent = 'Tambah Paket Studio Baru';
+      const targetCat = currentPkgCategoryFilter !== 'all' ? currentPkgCategoryFilter : 'grad-indoor';
+      document.getElementById('indoorCategoryInput').value = targetCat;
+      const autoId = targetCat + '-' + Date.now();
+      document.getElementById('indoorIdInput').value = autoId;
+      document.getElementById('indoorNameInput').value = '';
+      document.getElementById('indoorSubtitleInput').value = '';
+      document.getElementById('indoorBadgeInput').value = '';
+      document.getElementById('indoorOrigPriceInput').value = '';
+      document.getElementById('indoorPriceInput').value = '';
+      document.getElementById('indoorPriceUnitInput').value = '';
+      document.getElementById('indoorDurationInput').value = '';
+      document.getElementById('indoorBackgroundInput').value = '';
+      document.getElementById('indoorPeopleInput').value = '';
+      document.getElementById('indoorEditInput').value = '';
+      document.getElementById('indoorPrintInput').value = '';
+      document.getElementById('indoorDeliveryInput').value = '';
+      document.getElementById('indoorNoteInput').value = '';
+
+      handlePkgCategoryChange(targetCat);
+      openModal('indoorPackageModal');
+    }
+
+    function openEditIndoorPackageModal(idx) {
+      if (!appConfig || !appConfig.studioPackages || !appConfig.studioPackages[idx]) return;
+      const pkg = appConfig.studioPackages[idx];
+      document.getElementById('indoorEditIndex').value = idx;
+      document.getElementById('indoorModalTitle').textContent = 'Edit Rincian Paket: ' + (pkg.name || 'Paket');
+
+      document.getElementById('indoorCategoryInput').value = pkg.category || 'grad-indoor';
+      document.getElementById('indoorIdInput').value = pkg.id || ('pkg-' + Date.now());
+      document.getElementById('indoorSubtitleInput').value = pkg.subtitle || '';
+      document.getElementById('indoorNameInput').value = pkg.name || '';
+      document.getElementById('indoorBadgeInput').value = pkg.badge || '';
+      document.getElementById('indoorOrigPriceInput').value = pkg.originalPrice || '';
+      document.getElementById('indoorPriceInput').value = pkg.price || '';
+      document.getElementById('indoorPriceUnitInput').value = pkg.priceUnit || 'per sesi';
+      document.getElementById('indoorDurationInput').value = pkg.duration || '';
+      document.getElementById('indoorBackgroundInput').value = pkg.background || '';
+      document.getElementById('indoorPeopleInput').value = pkg.people || '';
+      document.getElementById('indoorEditInput').value = pkg.edit || '';
+      document.getElementById('indoorPrintInput').value = pkg.print || '';
+      document.getElementById('indoorDeliveryInput').value = pkg.fileDelivery || '';
+      document.getElementById('indoorNoteInput').value = pkg.note || '';
+
+      openModal('indoorPackageModal');
+    }
+
+    function saveIndoorPackageItem() {
+      const idx = parseInt(document.getElementById('indoorEditIndex').value, 10);
+      const name = document.getElementById('indoorNameInput').value.trim();
+      const price = document.getElementById('indoorPriceInput').value.trim();
+      const cat = document.getElementById('indoorCategoryInput').value;
+
+      if (!name) {
+        alert('Mohon masukkan nama paket.');
+        document.getElementById('indoorNameInput').focus();
+        return;
+      }
+      if (!price) {
+        alert('Mohon masukkan harga promo / tampil paket (misal: 295K).');
+        document.getElementById('indoorPriceInput').focus();
+        return;
+      }
+
+      if (!appConfig.studioPackages) appConfig.studioPackages = [];
+
+      const meta = getCategoryBadgeMeta(cat);
+      const itemData = {
+        id: document.getElementById('indoorIdInput').value.trim() || (cat + '-' + Date.now()),
+        category: cat,
+        categoryLabel: meta.label,
+        subtitle: document.getElementById('indoorSubtitleInput').value.trim(),
+        badge: document.getElementById('indoorBadgeInput').value.trim(),
+        name: name,
+        originalPrice: document.getElementById('indoorOrigPriceInput').value.trim(),
+        price: price,
+        priceUnit: document.getElementById('indoorPriceUnitInput').value.trim() || 'per sesi',
+        duration: document.getElementById('indoorDurationInput').value.trim(),
+        background: document.getElementById('indoorBackgroundInput').value.trim(),
+        people: document.getElementById('indoorPeopleInput').value.trim(),
+        edit: document.getElementById('indoorEditInput').value.trim(),
+        print: document.getElementById('indoorPrintInput').value.trim(),
+        fileDelivery: document.getElementById('indoorDeliveryInput').value.trim(),
+        note: document.getElementById('indoorNoteInput').value.trim()
+      };
+
+      if (idx >= 0 && idx < appConfig.studioPackages.length) {
+        appConfig.studioPackages[idx] = itemData;
+        showToast('Berhasil memperbarui paket ' + name, '✅');
+      } else {
+        appConfig.studioPackages.push(itemData);
+        showToast('Berhasil menambahkan paket baru ' + name, '✅');
+      }
+
+      syncPackagesSubArrays();
+      closeModal('indoorPackageModal');
+      renderIndoorPackages();
+      saveConfigLocally(true);
+    }
+
+    function deleteIndoorPackage(idx) {
+      if (!appConfig || !appConfig.studioPackages || !appConfig.studioPackages[idx]) return;
+      const pkg = appConfig.studioPackages[idx];
+      if (confirm('Yakin ingin menghapus paket "' + (pkg.name || 'ini') + '"?')) {
+        appConfig.studioPackages.splice(idx, 1);
+        syncPackagesSubArrays();
+        renderIndoorPackages();
+        saveConfigLocally(true);
+        showToast('Paket berhasil dihapus', '🗑️');
+      }
+    }
+
+    function moveIndoorPackage(idx, dir) {
+      if (!appConfig || !appConfig.studioPackages) return;
+      const targetIdx = idx + dir;
+      if (targetIdx < 0 || targetIdx >= appConfig.studioPackages.length) return;
+      const temp = appConfig.studioPackages[idx];
+      appConfig.studioPackages[idx] = appConfig.studioPackages[targetIdx];
+      appConfig.studioPackages[targetIdx] = temp;
+      syncPackagesSubArrays();
+      renderIndoorPackages();
+      saveConfigLocally(true);
+    }
+
+    function saveIndoorPackagesConfig() {
+      syncPackagesSubArrays();
+      saveConfigLocally();
+      showToast('Seluruh paket studio berhasil disimpan!', '💾');
+    }
+/* PROMOS, NEWS & TEAM MANAGER LOGIC */
     function renderPromos() {
       const container = document.getElementById('promosGrid');
       if (!container || !appConfig) return;
@@ -1884,6 +2449,7 @@
       
       renderPromos();
       renderHistory();
+      renderIndoorPackages();
       renderBranches();
     }
 

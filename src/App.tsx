@@ -360,7 +360,7 @@ Berikut saya lampirkan bukti transfer pembayarannya.`;
             🛒
           </span>
           <span className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em]">
-            {extraCart.reduce((sum, item) => sum + item.qty, 0)} item
+            {extraCart.reduce((sum, item) => sum + (item?.qty || 1), 0)} item
           </span>
         </button>
       )}

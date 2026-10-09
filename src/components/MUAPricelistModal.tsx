@@ -954,10 +954,25 @@ interface MUAPricelistModalProps {
   }) => void;
   onRemoveExtraItem?: (id: string) => void;
   onUpdateQty?: (id: string, nextQty: number) => void;
-  onRemoveExtraItem?: (id: string) => void;
-  onUpdateQty?: (id: string, nextQty: number) => void;
   onOpenExtraCheckout?: () => void;
 }
+
+// Helper membuat ID item keranjang sub-paket yang konsisten & unik per varian
+export const getPackageItemId = (
+  vendorName: string,
+  subPackageId: string,
+  hasVariants: boolean,
+  color?: string,
+  size?: string
+): string => {
+  const vPrefix = (vendorName || '').toLowerCase().replace(/\s+/g, '-');
+  if (hasVariants) {
+    const c = (color || 'std').toLowerCase().replace(/\s+/g, '-');
+    const s = (size || 'std').toLowerCase().replace(/\s+/g, '-');
+    return `${vPrefix}-${subPackageId}-${c}-${s}`;
+  }
+  return `${vPrefix}-${subPackageId}`;
+};
 
 export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   isOpen,
@@ -1058,16 +1073,21 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   ) => {
     if (!onAddExtraItem) return;
 
-    const hasVariants =
+    const hasVariants = Boolean(
       (subPackage.colors && subPackage.colors.length > 0) ||
-      (subPackage.sizes && subPackage.sizes.length > 0);
+      (subPackage.sizes && subPackage.sizes.length > 0)
+    );
 
     const selectedColor = getSelectedColor(subPackage);
     const selectedSize = getSelectedSize(subPackage);
 
-    const itemId = hasVariants
-      ? `${vendorName.toLowerCase().replace(/\s+/g, '-')}-${subPackage.id}-${selectedColor.toLowerCase().replace(/\s+/g, '-')}-${selectedSize.toLowerCase()}`
-      : `${vendorName.toLowerCase().replace(/\s+/g, '-')}-${subPackage.id}`;
+    const itemId = getPackageItemId(
+      vendorName,
+      subPackage.id,
+      hasVariants,
+      selectedColor,
+      selectedSize
+    );
 
     const displayName = hasVariants
       ? `${subPackage.name} (Warna: ${selectedColor}, Size: ${selectedSize})`
@@ -1109,7 +1129,10 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
     }
   };
 
-  const muaCartTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const muaCartTotal = (cartItems || []).reduce(
+    (sum, item) => sum + (item?.price || 0) * (item?.qty || 1),
+    0
+  );
 
   const handleGoToCheckout = () => {
     if (cartItems.length === 0) return;
@@ -1367,6 +1390,31 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                               const selectedSize = getSelectedSize(pkg);
                               const hasColors = Boolean(pkg.colors && pkg.colors.length > 0);
                               const hasSizes = Boolean(pkg.sizes && pkg.sizes.length > 0);
+                              const hasVariants = hasColors || hasSizes;
+
+                              const currentItemId = getPackageItemId(
+                                currentPopupVendor.name,
+                                pkg.id,
+                                hasVariants,
+                                selectedColor,
+                                selectedSize
+                              );
+
+                              const vPkgPrefix = `${(currentPopupVendor.name || '').toLowerCase().replace(/\s+/g, '-')}-${pkg.id}`;
+
+                              const cartEntry = (cartItems || []).find(
+                                (item) =>
+                                  item &&
+                                  (item.id === currentItemId ||
+                                    item.id === vPkgPrefix ||
+                                    item.id === pkg.id)
+                              );
+
+                              const otherPkgCartEntries = (cartItems || []).filter((item) => {
+                                if (!item || typeof item.id !== 'string') return false;
+                                const matchesPkg = item.id.startsWith(vPkgPrefix) || item.id.startsWith(pkg.id);
+                                return matchesPkg && item.id !== (cartEntry?.id || currentItemId);
+                              });
 
                               return (
                                 <div
@@ -1574,22 +1622,29 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                   {otherPkgCartEntries.length > 0 && (
                                     <div className="mt-2 flex flex-wrap items-center gap-1.5 rounded-lg border border-[#E8DDD6] bg-[#FAF8F5] p-2 text-[10px] text-stone-700">
                                       <span className="font-mono font-bold text-[#5C725A]">Varian lain terpilih:</span>
-                                      {otherPkgCartEntries.map((otherItem) => (
-                                        <span
-                                          key={otherItem.id}
-                                          className="inline-flex items-center gap-1 rounded-md bg-white px-2 py-0.5 border border-[#E2D8CF] font-sans font-medium shadow-2xs"
-                                        >
-                                          <span>{otherItem.itemName.replace(pkg.name, '').trim()} ({otherItem.qty}x)</span>
-                                          <button
-                                            type="button"
-                                            onClick={() => handleRemoveSubPackageFromCart(otherItem.id)}
-                                            className="text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
-                                            title="Batalkan varian ini"
+                                      {otherPkgCartEntries.map((otherItem) => {
+                                        const rawName = (otherItem && typeof otherItem.itemName === 'string') ? otherItem.itemName : '';
+                                        const variantLabel = rawName
+                                          ? rawName.replace(pkg.name, '').replace(/[()]/g, '').trim() || 'Varian Terpilih'
+                                          : 'Varian Terpilih';
+
+                                        return (
+                                          <span
+                                            key={otherItem.id}
+                                            className="inline-flex items-center gap-1 rounded-md bg-white px-2 py-0.5 border border-[#E2D8CF] font-sans font-medium shadow-2xs"
                                           >
-                                            <X className="w-3 h-3 stroke-[2.5]" />
-                                          </button>
-                                        </span>
-                                      ))}
+                                            <span>{variantLabel} ({otherItem.qty || 1}x)</span>
+                                            <button
+                                              type="button"
+                                              onClick={() => handleRemoveSubPackageFromCart(otherItem.id)}
+                                              className="text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
+                                              title="Batalkan varian ini"
+                                            >
+                                              <X className="w-3 h-3 stroke-[2.5]" />
+                                            </button>
+                                          </span>
+                                        );
+                                      })}
                                     </div>
                                   )}
 
@@ -1608,7 +1663,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                         {/* Tombol Membatalkan yang Jelas & Menonjol */}
                                         <button
                                           type="button"
-                                          onClick={() => handleRemoveSubPackageFromCart(currentItemId)}
+                                          onClick={() => handleRemoveSubPackageFromCart(cartEntry.id || currentItemId)}
                                           className="inline-flex items-center gap-1.5 rounded-full border border-rose-300 bg-rose-50/90 px-3 py-1.5 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.12em] text-rose-700 hover:bg-rose-100 hover:border-rose-400 active:scale-95 transition-all cursor-pointer shadow-2xs"
                                           title="Batalkan pilihan paket ini dari keranjang"
                                         >
@@ -1620,16 +1675,16 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                         <div className="inline-flex items-center rounded-full border border-[#5C725A] bg-[#EFF6EE] p-0.5 shadow-2xs">
                                           <button
                                             type="button"
-                                            onClick={() => handleDecreaseSubPackageQty(currentItemId, cartEntry.qty)}
+                                            onClick={() => handleDecreaseSubPackageQty(cartEntry.id || currentItemId, cartEntry.qty || 1)}
                                             className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-full bg-white text-[#2E2E2E] hover:bg-[#FAF7F2] active:scale-90 transition-all cursor-pointer shadow-2xs"
-                                            title={cartEntry.qty === 1 ? 'Batalkan paket' : 'Kurangi jumlah'}
+                                            title={(cartEntry.qty || 1) <= 1 ? 'Batalkan paket' : 'Kurangi jumlah'}
                                           >
                                             <Minus className="w-3 h-3 stroke-[2.5]" />
                                           </button>
 
                                           <div className="px-2 text-center min-w-[48px]">
                                             <span className="text-[11px] font-mono font-bold text-[#5C725A] block leading-none">
-                                              {cartEntry.qty}x
+                                              {cartEntry.qty || 1}x
                                             </span>
                                             <span className="text-[8px] font-mono font-semibold uppercase text-stone-500 block leading-none mt-0.5">
                                               Dipilih
