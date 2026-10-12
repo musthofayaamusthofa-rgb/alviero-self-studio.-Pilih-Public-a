@@ -1429,6 +1429,63 @@
           <input type="text" id="indoorPriceUnitInput" class="form-control" placeholder="Contoh: per sesi • all-in">
         </div>
 
+        <!-- Photo Upload Section for Main Web -->
+        <div style="background: #FDFCFA; border: 1.5px solid #EFE5DC; border-radius: 14px; padding: 1.1rem; margin-bottom: 1.1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.02);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+            <div>
+              <label class="form-label" style="margin-bottom: 0.15rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.35rem;">
+                <span>📸</span> <span>Foto Banner / Sampel Paket (Web Utama)</span>
+              </label>
+              <p style="font-size: 0.72rem; color: #78716C; margin: 0;">
+                Foto ini akan ditampilkan langsung di kartu paket pada web pengunjung (port 3000 & online).
+              </p>
+            </div>
+            <button type="button" class="btn-icon-subtle" onclick="promptPackageImageUrl()" title="Tempel URL Manual" style="font-size: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 6px; border: 1px solid var(--border); background: #FAF8F5;">
+              🔗 Link URL
+            </button>
+          </div>
+
+          <!-- Hidden File Input & Image URL Storage -->
+          <input type="file" id="indoorImageFileInput" accept="image/*" style="display: none;" onchange="handlePackageImageFileSelect(this)">
+          <input type="hidden" id="indoorImageUrlInput" value="">
+
+          <!-- Upload Status Indicator -->
+          <div id="pkgImageUploadStatus" style="display: none; font-size: 0.75rem; font-weight: 700; color: #2563EB; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 0.45rem 0.75rem; border-radius: 8px; margin-bottom: 0.6rem;">
+            ⏳ Sedang mengunggah foto paket...
+          </div>
+
+          <!-- Preview & Action Box -->
+          <div id="pkgImagePreviewContainer">
+            <!-- State 1: No Image -->
+            <div id="pkgImageEmptyState" style="border: 2px dashed #D6D3D1; background: #FAF9F6; border-radius: 12px; padding: 1.25rem 1rem; text-align: center; cursor: pointer; transition: all 0.2s;" onclick="document.getElementById('indoorImageFileInput').click()" onmouseover="this.style.borderColor='#8A5A36'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
+              <div style="font-size: 2rem; margin-bottom: 0.35rem;">🖼️</div>
+              <div style="font-size: 0.82rem; font-weight: 750; color: var(--charcoal); margin-bottom: 0.2rem;">
+                Klik untuk Upload Foto dari Komputer / HP
+              </div>
+              <div style="font-size: 0.7rem; color: #A8A29E;">
+                Mendukung JPG, PNG, WebP (Maks. 25MB). Otomatis tersimpan ke server.
+              </div>
+            </div>
+
+            <!-- State 2: Has Image -->
+            <div id="pkgImageFilledState" style="display: none; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917;">
+              <img id="pkgImagePreviewImg" src="" alt="Preview Paket" style="width: 100%; height: 180px; object-fit: cover; display: block;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+              <div style="position: absolute; bottom: 8px; left: 10px; right: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <span id="pkgImagePreviewPath" style="color: #F5F5F4; font-size: 0.68rem; font-family: monospace; text-shadow: 0 1px 3px rgba(0,0,0,0.8); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 65%;"></span>
+                <div style="display: flex; gap: 0.35rem;">
+                  <button type="button" onclick="document.getElementById('indoorImageFileInput').click()" style="background: rgba(255,255,255,0.95); color: #1C1917; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 6px; padding: 0.3rem 0.65rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+                    🔄 Ganti Foto
+                  </button>
+                  <button type="button" onclick="removePackageImage()" style="background: rgba(239,68,68,0.9); color: #fff; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 6px; padding: 0.3rem 0.65rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
           <h4 style="font-size: 0.82rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
             Spesifikasi & Fasilitas Paket
@@ -1889,6 +1946,21 @@
           </span>
         ` : '';
 
+        const photoHtml = pkg.imageUrl ? `
+          <div style="position: relative; width: 100%; height: 135px; border-radius: 12px; overflow: hidden; margin-bottom: 0.85rem; border: 1px solid var(--border); background: #1C1917;">
+            <img src="${escapeHtml(pkg.imageUrl)}" alt="${escapeHtml(pkg.name)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+            <div style="position: absolute; bottom: 6px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.65rem; font-weight: 750; padding: 2px 7px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto Aktif</span>
+              <button class="btn-icon-subtle" onclick="openEditIndoorPackageModal(${idx})" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 6px; cursor: pointer;" title="Ganti Foto">🔄 Ganti</button>
+            </div>
+          </div>
+        ` : `
+          <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; width: 100%; height: 75px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 0.85rem; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
+            <span style="font-size: 1.25rem;">📸</span>
+            <span style="font-size: 0.72rem; color: #78716C; font-weight: 700; margin-top: 2px;">+ Upload Foto Paket</span>
+          </div>
+        `;
+
         card.innerHTML = `
           <div>
             <!-- Top Badges & Actions -->
@@ -1907,6 +1979,9 @@
                 <button class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, 1)" ${idx === pkgs.length - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''} title="Geser ke Bawah">⬇️</button>
               </div>
             </div>
+
+            <!-- Package Photo Thumbnail -->
+            ${photoHtml}
 
             <!-- Title & Price -->
             <div style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.85rem;">
@@ -2022,6 +2097,109 @@
       }
     }
 
+        function setPackageImagePreview(url) {
+      const input = document.getElementById('indoorImageUrlInput');
+      const emptyState = document.getElementById('pkgImageEmptyState');
+      const filledState = document.getElementById('pkgImageFilledState');
+      const previewImg = document.getElementById('pkgImagePreviewImg');
+      const previewPath = document.getElementById('pkgImagePreviewPath');
+      if (input) input.value = url || '';
+      if (!emptyState || !filledState || !previewImg) return;
+
+      if (url && url.trim()) {
+        emptyState.style.display = 'none';
+        filledState.style.display = 'block';
+        previewImg.src = url.trim();
+        if (previewPath) previewPath.textContent = url.trim();
+      } else {
+        emptyState.style.display = 'block';
+        filledState.style.display = 'none';
+        previewImg.src = '';
+        if (previewPath) previewPath.textContent = '';
+      }
+    }
+
+    function removePackageImage() {
+      setPackageImagePreview('');
+      const fileInput = document.getElementById('indoorImageFileInput');
+      if (fileInput) fileInput.value = '';
+      showToast('Foto paket berhasil dihapus', '🗑️');
+    }
+
+    function promptPackageImageUrl() {
+      const current = (document.getElementById('indoorImageUrlInput').value || '').trim();
+      const val = prompt('Masukkan URL gambar atau path foto paket (contoh: /images/packages/foto.jpg atau https://images.unsplash.com/...):', current);
+      if (val !== null) {
+        setPackageImagePreview(val.trim());
+      }
+    }
+
+    async function handlePackageImageFileSelect(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP).');
+        input.value = '';
+        return;
+      }
+
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        input.value = '';
+        return;
+      }
+
+      const statusEl = document.getElementById('pkgImageUploadStatus');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.innerHTML = '⏳ Mengunggah foto "' + escapeHtml(file.name) + '" ke server...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const dataUrl = e.target.result;
+          const pkgName = (document.getElementById('indoorNameInput').value || 'paket').toLowerCase().replace(/[^a-z0-9]/g, '_');
+          const extMatch = file.name.match(/\.[^.]+$/);
+          const ext = extMatch ? extMatch[0] : '.jpg';
+          const fileName = pkgName + ext;
+
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: dataUrl,
+              fileName: fileName,
+              folder: 'packages'
+            })
+          });
+
+          const data = await res.json();
+          if (data.success && data.url) {
+            setPackageImagePreview(data.url);
+            if (statusEl) {
+              statusEl.innerHTML = '✅ Foto berhasil diunggah dan disimpan ke server!';
+              setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
+            }
+            showToast('Foto paket berhasil diunggah!', '📸');
+          } else {
+            throw new Error(data.error || 'Server gagal memproses upload');
+          }
+        } catch (err) {
+          console.error('Upload image error:', err);
+          alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
+          if (statusEl) statusEl.style.display = 'none';
+        }
+      };
+      reader.onerror = function() {
+        alert('Gagal membaca file gambar dari perangkat Anda.');
+        if (statusEl) statusEl.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+      input.value = '';
+    }
+
     function openAddIndoorPackageModal() {
       document.getElementById('indoorEditIndex').value = '-1';
       document.getElementById('indoorModalTitle').textContent = 'Tambah Paket Studio Baru';
@@ -2042,6 +2220,7 @@
       document.getElementById('indoorPrintInput').value = '';
       document.getElementById('indoorDeliveryInput').value = '';
       document.getElementById('indoorNoteInput').value = '';
+      setPackageImagePreview('');
 
       handlePkgCategoryChange(targetCat);
       openModal('indoorPackageModal');
@@ -2068,6 +2247,7 @@
       document.getElementById('indoorPrintInput').value = pkg.print || '';
       document.getElementById('indoorDeliveryInput').value = pkg.fileDelivery || '';
       document.getElementById('indoorNoteInput').value = pkg.note || '';
+      setPackageImagePreview(pkg.imageUrl || '');
 
       openModal('indoorPackageModal');
     }
@@ -2108,7 +2288,8 @@
         edit: document.getElementById('indoorEditInput').value.trim(),
         print: document.getElementById('indoorPrintInput').value.trim(),
         fileDelivery: document.getElementById('indoorDeliveryInput').value.trim(),
-        note: document.getElementById('indoorNoteInput').value.trim()
+        note: document.getElementById('indoorNoteInput').value.trim(),
+        imageUrl: (document.getElementById('indoorImageUrlInput').value || '').trim()
       };
 
       if (idx >= 0 && idx < appConfig.studioPackages.length) {

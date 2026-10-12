@@ -92,6 +92,17 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   };
 
   const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+
+  const packageImageMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    const pkgs = (((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[]);
+    pkgs.forEach((p: any) => {
+      if (p.id && p.imageUrl) {
+        map[p.id] = p.imageUrl;
+      }
+    });
+    return map;
+  }, []);
   // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Fasilitas Studio), or 'guide' (Panduan, Disclaimer & FAQ)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>(initialTab);
   const isTabActive = (tab: 'menu' | 'gallery' | 'guide') => activeTab === tab;
@@ -565,18 +576,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       tags: ['#WisudaOutdoor', '#AreaKampus', '#FotoWisuda']
     },
     {
-      id: 'photo-1-selfstudio',
-      title: 'Pose Bebas & Aesthetic Tanpa Fotografer',
-      category: 'selfstudio',
-      packageName: 'Paket Self Studio',
-      icon: '✨',
-      targetPackageId: 'self-special-narsis',
-      imageUrl: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85',
-      description: 'Sesi foto bebas ekspresi menggunakan shutter remote di tangan, dilengkapi berbagai aksesoris, kacamata lucu, dan pilihan lighting spotlight.',
-      conceptNote: 'Bebas berekspresi tanpa canggung dengan remote shutter nirkabel mandiri.',
-      tags: ['#SelfStudio', '#Aesthetic', '#PropsLucu']
-    },
-    {
       id: 'photo-4-prewed',
       title: 'Konsep Prewedding Gaun Putih & Jas Mewah Elegan',
       category: 'prewed',
@@ -959,23 +958,72 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     const previewCategory = previewCategoryByMenu[activeMenuCategory || ''] || activeMenuCategory;
     const matchingGallery = STUDIO_GALLERY_PHOTOS.filter(photo => photo.category === previewCategory);
 
+    // 1. Ambil foto yang diupload dari Admin Panel (Foto 1) untuk kategori yang sedang aktif
+    const allStudioPkgs = (((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[]);
+    const customPkgPhotos = allStudioPkgs
+      .filter(pkg => {
+        if (!pkg.imageUrl) return false;
+        if (previewCategory === 'grad-indoor') {
+          return pkg.category === 'grad-indoor' || pkg.category === 'grad-bundling' || pkg.category === 'grad-outdoor';
+        }
+        if (previewCategory === 'grad-outdoor') {
+          return pkg.category === 'grad-outdoor';
+        }
+        if (previewCategory === 'selfstudio' || previewCategory === 'self-studio') {
+          return pkg.category === 'self-studio';
+        }
+        if (previewCategory === 'prewed' || previewCategory === 'couple') {
+          return pkg.category === 'prewed-couple';
+        }
+        if (previewCategory === 'group' || previewCategory === 'family') {
+          return pkg.category === 'group-family';
+        }
+        if (previewCategory === 'personal' || previewCategory === 'maternity') {
+          return pkg.category === 'personal-maternity';
+        }
+        if (previewCategory === 'birthday' || previewCategory === 'event') {
+          return pkg.category === 'birthday';
+        }
+        if (previewCategory === 'pass-foto') {
+          return pkg.category === 'pass-foto';
+        }
+        if (previewCategory === 'sewa-studio' || previewCategory === 'undangan') {
+          return pkg.category === 'sewa-event';
+        }
+        return pkg.category === previewCategory;
+      })
+      .map((pkg, idx) => ({
+        id: `custom-pkg-photo-${pkg.id || idx}`,
+        imageUrl: pkg.imageUrl,
+        title: pkg.subtitle ? `${pkg.name} (${pkg.subtitle})` : `${pkg.name} — Foto Paket`,
+        packageName: pkg.name
+      }));
+
+    let defaultGalleryPhotos: any[] = [];
     if (matchingGallery.length > 0) {
-      return matchingGallery.flatMap(photo => (photo.images || [photo.imageUrl]).map((imageUrl, index) => ({
+      defaultGalleryPhotos = matchingGallery.flatMap(photo => (photo.images || [photo.imageUrl]).map((imageUrl, index) => ({
         id: `${photo.id}-${index}`,
         imageUrl,
         title: photo.title,
         packageName: photo.packageName
       })));
+    } else if (customPkgPhotos.length === 0) {
+      defaultGalleryPhotos = activeMenuPackages
+        .filter(pkg => Boolean(pkg.image))
+        .map(pkg => ({
+          id: pkg.id,
+          imageUrl: pkg.image,
+          title: pkg.name,
+          packageName: activeMenuInfo.title
+        }));
     }
 
-    return activeMenuPackages
-      .filter(pkg => Boolean(pkg.image))
-      .map(pkg => ({
-        id: pkg.id,
-        imageUrl: pkg.image,
-        title: pkg.name,
-        packageName: activeMenuInfo.title
-      }));
+    // Jika admin telah mengupload foto untuk paket di kategori ini, tampilkan foto tersebut di urutan terdepan carousel Foto 2!
+    if (customPkgPhotos.length > 0) {
+      return [...customPkgPhotos, ...defaultGalleryPhotos];
+    }
+
+    return defaultGalleryPhotos;
   }, [activeMenuCategory, activeMenuInfo.title, activeMenuPackages]);
 
   const birthdayDecorPreview: StudioGalleryPhoto = {

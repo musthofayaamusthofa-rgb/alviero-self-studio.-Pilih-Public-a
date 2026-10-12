@@ -13,8 +13,8 @@ if (!fs.existsSync(BACKUP_DIR)) {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
 }
 
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(express.static(path.join(ROOT_DIR, 'public')));
 
 // Helper: Run shell command as Promise
@@ -41,6 +41,53 @@ app.get('/api/config', (req, res) => {
     const raw = fs.readFileSync(CONFIG_PATH, 'utf-8');
     const data = JSON.parse(raw);
     res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 2b. API: Upload Package / Studio Image
+app.post('/api/upload-image', (req, res) => {
+  try {
+    const { dataUrl, fileName, folder } = req.body;
+    if (!dataUrl) {
+      return res.status(400).json({ error: 'dataUrl is required' });
+    }
+
+    const matches = dataUrl.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
+    if (!matches) {
+      return res.status(400).json({ error: 'Format data URL base64 tidak valid' });
+    }
+
+    const rawExt = matches[1].toLowerCase();
+    const ext = rawExt === 'jpeg' ? 'jpg' : rawExt === 'svg+xml' ? 'svg' : rawExt;
+    const base64Data = matches[2];
+    const buffer = Buffer.from(base64Data, 'base64');
+
+    const targetSubfolder = folder || 'packages';
+    const uploadDir = path.join(ROOT_DIR, 'public', 'images', targetSubfolder);
+
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    const cleanBaseName = (fileName || 'paket')
+      .replace(/\.[^/.]+$/, '')
+      .replace(/[^a-zA-Z0-9_-]/g, '_')
+      .toLowerCase();
+
+    const finalFileName = `${cleanBaseName}_${Date.now()}.${ext}`;
+    const fullPath = path.join(uploadDir, finalFileName);
+
+    fs.writeFileSync(fullPath, buffer);
+
+    const publicUrl = `/images/${targetSubfolder}/${finalFileName}`;
+    res.json({
+      success: true,
+      url: publicUrl,
+      fileName: finalFileName,
+      message: 'Foto berhasil disimpan!'
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -102,7 +149,7 @@ app.post('/api/sync-github', async (req, res) => {
     const commitMsg = req.body.commitMessage || `Update studio config (background & slots) via Alviero Manager [${new Date().toLocaleTimeString('id-ID')}]`;
 
     // Step 1: git add
-    const addRes = await runCmd('git add src/data/studioConfig.json src/data/pricelistData.ts src/utils/bookingScheduleUtils.ts');
+    const addRes = await runCmd('git add src/data/studioConfig.json src/data/pricelistData.ts src/utils/bookingScheduleUtils.ts public/images');
     
     // Check if there is anything to commit
     const statusRes = await runCmd('git status --porcelain');

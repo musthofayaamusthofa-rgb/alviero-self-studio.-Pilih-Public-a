@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-04T17:37:06.975Z",
+  "lastUpdated": "2026-10-12T06:52:10.001Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1039,7 +1039,8 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor"
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 0
     },
     {
       "id": "grad-indoor-supreme-scholar",
@@ -1057,7 +1058,8 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor"
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 1
     },
     {
       "id": "grad-indoor-infinity-scholar",
@@ -1075,7 +1077,8 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor"
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 2
     }
   ],
   "studioPackages": [
@@ -1095,7 +1098,8 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor"
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 0
     },
     {
       "id": "grad-indoor-supreme-scholar",
@@ -1113,7 +1117,8 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor"
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 1
     },
     {
       "id": "grad-indoor-infinity-scholar",
@@ -1131,7 +1136,8 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor"
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 2
     },
     {
       "id": "grad-bundling-ultimate-1",
@@ -1149,7 +1155,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)"
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 3
     },
     {
       "id": "grad-bundling-ultimate-2",
@@ -1167,7 +1174,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)"
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 4
     },
     {
       "id": "grad-outdoor-smart-30",
@@ -1185,7 +1193,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang"
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 5
     },
     {
       "id": "grad-outdoor-smart-60",
@@ -1203,7 +1212,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang"
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 6
     },
     {
       "id": "grad-outdoor-cumlaude",
@@ -1221,7 +1231,8 @@
       "edit": "Edit 10 Foto High-Res + Video Cinematic",
       "print": "Softfile & Video 9:16",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok"
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "_origIndex": 7
     },
     {
       "id": "grad-outdoor-group-2",
@@ -1239,12 +1250,13 @@
       "edit": "Edit Foto High-Res",
       "print": "Softfile Google Drive",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus"
+      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "_origIndex": 8
     },
     {
       "id": "self-normal-narsis",
       "category": "self-studio",
-      "categoryLabel": "Self Photo Studio",
+      "categoryLabel": "Self Studio",
       "subtitle": "Kategori Normal",
       "badge": "Free Print",
       "name": "Normal Narsis",
@@ -1257,12 +1269,14 @@
       "edit": "Template Kolase Siap Cetak",
       "print": "Free 1 Lembar Cetak 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Wireless remote shutter otomatis tanpa fotografer"
+      "note": "*Wireless remote shutter otomatis tanpa fotografer",
+      "imageUrl": "/images/packages/normal_narsis_1791787834137.jpg",
+      "_origIndex": 9
     },
     {
       "id": "self-normal-super-narsis",
       "category": "self-studio",
-      "categoryLabel": "Self Photo Studio",
+      "categoryLabel": "Self Studio",
       "subtitle": "Kategori Normal",
       "badge": "Free Print",
       "name": "Normal Super Narsis",
@@ -1275,12 +1289,14 @@
       "edit": "Template Kolase Siap Cetak",
       "print": "Free 1 Lembar Cetak 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Waktu lebih puas untuk berekspresi bersama bestie / pasangan"
+      "note": "*Waktu lebih puas untuk berekspresi bersama bestie / pasangan",
+      "imageUrl": "/images/packages/normal_super_narsis_1791787879710.jpg",
+      "_origIndex": 10
     },
     {
       "id": "self-special-spotlight",
       "category": "self-studio",
-      "categoryLabel": "Self Photo Studio",
+      "categoryLabel": "Self Studio",
       "subtitle": "Colour Spotlight",
       "badge": "Spotlight Lamp",
       "name": "Special Colour Spotlight",
@@ -1293,12 +1309,14 @@
       "edit": "Template Kolase Siap Cetak",
       "print": "Free 1 Lembar Cetak 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Efek lampu proyektor warna artistik untuk nuansa sinematik"
+      "note": "*Efek lampu proyektor warna artistik untuk nuansa sinematik",
+      "imageUrl": "/images/packages/special_colour_spotlight_1791787890705.jpg",
+      "_origIndex": 11
     },
     {
       "id": "self-normal-spotlight",
       "category": "self-studio",
-      "categoryLabel": "Self Photo Studio",
+      "categoryLabel": "Self Studio",
       "subtitle": "Colour Spotlight",
       "badge": "Spotlight Lamp",
       "name": "Normal Colour Spotlight",
@@ -1311,12 +1329,14 @@
       "edit": "Template Kolase Siap Cetak",
       "print": "Free 1 Lembar Cetak 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Kombinasi lampu spotlight dan background pilihan"
+      "note": "*Kombinasi lampu spotlight dan background pilihan",
+      "imageUrl": "/images/packages/normal_colour_spotlight_1791787901644.jpg",
+      "_origIndex": 12
     },
     {
       "id": "self-special-narsis",
       "category": "self-studio",
-      "categoryLabel": "Self Photo Studio",
+      "categoryLabel": "Self Studio",
       "subtitle": "Kategori Spesial Hemat",
       "badge": "Hemat",
       "name": "Spesial Narsis",
@@ -1329,12 +1349,14 @@
       "edit": "Template Kolase",
       "print": "Softfile Only (Cetak opsional)",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Pilihan tepat untuk foto kasual & seru harga terjangkau"
+      "note": "*Pilihan tepat untuk foto kasual & seru harga terjangkau",
+      "imageUrl": "/images/packages/spesial_narsis_1791787912728.jpg",
+      "_origIndex": 13
     },
     {
       "id": "self-special-super-narsis",
       "category": "self-studio",
-      "categoryLabel": "Self Photo Studio",
+      "categoryLabel": "Self Studio",
       "subtitle": "Kategori Spesial Hemat",
       "badge": "Hemat",
       "name": "Spesial Super Narsis",
@@ -1347,7 +1369,9 @@
       "edit": "Template Kolase",
       "print": "Softfile Only (Cetak opsional)",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Durasi 20 menit bebas pose sepuasnya tanpa fotografer"
+      "note": "*Durasi 20 menit bebas pose sepuasnya tanpa fotografer",
+      "imageUrl": "/images/packages/spesial_super_narsis_1791787926134.jpg",
+      "_origIndex": 14
     },
     {
       "id": "passfoto-1",
@@ -1365,7 +1389,8 @@
       "edit": "Basic Retouch & Ganti Background",
       "print": "Cetak 4 Lembar (3x4 atau 4x6)",
       "fileDelivery": "File Master via WA / Email",
-      "note": "*Cocok untuk berkas lamaran kerja, buku nikah, dan ijazah"
+      "note": "*Cocok untuk berkas lamaran kerja, buku nikah, dan ijazah",
+      "_origIndex": 15
     },
     {
       "id": "passfoto-2",
@@ -1383,7 +1408,8 @@
       "edit": "Advanced Retouch Kulit & Wajah",
       "print": "Cetak 8 Lembar (Pilihan Ukuran)",
       "fileDelivery": "File Master High-Res",
-      "note": "*Hasil foto halus natural berstandar kedutaan & visa"
+      "note": "*Hasil foto halus natural berstandar kedutaan & visa",
+      "_origIndex": 16
     },
     {
       "id": "passfoto-3",
@@ -1401,7 +1427,8 @@
       "edit": "Full Retouch + Edit Jas/Kemeja Digital",
       "print": "Cetak 12 Lembar Lengkap",
       "fileDelivery": "File Master High-Res",
-      "note": "*Termasuk opsi edit pakaian formal digital jika diperlukan"
+      "note": "*Termasuk opsi edit pakaian formal digital jika diperlukan",
+      "_origIndex": 17
     },
     {
       "id": "family-sweet-together",
@@ -1419,7 +1446,8 @@
       "edit": "Edit 5 Foto Pilihan",
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga"
+      "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga",
+      "_origIndex": 18
     },
     {
       "id": "family-happy-nest",
@@ -1437,7 +1465,8 @@
       "edit": "Edit 8 Foto Pilihan",
       "print": "Cetak 2 Uk 10R / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar"
+      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
+      "_origIndex": 19
     },
     {
       "id": "group-friendly-frame",
@@ -1455,7 +1484,8 @@
       "edit": "Edit 5 Foto Pilihan",
       "print": "Cetak 1 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Bebas berganti gaya & properti foto studio"
+      "note": "*Bebas berganti gaya & properti foto studio",
+      "_origIndex": 20
     },
     {
       "id": "group-signature-squad",
@@ -1473,7 +1503,8 @@
       "edit": "Edit 8 Foto Pilihan",
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat"
+      "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat",
+      "_origIndex": 21
     },
     {
       "id": "group-royal-ensemble",
@@ -1491,7 +1522,8 @@
       "edit": "Edit 12 Foto Pilihan",
       "print": "Cetak 3 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok"
+      "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok",
+      "_origIndex": 22
     },
     {
       "id": "group-imperial-union",
@@ -1509,7 +1541,8 @@
       "edit": "Edit 15 Foto Pilihan",
       "print": "Cetak 4 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Kapasitas besar dengan arahan fotografer profesional"
+      "note": "*Kapasitas besar dengan arahan fotografer profesional",
+      "_origIndex": 23
     },
     {
       "id": "couple-eternal-love",
@@ -1527,7 +1560,8 @@
       "edit": "Edit 5 Foto Pilihan",
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Pose romantis & intim diarahkan langsung oleh fotografer"
+      "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
+      "_origIndex": 24
     },
     {
       "id": "couple-sweet-memories",
@@ -1545,7 +1579,8 @@
       "edit": "Edit 8 Foto Pilihan",
       "print": "Cetak 2 Uk 10R / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi"
+      "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi",
+      "_origIndex": 25
     },
     {
       "id": "prewed-sweet-promise",
@@ -1563,7 +1598,8 @@
       "edit": "Edit 10 Foto High-Res",
       "print": "Cetak 1 Uk 12R + Frame Minimalis",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Konsep indoor elegan dengan lighting studio profesional"
+      "note": "*Konsep indoor elegan dengan lighting studio profesional",
+      "_origIndex": 26
     },
     {
       "id": "prewed-velvet-romance",
@@ -1581,7 +1617,8 @@
       "edit": "Edit 15 Foto High-Res",
       "print": "Cetak 2 Uk 12R + Frame Minimalis",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Bebas ganti 3 konsep baju dengan hasil cinematic"
+      "note": "*Bebas ganti 3 konsep baju dengan hasil cinematic",
+      "_origIndex": 27
     },
     {
       "id": "prewed-bundling-1",
@@ -1599,7 +1636,8 @@
       "edit": "Edit 10 Foto High-Res",
       "print": "Cetak 1 Uk 12R + Frame",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum"
+      "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum",
+      "_origIndex": 28
     },
     {
       "id": "prewed-bundling-2",
@@ -1617,7 +1655,8 @@
       "edit": "Edit 15 Foto High-Res",
       "print": "Cetak 2 Uk 12R + Frame",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar"
+      "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar",
+      "_origIndex": 29
     },
     {
       "id": "personal-bold-statement",
@@ -1635,7 +1674,8 @@
       "edit": "Edit 4 Foto High-Res",
       "print": "Cetak 1 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos"
+      "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos",
+      "_origIndex": 30
     },
     {
       "id": "personal-opulent-shot",
@@ -1653,7 +1693,8 @@
       "edit": "Edit 8 Foto High-Res",
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional"
+      "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional",
+      "_origIndex": 31
     },
     {
       "id": "maternity-warm-embrace",
@@ -1671,7 +1712,8 @@
       "edit": "Edit 6 Foto High-Res",
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Mengabadikan momen kehamilan yang hangat & berkesan"
+      "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
+      "_origIndex": 32
     },
     {
       "id": "maternity-golden-motherhood",
@@ -1689,7 +1731,8 @@
       "edit": "Edit 10 Foto High-Res",
       "print": "Cetak 2 Uk 10R / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum"
+      "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum",
+      "_origIndex": 33
     },
     {
       "id": "birthday-sweet-celebration",
@@ -1707,7 +1750,8 @@
       "edit": "Edit 6 Foto Pilihan",
       "print": "Cetak 1 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri"
+      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
+      "_origIndex": 34
     },
     {
       "id": "birthday-glow-sweet",
@@ -1725,7 +1769,8 @@
       "edit": "Edit 8 Foto Pilihan",
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman"
+      "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman",
+      "_origIndex": 35
     },
     {
       "id": "birthday-sweet-light",
@@ -1743,7 +1788,8 @@
       "edit": "Edit 12 Foto Pilihan",
       "print": "Cetak 3 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik"
+      "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik",
+      "_origIndex": 36
     },
     {
       "id": "birthday-ultimate-sweet-light",
@@ -1761,7 +1807,8 @@
       "edit": "Edit 16 Foto Pilihan",
       "print": "Cetak 4 Uk 10R + Frame",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar"
+      "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar",
+      "_origIndex": 37
     },
     {
       "id": "sewa-studio-hourly",
@@ -1779,7 +1826,8 @@
       "edit": "Tanpa Edit (Bawa fotografer sendiri)",
       "print": "Tanpa Cetak",
       "fileDelivery": "Hasil foto di memori sendiri",
-      "note": "*Termasuk penggunaan lighting studio Godox, trigger, dan ruang ganti"
+      "note": "*Termasuk penggunaan lighting studio Godox, trigger, dan ruang ganti",
+      "_origIndex": 38
     },
     {
       "id": "undangan-paket-1",
@@ -1797,7 +1845,8 @@
       "edit": "Musik, RSVP, Maps, Countdown",
       "print": "Digital Link Website",
       "fileDelivery": "Link Website Undangan Online",
-      "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas"
+      "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas",
+      "_origIndex": 39
     },
     {
       "id": "undangan-paket-2",
@@ -1815,7 +1864,8 @@
       "edit": "Kisah Cinta, Galeri Video, Live Wishes",
       "print": "Digital Link + QR Code",
       "fileDelivery": "Link Website Undangan Online",
-      "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift"
+      "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift",
+      "_origIndex": 40
     }
   ],
   "bundlingPackages": [
@@ -1835,7 +1885,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)"
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 3
     },
     {
       "id": "grad-bundling-ultimate-2",
@@ -1853,7 +1904,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)"
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 4
     }
   ],
   "outdoorPackages": [
@@ -1873,7 +1925,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang"
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 5
     },
     {
       "id": "grad-outdoor-smart-60",
@@ -1891,7 +1944,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang"
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 6
     },
     {
       "id": "grad-outdoor-cumlaude",
@@ -1909,7 +1963,8 @@
       "edit": "Edit 10 Foto High-Res + Video Cinematic",
       "print": "Softfile & Video 9:16",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok"
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "_origIndex": 7
     },
     {
       "id": "grad-outdoor-group-2",
@@ -1927,7 +1982,8 @@
       "edit": "Edit Foto High-Res",
       "print": "Softfile Google Drive",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus"
+      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "_origIndex": 8
     }
   ]
 }
