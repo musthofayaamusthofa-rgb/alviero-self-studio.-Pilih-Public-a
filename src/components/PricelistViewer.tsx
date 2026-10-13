@@ -901,19 +901,24 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       return safeA - safeB;
     });
 
-    return orderedBackgrounds.map(bg => ({
-      id: `background-${bg.id}`,
-      title: bg.name,
-      category: 'background',
-      packageName: selectedBranch === 'cabang-1' ? 'Background Studio 1' : 'Background Studio 2',
-      icon: selectedBranch === 'cabang-1' ? '🎨' : '🖼️',
-      targetPackageId: 'sewa-studio-hourly',
-      imageUrl: bg.previewImage || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85',
-      images: [bg.previewImage || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85'],
-      description: bg.description,
-      conceptNote: `${bg.name} termasuk dalam pilihan background yang tersedia di ${currentBranchInfo.shortName}.`,
-      tags: [`#${bg.name.replace(/\s+/g, '')}`, `#${selectedBranch === 'cabang-1' ? 'Studio1' : 'Studio2'}`]
-    }));
+    return orderedBackgrounds.map(bg => {
+      const bgImages = (Array.isArray(bg.previewImages) && bg.previewImages.length > 0)
+        ? bg.previewImages
+        : [bg.previewImage || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85'];
+      return {
+        id: `background-${bg.id}`,
+        title: bg.name,
+        category: 'background',
+        packageName: selectedBranch === 'cabang-1' ? 'Background Studio 1' : 'Background Studio 2',
+        icon: selectedBranch === 'cabang-1' ? '🎨' : '🖼️',
+        targetPackageId: 'sewa-studio-hourly',
+        imageUrl: bgImages[0],
+        images: bgImages,
+        description: bg.description,
+        conceptNote: `${bg.name} termasuk dalam pilihan background yang tersedia di ${currentBranchInfo.shortName}.`,
+        tags: [`#${bg.name.replace(/\s+/g, '')}`, `#${selectedBranch === 'cabang-1' ? 'Studio1' : 'Studio2'}`]
+      };
+    });
   }, [selectedBranch, currentBranchInfo.shortName]);
 
   // Filter fasilitas & background untuk tab Fasilitas & Background sesuai studio yang dipilih
@@ -958,11 +963,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     const previewCategory = previewCategoryByMenu[activeMenuCategory || ''] || activeMenuCategory;
     const matchingGallery = STUDIO_GALLERY_PHOTOS.filter(photo => photo.category === previewCategory);
 
-    // 1. Ambil foto yang diupload dari Admin Panel (Foto 1) untuk kategori yang sedang aktif
+    // 1. Ambil foto yang diupload dari Admin Panel (Foto 1 & Foto 2) untuk kategori yang sedang aktif
     const allStudioPkgs = (((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[]);
     const customPkgPhotos = allStudioPkgs
       .filter(pkg => {
-        if (!pkg.imageUrl) return false;
+        const hasImg = (Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0) || Boolean(pkg.imageUrl);
+        if (!hasImg) return false;
         if (previewCategory === 'grad-indoor') {
           return pkg.category === 'grad-indoor' || pkg.category === 'grad-bundling' || pkg.category === 'grad-outdoor';
         }
@@ -992,12 +998,19 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         }
         return pkg.category === previewCategory;
       })
-      .map((pkg, idx) => ({
-        id: `custom-pkg-photo-${pkg.id || idx}`,
-        imageUrl: pkg.imageUrl,
-        title: pkg.subtitle ? `${pkg.name} (${pkg.subtitle})` : `${pkg.name} — Foto Paket`,
-        packageName: pkg.name
-      }));
+      .flatMap((pkg, pkgIdx) => {
+        const urls: string[] = (Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0)
+          ? pkg.imageUrls
+          : (pkg.imageUrl ? [pkg.imageUrl] : []);
+        return urls.map((url, imgIdx) => ({
+          id: `custom-pkg-photo-${pkg.id || pkgIdx}-${imgIdx}`,
+          imageUrl: url,
+          title: pkg.subtitle
+            ? `${pkg.name} (${pkg.subtitle})${urls.length > 1 ? ` — Foto ${imgIdx + 1}` : ''}`
+            : `${pkg.name}${urls.length > 1 ? ` — Foto ${imgIdx + 1}` : ' — Foto Paket'}`,
+          packageName: pkg.name
+        }));
+      });
 
     let defaultGalleryPhotos: any[] = [];
     if (matchingGallery.length > 0) {

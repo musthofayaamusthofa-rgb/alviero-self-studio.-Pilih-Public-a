@@ -247,7 +247,7 @@ export const BackdropHeroSlider = BackgroundHeroSlider;
 export interface ClientReview {
   id: string;
   name: string;
-  avatar: string;
+  avatar?: string;
   reviewerMeta?: string;
   date?: string;
   package: string;
@@ -602,20 +602,11 @@ export const ClientReviewCarousel: React.FC = () => {
               href={review.reviewUrl || GOOGLE_MAPS_REVIEW_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-sm hover:shadow-md pl-16 sm:pl-20 animate-in fade-in duration-300 flex flex-col justify-between group/card transition-all cursor-pointer text-left block"
+              className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-sm hover:shadow-md animate-in fade-in duration-300 flex flex-col justify-between group/card transition-all cursor-pointer text-left block"
               title={`Klik untuk membuka ulasan langsung di Google Maps (${review.studioBadge})`}
             >
-              {/* Foto Avatar Asli Reviewer dari Google Maps */}
-              <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-stone-900 border-2 border-white shadow-sm overflow-hidden shrink-0">
-                <img
-                  src={review.avatar}
-                  alt={review.name}
-                  className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
-                />
-              </div>
-
               {/* Watermark Tanda Kutip (Quote) */}
-              <div className="absolute top-1.5 left-14 sm:left-17 text-2xl sm:text-3xl font-serif text-[#DFCFC5] select-none leading-none opacity-40">
+              <div className="absolute top-1.5 left-3 sm:left-4 text-2xl sm:text-3xl font-serif text-[#DFCFC5] select-none leading-none opacity-40">
                 “
               </div>
 

@@ -74,6 +74,7 @@ export interface BackgroundOption {
   secondaryHex?: string;
   description: string;
   previewImage: string;
+  previewImages?: string[];
   applicableTo?: ('self-studio' | 'pro-studio')[];
   applicableBranches?: StudioBranch[];
 }

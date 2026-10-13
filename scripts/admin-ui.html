@@ -142,16 +142,16 @@
     .charge-badge { font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 700; }
     .charge-badge.free { background: #F4F4F5; color: #52525B; }
     .charge-badge.extra { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
-    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.45); backdrop-filter: blur(5px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1.25rem; flex-direction: column; }
     .modal-overlay.open { display: flex; }
-    .modal-card { background: #FFFFFF; border-radius: 20px; max-width: 620px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); border: 1px solid var(--border); animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    .modal-card { background: #FFFFFF; border-radius: 20px; max-width: 620px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.06); border: 1px solid var(--border); animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes modalIn { from { opacity: 0; transform: scale(0.96) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-    .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; background: #FFFFFF; }
     .modal-title { font-size: 1.15rem; font-weight: 700; color: var(--charcoal); }
-    .btn-close { background: transparent; border: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #A1A1AA; padding: 0.25rem; border-radius: 8px; }
+    .btn-close { background: transparent; border: none; font-size: 1.5rem; line-height: 1; cursor: pointer; color: #A1A1AA; padding: 0.25rem; border-radius: 8px; transition: all 0.15s; }
     .btn-close:hover { color: var(--charcoal); background: #F4F4F5; }
-    .modal-body { padding: 1.5rem; }
-    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 0.75rem; background: #FAF8F5; border-radius: 0 0 20px 20px; }
+    .modal-body { padding: 1.5rem; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
+    .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 0.75rem; background: #FAF8F5; border-radius: 0 0 20px 20px; flex-shrink: 0; }
     .form-group { margin-bottom: 1.15rem; }
     .form-label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.35rem; }
     .form-control { width: 100%; padding: 0.65rem 0.85rem; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 0.86rem; outline: none; background: #FFFFFF; transition: border-color 0.2s, box-shadow 0.2s; }
@@ -712,13 +712,13 @@
       </div>
     </section>
 
-    <!-- TAB 2: TIME SLOTS MANAGER -->
+    <!-- TAB 2: TIME SLOTS MANAGER (PER CABANG) -->
     <section id="tab-slots" class="tab-pane">
       <div class="card">
         <div class="card-header">
           <div>
             <h2 class="card-title">Jam Operasional & Slot Booking</h2>
-            <p class="card-desc">Atur jam buka/tutup, batas kapasitas per slot, jenis layanan, dan biaya tambahan overtime/early morning.</p>
+            <p class="card-desc">Atur jam buka/tutup, batas kapasitas per slot, jenis layanan, dan biaya tambahan overtime/early morning per cabang studio.</p>
           </div>
           <button class="btn btn-add" onclick="openAddSlotModal()">
             + Tambah Slot Jam Baru
@@ -738,8 +738,12 @@
 
         <div class="preset-box" style="background: #FFFFFF; border-style: dashed;">
           <div>
-            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);">⚡ Pengaturan Cepat (Preset):</div>
-            <div style="font-size: 0.75rem; color: #71717A;">Klik untuk menerapkan status jam slot secara instan.</div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);" id="presetHeading">
+              ⚡ Pengaturan Cepat (Preset):
+            </div>
+            <div style="font-size: 0.75rem; color: #71717A;" id="presetSubtitle">
+              Terapkan status jam slot secara instan (Cabang aktif: Semua Cabang).
+            </div>
           </div>
           <div class="preset-buttons">
             <button class="btn-preset" onclick="applyPreset('all-on')">🟢 Buka Semua Slot</button>
@@ -754,6 +758,7 @@
               <tr>
                 <th style="width: 80px;">Status</th>
                 <th>Jam Slot</th>
+                <th>Cabang Studio</th>
                 <th>Kapasitas</th>
                 <th>Layanan Diizinkan</th>
                 <th>Biaya Tambahan</th>
@@ -1093,14 +1098,13 @@
 
   <!-- MODAL: ADD / EDIT BACKGROUND -->
   <div class="modal-overlay" id="bgModal">
-    <div class="modal-card">
+    <div class="modal-card" style="max-width: 660px;">
       <div class="modal-header">
         <h3 class="modal-title" id="bgModalTitle">Tambah Background Baru</h3>
         <button class="btn-close" onclick="closeModal('bgModal')">&times;</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="bgEditIndex" value="-1">
-        
         <div class="form-group">
           <label class="form-label">Nama Background *</label>
           <input type="text" id="bgNameInput" class="form-control" placeholder="Contoh: Ivory Mediterania">
@@ -1114,10 +1118,139 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">URL Foto Preview *</label>
-          <input type="text" id="bgImageInput" class="form-control" placeholder="https://images.unsplash.com/... atau /images/..." oninput="previewBgImage(this.value)">
-          <div id="imagePreviewBox" style="margin-top: 0.6rem; height: 120px; border-radius: 10px; background-size: cover; background-position: center; border: 1px solid var(--border); display: none;"></div>
+        <div class="form-group" style="background: #FDFCFA; border: 1.5px solid #EFE5DC; border-radius: 14px; padding: 1.1rem; margin-bottom: 1.1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.02);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+            <div>
+              <label class="form-label" style="margin-bottom: 0.2rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.4rem; font-size: 0.88rem;">
+                <span>🖼️</span> <span>Foto Preview Background (Minimal 3 Foto) *</span>
+              </label>
+              <p style="font-size: 0.73rem; color: #78716C; margin: 0; line-height: 1.4;">
+                Upload minimal 3 foto contoh background dari komputer/HP (lokal, maks. 25MB) atau gunakan URL gambar.
+              </p>
+            </div>
+            <span style="font-size: 0.68rem; font-weight: 750; background: #EBF2EA; color: #2D5A34; padding: 0.25rem 0.6rem; border-radius: 999px; border: 1px solid #CDE0CB; white-space: nowrap; shrink-0;">
+              ✨ 3 Foto Slot
+            </span>
+          </div>
+
+          <!-- 3-Slot Grid Container -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.65rem;">
+            
+            <!-- SLOT 1: FOTO 1 (UTAMA) -->
+            <div style="border: 1px solid var(--border); background: #FAF9F6; border-radius: 12px; padding: 0.75rem; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                <span style="font-size: 0.74rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.25rem;">
+                  <span>📷</span> <span>Foto 1 (Utama) *</span>
+                </span>
+                <button type="button" class="btn-icon-subtle" onclick="promptBgImageUrl(1)" title="Link URL" style="font-size: 0.68rem; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: #fff; cursor: pointer;">
+                  🔗 URL
+                </button>
+              </div>
+              <input type="file" id="bgImageFileInput1" accept="image/*" style="display: none;" onchange="handleBackgroundImageFileSelect(this, 1)">
+              <input type="hidden" id="bgImageInput1" value="">
+              
+              <div id="bgImageUploadStatus1" style="display: none; font-size: 0.7rem; font-weight: 700; color: #2563EB; margin-bottom: 0.35rem; padding: 0.3rem 0.5rem; background: #EFF6FF; border-radius: 6px;">
+                ⏳ Mengunggah Foto 1...
+              </div>
+
+              <!-- Empty State 1 -->
+              <div id="bgImageEmptyState1" style="border: 1.5px dashed #D6D3D1; border-radius: 10px; padding: 1.25rem 0.5rem; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 125px;" onclick="document.getElementById('bgImageFileInput1').click()" onmouseover="this.style.borderColor='#8A5A36'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#fff';">
+                <div style="font-size: 1.6rem; margin-bottom: 0.2rem;">📁</div>
+                <div style="font-size: 0.75rem; font-weight: 750; color: var(--charcoal);">Upload Foto 1</div>
+                <div style="font-size: 0.65rem; color: #9CA3AF; margin-top: 0.15rem;">Maks. 25MB (Lokal)</div>
+              </div>
+
+              <!-- Filled State 1 -->
+              <div id="bgImageFilledState1" style="display: none; position: relative; border-radius: 10px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 130px;">
+                <img id="bgImagePreviewImg1" src="" alt="Preview Foto 1" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 5px; left: 5px; right: 5px; display: flex; justify-content: space-between; align-items: center; gap: 0.3rem;">
+                  <button type="button" onclick="document.getElementById('bgImageFileInput1').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 750; border: none; border-radius: 5px; padding: 2px 7px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+                    🔄 Ganti
+                  </button>
+                  <button type="button" onclick="removeBgImage(1)" style="background: rgba(239,68,68,0.92); color: #fff; font-size: 0.68rem; font-weight: 750; border: none; border-radius: 5px; padding: 2px 7px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLOT 2: FOTO 2 (VARIASI) -->
+            <div style="border: 1px solid var(--border); background: #FAF9F6; border-radius: 12px; padding: 0.75rem; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                <span style="font-size: 0.74rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.25rem;">
+                  <span>📷</span> <span>Foto 2 (Variasi) *</span>
+                </span>
+                <button type="button" class="btn-icon-subtle" onclick="promptBgImageUrl(2)" title="Link URL" style="font-size: 0.68rem; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: #fff; cursor: pointer;">
+                  🔗 URL
+                </button>
+              </div>
+              <input type="file" id="bgImageFileInput2" accept="image/*" style="display: none;" onchange="handleBackgroundImageFileSelect(this, 2)">
+              <input type="hidden" id="bgImageInput2" value="">
+              
+              <div id="bgImageUploadStatus2" style="display: none; font-size: 0.7rem; font-weight: 700; color: #2563EB; margin-bottom: 0.35rem; padding: 0.3rem 0.5rem; background: #EFF6FF; border-radius: 6px;">
+                ⏳ Mengunggah Foto 2...
+              </div>
+
+              <!-- Empty State 2 -->
+              <div id="bgImageEmptyState2" style="border: 1.5px dashed #D6D3D1; border-radius: 10px; padding: 1.25rem 0.5rem; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 125px;" onclick="document.getElementById('bgImageFileInput2').click()" onmouseover="this.style.borderColor='#8A5A36'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#fff';">
+                <div style="font-size: 1.6rem; margin-bottom: 0.2rem;">📁</div>
+                <div style="font-size: 0.75rem; font-weight: 750; color: var(--charcoal);">Upload Foto 2</div>
+                <div style="font-size: 0.65rem; color: #9CA3AF; margin-top: 0.15rem;">Maks. 25MB (Lokal)</div>
+              </div>
+
+              <!-- Filled State 2 -->
+              <div id="bgImageFilledState2" style="display: none; position: relative; border-radius: 10px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 130px;">
+                <img id="bgImagePreviewImg2" src="" alt="Preview Foto 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 5px; left: 5px; right: 5px; display: flex; justify-content: space-between; align-items: center; gap: 0.3rem;">
+                  <button type="button" onclick="document.getElementById('bgImageFileInput2').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 750; border: none; border-radius: 5px; padding: 2px 7px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+                    🔄 Ganti
+                  </button>
+                  <button type="button" onclick="removeBgImage(2)" style="background: rgba(239,68,68,0.92); color: #fff; font-size: 0.68rem; font-weight: 750; border: none; border-radius: 5px; padding: 2px 7px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLOT 3: FOTO 3 (HASIL FOTO) -->
+            <div style="border: 1px solid var(--border); background: #FAF9F6; border-radius: 12px; padding: 0.75rem; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                <span style="font-size: 0.74rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.25rem;">
+                  <span>📷</span> <span>Foto 3 (Hasil/Detail) *</span>
+                </span>
+                <button type="button" class="btn-icon-subtle" onclick="promptBgImageUrl(3)" title="Link URL" style="font-size: 0.68rem; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: #fff; cursor: pointer;">
+                  🔗 URL
+                </button>
+              </div>
+              <input type="file" id="bgImageFileInput3" accept="image/*" style="display: none;" onchange="handleBackgroundImageFileSelect(this, 3)">
+              <input type="hidden" id="bgImageInput3" value="">
+              
+              <div id="bgImageUploadStatus3" style="display: none; font-size: 0.7rem; font-weight: 700; color: #2563EB; margin-bottom: 0.35rem; padding: 0.3rem 0.5rem; background: #EFF6FF; border-radius: 6px;">
+                ⏳ Mengunggah Foto 3...
+              </div>
+
+              <!-- Empty State 3 -->
+              <div id="bgImageEmptyState3" style="border: 1.5px dashed #D6D3D1; border-radius: 10px; padding: 1.25rem 0.5rem; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 125px;" onclick="document.getElementById('bgImageFileInput3').click()" onmouseover="this.style.borderColor='#8A5A36'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#fff';">
+                <div style="font-size: 1.6rem; margin-bottom: 0.2rem;">📁</div>
+                <div style="font-size: 0.75rem; font-weight: 750; color: var(--charcoal);">Upload Foto 3</div>
+                <div style="font-size: 0.65rem; color: #9CA3AF; margin-top: 0.15rem;">Maks. 25MB (Lokal)</div>
+              </div>
+
+              <!-- Filled State 3 -->
+              <div id="bgImageFilledState3" style="display: none; position: relative; border-radius: 10px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 130px;">
+                <img id="bgImagePreviewImg3" src="" alt="Preview Foto 3" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 5px; left: 5px; right: 5px; display: flex; justify-content: space-between; align-items: center; gap: 0.3rem;">
+                  <button type="button" onclick="document.getElementById('bgImageFileInput3').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 750; border: none; border-radius: 5px; padding: 2px 7px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+                    🔄 Ganti
+                  </button>
+                  <button type="button" onclick="removeBgImage(3)" style="background: rgba(239,68,68,0.92); color: #fff; font-size: 0.68rem; font-weight: 750; border: none; border-radius: 5px; padding: 2px 7px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <div class="form-group">
@@ -1171,7 +1304,7 @@
           <input type="text" id="slotTimeInput" class="form-control" placeholder="Contoh: 07:30 atau 21:30">
         </div>
 
-        <div class="form-group">
+                <div class="form-group">
           <label class="form-label">Kapasitas Maksimal Klien Bersamaan *</label>
           <select id="slotCapacityInput" class="form-control">
             <option value="2">2 Klien (Shift Pagi / Terbatas)</option>
@@ -1218,7 +1351,7 @@
         <h3 class="modal-title" id="promoModalTitle">Tambah Promo / Informasi Baru</h3>
         <button class="btn-close" onclick="closeModal('promoModal')">&times;</button>
       </div>
-      <div class="modal-body" style="max-height: 75vh; overflow-y: auto;">
+      <div class="modal-body">
         <input type="hidden" id="promoEditIndex" value="-1">
 
         <div class="form-row">
@@ -1373,7 +1506,7 @@
         <h3 class="modal-title" id="indoorModalTitle">Edit Rincian Paket</h3>
         <button class="btn-close" onclick="closeModal('indoorPackageModal')">&times;</button>
       </div>
-      <div class="modal-body" style="max-height: 75vh; overflow-y: auto;">
+      <div class="modal-body">
         <input type="hidden" id="indoorEditIndex" value="-1">
 
         <div class="form-row">
@@ -1429,57 +1562,64 @@
           <input type="text" id="indoorPriceUnitInput" class="form-control" placeholder="Contoh: per sesi • all-in">
         </div>
 
-        <!-- Photo Upload Section for Main Web -->
+        <!-- Photo Upload Section for Main Web (Minimal 2 Foto) -->
         <div style="background: #FDFCFA; border: 1.5px solid #EFE5DC; border-radius: 14px; padding: 1.1rem; margin-bottom: 1.1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.02);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
             <div>
               <label class="form-label" style="margin-bottom: 0.15rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.35rem;">
-                <span>📸</span> <span>Foto Banner / Sampel Paket (Web Utama)</span>
+                <span>📸</span> <span>Foto Banner & Sampel Paket (Minimal 2 Foto)</span>
               </label>
               <p style="font-size: 0.72rem; color: #78716C; margin: 0;">
-                Foto ini akan ditampilkan langsung di kartu paket pada web pengunjung (port 3000 & online).
+                Setiap paket dapat memuat 2 foto (Foto 1 & Foto 2) untuk ditampilkan di web utama dan carousel inspirasi.
               </p>
             </div>
-            <button type="button" class="btn-icon-subtle" onclick="promptPackageImageUrl()" title="Tempel URL Manual" style="font-size: 0.75rem; padding: 0.3rem 0.6rem; border-radius: 6px; border: 1px solid var(--border); background: #FAF8F5;">
-              🔗 Link URL
-            </button>
           </div>
 
-          <!-- Hidden File Input & Image URL Storage -->
-          <input type="file" id="indoorImageFileInput" accept="image/*" style="display: none;" onchange="handlePackageImageFileSelect(this)">
-          <input type="hidden" id="indoorImageUrlInput" value="">
-
-          <!-- Upload Status Indicator -->
-          <div id="pkgImageUploadStatus" style="display: none; font-size: 0.75rem; font-weight: 700; color: #2563EB; background: #EFF6FF; border: 1px solid #BFDBFE; padding: 0.45rem 0.75rem; border-radius: 8px; margin-bottom: 0.6rem;">
-            ⏳ Sedang mengunggah foto paket...
-          </div>
-
-          <!-- Preview & Action Box -->
-          <div id="pkgImagePreviewContainer">
-            <!-- State 1: No Image -->
-            <div id="pkgImageEmptyState" style="border: 2px dashed #D6D3D1; background: #FAF9F6; border-radius: 12px; padding: 1.25rem 1rem; text-align: center; cursor: pointer; transition: all 0.2s;" onclick="document.getElementById('indoorImageFileInput').click()" onmouseover="this.style.borderColor='#8A5A36'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
-              <div style="font-size: 2rem; margin-bottom: 0.35rem;">🖼️</div>
-              <div style="font-size: 0.82rem; font-weight: 750; color: var(--charcoal); margin-bottom: 0.2rem;">
-                Klik untuk Upload Foto dari Komputer / HP
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <!-- SLOT 1: FOTO 1 (UTAMA) -->
+            <div style="border: 1px solid var(--border); background: #FAF9F6; border-radius: 12px; padding: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span style="font-size: 0.75rem; font-weight: 750; color: var(--charcoal);">📷 Foto 1 (Utama)</span>
+                <button type="button" class="btn-icon-subtle" onclick="promptPackageImageUrl(1)" title="Link URL" style="font-size: 0.68rem; padding: 2px 5px; border-radius: 4px; border: 1px solid var(--border); background: #fff;">🔗 URL</button>
               </div>
-              <div style="font-size: 0.7rem; color: #A8A29E;">
-                Mendukung JPG, PNG, WebP (Maks. 25MB). Otomatis tersimpan ke server.
+              <input type="file" id="indoorImageFileInput1" accept="image/*" style="display: none;" onchange="handlePackageImageFileSelect(this, 1)">
+              <input type="hidden" id="indoorImageUrlInput1" value="">
+              <div id="pkgImageUploadStatus1" style="display: none; font-size: 0.7rem; font-weight: 700; color: #2563EB; margin-bottom: 0.3rem;">⏳ Mengunggah Foto 1...</div>
+
+              <div id="pkgImageEmptyState1" style="border: 1.5px dashed #D6D3D1; border-radius: 10px; padding: 1.25rem 0.5rem; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s;" onclick="document.getElementById('indoorImageFileInput1').click()">
+                <div style="font-size: 1.5rem;">🖼️</div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--charcoal); margin-top: 2px;">Upload Foto 1</div>
+                <div style="font-size: 0.65rem; color: #9CA3AF;">Maks. 25MB</div>
+              </div>
+              <div id="pkgImageFilledState1" style="display: none; position: relative; border-radius: 10px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 130px;">
+                <img id="pkgImagePreviewImg1" src="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; align-items: center;">
+                  <button type="button" onclick="document.getElementById('indoorImageFileInput1').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer;">🔄 Ganti</button>
+                  <button type="button" onclick="removePackageImage(1)" style="background: rgba(239,68,68,0.9); color: #fff; font-size: 0.68rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer;">🗑️ Hapus</button>
+                </div>
               </div>
             </div>
 
-            <!-- State 2: Has Image -->
-            <div id="pkgImageFilledState" style="display: none; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917;">
-              <img id="pkgImagePreviewImg" src="" alt="Preview Paket" style="width: 100%; height: 180px; object-fit: cover; display: block;">
-              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
-              <div style="position: absolute; bottom: 8px; left: 10px; right: 10px; display: flex; justify-content: space-between; align-items: center;">
-                <span id="pkgImagePreviewPath" style="color: #F5F5F4; font-size: 0.68rem; font-family: monospace; text-shadow: 0 1px 3px rgba(0,0,0,0.8); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 65%;"></span>
-                <div style="display: flex; gap: 0.35rem;">
-                  <button type="button" onclick="document.getElementById('indoorImageFileInput').click()" style="background: rgba(255,255,255,0.95); color: #1C1917; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 6px; padding: 0.3rem 0.65rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
-                    🔄 Ganti Foto
-                  </button>
-                  <button type="button" onclick="removePackageImage()" style="background: rgba(239,68,68,0.9); color: #fff; font-size: 0.72rem; font-weight: 700; border: none; border-radius: 6px; padding: 0.3rem 0.65rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">
-                    🗑️ Hapus
-                  </button>
+            <!-- SLOT 2: FOTO 2 (TAMBAHAN) -->
+            <div style="border: 1px solid var(--border); background: #FAF9F6; border-radius: 12px; padding: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span style="font-size: 0.75rem; font-weight: 750; color: var(--charcoal);">📷 Foto 2 (Tambahan)</span>
+                <button type="button" class="btn-icon-subtle" onclick="promptPackageImageUrl(2)" title="Link URL" style="font-size: 0.68rem; padding: 2px 5px; border-radius: 4px; border: 1px solid var(--border); background: #fff;">🔗 URL</button>
+              </div>
+              <input type="file" id="indoorImageFileInput2" accept="image/*" style="display: none;" onchange="handlePackageImageFileSelect(this, 2)">
+              <input type="hidden" id="indoorImageUrlInput2" value="">
+              <div id="pkgImageUploadStatus2" style="display: none; font-size: 0.7rem; font-weight: 700; color: #2563EB; margin-bottom: 0.3rem;">⏳ Mengunggah Foto 2...</div>
+
+              <div id="pkgImageEmptyState2" style="border: 1.5px dashed #D6D3D1; border-radius: 10px; padding: 1.25rem 0.5rem; text-align: center; cursor: pointer; background: #fff; transition: all 0.2s;" onclick="document.getElementById('indoorImageFileInput2').click()">
+                <div style="font-size: 1.5rem;">🖼️</div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--charcoal); margin-top: 2px;">Upload Foto 2</div>
+                <div style="font-size: 0.65rem; color: #9CA3AF;">Maks. 25MB</div>
+              </div>
+              <div id="pkgImageFilledState2" style="display: none; position: relative; border-radius: 10px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 130px;">
+                <img id="pkgImagePreviewImg2" src="" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; align-items: center;">
+                  <button type="button" onclick="document.getElementById('indoorImageFileInput2').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer;">🔄 Ganti</button>
+                  <button type="button" onclick="removePackageImage(2)" style="background: rgba(239,68,68,0.9); color: #fff; font-size: 0.68rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer;">🗑️ Hapus</button>
                 </div>
               </div>
             </div>
@@ -1946,20 +2086,45 @@
           </span>
         ` : '';
 
-        const photoHtml = pkg.imageUrl ? `
-          <div style="position: relative; width: 100%; height: 135px; border-radius: 12px; overflow: hidden; margin-bottom: 0.85rem; border: 1px solid var(--border); background: #1C1917;">
-            <img src="${escapeHtml(pkg.imageUrl)}" alt="${escapeHtml(pkg.name)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
-            <div style="position: absolute; bottom: 6px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: center;">
-              <span style="background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.65rem; font-weight: 750; padding: 2px 7px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto Aktif</span>
-              <button class="btn-icon-subtle" onclick="openEditIndoorPackageModal(${idx})" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 6px; cursor: pointer;" title="Ganti Foto">🔄 Ganti</button>
+        const photos = Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0
+          ? pkg.imageUrls.filter(Boolean)
+          : (pkg.imageUrl ? [pkg.imageUrl] : []);
+
+        let photoHtml = '';
+        if (photos.length >= 2) {
+          photoHtml = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.85rem;">
+              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1C1917;">
+                <img src="${escapeHtml(photos[0])}" alt="${escapeHtml(pkg.name)} 1" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+                <span style="position: absolute; bottom: 5px; left: 6px; background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.62rem; font-weight: 750; padding: 2px 6px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto 1</span>
+              </div>
+              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1C1917;">
+                <img src="${escapeHtml(photos[1])}" alt="${escapeHtml(pkg.name)} 2" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+                <span style="position: absolute; bottom: 5px; left: 6px; background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.62rem; font-weight: 750; padding: 2px 6px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto 2</span>
+              </div>
             </div>
-          </div>
-        ` : `
-          <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; width: 100%; height: 75px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 0.85rem; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
-            <span style="font-size: 1.25rem;">📸</span>
-            <span style="font-size: 0.72rem; color: #78716C; font-weight: 700; margin-top: 2px;">+ Upload Foto Paket</span>
-          </div>
-        `;
+          `;
+        } else if (photos.length === 1) {
+          photoHtml = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.85rem;">
+              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1C1917;">
+                <img src="${escapeHtml(photos[0])}" alt="${escapeHtml(pkg.name)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+                <span style="position: absolute; bottom: 5px; left: 6px; background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.62rem; font-weight: 750; padding: 2px 6px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto 1</span>
+              </div>
+              <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; height: 115px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
+                <span style="font-size: 1.15rem;">📸</span>
+                <span style="font-size: 0.68rem; color: #78716C; font-weight: 700; margin-top: 2px;">+ Upload Foto 2</span>
+              </div>
+            </div>
+          `;
+        } else {
+          photoHtml = `
+            <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; width: 100%; height: 75px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 0.85rem; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
+              <span style="font-size: 1.25rem;">📸</span>
+              <span style="font-size: 0.72rem; color: #78716C; font-weight: 700; margin-top: 2px;">+ Upload Foto Paket (Min. 2 Foto)</span>
+            </div>
+          `;
+        }
 
         card.innerHTML = `
           <div>
@@ -2097,12 +2262,11 @@
       }
     }
 
-        function setPackageImagePreview(url) {
-      const input = document.getElementById('indoorImageUrlInput');
-      const emptyState = document.getElementById('pkgImageEmptyState');
-      const filledState = document.getElementById('pkgImageFilledState');
-      const previewImg = document.getElementById('pkgImagePreviewImg');
-      const previewPath = document.getElementById('pkgImagePreviewPath');
+        function setPackageImagePreview(url, slot = 1) {
+      const input = document.getElementById('indoorImageUrlInput' + slot);
+      const emptyState = document.getElementById('pkgImageEmptyState' + slot);
+      const filledState = document.getElementById('pkgImageFilledState' + slot);
+      const previewImg = document.getElementById('pkgImagePreviewImg' + slot);
       if (input) input.value = url || '';
       if (!emptyState || !filledState || !previewImg) return;
 
@@ -2110,31 +2274,30 @@
         emptyState.style.display = 'none';
         filledState.style.display = 'block';
         previewImg.src = url.trim();
-        if (previewPath) previewPath.textContent = url.trim();
       } else {
         emptyState.style.display = 'block';
         filledState.style.display = 'none';
         previewImg.src = '';
-        if (previewPath) previewPath.textContent = '';
       }
     }
 
-    function removePackageImage() {
-      setPackageImagePreview('');
-      const fileInput = document.getElementById('indoorImageFileInput');
+    function removePackageImage(slot = 1) {
+      setPackageImagePreview('', slot);
+      const fileInput = document.getElementById('indoorImageFileInput' + slot);
       if (fileInput) fileInput.value = '';
-      showToast('Foto paket berhasil dihapus', '🗑️');
+      showToast('Foto ' + slot + ' berhasil dihapus', '🗑️');
     }
 
-    function promptPackageImageUrl() {
-      const current = (document.getElementById('indoorImageUrlInput').value || '').trim();
-      const val = prompt('Masukkan URL gambar atau path foto paket (contoh: /images/packages/foto.jpg atau https://images.unsplash.com/...):', current);
+    function promptPackageImageUrl(slot = 1) {
+      const input = document.getElementById('indoorImageUrlInput' + slot);
+      const current = (input ? input.value : '').trim();
+      const val = prompt('Masukkan URL gambar atau path Foto ' + slot + ' (contoh: /images/packages/foto.jpg atau link https://...):', current);
       if (val !== null) {
-        setPackageImagePreview(val.trim());
+        setPackageImagePreview(val.trim(), slot);
       }
     }
 
-    async function handlePackageImageFileSelect(input) {
+    async function handlePackageImageFileSelect(input, slot = 1) {
       const file = input.files && input.files[0];
       if (!file) return;
 
@@ -2150,10 +2313,10 @@
         return;
       }
 
-      const statusEl = document.getElementById('pkgImageUploadStatus');
+      const statusEl = document.getElementById('pkgImageUploadStatus' + slot);
       if (statusEl) {
         statusEl.style.display = 'block';
-        statusEl.innerHTML = '⏳ Mengunggah foto "' + escapeHtml(file.name) + '" ke server...';
+        statusEl.innerHTML = '⏳ Mengunggah Foto ' + slot + ' ke server...';
       }
 
       const reader = new FileReader();
@@ -2163,7 +2326,7 @@
           const pkgName = (document.getElementById('indoorNameInput').value || 'paket').toLowerCase().replace(/[^a-z0-9]/g, '_');
           const extMatch = file.name.match(/\.[^.]+$/);
           const ext = extMatch ? extMatch[0] : '.jpg';
-          const fileName = pkgName + ext;
+          const fileName = pkgName + '_foto' + slot + ext;
 
           const res = await fetch('/api/upload-image', {
             method: 'POST',
@@ -2177,12 +2340,12 @@
 
           const data = await res.json();
           if (data.success && data.url) {
-            setPackageImagePreview(data.url);
+            setPackageImagePreview(data.url, slot);
             if (statusEl) {
-              statusEl.innerHTML = '✅ Foto berhasil diunggah dan disimpan ke server!';
+              statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah!';
               setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
             }
-            showToast('Foto paket berhasil diunggah!', '📸');
+            showToast('Foto ' + slot + ' paket berhasil diunggah!', '📸');
           } else {
             throw new Error(data.error || 'Server gagal memproses upload');
           }
@@ -2220,7 +2383,8 @@
       document.getElementById('indoorPrintInput').value = '';
       document.getElementById('indoorDeliveryInput').value = '';
       document.getElementById('indoorNoteInput').value = '';
-      setPackageImagePreview('');
+      setPackageImagePreview('', 1);
+      setPackageImagePreview('', 2);
 
       handlePkgCategoryChange(targetCat);
       openModal('indoorPackageModal');
@@ -2247,7 +2411,9 @@
       document.getElementById('indoorPrintInput').value = pkg.print || '';
       document.getElementById('indoorDeliveryInput').value = pkg.fileDelivery || '';
       document.getElementById('indoorNoteInput').value = pkg.note || '';
-      setPackageImagePreview(pkg.imageUrl || '');
+      const pImages = Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0 ? pkg.imageUrls : (pkg.imageUrl ? [pkg.imageUrl] : []);
+      setPackageImagePreview(pImages[0] || '', 1);
+      setPackageImagePreview(pImages[1] || '', 2);
 
       openModal('indoorPackageModal');
     }
@@ -2289,7 +2455,11 @@
         print: document.getElementById('indoorPrintInput').value.trim(),
         fileDelivery: document.getElementById('indoorDeliveryInput').value.trim(),
         note: document.getElementById('indoorNoteInput').value.trim(),
-        imageUrl: (document.getElementById('indoorImageUrlInput').value || '').trim()
+        imageUrl: (document.getElementById('indoorImageUrlInput1') ? document.getElementById('indoorImageUrlInput1').value.trim() : (document.getElementById('indoorImageUrlInput') ? document.getElementById('indoorImageUrlInput').value.trim() : '')),
+        imageUrls: [
+          (document.getElementById('indoorImageUrlInput1') ? document.getElementById('indoorImageUrlInput1').value.trim() : ''),
+          (document.getElementById('indoorImageUrlInput2') ? document.getElementById('indoorImageUrlInput2').value.trim() : '')
+        ].filter(Boolean)
       };
 
       if (idx >= 0 && idx < appConfig.studioPackages.length) {
@@ -2623,6 +2793,10 @@
         if (titleInput) titleInput.value = appConfig.promoSection.title || 'Promo dan Informasi Alviero Studio';
         if (subInput) subInput.value = appConfig.promoSection.subtitle || 'Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:';
       }
+      appConfig.operationalHoursByBranch = appConfig.operationalHoursByBranch || {
+        'cabang-1': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB',
+        'cabang-2': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB'
+      };
       document.getElementById('operationalHoursInput').value = appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
 
       renderBackgrounds();
@@ -2677,13 +2851,34 @@
           ? '<span class="status-indicator-chip inactive">⚪ Disembunyikan</span>'
           : '<span class="status-indicator-chip active">🟢 Aktif di Web</span>';
 
+        const totalPhotos = (bg.previewImages && bg.previewImages.length > 0) ? bg.previewImages.length : (bg.previewImage ? 1 : 0);
+        const photoBadgeHtml = totalPhotos > 1
+          ? `<span style="position: absolute; bottom: 8px; right: 10px; background: rgba(0,0,0,0.72); color: #fff; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; backdrop-filter: blur(4px); box-shadow: 0 1px 4px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 3px;">📷 ${totalPhotos} Foto</span>`
+          : '';
+
+        let thumbsHtml = '';
+        if (bg.previewImages && bg.previewImages.length > 1) {
+          thumbsHtml = `
+            <div style="display: flex; gap: 6px; margin: 0.2rem 0 0.6rem;">
+              ${bg.previewImages.map((img, i) => `
+                <div style="position: relative; width: 44px; height: 38px; border-radius: 6px; overflow: hidden; border: 1.5px solid ${i === 0 ? 'var(--gold)' : 'var(--border)'}; background: #1C1917;">
+                  <img src="${img}" alt="Foto ${i+1}" style="width: 100%; height: 100%; object-fit: cover; display: block;" title="Foto ${i+1}: ${i === 0 ? 'Utama' : i === 1 ? 'Variasi' : 'Hasil'}">
+                  <span style="position: absolute; bottom: 1px; right: 2px; font-size: 0.55rem; font-weight: 800; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.9); line-height: 1;">#${i+1}</span>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
+
         card.innerHTML = `
-          <div class="bg-photo-area" style="background-image: url('${bg.previewImage || ''}');">
+          <div class="bg-photo-area" style="background-image: url('${bg.previewImage || ''}'); position: relative;">
             <div class="bg-photo-gradient"></div>
             ${branchTagHtml}
             ${statusTagHtml}
+            ${photoBadgeHtml}
           </div>
           <div class="bg-content-area">
+            ${thumbsHtml}
             <div class="bg-main-row">
               <div class="bg-title-wrap">
                 <div class="color-swatch-circle" style="background-color: ${bg.hex || '#E5E7EB'};" title="HEX: ${bg.hex}"></div>
@@ -2739,19 +2934,121 @@
       renderBackgrounds();
     }
 
+        function setBgImagePreview(url, slot = 1) {
+      const input = document.getElementById('bgImageInput' + slot);
+      const emptyState = document.getElementById('bgImageEmptyState' + slot);
+      const filledState = document.getElementById('bgImageFilledState' + slot);
+      const previewImg = document.getElementById('bgImagePreviewImg' + slot);
+      if (input) input.value = url || '';
+      if (!emptyState || !filledState || !previewImg) return;
+
+      if (url && url.trim()) {
+        emptyState.style.display = 'none';
+        filledState.style.display = 'block';
+        previewImg.src = url.trim();
+      } else {
+        emptyState.style.display = 'flex';
+        filledState.style.display = 'none';
+        previewImg.src = '';
+      }
+    }
+
+    function removeBgImage(slot = 1) {
+      setBgImagePreview('', slot);
+      const fileInput = document.getElementById('bgImageFileInput' + slot);
+      if (fileInput) fileInput.value = '';
+      showToast('Foto ' + slot + ' background dihapus', '🗑️');
+    }
+
+    function promptBgImageUrl(slot = 1) {
+      const current = (document.getElementById('bgImageInput' + slot).value || '').trim();
+      const val = prompt('Masukkan URL gambar atau path background untuk Foto ' + slot + ' (contoh: /images/backgrounds/sample.jpg atau https://images.unsplash.com/...):', current);
+      if (val !== null) {
+        setBgImagePreview(val.trim(), slot);
+      }
+    }
+
+    async function handleBackgroundImageFileSelect(input, slot = 1) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP).');
+        input.value = '';
+        return;
+      }
+
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        input.value = '';
+        return;
+      }
+
+      const statusEl = document.getElementById('bgImageUploadStatus' + slot);
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.innerHTML = '⏳ Mengunggah foto ' + slot + ' "' + escapeHtml(file.name) + '" ke server lokal...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const dataUrl = e.target.result;
+          const bgName = (document.getElementById('bgNameInput').value || 'bg').toLowerCase().replace(/[^a-z0-9]/g, '_');
+          const extMatch = file.name.match(/\.[^.]+$/);
+          const ext = extMatch ? extMatch[0] : '.jpg';
+          const fileName = 'bg_' + bgName + '_foto' + slot + '_' + Date.now() + ext;
+
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: dataUrl,
+              fileName: fileName,
+              folder: 'backgrounds'
+            })
+          });
+
+          const data = await res.json();
+          if (data.success && data.url) {
+            setBgImagePreview(data.url, slot);
+            if (statusEl) {
+              statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah secara lokal!';
+              setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
+            }
+            showToast('Foto ' + slot + ' berhasil disimpan ke lokal!', '🖼️');
+          } else {
+            throw new Error(data.error || 'Server gagal memproses upload');
+          }
+        } catch (err) {
+          console.error('Upload background image error:', err);
+          alert('Gagal mengunggah foto ' + slot + ': ' + (err.message || 'Koneksi error'));
+          if (statusEl) statusEl.style.display = 'none';
+        }
+      };
+      reader.onerror = function() {
+        alert('Gagal membaca file gambar dari perangkat Anda.');
+        if (statusEl) statusEl.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+      input.value = '';
+    }
+
     function openAddBgModal() {
       document.getElementById('bgEditIndex').value = -1;
-      document.getElementById('bgModalTitle').textContent = 'Tambah Background Baru';
+      document.getElementById('bgModalTitle').textContent = 'Tambah Background Baru (Min. 3 Foto)';
       document.getElementById('bgNameInput').value = '';
       document.getElementById('bgColorPicker').value = '#A9BCA7';
       document.getElementById('bgHexInput').value = '#A9BCA7';
-      document.getElementById('bgImageInput').value = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
       document.getElementById('bgDescInput').value = '';
       document.getElementById('bgBranch1').checked = true;
       document.getElementById('bgBranch2').checked = false;
       document.getElementById('bgServicePro').checked = true;
       document.getElementById('bgServiceSelf').checked = false;
-      previewBgImage(document.getElementById('bgImageInput').value);
+      
+      setBgImagePreview('', 1);
+      setBgImagePreview('', 2);
+      setBgImagePreview('', 3);
       openModal('bgModal');
     }
 
@@ -2763,13 +3060,19 @@
       document.getElementById('bgNameInput').value = bg.name || '';
       document.getElementById('bgColorPicker').value = bg.hex || '#A9BCA7';
       document.getElementById('bgHexInput').value = bg.hex || '#A9BCA7';
-      document.getElementById('bgImageInput').value = bg.previewImage || '';
       document.getElementById('bgDescInput').value = bg.description || '';
       document.getElementById('bgBranch1').checked = (bg.applicableBranches || []).includes('cabang-1');
       document.getElementById('bgBranch2').checked = (bg.applicableBranches || []).includes('cabang-2');
       document.getElementById('bgServicePro').checked = (bg.applicableTo || []).includes('pro-studio');
       document.getElementById('bgServiceSelf').checked = (bg.applicableTo || []).includes('self-studio');
-      previewBgImage(bg.previewImage || '');
+      
+      const imgs = (Array.isArray(bg.previewImages) && bg.previewImages.length > 0)
+        ? bg.previewImages
+        : (bg.previewImage ? [bg.previewImage] : []);
+      
+      setBgImagePreview(imgs[0] || '', 1);
+      setBgImagePreview(imgs[1] || '', 2);
+      setBgImagePreview(imgs[2] || '', 3);
       openModal('bgModal');
     }
 
@@ -2788,12 +3091,19 @@
     function saveBackgroundItem() {
       const name = document.getElementById('bgNameInput').value.trim();
       const hex = document.getElementById('bgHexInput').value.trim();
-      const previewImage = document.getElementById('bgImageInput').value.trim();
       const description = document.getElementById('bgDescInput').value.trim();
       const origIdx = parseInt(document.getElementById('bgEditIndex').value);
 
+      const f1 = (document.getElementById('bgImageInput1').value || '').trim();
+      const f2 = (document.getElementById('bgImageInput2').value || '').trim();
+      const f3 = (document.getElementById('bgImageInput3').value || '').trim();
+      const previewImages = [f1, f2, f3].filter(Boolean);
+
       if (!name) return alert('Nama background tidak boleh kosong!');
       if (!hex) return alert('Kode warna HEX tidak boleh kosong!');
+      if (previewImages.length === 0) return alert('Mohon upload minimal 1 foto utama untuk background!');
+
+      const previewImage = previewImages[0] || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
 
       const branches = [];
       if (document.getElementById('bgBranch1').checked) branches.push('cabang-1');
@@ -2813,21 +3123,23 @@
           category: 'solid-color',
           hex,
           description,
-          previewImage: previewImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+          previewImage,
+          previewImages,
           applicableBranches: branches,
           applicableTo: applicableTo,
           active: true
         });
-        showToast(`Background '${name}' berhasil ditambahkan!`);
+        showToast(`Background '${name}' (3 foto) berhasil ditambahkan!`);
       } else {
         const item = appConfig.backgrounds[origIdx];
         item.name = name;
         item.hex = hex;
         item.previewImage = previewImage;
+        item.previewImages = previewImages;
         item.description = description;
         item.applicableBranches = branches;
         item.applicableTo = applicableTo;
-        showToast(`Background '${name}' berhasil diperbarui!`);
+        showToast(`Background '${name}' (${previewImages.length} foto) berhasil diperbarui!`);
       }
 
       closeModal('bgModal');
@@ -2848,71 +3160,73 @@
       const tbody = document.getElementById('slotsTableBody');
       tbody.innerHTML = '';
 
-      (appConfig.timeSlots || []).forEach((slot, idx) => {
+      if (!appConfig.timeSlots || appConfig.timeSlots.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 2rem; color: #A1A1AA;">Belum ada slot waktu jam yang diatur.</td></tr>';
+        return;
+      }
+
+      appConfig.timeSlots.forEach((slot, idx) => {
         const isInactive = slot.active === false;
         const tr = document.createElement('tr');
-        if (isInactive) tr.style.opacity = '0.55';
+        if (isInactive) tr.className = 'inactive-row';
 
-        const serviceNames = (slot.allowedServices || []).map(s => s === 'indoor' ? '🏠 Studio (Indoor)' : '🌳 Outdoor').join(' & ');
-        const isExtra = (slot.earlyCharge || 0) > 0;
+        const serviceBadges = (slot.allowedServices || []).map(s => {
+          if (s === 'indoor') return '<span class="tag tag-service-indoor">Studio (Indoor)</span>';
+          if (s === 'outdoor') return '<span class="tag tag-service-outdoor">Outdoor</span>';
+          return `<span class="tag">${s}</span>`;
+        }).join(' ');
+
+        const chargeText = slot.earlyCharge && slot.earlyCharge > 0
+          ? `<span style="color: #D97706; font-weight: 700;">+Rp ${slot.earlyCharge.toLocaleString('id-ID')}</span>`
+          : '<span style="color: #9CA3AF;">Rp 0</span>';
 
         tr.innerHTML = `
           <td>
             <label class="switch">
-              <input type="checkbox" ${!isInactive ? 'checked' : ''} onchange="toggleSlotActive(${idx}, this.checked)">
+              <input type="checkbox" ${isInactive ? '' : 'checked'} onchange="toggleSlot(${idx}, this.checked)">
               <span class="slider"></span>
             </label>
           </td>
-          <td>
-            <span class="time-slot-badge">
-              🕒 ${slot.time} WIB
-            </span>
+          <td style="font-weight: 800; font-size: 1rem; color: var(--charcoal); font-family: monospace;">
+            ${slot.time}
           </td>
           <td>
-            <span class="capacity-badge">👥 ${slot.maxCapacity || 3} Klien</span>
+            <span class="tag tag-capacity">👥 Maks. ${slot.maxCapacity || 3} Klien</span>
           </td>
-          <td>
-            <span style="font-size: 0.8rem; background: #F4F4F5; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 500;">${serviceNames}</span>
-          </td>
-          <td>
-            <span class="charge-badge ${isExtra ? 'extra' : 'free'}">
-              ${isExtra ? `+Rp ${(slot.earlyCharge).toLocaleString('id-ID')}` : 'Rp 0 (Reguler)'}
-            </span>
-          </td>
-          <td style="color: #71717A; font-size: 0.78rem;">
-            ${slot.shiftName || '-'}
-          </td>
+          <td>${serviceBadges || '<span style="color:#A1A1AA;">-</span>'}</td>
+          <td>${chargeText}</td>
+          <td style="color: #52525B; font-size: 0.8rem;">${slot.shiftName || 'Shift Reguler'}</td>
           <td style="text-align: right;">
-            <button class="btn-action" onclick="openEditSlotModal(${idx})">✏️ Edit</button>
-            <button class="btn-action delete" onclick="deleteSlot(${idx})">🗑️</button>
+            <button class="btn btn-edit" onclick="openEditSlotModal(${idx})">Edit</button>
+            <button class="btn btn-delete" onclick="deleteSlot(${idx})">Hapus</button>
           </td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    function toggleSlotActive(idx, isActive) {
-      if (!appConfig.timeSlots[idx]) return;
-      appConfig.timeSlots[idx].active = isActive;
-      renderSlots();
-      showToast(`Slot jam ${appConfig.timeSlots[idx].time} ${isActive ? 'diaktifkan' : 'dinonaktifkan'}.`);
+    function toggleSlot(idx, activeState) {
+      if (appConfig.timeSlots[idx]) {
+        appConfig.timeSlots[idx].active = activeState;
+        renderSlots();
+        showToast(`Slot jam ${appConfig.timeSlots[idx].time} telah di-${activeState ? 'aktifkan' : 'nonaktifkan'}.`);
+      }
     }
 
     function applyPreset(presetType) {
-      if (!appConfig || !appConfig.timeSlots) return;
+      if (!appConfig.timeSlots) return;
       if (presetType === 'all-on') {
         appConfig.timeSlots.forEach(s => s.active = true);
-        showToast('Semua slot jam telah diaktifkan!');
+        showToast('Semua slot jam kini telah diaktifkan!');
       } else if (presetType === 'night-off') {
         appConfig.timeSlots.forEach(s => {
           if (s.time === '20:30' || s.time === '21:00') s.active = false;
         });
-        showToast('Slot jam 20:30 & 21:00 telah ditutup!');
+        showToast('Slot malam (20:30 & 21:00) dinonaktifkan.');
       } else if (presetType === 'early-on') {
-        appConfig.timeSlots.forEach(s => {
-          if (s.time === '07:00') s.active = true;
-        });
-        showToast('Slot jam ekstra pagi 07:00 telah diaktifkan!');
+        const earlySlot = appConfig.timeSlots.find(s => s.time === '07:00');
+        if (earlySlot) earlySlot.active = true;
+        showToast('Slot pagi 07:00 telah diaktifkan.');
       }
       renderSlots();
     }
@@ -2925,7 +3239,8 @@
       document.getElementById('slotServicesInput').value = 'indoor,outdoor';
       document.getElementById('slotChargeSelect').value = '0';
       document.getElementById('slotCustomChargeInput').style.display = 'none';
-      document.getElementById('slotShiftNameInput').value = 'Shift Reguler';
+      document.getElementById('slotCustomChargeInput').value = '';
+      document.getElementById('slotShiftNameInput').value = '';
       openModal('slotModal');
     }
 
@@ -2939,11 +3254,12 @@
       
       const srv = (slot.allowedServices || []).join(',');
       document.getElementById('slotServicesInput').value = srv.includes('indoor') && srv.includes('outdoor') ? 'indoor,outdoor' : (srv.includes('outdoor') ? 'outdoor' : 'indoor');
-
+      
       const charge = slot.earlyCharge || 0;
       if (charge === 0 || charge === 35000) {
-        document.getElementById('slotChargeSelect').value = String(charge);
+        document.getElementById('slotChargeSelect').value = charge.toString();
         document.getElementById('slotCustomChargeInput').style.display = 'none';
+        document.getElementById('slotCustomChargeInput').value = '';
       } else {
         document.getElementById('slotChargeSelect').value = 'custom';
         document.getElementById('slotCustomChargeInput').style.display = 'block';
@@ -2961,10 +3277,10 @@
     function saveSlotItem() {
       const time = document.getElementById('slotTimeInput').value.trim();
       const maxCapacity = parseInt(document.getElementById('slotCapacityInput').value) || 3;
-      const srvVal = document.getElementById('slotServicesInput').value;
-      const allowedServices = srvVal.split(',');
+      const servicesStr = document.getElementById('slotServicesInput').value;
+      const allowedServices = servicesStr.split(',').filter(Boolean);
       const chargeSelect = document.getElementById('slotChargeSelect').value;
-      const earlyCharge = chargeSelect === 'custom' 
+      const earlyCharge = chargeSelect === 'custom'
         ? (parseInt(document.getElementById('slotCustomChargeInput').value) || 0)
         : parseInt(chargeSelect);
       const shiftName = document.getElementById('slotShiftNameInput').value.trim() || 'Shift Jadwal';
