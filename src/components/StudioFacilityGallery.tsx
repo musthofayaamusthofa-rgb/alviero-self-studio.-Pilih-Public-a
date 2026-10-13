@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   ChevronLeft, 
@@ -415,7 +416,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
 // ============================================================================
 // DATA SECTION 1: FASILITAS STUDIO (Studio Facilities)
 // ============================================================================
-export const STUDIO_FACILITY_DATA: GalleryItem[] = [
+export const DEFAULT_FACILITY_DATA: GalleryItem[] = [
   {
     id: 'fac-studio-ac',
     title: 'Ruang Studio Utama Ber-AC',
@@ -491,7 +492,7 @@ export const STUDIO_FACILITY_DATA: GalleryItem[] = [
 // ============================================================================
 // DATA SECTION 2: ALAT STUDIO (Professional Studio Gear & Equipment)
 // ============================================================================
-export const STUDIO_EQUIPMENT_DATA: GalleryItem[] = [
+export const DEFAULT_EQUIPMENT_DATA: GalleryItem[] = [
   {
     id: 'eq-godox-lighting',
     title: 'Lighting Godox & Softbox Diffuser Ganda',
@@ -563,6 +564,10 @@ export const STUDIO_EQUIPMENT_DATA: GalleryItem[] = [
     tags: ['#PropertiFoto', '#StoolStudio', '#BungaAesthetic']
   }
 ];
+
+export const STUDIO_FACILITY_DATA: GalleryItem[] = ((studioConfig as any)?.facilityItems || DEFAULT_FACILITY_DATA).filter((f: any) => f.active !== false);
+
+export const STUDIO_EQUIPMENT_DATA: GalleryItem[] = ((studioConfig as any)?.equipmentItems || DEFAULT_EQUIPMENT_DATA).filter((e: any) => e.active !== false);
 
 // ============================================================================
 // DATA SECTION 3: BACKGROUND STUDIO 1 (Junrejo) - SINKRON DENGAN BOOKING

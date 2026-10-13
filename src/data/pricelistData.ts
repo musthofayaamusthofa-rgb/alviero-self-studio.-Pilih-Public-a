@@ -2243,6 +2243,37 @@ export const REVIEWS: ReviewItem[] = [
   }
 ];
 
+// Fungsi helper slot per cabang studio
+export function getProStudioTimeSlots(branch: string = 'cabang-1'): string[] {
+  return studioConfig.timeSlots
+    .filter((s: any) => {
+      const branches = s.applicableBranches || ['cabang-1', 'cabang-2'];
+      if (!branches.includes(branch)) return false;
+      if (s.activeByBranch && s.activeByBranch[branch] !== undefined) {
+        if (!s.activeByBranch[branch]) return false;
+      } else if (s.active === false) {
+        return false;
+      }
+      return s.allowedServices?.includes('indoor');
+    })
+    .map(s => s.time);
+}
+
+export function getSelfStudioTimeSlots(branch: string = 'cabang-1'): string[] {
+  return studioConfig.timeSlots
+    .filter((s: any) => {
+      const branches = s.applicableBranches || ['cabang-1', 'cabang-2'];
+      if (!branches.includes(branch)) return false;
+      if (s.activeByBranch && s.activeByBranch[branch] !== undefined) {
+        if (!s.activeByBranch[branch]) return false;
+      } else if (s.active === false) {
+        return false;
+      }
+      return s.allowedServices?.includes('indoor') && s.time >= '08:00';
+    })
+    .map(s => s.time);
+}
+
 // Slot Jadwal untuk Studio Foto Profesional (Dikelola via studioConfig.json / Alviero Studio Manager)
 export const PRO_STUDIO_TIME_SLOTS = studioConfig.timeSlots
   .filter(s => s.active !== false && s.allowedServices.includes('indoor'))

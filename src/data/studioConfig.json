@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-12T07:14:53.485Z",
+  "lastUpdated": "2026-10-13T10:31:25.534Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -359,7 +359,15 @@
       ],
       "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "05:30",
@@ -369,7 +377,15 @@
       ],
       "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "06:00",
@@ -379,7 +395,15 @@
       ],
       "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "06:30",
@@ -389,7 +413,15 @@
       ],
       "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "07:00",
@@ -400,7 +432,15 @@
       ],
       "shiftName": "Ekstra Pagi Studio (+Rp 35.000 Biaya Tambahan)",
       "earlyCharge": 35000,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "08:00",
@@ -411,7 +451,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "08:30",
@@ -422,7 +470,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "09:00",
@@ -433,7 +489,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "09:30",
@@ -444,7 +508,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "10:00",
@@ -455,7 +527,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "10:30",
@@ -466,7 +546,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "11:00",
@@ -477,7 +565,15 @@
       ],
       "shiftName": "Shift Pagi (Maks. 2 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "11:30",
@@ -488,7 +584,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "12:00",
@@ -499,7 +603,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "12:30",
@@ -510,7 +622,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "13:00",
@@ -521,7 +641,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "13:30",
@@ -532,7 +660,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "14:00",
@@ -543,7 +679,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "14:30",
@@ -554,7 +698,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "15:00",
@@ -565,7 +717,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "15:30",
@@ -576,7 +736,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "16:00",
@@ -587,7 +755,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "16:30",
@@ -598,7 +774,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "17:00",
@@ -609,7 +793,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "17:30",
@@ -620,7 +812,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "18:00",
@@ -631,7 +831,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "18:30",
@@ -642,7 +850,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "19:00",
@@ -653,7 +869,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "19:30",
@@ -664,7 +888,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "20:00",
@@ -675,7 +907,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "20:30",
@@ -686,7 +926,15 @@
       ],
       "shiftName": "Shift Gabungan (Maks. 3 Klien)",
       "earlyCharge": 0,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     },
     {
       "time": "21:00",
@@ -697,7 +945,15 @@
       ],
       "shiftName": "Shift Malam Overtime (+Rp 35.000 Melebihi Tutup Studio)",
       "earlyCharge": 35000,
-      "active": true
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
     }
   ],
   "promoSection": {
@@ -733,7 +989,10 @@
       ],
       "preselectedPackageId": "grad-indoor-1",
       "active": true,
-      "_origIndex": 0
+      "_origIndex": 0,
+      "images": [
+        "/images/categories/graduation.jpg"
+      ]
     },
     {
       "id": "promo-couple",
@@ -760,7 +1019,10 @@
       ],
       "preselectedPackageId": "couple-1",
       "active": true,
-      "_origIndex": 1
+      "_origIndex": 1,
+      "images": [
+        "/images/categories/couple.jpg"
+      ]
     },
     {
       "id": "promo-welcome",
@@ -787,7 +1049,10 @@
       ],
       "preselectedPackageId": "selfstudio-special",
       "active": true,
-      "_origIndex": 2
+      "_origIndex": 2,
+      "images": [
+        "/images/categories/selfphoto.jpg"
+      ]
     },
     {
       "id": "news-new-lighting",
@@ -811,7 +1076,10 @@
         "Tim Alviero akan membantu menyiapkan setup yang sesuai."
       ],
       "active": true,
-      "_origIndex": 3
+      "_origIndex": 3,
+      "images": [
+        "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85"
+      ]
     },
     {
       "id": "team-alviero",
@@ -835,7 +1103,10 @@
         "Nikmati sesi foto dengan pendampingan tim Alviero."
       ],
       "active": true,
-      "_origIndex": 4
+      "_origIndex": 4,
+      "images": [
+        "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
+      ]
     }
   ],
   "history": {
@@ -1984,6 +2255,411 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
       "_origIndex": 8
+    }
+  ],
+  "operationalHoursByBranch": {
+    "cabang-1": "Buka Setiap Hari: 08:00 - 21:00 WIB",
+    "cabang-2": "Buka Setiap Hari: 08:00 - 21:00 WIB"
+  },
+  "heroBannerSlides": [
+    {
+      "id": "hero-1",
+      "image": "/images/backdrops/backdrop-1.jpg",
+      "title": "Mint Modern Aesthetic Sofa",
+      "theme": "Fresh & Elegant",
+      "active": true
+    },
+    {
+      "id": "hero-2",
+      "image": "/images/backdrops/backdrop-2.jpg",
+      "title": "Bohemian Rustic Texture Wall",
+      "theme": "Warm Natural",
+      "active": true
+    },
+    {
+      "id": "hero-3",
+      "image": "/images/backdrops/backdrop-3.jpg",
+      "title": "Black Arch Window Bar Stool",
+      "theme": "Bold & Chic",
+      "active": true
+    },
+    {
+      "id": "hero-4",
+      "image": "/images/backdrops/backdrop-4.jpg",
+      "title": "Charcoal Classic Deep Sofa",
+      "theme": "Timeless Luxury",
+      "active": true
+    },
+    {
+      "id": "hero-5",
+      "image": "/images/backdrops/backdrop-5.jpg",
+      "title": "Luxury White Fireplace & Frame",
+      "theme": "European Royal",
+      "active": true
+    },
+    {
+      "id": "hero-6",
+      "image": "/images/backdrops/backdrop-6.jpg",
+      "title": "Warm Beige Classic Armchair",
+      "theme": "Cozy Editorial",
+      "active": true
+    },
+    {
+      "id": "hero-7",
+      "image": "/images/backdrops/backdrop-7.jpg",
+      "title": "White Arch Windows & Grey Sofa",
+      "theme": "Minimalist Bright",
+      "active": true
+    }
+  ],
+  "showcaseImages": [
+    {
+      "id": "showcase-1-1",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-5.jpg",
+      "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
+      "tag": "ROYAL FIREPLACE",
+      "active": true
+    },
+    {
+      "id": "showcase-1-2",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-1.jpg",
+      "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
+      "tag": "MINT AESTHETIC",
+      "active": true
+    },
+    {
+      "id": "showcase-1-3",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-4.jpg",
+      "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
+      "tag": "TIMELESS CLASSIC",
+      "active": true
+    },
+    {
+      "id": "showcase-1-4",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-6.jpg",
+      "caption": "Warm Beige Classic Armchair — Cozy Editorial Tone",
+      "tag": "COZY EDITORIAL",
+      "active": true
+    },
+    {
+      "id": "showcase-1-5",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-2.jpg",
+      "caption": "Bohemian Rustic Texture Wall — Natural & Warm",
+      "tag": "BOHEMIAN RUSTIC",
+      "active": true
+    },
+    {
+      "id": "showcase-1-6",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-3.jpg",
+      "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
+      "tag": "ARCH WINDOW",
+      "active": true
+    },
+    {
+      "id": "showcase-1-7",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-7.jpg",
+      "caption": "White Arch Windows & Grey Minimalist Set",
+      "tag": "MINIMALIST BRIGHT",
+      "active": true
+    },
+    {
+      "id": "showcase-2-1",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-5.jpg",
+      "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
+      "tag": "ROYAL FIREPLACE",
+      "active": true
+    },
+    {
+      "id": "showcase-2-2",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-2.jpg",
+      "caption": "Bohemian Rustic Texture Wall — Natural & Warm Aesthetic",
+      "tag": "BOHEMIAN RUSTIC",
+      "active": true
+    },
+    {
+      "id": "showcase-2-3",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-3.jpg",
+      "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
+      "tag": "ARCH WINDOW",
+      "active": true
+    },
+    {
+      "id": "showcase-2-4",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-7.jpg",
+      "caption": "White Arch Windows & Grey Minimalist Set",
+      "tag": "MINIMALIST BRIGHT",
+      "active": true
+    },
+    {
+      "id": "showcase-2-5",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-4.jpg",
+      "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
+      "tag": "TIMELESS LUXURY",
+      "active": true
+    },
+    {
+      "id": "showcase-2-6",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-1.jpg",
+      "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
+      "tag": "MINT AESTHETIC",
+      "active": true
+    }
+  ],
+  "facilityItems": [
+    {
+      "id": "fac-studio-ac",
+      "title": "Ruang Studio Utama Ber-AC",
+      "subtitle": "Climate Controlled Studio Space",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio",
+      "icon": "🛋️",
+      "badge": "Kenyamanan Standar Utama",
+      "imageUrl": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Ruang studio utama yang sejuk dengan pendingin ruangan (AC) terawat, berdaya tampung luas untuk perorangan, keluarga, hingga rombongan wisuda dan grup.",
+      "conceptNote": "Suhu ruangan selalu dijaga sejuk dan nyaman agar makeup dan outfit tetap prima selama pemotretan.",
+      "highlights": [
+        "AC Dingin & Bersih",
+        "Ruang Gerak Luas",
+        "Bebas Pengap & Gerah",
+        "Kapasitas Hingga 15 Orang"
+      ],
+      "tags": [
+        "#RuangStudioBerAC",
+        "#Nyaman",
+        "#KapasitasLuas"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-vanity-room",
+      "title": "Ruang Rias & Fitting Eksklusif",
+      "subtitle": "Private Grooming & Wardrobe Area",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio",
+      "icon": "🪞",
+      "badge": "Ruang Persiapan Khusus",
+      "imageUrl": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85",
+      "description": "Area rias privat dengan cermin vanity LED daylight, colokan listrik untuk catokan/hairdryer, serta ruang ganti tertutup untuk kenyamanan persiapan kostum dan kebaya.",
+      "conceptNote": "Sangat ideal untuk wisudawan yang memakai toga atau calon pengantin yang berganti gaun prewedding.",
+      "highlights": [
+        "Cermin Vanity LED",
+        "Fitting Room Privat",
+        "Colokan Listrik Rias",
+        "Gantungan Baju Rapi"
+      ],
+      "tags": [
+        "#RuangRias",
+        "#FittingPrivat",
+        "#CerminVanity"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-waiting-lounge",
+      "title": "Lounge & Area Tunggu Santai",
+      "subtitle": "Comfortable Guest & Family Lounge",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio",
+      "icon": "☕",
+      "badge": "Kenyamanan Pengantar",
+      "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=85",
+      "description": "Ruang tunggu santai dengan sofa empuk, dispenser air mineral gratis, stopkontak untuk pengisian daya gawai, dan suasana tenang untuk keluarga pendamping.",
+      "conceptNote": "Keluarga dan teman yang menemani dapat duduk bersantai tanpa rasa jenuh selama sesi foto berlangsung.",
+      "highlights": [
+        "Sofa Santai Nyaman",
+        "Air Mineral Gratis",
+        "Free Charging Station",
+        "Suasana Tenang"
+      ],
+      "tags": [
+        "#LoungeKeluarga",
+        "#AreaTunggu",
+        "#FreeWater"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-clean-toilet",
+      "title": "Toilet Bersih & Higienis",
+      "subtitle": "Clean & Sanitized Restroom",
+      "category": "fasilitas",
+      "packageName": "Fasilitas Studio",
+      "icon": "🚻",
+      "badge": "Standar Higienitas Tinggi",
+      "imageUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=85",
+      "description": "Toilet dalam studio yang rutin dibersihkan secara berkala, wangi, dilengkapi sabun cuci tangan, tisu, serta cermin wastafel bersih.",
+      "conceptNote": "Higienitas dan kenyamanan sanitasi merupakan prioritas Alviero Studio demi kepuasan setiap pengunjung.",
+      "highlights": [
+        "Selalu Bersih & Wangi",
+        "Sabun Cuci Tangan Tersedia",
+        "Wastafel & Cermin",
+        "Sanitasi Terjaga"
+      ],
+      "tags": [
+        "#ToiletBersih",
+        "#Higienis",
+        "#Kenyamanan"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-parking-access",
+      "title": "Akses Lokasi & Area Parkir",
+      "subtitle": "Convenient Parking & Road Access",
+      "category": "layanan",
+      "packageName": "Fasilitas Studio",
+      "icon": "🅿️",
+      "badge": "Aksesibilitas Mudah",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85",
+      "description": "Lokasi studio berada tepat di pinggir jalan raya utama dengan akses mudah ditemukan, serta area parkir aman untuk kendaraan roda 2 maupun roda 4.",
+      "conceptNote": "Titik penjemputan ojek online dan taksi tepat di depan pintu masuk ruko studio.",
+      "highlights": [
+        "Parkir Mobil & Motor",
+        "Pinggir Jalan Raya",
+        "Akses Mudah Ojol",
+        "Lingkungan Aman"
+      ],
+      "tags": [
+        "#ParkirStudio",
+        "#AksesMudah",
+        "#LokasiStrategis"
+      ],
+      "active": true
+    }
+  ],
+  "equipmentItems": [
+    {
+      "id": "eq-godox-lighting",
+      "title": "Lighting Godox & Softbox Diffuser Ganda",
+      "subtitle": "Professional Flash Illumination System",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "💡",
+      "badge": "Pencahayaan Studio Pro",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Sistem pencahayaan flash studio Godox dengan modifier softbox oktagonal besar dan diffuser ganda, menghasilkan cahaya lembut alami pada kulit (flattering skin tone) tanpa bayangan keras.",
+      "conceptNote": "Dikalibrasi berkala agar warna pakaian, toga wisuda, dan riasan make-up keluar dengan akurat 100%.",
+      "highlights": [
+        "Godox Professional Strobe",
+        "Softbox Diffuser Ganda",
+        "Akurasi Warna Tinggi",
+        "Skin Tone Glowing Halus"
+      ],
+      "tags": [
+        "#LightingGodox",
+        "#SoftboxStudio",
+        "#SkinToneNatural"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-mirrorless-camera",
+      "title": "Kamera Mirrorless Resolusi Tinggi & Lensa Portrait",
+      "subtitle": "Ultra High-Definition Sharpness",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "📷",
+      "badge": "Sensor Resolusi Tinggi",
+      "imageUrl": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85",
+      "description": "Kamera sensor besar dipadu lensa portrait premium ber-aperture tajam, menjamin setiap helai rambut, tekstur pakaian, dan detail mata tertangkap dengan kejernihan maksimal saat dicetak ukuran besar.",
+      "conceptNote": "File master foto tajam sempurna bahkan bila dicetak hingga ukuran bingkai 20R ke atas.",
+      "highlights": [
+        "Sensor Resolusi Tinggi",
+        "Lensa Portrait Tajam",
+        "Hasil Cetak Anti Pecah",
+        "Detail Halus Terjaga"
+      ],
+      "tags": [
+        "#KameraPro",
+        "#LensaPortrait",
+        "#CetakBesar"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-wireless-trigger",
+      "title": "Trigger Nirkabel & Remote Self Studio Ergonomis",
+      "subtitle": "Zero-Lag Wireless Shutter Trigger",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "📡",
+      "badge": "Sinkronisasi Cepat",
+      "imageUrl": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85",
+      "description": "Sistem trigger nirkabel tanpa jeda untuk sinkronisasi kilat kamera dan lampu, serta clicker remote yang ringan di tangan khusus untuk paket Self Studio.",
+      "conceptNote": "Klien paket Self Studio dapat memegang remote kecil tersembunyi dan berpose sesuka hati tanpa hambatan kabel.",
+      "highlights": [
+        "Trigger Zero Latency",
+        "Remote Self Studio Ringan",
+        "Bebas Kabel Kusut",
+        "Respon Jepret Instan"
+      ],
+      "tags": [
+        "#WirelessTrigger",
+        "#SelfStudioRemote",
+        "#Responsif"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-live-monitor",
+      "title": "Layar Monitor Live Preview Real-Time",
+      "subtitle": "Instant Frame & Pose Review Display",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "🖥️",
+      "badge": "Review Hasil Seketika",
+      "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=85",
+      "description": "Layar monitor display berukuran besar yang langsung menampilkan hasil foto hanya 1 detik setelah tombol shutter ditekan, mempermudah evaluasi ekspresi dan kerapian busana secara langsung.",
+      "conceptNote": "Klien tidak perlu menerka hasil foto; Anda dapat langsung melihat senyum dan pose terbaik di layar lebar.",
+      "highlights": [
+        "Layar Display Besar",
+        "Preview Instan 1 Detik",
+        "Warna Monitor Terkalibrasi",
+        "Cek Gaya & Senyum Langsung"
+      ],
+      "tags": [
+        "#LiveMonitor",
+        "#CekPoseLangsung",
+        "#LayarPreview"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-props-stools",
+      "title": "Koleksi Bangku Pose, Kursi Kayu & Properti Kreatif",
+      "subtitle": "Aesthetic Stools, Artificial Flowers & Party Props",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "💐",
+      "badge": "Properti Pose Lengkap",
+      "imageUrl": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Pilihan bangku kayu aesthetic, stool studio tinggi/rendah, sofa minimalis, buket bunga artifisial, balon angka ulang tahun, dan kacamata lucu untuk menambah variasi pose.",
+      "conceptNote": "Seluruh properti studio bebas digunakan tanpa biaya sewa tambahan selama sesi foto berlangsung.",
+      "highlights": [
+        "Bangku Kayu & Stool Studio",
+        "Buket Bunga Bervariasi",
+        "Balon Angka & Kacamata Pesta",
+        "Gratis Pakai Selama Sesi"
+      ],
+      "tags": [
+        "#PropertiFoto",
+        "#StoolStudio",
+        "#BungaAesthetic"
+      ],
+      "active": true
     }
   ]
 }

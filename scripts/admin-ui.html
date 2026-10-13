@@ -661,6 +661,9 @@
       <button class="tab-btn" onclick="switchTab('tab-indoor', this)">
         📸 Seluruh Paket Studio <span class="tab-badge" id="indoorCountBadge">0</span>
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-gallery-sections', this)">
+        🖼️ Foto & Galeri Web <span class="tab-badge" id="galleryCountBadge">0</span>
+      </button>
       <button class="tab-btn" onclick="switchTab('tab-history', this)">
         📖 Sejarah & Filosofi Studio
       </button>
@@ -725,12 +728,27 @@
           </button>
         </div>
 
+        <!-- Filter Panel Cabang & Pencarian Slot -->
+        <div class="filter-panel" style="margin-bottom: 1.25rem;">
+          <div class="filter-group">
+            <span class="filter-label">Studio / Cabang:</span>
+            <button class="pill-btn active" id="slotBranchFilterAll" onclick="filterSlotBranch('all', this)">🌐 Semua Cabang</button>
+            <button class="pill-btn" id="slotBranchFilter1" onclick="filterSlotBranch('cabang-1', this)">🏛️ Studio 1 (Junrejo)</button>
+            <button class="pill-btn" id="slotBranchFilter2" onclick="filterSlotBranch('cabang-2', this)">🏢 Studio 2 (Dinoyo)</button>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="slotSearchInput" class="search-input" placeholder="Cari jam / shift..." oninput="renderSlots()">
+          </div>
+        </div>
+
         <div class="preset-box">
           <div>
-            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);">Label Jam Operasional Studio (Header Web)</div>
-            <div style="font-size: 0.76rem; color: #71717A;">Teks yang ditampilkan kepada klien di bagian header dan selector studio.</div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: var(--charcoal);" id="operationalHoursHeading">Label Jam Operasional Studio (Header Web)</div>
+            <div style="font-size: 0.76rem; color: #71717A;" id="operationalHoursSubtitle">Teks yang ditampilkan kepada klien di bagian header dan selector studio.</div>
           </div>
-          <div style="display: flex; gap: 0.5rem; flex: 1; max-width: 420px;">
+          <div style="display: flex; gap: 0.5rem; flex: 1; max-width: 440px;">
             <input type="text" id="operationalHoursInput" class="form-control" placeholder="Contoh: Buka Setiap Hari: 08:00 - 21:00 WIB">
             <button class="btn btn-preview" onclick="updateOperationalHours()">Update</button>
           </div>
@@ -756,14 +774,14 @@
           <table>
             <thead>
               <tr>
-                <th style="width: 80px;">Status</th>
-                <th>Jam Slot</th>
-                <th>Cabang Studio</th>
-                <th>Kapasitas</th>
-                <th>Layanan Diizinkan</th>
-                <th>Biaya Tambahan</th>
+                <th style="width: 80px; text-align: center;">Status</th>
+                <th style="width: 120px;">Jam Slot</th>
+                <th style="width: 175px;">Cabang Studio</th>
+                <th style="width: 140px;">Kapasitas</th>
+                <th style="width: 180px;">Layanan Diizinkan</th>
+                <th style="width: 150px;">Biaya Tambahan</th>
                 <th>Keterangan Shift</th>
-                <th style="text-align: right; width: 130px;">Aksi</th>
+                <th style="text-align: right; width: 140px;">Aksi</th>
               </tr>
             </thead>
             <tbody id="slotsTableBody">
@@ -871,6 +889,65 @@
 
         <!-- Interactive Package Cards Grid -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;" id="indoorPackagesGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3B: FOTO & GALERI TIAP BAGIAN WEB -->
+    <section id="tab-gallery-sections" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Manajemen Foto & Galeri Tiap Bagian Web</h2>
+            <p class="card-desc">Atur dan upload foto untuk Banner Utama (Hero Slider), Showcase Koleksi Background, Fasilitas Ruangan, dan Peralatan Studio secara visual.</p>
+          </div>
+          <button class="btn btn-add" onclick="openAddGalleryItemModal()">
+            + Tambah Foto / Item Baru
+          </button>
+        </div>
+
+        <!-- Sub-Section Pills -->
+        <div class="filter-panel" style="margin-bottom: 1.25rem;">
+          <div class="filter-group">
+            <span class="filter-label">Bagian Web:</span>
+            <button class="pill-btn active" id="secBtnHero" onclick="switchGallerySection('hero', this)">🌟 Banner Utama (Hero)</button>
+            <button class="pill-btn" id="secBtnShowcase" onclick="switchGallerySection('showcase', this)">✨ Showcase Background</button>
+            <button class="pill-btn" id="secBtnFacility" onclick="switchGallerySection('facility', this)">🛋️ Fasilitas Ruangan</button>
+            <button class="pill-btn" id="secBtnEquipment" onclick="switchGallerySection('equipment', this)">💡 Peralatan Studio</button>
+          </div>
+
+          <!-- Branch filter for showcase -->
+          <div class="filter-group" id="galleryBranchFilterRow" style="display: none;">
+            <span class="filter-label">Cabang:</span>
+            <button class="pill-btn active" id="secBranchAll" onclick="filterGalleryBranch('all', this)">🌐 Semua Cabang</button>
+            <button class="pill-btn" id="secBranch1" onclick="filterGalleryBranch('cabang-1', this)">🏛️ Studio 1 (Junrejo)</button>
+            <button class="pill-btn" id="secBranch2" onclick="filterGalleryBranch('cabang-2', this)">🏢 Studio 2 (Dinoyo)</button>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="gallerySearchInput" class="search-input" placeholder="Cari judul / tag foto..." oninput="renderGalleryGrid()">
+          </div>
+        </div>
+
+        <!-- Section Info & Stats Box -->
+        <div class="preset-box" style="margin-bottom: 1.25rem;">
+          <div>
+            <div style="font-size: 0.88rem; font-weight: 700; color: var(--charcoal);" id="gallerySecHeading">
+              Banner Utama (Hero Slider)
+            </div>
+            <div style="font-size: 0.76rem; color: #71717A;" id="gallerySecSubtitle">
+              Foto banner slider layar penuh yang tampil bergulir otomatis di bagian paling atas halaman utama web.
+            </div>
+          </div>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #5C725A; background: #EBF2EA; padding: 0.35rem 0.75rem; border-radius: 8px; border: 1px solid #A9BCA7;" id="gallerySecCountBadge">
+            Total: 7 Foto Aktif
+          </div>
+        </div>
+
+        <!-- Grid Cards -->
+        <div class="bg-grid" id="galleryGridContainer" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
           <!-- Rendered dynamically -->
         </div>
       </div>
@@ -1333,6 +1410,19 @@
         </div>
 
         <div class="form-group">
+          <label class="form-label">Berlaku untuk Studio / Cabang: *</label>
+          <div class="checkbox-row">
+            <label class="checkbox-item">
+              <input type="checkbox" id="slotBranch1" checked> Studio 1 (Junrejo)
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="slotBranch2" checked> Studio 2 (Dinoyo)
+            </label>
+          </div>
+          <span style="font-size: 0.75rem; color: #71717A;">Centang cabang studio tempat slot jam ini berlaku.</span>
+        </div>
+
+        <div class="form-group">
           <label class="form-label">Keterangan / Nama Shift</label>
           <input type="text" id="slotShiftNameInput" class="form-control" placeholder="Contoh: Shift Gabungan (Maks. 3 Klien)">
         </div>
@@ -1403,10 +1493,29 @@
           <input type="text" id="promoDiscountHighlightInput" class="form-control" placeholder="Contoh: Potongan 10% Total Transaksi">
         </div>
 
-        <div class="form-group">
-          <label class="form-label">URL Gambar / Foto *</label>
-          <input type="text" id="promoImageUrlInput" class="form-control" placeholder="/images/categories/graduation.jpg atau https://images.unsplash.com/..." oninput="previewPromoImage(this.value)">
-          <div id="promoImagePreviewBox" style="margin-top: 0.6rem; height: 130px; border-radius: 12px; background-size: cover; background-position: center; border: 1px solid var(--border); display: none;"></div>
+        <!-- MULTI-PHOTO PROMO & INFORMASI -->
+        <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
+            <div>
+              <label class="form-label" style="margin: 0; font-size: 0.92rem; font-weight: 700; color: var(--charcoal);">
+                📸 Foto & Galeri Promo / Informasi *
+              </label>
+              <div style="font-size: 0.74rem; color: #71717A; margin-top: 0.15rem;">
+                Dapat memasukkan lebih dari 1 foto (Maks. 25MB per foto). Foto ke-1 dijadikan cover utama kartu.
+              </div>
+            </div>
+            <button type="button" class="btn btn-save-local" style="padding: 0.4rem 0.85rem; font-size: 0.78rem; font-weight: 700; white-space: nowrap;" onclick="addPromoPhotoSlot()">
+              + Tambah Foto
+            </button>
+          </div>
+
+          <!-- Dynamic Slots Container -->
+          <div id="promoPhotosListContainer" style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Hidden input for backwards compatibility -->
+          <input type="hidden" id="promoImageUrlInput" value="">
         </div>
 
         <div class="form-group">
@@ -1673,6 +1782,107 @@
       <div class="modal-footer">
         <button class="btn btn-preview" onclick="closeModal('indoorPackageModal')">Batal</button>
         <button class="btn btn-save-local" onclick="saveIndoorPackageItem()">Simpan Rincian Paket</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT SECTION PHOTO & GALLERY -->
+  <div class="modal-overlay" id="galleryItemModal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="galleryModalTitle">Tambah Foto Bagian Web</h3>
+        <button class="btn-close" onclick="closeModal('galleryItemModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="galleryItemEditIndex" value="-1">
+        <input type="hidden" id="galleryItemEditSection" value="hero">
+
+        <div class="form-group">
+          <label class="form-label">Bagian Web yang Dituju *</label>
+          <select id="galleryModalSectionSelect" class="form-control" onchange="onGalleryModalSectionChange(this.value)">
+            <option value="hero">🌟 Banner Utama (Hero Slider)</option>
+            <option value="showcase">✨ Showcase Koleksi Background & Foto</option>
+            <option value="facility">🛋️ Fasilitas Ruangan Studio</option>
+            <option value="equipment">💡 Peralatan Studio Pro</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Judul Foto / Item *</label>
+          <input type="text" id="galleryItemTitleInput" class="form-control" placeholder="Contoh: Luxury White Fireplace & Frame">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div class="form-group">
+            <label class="form-label">Subjudul / Tema / Caption</label>
+            <input type="text" id="galleryItemSubtitleInput" class="form-control" placeholder="Contoh: European Royal">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tag / Badge Label Singkat</label>
+            <input type="text" id="galleryItemBadgeInput" class="form-control" placeholder="Contoh: ROYAL FIREPLACE">
+          </div>
+        </div>
+
+        <div class="form-group" id="galleryItemBranchGroup" style="display:none;">
+          <label class="form-label">Berlaku untuk Cabang Studio</label>
+          <select id="galleryItemBranchSelect" class="form-control">
+            <option value="all">Semua Cabang (Studio 1 &amp; Studio 2)</option>
+            <option value="cabang-1">Studio 1 (Junrejo)</option>
+            <option value="cabang-2">Studio 2 (Dinoyo)</option>
+          </select>
+        </div>
+
+        <!-- Photo upload and URL -->
+        <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" style="margin: 0; font-weight: 700;">Foto Gambar (Preview &amp; Upload) *</label>
+            <span style="font-size: 0.72rem; color: #71717A;">Maks. 25MB (PNG/JPG/WEBP)</span>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.65rem;">
+            <input type="text" id="galleryItemImageUrlInput" class="form-control" placeholder="https://... atau /images/..." oninput="updateGalleryModalPreview(this.value)">
+            <input type="file" id="galleryItemFileInput" accept="image/*" style="display:none;" onchange="handleGalleryUpload(event)">
+            <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.5rem 0.85rem;" onclick="document.getElementById('galleryItemFileInput').click()">
+              📁 Upload Lokal
+            </button>
+          </div>
+
+          <div id="galleryUploadStatus" style="display:none; font-size: 0.78rem; color: #5C725A; font-weight: 600; margin-bottom: 0.5rem;">
+            ⏳ Mengunggah foto...
+          </div>
+
+          <div id="galleryImagePreviewBox" style="width: 100%; height: 180px; border-radius: 10px; background: #E4E4E7; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #D4D4D8; position: relative;">
+            <img id="galleryImagePreviewImg" src="" style="width:100%; height:100%; object-fit: cover; display:none;">
+            <span id="galleryImagePreviewPlaceholder" style="color: #71717A; font-size: 0.82rem; font-weight: 600;">Belum ada foto yang dipilih</span>
+          </div>
+        </div>
+
+        <!-- Extended fields for facility / equipment -->
+        <div id="galleryExtendedFields" style="display:none;">
+          <div class="form-group">
+            <label class="form-label">Deskripsi Lengkap</label>
+            <textarea id="galleryItemDescInput" class="form-control" rows="2" placeholder="Jelaskan fasilitas atau spesifikasi peralatan ini..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Catatan Khusus / Tips Studio</label>
+            <input type="text" id="galleryItemConceptInput" class="form-control" placeholder="Contoh: Sangat ideal untuk wisudawan atau sesi foto keluarga...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Keunggulan &amp; Fitur (Pisahkan dengan koma)</label>
+            <input type="text" id="galleryItemHighlightsInput" class="form-control" placeholder="Contoh: AC Dingin, Ruang Luas, Cermin LED">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tags / Hashtags (Pisahkan dengan koma)</label>
+            <input type="text" id="galleryItemTagsInput" class="form-control" placeholder="Contoh: #RuangStudioBerAC, #Nyaman, #Studio1">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('galleryItemModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveGalleryItem()">Simpan Item Foto</button>
       </div>
     </div>
   </div>
@@ -2546,9 +2756,14 @@
         card.className = 'promo-item-card' + (isAct ? '' : ' inactive-promo');
         card.innerHTML = `
           <div class="promo-card-image-wrap">
-            <img src="${escapeHtml(p.imageUrl || '/images/categories/selfphoto.jpg')}" alt="${escapeHtml(p.title)}" onerror="this.src='/images/categories/selfphoto.jpg'">
+            <img src="${escapeHtml((p.images && p.images[0]) || p.imageUrl || '/images/categories/selfphoto.jpg')}" alt="${escapeHtml(p.title)}" onerror="this.src='/images/categories/selfphoto.jpg'">
             <div class="promo-image-badge-top-left">${kindIcon} ${escapeHtml(p.badge || 'PROMO')}</div>
             ${p.period ? `<div class="promo-image-badge-top-right">${escapeHtml(p.period)}</div>` : ''}
+            ${(p.images && p.images.length > 1) ? `
+              <div style="position: absolute; bottom: ${p.discountHighlight ? '36px' : '10px'}; right: 10px; background: rgba(0,0,0,0.72); backdrop-filter: blur(4px); color: #FFFFFF; font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; gap: 4px; z-index: 2;">
+                📸 ${p.images.length} Foto
+              </div>
+            ` : ''}
             ${p.discountHighlight ? `<div class="promo-image-highlight-bar"><span>✨</span> ${escapeHtml(p.discountHighlight)}</div>` : ''}
           </div>
           <div class="promo-card-body">
@@ -2595,6 +2810,155 @@
       showToast(`Status '${p.title}' diubah: ${p.active ? 'Aktif di Web' : 'Disembunyikan'}`, p.active ? '👁️' : '🙈');
     }
 
+    // Multi-photo management for Promo & Informasi
+    let promoPhotos = [];
+
+    function renderPromoPhotoSlots() {
+      const container = document.getElementById('promoPhotosListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!promoPhotos || promoPhotos.length === 0) {
+        promoPhotos = [''];
+      }
+
+      promoPhotos.forEach((url, idx) => {
+        const isCover = idx === 0;
+        const slotEl = document.createElement('div');
+        slotEl.className = 'promo-photo-slot-card';
+        slotEl.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+
+        slotEl.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <span style="font-size: 0.76rem; font-weight: 800; color: ${isCover ? '#5C725A' : '#4B5563'}; background: ${isCover ? '#EBF2EA' : '#F3F4F6'}; border: 1px solid ${isCover ? '#A9BCA7' : '#D1D5DB'}; padding: 0.15rem 0.55rem; border-radius: 6px;">
+                ${isCover ? '🌟 Foto 1 (Sampul Utama)' : '🖼️ Foto ' + (idx + 1)}
+              </span>
+              <span style="font-size: 0.7rem; color: #9CA3AF;">Maks. 25MB</span>
+            </div>
+            ${promoPhotos.length > 1 ? `
+              <button type="button" class="btn-action delete" style="padding: 0.2rem 0.5rem; font-size: 0.74rem;" onclick="removePromoPhotoSlot(${idx})">
+                🗑️ Hapus
+              </button>
+            ` : ''}
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <input type="text" class="form-control" style="font-size: 0.82rem;" placeholder="URL / Path Foto (/images/... atau https://...)" value="${escapeHtml(url || '')}" oninput="updatePromoPhotoSlotUrl(${idx}, this.value)">
+            <input type="file" id="promoFileInput_${idx}" accept="image/*" style="display:none;" onchange="handlePromoPhotoFileUpload(this, ${idx})">
+            <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.45rem 0.8rem; font-size: 0.78rem;" onclick="document.getElementById('promoFileInput_${idx}').click()">
+              📁 Upload Lokal
+            </button>
+          </div>
+
+          <div id="promoUploadStatus_${idx}" style="display:none; font-size: 0.75rem; color: #5C725A; font-weight: 600; margin-bottom: 0.45rem;"></div>
+
+          <div style="height: 120px; border-radius: 8px; background: #F3F4F6; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #D1D5DB; position: relative;">
+            <img id="promoPreviewImg_${idx}" src="${escapeHtml(url || '')}" style="width: 100%; height: 100%; object-fit: cover; display: ${url ? 'block' : 'none'};" onerror="this.style.display='none'; document.getElementById('promoPlaceholder_${idx}').style.display='block';">
+            <span id="promoPlaceholder_${idx}" style="color: #9CA3AF; font-size: 0.78rem; font-weight: 500; display: ${url ? 'none' : 'block'};">
+              Belum ada foto yang dipilih
+            </span>
+          </div>
+        `;
+
+        container.appendChild(slotEl);
+      });
+
+      // Update hidden promoImageUrlInput for fallback
+      const hiddenInput = document.getElementById('promoImageUrlInput');
+      if (hiddenInput) hiddenInput.value = promoPhotos[0] || '';
+    }
+
+    function addPromoPhotoSlot(initialUrl = '') {
+      promoPhotos.push(initialUrl);
+      renderPromoPhotoSlots();
+    }
+
+    function removePromoPhotoSlot(index) {
+      if (promoPhotos.length <= 1) {
+        alert('Minimal harus ada 1 foto untuk promo/informasi ini!');
+        return;
+      }
+      promoPhotos.splice(index, 1);
+      renderPromoPhotoSlots();
+    }
+
+    function updatePromoPhotoSlotUrl(index, val) {
+      promoPhotos[index] = val;
+      const img = document.getElementById(`promoPreviewImg_${index}`);
+      const placeholder = document.getElementById(`promoPlaceholder_${index}`);
+      if (img && placeholder) {
+        if (val && val.trim()) {
+          img.src = val.trim();
+          img.style.display = 'block';
+          placeholder.style.display = 'none';
+        } else {
+          img.style.display = 'none';
+          placeholder.style.display = 'block';
+        }
+      }
+      const hiddenInput = document.getElementById('promoImageUrlInput');
+      if (hiddenInput && index === 0) hiddenInput.value = val;
+    }
+
+    async function handlePromoPhotoFileUpload(input, index) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP).');
+        input.value = '';
+        return;
+      }
+
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        input.value = '';
+        return;
+      }
+
+      const statusEl = document.getElementById(`promoUploadStatus_${index}`);
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.innerHTML = `⏳ Mengunggah foto ${(file.size / (1024 * 1024)).toFixed(1)} MB...`;
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const dataUrl = e.target.result;
+          const promoTitle = (document.getElementById('promoTitleInput').value || 'promo').toLowerCase().replace(/[^a-z0-9]/g, '_');
+          const extMatch = file.name.match(/\.[^.]+$/);
+          const ext = extMatch ? extMatch[0] : '.jpg';
+          const fileName = `promo_${promoTitle}_foto${index + 1}_${Date.now()}${ext}`;
+
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: dataUrl,
+              fileName: fileName,
+              folder: 'promos'
+            })
+          });
+
+          const data = await res.json();
+          if (data.success && data.url) {
+            updatePromoPhotoSlotUrl(index, data.url);
+            renderPromoPhotoSlots();
+            showToast(`Foto ${index + 1} berhasil diunggah secara lokal!`, '📸');
+          } else {
+            throw new Error(data.error || 'Server gagal memproses upload');
+          }
+        } catch (err) {
+          console.error('Upload promo photo error:', err);
+          alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
+          if (statusEl) statusEl.style.display = 'none';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
     function openAddPromoModal() {
       document.getElementById('promoEditIndex').value = '-1';
       document.getElementById('promoModalTitle').textContent = 'Tambah Promo / Informasi Baru';
@@ -2606,15 +2970,16 @@
       document.getElementById('promoBadgeInput').value = 'DISKON 10%';
       document.getElementById('promoPeriodInput').value = 'Berlaku Setiap Hari • Kuota Terbatas';
       document.getElementById('promoDiscountHighlightInput').value = 'Potongan 10% Total Transaksi';
-      document.getElementById('promoImageUrlInput').value = '/images/categories/selfphoto.jpg';
       document.getElementById('promoShortDescInput').value = '';
       document.getElementById('promoFullDescInput').value = '';
       document.getElementById('promoTermsInput').value = 'Berlaku untuk pemesanan online via website Alviero Studio.\nKuota voucher promo terbatas setiap harinya.\nTidak dapat digabungkan dengan promo sejenis lainnya.';
       document.getElementById('promoHowToUseInput').value = 'Salin kode kupon promo.\nTekan tombol reservasi atau booking.\nKode akan otomatis memotong total biaya.';
       document.getElementById('promoPreselectedPackageInput').value = '';
       
+      promoPhotos = ['/images/categories/selfphoto.jpg'];
+      renderPromoPhotoSlots();
+
       handlePromoKindChange('promo');
-      previewPromoImage('/images/categories/selfphoto.jpg');
       openModal('promoModal');
     }
 
@@ -2631,15 +2996,19 @@
       document.getElementById('promoBadgeInput').value = p.badge || '';
       document.getElementById('promoPeriodInput').value = p.period || '';
       document.getElementById('promoDiscountHighlightInput').value = p.discountHighlight || '';
-      document.getElementById('promoImageUrlInput').value = p.imageUrl || '';
       document.getElementById('promoShortDescInput').value = p.shortDesc || '';
       document.getElementById('promoFullDescInput').value = p.fullDesc || '';
       document.getElementById('promoTermsInput').value = Array.isArray(p.terms) ? p.terms.join('\n') : (p.terms || '');
       document.getElementById('promoHowToUseInput').value = Array.isArray(p.howToUse) ? p.howToUse.join('\n') : (p.howToUse || '');
       document.getElementById('promoPreselectedPackageInput').value = p.preselectedPackageId || '';
 
+      const existingImages = (Array.isArray(p.images) && p.images.length > 0)
+        ? p.images
+        : (p.imageUrl ? [p.imageUrl] : ['/images/categories/selfphoto.jpg']);
+      promoPhotos = [...existingImages];
+      renderPromoPhotoSlots();
+
       handlePromoKindChange(p.kind || 'promo');
-      previewPromoImage(p.imageUrl || '');
       openModal('promoModal');
     }
 
@@ -2659,13 +3028,9 @@
     }
 
     function previewPromoImage(url) {
-      const box = document.getElementById('promoImagePreviewBox');
-      if (!box) return;
-      if (url && url.trim()) {
-        box.style.display = 'block';
-        box.style.backgroundImage = `url('${url.trim()}')`;
-      } else {
-        box.style.display = 'none';
+      // Backwards-compatibility no-op
+      if (promoPhotos && promoPhotos.length > 0) {
+        updatePromoPhotoSlotUrl(0, url);
       }
     }
 
@@ -2679,15 +3044,15 @@
       const badge = document.getElementById('promoBadgeInput').value.trim();
       const period = document.getElementById('promoPeriodInput').value.trim();
       const discountHighlight = document.getElementById('promoDiscountHighlightInput').value.trim();
-      const imageUrl = document.getElementById('promoImageUrlInput').value.trim();
       const shortDesc = document.getElementById('promoShortDescInput').value.trim();
       const fullDesc = document.getElementById('promoFullDescInput').value.trim();
       const termsRaw = document.getElementById('promoTermsInput').value;
       const howToUseRaw = document.getElementById('promoHowToUseInput').value;
       const preselectedPackageId = document.getElementById('promoPreselectedPackageInput').value.trim();
 
-      if (!title || !category || !imageUrl) {
-        alert('Harap lengkapi Judul, Kategori, dan URL Gambar!');
+      const validPhotos = promoPhotos.map(u => (u || '').trim()).filter(u => u.length > 0);
+      if (!title || !category || validPhotos.length === 0) {
+        alert('Harap lengkapi Judul, Kategori, dan minimal 1 Foto!');
         return;
       }
 
@@ -2707,7 +3072,8 @@
         fullDesc: fullDesc || shortDesc,
         discountHighlight: discountHighlight || (kind === 'berita' ? 'Pembaruan Studio' : 'Penawaran Spesial'),
         period: period || 'Informasi Studio',
-        imageUrl,
+        imageUrl: validPhotos[0],
+        images: validPhotos,
         terms,
         howToUse,
         active
@@ -2798,6 +3164,10 @@
         'cabang-2': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB'
       };
       document.getElementById('operationalHoursInput').value = appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
+      appConfig.heroBannerSlides = appConfig.heroBannerSlides || [];
+      appConfig.showcaseImages = appConfig.showcaseImages || [];
+      appConfig.facilityItems = appConfig.facilityItems || [];
+      appConfig.equipmentItems = appConfig.equipmentItems || [];
 
       renderBackgrounds();
       renderSlots();
@@ -2806,6 +3176,7 @@
       renderHistory();
       renderIndoorPackages();
       renderBranches();
+      renderGalleryGrid();
     }
 
     function renderBackgrounds() {
@@ -3156,78 +3527,228 @@
       }
     }
 
+    let currentSlotBranchFilter = 'all';
+
+    function filterSlotBranch(branch, btn) {
+      currentSlotBranchFilter = branch;
+
+      // Update button active state
+      document.querySelectorAll('#tab-slots .filter-panel .filter-group .pill-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      // Update operational hours label and input
+      const ophInput = document.getElementById('operationalHoursInput');
+      const ophHeading = document.getElementById('operationalHoursHeading');
+      const ophSubtitle = document.getElementById('operationalHoursSubtitle');
+      const presetSubtitle = document.getElementById('presetSubtitle');
+
+      if (!appConfig.operationalHoursByBranch) {
+        appConfig.operationalHoursByBranch = {
+          'cabang-1': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB',
+          'cabang-2': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB'
+        };
+      }
+
+      if (branch === 'cabang-1') {
+        ophHeading.textContent = 'Label Jam Operasional: Studio 1 (Junrejo)';
+        ophSubtitle.textContent = 'Teks jam operasional yang tampil untuk Studio 1 (Junrejo).';
+        presetSubtitle.textContent = 'Terapkan status jam slot secara instan (Cabang aktif: Studio 1 - Junrejo).';
+        ophInput.value = appConfig.operationalHoursByBranch['cabang-1'] || appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
+      } else if (branch === 'cabang-2') {
+        ophHeading.textContent = 'Label Jam Operasional: Studio 2 (Dinoyo)';
+        ophSubtitle.textContent = 'Teks jam operasional yang tampil untuk Studio 2 (Dinoyo).';
+        presetSubtitle.textContent = 'Terapkan status jam slot secara instan (Cabang aktif: Studio 2 - Dinoyo).';
+        ophInput.value = appConfig.operationalHoursByBranch['cabang-2'] || appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
+      } else {
+        ophHeading.textContent = 'Label Jam Operasional Studio (Header Web)';
+        ophSubtitle.textContent = 'Teks yang ditampilkan kepada klien di bagian header dan selector studio.';
+        presetSubtitle.textContent = 'Terapkan status jam slot secara instan (Cabang aktif: Semua Cabang).';
+        ophInput.value = appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
+      }
+
+      renderSlots();
+    }
+
     function renderSlots() {
       const tbody = document.getElementById('slotsTableBody');
       tbody.innerHTML = '';
 
       if (!appConfig.timeSlots || appConfig.timeSlots.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 2rem; color: #A1A1AA;">Belum ada slot waktu jam yang diatur.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 2.5rem; color: #A1A1AA;">Belum ada slot waktu jam yang diatur.</td></tr>';
         return;
       }
 
+      const query = (document.getElementById('slotSearchInput')?.value || '').toLowerCase().trim();
+      let renderedCount = 0;
+
       appConfig.timeSlots.forEach((slot, idx) => {
-        const isInactive = slot.active === false;
+        const branches = slot.applicableBranches || ['cabang-1', 'cabang-2'];
+
+        // Filter per cabang
+        if (currentSlotBranchFilter !== 'all' && !branches.includes(currentSlotBranchFilter)) {
+          return;
+        }
+
+        // Filter pencarian
+        if (query) {
+          const matchTime = (slot.time || '').toLowerCase().includes(query);
+          const matchShift = (slot.shiftName || '').toLowerCase().includes(query);
+          const matchServices = (slot.allowedServices || []).join(' ').toLowerCase().includes(query);
+          if (!matchTime && !matchShift && !matchServices) return;
+        }
+
+        renderedCount++;
+
+        // Status aktif
+        let isInactive = false;
+        if (currentSlotBranchFilter === 'all') {
+          isInactive = slot.active === false;
+        } else {
+          if (slot.activeByBranch && slot.activeByBranch[currentSlotBranchFilter] !== undefined) {
+            isInactive = !slot.activeByBranch[currentSlotBranchFilter];
+          } else {
+            isInactive = slot.active === false;
+          }
+        }
+
         const tr = document.createElement('tr');
         if (isInactive) tr.className = 'inactive-row';
 
+        // Badge cabang
+        let branchBadgeHtml = '';
+        const hasB1 = branches.includes('cabang-1');
+        const hasB2 = branches.includes('cabang-2');
+        if (hasB1 && hasB2) {
+          branchBadgeHtml = '<span class="badge-branch-tag badge-branch-both">🏛️ Studio 1 & 🏢 Studio 2</span>';
+        } else if (hasB1) {
+          branchBadgeHtml = '<span class="badge-branch-tag badge-branch-1">🏛️ Studio 1 (Junrejo)</span>';
+        } else if (hasB2) {
+          branchBadgeHtml = '<span class="badge-branch-tag badge-branch-2">🏢 Studio 2 (Dinoyo)</span>';
+        } else {
+          branchBadgeHtml = '<span class="badge-branch-tag" style="background:#F4F4F5; color:#71717A;">-</span>';
+        }
+
+        // Badge layanan
         const serviceBadges = (slot.allowedServices || []).map(s => {
           if (s === 'indoor') return '<span class="tag tag-service-indoor">Studio (Indoor)</span>';
           if (s === 'outdoor') return '<span class="tag tag-service-outdoor">Outdoor</span>';
           return `<span class="tag">${s}</span>`;
         }).join(' ');
 
-        const chargeText = slot.earlyCharge && slot.earlyCharge > 0
-          ? `<span style="color: #D97706; font-weight: 700;">+Rp ${slot.earlyCharge.toLocaleString('id-ID')}</span>`
-          : '<span style="color: #9CA3AF;">Rp 0</span>';
+        // Biaya tambahan
+        const isExtra = (slot.earlyCharge || 0) > 0;
+        const chargeHtml = isExtra
+          ? `<span class="charge-badge extra">+Rp ${slot.earlyCharge.toLocaleString('id-ID')}</span>`
+          : '<span class="charge-badge free">Rp 0</span>';
 
         tr.innerHTML = `
-          <td>
+          <td style="text-align: center;">
             <label class="switch">
               <input type="checkbox" ${isInactive ? '' : 'checked'} onchange="toggleSlot(${idx}, this.checked)">
               <span class="slider"></span>
             </label>
           </td>
-          <td style="font-weight: 800; font-size: 1rem; color: var(--charcoal); font-family: monospace;">
-            ${slot.time}
+          <td>
+            <span class="time-slot-badge">🕒 ${slot.time} WIB</span>
           </td>
           <td>
-            <span class="tag tag-capacity">👥 Maks. ${slot.maxCapacity || 3} Klien</span>
+            ${branchBadgeHtml}
           </td>
-          <td>${serviceBadges || '<span style="color:#A1A1AA;">-</span>'}</td>
-          <td>${chargeText}</td>
-          <td style="color: #52525B; font-size: 0.8rem;">${slot.shiftName || 'Shift Reguler'}</td>
+          <td>
+            <span class="capacity-badge">👥 Maks. ${slot.maxCapacity || 3} Klien</span>
+          </td>
+          <td>
+            ${serviceBadges || '<span style="color:#A1A1AA;">-</span>'}
+          </td>
+          <td>
+            ${chargeHtml}
+          </td>
+          <td style="color: #52525B; font-size: 0.82rem;">
+            ${slot.shiftName || 'Shift Reguler'}
+          </td>
           <td style="text-align: right;">
-            <button class="btn btn-edit" onclick="openEditSlotModal(${idx})">Edit</button>
-            <button class="btn btn-delete" onclick="deleteSlot(${idx})">Hapus</button>
+            <div class="card-actions-group" style="justify-content: flex-end;">
+              <button class="btn-action" onclick="openEditSlotModal(${idx})">✏️ Edit</button>
+              <button class="btn-action delete" onclick="deleteSlot(${idx})">🗑️ Hapus</button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
       });
+
+      if (renderedCount === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 2.5rem; color: #A1A1AA;">Tidak ada slot jam yang sesuai dengan filter cabang atau pencarian.</td></tr>';
+      }
     }
 
     function toggleSlot(idx, activeState) {
-      if (appConfig.timeSlots[idx]) {
-        appConfig.timeSlots[idx].active = activeState;
-        renderSlots();
-        showToast(`Slot jam ${appConfig.timeSlots[idx].time} telah di-${activeState ? 'aktifkan' : 'nonaktifkan'}.`);
+      const slot = appConfig.timeSlots[idx];
+      if (!slot) return;
+
+      if (!slot.activeByBranch) {
+        slot.activeByBranch = {
+          'cabang-1': slot.active !== false,
+          'cabang-2': slot.active !== false
+        };
       }
+
+      if (currentSlotBranchFilter === 'all') {
+        slot.active = activeState;
+        slot.activeByBranch['cabang-1'] = activeState;
+        slot.activeByBranch['cabang-2'] = activeState;
+        showToast(`Slot jam ${slot.time} ${activeState ? 'diaktifkan' : 'dinonaktifkan'} untuk Semua Cabang.`);
+      } else {
+        slot.activeByBranch[currentSlotBranchFilter] = activeState;
+        slot.active = (slot.activeByBranch['cabang-1'] !== false) || (slot.activeByBranch['cabang-2'] !== false);
+        const bName = currentSlotBranchFilter === 'cabang-1' ? 'Studio 1 (Junrejo)' : 'Studio 2 (Dinoyo)';
+        showToast(`Slot jam ${slot.time} ${activeState ? 'diaktifkan' : 'dinonaktifkan'} untuk ${bName}.`);
+      }
+      renderSlots();
     }
 
     function applyPreset(presetType) {
       if (!appConfig.timeSlots) return;
-      if (presetType === 'all-on') {
-        appConfig.timeSlots.forEach(s => s.active = true);
-        showToast('Semua slot jam kini telah diaktifkan!');
-      } else if (presetType === 'night-off') {
-        appConfig.timeSlots.forEach(s => {
-          if (s.time === '20:30' || s.time === '21:00') s.active = false;
-        });
-        showToast('Slot malam (20:30 & 21:00) dinonaktifkan.');
-      } else if (presetType === 'early-on') {
-        const earlySlot = appConfig.timeSlots.find(s => s.time === '07:00');
-        if (earlySlot) earlySlot.active = true;
-        showToast('Slot pagi 07:00 telah diaktifkan.');
-      }
+      const targetBranch = currentSlotBranchFilter;
+
+      appConfig.timeSlots.forEach(slot => {
+        const appBranches = slot.applicableBranches || ['cabang-1', 'cabang-2'];
+        if (targetBranch !== 'all' && !appBranches.includes(targetBranch)) return;
+
+        let shouldBeActive = slot.active !== false;
+        if (presetType === 'all-on') {
+          shouldBeActive = true;
+        } else if (presetType === 'night-off') {
+          if (slot.time === '20:30' || slot.time === '21:00') {
+            shouldBeActive = false;
+          }
+        } else if (presetType === 'early-on') {
+          if (slot.time === '07:00') {
+            shouldBeActive = true;
+          }
+        }
+
+        if (!slot.activeByBranch) {
+          slot.activeByBranch = {
+            'cabang-1': slot.active !== false,
+            'cabang-2': slot.active !== false
+          };
+        }
+
+        if (targetBranch === 'all') {
+          slot.active = shouldBeActive;
+          slot.activeByBranch['cabang-1'] = shouldBeActive;
+          slot.activeByBranch['cabang-2'] = shouldBeActive;
+        } else {
+          slot.activeByBranch[targetBranch] = shouldBeActive;
+          slot.active = (slot.activeByBranch['cabang-1'] !== false) || (slot.activeByBranch['cabang-2'] !== false);
+        }
+      });
+
+      const branchName = targetBranch === 'cabang-1' ? 'Studio 1' : (targetBranch === 'cabang-2' ? 'Studio 2' : 'Semua Cabang');
+      if (presetType === 'all-on') showToast(`Semua slot jam kini telah diaktifkan (${branchName})!`);
+      else if (presetType === 'night-off') showToast(`Slot malam (20:30 & 21:00) dinonaktifkan (${branchName}).`);
+      else if (presetType === 'early-on') showToast(`Slot pagi 07:00 telah diaktifkan (${branchName}).`);
+
       renderSlots();
     }
 
@@ -3241,6 +3762,18 @@
       document.getElementById('slotCustomChargeInput').style.display = 'none';
       document.getElementById('slotCustomChargeInput').value = '';
       document.getElementById('slotShiftNameInput').value = '';
+
+      if (currentSlotBranchFilter === 'cabang-1') {
+        document.getElementById('slotBranch1').checked = true;
+        document.getElementById('slotBranch2').checked = false;
+      } else if (currentSlotBranchFilter === 'cabang-2') {
+        document.getElementById('slotBranch1').checked = false;
+        document.getElementById('slotBranch2').checked = true;
+      } else {
+        document.getElementById('slotBranch1').checked = true;
+        document.getElementById('slotBranch2').checked = true;
+      }
+
       openModal('slotModal');
     }
 
@@ -3251,10 +3784,10 @@
       document.getElementById('slotModalTitle').textContent = 'Edit Slot Jam: ' + slot.time;
       document.getElementById('slotTimeInput').value = slot.time || '';
       document.getElementById('slotCapacityInput').value = slot.maxCapacity || '3';
-      
+
       const srv = (slot.allowedServices || []).join(',');
       document.getElementById('slotServicesInput').value = srv.includes('indoor') && srv.includes('outdoor') ? 'indoor,outdoor' : (srv.includes('outdoor') ? 'outdoor' : 'indoor');
-      
+
       const charge = slot.earlyCharge || 0;
       if (charge === 0 || charge === 35000) {
         document.getElementById('slotChargeSelect').value = charge.toString();
@@ -3267,6 +3800,11 @@
       }
 
       document.getElementById('slotShiftNameInput').value = slot.shiftName || '';
+
+      const branches = slot.applicableBranches || ['cabang-1', 'cabang-2'];
+      document.getElementById('slotBranch1').checked = branches.includes('cabang-1');
+      document.getElementById('slotBranch2').checked = branches.includes('cabang-2');
+
       openModal('slotModal');
     }
 
@@ -3286,6 +3824,13 @@
       const shiftName = document.getElementById('slotShiftNameInput').value.trim() || 'Shift Jadwal';
       const origIdx = parseInt(document.getElementById('slotEditIndex').value);
 
+      const branches = [];
+      if (document.getElementById('slotBranch1').checked) branches.push('cabang-1');
+      if (document.getElementById('slotBranch2').checked) branches.push('cabang-2');
+      if (branches.length === 0) {
+        return alert('Pilih minimal satu cabang studio (Studio 1 atau Studio 2)!');
+      }
+
       if (!time || !/^\d{1,2}:\d{2}$/.test(time)) {
         return alert('Format jam harus HH:MM (contoh: 08:00 atau 14:30)!');
       }
@@ -3299,19 +3844,32 @@
           allowedServices,
           shiftName,
           earlyCharge,
+          applicableBranches: branches,
+          activeByBranch: {
+            'cabang-1': branches.includes('cabang-1'),
+            'cabang-2': branches.includes('cabang-2')
+          },
           active: true
         });
         appConfig.timeSlots.sort((a,b) => a.time.localeCompare(b.time));
         showToast(`Slot jam ${formattedTime} berhasil ditambahkan!`);
       } else {
-        appConfig.timeSlots[origIdx] = {
-          ...appConfig.timeSlots[origIdx],
-          time: formattedTime,
-          maxCapacity,
-          allowedServices,
-          shiftName,
-          earlyCharge
-        };
+        const slot = appConfig.timeSlots[origIdx];
+        slot.time = formattedTime;
+        slot.maxCapacity = maxCapacity;
+        slot.allowedServices = allowedServices;
+        slot.shiftName = shiftName;
+        slot.earlyCharge = earlyCharge;
+        slot.applicableBranches = branches;
+        if (!slot.activeByBranch) {
+          slot.activeByBranch = {
+            'cabang-1': slot.active !== false && branches.includes('cabang-1'),
+            'cabang-2': slot.active !== false && branches.includes('cabang-2')
+          };
+        } else {
+          if (!branches.includes('cabang-1')) slot.activeByBranch['cabang-1'] = false;
+          if (!branches.includes('cabang-2')) slot.activeByBranch['cabang-2'] = false;
+        }
         showToast(`Slot jam ${formattedTime} berhasil diperbarui!`);
       }
 
@@ -3332,8 +3890,26 @@
     function updateOperationalHours() {
       const val = document.getElementById('operationalHoursInput').value.trim();
       if (!val) return alert('Teks jam operasional tidak boleh kosong!');
-      appConfig.operationalHours = val;
-      showToast('Label jam operasional diperbarui. Klik Simpan untuk menerapkan.');
+
+      if (!appConfig.operationalHoursByBranch) {
+        appConfig.operationalHoursByBranch = {
+          'cabang-1': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB',
+          'cabang-2': appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB'
+        };
+      }
+
+      if (currentSlotBranchFilter === 'cabang-1') {
+        appConfig.operationalHoursByBranch['cabang-1'] = val;
+        showToast('Label jam operasional Studio 1 (Junrejo) diperbarui.');
+      } else if (currentSlotBranchFilter === 'cabang-2') {
+        appConfig.operationalHoursByBranch['cabang-2'] = val;
+        showToast('Label jam operasional Studio 2 (Dinoyo) diperbarui.');
+      } else {
+        appConfig.operationalHours = val;
+        appConfig.operationalHoursByBranch['cabang-1'] = val;
+        appConfig.operationalHoursByBranch['cabang-2'] = val;
+        showToast('Label jam operasional Semua Cabang diperbarui.');
+      }
     }
 
     function renderBranches() {
@@ -3479,7 +4055,404 @@
 
     function openLiveLocal() { window.open('http://localhost:3000', '_blank'); }
 
-    loadConfig();
+    // =========================================================================
+    // SECTION PHOTO & GALLERY MANAGEMENT LOGIC
+    // =========================================================================
+    let currentGallerySection = 'hero';
+    let currentGalleryBranch = 'all';
+
+    function switchGallerySection(sec, btn) {
+      currentGallerySection = sec;
+      document.querySelectorAll('#tab-gallery-sections .filter-group button.pill-btn').forEach(b => {
+        if (b.id && b.id.startsWith('secBtn')) b.classList.remove('active');
+      });
+      if (btn) btn.classList.add('active');
+
+      const branchRow = document.getElementById('galleryBranchFilterRow');
+      const secHeading = document.getElementById('gallerySecHeading');
+      const secSubtitle = document.getElementById('gallerySecSubtitle');
+
+      if (sec === 'hero') {
+        branchRow.style.display = 'none';
+        secHeading.textContent = '🌟 Banner Utama (Hero Slider)';
+        secSubtitle.textContent = 'Foto-foto banner slider layar penuh yang tampil bergulir otomatis di bagian paling atas halaman utama web.';
+      } else if (sec === 'showcase') {
+        branchRow.style.display = 'inline-flex';
+        secHeading.textContent = '✨ Showcase Koleksi Background & Foto';
+        secSubtitle.textContent = 'Koleksi panggung tematik dan hasil pemotretan yang tampil di carousel bagian "Koleksi Background & Hasil Foto".';
+      } else if (sec === 'facility') {
+        branchRow.style.display = 'none';
+        secHeading.textContent = '🛋️ Fasilitas Ruangan Studio';
+        secSubtitle.textContent = 'Foto fasilitas kenyamanan studio (Ruang Ber-AC, Ruang Rias, Lounge, Toilet, Parkir) yang tampil pada tab Fasilitas.';
+      } else if (sec === 'equipment') {
+        branchRow.style.display = 'none';
+        secHeading.textContent = '💡 Peralatan Studio Pro';
+        secSubtitle.textContent = 'Foto perlengkapan studio profesional (Lighting Godox, Kamera Mirrorless, Remote Trigger, Live Monitor, Properti Foto).';
+      }
+
+      renderGalleryGrid();
+    }
+
+    function filterGalleryBranch(branch, btn) {
+      currentGalleryBranch = branch;
+      document.querySelectorAll('#galleryBranchFilterRow button.pill-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderGalleryGrid();
+    }
+
+    function getActiveGalleryList(sec) {
+      if (!appConfig) return [];
+      if (sec === 'hero') {
+        if (!appConfig.heroBannerSlides) appConfig.heroBannerSlides = [];
+        return appConfig.heroBannerSlides;
+      } else if (sec === 'showcase') {
+        if (!appConfig.showcaseImages) appConfig.showcaseImages = [];
+        return appConfig.showcaseImages;
+      } else if (sec === 'facility') {
+        if (!appConfig.facilityItems) appConfig.facilityItems = [];
+        return appConfig.facilityItems;
+      } else if (sec === 'equipment') {
+        if (!appConfig.equipmentItems) appConfig.equipmentItems = [];
+        return appConfig.equipmentItems;
+      }
+      return [];
+    }
+
+    function renderGalleryGrid() {
+      if (!appConfig) return;
+      const container = document.getElementById('galleryGridContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const list = getActiveGalleryList(currentGallerySection);
+      const query = (document.getElementById('gallerySearchInput')?.value || '').toLowerCase().trim();
+
+      let renderedCount = 0;
+
+      list.forEach((item, idx) => {
+        // Filter branch for showcase
+        if (currentGallerySection === 'showcase' && currentGalleryBranch !== 'all') {
+          if (item.branchId && item.branchId !== 'all' && item.branchId !== currentGalleryBranch) {
+            return;
+          }
+        }
+
+        // Search query
+        if (query) {
+          const title = (item.title || item.caption || '').toLowerCase();
+          const theme = (item.theme || item.tag || item.subtitle || '').toLowerCase();
+          const desc = (item.description || '').toLowerCase();
+          if (!title.includes(query) && !theme.includes(query) && !desc.includes(query)) {
+            return;
+          }
+        }
+
+        renderedCount++;
+
+        const isInactive = item.active === false;
+        const imgUrl = item.imageUrl || item.image || item.src || '';
+        const titleText = item.title || item.caption || 'Tanpa Judul';
+        const subtitleText = item.theme || item.subtitle || item.tag || '';
+        const badgeText = item.tag || item.badge || item.category || '';
+
+        const card = document.createElement('div');
+        card.className = 'bg-card' + (isInactive ? ' inactive' : '');
+
+        let branchBadgeHtml = '';
+        if (item.branchId === 'cabang-1') {
+          branchBadgeHtml = '<span class="badge-branch-tag badge-branch-1">🏛️ Studio 1 (Junrejo)</span>';
+        } else if (item.branchId === 'cabang-2') {
+          branchBadgeHtml = '<span class="badge-branch-tag badge-branch-2">🏢 Studio 2 (Dinoyo)</span>';
+        } else if (currentGallerySection === 'showcase') {
+          branchBadgeHtml = '<span class="badge-branch-tag badge-branch-both">🏛️ Studio 1 &amp; 🏢 Studio 2</span>';
+        }
+
+        card.innerHTML = `
+          <div class="bg-photo-area" style="background-image: url('${imgUrl}'); height: 165px; position: relative;">
+            <div class="bg-photo-gradient"></div>
+            ${branchBadgeHtml || '<div></div>'}
+            <div class="status-indicator-chip ${isInactive ? 'inactive' : 'active'}">
+              <span class="status-dot"></span>
+              ${isInactive ? 'Nonaktif' : 'Aktif'}
+            </div>
+          </div>
+          <div class="bg-content-area" style="padding: 1rem;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem;">
+              <h4 style="font-size: 0.96rem; font-weight: 700; color: var(--charcoal); line-height: 1.35;">${titleText}</h4>
+              ${badgeText ? `<span style="font-size: 0.68rem; font-weight: 700; background: #FAF6F0; color: #5C725A; border: 1px solid #E8DDD6; padding: 0.15rem 0.5rem; border-radius: 6px; white-space: nowrap;">${badgeText}</span>` : ''}
+            </div>
+            ${subtitleText ? `<p style="font-size: 0.78rem; color: #71717A; margin-bottom: 0.5rem;">${subtitleText}</p>` : ''}
+            ${item.description ? `<p style="font-size: 0.76rem; color: #52525B; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0.75rem;">${item.description}</p>` : ''}
+            
+            <div class="bg-card-bottom" style="padding-top: 0.65rem; margin-top: auto;">
+              <label class="switch">
+                <input type="checkbox" ${isInactive ? '' : 'checked'} onchange="toggleGalleryItemActive('${currentGallerySection}', ${idx}, this.checked)">
+                <span class="slider"></span>
+              </label>
+              <div class="card-actions-group">
+                <button class="btn-action" onclick="openEditGalleryItemModal('${currentGallerySection}', ${idx})">✏️ Edit</button>
+                <button class="btn-action delete" onclick="deleteGalleryItem('${currentGallerySection}', ${idx})">🗑️</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      const countBadge = document.getElementById('gallerySecCountBadge');
+      if (countBadge) {
+        countBadge.textContent = `Total: ${renderedCount} Foto (${currentGallerySection.toUpperCase()})`;
+      }
+
+      if (renderedCount === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem 1rem; color: #A1A1AA; background: #FFFFFF; border-radius: 16px; border: 1px dashed var(--border);">Belum ada foto pada bagian ini atau tidak cocok dengan filter pencarian. Klik tombol "+ Tambah Foto / Item Baru" untuk menambahkan.</div>';
+      }
+
+      updateAllGalleryBadges();
+    }
+
+    function updateAllGalleryBadges() {
+      if (!appConfig) return;
+      const heroCount = (appConfig.heroBannerSlides || []).filter(s => s.active !== false).length;
+      const showcaseCount = (appConfig.showcaseImages || []).filter(s => s.active !== false).length;
+      const facilityCount = (appConfig.facilityItems || []).filter(s => s.active !== false).length;
+      const equipmentCount = (appConfig.equipmentItems || []).filter(s => s.active !== false).length;
+      const totalAll = heroCount + showcaseCount + facilityCount + equipmentCount;
+
+      const galleryBadge = document.getElementById('galleryCountBadge');
+      if (galleryBadge) galleryBadge.textContent = totalAll;
+    }
+
+    function onGalleryModalSectionChange(sec) {
+      const branchGroup = document.getElementById('galleryItemBranchGroup');
+      const extFields = document.getElementById('galleryExtendedFields');
+
+      if (sec === 'showcase') {
+        branchGroup.style.display = 'block';
+        extFields.style.display = 'none';
+      } else if (sec === 'facility' || sec === 'equipment') {
+        branchGroup.style.display = 'none';
+        extFields.style.display = 'block';
+      } else {
+        branchGroup.style.display = 'none';
+        extFields.style.display = 'none';
+      }
+    }
+
+    function updateGalleryModalPreview(url) {
+      const img = document.getElementById('galleryImagePreviewImg');
+      const placeholder = document.getElementById('galleryImagePreviewPlaceholder');
+      if (url && url.trim()) {
+        img.src = url.trim();
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        placeholder.style.display = 'block';
+      }
+    }
+
+    function openAddGalleryItemModal() {
+      document.getElementById('galleryItemEditIndex').value = -1;
+      document.getElementById('galleryItemEditSection').value = currentGallerySection;
+      document.getElementById('galleryModalTitle').textContent = 'Tambah Foto / Item Baru';
+
+      const secSelect = document.getElementById('galleryModalSectionSelect');
+      secSelect.value = currentGallerySection;
+      secSelect.disabled = false;
+
+      document.getElementById('galleryItemTitleInput').value = '';
+      document.getElementById('galleryItemSubtitleInput').value = '';
+      document.getElementById('galleryItemBadgeInput').value = '';
+      document.getElementById('galleryItemBranchSelect').value = currentGalleryBranch !== 'all' ? currentGalleryBranch : 'all';
+      document.getElementById('galleryItemImageUrlInput').value = '';
+      updateGalleryModalPreview('');
+
+      document.getElementById('galleryItemDescInput').value = '';
+      document.getElementById('galleryItemConceptInput').value = '';
+      document.getElementById('galleryItemHighlightsInput').value = '';
+      document.getElementById('galleryItemTagsInput').value = '';
+
+      onGalleryModalSectionChange(currentGallerySection);
+      openModal('galleryItemModal');
+    }
+
+    function openEditGalleryItemModal(sec, idx) {
+      const list = getActiveGalleryList(sec);
+      const item = list[idx];
+      if (!item) return;
+
+      document.getElementById('galleryItemEditIndex').value = idx;
+      document.getElementById('galleryItemEditSection').value = sec;
+      document.getElementById('galleryModalTitle').textContent = 'Edit Foto / Item: ' + (item.title || item.caption || '');
+
+      const secSelect = document.getElementById('galleryModalSectionSelect');
+      secSelect.value = sec;
+      secSelect.disabled = true;
+
+      document.getElementById('galleryItemTitleInput').value = item.title || item.caption || '';
+      document.getElementById('galleryItemSubtitleInput').value = item.theme || item.subtitle || '';
+      document.getElementById('galleryItemBadgeInput').value = item.tag || item.badge || '';
+      document.getElementById('galleryItemBranchSelect').value = item.branchId || 'all';
+
+      const imgUrl = item.imageUrl || item.image || item.src || '';
+      document.getElementById('galleryItemImageUrlInput').value = imgUrl;
+      updateGalleryModalPreview(imgUrl);
+
+      document.getElementById('galleryItemDescInput').value = item.description || '';
+      document.getElementById('galleryItemConceptInput').value = item.conceptNote || '';
+      document.getElementById('galleryItemHighlightsInput').value = (item.highlights || []).join(', ');
+      document.getElementById('galleryItemTagsInput').value = (item.tags || []).join(', ');
+
+      onGalleryModalSectionChange(sec);
+      openModal('galleryItemModal');
+    }
+
+    async function handleGalleryUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 25 * 1024 * 1024) {
+        return alert('Ukuran foto melebihi batas maksimal 25MB!');
+      }
+
+      const statusEl = document.getElementById('galleryUploadStatus');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.textContent = '⏳ Mengunggah foto (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        const dataUrl = evt.target.result;
+        try {
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: dataUrl,
+              fileName: file.name,
+              folder: 'gallery'
+            })
+          });
+
+          const data = await res.json();
+          if (data.success && data.url) {
+            document.getElementById('galleryItemImageUrlInput').value = data.url;
+            updateGalleryModalPreview(data.url);
+            if (statusEl) {
+              statusEl.textContent = '✅ Foto berhasil diunggah secara lokal!';
+              setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
+            }
+            showToast('Foto berhasil diunggah!', '📸');
+          } else {
+            throw new Error(data.error || 'Gagal memproses upload foto');
+          }
+        } catch (err) {
+          console.error('Gallery upload error:', err);
+          alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
+          if (statusEl) statusEl.style.display = 'none';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveGalleryItem() {
+      const sec = document.getElementById('galleryModalSectionSelect').value;
+      const origIdx = parseInt(document.getElementById('galleryItemEditIndex').value);
+      const title = document.getElementById('galleryItemTitleInput').value.trim();
+      const subtitle = document.getElementById('galleryItemSubtitleInput').value.trim();
+      const badge = document.getElementById('galleryItemBadgeInput').value.trim();
+      const branchId = document.getElementById('galleryItemBranchSelect').value;
+      const imageUrl = document.getElementById('galleryItemImageUrlInput').value.trim();
+
+      if (!title) return alert('Judul foto / item tidak boleh kosong!');
+      if (!imageUrl) return alert('URL foto atau upload file foto wajib diisi!');
+
+      const list = getActiveGalleryList(sec);
+
+      if (sec === 'hero') {
+        const newItem = {
+          id: origIdx === -1 ? 'hero-' + Date.now() : list[origIdx].id,
+          image: imageUrl,
+          title: title,
+          theme: subtitle || 'Studio Theme',
+          active: origIdx === -1 ? true : (list[origIdx].active !== false)
+        };
+        if (origIdx === -1) list.push(newItem);
+        else list[origIdx] = newItem;
+      } else if (sec === 'showcase') {
+        const newItem = {
+          id: origIdx === -1 ? 'showcase-' + Date.now() : list[origIdx].id,
+          branchId: branchId,
+          src: imageUrl,
+          caption: title + (subtitle ? ' — ' + subtitle : ''),
+          tag: badge || 'STUDIO SHOWCASE',
+          active: origIdx === -1 ? true : (list[origIdx].active !== false)
+        };
+        if (origIdx === -1) list.push(newItem);
+        else list[origIdx] = newItem;
+      } else {
+        // facility or equipment
+        const desc = document.getElementById('galleryItemDescInput').value.trim();
+        const concept = document.getElementById('galleryItemConceptInput').value.trim();
+        const hl = document.getElementById('galleryItemHighlightsInput').value.split(',').map(s => s.trim()).filter(Boolean);
+        const tg = document.getElementById('galleryItemTagsInput').value.split(',').map(s => s.trim()).filter(Boolean);
+
+        const newItem = {
+          id: origIdx === -1 ? (sec === 'facility' ? 'fac-' : 'eq-') + Date.now() : list[origIdx].id,
+          title: title,
+          subtitle: subtitle || 'Studio Feature',
+          category: sec === 'facility' ? 'ruangan' : 'peralatan',
+          packageName: sec === 'facility' ? 'Fasilitas Studio' : 'Peralatan Studio',
+          icon: sec === 'facility' ? '🛋️' : '💡',
+          badge: badge || (sec === 'facility' ? 'Kenyamanan Utama' : 'Peralatan Pro'),
+          imageUrl: imageUrl,
+          description: desc || title,
+          conceptNote: concept || '',
+          highlights: hl.length > 0 ? hl : [title],
+          tags: tg.length > 0 ? tg : ['#StudioAlviero'],
+          active: origIdx === -1 ? true : (list[origIdx].active !== false)
+        };
+        if (origIdx === -1) list.push(newItem);
+        else list[origIdx] = newItem;
+      }
+
+      closeModal('galleryItemModal');
+      renderGalleryGrid();
+      showToast(`Foto '${title}' berhasil disimpan!`);
+    }
+
+    function toggleGalleryItemActive(sec, idx, activeState) {
+      const list = getActiveGalleryList(sec);
+      if (list[idx]) {
+        list[idx].active = activeState;
+        renderGalleryGrid();
+        showToast(`Item foto telah di-${activeState ? 'aktifkan' : 'nonaktifkan'}.`);
+      }
+    }
+
+    function deleteGalleryItem(sec, idx) {
+      const list = getActiveGalleryList(sec);
+      const item = list[idx];
+      if (!item) return;
+
+      const name = item.title || item.caption || 'item';
+      if (confirm(`Yakin ingin menghapus '${name}'?`)) {
+        list.splice(idx, 1);
+        renderGalleryGrid();
+        showToast(`'${name}' telah dihapus.`);
+      }
+    }
+
+    loadConfig().then(() => {
+      const hash = window.location.hash ? window.location.hash.substring(1) : '';
+      if (hash && document.getElementById(hash)) {
+        const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
+        switchTab(hash, btn);
+      }
+    });
   
 </script>
 </body>

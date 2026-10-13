@@ -1049,15 +1049,8 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   // Handler klik vendor dari grid
   const handleOpenVendorPopup = (vendorName: string) => {
     setActivePopupVendor(vendorName);
-    const vendor = MUA_VENDORS.find(
-      (v) => v.name.toLowerCase() === vendorName.toLowerCase()
-    );
-    // Buka kategori pertama (Pass Foto) secara otomatis agar langsung terlihat sub-paketnya!
-    if (vendor && vendor.categories.length > 0) {
-      setExpandedCategoryId(vendor.categories[0].id);
-    } else {
-      setExpandedCategoryId(null);
-    }
+    // Semua kategori berstatus tertutup di awal, hanya terbuka ketika ditekan oleh pengguna
+    setExpandedCategoryId(null);
   };
 
   // Handler toggle accordion kategori

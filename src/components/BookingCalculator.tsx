@@ -7,6 +7,8 @@ import {
   ADD_ONS,
   PRO_STUDIO_TIME_SLOTS,
   SELF_STUDIO_TIME_SLOTS,
+  getProStudioTimeSlots,
+  getSelfStudioTimeSlots,
   STUDIO_BRANCHES,
   SELF_STUDIO_SUB_PACKAGES,
   SELF_STUDIO_1_BACKGROUNDS,
@@ -1596,7 +1598,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const isOutdoorOnly = hasOutdoorSession && currentPackage.category === 'graduation-outdoor';
   const outdoorTimeSlots = useMemo(() => generateOutdoorTimeSlots(), []);
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
-  const baseTimeSlots = isSelfStudio ? SELF_STUDIO_TIME_SLOTS : PRO_STUDIO_TIME_SLOTS;
+  const baseTimeSlots = useMemo(() => {
+    return isSelfStudio
+      ? getSelfStudioTimeSlots(selectedBranch)
+      : getProStudioTimeSlots(selectedBranch);
+  }, [isSelfStudio, selectedBranch]);
 
   // Durasi Self Studio mengikuti sub-paket, tetapi tetap memakai satu slot reguler.
   const sessionDurationMinutes = isSelfStudio || isOutdoorOnly

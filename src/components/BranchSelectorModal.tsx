@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
@@ -80,23 +81,34 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
+  const bannerSlides = useMemo(() => {
+    const customSlides = ((studioConfig as any)?.heroBannerSlides as any[]);
+    if (Array.isArray(customSlides) && customSlides.length > 0) {
+      const activeOnly = customSlides.filter(s => s.active !== false);
+      if (activeOnly.length > 0) return activeOnly;
+    }
+    return BACKGROUND_BANNER_IMAGES;
+  }, []);
+
+  const safeIdx = Math.min(currentIdx, Math.max(0, bannerSlides.length - 1));
+
   // Auto-scroll bergulir otomatis setiap 4.2 detik
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || bannerSlides.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % BACKGROUND_BANNER_IMAGES.length);
+      setCurrentIdx((prev) => (prev + 1) % bannerSlides.length);
     }, 4200);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, bannerSlides.length]);
 
   const handleNext = () => {
-    setCurrentIdx((prev) => (prev + 1) % BACKGROUND_BANNER_IMAGES.length);
+    setCurrentIdx((prev) => (prev + 1) % bannerSlides.length);
   };
 
   const handlePrev = () => {
-    setCurrentIdx((prev) => (prev - 1 + BACKGROUND_BANNER_IMAGES.length) % BACKGROUND_BANNER_IMAGES.length);
+    setCurrentIdx((prev) => (prev - 1 + bannerSlides.length) % bannerSlides.length);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -116,7 +128,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
     touchEndX.current = null;
   };
 
-  const currentItem = BACKGROUND_BANNER_IMAGES[currentIdx] || BACKGROUND_BANNER_IMAGES[0];
+  const currentItem = bannerSlides[safeIdx] || bannerSlides[0];
 
   return (
     <div
@@ -183,7 +195,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
 
         {/* Minimalist Bar Pagination */}
         <div className="absolute bottom-3.5 right-3.5 sm:right-6 flex items-center gap-1.5 z-20 bg-black/60 backdrop-blur-xs px-3 py-1.5 border border-white/15">
-          {BACKGROUND_BANNER_IMAGES.map((slide, idx) => {
+          {bannerSlides.map((slide: any, idx: number) => {
             const isActive = currentIdx === idx;
             return (
               <button
@@ -861,31 +873,47 @@ export const StudioTourAndEducationShowcase: React.FC<{
   onSelectCategory?: (category: string) => void;
   onSelectBranch?: (branch: StudioBranch) => void;
   selectedBranch?: StudioBranch;
-}> = () => {
+}> = ({ selectedBranch }) => {
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
-  const activeSlide = STUDIO_SHOWCASE_IMAGES[currentSlideIdx] || STUDIO_SHOWCASE_IMAGES[0];
+  const showcaseSlides = useMemo(() => {
+    const customShowcase = ((studioConfig as any)?.showcaseImages as any[]);
+    if (Array.isArray(customShowcase) && customShowcase.length > 0) {
+      const active = customShowcase.filter(s => {
+        if (s.active === false) return false;
+        if (selectedBranch && s.branchId && s.branchId !== 'all') {
+          return s.branchId === selectedBranch;
+        }
+        return true;
+      });
+      if (active.length > 0) return active;
+    }
+    return STUDIO_SHOWCASE_IMAGES;
+  }, [selectedBranch]);
+
+  const safeSlideIdx = Math.min(currentSlideIdx, Math.max(0, showcaseSlides.length - 1));
+  const activeSlide = showcaseSlides[safeSlideIdx] || showcaseSlides[0];
 
   // Auto-scroll bergulir otomatis setiap 3.8 detik
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || showcaseSlides.length <= 1) return;
 
     const interval = setInterval(() => {
-      setCurrentSlideIdx((prev) => (prev + 1) % STUDIO_SHOWCASE_IMAGES.length);
+      setCurrentSlideIdx((prev) => (prev + 1) % showcaseSlides.length);
     }, 3800);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, showcaseSlides.length]);
 
   const handleNextSlide = () => {
-    setCurrentSlideIdx((prev) => (prev + 1) % STUDIO_SHOWCASE_IMAGES.length);
+    setCurrentSlideIdx((prev) => (prev + 1) % showcaseSlides.length);
   };
 
   const handlePrevSlide = () => {
-    setCurrentSlideIdx((prev) => (prev - 1 + STUDIO_SHOWCASE_IMAGES.length) % STUDIO_SHOWCASE_IMAGES.length);
+    setCurrentSlideIdx((prev) => (prev - 1 + showcaseSlides.length) % showcaseSlides.length);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -948,7 +976,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
 
           {/* Minimalist Bottom Pagination Dots */}
           <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">
-            {STUDIO_SHOWCASE_IMAGES.map((_, idx) => (
+            {showcaseSlides.map((_: any, idx: number) => (
               <button
                 key={idx}
                 type="button"
@@ -1001,9 +1029,11 @@ export interface StudioPromo {
   discountHighlight: string;
   period: string;
   imageUrl: string;
+  images?: string[];
   terms: string[];
   howToUse: string[];
   preselectedPackageId?: string;
+  active?: boolean;
 }
 
 export const STUDIO_PROMOS: StudioPromo[] = [
@@ -1115,7 +1145,11 @@ export const STUDIO_PROMOS: StudioPromo[] = [
   }
 ];
 
-const DISPLAY_STUDIO_PROMOS = STUDIO_PROMOS.filter((promo, index, promos) =>
+const rawConfigPromos = ((studioConfig as any)?.promos as StudioPromo[]);
+const sourcePromos = (rawConfigPromos && rawConfigPromos.length > 0) ? rawConfigPromos : STUDIO_PROMOS;
+const activePromos = sourcePromos.filter(p => (p as any).active !== false);
+
+const DISPLAY_STUDIO_PROMOS = (activePromos.length > 0 ? activePromos : sourcePromos).filter((promo, index, promos) =>
   promo.kind === 'promo'
     ? promos.findIndex(item => item.kind === 'promo') === index
     : promo.kind === 'berita' || promo.kind === 'tim'
@@ -1228,7 +1262,7 @@ export const PromoSpecialSection: React.FC<{
               {/* Banner Foto Promo */}
               <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-stone-100">
                 <img
-                  src={promo.imageUrl}
+                  src={(promo.images && promo.images[0]) || promo.imageUrl}
                   alt={promo.title}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
@@ -1242,6 +1276,16 @@ export const PromoSpecialSection: React.FC<{
                     {promo.badge}
                   </span>
                 </div>
+
+                {/* Multi-Photo Badge jika foto lebih dari 1 */}
+                {promo.images && promo.images.length > 1 && (
+                  <div className="absolute bottom-2.5 right-3 z-10">
+                    <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2 py-0.5 rounded-full text-[9.5px] font-mono font-bold flex items-center gap-1 shadow-xs">
+                      <Images className="w-3 h-3 text-[#A9BCA7]" />
+                      <span>{promo.images.length} Foto</span>
+                    </span>
+                  </div>
+                )}
 
                 {/* Floating Periode Pill */}
                 <div className="absolute top-3 right-3">
@@ -1327,12 +1371,14 @@ export const PromoDetailModal: React.FC<{
 }> = ({ promo, onClose, onApplyPromo, selectedBranch = 'cabang-1' }) => {
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
   const [activeView, setActiveView] = useState<'default' | 'struktur' | 'galeri'>('default');
+  const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
 
   // Integrasi tombol Back fisik / Swipe Back HP untuk modal info & promo
   useMobileBackButton(Boolean(promo), onClose, 'promo-detail');
 
   useEffect(() => {
     setActiveView('default');
+    setCurrentImgIndex(0);
   }, [promo?.id]);
 
   if (!promo) return null;
@@ -1377,23 +1423,90 @@ export const PromoDetailModal: React.FC<{
 
         {/* Scrollable Content Body (Gaya Aplikasi PLN Mobile) */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
-          {/* Banner Promo */}
-          <div className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden border border-[#E8DDD6] shadow-2xs bg-stone-100">
-            <img
-              src={promo.imageUrl}
-              alt={promo.title}
-              className="w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-              <span className="bg-[#2A2A2A]/90 backdrop-blur-xs text-[#A9BCA7] border border-[#A9BCA7]/40 px-3 py-1 rounded-full text-[10.5px] font-mono font-black uppercase tracking-wider">
-                {promo.badge}
-              </span>
-              <span className="text-white text-xs font-serif font-bold drop-shadow">
-                {promo.period}
-              </span>
-            </div>
-          </div>
+          {/* Banner Promo / Multi-Photo Slider */}
+          {(() => {
+            const promoImages = (promo.images && promo.images.length > 0)
+              ? promo.images
+              : (promo.imageUrl ? [promo.imageUrl] : []);
+            const safeImgIndex = Math.min(currentImgIndex, Math.max(0, promoImages.length - 1));
+
+            return (
+              <div className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden border border-[#E8DDD6] shadow-2xs bg-stone-100 group">
+                <img
+                  src={promoImages[safeImgIndex] || promo.imageUrl}
+                  alt={promo.title}
+                  className="w-full h-full object-cover object-center transition-all duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                {/* Kontrol Navigasi Slider Panah jika foto > 1 */}
+                {promoImages.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImgIndex((prev) => (prev > 0 ? prev - 1 : promoImages.length - 1));
+                      }}
+                      aria-label="Foto Sebelumnya"
+                      className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-xs z-10"
+                    >
+                      <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImgIndex((prev) => (prev < promoImages.length - 1 ? prev + 1 : 0));
+                      }}
+                      aria-label="Foto Selanjutnya"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-xs z-10"
+                    >
+                      <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                    </button>
+
+                    {/* Indikator Angka Foto */}
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2 py-0.5 rounded-full text-[9.5px] font-mono font-bold flex items-center gap-1 shadow-sm">
+                        <Images className="w-3 h-3 text-[#A9BCA7]" />
+                        <span>{safeImgIndex + 1} / {promoImages.length}</span>
+                      </span>
+                    </div>
+                  </>
+                )}
+
+                {/* Bottom Bar: Badge & Dots atau Period */}
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between z-10">
+                  <span className="bg-[#2A2A2A]/90 backdrop-blur-xs text-[#A9BCA7] border border-[#A9BCA7]/40 px-3 py-1 rounded-full text-[10.5px] font-mono font-black uppercase tracking-wider">
+                    {promo.badge}
+                  </span>
+
+                  {promoImages.length > 1 ? (
+                    <div className="flex items-center gap-1 bg-black/50 backdrop-blur-xs px-2.5 py-1 rounded-full">
+                      {promoImages.map((_, dotIdx) => (
+                        <button
+                          key={dotIdx}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentImgIndex(dotIdx);
+                          }}
+                          aria-label={`Lihat Foto ${dotIdx + 1}`}
+                          className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                            safeImgIndex === dotIdx ? 'w-4 bg-[#A9BCA7]' : 'w-1.5 bg-white/60 hover:bg-white'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-white text-xs font-serif font-bold drop-shadow">
+                      {promo.period}
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Judul & Kategori */}
           <div className="space-y-1">
@@ -1600,23 +1713,63 @@ export const PromoDetailModal: React.FC<{
                 </button>
               </div>
 
-              {/* Area Placeholder Kumpulan Foto Galeri Tim */}
-              <div className="border-2 border-dashed border-[#E8DDD6] rounded-xl p-4 sm:p-6 bg-[#FDFBF7] text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-[#F2E9E4] text-[#6E856C] mx-auto flex items-center justify-center border border-[#E8DDD6]">
-                  <Images className="w-6 h-6" />
-                </div>
-                <div className="space-y-1">
-                  <p className="font-serif font-bold text-sm text-[#3A3A3A]">
-                    Komponen Galeri Foto Tim
-                  </p>
-                  <p className="font-sans text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
-                    Area ini disiapkan untuk merender kumpulan foto aktivitas tim, momen seru saat pemotretan, dan dokumentasi kru Alviero Studio.
-                  </p>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#A9BCA7]">
-                  <span>Status: Siap Dirender</span>
-                </div>
-              </div>
+              {/* Grid Galeri Foto Tim */}
+              {(() => {
+                const teamPhotos = (promo.images && promo.images.length > 0)
+                  ? promo.images
+                  : (promo.imageUrl ? [promo.imageUrl] : []);
+
+                if (teamPhotos.length > 1) {
+                  return (
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {teamPhotos.map((imgUrl, i) => (
+                          <div
+                            key={i}
+                            onClick={() => {
+                              setCurrentImgIndex(i);
+                              setActiveView('default');
+                            }}
+                            className="relative aspect-square rounded-xl overflow-hidden border border-[#E8DDD6] cursor-pointer group hover:border-[#6E856C] transition-all shadow-2xs"
+                          >
+                            <img
+                              src={imgUrl}
+                              alt={`Galeri ${i + 1}`}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                            <span className="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[9px] font-mono font-bold px-1.5 py-0.5 rounded">
+                              Foto #{i + 1}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-[11px] font-sans text-stone-500 text-center pt-1">
+                        Klik pada foto di atas untuk menampilkan foto tersebut di layar utama.
+                      </p>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="border-2 border-dashed border-[#E8DDD6] rounded-xl p-4 sm:p-6 bg-[#FDFBF7] text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-[#F2E9E4] text-[#6E856C] mx-auto flex items-center justify-center border border-[#E8DDD6]">
+                      <Images className="w-6 h-6" />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="font-serif font-bold text-sm text-[#3A3A3A]">
+                        Komponen Galeri Foto Tim
+                      </p>
+                      <p className="font-sans text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+                        Tambahkan lebih banyak foto melalui Control Panel Admin untuk mengisi galeri dokumentasi kru Alviero Studio ini.
+                      </p>
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#A9BCA7]">
+                      <span>{teamPhotos.length} Foto Terpasang</span>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
         </div>

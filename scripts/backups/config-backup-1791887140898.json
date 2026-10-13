@@ -1,0 +1,2650 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-10-12T07:14:53.485Z",
+  "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
+  "announcement": "",
+  "branches": [
+    {
+      "id": "cabang-1",
+      "name": "Alviero Studio – Studio 1",
+      "shortName": "Studio 1 (Junrejo)",
+      "tagline": "Junrejo, Kota Batu",
+      "address": "Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151",
+      "badge": "Studio 1",
+      "description": "Pusat Self Studio & Studio Foto",
+      "icon": "🏛️",
+      "mapsUrl": "https://maps.app.goo.gl/oxtptpr3RSDL9zCj6",
+      "reviewUrl": "https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu",
+      "whatsappNumber": "6287777538164",
+      "whatsappDisplay": "0877-7753-8164"
+    },
+    {
+      "id": "cabang-2",
+      "name": "Alviero Studio – Studio 2",
+      "shortName": "Studio 2 (Dinoyo)",
+      "tagline": "Dinoyo, Kota Malang",
+      "address": "Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144",
+      "badge": "Studio 2",
+      "description": "Self Studio & Studio Foto",
+      "icon": "🏢",
+      "mapsUrl": "https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9",
+      "reviewUrl": "https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
+      "whatsappNumber": "6285168879214",
+      "whatsappDisplay": "0851-6887-9214"
+    }
+  ],
+  "backgrounds": [
+    {
+      "id": "hitam-list",
+      "name": "Hitam List",
+      "category": "solid-color",
+      "hex": "#111827",
+      "colorClass": "bg-gray-950",
+      "description": "Latar hitam dengan aksen list untuk tampilan elegan dan tegas.",
+      "previewImage": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 0
+    },
+    {
+      "id": "putih-tematik",
+      "name": "Putih Tematik",
+      "category": "solid-color",
+      "hex": "#F5F5F5",
+      "colorClass": "bg-slate-50",
+      "description": "Latar putih dengan sentuhan tematik untuk foto yang bersih dan cerah.",
+      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 1
+    },
+    {
+      "id": "putih-list",
+      "name": "Putih List",
+      "category": "solid-color",
+      "hex": "#F5F5F5",
+      "colorClass": "bg-white",
+      "description": "Latar putih dengan aksen list untuk hasil foto minimalis dan rapi.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 2
+    },
+    {
+      "id": "coklat-tematik",
+      "name": "Coklat Tematik",
+      "category": "solid-color",
+      "hex": "#8B5E3C",
+      "colorClass": "bg-amber-800",
+      "description": "Latar coklat bernuansa tematik untuk hasil foto hangat dan berkarakter.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 3
+    },
+    {
+      "id": "limbo",
+      "name": "Limbo",
+      "category": "solid-color",
+      "hex": "#FFFFFF",
+      "colorClass": "bg-gray-200",
+      "description": "Latar mulus tanpa sudut untuk efek ruang foto yang luas dan bersih.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 4
+    },
+    {
+      "id": "ivory-mediterania",
+      "name": "Ivory Mediterania",
+      "category": "solid-color",
+      "hex": "#FFFFF0",
+      "colorClass": "bg-stone-100",
+      "description": "Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.",
+      "previewImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio",
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 5
+    },
+    {
+      "id": "c1-self-polos-putih",
+      "name": "Polos Putih",
+      "category": "solid-color",
+      "hex": "#F8FAFC",
+      "colorClass": "bg-slate-50",
+      "description": "Latar putih polos yang bersih untuk foto mandiri yang cerah.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 6
+    },
+    {
+      "id": "c1-self-polos-abu",
+      "name": "Polos Abu",
+      "category": "solid-color",
+      "hex": "#9CA3AF",
+      "colorClass": "bg-gray-400",
+      "description": "Latar abu polos bernuansa netral untuk gaya foto yang modern.",
+      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 7
+    },
+    {
+      "id": "c1-self-polos-coklat",
+      "name": "Polos Coklat",
+      "category": "solid-color",
+      "hex": "#92400E",
+      "colorClass": "bg-amber-800",
+      "description": "Latar coklat polos untuk hasil foto mandiri yang hangat.",
+      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 8
+    },
+    {
+      "id": "c1-self-tirai-coklat",
+      "name": "Tirai Coklat",
+      "category": "solid-color",
+      "hex": "#78350F",
+      "colorClass": "bg-amber-900",
+      "description": "Latar tirai coklat dengan nuansa hangat dan intim.",
+      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "active": true,
+      "_origIndex": 9
+    },
+    {
+      "id": "c2-hitam",
+      "name": "Hitam",
+      "category": "solid-color",
+      "hex": "#111827",
+      "description": "Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.",
+      "previewImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 10
+    },
+    {
+      "id": "c2-putih",
+      "name": "Putih",
+      "category": "solid-color",
+      "hex": "#F8FAFC",
+      "description": "Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 11
+    },
+    {
+      "id": "c2-abu",
+      "name": "Abu-abu",
+      "category": "solid-color",
+      "hex": "#64748B",
+      "description": "Latar abu-abu netral elegan untuk kesan modern & aesthetic.",
+      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 12
+    },
+    {
+      "id": "c2-coklat-jendela",
+      "name": "Coklat Jendela",
+      "category": "solid-color",
+      "hex": "#92400E",
+      "description": "Latar coklat klasik dengan ornamen jendela mewah berkarakter.",
+      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 13
+    },
+    {
+      "id": "c2-tematik-cream",
+      "name": "Tematik Cream",
+      "category": "solid-color",
+      "hex": "#FEF3C7",
+      "description": "Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).",
+      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "pro-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 14
+    },
+    {
+      "id": "c2-self-abu",
+      "name": "Abu-abu",
+      "category": "solid-color",
+      "hex": "#64748B",
+      "description": "Latar abu-abu netral aesthetic untuk foto mandiri kekinian.",
+      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 15
+    },
+    {
+      "id": "c2-self-biru",
+      "name": "Biru",
+      "category": "solid-color",
+      "hex": "#2563EB",
+      "description": "Latar biru aesthetic & fresh khas bilik foto mandiri Alviero.",
+      "previewImage": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 16
+    },
+    {
+      "id": "c2-self-putih",
+      "name": "Putih",
+      "category": "solid-color",
+      "hex": "#F8FAFC",
+      "description": "Latar putih bersih minimalis untuk ekspresi gaya bebas.",
+      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 17
+    },
+    {
+      "id": "c2-self-tematik-cream",
+      "name": "Tematik Cream",
+      "category": "solid-color",
+      "hex": "#FEF3C7",
+      "description": "Latar tematik cream hangat untuk nuansa pastel aesthetic (Maksimal 5 Orang).",
+      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "applicableTo": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "cabang-2"
+      ],
+      "active": true,
+      "_origIndex": 18
+    }
+  ],
+  "timeSlots": [
+    {
+      "time": "05:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "05:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "06:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "06:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Outdoor (Bebas Biaya Tambahan)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "07:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Ekstra Pagi Studio (+Rp 35.000 Biaya Tambahan)",
+      "earlyCharge": 35000,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "08:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "08:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "09:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "09:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "10:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "10:30",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "11:00",
+      "maxCapacity": 2,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Pagi (Maks. 2 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "11:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "12:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "12:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "13:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "13:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "14:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "14:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "15:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "15:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "16:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "16:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "17:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "17:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "18:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "18:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "19:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "19:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "20:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "20:30",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Gabungan (Maks. 3 Klien)",
+      "earlyCharge": 0,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    },
+    {
+      "time": "21:00",
+      "maxCapacity": 3,
+      "allowedServices": [
+        "indoor",
+        "outdoor"
+      ],
+      "shiftName": "Shift Malam Overtime (+Rp 35.000 Melebihi Tutup Studio)",
+      "earlyCharge": 35000,
+      "active": true,
+      "applicableBranches": [
+        "cabang-1",
+        "cabang-2"
+      ],
+      "activeByBranch": {
+        "cabang-1": true,
+        "cabang-2": true
+      }
+    }
+  ],
+  "promoSection": {
+    "tag": "PROMO & INFORMASI",
+    "badge": "Terbatas",
+    "title": "Promo dan Informasi Alviero Studio",
+    "subtitle": "Geser ke samping untuk melihat promo, berita terbaru, dan tim Alviero Studio:"
+  },
+  "promos": [
+    {
+      "id": "promo-wisuda",
+      "kind": "promo",
+      "code": "STUDENT10",
+      "badge": "DISKON 10%",
+      "category": "WISUDA & MAHASISWA",
+      "title": "Promo Spesial Wisuda: Diskon 10% All Package",
+      "shortDesc": "Rayakan kelulusan bersama teman & keluarga dengan potongan 10% untuk semua paket wisuda.",
+      "fullDesc": "Dapatkan diskon istimewa 10% untuk seluruh paket Foto Wisuda Indoor (Studio) dan Wisuda Outdoor di Alviero Studio. Fasilitas lengkap mencakup ruang ganti privat, peminjaman toga wisuda, serta seluruh soft file resolusi tinggi via Google Drive.",
+      "discountHighlight": "Potongan 10% Total Transaksi",
+      "period": "Berlaku Setiap Hari • Kuota Terbatas",
+      "imageUrl": "/images/categories/graduation.jpg",
+      "terms": [
+        "Berlaku untuk paket Graduation Indoor dan Outdoor di Studio 1 maupun Studio 2.",
+        "Wajib menunjukkan Kartu Tanda Mahasiswa (KTM) aktif saat registrasi atau konfirmasi WhatsApp.",
+        "Berlaku untuk pemesanan jadwal secara online via website Alviero Studio.",
+        "Kuota voucher promo terbatas setiap harinya.",
+        "Tidak dapat diuangkan atau digabungkan dengan diskon promosi sejenis lainnya."
+      ],
+      "howToUse": [
+        "Salin kode kupon STUDENT10 di kotak voucher.",
+        "Tekan tombol \"Gunakan Promo & Booking\" di bawah.",
+        "Kode akan langsung memotong total biaya saat simulasi pembayaran."
+      ],
+      "preselectedPackageId": "grad-indoor-1",
+      "active": true,
+      "_origIndex": 0
+    },
+    {
+      "id": "promo-couple",
+      "kind": "promo",
+      "code": "COUPLE15",
+      "badge": "HEMAT 15%",
+      "category": "COUPLE & PREWEDDING",
+      "title": "Sweet Romance: Hemat 15% Sesi Foto Pasangan",
+      "shortDesc": "Abadikan momen romantis dan prewedding bersama orang tersayang dengan potongan 15%.",
+      "fullDesc": "Momen berharga bersama pasangan semakin berkesan dengan penawaran spesial hemat 15% untuk Paket Foto Couple Studio dan Paket Prewedding. Termasuk cetak foto premium berbingkai dan arahan pose natural dari fotografer berpengalaman.",
+      "discountHighlight": "Potongan 15% Paket Couple & Prewed",
+      "period": "Berlaku s.d. Akhir Bulan",
+      "imageUrl": "/images/categories/couple.jpg",
+      "terms": [
+        "Berlaku untuk Paket Foto Couple dan Paket Prewedding Studio.",
+        "Berlaku untuk sesi foto di Studio 1 (Junrejo) & Studio 2 (Dinoyo).",
+        "Wajib melakukan reservasi jadwal sesi terlebih dahulu via website.",
+        "Sudah termasuk cetak foto berbingkai estetis dan all soft files Google Drive."
+      ],
+      "howToUse": [
+        "Salin kode kupon COUPLE15.",
+        "Tekan tombol \"Gunakan Promo & Booking\" di bawah.",
+        "Potongan diskon 15% otomatis teraplikasikan pada tagihan reservasi."
+      ],
+      "preselectedPackageId": "couple-1",
+      "active": true,
+      "_origIndex": 1
+    },
+    {
+      "id": "promo-welcome",
+      "kind": "promo",
+      "code": "ALVIERO",
+      "badge": "POTONGAN 10K",
+      "category": "SEMUA LAYANAN & SELFSTUDIO",
+      "title": "Welcome Voucher: Potongan Langsung Rp 10.000",
+      "shortDesc": "Klaim voucher potongan langsung Rp 10.000 untuk semua pemesanan online di website.",
+      "fullDesc": "Sebagai apresiasi untuk Anda yang melakukan reservasi online melalui website resmi Alviero Studio, nikmati potongan langsung Rp 10.000 tanpa minimal transaksi tinggi. Berlaku untuk SelfStudio, Foto Grup, Personal, hingga Sewa Studio.",
+      "discountHighlight": "Potongan Langsung Rp 10.000",
+      "period": "Eksklusif Pemesanan Website",
+      "imageUrl": "/images/categories/selfphoto.jpg",
+      "terms": [
+        "Berlaku untuk semua paket foto (SelfStudio, Studio Foto, Sewa Studio).",
+        "Khusus reservasi jadwal mandiri melalui website resmi Alviero Studio.",
+        "Dapat digunakan 1 kali per nomor WhatsApp pelanggan.",
+        "Langsung memotong nominal pembayaran DP atau pelunasan."
+      ],
+      "howToUse": [
+        "Salin kode kupon ALVIERO.",
+        "Pilih paket foto yang Anda inginkan pada form booking.",
+        "Voucher otomatis memotong Rp 10.000 dari total tagihan."
+      ],
+      "preselectedPackageId": "selfstudio-special",
+      "active": true,
+      "_origIndex": 2
+    },
+    {
+      "id": "news-new-lighting",
+      "kind": "berita",
+      "code": "INFO",
+      "badge": "BERITA TERBARU",
+      "category": "BERITA ALVIERO",
+      "title": "Setup Lighting Baru untuk Hasil Foto Lebih Berkarakter",
+      "shortDesc": "Alviero Studio terus memperbarui peralatan lighting untuk mendukung foto portrait, wisuda, dan self studio.",
+      "fullDesc": "Kami sedang menghadirkan pembaruan setup lighting agar pencahayaan sesi foto semakin fleksibel. Tim studio dapat membantu menyesuaikan karakter cahaya dengan konsep dan kebutuhan setiap klien.",
+      "discountHighlight": "Pembaruan Fasilitas Studio",
+      "period": "Informasi Studio",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "terms": [
+        "Ketersediaan setup menyesuaikan jenis sesi dan paket.",
+        "Konsultasikan kebutuhan lighting kepada admin atau fotografer."
+      ],
+      "howToUse": [
+        "Pilih paket dan jadwal sesi foto.",
+        "Sampaikan referensi konsep kepada admin.",
+        "Tim Alviero akan membantu menyiapkan setup yang sesuai."
+      ],
+      "active": true,
+      "_origIndex": 3
+    },
+    {
+      "id": "team-alviero",
+      "kind": "tim",
+      "code": "TEAM",
+      "badge": "TIM ALVIERO",
+      "category": "TIM ALVIERO STUDIO",
+      "title": "Kenali Tim yang Menemani Sesi Foto Anda",
+      "shortDesc": "Tim Alviero Studio siap membantu pengarahan pose, persiapan konsep, dan kebutuhan teknis selama sesi foto.",
+      "fullDesc": "Di balik setiap sesi foto ada tim yang memastikan pengalaman Anda tetap nyaman dan terarah. Fotografer, admin, dan kru studio bekerja bersama untuk membantu persiapan, pencahayaan, pose, hingga proses konfirmasi jadwal.",
+      "discountHighlight": "Fotografer & Kru Studio",
+      "period": "Tentang Tim Kami",
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85",
+      "terms": [
+        "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
+        "Konsultasi konsep dapat dilakukan sebelum sesi foto."
+      ],
+      "howToUse": [
+        "Hubungi admin untuk konsultasi konsep.",
+        "Datang sesuai jadwal reservasi.",
+        "Nikmati sesi foto dengan pendampingan tim Alviero."
+      ],
+      "active": true,
+      "_origIndex": 4
+    }
+  ],
+  "history": {
+    "header": {
+      "tag": "Dokumentasi Resmi Alviero Studio",
+      "title": "Sejarah & Perjalanan Alviero Studio"
+    },
+    "prologue": {
+      "badge": "Awal Mula Pendirian",
+      "title": "Dedikasi Mengabadikan Setiap Detik Berharga Tanpa Batas Rasa Kaku",
+      "paragraph1": "Alviero Studio Foto didirikan atas dasar kecintaan mendalam terhadap seni visual fotografi serta tekad untuk menghadirkan ruang studio yang hangat, ramah, dan bebas dari rasa canggung bagi siapa saja. Berangkat dari keresahan masyarakat bahwa sesi foto studio kerap kali terkesan kaku, mahal, dan penuh batasan, Alviero Studio hadir membawa konsep segar: \"Kenyamanan maksimal, pelayanan bersahabat, dan kualitas visual setara majalah terkemuka.\"",
+      "paragraph2": "Sejak hari pertama berdiri di Malang, komitmen Alviero Studio tetap teguh: memberikan seluruh file asli tanpa biaya tambahan, mengutamakan pengarahan pose yang sabar dan natural, serta menyediakan tata cahaya berstandar profesional yang menonjolkan kecantikan asli setiap klien."
+    },
+    "milestonesSectionTitle": "Tonggak Perjalanan Alviero Studio",
+    "milestones": [
+      {
+        "id": "milestone-1",
+        "icon": "pin",
+        "title": "Lahirnya Alviero Studio 1 — Junrejo",
+        "badge": "Cabang Pertama (Pusat)",
+        "badgeStyle": "green",
+        "description": "Dibuka di kawasan sejuk Junrejo. Hadir dengan fasilitas ikonik Limbo Putih Seamless (Infinity Curve) tanpa batas sudut lantai, pencahayaan softbox besar berdifuser ganda, dan ruangan berdaya tampung luas yang menjadi favorit wisudawan serta keluarga besar di Malang Raya."
+      },
+      {
+        "id": "milestone-2",
+        "icon": "sparkles",
+        "title": "Ekspansi Alviero Studio 2 — Dinoyo (Gajayana)",
+        "badge": "Cabang Kedua (Pusat Kota)",
+        "badgeStyle": "dark",
+        "description": "Merespons antusiasme ribuan mahasiswa dan keluarga muda di pusat Kota Malang, Alviero Studio membuka cabang kedua di Ruko Gajayana Dinoyo. Menghadirkan teknologi modern Self Studio Nirkabel mandiri tanpa rasa canggung, spotlight pencahayaan warna warni (RGB), serta dekorasi tematik cream yang homey dan berkarakter."
+      },
+      {
+        "id": "milestone-3",
+        "icon": "award",
+        "title": "Lebih dari 10.000++ Momen Berharga Terabadikan",
+        "badge": "Kepercayaan Pelanggan",
+        "badgeStyle": "amber",
+        "description": "Mulai dari wisuda sarjana, pernikahan & prewedding romantis, momen kehamilan ibu (maternity), ulang tahun ceria, hingga potret kebersamaan keluarga dan sahabat. Alviero Studio terus bertumbuh sebagai studio foto terpercaya dengan rating ulasan bintang 5 di Google Maps."
+      }
+    ],
+    "valuesSectionTitle": "Visi, Misi & Nilai Luhur Pelayanan Alviero Studio",
+    "values": [
+      {
+        "id": "value-1",
+        "icon": "heart",
+        "title": "Visi",
+        "description": "Menjadi bagian dari setiap momen berharga dengan menciptakan pengalaman dan karya visual yang membuat setiap kebahagiaan layak untuk dikenang."
+      },
+      {
+        "id": "value-2",
+        "icon": "shield",
+        "title": "Misi",
+        "description": "Menghadirkan pengalaman yang hangat, karya yang kreatif, serta layanan yang profesional melalui inovasi dan perkembangan berkelanjutan agar setiap momen dapat dikenang sepanjang waktu."
+      },
+      {
+        "id": "value-3",
+        "icon": "star",
+        "title": "Nilai Luhur Pelayanan (C.R.E.A.T.E.)",
+        "description": "The Values behind every moment\n*CREATE*\n*C - Capture*\nMengabadikan momen dengan karya yang bermakna dan berkualitas.\n*R - Relationship*\nMembangun hubungan yang hangat, tulus, dan berkesan dengan setiap pelanggan.\n*E - Experience*\nMenciptakan pengalaman berfoto yang nyaman, menyenangkan, dan memorable.\n*A - Art & Creativity*\nMenghadirkan konsep dan karya fotografi yang kreatif, modern, dan memiliki karakter.\n*T - Technology & Growth*\nTerus berkembang melalui inovasi, teknologi, dan peningkatan kualitas tim.\n*E - Excellence*\nMemberikan pelayanan dan hasil terbaik dengan standar kualitas yang konsisten."
+      }
+    ],
+    "quote": {
+      "text": "\"Bagi kami, setiap jepretan bukan sekadar gambar, melainkan prasasti kenangan indah yang akan Anda tersenyumi kembali di masa depan.\"",
+      "author": "— Tim Manajemen Alviero Studio Foto Malang"
+    }
+  },
+  "pricelistSection": {
+    "tag": "RESERVASI JADWAL ONLINE",
+    "title": "Siap Berekspresi? Jelajahi Pricelist & Booking!",
+    "subtitle": "Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:",
+    "services": [
+      {
+        "id": "studio-foto",
+        "title": "STUDIO FOTO",
+        "badge": "Foto Studio",
+        "description": "Graduation, Group, Family, Personal, Maternity",
+        "drawerTitle": "PILIH LOKASI STUDIO FOTO:",
+        "theme": "cream",
+        "icon": "camera",
+        "active": true
+      },
+      {
+        "id": "self-studio",
+        "title": "SELFSTUDIO",
+        "badge": "Self Photo",
+        "description": "Foto Mandiri Wireless Shutter & Cetak Kolase",
+        "drawerTitle": "PILIH LOKASI SELFSTUDIO:",
+        "theme": "brown",
+        "icon": "sparkles",
+        "active": true
+      },
+      {
+        "id": "cetak-bingkai",
+        "title": "CETAK & BINGKAI",
+        "badge": "Frame",
+        "description": "Cetak Berkualitas, Bingkai Kayu & Album",
+        "drawerTitle": "PILIH LOKASI STUDIO CETAK:",
+        "theme": "cream",
+        "icon": "image",
+        "active": true
+      },
+      {
+        "id": "wedding-prewedding",
+        "title": "WEDDING & PREWEDDING",
+        "badge": "Suite",
+        "description": "Prewedding Outdoor/Studio, Akad & Resepsi",
+        "drawerTitle": "PILIH LOKASI STUDIO:",
+        "theme": "brown",
+        "icon": "heart",
+        "active": true
+      },
+      {
+        "id": "event-dokumentasi",
+        "title": "EVENT DOKUMENTASI",
+        "badge": "Event",
+        "description": "Dokumentasi Birthday, Gathering & Seminar",
+        "drawerTitle": "PILIH LOKASI STUDIO:",
+        "theme": "cream",
+        "icon": "calendar",
+        "active": true
+      },
+      {
+        "id": "mua-kebaya",
+        "title": "MUA, KEBAYA & HAIRDO",
+        "badge": "Beauty",
+        "description": "Makeup, kebaya, hairdo & hijabdo siap sesi foto",
+        "drawerTitle": "PILIH LOKASI STUDIO / MUA:",
+        "theme": "brown",
+        "icon": "sparkles",
+        "active": true
+      }
+    ]
+  },
+  "disclaimer": {
+    "tag": "Ketentuan & Tata Tertib Resmi",
+    "title": "DISCLAIMER",
+    "subtitle": "Kebijakan Operasional, Ketentuan Booking & Prosedur Layanan Alviero Studio",
+    "sections": [
+      {
+        "id": "sec-operasional",
+        "title": "1. Ketentuan Umum Operasional",
+        "items": [
+          "Jam operasional buka setiap hari 08:00 - 21:00 WIB. Bisa request di luar jam operasional dengan biaya tambahan charge Rp 35.000 (kecuali wisuda outdoor tanpa biaya charge).",
+          "Jika terlambat dikenakan biaya tambahan Rp 25.000 dan jika sesi melebihi jam 21.00 WIB dikenakan biaya overtime sebesar Rp 35.000.",
+          "Link all file asli via Google Drive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio sedang ramai."
+        ]
+      },
+      {
+        "id": "sec-file-edit",
+        "title": "2. File Edit dan Pengambilan Cetak Foto",
+        "items": [
+          "Proses File edit maksimal 7 hari dan Cetak 5 hari (kecuali pass foto langsung jadi kilat) dihitung sejak Anda selesai memilih nomor foto di Google Drive.",
+          "Hasil cetakan foto diambil kembali di Studio Alviero. Pengiriman via kurir online (Grab / Gojek / Gosend) diperbolehkan dengan pemesanan mandiri oleh klien.",
+          "Batas waktu pengambilan cetakan foto maksimal 1 bulan. Di atas 1 bulan, kerusakan atau kehilangan cetakan berada di luar tanggung jawab studio.",
+          "Pilihan foto yang akan diedit dan dicetak maksimal 1 bulan dari tanggal sesi foto.",
+          "Retouch editing foto sebatas pembersihan background, pencahayaan, dan tone warna dasar studio."
+        ]
+      },
+      {
+        "id": "sec-reschedule",
+        "title": "3. Keterlambatan dan Reschedule Jadwal",
+        "items": [
+          "Apabila kondisi studio tidak ramai, keterlambatan diperbolehkan tanpa pengurangan menit atau dapat digeser ke jam kosong berikutnya.",
+          "Dalam kondisi studio ramai/penuh, toleransi keterlambatan dihitung dari 5 menit pertama dari jam booking dan akan dialihkan ke klien berikutnya yang sudah siap.",
+          "Boleh mengajukan reschedule ke hari lain tanpa biaya tambahan selama hari dan jam yang diajukan masih tersedia."
+        ]
+      },
+      {
+        "id": "sec-pembayaran",
+        "title": "4. Reservasi dan Ketentuan Pembayaran",
+        "items": [
+          "Booking jadwal sah setelah pembayaran DP minimal 50% dari total biaya.",
+          "Pelunasan dapat diselesaikan sebelum atau setelah sesi foto di studio melalui Cash atau Transfer QRIS.",
+          "Pembatalan sepihak oleh klien mengakibatkan DP tidak dapat dikembalikan (non-refundable).",
+          "Klien diperbolehkan untuk upgrade paket, namun tidak dapat melakukan downgrade paket."
+        ]
+      },
+      {
+        "id": "sec-properti",
+        "title": "5. Background dan Properti Studio",
+        "items": [
+          "Properti studio bersifat fleksibel sesuai ketersediaan. Klien boleh me-request properti yang ada di studio selama keadaan tidak sedang padat."
+        ]
+      }
+    ]
+  },
+  "indoorPackages": [
+    {
+      "id": "grad-indoor-elegant-scholar",
+      "subtitle": "Graduation Indoor 1",
+      "badge": "Favorit",
+      "name": "Elegant Scholar",
+      "originalPrice": "Rp 350.000",
+      "price": "295K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "25 Menit Unlimited Foto",
+      "background": "1 Background Studio",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "category": "grad-indoor",
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 0
+    },
+    {
+      "id": "grad-indoor-supreme-scholar",
+      "subtitle": "Graduation Indoor 2",
+      "badge": "2 Background",
+      "name": "Supreme Scholar",
+      "originalPrice": "Rp 480.000",
+      "price": "415K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "40 Menit Unlimited Foto",
+      "background": "2 Background Studio",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "category": "grad-indoor",
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 1
+    },
+    {
+      "id": "grad-indoor-infinity-scholar",
+      "subtitle": "Graduation Indoor 3",
+      "badge": "2 Wisudawan",
+      "name": "Infinity Scholar",
+      "originalPrice": "Rp 680.000",
+      "price": "595K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "45 Menit Unlimited Foto",
+      "background": "2 Background Studio",
+      "people": "2 Wisudawan + Maks 10 Org",
+      "edit": "Edit 12 Foto High-Res",
+      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "category": "grad-indoor",
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 2
+    }
+  ],
+  "studioPackages": [
+    {
+      "id": "grad-indoor-elegant-scholar",
+      "subtitle": "Graduation Indoor 1",
+      "badge": "Favorit",
+      "name": "Elegant Scholar",
+      "originalPrice": "Rp 350.000",
+      "price": "295K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "25 Menit Unlimited Foto",
+      "background": "1 Background Studio",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "category": "grad-indoor",
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 0
+    },
+    {
+      "id": "grad-indoor-supreme-scholar",
+      "subtitle": "Graduation Indoor 2",
+      "badge": "2 Background",
+      "name": "Supreme Scholar",
+      "originalPrice": "Rp 480.000",
+      "price": "415K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "40 Menit Unlimited Foto",
+      "background": "2 Background Studio",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "category": "grad-indoor",
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 1
+    },
+    {
+      "id": "grad-indoor-infinity-scholar",
+      "subtitle": "Graduation Indoor 3",
+      "badge": "2 Wisudawan",
+      "name": "Infinity Scholar",
+      "originalPrice": "Rp 680.000",
+      "price": "595K",
+      "priceUnit": "per sesi • all-in",
+      "duration": "45 Menit Unlimited Foto",
+      "background": "2 Background Studio",
+      "people": "2 Wisudawan + Maks 10 Org",
+      "edit": "Edit 12 Foto High-Res",
+      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "category": "grad-indoor",
+      "categoryLabel": "Foto Studio - Indoor",
+      "_origIndex": 2
+    },
+    {
+      "id": "grad-bundling-ultimate-1",
+      "category": "grad-bundling",
+      "categoryLabel": "Foto Studio - Bundling",
+      "subtitle": "Bundling 1 • Best Seller",
+      "badge": "Rekomendasi",
+      "name": "Bundling Smart 1",
+      "originalPrice": "Rp 700.000",
+      "price": "625K",
+      "priceUnit": "Paket Bundling Hemat",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "1 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 3
+    },
+    {
+      "id": "grad-bundling-ultimate-2",
+      "category": "grad-bundling",
+      "categoryLabel": "Foto Studio - Bundling",
+      "subtitle": "Bundling 2 • Supreme",
+      "badge": "Paling Lengkap",
+      "name": "Bundling Smart 2",
+      "originalPrice": "Rp 820.000",
+      "price": "745K",
+      "priceUnit": "Paket Bundling Hemat",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "2 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 4
+    },
+    {
+      "id": "grad-outdoor-smart-30",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 1 (30M)",
+      "badge": "Fleksibel",
+      "name": "Smart Outdoor 30 Menit",
+      "originalPrice": "",
+      "price": "280K",
+      "priceUnit": "30 Menit Sesi Foto",
+      "duration": "30 Menit Sesi",
+      "background": "Unlimited Around Campus",
+      "people": "1 Wisudawan + Keluarga / Teman",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Only",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 5
+    },
+    {
+      "id": "grad-outdoor-smart-60",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 1 (60M)",
+      "badge": "Populer",
+      "name": "Smart Outdoor 60 Menit",
+      "originalPrice": "",
+      "price": "355K",
+      "priceUnit": "60 Menit Sesi Foto",
+      "duration": "60 Menit Sesi",
+      "background": "Unlimited Around Campus",
+      "people": "1 Wisudawan + Keluarga / Teman",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Only",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 6
+    },
+    {
+      "id": "grad-outdoor-cumlaude",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 2",
+      "badge": "Include Video",
+      "name": "Cumlaude (Foto + Video)",
+      "originalPrice": "Rp 850.000",
+      "price": "710K",
+      "priceUnit": "75 Menit • Full Package",
+      "duration": "75 Menit Sesi Foto & Video",
+      "background": "Unlimited Shoots Kampus",
+      "people": "Wisudawan + Pendamping",
+      "edit": "Edit 10 Foto High-Res + Video Cinematic",
+      "print": "Softfile & Video 9:16",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "_origIndex": 7
+    },
+    {
+      "id": "grad-outdoor-group-2",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 3",
+      "badge": "Geng Wisuda",
+      "name": "Group Wisuda Outdoor",
+      "originalPrice": "",
+      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
+      "priceUnit": "Berdasarkan Jumlah Wisudawan",
+      "duration": "60 - 90 Menit Unlimited",
+      "background": "Area Kampus Malang & Sekitarnya",
+      "people": "Group Wisudawan + Keluarga",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Google Drive",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "_origIndex": 8
+    },
+    {
+      "id": "self-normal-narsis",
+      "category": "self-studio",
+      "categoryLabel": "Self Studio",
+      "subtitle": "Kategori Normal",
+      "badge": "Free Print",
+      "name": "Normal Narsis",
+      "originalPrice": "",
+      "price": "80K",
+      "priceUnit": "per sesi (1-2 Orang)",
+      "duration": "15 Menit Sesi Foto",
+      "background": "Pilihan Background Studio",
+      "people": "1-2 Orang (Bisa tambah orang)",
+      "edit": "Template Kolase Siap Cetak",
+      "print": "Free 1 Lembar Cetak 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Wireless remote shutter otomatis tanpa fotografer",
+      "imageUrl": "/images/packages/normal_narsis_1791787834137.jpg",
+      "_origIndex": 9
+    },
+    {
+      "id": "self-normal-super-narsis",
+      "category": "self-studio",
+      "categoryLabel": "Self Studio",
+      "subtitle": "Kategori Normal",
+      "badge": "Free Print",
+      "name": "Normal Super Narsis",
+      "originalPrice": "",
+      "price": "95K",
+      "priceUnit": "per sesi (1-2 Orang)",
+      "duration": "20 Menit Sesi Foto",
+      "background": "Pilihan Background Studio",
+      "people": "1-2 Orang (Bisa tambah orang)",
+      "edit": "Template Kolase Siap Cetak",
+      "print": "Free 1 Lembar Cetak 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Waktu lebih puas untuk berekspresi bersama bestie / pasangan",
+      "imageUrl": "/images/packages/normal_super_narsis_1791787879710.jpg",
+      "_origIndex": 10
+    },
+    {
+      "id": "self-special-spotlight",
+      "category": "self-studio",
+      "categoryLabel": "Self Studio",
+      "subtitle": "Colour Spotlight",
+      "badge": "Spotlight Lamp",
+      "name": "Special Colour Spotlight",
+      "originalPrice": "",
+      "price": "99K",
+      "priceUnit": "per sesi (1-2 Orang)",
+      "duration": "20 Menit Sesi Foto",
+      "background": "Pencahayaan Warna Spotlight",
+      "people": "1-2 Orang",
+      "edit": "Template Kolase Siap Cetak",
+      "print": "Free 1 Lembar Cetak 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Efek lampu proyektor warna artistik untuk nuansa sinematik",
+      "imageUrl": "/images/packages/special_colour_spotlight_1791787890705.jpg",
+      "_origIndex": 11
+    },
+    {
+      "id": "self-normal-spotlight",
+      "category": "self-studio",
+      "categoryLabel": "Self Studio",
+      "subtitle": "Colour Spotlight",
+      "badge": "Spotlight Lamp",
+      "name": "Normal Colour Spotlight",
+      "originalPrice": "",
+      "price": "115K",
+      "priceUnit": "per sesi (1-2 Orang)",
+      "duration": "20 Menit Sesi Foto",
+      "background": "Pencahayaan Spotlight + Background",
+      "people": "1-2 Orang",
+      "edit": "Template Kolase Siap Cetak",
+      "print": "Free 1 Lembar Cetak 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Kombinasi lampu spotlight dan background pilihan",
+      "imageUrl": "/images/packages/normal_colour_spotlight_1791787901644.jpg",
+      "_origIndex": 12
+    },
+    {
+      "id": "self-special-narsis",
+      "category": "self-studio",
+      "categoryLabel": "Self Studio",
+      "subtitle": "Kategori Spesial Hemat",
+      "badge": "Hemat",
+      "name": "Spesial Narsis",
+      "originalPrice": "",
+      "price": "55K",
+      "priceUnit": "per sesi (1-2 Orang)",
+      "duration": "15 Menit Sesi Foto",
+      "background": "Pilihan Background Studio",
+      "people": "1-2 Orang",
+      "edit": "Template Kolase",
+      "print": "Softfile Only (Cetak opsional)",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Pilihan tepat untuk foto kasual & seru harga terjangkau",
+      "imageUrl": "/images/packages/spesial_narsis_1791787912728.jpg",
+      "_origIndex": 13
+    },
+    {
+      "id": "self-special-super-narsis",
+      "category": "self-studio",
+      "categoryLabel": "Self Studio",
+      "subtitle": "Kategori Spesial Hemat",
+      "badge": "Hemat",
+      "name": "Spesial Super Narsis",
+      "originalPrice": "",
+      "price": "70K",
+      "priceUnit": "per sesi (1-2 Orang)",
+      "duration": "20 Menit Sesi Foto",
+      "background": "Pilihan Background Studio",
+      "people": "1-2 Orang",
+      "edit": "Template Kolase",
+      "print": "Softfile Only (Cetak opsional)",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Durasi 20 menit bebas pose sepuasnya tanpa fotografer",
+      "imageUrl": "/images/packages/spesial_super_narsis_1791787926134.jpg",
+      "_origIndex": 14
+    },
+    {
+      "id": "passfoto-1",
+      "category": "pass-foto",
+      "categoryLabel": "Pass Foto",
+      "subtitle": "Pass Foto 1",
+      "badge": "Kilat",
+      "name": "Pass Foto 1",
+      "originalPrice": "",
+      "price": "35K",
+      "priceUnit": "per orang",
+      "duration": "10-15 Menit",
+      "background": "Merah / Biru / Putih",
+      "people": "1 Orang",
+      "edit": "Basic Retouch & Ganti Background",
+      "print": "Cetak 4 Lembar (3x4 atau 4x6)",
+      "fileDelivery": "File Master via WA / Email",
+      "note": "*Cocok untuk berkas lamaran kerja, buku nikah, dan ijazah",
+      "_origIndex": 15
+    },
+    {
+      "id": "passfoto-2",
+      "category": "pass-foto",
+      "categoryLabel": "Pass Foto",
+      "subtitle": "Pass Foto 2",
+      "badge": "Standar",
+      "name": "Pass Foto 2",
+      "originalPrice": "",
+      "price": "50K",
+      "priceUnit": "per orang",
+      "duration": "15 Menit",
+      "background": "Merah / Biru / Putih",
+      "people": "1 Orang",
+      "edit": "Advanced Retouch Kulit & Wajah",
+      "print": "Cetak 8 Lembar (Pilihan Ukuran)",
+      "fileDelivery": "File Master High-Res",
+      "note": "*Hasil foto halus natural berstandar kedutaan & visa",
+      "_origIndex": 16
+    },
+    {
+      "id": "passfoto-3",
+      "category": "pass-foto",
+      "categoryLabel": "Pass Foto",
+      "subtitle": "Pass Foto 3",
+      "badge": "Lengkap",
+      "name": "Pass Foto 3",
+      "originalPrice": "",
+      "price": "65K",
+      "priceUnit": "per orang",
+      "duration": "20 Menit",
+      "background": "Multibackground",
+      "people": "1 Orang",
+      "edit": "Full Retouch + Edit Jas/Kemeja Digital",
+      "print": "Cetak 12 Lembar Lengkap",
+      "fileDelivery": "File Master High-Res",
+      "note": "*Termasuk opsi edit pakaian formal digital jika diperlukan",
+      "_origIndex": 17
+    },
+    {
+      "id": "family-sweet-together",
+      "category": "group-family",
+      "categoryLabel": "Family & Group",
+      "subtitle": "Family 1",
+      "badge": "Keluarga Kecil",
+      "name": "Sweet Together",
+      "originalPrice": "Rp 400.000",
+      "price": "350K",
+      "priceUnit": "per sesi",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Maksimal 6 Orang",
+      "edit": "Edit 5 Foto Pilihan",
+      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga",
+      "_origIndex": 18
+    },
+    {
+      "id": "family-happy-nest",
+      "category": "group-family",
+      "categoryLabel": "Family & Group",
+      "subtitle": "Family 2",
+      "badge": "Keluarga Besar",
+      "name": "Happy Nest",
+      "originalPrice": "Rp 600.000",
+      "price": "500K",
+      "priceUnit": "per sesi",
+      "duration": "45 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Maksimal 12 Orang",
+      "edit": "Edit 8 Foto Pilihan",
+      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
+      "_origIndex": 19
+    },
+    {
+      "id": "group-friendly-frame",
+      "category": "group-family",
+      "categoryLabel": "Family & Group",
+      "subtitle": "Group 1",
+      "badge": "Sahabat",
+      "name": "Friendly Frame",
+      "originalPrice": "",
+      "price": "250K",
+      "priceUnit": "per sesi",
+      "duration": "25 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Maksimal 6 Orang",
+      "edit": "Edit 5 Foto Pilihan",
+      "print": "Cetak 1 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Bebas berganti gaya & properti foto studio",
+      "_origIndex": 20
+    },
+    {
+      "id": "group-signature-squad",
+      "category": "group-family",
+      "categoryLabel": "Family & Group",
+      "subtitle": "Group 2",
+      "badge": "Squad",
+      "name": "Signature Squad",
+      "originalPrice": "",
+      "price": "350K",
+      "priceUnit": "per sesi",
+      "duration": "35 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Maksimal 10 Orang",
+      "edit": "Edit 8 Foto Pilihan",
+      "print": "Cetak 2 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat",
+      "_origIndex": 21
+    },
+    {
+      "id": "group-royal-ensemble",
+      "category": "group-family",
+      "categoryLabel": "Family & Group",
+      "subtitle": "Group 3",
+      "badge": "Besar",
+      "name": "Royal Ensemble",
+      "originalPrice": "",
+      "price": "500K",
+      "priceUnit": "per sesi",
+      "duration": "45 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Maksimal 15 Orang",
+      "edit": "Edit 12 Foto Pilihan",
+      "print": "Cetak 3 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok",
+      "_origIndex": 22
+    },
+    {
+      "id": "group-imperial-union",
+      "category": "group-family",
+      "categoryLabel": "Family & Group",
+      "subtitle": "Group 4",
+      "badge": "Maksimal",
+      "name": "Imperial Union",
+      "originalPrice": "",
+      "price": "700K",
+      "priceUnit": "per sesi",
+      "duration": "60 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Maksimal 25 Orang",
+      "edit": "Edit 15 Foto Pilihan",
+      "print": "Cetak 4 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Kapasitas besar dengan arahan fotografer profesional",
+      "_origIndex": 23
+    },
+    {
+      "id": "couple-eternal-love",
+      "category": "prewed-couple",
+      "categoryLabel": "Prewedding & Couple",
+      "subtitle": "Couple 1",
+      "badge": "Romantis",
+      "name": "Eternal Love",
+      "originalPrice": "",
+      "price": "250K",
+      "priceUnit": "per sesi (2 Orang)",
+      "duration": "25 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "2 Orang (Pasangan)",
+      "edit": "Edit 5 Foto Pilihan",
+      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
+      "_origIndex": 24
+    },
+    {
+      "id": "couple-sweet-memories",
+      "category": "prewed-couple",
+      "categoryLabel": "Prewedding & Couple",
+      "subtitle": "Couple 2",
+      "badge": "Favorit Pasangan",
+      "name": "Sweet Memories",
+      "originalPrice": "",
+      "price": "350K",
+      "priceUnit": "per sesi (2 Orang)",
+      "duration": "40 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "2 Orang (Pasangan)",
+      "edit": "Edit 8 Foto Pilihan",
+      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi",
+      "_origIndex": 25
+    },
+    {
+      "id": "prewed-sweet-promise",
+      "category": "prewed-couple",
+      "categoryLabel": "Prewedding & Couple",
+      "subtitle": "Prewedding Studio 1",
+      "badge": "Studio Prewed",
+      "name": "Sweet Promise",
+      "originalPrice": "",
+      "price": "650K",
+      "priceUnit": "per sesi",
+      "duration": "60 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Pasangan (2 Orang)",
+      "edit": "Edit 10 Foto High-Res",
+      "print": "Cetak 1 Uk 12R + Frame Minimalis",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Konsep indoor elegan dengan lighting studio profesional",
+      "_origIndex": 26
+    },
+    {
+      "id": "prewed-velvet-romance",
+      "category": "prewed-couple",
+      "categoryLabel": "Prewedding & Couple",
+      "subtitle": "Prewedding Studio 2",
+      "badge": "Lengkap",
+      "name": "Velvet Romance",
+      "originalPrice": "",
+      "price": "850K",
+      "priceUnit": "per sesi",
+      "duration": "90 Menit Sesi Foto",
+      "background": "3 Background Studio",
+      "people": "Pasangan (2 Orang)",
+      "edit": "Edit 15 Foto High-Res",
+      "print": "Cetak 2 Uk 12R + Frame Minimalis",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Bebas ganti 3 konsep baju dengan hasil cinematic",
+      "_origIndex": 27
+    },
+    {
+      "id": "prewed-bundling-1",
+      "category": "prewed-couple",
+      "categoryLabel": "Prewedding & Couple",
+      "subtitle": "Prewedding + MUA 1",
+      "badge": "Paket Make Up",
+      "name": "Prewed Bundling 1",
+      "originalPrice": "",
+      "price": "1.400K",
+      "priceUnit": "Paket All-in Studio & MUA",
+      "duration": "60 Menit Foto + Make Up",
+      "background": "2 Background Studio",
+      "people": "Pasangan (2 Orang)",
+      "edit": "Edit 10 Foto High-Res",
+      "print": "Cetak 1 Uk 12R + Frame",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum",
+      "_origIndex": 28
+    },
+    {
+      "id": "prewed-bundling-2",
+      "category": "prewed-couple",
+      "categoryLabel": "Prewedding & Couple",
+      "subtitle": "Prewedding + MUA 2",
+      "badge": "Super Komplit",
+      "name": "Prewed Bundling 2",
+      "originalPrice": "",
+      "price": "1.800K",
+      "priceUnit": "Paket All-in Studio & MUA",
+      "duration": "90 Menit Foto + Make Up",
+      "background": "3 Background Studio",
+      "people": "Pasangan (2 Orang)",
+      "edit": "Edit 15 Foto High-Res",
+      "print": "Cetak 2 Uk 12R + Frame",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar",
+      "_origIndex": 29
+    },
+    {
+      "id": "personal-bold-statement",
+      "category": "personal-maternity",
+      "categoryLabel": "Personal & Maternity",
+      "subtitle": "Personal 1",
+      "badge": "Portofolio",
+      "name": "Bold Statement",
+      "originalPrice": "",
+      "price": "150K",
+      "priceUnit": "per orang",
+      "duration": "20 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "1 Orang",
+      "edit": "Edit 4 Foto High-Res",
+      "print": "Cetak 1 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos",
+      "_origIndex": 30
+    },
+    {
+      "id": "personal-opulent-shot",
+      "category": "personal-maternity",
+      "categoryLabel": "Personal & Maternity",
+      "subtitle": "Personal 2",
+      "badge": "Premium",
+      "name": "Opulent Shot",
+      "originalPrice": "",
+      "price": "250K",
+      "priceUnit": "per orang",
+      "duration": "35 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "1 Orang",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional",
+      "_origIndex": 31
+    },
+    {
+      "id": "maternity-warm-embrace",
+      "category": "personal-maternity",
+      "categoryLabel": "Personal & Maternity",
+      "subtitle": "Maternity 1",
+      "badge": "Kehamilan",
+      "name": "Warm Embrace",
+      "originalPrice": "",
+      "price": "350K",
+      "priceUnit": "per sesi",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Bumil + Suami",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
+      "_origIndex": 32
+    },
+    {
+      "id": "maternity-golden-motherhood",
+      "category": "personal-maternity",
+      "categoryLabel": "Personal & Maternity",
+      "subtitle": "Maternity 2",
+      "badge": "Lengkap",
+      "name": "Golden Motherhood",
+      "originalPrice": "",
+      "price": "500K",
+      "priceUnit": "per sesi",
+      "duration": "45 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Bumil + Suami + Anak",
+      "edit": "Edit 10 Foto High-Res",
+      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum",
+      "_origIndex": 33
+    },
+    {
+      "id": "birthday-sweet-celebration",
+      "category": "birthday",
+      "categoryLabel": "Birthday",
+      "subtitle": "Birthday 1",
+      "badge": "Ulang Tahun",
+      "name": "Sweet Celebration",
+      "originalPrice": "",
+      "price": "350K",
+      "priceUnit": "per sesi",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Maksimal 6 Orang",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 1 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
+      "_origIndex": 34
+    },
+    {
+      "id": "birthday-glow-sweet",
+      "category": "birthday",
+      "categoryLabel": "Birthday",
+      "subtitle": "Birthday 2",
+      "badge": "Seru",
+      "name": "Glow Sweet Celebration",
+      "originalPrice": "",
+      "price": "450K",
+      "priceUnit": "per sesi",
+      "duration": "40 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Maksimal 10 Orang",
+      "edit": "Edit 8 Foto Pilihan",
+      "print": "Cetak 2 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman",
+      "_origIndex": 35
+    },
+    {
+      "id": "birthday-sweet-light",
+      "category": "birthday",
+      "categoryLabel": "Birthday",
+      "subtitle": "Birthday 3",
+      "badge": "Spotlight",
+      "name": "Sweet Light Birthday",
+      "originalPrice": "",
+      "price": "600K",
+      "priceUnit": "per sesi",
+      "duration": "50 Menit Sesi Foto",
+      "background": "Spotlight + Background",
+      "people": "Maksimal 12 Orang",
+      "edit": "Edit 12 Foto Pilihan",
+      "print": "Cetak 3 Uk 10R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik",
+      "_origIndex": 36
+    },
+    {
+      "id": "birthday-ultimate-sweet-light",
+      "category": "birthday",
+      "categoryLabel": "Birthday",
+      "subtitle": "Birthday 4",
+      "badge": "Super Lengkap",
+      "name": "Ultimate Sweet Light",
+      "originalPrice": "",
+      "price": "850K",
+      "priceUnit": "per sesi",
+      "duration": "60 Menit Sesi Foto",
+      "background": "2 Background + Spotlight",
+      "people": "Maksimal 18 Orang",
+      "edit": "Edit 16 Foto Pilihan",
+      "print": "Cetak 4 Uk 10R + Frame",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar",
+      "_origIndex": 37
+    },
+    {
+      "id": "sewa-studio-hourly",
+      "category": "sewa-event",
+      "categoryLabel": "Sewa Studio & Event",
+      "subtitle": "Sewa Studio",
+      "badge": "Studio Only",
+      "name": "Sewa Studio Hourly",
+      "originalPrice": "",
+      "price": "100K",
+      "priceUnit": "per jam (Studio & Lighting)",
+      "duration": "60 Menit per Jam Sewa",
+      "background": "Bebas Pakai Seluruh Background",
+      "people": "Maksimal 8 Orang Tim",
+      "edit": "Tanpa Edit (Bawa fotografer sendiri)",
+      "print": "Tanpa Cetak",
+      "fileDelivery": "Hasil foto di memori sendiri",
+      "note": "*Termasuk penggunaan lighting studio Godox, trigger, dan ruang ganti",
+      "_origIndex": 38
+    },
+    {
+      "id": "undangan-paket-1",
+      "category": "sewa-event",
+      "categoryLabel": "Sewa Studio & Event",
+      "subtitle": "Undangan Digital 1",
+      "badge": "Web Undangan",
+      "name": "Paket Undangan 1",
+      "originalPrice": "",
+      "price": "150K",
+      "priceUnit": "Web Undangan Siap Sebar",
+      "duration": "Aktif Hingga Hari H",
+      "background": "Pilihan Desain Elegan",
+      "people": "Calon Pengantin",
+      "edit": "Musik, RSVP, Maps, Countdown",
+      "print": "Digital Link Website",
+      "fileDelivery": "Link Website Undangan Online",
+      "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas",
+      "_origIndex": 39
+    },
+    {
+      "id": "undangan-paket-2",
+      "category": "sewa-event",
+      "categoryLabel": "Sewa Studio & Event",
+      "subtitle": "Undangan Digital 2",
+      "badge": "Custom Tema",
+      "name": "Paket Undangan 2",
+      "originalPrice": "",
+      "price": "250K",
+      "priceUnit": "Web Undangan Premium Custom",
+      "duration": "Aktif Selamanya",
+      "background": "Desain Eksklusif Custom",
+      "people": "Calon Pengantin",
+      "edit": "Kisah Cinta, Galeri Video, Live Wishes",
+      "print": "Digital Link + QR Code",
+      "fileDelivery": "Link Website Undangan Online",
+      "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift",
+      "_origIndex": 40
+    }
+  ],
+  "bundlingPackages": [
+    {
+      "id": "grad-bundling-ultimate-1",
+      "category": "grad-bundling",
+      "categoryLabel": "Foto Studio - Bundling",
+      "subtitle": "Bundling 1 • Best Seller",
+      "badge": "Rekomendasi",
+      "name": "Bundling Smart 1",
+      "originalPrice": "Rp 700.000",
+      "price": "625K",
+      "priceUnit": "Paket Bundling Hemat",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "1 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 3
+    },
+    {
+      "id": "grad-bundling-ultimate-2",
+      "category": "grad-bundling",
+      "categoryLabel": "Foto Studio - Bundling",
+      "subtitle": "Bundling 2 • Supreme",
+      "badge": "Paling Lengkap",
+      "name": "Bundling Smart 2",
+      "originalPrice": "Rp 820.000",
+      "price": "745K",
+      "priceUnit": "Paket Bundling Hemat",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "2 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 4
+    }
+  ],
+  "outdoorPackages": [
+    {
+      "id": "grad-outdoor-smart-30",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 1 (30M)",
+      "badge": "Fleksibel",
+      "name": "Smart Outdoor 30 Menit",
+      "originalPrice": "",
+      "price": "280K",
+      "priceUnit": "30 Menit Sesi Foto",
+      "duration": "30 Menit Sesi",
+      "background": "Unlimited Around Campus",
+      "people": "1 Wisudawan + Keluarga / Teman",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Only",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 5
+    },
+    {
+      "id": "grad-outdoor-smart-60",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 1 (60M)",
+      "badge": "Populer",
+      "name": "Smart Outdoor 60 Menit",
+      "originalPrice": "",
+      "price": "355K",
+      "priceUnit": "60 Menit Sesi Foto",
+      "duration": "60 Menit Sesi",
+      "background": "Unlimited Around Campus",
+      "people": "1 Wisudawan + Keluarga / Teman",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Only",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 6
+    },
+    {
+      "id": "grad-outdoor-cumlaude",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 2",
+      "badge": "Include Video",
+      "name": "Cumlaude (Foto + Video)",
+      "originalPrice": "Rp 850.000",
+      "price": "710K",
+      "priceUnit": "75 Menit • Full Package",
+      "duration": "75 Menit Sesi Foto & Video",
+      "background": "Unlimited Shoots Kampus",
+      "people": "Wisudawan + Pendamping",
+      "edit": "Edit 10 Foto High-Res + Video Cinematic",
+      "print": "Softfile & Video 9:16",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "_origIndex": 7
+    },
+    {
+      "id": "grad-outdoor-group-2",
+      "category": "grad-outdoor",
+      "categoryLabel": "Foto Studio - Outdoor",
+      "subtitle": "Graduation Outdoor 3",
+      "badge": "Geng Wisuda",
+      "name": "Group Wisuda Outdoor",
+      "originalPrice": "",
+      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
+      "priceUnit": "Berdasarkan Jumlah Wisudawan",
+      "duration": "60 - 90 Menit Unlimited",
+      "background": "Area Kampus Malang & Sekitarnya",
+      "people": "Group Wisudawan + Keluarga",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Google Drive",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "_origIndex": 8
+    }
+  ],
+  "operationalHoursByBranch": {
+    "cabang-1": "Buka Setiap Hari: 08:00 - 21:00 WIB",
+    "cabang-2": "Buka Setiap Hari: 08:00 - 21:00 WIB"
+  },
+  "heroBannerSlides": [
+    {
+      "id": "hero-1",
+      "image": "/images/backdrops/backdrop-1.jpg",
+      "title": "Mint Modern Aesthetic Sofa",
+      "theme": "Fresh & Elegant",
+      "active": true
+    },
+    {
+      "id": "hero-2",
+      "image": "/images/backdrops/backdrop-2.jpg",
+      "title": "Bohemian Rustic Texture Wall",
+      "theme": "Warm Natural",
+      "active": true
+    },
+    {
+      "id": "hero-3",
+      "image": "/images/backdrops/backdrop-3.jpg",
+      "title": "Black Arch Window Bar Stool",
+      "theme": "Bold & Chic",
+      "active": true
+    },
+    {
+      "id": "hero-4",
+      "image": "/images/backdrops/backdrop-4.jpg",
+      "title": "Charcoal Classic Deep Sofa",
+      "theme": "Timeless Luxury",
+      "active": true
+    },
+    {
+      "id": "hero-5",
+      "image": "/images/backdrops/backdrop-5.jpg",
+      "title": "Luxury White Fireplace & Frame",
+      "theme": "European Royal",
+      "active": true
+    },
+    {
+      "id": "hero-6",
+      "image": "/images/backdrops/backdrop-6.jpg",
+      "title": "Warm Beige Classic Armchair",
+      "theme": "Cozy Editorial",
+      "active": true
+    },
+    {
+      "id": "hero-7",
+      "image": "/images/backdrops/backdrop-7.jpg",
+      "title": "White Arch Windows & Grey Sofa",
+      "theme": "Minimalist Bright",
+      "active": true
+    }
+  ],
+  "showcaseImages": [
+    {
+      "id": "showcase-1-1",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-5.jpg",
+      "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
+      "tag": "ROYAL FIREPLACE",
+      "active": true
+    },
+    {
+      "id": "showcase-1-2",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-1.jpg",
+      "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
+      "tag": "MINT AESTHETIC",
+      "active": true
+    },
+    {
+      "id": "showcase-1-3",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-4.jpg",
+      "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
+      "tag": "TIMELESS CLASSIC",
+      "active": true
+    },
+    {
+      "id": "showcase-1-4",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-6.jpg",
+      "caption": "Warm Beige Classic Armchair — Cozy Editorial Tone",
+      "tag": "COZY EDITORIAL",
+      "active": true
+    },
+    {
+      "id": "showcase-1-5",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-2.jpg",
+      "caption": "Bohemian Rustic Texture Wall — Natural & Warm",
+      "tag": "BOHEMIAN RUSTIC",
+      "active": true
+    },
+    {
+      "id": "showcase-1-6",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-3.jpg",
+      "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
+      "tag": "ARCH WINDOW",
+      "active": true
+    },
+    {
+      "id": "showcase-1-7",
+      "branchId": "cabang-1",
+      "src": "/images/backdrops/backdrop-7.jpg",
+      "caption": "White Arch Windows & Grey Minimalist Set",
+      "tag": "MINIMALIST BRIGHT",
+      "active": true
+    },
+    {
+      "id": "showcase-2-1",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-5.jpg",
+      "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
+      "tag": "ROYAL FIREPLACE",
+      "active": true
+    },
+    {
+      "id": "showcase-2-2",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-2.jpg",
+      "caption": "Bohemian Rustic Texture Wall — Natural & Warm Aesthetic",
+      "tag": "BOHEMIAN RUSTIC",
+      "active": true
+    },
+    {
+      "id": "showcase-2-3",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-3.jpg",
+      "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
+      "tag": "ARCH WINDOW",
+      "active": true
+    },
+    {
+      "id": "showcase-2-4",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-7.jpg",
+      "caption": "White Arch Windows & Grey Minimalist Set",
+      "tag": "MINIMALIST BRIGHT",
+      "active": true
+    },
+    {
+      "id": "showcase-2-5",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-4.jpg",
+      "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
+      "tag": "TIMELESS LUXURY",
+      "active": true
+    },
+    {
+      "id": "showcase-2-6",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-1.jpg",
+      "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
+      "tag": "MINT AESTHETIC",
+      "active": true
+    }
+  ],
+  "facilityItems": [
+    {
+      "id": "fac-studio-ac",
+      "title": "Ruang Studio Utama Ber-AC",
+      "subtitle": "Climate Controlled Studio Space",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio",
+      "icon": "🛋️",
+      "badge": "Kenyamanan Standar Utama",
+      "imageUrl": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Ruang studio utama yang sejuk dengan pendingin ruangan (AC) terawat, berdaya tampung luas untuk perorangan, keluarga, hingga rombongan wisuda dan grup.",
+      "conceptNote": "Suhu ruangan selalu dijaga sejuk dan nyaman agar makeup dan outfit tetap prima selama pemotretan.",
+      "highlights": [
+        "AC Dingin & Bersih",
+        "Ruang Gerak Luas",
+        "Bebas Pengap & Gerah",
+        "Kapasitas Hingga 15 Orang"
+      ],
+      "tags": [
+        "#RuangStudioBerAC",
+        "#Nyaman",
+        "#KapasitasLuas"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-vanity-room",
+      "title": "Ruang Rias & Fitting Eksklusif",
+      "subtitle": "Private Grooming & Wardrobe Area",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio",
+      "icon": "🪞",
+      "badge": "Ruang Persiapan Khusus",
+      "imageUrl": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85",
+      "description": "Area rias privat dengan cermin vanity LED daylight, colokan listrik untuk catokan/hairdryer, serta ruang ganti tertutup untuk kenyamanan persiapan kostum dan kebaya.",
+      "conceptNote": "Sangat ideal untuk wisudawan yang memakai toga atau calon pengantin yang berganti gaun prewedding.",
+      "highlights": [
+        "Cermin Vanity LED",
+        "Fitting Room Privat",
+        "Colokan Listrik Rias",
+        "Gantungan Baju Rapi"
+      ],
+      "tags": [
+        "#RuangRias",
+        "#FittingPrivat",
+        "#CerminVanity"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-waiting-lounge",
+      "title": "Lounge & Area Tunggu Santai",
+      "subtitle": "Comfortable Guest & Family Lounge",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio",
+      "icon": "☕",
+      "badge": "Kenyamanan Pengantar",
+      "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=85",
+      "description": "Ruang tunggu santai dengan sofa empuk, dispenser air mineral gratis, stopkontak untuk pengisian daya gawai, dan suasana tenang untuk keluarga pendamping.",
+      "conceptNote": "Keluarga dan teman yang menemani dapat duduk bersantai tanpa rasa jenuh selama sesi foto berlangsung.",
+      "highlights": [
+        "Sofa Santai Nyaman",
+        "Air Mineral Gratis",
+        "Free Charging Station",
+        "Suasana Tenang"
+      ],
+      "tags": [
+        "#LoungeKeluarga",
+        "#AreaTunggu",
+        "#FreeWater"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-clean-toilet",
+      "title": "Toilet Bersih & Higienis",
+      "subtitle": "Clean & Sanitized Restroom",
+      "category": "fasilitas",
+      "packageName": "Fasilitas Studio",
+      "icon": "🚻",
+      "badge": "Standar Higienitas Tinggi",
+      "imageUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=85",
+      "description": "Toilet dalam studio yang rutin dibersihkan secara berkala, wangi, dilengkapi sabun cuci tangan, tisu, serta cermin wastafel bersih.",
+      "conceptNote": "Higienitas dan kenyamanan sanitasi merupakan prioritas Alviero Studio demi kepuasan setiap pengunjung.",
+      "highlights": [
+        "Selalu Bersih & Wangi",
+        "Sabun Cuci Tangan Tersedia",
+        "Wastafel & Cermin",
+        "Sanitasi Terjaga"
+      ],
+      "tags": [
+        "#ToiletBersih",
+        "#Higienis",
+        "#Kenyamanan"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-parking-access",
+      "title": "Akses Lokasi & Area Parkir",
+      "subtitle": "Convenient Parking & Road Access",
+      "category": "layanan",
+      "packageName": "Fasilitas Studio",
+      "icon": "🅿️",
+      "badge": "Aksesibilitas Mudah",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85",
+      "description": "Lokasi studio berada tepat di pinggir jalan raya utama dengan akses mudah ditemukan, serta area parkir aman untuk kendaraan roda 2 maupun roda 4.",
+      "conceptNote": "Titik penjemputan ojek online dan taksi tepat di depan pintu masuk ruko studio.",
+      "highlights": [
+        "Parkir Mobil & Motor",
+        "Pinggir Jalan Raya",
+        "Akses Mudah Ojol",
+        "Lingkungan Aman"
+      ],
+      "tags": [
+        "#ParkirStudio",
+        "#AksesMudah",
+        "#LokasiStrategis"
+      ],
+      "active": true
+    }
+  ],
+  "equipmentItems": [
+    {
+      "id": "eq-godox-lighting",
+      "title": "Lighting Godox & Softbox Diffuser Ganda",
+      "subtitle": "Professional Flash Illumination System",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "💡",
+      "badge": "Pencahayaan Studio Pro",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Sistem pencahayaan flash studio Godox dengan modifier softbox oktagonal besar dan diffuser ganda, menghasilkan cahaya lembut alami pada kulit (flattering skin tone) tanpa bayangan keras.",
+      "conceptNote": "Dikalibrasi berkala agar warna pakaian, toga wisuda, dan riasan make-up keluar dengan akurat 100%.",
+      "highlights": [
+        "Godox Professional Strobe",
+        "Softbox Diffuser Ganda",
+        "Akurasi Warna Tinggi",
+        "Skin Tone Glowing Halus"
+      ],
+      "tags": [
+        "#LightingGodox",
+        "#SoftboxStudio",
+        "#SkinToneNatural"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-mirrorless-camera",
+      "title": "Kamera Mirrorless Resolusi Tinggi & Lensa Portrait",
+      "subtitle": "Ultra High-Definition Sharpness",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "📷",
+      "badge": "Sensor Resolusi Tinggi",
+      "imageUrl": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85",
+      "description": "Kamera sensor besar dipadu lensa portrait premium ber-aperture tajam, menjamin setiap helai rambut, tekstur pakaian, dan detail mata tertangkap dengan kejernihan maksimal saat dicetak ukuran besar.",
+      "conceptNote": "File master foto tajam sempurna bahkan bila dicetak hingga ukuran bingkai 20R ke atas.",
+      "highlights": [
+        "Sensor Resolusi Tinggi",
+        "Lensa Portrait Tajam",
+        "Hasil Cetak Anti Pecah",
+        "Detail Halus Terjaga"
+      ],
+      "tags": [
+        "#KameraPro",
+        "#LensaPortrait",
+        "#CetakBesar"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-wireless-trigger",
+      "title": "Trigger Nirkabel & Remote Self Studio Ergonomis",
+      "subtitle": "Zero-Lag Wireless Shutter Trigger",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "📡",
+      "badge": "Sinkronisasi Cepat",
+      "imageUrl": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85",
+      "description": "Sistem trigger nirkabel tanpa jeda untuk sinkronisasi kilat kamera dan lampu, serta clicker remote yang ringan di tangan khusus untuk paket Self Studio.",
+      "conceptNote": "Klien paket Self Studio dapat memegang remote kecil tersembunyi dan berpose sesuka hati tanpa hambatan kabel.",
+      "highlights": [
+        "Trigger Zero Latency",
+        "Remote Self Studio Ringan",
+        "Bebas Kabel Kusut",
+        "Respon Jepret Instan"
+      ],
+      "tags": [
+        "#WirelessTrigger",
+        "#SelfStudioRemote",
+        "#Responsif"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-live-monitor",
+      "title": "Layar Monitor Live Preview Real-Time",
+      "subtitle": "Instant Frame & Pose Review Display",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "🖥️",
+      "badge": "Review Hasil Seketika",
+      "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=85",
+      "description": "Layar monitor display berukuran besar yang langsung menampilkan hasil foto hanya 1 detik setelah tombol shutter ditekan, mempermudah evaluasi ekspresi dan kerapian busana secara langsung.",
+      "conceptNote": "Klien tidak perlu menerka hasil foto; Anda dapat langsung melihat senyum dan pose terbaik di layar lebar.",
+      "highlights": [
+        "Layar Display Besar",
+        "Preview Instan 1 Detik",
+        "Warna Monitor Terkalibrasi",
+        "Cek Gaya & Senyum Langsung"
+      ],
+      "tags": [
+        "#LiveMonitor",
+        "#CekPoseLangsung",
+        "#LayarPreview"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-props-stools",
+      "title": "Koleksi Bangku Pose, Kursi Kayu & Properti Kreatif",
+      "subtitle": "Aesthetic Stools, Artificial Flowers & Party Props",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio",
+      "icon": "💐",
+      "badge": "Properti Pose Lengkap",
+      "imageUrl": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Pilihan bangku kayu aesthetic, stool studio tinggi/rendah, sofa minimalis, buket bunga artifisial, balon angka ulang tahun, dan kacamata lucu untuk menambah variasi pose.",
+      "conceptNote": "Seluruh properti studio bebas digunakan tanpa biaya sewa tambahan selama sesi foto berlangsung.",
+      "highlights": [
+        "Bangku Kayu & Stool Studio",
+        "Buket Bunga Bervariasi",
+        "Balon Angka & Kacamata Pesta",
+        "Gratis Pakai Selama Sesi"
+      ],
+      "tags": [
+        "#PropertiFoto",
+        "#StoolStudio",
+        "#BungaAesthetic"
+      ],
+      "active": true
+    }
+  ]
+}

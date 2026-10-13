@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 import React, { useState } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
@@ -37,7 +38,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       reviewUrl: 'https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu',
       whatsappNumber: '6287777538164',
       whatsappDisplay: '0877-7753-8164',
-      operationalHours: 'Setiap Hari: 08:00 - 21:00 WIB',
+      operationalHours: (studioConfig as any)?.operationalHoursByBranch?.['cabang-1'] || (studioConfig as any)?.operationalHours || 'Setiap Hari: 08:00 - 21:00 WIB',
       backdrops: [
         'Studio Foto: Hitam List, Putih List, Limbo, Putih Tematik, Coklat Tematik, Ivory Mediterania',
         'SelfStudio: Abu-abu, Coklat, Putih, Tematik Coklat'
@@ -53,7 +54,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
       reviewUrl: 'https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D',
       whatsappNumber: '6285168879214',
       whatsappDisplay: '0851-6887-9214',
-      operationalHours: 'Setiap Hari: 08:00 - 21:00 WIB',
+      operationalHours: (studioConfig as any)?.operationalHoursByBranch?.['cabang-2'] || (studioConfig as any)?.operationalHours || 'Setiap Hari: 08:00 - 21:00 WIB',
       backdrops: [
         'Studio Foto: Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream (Maks 5 Org)',
         'SelfStudio: Abu-abu, Biru, Putih, Tematik Cream'
