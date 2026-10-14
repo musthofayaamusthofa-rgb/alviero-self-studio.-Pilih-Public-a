@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
 import {
@@ -122,6 +122,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const handleClosePopup = () => {
     setIsMobilePopupOpen(false);
+    setPreviewPhotoIndex(null);
   };
 
   // Sync initialCategory if changed
@@ -140,6 +141,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const touchModalStartX = React.useRef<number | null>(null);
   const touchModalEndX = React.useRef<number | null>(null);
   const [activeModalSheet, setActiveModalSheet] = useState<PricelistSheet | null>(null);
+
+  // State modal preview foto hasil paket (lightbox foto inspirasi)
+  const [previewPhotoIndex, setPreviewPhotoIndex] = useState<number | null>(null);
+  const touchPreviewStartX = React.useRef<number | null>(null);
+  const touchPreviewEndX = React.useRef<number | null>(null);
 
   // 1. Menu Utama (Fokus Layanan Studio Cabang yang Dipilih)
   const mainMenuButtons = [
@@ -978,14 +984,23 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         if (previewCategory === 'selfstudio' || previewCategory === 'self-studio') {
           return pkg.category === 'self-studio';
         }
-        if (previewCategory === 'prewed' || previewCategory === 'couple') {
-          return pkg.category === 'prewed-couple';
+        if (previewCategory === 'prewed') {
+          return pkg.category === 'prewed' || pkg.category === 'prewedding' || pkg.category === 'prewed-couple';
         }
-        if (previewCategory === 'group' || previewCategory === 'family') {
-          return pkg.category === 'group-family';
+        if (previewCategory === 'couple') {
+          return pkg.category === 'couple' || pkg.category === 'prewed-couple';
         }
-        if (previewCategory === 'personal' || previewCategory === 'maternity') {
-          return pkg.category === 'personal-maternity';
+        if (previewCategory === 'group') {
+          return pkg.category === 'group' || pkg.category === 'group-family';
+        }
+        if (previewCategory === 'family') {
+          return pkg.category === 'family' || pkg.category === 'group-family';
+        }
+        if (previewCategory === 'personal') {
+          return pkg.category === 'personal' || pkg.category === 'personal-maternity';
+        }
+        if (previewCategory === 'maternity') {
+          return pkg.category === 'maternity' || pkg.category === 'personal-maternity';
         }
         if (previewCategory === 'birthday' || previewCategory === 'event') {
           return pkg.category === 'birthday';
@@ -993,8 +1008,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         if (previewCategory === 'pass-foto') {
           return pkg.category === 'pass-foto';
         }
-        if (previewCategory === 'sewa-studio' || previewCategory === 'undangan') {
-          return pkg.category === 'sewa-event';
+        if (previewCategory === 'sewa-studio') {
+          return pkg.category === 'sewa-studio' || pkg.category === 'sewa-event';
+        }
+        if (previewCategory === 'undangan') {
+          return pkg.category === 'undangan' || pkg.category === 'sewa-event';
         }
         return pkg.category === previewCategory;
       })
@@ -1055,6 +1073,46 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     description: 'Referensi dekorasi birthday dengan tulisan birthday, balon latex, dan balon angka sesuai pilihan warna.',
     conceptNote: 'Contoh visual dekorasi. Detail properti mengikuti ketersediaan studio dan konsep yang dipilih.',
     tags: ['#BirthdayDecor', '#PropertiBirthday', '#DekorasiStudio']
+  };
+
+  // Keyboard listener untuk modal preview foto hasil paket (ESC, Panah Kiri, Panah Kanan)
+  useEffect(() => {
+    if (previewPhotoIndex === null) return;
+    const total = pricelistPreviewPhotos.length;
+    if (total === 0) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPreviewPhotoIndex(null);
+      } else if (e.key === 'ArrowLeft') {
+        setPreviewPhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : total - 1));
+      } else if (e.key === 'ArrowRight') {
+        setPreviewPhotoIndex((prev) => (prev !== null && prev < total - 1 ? prev + 1 : 0));
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [previewPhotoIndex, pricelistPreviewPhotos.length]);
+
+  const handlePreviewTouchStart = (e: React.TouchEvent) => {
+    touchPreviewStartX.current = e.targetTouches[0].clientX;
+  };
+  const handlePreviewTouchMove = (e: React.TouchEvent) => {
+    touchPreviewEndX.current = e.targetTouches[0].clientX;
+  };
+  const handlePreviewTouchEnd = () => {
+    if (!touchPreviewStartX.current || !touchPreviewEndX.current) return;
+    const diff = touchPreviewStartX.current - touchPreviewEndX.current;
+    const total = pricelistPreviewPhotos.length;
+    if (total > 1) {
+      if (diff > 40) {
+        setPreviewPhotoIndex((prev) => (prev !== null && prev < total - 1 ? prev + 1 : 0));
+      } else if (diff < -40) {
+        setPreviewPhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : total - 1));
+      }
+    }
+    touchPreviewStartX.current = null;
+    touchPreviewEndX.current = null;
   };
 
   return (
@@ -1389,18 +1447,34 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     </div>
 
                     <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar pb-1 touch-pan-x">
-                      {pricelistPreviewPhotos.map((photo) => (
+                      {pricelistPreviewPhotos.map((photo, photoIdx) => (
                         <div
                           key={photo.id}
-                          className="relative shrink-0 w-[78%] sm:w-[42%] lg:w-[31%] aspect-[4/3] snap-start overflow-hidden rounded-2xl bg-slate-900 border border-slate-200 shadow-sm group"
+                          role="button"
+                          tabIndex={0}
+                          onClick={() => setPreviewPhotoIndex(photoIdx)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              e.preventDefault();
+                              setPreviewPhotoIndex(photoIdx);
+                            }
+                          }}
+                          className="relative shrink-0 w-[78%] sm:w-[42%] lg:w-[31%] aspect-[4/3] snap-start overflow-hidden rounded-2xl bg-slate-900 border border-slate-200 shadow-sm group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:border-[#6E856C] active:scale-[0.98]"
+                          title={`Klik untuk memperbesar foto: ${photo.title}`}
                         >
                           <img
                             src={photo.imageUrl}
                             alt={`${photo.title} - ${photo.packageName}`}
                             loading="lazy"
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                           />
-                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/90 via-slate-950/35 to-transparent px-3 pb-2.5 pt-8">
+                          {/* Floating Zoom Badge on Top-Right */ }
+                          <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] font-sans font-bold px-2.5 py-1 rounded-full border border-white/20 shadow-md opacity-90 group-hover:opacity-100 group-hover:bg-[#6E856C] group-hover:border-[#6E856C] transition-all">
+                            <ZoomIn className="w-3 h-3 text-[#A9BCA7] group-hover:text-white" />
+                            <span>Preview</span>
+                          </div>
+
+                          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-transparent px-3 pb-2.5 pt-8">
                             <p className="text-[10px] sm:text-[11px] text-white font-bold leading-tight line-clamp-2">{photo.title}</p>
                           </div>
                         </div>
@@ -5402,6 +5476,121 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           </div>
         </div>
       )}
+
+      {/* 5. MODAL PREVIEW FOTO HASIL PAKET (LIGHTBOX FOTO CAROUSEL) */}
+      {previewPhotoIndex !== null && pricelistPreviewPhotos[previewPhotoIndex] && (() => {
+        const currentPhoto = pricelistPreviewPhotos[previewPhotoIndex];
+        const total = pricelistPreviewPhotos.length;
+
+        const handlePrev = (e?: React.MouseEvent) => {
+          e?.stopPropagation();
+          setPreviewPhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : total - 1));
+        };
+
+        const handleNext = (e?: React.MouseEvent) => {
+          e?.stopPropagation();
+          setPreviewPhotoIndex((prev) => (prev !== null && prev < total - 1 ? prev + 1 : 0));
+        };
+
+        return (
+          <div
+            className="fixed inset-0 z-[100] bg-black/92 backdrop-blur-md flex flex-col justify-between p-3 sm:p-5 select-none animate-in fade-in duration-200"
+            onClick={() => setPreviewPhotoIndex(null)}
+            onTouchStart={handlePreviewTouchStart}
+            onTouchMove={handlePreviewTouchMove}
+            onTouchEnd={handlePreviewTouchEnd}
+          >
+            {/* Top Bar */}
+            <div
+              className="w-full max-w-5xl mx-auto flex items-center justify-between gap-3 text-white z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                <span className="text-xs sm:text-sm font-serif font-black uppercase tracking-wider bg-white/10 px-3 py-1 rounded-full border border-white/15 text-[#A9BCA7] shrink-0">
+                  {currentPhoto.packageName || activeMenuInfo.title}
+                </span>
+                <span className="text-xs sm:text-sm font-sans font-semibold text-white/90 truncate">
+                  {currentPhoto.title}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                {total > 1 && (
+                  <span className="text-[11px] font-mono font-bold bg-white/10 px-2.5 py-1 rounded-full text-white/75 border border-white/10">
+                    {previewPhotoIndex + 1} / {total}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setPreviewPhotoIndex(null)}
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-white/25 active:bg-white/35 text-white flex items-center justify-center border border-white/20 transition-all cursor-pointer shadow-lg active:scale-95"
+                  title="Tutup Preview (ESC)"
+                  aria-label="Tutup Preview"
+                >
+                  <X className="w-5 h-5 stroke-[2.5]" />
+                </button>
+              </div>
+            </div>
+
+            {/* Center Area: Foto & Navigation Arrows */}
+            <div className="relative flex-1 flex items-center justify-center my-2 sm:my-3 min-h-0 w-full max-w-6xl mx-auto">
+              {/* Tombol Panah Kiri */}
+              {total > 1 && (
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/25 hover:border-white/50 transition-all active:scale-90 cursor-pointer shadow-2xl backdrop-blur-xs"
+                  title="Foto Sebelumnya (←)"
+                  aria-label="Foto Sebelumnya"
+                >
+                  <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
+                </button>
+              )}
+
+              {/* Kontainer Foto Utama */}
+              <div
+                className="relative max-h-[76vh] max-w-full flex items-center justify-center p-1"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  key={currentPhoto.id + currentPhoto.imageUrl}
+                  src={currentPhoto.imageUrl}
+                  alt={currentPhoto.title}
+                  className="max-h-[76vh] max-w-[92vw] sm:max-w-[85vw] object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10 animate-in zoom-in-95 duration-200 select-none"
+                />
+              </div>
+
+              {/* Tombol Panah Kanan */}
+              {total > 1 && (
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center border border-white/25 hover:border-white/50 transition-all active:scale-90 cursor-pointer shadow-2xl backdrop-blur-xs"
+                  title="Foto Selanjutnya (→)"
+                  aria-label="Foto Selanjutnya"
+                >
+                  <ChevronRight className="w-6 h-6 stroke-[2.5]" />
+                </button>
+              )}
+            </div>
+
+            {/* Bottom Bar: Caption & Tips */}
+            <div
+              className="w-full max-w-3xl mx-auto text-center space-y-1 z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="text-xs sm:text-sm font-sans font-bold text-white tracking-wide">
+                {currentPhoto.title}
+              </p>
+              <p className="text-[10px] sm:text-[11px] font-sans text-stone-400">
+                {total > 1
+                  ? "Gunakan tombol panah ◀ ▶ atau geser layar untuk navigasi • Klik di luar atau tekan ESC untuk menutup"
+                  : "Klik di luar atau tombol × untuk menutup"}
+              </p>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 };

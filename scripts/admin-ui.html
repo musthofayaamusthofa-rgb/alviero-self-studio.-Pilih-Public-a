@@ -664,6 +664,9 @@
       <button class="tab-btn" onclick="switchTab('tab-gallery-sections', this)">
         🖼️ Foto & Galeri Web <span class="tab-badge" id="galleryCountBadge">0</span>
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-mua', this)">
+        💄 MUA & Hairdo <span class="tab-badge" id="muaCountBadge">4</span>
+      </button>
       <button class="tab-btn" onclick="switchTab('tab-history', this)">
         📖 Sejarah & Filosofi Studio
       </button>
@@ -874,12 +877,16 @@
             <button class="pill-btn" onclick="filterPackagesCategory('grad-bundling', this)">🎒 Bundling (<span id="catCountBundling">0</span>)</button>
             <button class="pill-btn" onclick="filterPackagesCategory('grad-outdoor', this)">🌳 Outdoor Kampus (<span id="catCountOutdoor">0</span>)</button>
             <button class="pill-btn" onclick="filterPackagesCategory('self-studio', this)">📸 Self Studio (<span id="catCountSelf">0</span>)</button>
-            <button class="pill-btn" onclick="filterPackagesCategory('group-family', this)">👥 Family & Group (<span id="catCountGroup">0</span>)</button>
-            <button class="pill-btn" onclick="filterPackagesCategory('prewed-couple', this)">💍 Prewed & Couple (<span id="catCountPrewed">0</span>)</button>
-            <button class="pill-btn" onclick="filterPackagesCategory('pass-foto', this)">🪪 Pass Foto (<span id="catCountPass">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('family', this)">👨‍👩‍👧‍👦 Family (<span id="catCountFamily">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('group', this)">👥 Group (<span id="catCountGroup">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('couple', this)">👩‍❤️‍👨 Couple (<span id="catCountCouple">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('prewed', this)">💍 Prewedding (<span id="catCountPrewed">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('personal', this)">👤 Personal (<span id="catCountPersonal">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('maternity', this)">🤰 Maternity (<span id="catCountMaternity">0</span>)</button>
             <button class="pill-btn" onclick="filterPackagesCategory('birthday', this)">🎂 Birthday (<span id="catCountBirthday">0</span>)</button>
-            <button class="pill-btn" onclick="filterPackagesCategory('personal-maternity', this)">🤰 Personal & Maternity (<span id="catCountMaternity">0</span>)</button>
-            <button class="pill-btn" onclick="filterPackagesCategory('sewa-event', this)">🏢 Sewa & Undangan (<span id="catCountSewa">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('pass-foto', this)">💳 Pass Foto (<span id="catCountPass">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('sewa-studio', this)">🏢 Sewa Studio (<span id="catCountSewa">0</span>)</button>
+            <button class="pill-btn" onclick="filterPackagesCategory('undangan', this)">💌 Undangan Digital (<span id="catCountUndangan">0</span>)</button>
           </div>
           <div class="search-box" style="margin-top: 0.75rem;">
             <span class="search-icon">🔍</span>
@@ -949,6 +956,84 @@
         <!-- Grid Cards -->
         <div class="bg-grid" id="galleryGridContainer" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
           <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB MUA: PRICELIST MUA, KEBAYA, HAIRDO & HIJABDO -->
+    <section id="tab-mua" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Manajemen Pricelist MUA, Kebaya, Hairdo & Hijabdo</h2>
+            <p class="card-desc">Atur profil vendor (By Novita, By Ananda, By Masaya, By Tiwi), foto inspirasi carousel, portofolio, kategori layanan, paket harga, serta katalog warna kebaya Alviero Studio.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-add" onclick="openAddMuaVendorModal()">
+              + Tambah Vendor Baru
+            </button>
+            <button class="btn btn-save-local" id="addKebayaBtnHeader" onclick="openAddKebayaModalForActiveVendor()">
+              + Tambah Kebaya Vendor
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Sub-Section Pills & Search -->
+        <div class="filter-panel">
+          <div class="filter-group">
+            <span class="filter-label">Bagian:</span>
+            <button class="pill-btn active" id="muaSubTabVendorsBtn" onclick="switchMuaSubTab('vendors', this)">
+              💄 Vendor MUA & Styling (<span id="muaVendorsTabCount">4</span>)
+            </button>
+            <button class="pill-btn" id="muaSubTabKebayaBtn" onclick="switchMuaSubTab('kebaya', this)">
+              👗 Koleksi Kebaya & Stok per Vendor (<span id="muaKebayaTabCount">0</span>)
+            </button>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="muaSearchInput" class="search-input" placeholder="Cari vendor, layanan, paket, atau warna..." oninput="renderMuaSection()">
+          </div>
+        </div>
+
+        <!-- Panel 1: Vendors Grid -->
+        <div id="muaVendorsPanel">
+          <div class="bg-grid" id="muaVendorsGrid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Panel 2: Kebaya Colors Grid -->
+        <div id="muaKebayaPanel" style="display: none;">
+          <!-- Bar Pemilihan Vendor untuk Kebaya & Stok -->
+          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem;">
+              <div>
+                <div style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #5C725A; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>👗</span> PILIH VENDOR UNTUK KELOLA KEBAYA &amp; STOK UKURAN:
+                </div>
+                <div style="font-size: 0.82rem; color: #78716C; margin-top: 0.15rem;">
+                  Setiap vendor memiliki lemari busana kebaya, varian ukuran (S, M, L, XL, XXL), dan jumlah stok fisik masing-masing.
+                </div>
+              </div>
+              <button class="btn btn-save-local" id="vendorSpecificAddKebayaBtn" onclick="openAddKebayaModalForActiveVendor()" style="font-size: 0.82rem; padding: 0.45rem 1rem;">
+                + Tambah Kebaya Vendor
+              </button>
+            </div>
+            <!-- Vendor Selector Pills -->
+            <div id="kebayaVendorSelectorPills" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Active Vendor Status Banner -->
+          <div id="activeVendorKebayaBanner" style="display: flex; justify-content: space-between; align-items: center; background: #FAF8F5; border: 1px solid #E8DDD6; border-left: 4px solid #5C725A; border-radius: 10px; padding: 0.85rem 1.15rem; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div class="bg-grid" id="muaKebayaGrid" style="grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));">
+            <!-- Rendered dynamically -->
+          </div>
         </div>
       </div>
     </section>
@@ -1626,12 +1711,16 @@
               <option value="grad-bundling">🎒 Foto Studio - Bundling (Indoor + Outdoor)</option>
               <option value="grad-outdoor">🌳 Foto Studio - Outdoor (Wisuda Kampus)</option>
               <option value="self-studio">📸 Self Photo Studio</option>
-              <option value="group-family">👥 Family & Group Photo</option>
-              <option value="prewed-couple">💍 Prewedding & Couple</option>
-              <option value="pass-foto">🪪 Pass Foto Studio</option>
+              <option value="family">👨‍👩‍👧‍👦 Family Photo</option>
+              <option value="group">👥 Group Squad Photo</option>
+              <option value="couple">👩‍❤️‍👨 Couple Romance</option>
+              <option value="prewed">💍 Prewedding Studio & Bundling</option>
+              <option value="personal">👤 Personal Portrait</option>
+              <option value="maternity">🤰 Maternity Motherhood</option>
               <option value="birthday">🎂 Birthday Celebration</option>
-              <option value="personal-maternity">🤰 Personal & Maternity</option>
-              <option value="sewa-event">🏢 Sewa Studio & Undangan</option>
+              <option value="pass-foto">🪪 Pass Foto Studio</option>
+              <option value="sewa-studio">🏢 Sewa Studio Hourly</option>
+              <option value="undangan">💌 Undangan Digital Website</option>
             </select>
           </div>
           <div class="form-group" style="flex: 1;">
@@ -1883,6 +1972,255 @@
       <div class="modal-footer">
         <button class="btn btn-preview" onclick="closeModal('galleryItemModal')">Batal</button>
         <button class="btn btn-save-local" onclick="saveGalleryItem()">Simpan Item Foto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT MUA VENDOR -->
+  <div class="modal-overlay" id="muaVendorModal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="muaVendorModalTitle">Edit Profil Vendor MUA</h3>
+        <button class="btn-close" onclick="closeModal('muaVendorModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="muaVendorEditIndex" value="-1">
+
+        <div class="form-group">
+          <label class="form-label">Nama Vendor MUA *</label>
+          <input type="text" id="muaVendorNameInput" class="form-control" placeholder="Contoh: By Novita">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tagline / Spesialisasi Rias *</label>
+          <input type="text" id="muaVendorTaglineInput" class="form-control" placeholder="Contoh: Flawless & Long Lasting Makeup Specialist">
+        </div>
+
+        <!-- Foto Cover Utama -->
+        <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" style="margin: 0; font-weight: 700;">Foto Sampul Utama (Inspirasi Carousel) *</label>
+            <span style="font-size: 0.72rem; color: #71717A;">Maks. 25MB (PNG/JPG/WEBP)</span>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.65rem;">
+            <input type="text" id="muaVendorCoverInput" class="form-control" placeholder="/images/mua/... atau https://..." oninput="updateMuaCoverPreview(this.value)">
+            <input type="file" id="muaVendorCoverFileInput" accept="image/*" style="display:none;" onchange="handleMuaCoverUpload(event)">
+            <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.5rem 0.85rem;" onclick="document.getElementById('muaVendorCoverFileInput').click()">
+              📁 Upload Lokal
+            </button>
+          </div>
+
+          <div id="muaVendorCoverUploadStatus" style="display:none; font-size: 0.78rem; color: #5C725A; font-weight: 600; margin-bottom: 0.5rem;"></div>
+
+          <div id="muaVendorCoverPreviewBox" style="width: 100%; height: 160px; border-radius: 10px; background: #E4E4E7; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #D4D4D8; position: relative;">
+            <img id="muaVendorCoverPreviewImg" src="" style="width:100%; height:100%; object-fit: cover; display:none;">
+            <span id="muaVendorCoverPreviewPlaceholder" style="color: #71717A; font-size: 0.82rem; font-weight: 600;">Belum ada foto yang dipilih</span>
+          </div>
+        </div>
+
+        <!-- Foto Portofolio Tambahan -->
+        <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div>
+              <label class="form-label" style="margin: 0; font-weight: 700;">Foto Portofolio Tambahan</label>
+              <div style="font-size: 0.72rem; color: #71717A;">Koleksi hasil makeup untuk popup portofolio (Maks. 25MB per foto)</div>
+            </div>
+            <button type="button" class="btn btn-add" style="padding: 0.35rem 0.75rem; font-size: 0.76rem;" onclick="addVendorPortfolioSlot()">
+              + Tambah Foto
+            </button>
+          </div>
+
+          <div id="vendorPortfolioListContainer" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('muaVendorModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveMuaVendor()">Simpan Vendor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: KELOLA KATEGORI & PAKET VENDOR MUA -->
+  <div class="modal-overlay" id="muaPackageEditorModal">
+    <div class="modal-card" style="max-width: 820px; max-height: 90vh;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="muaPkgEditorTitle">Kelola Layanan &amp; Paket MUA</h3>
+          <span style="font-size: 0.76rem; color: #71717A;" id="muaPkgEditorSubtitle">Pilih kategori layanan untuk melihat dan mengubah daftar paket serta harga.</span>
+        </div>
+        <button class="btn-close" onclick="closeModal('muaPackageEditorModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 1.25rem;">
+        <input type="hidden" id="muaPkgEditorVendorIndex" value="-1">
+
+        <!-- Category Pills & Add Category -->
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <div id="muaPkgCategoryPillsContainer" style="display: flex; gap: 0.4rem; flex-wrap: wrap; flex: 1;">
+            <!-- Rendered dynamically -->
+          </div>
+          <button type="button" class="btn btn-add" style="padding: 0.35rem 0.75rem; font-size: 0.76rem; white-space: nowrap;" onclick="addMuaCategoryPrompt()">
+            + Kategori Baru
+          </button>
+        </div>
+
+        <!-- Active Category Header & Actions -->
+        <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.65rem; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 220px;">
+              <input type="text" id="muaActiveCategoryNameInput" class="form-control" style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.35rem;" placeholder="Nama Kategori (contoh: Pass Foto)">
+              <input type="text" id="muaActiveCategoryDescInput" class="form-control" style="font-size: 0.78rem;" placeholder="Deskripsi singkat kategori layanan...">
+            </div>
+            <button type="button" class="btn-action delete" style="padding: 0.45rem 0.85rem; height: fit-content;" onclick="deleteCurrentMuaCategory()">
+              🗑️ Hapus Kategori Ini
+            </button>
+          </div>
+
+          <!-- Foto Portofolio Kategori (1 Foto) Sesuai Permintaan Foto 1 -->
+          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+              <label class="form-label" style="margin: 0; font-size: 0.78rem; font-weight: 700;">
+                📸 Foto Portofolio Kategori Ini (1 Foto) *
+              </label>
+              <span style="font-size: 0.7rem; color: #71717A;">Maks. 25MB (PNG/JPG/WEBP)</span>
+            </div>
+
+            <div style="display: flex; gap: 0.4rem; margin-bottom: 0.45rem;">
+              <input type="text" id="muaActiveCategoryPhotoInput" class="form-control" style="font-size: 0.8rem;" placeholder="/images/mua/... atau https://..." oninput="updateActiveCategoryPhotoPreview(this.value)">
+              <input type="file" id="muaActiveCategoryFileInput" accept="image/*" style="display:none;" onchange="handleActiveCategoryPhotoUpload(this)">
+              <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.4rem 0.75rem; font-size: 0.76rem;" onclick="document.getElementById('muaActiveCategoryFileInput').click()">
+                📁 Upload Lokal
+              </button>
+            </div>
+
+            <div id="muaActiveCategoryPhotoStatus" style="display:none; font-size: 0.74rem; color: #5C725A; font-weight: 600; margin-bottom: 0.35rem;"></div>
+
+            <div id="muaActiveCategoryPhotoPreviewBox" style="width: 100%; height: 110px; border-radius: 8px; background: #F4F4F5; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #D1D5DB; position: relative;">
+              <img id="muaActiveCategoryPhotoPreviewImg" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+              <span id="muaActiveCategoryPhotoPlaceholder" style="color: #9CA3AF; font-size: 0.76rem; font-weight: 500;">Belum ada foto portofolio kategori</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Packages List Container in Active Category -->
+        <div style="margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 0.82rem; font-weight: 700; color: var(--charcoal);">
+            Daftar Sub-Paket &amp; Harga:
+          </span>
+          <button type="button" class="btn btn-save-local" style="padding: 0.35rem 0.75rem; font-size: 0.76rem;" onclick="addMuaPackageToActiveCategory()">
+            + Tambah Sub-Paket
+          </button>
+        </div>
+
+        <div id="muaCategoryPackagesContainer" style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('muaPackageEditorModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveMuaPackages()">Simpan Perubahan Paket</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT KEBAYA & STOK UKURAN PER VENDOR -->
+  <div class="modal-overlay" id="kebayaColorModal">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="kebayaColorModalTitle">Edit Kebaya &amp; Stok Ukuran</h3>
+        <button class="btn-close" onclick="closeModal('kebayaColorModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="kebayaColorEditKey" value="">
+        <input type="hidden" id="kebayaColorOrigVendorId" value="">
+
+        <!-- Vendor Pemilik -->
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <label class="form-label" style="font-weight: 700; color: #2E2E2E;">Vendor Pemilik Kebaya *</label>
+          <select id="kebayaVendorSelect" class="form-control" style="font-weight: 700; background: #FFFFFF;" onchange="handleModalVendorChange(this.value)">
+            <!-- Options populated dynamically from appConfig.muaVendors -->
+          </select>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div class="form-group">
+            <label class="form-label">Nama Model / Warna Kebaya *</label>
+            <input type="text" id="kebayaColorNameInput" class="form-control" placeholder="Contoh: Sage, Nude, Maroon">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kode Warna HEX *</label>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <input type="color" id="kebayaColorPicker" style="width: 42px; height: 38px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 2px;" onchange="document.getElementById('kebayaColorHexInput').value = this.value">
+              <input type="text" id="kebayaColorHexInput" class="form-control" placeholder="#8FA38D" oninput="document.getElementById('kebayaColorPicker').value = this.value">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tag / Label Highlight *</label>
+          <input type="text" id="kebayaColorTagInput" class="form-control" placeholder="Contoh: Best Seller Wisuda, Brokat Premium">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Deskripsi Karakter Busana Kebaya *</label>
+          <textarea id="kebayaColorDescInput" class="form-control" rows="2" placeholder="Jelaskan bahan, detail payet, karakter, dan kesan kebaya ini..."></textarea>
+        </div>
+
+        <!-- Foto Contoh Kebaya -->
+        <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" style="margin: 0; font-weight: 700;">Foto Baju Kebaya *</label>
+            <span style="font-size: 0.72rem; color: #71717A;">Maks. 25MB (PNG/JPG/WEBP)</span>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.65rem;">
+            <input type="text" id="kebayaColorImageInput" class="form-control" placeholder="/images/kebaya/... atau https://..." oninput="updateKebayaPhotoPreview(this.value)">
+            <input type="file" id="kebayaColorFileInput" accept="image/*" style="display:none;" onchange="handleKebayaPhotoUpload(event)">
+            <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.5rem 0.85rem;" onclick="document.getElementById('kebayaColorFileInput').click()">
+              📁 Upload Lokal
+            </button>
+          </div>
+
+          <div id="kebayaColorUploadStatus" style="display:none; font-size: 0.78rem; color: #5C725A; font-weight: 600; margin-bottom: 0.5rem;"></div>
+
+          <div id="kebayaColorPreviewBox" style="width: 100%; height: 160px; border-radius: 10px; background: #E4E4E7; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #D4D4D8; position: relative;">
+            <img id="kebayaColorPreviewImg" src="" style="width:100%; height:100%; object-fit: cover; display:none;">
+            <span id="kebayaColorPreviewPlaceholder" style="color: #71717A; font-size: 0.82rem; font-weight: 600;">Belum ada foto yang dipilih</span>
+          </div>
+        </div>
+
+        <!-- Pengaturan Ukuran & Jumlah Stok Fisik -->
+        <div class="form-group" style="background: #FDFBF7; border: 1px solid #E2D8CF; border-radius: 12px; padding: 1rem; margin-top: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div>
+              <label class="form-label" style="margin: 0; font-weight: 700; color: #2E2E2E;">Ukuran &amp; Jumlah Stok Fisik (Masing-masing) *</label>
+              <span style="font-size: 0.74rem; color: #78716C;">Atur stok siap sewa untuk setiap ukuran busana</span>
+            </div>
+            <span id="kebayaModalTotalStockBadge" style="background: #5C725A; color: white; padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 800; font-family: monospace;">
+              Total: 0 pcs
+            </span>
+          </div>
+
+          <!-- Container input stok per ukuran -->
+          <div id="kebayaSizeStockContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); gap: 0.5rem; margin-bottom: 0.75rem;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Tambah custom ukuran -->
+          <div style="display: flex; gap: 0.5rem; align-items: center; padding-top: 0.65rem; border-top: 1px dashed #E2D8CF;">
+            <input type="text" id="kebayaCustomSizeInput" class="form-control" style="max-width: 130px; font-size: 0.8rem;" placeholder="Ukuran baru (misal: 3XL)">
+            <input type="number" id="kebayaCustomQtyInput" class="form-control" style="max-width: 90px; font-size: 0.8rem;" placeholder="Stok" min="0" value="1">
+            <button type="button" class="btn btn-preview" style="font-size: 0.78rem; padding: 0.45rem 0.75rem; white-space: nowrap;" onclick="addCustomSizeToModal()">
+              + Tambah Ukuran
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-preview" onclick="closeModal('kebayaColorModal')">Batal</button>
+        <button class="btn btn-save-local" onclick="saveKebayaColor()">Simpan Kebaya &amp; Stok</button>
       </div>
     </div>
   </div>
@@ -2188,14 +2526,31 @@
           return { label: 'Outdoor Kampus', bg: '#EAF3ED', color: '#2E6038', border: '#BFDDC6', icon: '🌳' };
         case 'self-studio':
           return { label: 'Self Studio', bg: '#F5EFFB', color: '#6B3894', border: '#E2CEF2', icon: '📸' };
+        case 'family':
+          return { label: 'Family', bg: '#FDF2F8', color: '#BE185D', border: '#FBCFE8', icon: '👨‍👩‍👧‍👦' };
+        case 'group':
+          return { label: 'Group', bg: '#EBF4FA', color: '#255D83', border: '#C8E1F2', icon: '👥' };
+        case 'couple':
+          return { label: 'Couple', bg: '#FFF1F2', color: '#E11D48', border: '#FECDD3', icon: '👩‍❤️‍👨' };
+        case 'prewed':
+        case 'prewedding':
+          return { label: 'Prewedding', bg: '#FDF0F3', color: '#A13253', border: '#F8CBD5', icon: '💍' };
+        case 'personal':
+          return { label: 'Personal', bg: '#FEF3C7', color: '#B45309', border: '#FDE68A', icon: '👤' };
+        case 'maternity':
+          return { label: 'Maternity', bg: '#FFF7ED', color: '#C2410C', border: '#FFEDD5', icon: '🤰' };
+        case 'birthday':
+          return { label: 'Birthday', bg: '#FFFBEB', color: '#9A3412', border: '#FED7AA', icon: '🎂' };
+        case 'pass-foto':
+          return { label: 'Pass Foto', bg: '#F3F4F6', color: '#374151', border: '#D1D5DB', icon: '🪪' };
+        case 'sewa-studio':
+          return { label: 'Sewa Studio', bg: '#F0FDFA', color: '#0F766E', border: '#99F6E4', icon: '🏢' };
+        case 'undangan':
+          return { label: 'Undangan Digital', bg: '#EFF6FF', color: '#1D4ED8', border: '#BFDBFE', icon: '💌' };
         case 'group-family':
           return { label: 'Family & Group', bg: '#EBF4FA', color: '#255D83', border: '#C8E1F2', icon: '👥' };
         case 'prewed-couple':
           return { label: 'Prewed & Couple', bg: '#FDF0F3', color: '#A13253', border: '#F8CBD5', icon: '💍' };
-        case 'pass-foto':
-          return { label: 'Pass Foto', bg: '#F3F4F6', color: '#374151', border: '#D1D5DB', icon: '🪪' };
-        case 'birthday':
-          return { label: 'Birthday', bg: '#FFF7ED', color: '#9A3412', border: '#FED7AA', icon: '🎂' };
         case 'personal-maternity':
           return { label: 'Maternity/Personal', bg: '#FFF1F2', color: '#9F1239', border: '#FECDD3', icon: '🤰' };
         case 'sewa-event':
@@ -2240,12 +2595,16 @@
       updateCount('catCountBundling', pkgs.filter(p => p.category === 'grad-bundling').length);
       updateCount('catCountOutdoor', pkgs.filter(p => p.category === 'grad-outdoor').length);
       updateCount('catCountSelf', pkgs.filter(p => p.category === 'self-studio').length);
-      updateCount('catCountGroup', pkgs.filter(p => p.category === 'group-family').length);
-      updateCount('catCountPrewed', pkgs.filter(p => p.category === 'prewed-couple').length);
-      updateCount('catCountPass', pkgs.filter(p => p.category === 'pass-foto').length);
+      updateCount('catCountFamily', pkgs.filter(p => p.category === 'family').length);
+      updateCount('catCountGroup', pkgs.filter(p => p.category === 'group').length);
+      updateCount('catCountCouple', pkgs.filter(p => p.category === 'couple').length);
+      updateCount('catCountPrewed', pkgs.filter(p => p.category === 'prewed' || p.category === 'prewedding').length);
+      updateCount('catCountPersonal', pkgs.filter(p => p.category === 'personal').length);
+      updateCount('catCountMaternity', pkgs.filter(p => p.category === 'maternity').length);
       updateCount('catCountBirthday', pkgs.filter(p => p.category === 'birthday').length);
-      updateCount('catCountMaternity', pkgs.filter(p => p.category === 'personal-maternity').length);
-      updateCount('catCountSewa', pkgs.filter(p => p.category === 'sewa-event').length);
+      updateCount('catCountPass', pkgs.filter(p => p.category === 'pass-foto').length);
+      updateCount('catCountSewa', pkgs.filter(p => p.category === 'sewa-studio').length);
+      updateCount('catCountUndangan', pkgs.filter(p => p.category === 'undangan').length);
 
       const searchInput = document.getElementById('pkgSearchInput');
       const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
@@ -2469,6 +2828,79 @@
         if (!del.value) del.value = 'All File via Google Drive';
         if (!unit.value) unit.value = 'per sesi (1-2 Orang)';
         if (!note.value) note.value = '*Wireless remote shutter otomatis tanpa fotografer';
+      } else if (val === 'family') {
+        if (!sub.value) sub.value = 'Family Studio';
+        if (!dur.value) dur.value = '30 Menit Sesi Foto';
+        if (!bg.value) bg.value = '1 Background Studio';
+        if (!peop.value) peop.value = 'Maksimal 6-8 Orang Keluarga';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Cetak Foto 10R + Frame';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi foto';
+        if (!note.value) note.value = '*Potongan Rp 50.000 jika hanya 3 orang keluarga';
+      } else if (val === 'group') {
+        if (!sub.value) sub.value = 'Group Squad';
+        if (!dur.value) dur.value = '30-40 Menit Sesi Foto';
+        if (!bg.value) bg.value = '1 Background Studio';
+        if (!peop.value) peop.value = 'Hingga 15 Orang Sahabat';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Cetak Ukuran 4R/10R';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi foto';
+      } else if (val === 'couple') {
+        if (!sub.value) sub.value = 'Couple Romance';
+        if (!dur.value) dur.value = '25 Menit Sesi Foto';
+        if (!bg.value) bg.value = '1 Background Studio';
+        if (!peop.value) peop.value = '2 Orang Pasangan';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Cetak 10R / 4R';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi foto';
+      } else if (val === 'prewed') {
+        if (!sub.value) sub.value = 'Prewedding Studio';
+        if (!dur.value) dur.value = '45-60 Menit Sesi Foto';
+        if (!bg.value) bg.value = '2 Background Studio';
+        if (!peop.value) peop.value = 'Calon Pengantin (2 Orang)';
+        if (!edit.value) edit.value = 'Edit Foto High-Res Retouch';
+        if (!print.value) print.value = 'Cetak 12R + Frame Minimalis';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per paket prewedding';
+      } else if (val === 'personal') {
+        if (!sub.value) sub.value = 'Personal Portrait';
+        if (!dur.value) dur.value = '20 Menit Sesi Foto';
+        if (!bg.value) bg.value = '1 Background Studio';
+        if (!peop.value) peop.value = '1 Orang';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Cetak 4R / 10R';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi foto';
+      } else if (val === 'maternity') {
+        if (!sub.value) sub.value = 'Maternity Motherhood';
+        if (!dur.value) dur.value = '30 Menit Sesi Foto';
+        if (!bg.value) bg.value = '1 Background Studio';
+        if (!peop.value) peop.value = 'Ibu Hamil & Pasangan';
+        if (!edit.value) edit.value = 'Edit Foto High-Res';
+        if (!print.value) print.value = 'Cetak 10R + Frame';
+        if (!del.value) del.value = 'All File via Google Drive';
+        if (!unit.value) unit.value = 'per sesi foto';
+      } else if (val === 'sewa-studio') {
+        if (!sub.value) sub.value = 'Sewa Studio';
+        if (!dur.value) dur.value = '60 Menit per Jam Sewa';
+        if (!bg.value) bg.value = 'Bebas Pakai Seluruh Background';
+        if (!peop.value) peop.value = 'Maksimal 8 Orang Tim';
+        if (!edit.value) edit.value = 'Tanpa Edit (Bawa fotografer sendiri)';
+        if (!print.value) print.value = 'Tanpa Cetak';
+        if (!del.value) del.value = 'Hasil foto di memori sendiri';
+        if (!unit.value) unit.value = 'per jam (Studio & Lighting)';
+      } else if (val === 'undangan') {
+        if (!sub.value) sub.value = 'Undangan Digital';
+        if (!dur.value) dur.value = 'Aktif Hingga Hari H / Selamanya';
+        if (!bg.value) bg.value = 'Pilihan Desain Elegan / Custom';
+        if (!peop.value) peop.value = 'Calon Pengantin';
+        if (!edit.value) edit.value = 'Musik, RSVP, Maps, Countdown';
+        if (!print.value) print.value = 'Digital Link Website / QR Code';
+        if (!del.value) del.value = 'Link Website Undangan Online';
+        if (!unit.value) unit.value = 'Web Undangan Siap Sebar';
       }
     }
 
@@ -3177,6 +3609,7 @@
       renderIndoorPackages();
       renderBranches();
       renderGalleryGrid();
+      renderMuaSection();
     }
 
     function renderBackgrounds() {
@@ -4445,6 +4878,1232 @@
         showToast(`'${name}' telah dihapus.`);
       }
     }
+
+    // =========================================================================
+    // MODUL MANAJEMEN PRICELIST MUA, KEBAYA, HAIRDO & HIJABDO
+    // =========================================================================
+    let currentMuaSubTab = 'vendors';
+    let selectedKebayaVendorId = 'novita';
+    let modalKebayaStock = { S: 2, M: 4, L: 3, XL: 2, XXL: 1 };
+    let editingVendorPortfolio = [];
+    let editingVendorPackagesClone = null;
+    let editingVendorPackagesOrigIdx = -1;
+    let activePkgEditorCatIdx = 0;
+
+    function switchMuaSubTab(tab, btn) {
+      currentMuaSubTab = tab;
+      document.getElementById('muaSubTabVendorsBtn').classList.toggle('active', tab === 'vendors');
+      document.getElementById('muaSubTabKebayaBtn').classList.toggle('active', tab === 'kebaya');
+
+      document.getElementById('muaVendorsPanel').style.display = tab === 'vendors' ? 'block' : 'none';
+      document.getElementById('muaKebayaPanel').style.display = tab === 'kebaya' ? 'block' : 'none';
+
+      renderMuaSection();
+    }
+
+    function renderMuaSection() {
+      if (!appConfig) return;
+      if (!appConfig.muaVendors) appConfig.muaVendors = [];
+      if (!appConfig.kebayaColorCatalog) appConfig.kebayaColorCatalog = {};
+
+      const vendorCount = appConfig.muaVendors.length;
+      const totalKebayaCount = (appConfig.muaVendors || []).reduce((acc, v) => acc + (v.kebayas ? v.kebayas.length : 0), 0);
+
+      const badge = document.getElementById('muaCountBadge');
+      if (badge) badge.textContent = vendorCount;
+      const tabVendorCount = document.getElementById('muaVendorsTabCount');
+      if (tabVendorCount) tabVendorCount.textContent = vendorCount;
+      const tabKebayaCount = document.getElementById('muaKebayaTabCount');
+      if (tabKebayaCount) tabKebayaCount.textContent = totalKebayaCount;
+
+      if (currentMuaSubTab === 'vendors') {
+        renderMuaVendors();
+      } else {
+        renderKebayaColors();
+      }
+    }
+
+    function renderMuaVendors() {
+      const container = document.getElementById('muaVendorsGrid');
+      if (!container || !appConfig) return;
+      container.innerHTML = '';
+
+      const search = (document.getElementById('muaSearchInput')?.value || '').toLowerCase().trim();
+      const vendors = (appConfig.muaVendors || []).map((v, idx) => ({ ...v, _origIndex: idx })).filter(v => {
+        if (!search) return true;
+        const nameMatch = (v.name || '').toLowerCase().includes(search);
+        const taglineMatch = (v.tagline || '').toLowerCase().includes(search);
+        const catsMatch = (v.categories || []).some(c => (c.name || '').toLowerCase().includes(search));
+        return nameMatch || taglineMatch || catsMatch;
+      });
+
+      if (vendors.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 2.5rem; text-align: center; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 16px;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">💄</div>
+            <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 0.25rem;">Tidak Ada Vendor MUA Ditemukan</div>
+            <div style="font-size: 0.84rem; color: #78716C;">Klik tombol "+ Tambah Vendor Baru" untuk menambahkan vendor rias & styling.</div>
+          </div>
+        `;
+        return;
+      }
+
+      vendors.forEach(v => {
+        const origIdx = v._origIndex;
+        const catCount = (v.categories || []).length;
+        let totalPackages = 0;
+        (v.categories || []).forEach(c => {
+          totalPackages += (c.subPackages || []).length;
+        });
+
+        const coverImg = v.coverImage || 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';
+        const portfolioImgs = v.portfolioImages || [];
+
+        const card = document.createElement('div');
+        card.className = 'bg-card';
+        card.innerHTML = `
+          <div class="bg-photo-area" style="background-image: url('${coverImg}'); height: 180px; position: relative;">
+            <div class="bg-photo-gradient"></div>
+            <span class="badge-branch-tag" style="background: rgba(254, 243, 199, 0.95); color: #92400E;">
+              💄 VENDOR MUA
+            </span>
+            <div class="status-indicator-chip active">
+              <span class="status-dot"></span>
+              ${catCount} Kategori Layanan
+            </div>
+          </div>
+          <div class="bg-content-area" style="padding: 1.15rem; display: flex; flex-direction: column; flex: 1;">
+            <div style="margin-bottom: 0.4rem;">
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); font-family: serif; letter-spacing: 0.02em;">
+                ${escapeHtml(v.name || 'Nama Vendor')}
+              </h3>
+              <p style="font-size: 0.8rem; color: #71717A; margin-top: 0.2rem; font-style: italic;">
+                ${escapeHtml(v.tagline || 'Spesialis Makeup Studio')}
+              </p>
+            </div>
+
+            <div style="display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.72rem; font-weight: 700; color: #5C725A; background: #EBF2EA; padding: 0.2rem 0.55rem; border-radius: 6px; border: 1px solid #A9BCA7;">
+                📦 ${totalPackages} Pilihan Paket
+              </span>
+              <span style="font-size: 0.72rem; font-weight: 700; color: #4B5563; background: #F3F4F6; padding: 0.2rem 0.55rem; border-radius: 6px; border: 1px solid #D1D5DB;">
+                📸 ${portfolioImgs.length} Portofolio
+              </span>
+            </div>
+
+            <!-- Categories chips preview -->
+            <div style="display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
+              ${(v.categories || []).slice(0, 4).map(c => `
+                <span style="font-size: 0.68rem; background: #FAF8F5; border: 1px solid #E8DDD6; color: #52525B; padding: 0.15rem 0.45rem; border-radius: 6px;">
+                  ${escapeHtml(c.name)}
+                </span>
+              `).join('')}
+              ${catCount > 4 ? `<span style="font-size: 0.68rem; color: #71717A; padding: 0.15rem 0.3rem;">+${catCount - 4} lainnya</span>` : ''}
+            </div>
+
+            <!-- Mini Portfolio Preview -->
+            ${portfolioImgs.length > 0 ? `
+              <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 0.2rem;">
+                ${portfolioImgs.slice(0, 4).map(img => `
+                  <img src="${img}" style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid #E4E4E7;" onerror="this.style.display='none'">
+                `).join('')}
+              </div>
+            ` : ''}
+
+            <div class="bg-card-bottom" style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <div style="display: flex; gap: 0.4rem;">
+                <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.7rem;" onclick="openEditMuaVendorModal(${origIdx})">
+                  ✏️ Edit Profil &amp; Foto
+                </button>
+                <button class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.35rem 0.7rem;" onclick="openMuaPackagesManagerModal(${origIdx})">
+                  📋 Kelola Paket &amp; Harga
+                </button>
+              </div>
+              <button class="btn-action delete" style="padding: 0.35rem 0.6rem;" onclick="deleteMuaVendor(${origIdx})" title="Hapus Vendor">
+                🗑️
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectKebayaVendor(vendorId) {
+      selectedKebayaVendorId = vendorId;
+      renderKebayaColors();
+    }
+
+    function renderKebayaColors() {
+      const container = document.getElementById('muaKebayaGrid');
+      const pillsContainer = document.getElementById('kebayaVendorSelectorPills');
+      const bannerContainer = document.getElementById('activeVendorKebayaBanner');
+      if (!container || !appConfig) return;
+
+      const vendors = appConfig.muaVendors || [];
+      if (vendors.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1 / -1; padding: 2rem; text-align: center; color: #71717A;">Belum ada vendor MUA terdaftar.</div>';
+        return;
+      }
+
+      // Pastikan vendor terpilih valid
+      if (!vendors.some(v => v.id === selectedKebayaVendorId)) {
+        selectedKebayaVendorId = vendors[0]?.id || 'novita';
+      }
+
+      const activeVendor = vendors.find(v => v.id === selectedKebayaVendorId) || vendors[0];
+      if (!activeVendor.kebayas) activeVendor.kebayas = [];
+
+      // Render Bar Tombol Pemilihan Vendor
+      if (pillsContainer) {
+        pillsContainer.innerHTML = vendors.map(v => {
+          const vKebayas = v.kebayas || [];
+          const vStock = vKebayas.reduce((acc, k) => acc + (k.totalStock ?? (k.stock ? Object.values(k.stock).reduce((a, b) => a + (Number(b) || 0), 0) : 0)), 0);
+          const isSelected = v.id === selectedKebayaVendorId;
+          const vendorIcon = v.id === 'tiwi' ? '💇' : v.id === 'masaya' ? '✨' : v.id === 'ananda' ? '🌸' : '🏛️';
+
+          return `
+            <button type="button" class="pill-btn ${isSelected ? 'active' : ''}" style="${isSelected ? 'background: #2E2E2E; color: #FFFFFF; border-color: #2E2E2E; font-weight: 800;' : 'background: #FAF8F5; color: #4B5563; border-color: #E5E7EB;'}" onclick="selectKebayaVendor('${v.id}')">
+              <span style="font-size: 0.95rem;">${vendorIcon}</span>
+              <span>${escapeHtml(v.name)}</span>
+              <span style="font-size: 0.72rem; opacity: 0.9; font-family: monospace; background: ${isSelected ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.06)'}; padding: 0.1rem 0.4rem; border-radius: 9999px;">
+                ${vKebayas.length} Kebaya • ${vStock} Pcs
+              </span>
+            </button>
+          `;
+        }).join('');
+      }
+
+      // Render Banner Info Vendor Aktif
+      const activeVendorKebayas = activeVendor.kebayas || [];
+      const activeVendorTotalStock = activeVendorKebayas.reduce((acc, k) => acc + (k.totalStock ?? (k.stock ? Object.values(k.stock).reduce((a, b) => a + (Number(b) || 0), 0) : 0)), 0);
+
+      if (bannerContainer) {
+        bannerContainer.innerHTML = `
+          <div>
+            <div style="font-weight: 800; font-size: 0.95rem; color: #2E2E2E; display: flex; align-items: center; gap: 0.5rem;">
+              <span>👗</span>
+              <span>Koleksi Busana Kebaya Milik: <span style="color: #5C725A;">${escapeHtml(activeVendor.name)}</span></span>
+            </div>
+            <div style="font-size: 0.8rem; color: #78716C; margin-top: 0.2rem;">
+              📊 Memiliki <strong>${activeVendorKebayas.length} Model Kebaya</strong> dengan total <strong>${activeVendorTotalStock} pcs stok fisik siap sewa</strong>.
+            </div>
+          </div>
+          <button class="btn btn-save-local" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;" onclick="openAddKebayaModalForActiveVendor('${activeVendor.id}')">
+            + Tambah Kebaya ${escapeHtml(activeVendor.name)}
+          </button>
+        `;
+      }
+
+      // Filter Pencarian
+      const search = (document.getElementById('muaSearchInput')?.value || '').toLowerCase().trim();
+      const filteredKebayas = activeVendorKebayas.filter(item => {
+        if (!search) return true;
+        const nameMatch = (item.name || '').toLowerCase().includes(search);
+        const tagMatch = (item.tag || '').toLowerCase().includes(search);
+        const descMatch = (item.desc || '').toLowerCase().includes(search);
+        return nameMatch || tagMatch || descMatch;
+      });
+
+      container.innerHTML = '';
+
+      if (filteredKebayas.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 2.5rem; text-align: center; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 16px;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">👗</div>
+            <div style="font-weight: 800; color: var(--charcoal); margin-bottom: 0.25rem;">
+              ${search ? 'Tidak Ada Kebaya Sesuai Pencarian' : `Vendor ${escapeHtml(activeVendor.name)} Belum Memiliki Koleksi Kebaya`}
+            </div>
+            <div style="font-size: 0.84rem; color: #78716C; margin-bottom: 1rem;">
+              ${search ? 'Coba gunakan kata kunci pencarian yang lain.' : 'Setiap vendor memiliki lemari busana dan ukuran sendiri. Klik tombol di bawah untuk menambahkan kebaya khusus vendor ini.'}
+            </div>
+            <button class="btn btn-save-local" onclick="openAddKebayaModalForActiveVendor('${activeVendor.id}')">
+              + Tambah Kebaya ${escapeHtml(activeVendor.name)}
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      filteredKebayas.forEach(item => {
+        const totalStock = item.totalStock ?? (item.stock ? Object.values(item.stock).reduce((a, b) => a + (Number(b) || 0), 0) : 0);
+        const sizesList = item.sizes || (item.stock ? Object.keys(item.stock) : ['S', 'M', 'L', 'XL', 'XXL']);
+
+        const card = document.createElement('div');
+        card.className = 'bg-card';
+        card.innerHTML = `
+          <div class="bg-photo-area" style="background-image: url('${item.image || ''}'); height: 180px; position: relative;">
+            <div class="bg-photo-gradient"></div>
+            <div style="display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.92); padding: 0.2rem 0.55rem; border-radius: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index: 2;">
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: ${item.hex || '#CCCCCC'}; border: 1px solid #D4D4D8; display: inline-block;"></span>
+              <strong style="font-size: 0.72rem; color: #27272A;">${escapeHtml(item.name || 'Kebaya')}</strong>
+            </div>
+            ${item.tag ? `
+              <span class="badge-branch-tag" style="background: rgba(220, 252, 231, 0.95); color: #166534;">
+                ${escapeHtml(item.tag)}
+              </span>
+            ` : '<div></div>'}
+          </div>
+          <div class="bg-content-area" style="padding: 1.15rem; display: flex; flex-direction: column; flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+              <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal);">
+                ${escapeHtml(item.name || 'Kebaya')}
+              </h4>
+              <span class="bg-hex-badge">${item.hex || '-'}</span>
+            </div>
+            <p style="font-size: 0.78rem; color: #71717A; line-height: 1.45; margin-bottom: 0.75rem; flex: 1;">
+              ${escapeHtml(item.desc || 'Koleksi busana kebaya wisuda studio Alviero.')}
+            </p>
+
+            <!-- Rincian Stok Fisik per Ukuran -->
+            <div style="background: #FDFBF7; border: 1px solid #EAE3DB; border-radius: 8px; padding: 0.65rem; margin-bottom: 0.85rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                <span style="font-size: 0.72rem; font-family: monospace; font-weight: 700; color: #2E2E2E;">STOK PER UKURAN:</span>
+                <span style="font-size: 0.72rem; font-weight: 800; color: #5C725A; background: rgba(92,114,90,0.12); padding: 0.15rem 0.5rem; border-radius: 4px;">
+                  Total: ${totalStock} pcs
+                </span>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                ${sizesList.map(sz => {
+                  const qty = (item.stock && item.stock[sz] !== undefined) ? item.stock[sz] : 0;
+                  return `<span style="font-size: 0.72rem; font-family: monospace; font-weight: 700; background: ${qty > 0 ? '#FFFFFF' : '#F3F4F6'}; color: ${qty > 0 ? '#2E2E2E' : '#9CA3AF'}; border: 1px solid ${qty > 0 ? '#D1D5DB' : '#E5E7EB'}; padding: 0.15rem 0.45rem; border-radius: 6px; ${qty === 0 ? 'text-decoration: line-through;' : ''}">
+                    ${sz}: ${qty > 0 ? qty + ' pcs' : '0'}
+                  </span>`;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="bg-card-bottom" style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+              <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.8rem;" onclick="openEditKebayaColorModal('${activeVendor.id}', '${item.id}')">
+                ✏️ Edit Kebaya &amp; Stok
+              </button>
+              <button class="btn-action delete" style="padding: 0.35rem 0.6rem;" onclick="deleteKebayaColor('${activeVendor.id}', '${item.id}')" title="Hapus Kebaya">
+                🗑️
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // --- MUA VENDOR MODAL ---
+    function updateMuaCoverPreview(url) {
+      const img = document.getElementById('muaVendorCoverPreviewImg');
+      const placeholder = document.getElementById('muaVendorCoverPreviewPlaceholder');
+      if (url && url.trim()) {
+        img.src = url.trim();
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        placeholder.style.display = 'block';
+      }
+    }
+
+    function renderVendorPortfolioSlots() {
+      const container = document.getElementById('vendorPortfolioListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      editingVendorPortfolio.forEach((url, idx) => {
+        const slot = document.createElement('div');
+        slot.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;';
+        slot.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #4B5563;">Foto Portofolio #${idx + 1}</span>
+            <button type="button" class="btn-action delete" style="padding: 0.15rem 0.45rem; font-size: 0.72rem;" onclick="removeVendorPortfolioSlot(${idx})">
+              🗑️ Hapus
+            </button>
+          </div>
+          <div style="display: flex; gap: 0.4rem;">
+            <input type="text" class="form-control" style="font-size: 0.8rem;" value="${escapeHtml(url || '')}" placeholder="/images/mua/... atau https://..." oninput="editingVendorPortfolio[${idx}] = this.value; document.getElementById('portPreviewImg_${idx}').src = this.value;">
+            <input type="file" id="portFile_${idx}" accept="image/*" style="display:none;" onchange="handleVendorPortfolioUpload(this, ${idx})">
+            <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.4rem 0.75rem; font-size: 0.76rem;" onclick="document.getElementById('portFile_${idx}').click()">
+              📁 Upload
+            </button>
+          </div>
+          <div id="portStatus_${idx}" style="display:none; font-size: 0.72rem; color: #5C725A; font-weight: 600;"></div>
+          ${url ? `
+            <div style="height: 90px; border-radius: 8px; overflow: hidden; background: #F4F4F5; border: 1px solid #E4E4E7;">
+              <img id="portPreviewImg_${idx}" src="${url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+            </div>
+          ` : ''}
+        `;
+        container.appendChild(slot);
+      });
+    }
+
+    function addVendorPortfolioSlot(initialUrl = '') {
+      editingVendorPortfolio.push(initialUrl);
+      renderVendorPortfolioSlots();
+    }
+
+    function removeVendorPortfolioSlot(idx) {
+      editingVendorPortfolio.splice(idx, 1);
+      renderVendorPortfolioSlots();
+    }
+
+    async function handleMuaCoverUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid.');
+        return;
+      }
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        return;
+      }
+
+      const status = document.getElementById('muaVendorCoverUploadStatus');
+      if (status) {
+        status.style.display = 'block';
+        status.textContent = '⏳ Mengunggah foto sampul (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        try {
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: evt.target.result,
+              fileName: file.name,
+              folder: 'mua'
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.url) {
+            document.getElementById('muaVendorCoverInput').value = data.url;
+            updateMuaCoverPreview(data.url);
+            if (status) {
+              status.textContent = '✅ Foto sampul berhasil diunggah!';
+              setTimeout(() => { status.style.display = 'none'; }, 2000);
+            }
+            showToast('Foto sampul MUA berhasil diunggah!', '📸');
+          } else {
+            throw new Error(data.error || 'Gagal mengunggah foto');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Upload foto gagal: ' + err.message);
+          if (status) status.style.display = 'none';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function handleVendorPortfolioUpload(input, idx) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        return;
+      }
+
+      const status = document.getElementById(`portStatus_${idx}`);
+      if (status) {
+        status.style.display = 'block';
+        status.textContent = '⏳ Mengunggah portofolio...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        try {
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: evt.target.result,
+              fileName: file.name,
+              folder: 'mua'
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.url) {
+            editingVendorPortfolio[idx] = data.url;
+            renderVendorPortfolioSlots();
+            showToast('Portofolio foto berhasil diunggah!', '📸');
+          }
+        } catch (err) {
+          alert('Upload gagal: ' + err.message);
+          if (status) status.style.display = 'none';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function openAddMuaVendorModal() {
+      document.getElementById('muaVendorEditIndex').value = '-1';
+      document.getElementById('muaVendorModalTitle').textContent = 'Tambah Vendor MUA Baru';
+      document.getElementById('muaVendorNameInput').value = '';
+      document.getElementById('muaVendorTaglineInput').value = '';
+      document.getElementById('muaVendorCoverInput').value = '';
+      updateMuaCoverPreview('');
+      editingVendorPortfolio = [];
+      renderVendorPortfolioSlots();
+      openModal('muaVendorModal');
+    }
+
+    function openEditMuaVendorModal(idx) {
+      if (!appConfig || !appConfig.muaVendors || !appConfig.muaVendors[idx]) return;
+      const v = appConfig.muaVendors[idx];
+      document.getElementById('muaVendorEditIndex').value = idx;
+      document.getElementById('muaVendorModalTitle').textContent = 'Edit Profil Vendor: ' + (v.name || '');
+      document.getElementById('muaVendorNameInput').value = v.name || '';
+      document.getElementById('muaVendorTaglineInput').value = v.tagline || '';
+      document.getElementById('muaVendorCoverInput').value = v.coverImage || '';
+      updateMuaCoverPreview(v.coverImage || '');
+      editingVendorPortfolio = [...(v.portfolioImages || [])];
+      renderVendorPortfolioSlots();
+      openModal('muaVendorModal');
+    }
+
+    function saveMuaVendor() {
+      const idx = parseInt(document.getElementById('muaVendorEditIndex').value, 10);
+      const name = document.getElementById('muaVendorNameInput').value.trim();
+      const tagline = document.getElementById('muaVendorTaglineInput').value.trim();
+      const coverImage = document.getElementById('muaVendorCoverInput').value.trim();
+
+      if (!name) return alert('Nama Vendor wajib diisi!');
+      if (!coverImage) return alert('Foto Sampul Utama wajib diisi!');
+
+      const cleanPortfolio = editingVendorPortfolio.filter(u => u && u.trim());
+
+      if (!appConfig.muaVendors) appConfig.muaVendors = [];
+
+      if (idx === -1) {
+        // Create new vendor
+        const newId = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+        const newVendor = {
+          id: newId || ('vendor-' + Date.now()),
+          name,
+          tagline: tagline || 'Spesialis Rias & Styling Studio',
+          coverImage,
+          portfolioImages: cleanPortfolio,
+          categories: [
+            {
+              id: newId + '-pass-foto',
+              name: 'Pass Foto',
+              iconType: 'camera',
+              description: 'Riasan wajah natural khusus sesi foto formal.',
+              subPackages: [
+                {
+                  id: newId + '-pf-1',
+                  name: 'Paket 1 — Basic Touch Look',
+                  price: 75000,
+                  duration: '30 Menit',
+                  features: ['Complexion Natural Flawless', 'Rapikan Alis & Natural Blush On', 'Penataan Rambut Simple']
+                }
+              ]
+            }
+          ]
+        };
+        appConfig.muaVendors.push(newVendor);
+      } else {
+        // Update existing vendor
+        const v = appConfig.muaVendors[idx];
+        v.name = name;
+        v.tagline = tagline;
+        v.coverImage = coverImage;
+        v.portfolioImages = cleanPortfolio;
+      }
+
+      closeModal('muaVendorModal');
+      renderMuaSection();
+      saveConfigLocally();
+      showToast(`Vendor '${name}' berhasil disimpan!`);
+    }
+
+    function deleteMuaVendor(idx) {
+      if (!appConfig || !appConfig.muaVendors || !appConfig.muaVendors[idx]) return;
+      const v = appConfig.muaVendors[idx];
+      if (confirm(`Yakin ingin menghapus vendor '${v.name}' beserta seluruh paketnya?`)) {
+        appConfig.muaVendors.splice(idx, 1);
+        renderMuaSection();
+        saveConfigLocally();
+        showToast(`Vendor '${v.name}' telah dihapus.`, '🗑️');
+      }
+    }
+
+    // --- MUA PACKAGES EDITOR MODAL ---
+    function openMuaPackagesManagerModal(vendorIdx) {
+      if (!appConfig || !appConfig.muaVendors || !appConfig.muaVendors[vendorIdx]) return;
+      editingVendorPackagesOrigIdx = vendorIdx;
+      editingVendorPackagesClone = JSON.parse(JSON.stringify(appConfig.muaVendors[vendorIdx]));
+      activePkgEditorCatIdx = 0;
+
+      document.getElementById('muaPkgEditorVendorIndex').value = vendorIdx;
+      document.getElementById('muaPkgEditorTitle').textContent = 'Kelola Layanan & Paket — ' + (editingVendorPackagesClone.name || '');
+
+      renderMuaPkgEditorCategories();
+      renderMuaPkgEditorPackages();
+      openModal('muaPackageEditorModal');
+    }
+
+    function updateActiveCategoryPhotoPreview(url) {
+      const img = document.getElementById('muaActiveCategoryPhotoPreviewImg');
+      const placeholder = document.getElementById('muaActiveCategoryPhotoPlaceholder');
+      if (img && placeholder) {
+        if (url && url.trim()) {
+          img.src = url.trim();
+          img.style.display = 'block';
+          placeholder.style.display = 'none';
+        } else {
+          img.style.display = 'none';
+          placeholder.style.display = 'block';
+        }
+      }
+    }
+
+    async function handleActiveCategoryPhotoUpload(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid.');
+        return;
+      }
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        return;
+      }
+
+      const status = document.getElementById('muaActiveCategoryPhotoStatus');
+      if (status) {
+        status.style.display = 'block';
+        status.textContent = '⏳ Mengunggah foto portofolio kategori (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        try {
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: evt.target.result,
+              fileName: file.name,
+              folder: 'mua'
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.url) {
+            document.getElementById('muaActiveCategoryPhotoInput').value = data.url;
+            updateActiveCategoryPhotoPreview(data.url);
+            if (editingVendorPackagesClone && editingVendorPackagesClone.categories && editingVendorPackagesClone.categories[activePkgEditorCatIdx]) {
+              editingVendorPackagesClone.categories[activePkgEditorCatIdx].portfolioImage = data.url;
+            }
+            if (status) {
+              status.textContent = '✅ Foto portofolio kategori berhasil diunggah!';
+              setTimeout(() => { status.style.display = 'none'; }, 2000);
+            }
+            showToast('Foto portofolio kategori berhasil diunggah!', '📸');
+          } else {
+            throw new Error(data.error || 'Gagal upload foto');
+          }
+        } catch (err) {
+          alert('Upload gagal: ' + err.message);
+          if (status) status.style.display = 'none';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renderMuaPkgEditorCategories() {
+      const pillsContainer = document.getElementById('muaPkgCategoryPillsContainer');
+      if (!pillsContainer || !editingVendorPackagesClone) return;
+      pillsContainer.innerHTML = '';
+
+      const cats = editingVendorPackagesClone.categories || [];
+      if (cats.length === 0) {
+        cats.push({
+          id: 'cat-' + Date.now(),
+          name: 'Layanan Utama',
+          description: 'Layanan makeup & styling',
+          portfolioImage: '',
+          subPackages: []
+        });
+      }
+
+      if (activePkgEditorCatIdx >= cats.length) activePkgEditorCatIdx = 0;
+
+      cats.forEach((cat, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pill-btn' + (idx === activePkgEditorCatIdx ? ' active' : '');
+        btn.textContent = (cat.name || 'Kategori') + ' (' + (cat.subPackages || []).length + ')';
+        btn.onclick = () => {
+          saveCurrentCategoryInputs();
+          activePkgEditorCatIdx = idx;
+          renderMuaPkgEditorCategories();
+          renderMuaPkgEditorPackages();
+        };
+        pillsContainer.appendChild(btn);
+      });
+
+      const activeCat = cats[activePkgEditorCatIdx];
+      document.getElementById('muaActiveCategoryNameInput').value = activeCat.name || '';
+      document.getElementById('muaActiveCategoryDescInput').value = activeCat.description || '';
+      
+      const photoInput = document.getElementById('muaActiveCategoryPhotoInput');
+      if (photoInput) {
+        photoInput.value = activeCat.portfolioImage || '';
+        updateActiveCategoryPhotoPreview(activeCat.portfolioImage || '');
+      }
+    }
+
+    function saveCurrentCategoryInputs() {
+      if (!editingVendorPackagesClone || !editingVendorPackagesClone.categories) return;
+      const cats = editingVendorPackagesClone.categories;
+      if (cats[activePkgEditorCatIdx]) {
+        cats[activePkgEditorCatIdx].name = document.getElementById('muaActiveCategoryNameInput').value.trim() || 'Kategori';
+        cats[activePkgEditorCatIdx].description = document.getElementById('muaActiveCategoryDescInput').value.trim() || '';
+        const photoInput = document.getElementById('muaActiveCategoryPhotoInput');
+        if (photoInput) {
+          cats[activePkgEditorCatIdx].portfolioImage = photoInput.value.trim();
+        }
+      }
+    }
+
+    function togglePkgColorsEnabled(catIdx, pkgIdx, isEnabled) {
+      const pkg = editingVendorPackagesClone.categories[catIdx].subPackages[pkgIdx];
+      const vendorKebayas = (editingVendorPackagesClone.kebayas || []).map(k => k.name);
+      const defaultColors = vendorKebayas.length > 0 ? vendorKebayas.slice(0, 4) : ['Sage', 'Nude', 'Black', 'Maroon'];
+      if (isEnabled) {
+        pkg.colors = (pkg.colors && pkg.colors.length > 0) ? pkg.colors : defaultColors;
+      } else {
+        pkg.colors = [];
+      }
+      renderMuaPkgEditorPackages();
+    }
+
+    function togglePkgColorItem(catIdx, pkgIdx, colorName, isChecked) {
+      const pkg = editingVendorPackagesClone.categories[catIdx].subPackages[pkgIdx];
+      if (!pkg.colors) pkg.colors = [];
+      if (isChecked) {
+        if (!pkg.colors.includes(colorName)) pkg.colors.push(colorName);
+      } else {
+        pkg.colors = pkg.colors.filter(c => c !== colorName);
+      }
+      const countEl = document.getElementById(`pkgColorCount_${pkgIdx}`);
+      if (countEl) countEl.textContent = `${pkg.colors.length} Warna Terpilih`;
+    }
+
+    function togglePkgSizesEnabled(catIdx, pkgIdx, isEnabled) {
+      const pkg = editingVendorPackagesClone.categories[catIdx].subPackages[pkgIdx];
+      if (isEnabled) {
+        pkg.sizes = (pkg.sizes && pkg.sizes.length > 0) ? pkg.sizes : ['S', 'M', 'L', 'XL', 'XXL'];
+      } else {
+        pkg.sizes = [];
+      }
+      renderMuaPkgEditorPackages();
+    }
+
+    function togglePkgSizeItem(catIdx, pkgIdx, sizeName, isChecked) {
+      const pkg = editingVendorPackagesClone.categories[catIdx].subPackages[pkgIdx];
+      if (!pkg.sizes) pkg.sizes = [];
+      if (isChecked) {
+        if (!pkg.sizes.includes(sizeName)) pkg.sizes.push(sizeName);
+      } else {
+        pkg.sizes = pkg.sizes.filter(s => s !== sizeName);
+      }
+      const countEl = document.getElementById(`pkgSizeCount_${pkgIdx}`);
+      if (countEl) countEl.textContent = `${pkg.sizes.length} Ukuran Terpilih`;
+    }
+
+    function renderMuaPkgEditorPackages() {
+      const container = document.getElementById('muaCategoryPackagesContainer');
+      if (!container || !editingVendorPackagesClone) return;
+      container.innerHTML = '';
+
+      const cats = editingVendorPackagesClone.categories || [];
+      const activeCat = cats[activePkgEditorCatIdx];
+      if (!activeCat) return;
+
+      const pkgs = activeCat.subPackages || [];
+      if (pkgs.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: #71717A; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 12px; font-size: 0.82rem;">Belum ada paket dalam kategori ini. Klik tombol "+ Tambah Sub-Paket" di atas.</div>';
+        return;
+      }
+
+      const allCatalogColors = Object.keys(appConfig.kebayaColorCatalog || {});
+      const standardSizes = ['S', 'M', 'L', 'XL', 'XXL'];
+
+      pkgs.forEach((pkg, pIdx) => {
+        const hasColors = Boolean(pkg.colors && pkg.colors.length > 0);
+        const hasSizes = Boolean(pkg.sizes && pkg.sizes.length > 0);
+
+        const pkgCard = document.createElement('div');
+        pkgCard.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+        pkgCard.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
+              <span style="font-size: 0.76rem; font-weight: 800; background: #FAF8F5; border: 1px solid #E8DDD6; padding: 0.15rem 0.5rem; border-radius: 6px; color: var(--charcoal); white-space: nowrap;">
+                Paket #${pIdx + 1}
+              </span>
+              <input type="text" class="form-control" style="font-weight: 700; font-size: 0.9rem;" value="${escapeHtml(pkg.name || '')}" placeholder="Nama Paket (contoh: Paket 1 — Basic Touch Look)" oninput="editingVendorPackagesClone.categories[${activePkgEditorCatIdx}].subPackages[${pIdx}].name = this.value">
+            </div>
+            <button type="button" class="btn-action delete" style="padding: 0.25rem 0.6rem; font-size: 0.76rem; margin-left: 0.5rem;" onclick="deleteMuaPackageFromActiveCategory(${pIdx})">
+              🗑️ Hapus Paket
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 0.65rem; margin-bottom: 0.75rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.72rem; margin-bottom: 0.25rem;">Harga (Rp) *</label>
+              <input type="number" class="form-control" style="font-size: 0.85rem;" value="${pkg.price || 0}" placeholder="75000" oninput="editingVendorPackagesClone.categories[${activePkgEditorCatIdx}].subPackages[${pIdx}].price = parseInt(this.value) || 0">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.72rem; margin-bottom: 0.25rem;">Estimasi Durasi</label>
+              <input type="text" class="form-control" style="font-size: 0.85rem;" value="${escapeHtml(pkg.duration || '')}" placeholder="30 Menit" oninput="editingVendorPackagesClone.categories[${activePkgEditorCatIdx}].subPackages[${pIdx}].duration = this.value">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.72rem; margin-bottom: 0.25rem;">Badge / Label</label>
+              <input type="text" class="form-control" style="font-size: 0.85rem;" value="${escapeHtml(pkg.badge || '')}" placeholder="Ready to Wear" oninput="editingVendorPackagesClone.categories[${activePkgEditorCatIdx}].subPackages[${pIdx}].badge = this.value">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 0.75rem;">
+            <label class="form-label" style="font-size: 0.72rem; margin-bottom: 0.25rem;">Rincian Fasilitas / Fitur (1 Baris per Poin)</label>
+            <textarea class="form-control" rows="2" style="font-size: 0.8rem;" placeholder="Complexion Natural Flawless&#10;Rapikan Alis & Natural Blush On&#10;Styling Rambut" oninput="editingVendorPackagesClone.categories[${activePkgEditorCatIdx}].subPackages[${pIdx}].features = this.value.split('\n').map(s => s.trim()).filter(s => s.length > 0)">${(pkg.features || []).join('\n')}</textarea>
+          </div>
+
+          <!-- Pengaturan Pilihan Warna & Ukuran Kebaya Sesuai Permintaan Foto 2 -->
+          <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+              <span>👗 Pengaturan Pilihan Warna &amp; Ukuran Baju</span>
+              <span style="font-size: 0.7rem; color: #71717A; font-weight: normal;">(Tampil pada kartu sub-paket di web)</span>
+            </div>
+
+            <!-- Bagian Warna -->
+            <div style="margin-bottom: 0.65rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                <label class="checkbox-item" style="font-size: 0.76rem; font-weight: 700; color: #374151;">
+                  <input type="checkbox" ${hasColors ? 'checked' : ''} onchange="togglePkgColorsEnabled(${activePkgEditorCatIdx}, ${pIdx}, this.checked)">
+                  <span>Aktifkan Pilihan Warna Kebaya</span>
+                </label>
+                <span style="font-size: 0.7rem; color: #5C725A; font-weight: 600;" id="pkgColorCount_${pIdx}">
+                  ${(pkg.colors || []).length} Warna Terpilih
+                </span>
+              </div>
+
+              <div id="pkgColorOptions_${pIdx}" style="display: ${hasColors ? 'flex' : 'none'}; gap: 0.4rem; flex-wrap: wrap; padding: 0.5rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px;">
+                ${(() => {
+                  const vKebayas = editingVendorPackagesClone.kebayas || [];
+                  if (vKebayas.length === 0) {
+                    return '<div style="font-size: 0.74rem; color: #71717A; padding: 0.35rem;">Vendor ini belum memiliki kebaya tersimpan. Tambahkan busana di tab Koleksi Kebaya Vendor.</div>';
+                  }
+                  return vKebayas.map(item => {
+                    const isChecked = (pkg.colors || []).includes(item.name);
+                    const totalStock = item.totalStock ?? (item.stock ? Object.values(item.stock).reduce((a, b) => a + (Number(b) || 0), 0) : 0);
+                    return `
+                      <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; background: #F9FAFB; border: 1px solid ${isChecked ? '#5C725A' : '#E5E7EB'}; padding: 0.2rem 0.55rem; border-radius: 6px; cursor: pointer;">
+                        <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="togglePkgColorItem(${activePkgEditorCatIdx}, ${pIdx}, '${escapeHtml(item.name)}', this.checked)">
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: ${item.hex || '#ccc'}; display: inline-block; border: 1px solid #D1D5DB;"></span>
+                        <span style="font-weight: ${isChecked ? '700' : 'normal'}; color: ${isChecked ? '#1F2937' : '#4B5563'};">${escapeHtml(item.name)}</span>
+                        <span style="font-size: 0.68rem; color: #6B7280; font-family: monospace;">(${totalStock} pcs)</span>
+                      </label>
+                    `;
+                  }).join('');
+                })()}
+              </div>
+            </div>
+
+            <!-- Bagian Ukuran -->
+            <div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                <label class="checkbox-item" style="font-size: 0.76rem; font-weight: 700; color: #374151;">
+                  <input type="checkbox" ${hasSizes ? 'checked' : ''} onchange="togglePkgSizesEnabled(${activePkgEditorCatIdx}, ${pIdx}, this.checked)">
+                  <span>Aktifkan Pilihan Ukuran Baju</span>
+                </label>
+                <span style="font-size: 0.7rem; color: #5C725A; font-weight: 600;" id="pkgSizeCount_${pIdx}">
+                  ${(pkg.sizes || []).length} Ukuran Terpilih
+                </span>
+              </div>
+
+              <div id="pkgSizeOptions_${pIdx}" style="display: ${hasSizes ? 'flex' : 'none'}; gap: 0.4rem; flex-wrap: wrap; padding: 0.5rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px;">
+                ${standardSizes.map(sz => {
+                  const isChecked = (pkg.sizes || []).includes(sz);
+                  return `
+                    <label style="display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.74rem; background: #F9FAFB; border: 1px solid ${isChecked ? '#5C725A' : '#E5E7EB'}; padding: 0.2rem 0.5rem; border-radius: 6px; cursor: pointer;">
+                      <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="togglePkgSizeItem(${activePkgEditorCatIdx}, ${pIdx}, '${sz}', this.checked)">
+                      <span style="font-weight: ${isChecked ? '700' : 'normal'}; color: ${isChecked ? '#1F2937' : '#4B5563'};">${sz}</span>
+                    </label>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(pkgCard);
+      });
+    }
+
+    function addMuaCategoryPrompt() {
+      const name = prompt('Masukkan Nama Kategori Layanan Baru (contoh: Wisuda Outdoor, Hijab Styling):');
+      if (!name || !name.trim()) return;
+
+      saveCurrentCategoryInputs();
+      const newCat = {
+        id: 'cat-' + Date.now(),
+        name: name.trim(),
+        description: 'Layanan ' + name.trim() + ' Alviero Studio',
+        subPackages: [
+          {
+            id: 'pkg-' + Date.now(),
+            name: 'Paket 1 — ' + name.trim(),
+            price: 100000,
+            duration: '45 Menit',
+            features: ['Fasilitas rias lengkap', 'Softfile dokumentasi']
+          }
+        ]
+      };
+      editingVendorPackagesClone.categories.push(newCat);
+      activePkgEditorCatIdx = editingVendorPackagesClone.categories.length - 1;
+      renderMuaPkgEditorCategories();
+      renderMuaPkgEditorPackages();
+    }
+
+    function deleteCurrentMuaCategory() {
+      const cats = editingVendorPackagesClone.categories;
+      if (cats.length <= 1) {
+        alert('Minimal harus ada 1 kategori layanan!');
+        return;
+      }
+      if (confirm(`Hapus kategori '${cats[activePkgEditorCatIdx].name}' beserta seluruh paket di dalamnya?`)) {
+        cats.splice(activePkgEditorCatIdx, 1);
+        if (activePkgEditorCatIdx >= cats.length) activePkgEditorCatIdx = cats.length - 1;
+        renderMuaPkgEditorCategories();
+        renderMuaPkgEditorPackages();
+      }
+    }
+
+    function addMuaPackageToActiveCategory() {
+      saveCurrentCategoryInputs();
+      const cats = editingVendorPackagesClone.categories;
+      const activeCat = cats[activePkgEditorCatIdx];
+      const newPkgIdx = (activeCat.subPackages || []).length + 1;
+      activeCat.subPackages.push({
+        id: 'subpkg-' + Date.now(),
+        name: 'Paket ' + newPkgIdx + ' — Pilihan Baru',
+        price: 100000,
+        duration: '45 Menit',
+        features: ['Fasilitas rias profesional', 'Styling rambut / hijab rapi']
+      });
+      renderMuaPkgEditorCategories();
+      renderMuaPkgEditorPackages();
+    }
+
+    function deleteMuaPackageFromActiveCategory(pkgIdx) {
+      const activeCat = editingVendorPackagesClone.categories[activePkgEditorCatIdx];
+      activeCat.subPackages.splice(pkgIdx, 1);
+      renderMuaPkgEditorCategories();
+      renderMuaPkgEditorPackages();
+    }
+
+    function saveMuaPackages() {
+      saveCurrentCategoryInputs();
+      if (editingVendorPackagesOrigIdx >= 0 && appConfig.muaVendors[editingVendorPackagesOrigIdx]) {
+        appConfig.muaVendors[editingVendorPackagesOrigIdx] = JSON.parse(JSON.stringify(editingVendorPackagesClone));
+        closeModal('muaPackageEditorModal');
+        renderMuaSection();
+        saveConfigLocally();
+        showToast(`Paket layanan '${editingVendorPackagesClone.name}' berhasil diperbarui!`);
+      }
+    }
+
+    // --- KEBAYA COLOR MODAL ---
+    function updateKebayaPhotoPreview(url) {
+      const img = document.getElementById('kebayaColorPreviewImg');
+      const placeholder = document.getElementById('kebayaColorPreviewPlaceholder');
+      if (url && url.trim()) {
+        img.src = url.trim();
+        img.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        placeholder.style.display = 'block';
+      }
+    }
+
+    async function handleKebayaPhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        return;
+      }
+
+      const status = document.getElementById('kebayaColorUploadStatus');
+      if (status) {
+        status.style.display = 'block';
+        status.textContent = '⏳ Mengunggah foto kebaya (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+      }
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        try {
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: evt.target.result,
+              fileName: file.name,
+              folder: 'kebaya'
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.url) {
+            document.getElementById('kebayaColorImageInput').value = data.url;
+            updateKebayaPhotoPreview(data.url);
+            if (status) {
+              status.textContent = '✅ Foto kebaya berhasil diunggah!';
+              setTimeout(() => { status.style.display = 'none'; }, 2000);
+            }
+            showToast('Foto kebaya berhasil diunggah!', '📸');
+          }
+        } catch (err) {
+          alert('Upload gagal: ' + err.message);
+          if (status) status.style.display = 'none';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Helper Dropdown & Stock per Ukuran
+    function populateVendorDropdown(selectEl, selectedId) {
+      if (!selectEl || !appConfig || !appConfig.muaVendors) return;
+      selectEl.innerHTML = appConfig.muaVendors.map(v => `
+        <option value="${v.id}" ${v.id === selectedId ? 'selected' : ''}>
+          ${escapeHtml(v.name)}
+        </option>
+      `).join('');
+    }
+
+    function renderModalSizeStockInputs(stockObj) {
+      const container = document.getElementById('kebayaSizeStockContainer');
+      if (!container) return;
+      modalKebayaStock = Object.assign({}, stockObj);
+      container.innerHTML = '';
+
+      const defaultOrder = ['S', 'M', 'L', 'XL', 'XXL'];
+      const allSizes = Array.from(new Set([...defaultOrder, ...Object.keys(modalKebayaStock)]));
+
+      allSizes.forEach(size => {
+        const qty = modalKebayaStock[size] !== undefined ? modalKebayaStock[size] : 0;
+        const isCustom = !defaultOrder.includes(size);
+
+        const box = document.createElement('div');
+        box.style.cssText = 'background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.45rem 0.5rem; text-align: center; position: relative;';
+        box.innerHTML = `
+          <div style="font-size: 0.72rem; font-family: monospace; font-weight: 800; color: #2E2E2E; margin-bottom: 0.25rem; display: flex; align-items: center; justify-content: center; gap: 0.25rem;">
+            <span>${escapeHtml(size)}</span>
+            ${isCustom ? `<button type="button" onclick="removeModalSize('${escapeHtml(size)}')" style="background:none; border:none; color:#EF4444; font-size:0.75rem; cursor:pointer; padding:0; line-height:1;" title="Hapus ukuran">&times;</button>` : ''}
+          </div>
+          <input type="number" min="0" value="${qty}" class="form-control" style="font-size: 0.82rem; padding: 0.25rem 0.35rem; text-align: center; font-weight: 700;" oninput="handleSizeQtyChange('${escapeHtml(size)}', this.value)">
+          <span style="font-size: 0.65rem; color: #9CA3AF; display: block; margin-top: 0.15rem;">pcs</span>
+        `;
+        container.appendChild(box);
+      });
+
+      updateModalTotalStockBadge();
+    }
+
+    function handleSizeQtyChange(size, value) {
+      modalKebayaStock[size] = Math.max(0, parseInt(value) || 0);
+      updateModalTotalStockBadge();
+    }
+
+    function removeModalSize(size) {
+      delete modalKebayaStock[size];
+      renderModalSizeStockInputs(modalKebayaStock);
+    }
+
+    function updateModalTotalStockBadge() {
+      const badge = document.getElementById('kebayaModalTotalStockBadge');
+      if (!badge) return;
+      const total = Object.values(modalKebayaStock).reduce((acc, qty) => acc + (Number(qty) || 0), 0);
+      badge.textContent = `Total: ${total} pcs`;
+    }
+
+    function addCustomSizeToModal() {
+      const nameInput = document.getElementById('kebayaCustomSizeInput');
+      const qtyInput = document.getElementById('kebayaCustomQtyInput');
+      if (!nameInput) return;
+      const sizeName = nameInput.value.trim().toUpperCase();
+      const qty = Math.max(0, parseInt(qtyInput ? qtyInput.value : 1) || 1);
+
+      if (!sizeName) {
+        alert('Nama ukuran tidak boleh kosong!');
+        return;
+      }
+
+      modalKebayaStock[sizeName] = qty;
+      nameInput.value = '';
+      if (qtyInput) qtyInput.value = '1';
+      renderModalSizeStockInputs(modalKebayaStock);
+    }
+
+    function handleModalVendorChange(val) {
+      const vendor = (appConfig.muaVendors || []).find(v => v.id === val);
+      if (vendor) {
+        const editKey = document.getElementById('kebayaColorEditKey').value;
+        if (!editKey) {
+          document.getElementById('kebayaColorModalTitle').textContent = `Tambah Kebaya Baru: ${vendor.name}`;
+        }
+      }
+    }
+
+    function openAddKebayaModalForActiveVendor(targetVendorId) {
+      const vId = targetVendorId || selectedKebayaVendorId || (appConfig.muaVendors && appConfig.muaVendors[0]?.id) || 'novita';
+      const vendor = (appConfig.muaVendors || []).find(v => v.id === vId);
+
+      document.getElementById('kebayaColorEditKey').value = '';
+      document.getElementById('kebayaColorOrigVendorId').value = vId;
+
+      const selectEl = document.getElementById('kebayaVendorSelect');
+      populateVendorDropdown(selectEl, vId);
+
+      document.getElementById('kebayaColorModalTitle').textContent = `Tambah Kebaya Baru: ${vendor ? vendor.name : 'Vendor'}`;
+      document.getElementById('kebayaColorNameInput').value = '';
+      document.getElementById('kebayaColorHexInput').value = '#8FA38D';
+      document.getElementById('kebayaColorPicker').value = '#8FA38D';
+      document.getElementById('kebayaColorTagInput').value = 'Koleksi Terbaru';
+      document.getElementById('kebayaColorDescInput').value = '';
+      document.getElementById('kebayaColorImageInput').value = '';
+      updateKebayaPhotoPreview('');
+
+      const initialStock = { S: 2, M: 4, L: 3, XL: 2, XXL: 1 };
+      renderModalSizeStockInputs(initialStock);
+
+      openModal('kebayaColorModal');
+    }
+
+    // Alias kompatibilitas
+    function openAddKebayaColorModal() {
+      openAddKebayaModalForActiveVendor(selectedKebayaVendorId);
+    }
+
+    function openEditKebayaColorModal(vendorId, kebayaId) {
+      if (!appConfig || !appConfig.muaVendors) return;
+      const vendor = appConfig.muaVendors.find(v => v.id === vendorId);
+      if (!vendor || !vendor.kebayas) return;
+      const item = vendor.kebayas.find(k => k.id === kebayaId);
+      if (!item) return;
+
+      document.getElementById('kebayaColorEditKey').value = kebayaId;
+      document.getElementById('kebayaColorOrigVendorId').value = vendorId;
+
+      const selectEl = document.getElementById('kebayaVendorSelect');
+      populateVendorDropdown(selectEl, vendorId);
+
+      document.getElementById('kebayaColorModalTitle').textContent = `Edit Kebaya: ${item.name} (${vendor.name})`;
+      document.getElementById('kebayaColorNameInput').value = item.name || '';
+      const hex = item.hex || '#8FA38D';
+      document.getElementById('kebayaColorHexInput').value = hex;
+      document.getElementById('kebayaColorPicker').value = hex;
+      document.getElementById('kebayaColorTagInput').value = item.tag || '';
+      document.getElementById('kebayaColorDescInput').value = item.desc || '';
+      document.getElementById('kebayaColorImageInput').value = item.image || '';
+      updateKebayaPhotoPreview(item.image || '');
+
+      const stockData = Object.assign({}, item.stock || { S: 2, M: 4, L: 3, XL: 2, XXL: 1 });
+      renderModalSizeStockInputs(stockData);
+
+      openModal('kebayaColorModal');
+    }
+
+    function saveKebayaColor() {
+      const editId = document.getElementById('kebayaColorEditKey').value;
+      const origVendorId = document.getElementById('kebayaColorOrigVendorId').value;
+      const targetVendorId = document.getElementById('kebayaVendorSelect').value;
+      const name = document.getElementById('kebayaColorNameInput').value.trim();
+      const hex = document.getElementById('kebayaColorHexInput').value.trim();
+      const tag = document.getElementById('kebayaColorTagInput').value.trim();
+      const desc = document.getElementById('kebayaColorDescInput').value.trim();
+      const image = document.getElementById('kebayaColorImageInput').value.trim();
+
+      if (!name) return alert('Nama Model / Warna Kebaya wajib diisi!');
+      if (!image) return alert('Foto Baju Kebaya wajib diisi!');
+
+      const targetVendor = (appConfig.muaVendors || []).find(v => v.id === targetVendorId);
+      if (!targetVendor) return alert('Vendor yang dipilih tidak valid!');
+      if (!targetVendor.kebayas) targetVendor.kebayas = [];
+
+      const sizes = Object.keys(modalKebayaStock).filter(sz => sz.trim());
+      const totalStock = Object.values(modalKebayaStock).reduce((acc, qty) => acc + (Number(qty) || 0), 0);
+
+      const kebayaItemData = {
+        id: editId || `${targetVendorId}-${name.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${Date.now().toString().slice(-4)}`,
+        name,
+        hex: hex || '#8FA38D',
+        tag: tag || 'Koleksi Studio',
+        desc: desc || `Kebaya modern berpayet timbul koleksi ${targetVendor.name}.`,
+        image,
+        sizes,
+        stock: Object.assign({}, modalKebayaStock),
+        totalStock
+      };
+
+      if (editId) {
+        if (origVendorId && origVendorId !== targetVendorId) {
+          // Pindah kepemilikan antar vendor
+          const origVendor = appConfig.muaVendors.find(v => v.id === origVendorId);
+          if (origVendor && origVendor.kebayas) {
+            origVendor.kebayas = origVendor.kebayas.filter(k => k.id !== editId);
+          }
+          targetVendor.kebayas.push(kebayaItemData);
+        } else {
+          // Perbarui di vendor yang sama
+          const idx = targetVendor.kebayas.findIndex(k => k.id === editId);
+          if (idx !== -1) {
+            targetVendor.kebayas[idx] = kebayaItemData;
+          } else {
+            targetVendor.kebayas.push(kebayaItemData);
+          }
+        }
+      } else {
+        targetVendor.kebayas.push(kebayaItemData);
+      }
+
+      // Sinkronisasi katalog umum sebagai backup
+      if (!appConfig.kebayaColorCatalog) appConfig.kebayaColorCatalog = {};
+      appConfig.kebayaColorCatalog[name] = {
+        name,
+        hex: hex || '#8FA38D',
+        tag: tag || 'Koleksi Studio',
+        desc: desc || `Kebaya modern koleksi ${targetVendor.name}.`,
+        image
+      };
+
+      selectedKebayaVendorId = targetVendorId;
+      closeModal('kebayaColorModal');
+      renderMuaSection();
+      saveConfigLocally();
+      showToast(`Kebaya '${name}' milik ${targetVendor.name} (${totalStock} pcs) berhasil disimpan!`);
+    }
+
+    function deleteKebayaColor(vendorId, kebayaId) {
+      if (!appConfig || !appConfig.muaVendors) return;
+      const vendor = appConfig.muaVendors.find(v => v.id === vendorId);
+      if (!vendor || !vendor.kebayas) return;
+      const item = vendor.kebayas.find(k => k.id === kebayaId);
+      if (!item) return;
+
+      if (confirm(`Hapus kebaya '${item.name}' dari koleksi ${vendor.name}?`)) {
+        vendor.kebayas = vendor.kebayas.filter(k => k.id !== kebayaId);
+        renderMuaSection();
+        saveConfigLocally();
+        showToast(`Kebaya '${item.name}' telah dihapus dari ${vendor.name}.`, '🗑️');
+      }
+    }
+
 
     loadConfig().then(() => {
       const hash = window.location.hash ? window.location.hash.substring(1) : '';

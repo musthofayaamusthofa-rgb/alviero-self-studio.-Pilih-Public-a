@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 import React, { useState } from 'react';
 import {
   X,
@@ -45,7 +46,20 @@ export interface MuaCategory {
   name: string;        // Contoh: "Pass Foto", "Wedding", "Graduation Indoor"
   iconType?: 'camera' | 'wedding' | 'graduation' | 'outdoor' | 'prewedding' | 'kebaya' | 'hairdo' | 'sparkles';
   description?: string;
+  portfolioImage?: string; // 1 Foto Portofolio Hasil Rias Kategori Ini
   subPackages: MuaSubPackage[];
+}
+
+export interface MuaKebayaItem {
+  id: string;
+  name: string;        // Contoh: "Sage"
+  hex: string;         // Contoh: "#8FA38D"
+  image: string;       // Foto baju kebaya
+  tag: string;         // Contoh: "Best Seller Wisuda"
+  desc: string;
+  sizes: string[];     // Contoh: ["S", "M", "L", "XL", "XXL"]
+  stock?: Record<string, number>; // Contoh: { S: 2, M: 4, L: 3, XL: 2, XXL: 1 }
+  totalStock?: number;
 }
 
 export interface MuaVendorDefinition {
@@ -55,6 +69,7 @@ export interface MuaVendorDefinition {
   coverImage: string;
   portfolioImages: string[];
   categories: MuaCategory[];
+  kebayas?: MuaKebayaItem[];
 }
 
 export interface KebayaColorInfo {
@@ -983,8 +998,16 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   onUpdateQty,
   onOpenExtraCheckout,
 }) => {
+  const activeVendorsData = ((studioConfig as any)?.muaVendors as MuaVendorDefinition[]) || MUA_VENDORS;
+  const activeKebayaCatalogData = ((studioConfig as any)?.kebayaColorCatalog as Record<string, KebayaColorInfo>) || KEBAYA_COLOR_CATALOG;
   // Step 1: Active Popup Vendor (when user clicks a vendor button in grid, e.g. "BY NOVITA")
   const [activePopupVendor, setActivePopupVendor] = useState<string | null>(null);
+
+  // Active vendor object based on activePopupVendor
+  const currentPopupVendor =
+    activeVendorsData.find(
+      (v) => v.name.toLowerCase() === (activePopupVendor || "").toLowerCase()
+    ) || null;
 
   // Step 2 & 3: Accordion state for category (e.g. "novita-pass-foto")
   const [expandedCategoryId, setExpandedCategoryId] = useState<string | null>(null);
@@ -998,6 +1021,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
     pkgId: string;
     pkgName: string;
     availableColors: string[];
+    vendorName?: string;
   } | null>(null);
 
   // Size chart guide modal
@@ -1014,10 +1038,22 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   };
 
   const getSelectedSize = (pkg: MuaSubPackage) => {
-    if (kebayaSelections[pkg.id]?.size) {
-      return kebayaSelections[pkg.id].size;
+    const selectedColor = getSelectedColor(pkg);
+    const vendorKebaya = currentPopupVendor?.kebayas?.find((k) => k.name.toLowerCase() === selectedColor.toLowerCase());
+    const rawSelected = kebayaSelections[pkg.id]?.size;
+
+    if (rawSelected && (!vendorKebaya?.stock || (vendorKebaya.stock[rawSelected] ?? 1) > 0)) {
+      return rawSelected;
     }
-    return pkg.sizes && pkg.sizes.length > 0 ? pkg.sizes[0] : 'M';
+
+    if (pkg.sizes && pkg.sizes.length > 0) {
+      if (vendorKebaya?.stock) {
+        const firstInStock = pkg.sizes.find((s) => (vendorKebaya.stock?.[s] ?? 0) > 0);
+        if (firstInStock) return firstInStock;
+      }
+      return pkg.sizes[0];
+    }
+    return 'M';
   };
 
   const handleSelectKebayaColor = (pkgId: string, color: string) => {
@@ -1039,12 +1075,6 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
       },
     }));
   };
-
-  // Active vendor object based on activePopupVendor
-  const currentPopupVendor =
-    MUA_VENDORS.find(
-      (v) => v.name.toLowerCase() === (activePopupVendor || '').toLowerCase()
-    ) || null;
 
   // Handler klik vendor dari grid
   const handleOpenVendorPopup = (vendorName: string) => {
@@ -1189,7 +1219,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
             </div>
 
             <div className="mt-3.5 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 no-scrollbar">
-              {MUA_VENDORS.map((vendor) => (
+              {activeVendorsData.map((vendor) => (
                 <button
                   key={vendor.id}
                   type="button"
@@ -1230,13 +1260,13 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                   </h5>
                 </div>
                 <span className="rounded-full bg-white border border-[#EAE0D8] px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#2E2E2E]">
-                  {MUA_VENDORS.length} vendor
+                  {activeVendorsData.length} vendor
                 </span>
               </div>
 
               {/* Grid 4 Vendor */}
               <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                {MUA_VENDORS.map((vendor) => (
+                {activeVendorsData.map((vendor) => (
                   <button
                     key={vendor.id}
                     type="button"
@@ -1373,6 +1403,25 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                         <div className="border-t border-[#EAE2DC] px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
                           {/* Garis batas indentasi hierarki level 3 */}
                           <div className="border-l-3 border-[#5C725A] pl-3 space-y-2.5">
+                            {/* Foto Portofolio Kategori MUA (Jika Ada) */}
+                            {category.portfolioImage && (
+                              <div className="relative mb-3 h-36 sm:h-44 w-full overflow-hidden rounded-xl border border-[#EAE2DC] shadow-xs group">
+                                <img
+                                  src={category.portfolioImage}
+                                  alt={`Portofolio ${category.name}`}
+                                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                  loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent pointer-events-none" />
+                                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
+                                  <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2.5 py-0.5 rounded-full text-[9.5px] font-mono font-bold flex items-center gap-1 shadow-sm">
+                                    <Camera className="w-3 h-3 text-[#A9BCA7]" />
+                                    <span>Hasil Portofolio ${category.name}</span>
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+
                             <p className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#6E856C]">
                               Daftar Sub-Paket {category.name}
                             </p>
@@ -1489,6 +1538,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                                   pkgId: pkg.id,
                                                   pkgName: pkg.name,
                                                   availableColors: pkg.colors || [],
+                                                  vendorName: currentPopupVendor?.name,
                                                 })
                                               }
                                               className="inline-flex items-center gap-1 rounded-full border border-[#DCD3CB] bg-white px-2 py-0.5 text-[9px] sm:text-[10px] font-sans font-bold text-[#5C725A] hover:bg-[#F2E9E4] transition-colors shadow-2xs shrink-0 cursor-pointer"
@@ -1498,13 +1548,15 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                             </button>
                                           </div>
 
-                                          {/* Grid Thumbnail Pilihan Warna ala Shopee */}
+                                          {/* Grid Thumbnail Pilihan Warna ala Shopee (Koleksi Khusus Vendor Ini) */}
                                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
                                             {pkg.colors.map((colorName) => {
                                               const isColorSelected = selectedColor === colorName;
-                                              const colorInfo = KEBAYA_COLOR_CATALOG[colorName];
+                                              const vendorKebaya = currentPopupVendor?.kebayas?.find((k) => k.name.toLowerCase() === colorName.toLowerCase());
+                                              const colorInfo = vendorKebaya || activeKebayaCatalogData[colorName] || KEBAYA_COLOR_CATALOG[colorName];
                                               const colorImg = colorInfo?.image || KEBAYA_PREVIEWS[colorName];
                                               const colorHex = colorInfo?.hex || '#999999';
+                                              const colorStockTotal = vendorKebaya?.totalStock ?? (vendorKebaya?.stock ? Object.values(vendorKebaya.stock).reduce((a: number, b: any) => a + (Number(b) || 0), 0) : null);
 
                                               return (
                                                 <button
@@ -1547,7 +1599,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                                       {colorName}
                                                     </span>
                                                     <span className="text-[8px] font-mono text-stone-500 block truncate">
-                                                      {colorInfo?.tag || 'Tersedia'}
+                                                      {vendorKebaya ? (colorStockTotal !== null ? `Stok: ${colorStockTotal} pcs` : (colorInfo?.tag || 'Tersedia')) : (colorInfo?.tag || 'Tersedia')}
                                                     </span>
                                                   </div>
 
@@ -1585,23 +1637,35 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                                             </button>
                                           </div>
 
-                                          {/* Button Row Pilihan Ukuran */}
+                                          {/* Button Row Pilihan Ukuran dengan Pengecekan Stok per Vendor */}
                                           <div className="flex flex-wrap gap-1.5">
                                             {pkg.sizes.map((size) => {
                                               const isSizeSelected = selectedSize === size;
+                                              const activeVendorKebaya = currentPopupVendor?.kebayas?.find((k) => k.name.toLowerCase() === selectedColor.toLowerCase());
+                                              const sizeStock = activeVendorKebaya?.stock ? activeVendorKebaya.stock[size] : undefined;
+                                              const isOutOfStock = sizeStock !== undefined && sizeStock <= 0;
 
                                               return (
                                                 <button
                                                   key={size}
                                                   type="button"
-                                                  onClick={() => handleSelectKebayaSize(pkg.id, size)}
-                                                  className={`flex h-8 min-w-[40px] items-center justify-center rounded-lg border px-3 text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
-                                                    isSizeSelected
-                                                      ? 'border-[#2E2E2E] bg-[#2E2E2E] text-white shadow-xs'
-                                                      : 'border-[#E2D8CF] bg-white text-stone-700 hover:border-[#5C725A] hover:bg-[#FDFBF7]'
+                                                  disabled={isOutOfStock}
+                                                  onClick={() => !isOutOfStock && handleSelectKebayaSize(pkg.id, size)}
+                                                  className={`flex h-8 min-w-[42px] items-center justify-center gap-1 rounded-lg border px-2.5 text-xs font-mono font-bold uppercase transition-all ${
+                                                    isOutOfStock
+                                                      ? 'border-stone-200 bg-stone-100 text-stone-400 cursor-not-allowed line-through opacity-60'
+                                                      : isSizeSelected
+                                                      ? 'border-[#2E2E2E] bg-[#2E2E2E] text-white shadow-xs cursor-pointer'
+                                                      : 'border-[#E2D8CF] bg-white text-stone-700 hover:border-[#5C725A] hover:bg-[#FDFBF7] cursor-pointer'
                                                   }`}
+                                                  title={isOutOfStock ? `Ukuran ${size} habis untuk kebaya ${selectedColor}` : `Ukuran ${size}${sizeStock !== undefined ? ` (Sisa: ${sizeStock} pcs)` : ''}`}
                                                 >
-                                                  {size}
+                                                  <span>{size}</span>
+                                                  {sizeStock !== undefined && (
+                                                    <span className={`text-[8.5px] font-mono ${isOutOfStock ? 'text-rose-500 font-bold' : isSizeSelected ? 'text-stone-300' : 'text-stone-400'}`}>
+                                                      {isOutOfStock ? '(0)' : `(${sizeStock})`}
+                                                    </span>
+                                                  )}
                                                 </button>
                                               );
                                             })}
@@ -1774,7 +1838,8 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
         {/* ========================================================================= */}
         {previewKebayaModal && (() => {
           const activeColor = previewKebayaModal.color;
-          const colorInfo = KEBAYA_COLOR_CATALOG[activeColor] || {
+          const vendorKebaya = currentPopupVendor?.kebayas?.find((k) => k.name.toLowerCase() === activeColor.toLowerCase());
+          const colorInfo = vendorKebaya || activeKebayaCatalogData[activeColor] || KEBAYA_COLOR_CATALOG[activeColor] || {
             name: activeColor,
             image: KEBAYA_PREVIEWS[activeColor] || KEBAYA_PREVIEWS.Sage,
             hex: '#8FA38D',
@@ -1796,7 +1861,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                 <div className="flex items-center justify-between border-b border-[#E8DDD6] bg-[#FAF7F2] px-4 py-3">
                   <div className="min-w-0 pr-2">
                     <span className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#5C725A] block">
-                      Contoh Model & Detail Busana
+                      Koleksi Kebaya {previewKebayaModal.vendorName || currentPopupVendor?.name || 'Studio'}
                     </span>
                     <h5 className="truncate font-serif text-base font-black text-[#2E2E2E]">
                       Kebaya Warna: {colorInfo.name}
@@ -1849,6 +1914,25 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                     <p className="text-xs font-sans text-stone-600 leading-relaxed">
                       {colorInfo.desc}
                     </p>
+                    {vendorKebaya?.stock && (
+                      <div className="pt-2 border-t border-[#EDE5DE]">
+                        <span className="text-[10px] font-mono font-bold text-[#2E2E2E] block mb-1">
+                          Ketersediaan Stok Ukuran:
+                        </span>
+                        <div className="flex flex-wrap gap-1">
+                          {Object.entries(vendorKebaya.stock).map(([sz, qty]) => (
+                            <span
+                              key={sz}
+                              className={`px-2 py-0.5 rounded text-[9.5px] font-mono font-bold ${
+                                Number(qty) > 0 ? 'bg-[#5C725A]/15 text-[#5C725A] border border-[#5C725A]/30' : 'bg-stone-100 text-stone-400 line-through border border-stone-200'
+                              }`}
+                            >
+                              {sz}: {Number(qty) > 0 ? `${qty} pcs` : 'Habis'}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Switcher Cepat Warna Lainnya */}
@@ -1860,7 +1944,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                       <div className="flex flex-wrap gap-2">
                         {previewKebayaModal.availableColors.map((colorName) => {
                           const isActive = colorName === activeColor;
-                          const itemInfo = KEBAYA_COLOR_CATALOG[colorName];
+                          const itemInfo = activeKebayaCatalogData[colorName] || KEBAYA_COLOR_CATALOG[colorName];
                           const itemImg = itemInfo?.image || KEBAYA_PREVIEWS[colorName];
 
                           return (

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-13T10:31:25.534Z",
+  "lastUpdated": "2026-10-14T08:45:39.869Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1703,7 +1703,7 @@
     },
     {
       "id": "family-sweet-together",
-      "category": "group-family",
+      "category": "family",
       "categoryLabel": "Family & Group",
       "subtitle": "Family 1",
       "badge": "Keluarga Kecil",
@@ -1722,7 +1722,7 @@
     },
     {
       "id": "family-happy-nest",
-      "category": "group-family",
+      "category": "family",
       "categoryLabel": "Family & Group",
       "subtitle": "Family 2",
       "badge": "Keluarga Besar",
@@ -1741,7 +1741,7 @@
     },
     {
       "id": "group-friendly-frame",
-      "category": "group-family",
+      "category": "group",
       "categoryLabel": "Family & Group",
       "subtitle": "Group 1",
       "badge": "Sahabat",
@@ -1760,7 +1760,7 @@
     },
     {
       "id": "group-signature-squad",
-      "category": "group-family",
+      "category": "group",
       "categoryLabel": "Family & Group",
       "subtitle": "Group 2",
       "badge": "Squad",
@@ -1779,7 +1779,7 @@
     },
     {
       "id": "group-royal-ensemble",
-      "category": "group-family",
+      "category": "group",
       "categoryLabel": "Family & Group",
       "subtitle": "Group 3",
       "badge": "Besar",
@@ -1798,7 +1798,7 @@
     },
     {
       "id": "group-imperial-union",
-      "category": "group-family",
+      "category": "group",
       "categoryLabel": "Family & Group",
       "subtitle": "Group 4",
       "badge": "Maksimal",
@@ -1817,8 +1817,8 @@
     },
     {
       "id": "couple-eternal-love",
-      "category": "prewed-couple",
-      "categoryLabel": "Prewedding & Couple",
+      "category": "couple",
+      "categoryLabel": "Couple",
       "subtitle": "Couple 1",
       "badge": "Romantis",
       "name": "Eternal Love",
@@ -1832,11 +1832,13 @@
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 24
     },
     {
       "id": "couple-sweet-memories",
-      "category": "prewed-couple",
+      "category": "couple",
       "categoryLabel": "Prewedding & Couple",
       "subtitle": "Couple 2",
       "badge": "Favorit Pasangan",
@@ -1855,8 +1857,8 @@
     },
     {
       "id": "prewed-sweet-promise",
-      "category": "prewed-couple",
-      "categoryLabel": "Prewedding & Couple",
+      "category": "prewed",
+      "categoryLabel": "Prewedding",
       "subtitle": "Prewedding Studio 1",
       "badge": "Studio Prewed",
       "name": "Sweet Promise",
@@ -1870,11 +1872,16 @@
       "print": "Cetak 1 Uk 12R + Frame Minimalis",
       "fileDelivery": "All File via Google Drive",
       "note": "*Konsep indoor elegan dengan lighting studio profesional",
+      "imageUrl": "/images/packages/sweet_promise_foto1_1791967530403.jpg",
+      "imageUrls": [
+        "/images/packages/sweet_promise_foto1_1791967530403.jpg",
+        "/images/packages/sweet_promise_foto2_1791967534228.jpg"
+      ],
       "_origIndex": 26
     },
     {
       "id": "prewed-velvet-romance",
-      "category": "prewed-couple",
+      "category": "prewed",
       "categoryLabel": "Prewedding & Couple",
       "subtitle": "Prewedding Studio 2",
       "badge": "Lengkap",
@@ -1893,7 +1900,7 @@
     },
     {
       "id": "prewed-bundling-1",
-      "category": "prewed-couple",
+      "category": "prewed",
       "categoryLabel": "Prewedding & Couple",
       "subtitle": "Prewedding + MUA 1",
       "badge": "Paket Make Up",
@@ -1912,7 +1919,7 @@
     },
     {
       "id": "prewed-bundling-2",
-      "category": "prewed-couple",
+      "category": "prewed",
       "categoryLabel": "Prewedding & Couple",
       "subtitle": "Prewedding + MUA 2",
       "badge": "Super Komplit",
@@ -1931,7 +1938,7 @@
     },
     {
       "id": "personal-bold-statement",
-      "category": "personal-maternity",
+      "category": "personal",
       "categoryLabel": "Personal & Maternity",
       "subtitle": "Personal 1",
       "badge": "Portofolio",
@@ -1950,7 +1957,7 @@
     },
     {
       "id": "personal-opulent-shot",
-      "category": "personal-maternity",
+      "category": "personal",
       "categoryLabel": "Personal & Maternity",
       "subtitle": "Personal 2",
       "badge": "Premium",
@@ -1969,7 +1976,7 @@
     },
     {
       "id": "maternity-warm-embrace",
-      "category": "personal-maternity",
+      "category": "maternity",
       "categoryLabel": "Personal & Maternity",
       "subtitle": "Maternity 1",
       "badge": "Kehamilan",
@@ -1988,7 +1995,7 @@
     },
     {
       "id": "maternity-golden-motherhood",
-      "category": "personal-maternity",
+      "category": "maternity",
       "categoryLabel": "Personal & Maternity",
       "subtitle": "Maternity 2",
       "badge": "Lengkap",
@@ -2083,7 +2090,7 @@
     },
     {
       "id": "sewa-studio-hourly",
-      "category": "sewa-event",
+      "category": "sewa-studio",
       "categoryLabel": "Sewa Studio & Event",
       "subtitle": "Sewa Studio",
       "badge": "Studio Only",
@@ -2102,7 +2109,7 @@
     },
     {
       "id": "undangan-paket-1",
-      "category": "sewa-event",
+      "category": "undangan",
       "categoryLabel": "Sewa Studio & Event",
       "subtitle": "Undangan Digital 1",
       "badge": "Web Undangan",
@@ -2121,7 +2128,7 @@
     },
     {
       "id": "undangan-paket-2",
-      "category": "sewa-event",
+      "category": "undangan",
       "categoryLabel": "Sewa Studio & Event",
       "subtitle": "Undangan Digital 2",
       "badge": "Custom Tema",
@@ -2661,5 +2668,1262 @@
       ],
       "active": true
     }
-  ]
+  ],
+  "muaVendors": [
+    {
+      "id": "novita",
+      "name": "By Novita",
+      "tagline": "Flawless & Long Lasting Makeup Specialist",
+      "coverImage": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+      "portfolioImages": [
+        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&w=700&q=85"
+      ],
+      "categories": [
+        {
+          "id": "novita-pass-foto",
+          "name": "Pass Foto",
+          "iconType": "camera",
+          "description": "Riasan wajah natural berkarakter, disesuaikan khusus dengan pencahayaan studio foto formal.",
+          "subPackages": [
+            {
+              "id": "novita-pf-1",
+              "name": "Paket 1 — Basic Touch Look",
+              "price": 75000,
+              "duration": "30 Menit",
+              "features": [
+                "Complexion Natural Flawless & Matte Finish",
+                "Rapikan Alis & Natural Blush On",
+                "Penataan Rambut Simple / Rapikan Hijab Segiempat",
+                "Free Bedak Touch-Up sebelum masuk sesi foto"
+              ]
+            },
+            {
+              "id": "novita-pf-2",
+              "name": "Paket 2 — Studio Pro HD Look",
+              "price": 125000,
+              "duration": "45 Menit",
+              "badge": "Best Seller",
+              "features": [
+                "High Definition (HD) Foundation Anti-Flashback Lampu Studio",
+                "Bulu Mata Natural 1 Layer Lembut & Nyaman",
+                "Styling Rambut Formal / Hijab Tegak Paripurna",
+                "Shading & Contour Wajah Proporsional Kamera",
+                "Free Setting Spray Khusus Tahan Kilas Studio"
+              ]
+            },
+            {
+              "id": "novita-pf-3",
+              "name": "Paket 3 — Executive VIP Look",
+              "price": 175000,
+              "duration": "60 Menit",
+              "badge": "Exclusive",
+              "features": [
+                "Full Luxury High-End Complexion (Waterproof & Sweatproof)",
+                "Eyelash Custom 2 Layer + Soft Eyeliner Khusus",
+                "Styling Rambut / Hijab Silk Formal Rapi Presisi",
+                "Face Prep & Serum Glowing Premium sebelum makeup",
+                "Free Retouch di Studio selama sesi foto berlangsung"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-wedding",
+          "name": "Wedding",
+          "iconType": "wedding",
+          "description": "Riasan pengantin berkelas untuk momen sakral akad nikah dan pesta resepsi pernikahan.",
+          "subPackages": [
+            {
+              "id": "novita-wd-1",
+              "name": "Paket 1 — Akad / Simple Wedding Look",
+              "price": 450000,
+              "duration": "90 Menit",
+              "features": [
+                "Full Airbrush Complexion Waterproof Tahan 16 Jam",
+                "Bulu Mata 3D Fluffy + Softlens Normal Studio",
+                "Hijabdo / Sanggul Modern Pengantin Elegan",
+                "Pemasangan Melati Sintetis / Fresh & Ronce"
+              ]
+            },
+            {
+              "id": "novita-wd-2",
+              "name": "Paket 2 — Glamour Wedding Resepsi",
+              "price": 750000,
+              "duration": "120 Menit",
+              "badge": "Favorit Pengantin",
+              "features": [
+                "High-End Luxury Complexion Anti-Luntur & Anti-Retak",
+                "2x Pergantian Lip Look & Retouch Khusus",
+                "Hairdo Paes / Sanggul Pengantin Adat / Hijabdo Glamour",
+                "Free Touch-Up Kit Pribadi & Serum Pengantin",
+                "Pemasangan Mahkota / Sigar / Aksesoris Adat"
+              ]
+            },
+            {
+              "id": "novita-wd-3",
+              "name": "Paket 3 — Royal Bride All-Inclusive",
+              "price": 1200000,
+              "duration": "150 Menit",
+              "badge": "VIP All-In",
+              "features": [
+                "Rias Pengantin Wanita & Groom Touch-Up Pengantin Pria",
+                "Full High-End Cosmetics (Dior / Chanel Look)",
+                "Standby Retouch Penuh selama sesi pemotretan studio",
+                "Free Peminjaman Tiara, Bros Dada & Aksesoris Mewah"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-grad-indoor",
+          "name": "Graduation Indoor",
+          "iconType": "graduation",
+          "description": "Tampil anggun mempesona di momen wisuda dengan ketahanan makeup di studio indoor.",
+          "subPackages": [
+            {
+              "id": "novita-gi-1",
+              "name": "Paket 1 — Soft Wisuda Fresh",
+              "price": 180000,
+              "duration": "45 Menit",
+              "features": [
+                "Makeup Soft Glam Fresh & Tahan Lama Seharian",
+                "Bulu Mata Wisuda Natural 1 Layer Fluffy",
+                "Hijabdo Simpel / Hairdo Blow Natural Wave",
+                "Free Softlens Normal (jika diperlukan)"
+              ]
+            },
+            {
+              "id": "novita-gi-2",
+              "name": "Paket 2 — Glamour Wisuda Paripurna",
+              "price": 250000,
+              "duration": "60 Menit",
+              "badge": "Favorit Wisudawati",
+              "features": [
+                "Airbrush Complexion Water-Resistant Tahan Panas & Keringat",
+                "Bulu Mata Double Layer 3D Super Lentik",
+                "Hijabdo Kreasi Wisuda / Hairdo Updo Modern Berkelas",
+                "Free Bulu Mata Cadangan & Mini Lip Cream Touch-up",
+                "Pemasangan Toga, Gordon & Selempang Rapih di Tempat"
+              ]
+            },
+            {
+              "id": "novita-gi-3",
+              "name": "Paket 3 — Royal Graduation + Free Hijab",
+              "price": 320000,
+              "duration": "75 Menit",
+              "badge": "All-in Package",
+              "features": [
+                "Full High-End Makeup Look (Dior / MAC / Make Over Pro)",
+                "Hairdo / Hijabdo Style Eksklusif + Aksesoris Mutiara/Hairpin",
+                "Free Jilbab Paris Segiempat Premium / Pasmina Silk",
+                "Face Prep Ampoule Glowing & Eye Treatment Mask",
+                "Free Pemasangan Toga & Pendampingan Foto Studio"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-grad-outdoor",
+          "name": "Graduation Outdoor",
+          "iconType": "outdoor",
+          "description": "Formula riasan khusus tahan terik matahari, angin kencang, dan keringat sesi luar ruangan.",
+          "subPackages": [
+            {
+              "id": "novita-go-1",
+              "name": "Paket 1 — Natural Sweatproof Outdoor",
+              "price": 195000,
+              "duration": "45 Menit",
+              "features": [
+                "Complexion Khusus Tahan Panas & Keringat Luar Ruangan",
+                "Bulu Mata Ringan Anti-Angin & Tidak Menusuk Mata",
+                "Hijabdo Rapi Kencang / Hairdo Ponytail Curled Tahan Angin",
+                "UV Protection Primer Base"
+              ]
+            },
+            {
+              "id": "novita-go-2",
+              "name": "Paket 2 — Full Glam Outdoor + Retouch",
+              "price": 280000,
+              "duration": "65 Menit",
+              "badge": "Best Outdoor",
+              "features": [
+                "Waterproof & UV Protection Foundation Tahan Luntur",
+                "Standby Touch-Up selama sesi foto outdoor berlangsung",
+                "Bulu Mata 3D Luxury Waterproof",
+                "Free Blotting Paper & Setting Spray Tahan Panas"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-prewed-indoor",
+          "name": "Prewedding Indoor",
+          "iconType": "prewedding",
+          "description": "Konsep riasan editorial dan cinematic khusus sesi foto studio pasangan.",
+          "subPackages": [
+            {
+              "id": "novita-pwi-1",
+              "name": "Paket 1 — Indoor Concept Natural",
+              "price": 300000,
+              "duration": "60 Menit",
+              "features": [
+                "Makeup Flawless Kalibrasi Pencahayaan Studio Foto",
+                "Ganti 1x Lip Look (Nude tone ke Romantic Bold)",
+                "Hairdo Modern / Hijabdo Sesuai Tema Busana Foto",
+                "Free Bulu Mata Premium & Softlens Studio"
+              ]
+            },
+            {
+              "id": "novita-pwi-2",
+              "name": "Paket 2 — Luxury Concept + Standby Retouch",
+              "price": 450000,
+              "duration": "90 Menit",
+              "badge": "Recommended",
+              "features": [
+                "High Coverage Complexion Super Flawless Anti-Minyak",
+                "Standby Pendampingan Retouch Selama Sesi Foto Studio",
+                "2x Pergantian Hairdo / Hijabdo Mengikuti Ganti Gaun",
+                "Free Peminjaman Headpiece / Hairpin Elegan"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-prewed-outdoor",
+          "name": "Prewedding Outdoor",
+          "iconType": "outdoor",
+          "description": "Riasan tahan lama seharian untuk foto prewedding di alam bebas atau taman terbuka.",
+          "subPackages": [
+            {
+              "id": "novita-pwo-1",
+              "name": "Paket 1 — Outdoor Scenic Look",
+              "price": 350000,
+              "duration": "60 Menit",
+              "features": [
+                "Heavy Duty Waterproof & Sweatproof Complexion",
+                "Hairdo / Hijabdo Kuat Angin & Cuaca Terbuka",
+                "Free Bulu Mata 3D Tahan Badai & Hairspray Kuat"
+              ]
+            },
+            {
+              "id": "novita-pwo-2",
+              "name": "Paket 2 — All Day Prewedding Outdoor",
+              "price": 550000,
+              "duration": "120 Menit",
+              "badge": "Complete",
+              "features": [
+                "Standby MUA Penuh di Lokasi Outdoor Malang & Sekitarnya",
+                "2x Ganti Konsep Makeup & Rambut/Hijab",
+                "Free Touch Up Kit Lengkap Pribadi"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-kebaya",
+          "name": "Kebaya",
+          "iconType": "kebaya",
+          "description": "Koleksi kebaya modern dan brokat anggun siap pakai untuk sesi foto.",
+          "subPackages": [
+            {
+              "id": "novita-kb-1",
+              "name": "Paket 1 — Kebaya Modern Standard",
+              "price": 100000,
+              "badge": "Ready to Wear",
+              "colors": [
+                "Sage",
+                "Nude",
+                "Black",
+                "Maroon"
+              ],
+              "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ],
+              "features": [
+                "Pilihan Warna Elegan: Sage, Nude, Black, Maroon",
+                "Termasuk Jarik Batik Span / Rok Lilit Premium",
+                "Tersedia Ukuran Lengkap: S, M, L, XL, XXL",
+                "Fitting Langsung di Ruang Ganti Studio Alviero"
+              ]
+            },
+            {
+              "id": "novita-kb-2",
+              "name": "Paket 2 — Kebaya Brokat Premium + Selendang",
+              "price": 150000,
+              "badge": "Best Choice",
+              "colors": [
+                "Navy",
+                "Gold",
+                "Silver",
+                "Sage",
+                "Nude"
+              ],
+              "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ],
+              "features": [
+                "Kebaya Brokat Payet Halus & Mewah Timbul",
+                "Pilihan Warna Eksklusif (Navy, Gold, Silver, Sage, Nude)",
+                "Termasuk Selendang Organza, Manset & Jarik Eksklusif",
+                "Free Inner Hijab / Kemben Warna Senada"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "novita-hijabdo",
+          "name": "Hijabdo",
+          "iconType": "hairdo",
+          "description": "Layanan penataan jilbab kreasi modern, tegak rapi dan membingkai wajah.",
+          "subPackages": [
+            {
+              "id": "novita-hj-1",
+              "name": "Paket 1 — Simple Hijab Styling",
+              "price": 50000,
+              "duration": "20 Menit",
+              "features": [
+                "Rapikan Pasmina / Segiempat Tegak Sempurna",
+                "Bentuk Wajah Proporsional & Rapi di Kamera",
+                "Free Jarum Pentul Premium & Bobby Pins"
+              ]
+            },
+            {
+              "id": "novita-hj-2",
+              "name": "Paket 2 — Creative Modern Hijabdo",
+              "price": 85000,
+              "duration": "35 Menit",
+              "badge": "Favorit",
+              "features": [
+                "Kreasi Hijab Turban / Wisuda Layering Modern",
+                "Pemasangan Aksesoris Mahkota / Bros Mewah",
+                "Garansi Bentuk Hijab Tidak Berubah Selama Sesi Foto"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        }
+      ],
+      "kebayas": [
+        {
+          "id": "novita-sage",
+          "name": "Sage",
+          "hex": "#8FA38D",
+          "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85",
+          "tag": "Best Seller Wisuda",
+          "desc": "Hijau sage pastel redup berpadu brokat payet halus timbul. Sangat fotogenik di studio foto dan menjadi warna terfavorit para wisudawati.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 4,
+            "L": 3,
+            "XL": 2,
+            "XXL": 1
+          },
+          "totalStock": 12
+        },
+        {
+          "id": "novita-nude",
+          "name": "Nude",
+          "hex": "#D8B89E",
+          "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+          "tag": "Warm Natural",
+          "desc": "Nuansa krem nude hangat yang menyatu lembut dengan warna kulit alami. Memberi kesan anggun, bersih, dan memancarkan aura natural.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 3,
+            "L": 2,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 9
+        },
+        {
+          "id": "novita-black",
+          "name": "Black",
+          "hex": "#242424",
+          "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+          "tag": "Royal Classic",
+          "desc": "Hitam elegan mewah klasik dengan aksen payet berkilau. Memberikan efek siluet tubuh yang ramping, tegas, dan berwibawa.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 3,
+            "L": 2,
+            "XL": 2,
+            "XXL": 1
+          },
+          "totalStock": 9
+        },
+        {
+          "id": "novita-maroon",
+          "name": "Maroon",
+          "hex": "#7A1C29",
+          "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+          "tag": "Bold Elegance",
+          "desc": "Merah maroon anggun berkarakter mewah. Pilihan sempurna untuk sesi foto wisuda resmi, lamaran, maupun foto keluarga.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 4,
+            "L": 3,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 11
+        },
+        {
+          "id": "novita-navy",
+          "name": "Navy",
+          "hex": "#1D2A44",
+          "image": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+          "tag": "Exclusive Modern",
+          "desc": "Biru navy tua berkilau payet kristal mewah. Kontras sangat tajam dan memukau di bawah pencahayaan softbox studio Alviero.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 2,
+            "L": 2,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 7
+        },
+        {
+          "id": "novita-gold",
+          "name": "Gold",
+          "hex": "#C8A34A",
+          "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+          "tag": "Glamour Luxury",
+          "desc": "Kuning keemasan berpayet timbul premium. Memancarkan aura megah, cerah, dan berkelas khas pesta formal.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 2,
+            "L": 1,
+            "XL": 1,
+            "XXL": 0
+          },
+          "totalStock": 5
+        },
+        {
+          "id": "novita-silver",
+          "name": "Silver",
+          "hex": "#B8BAC2",
+          "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+          "tag": "Chic Futuristic",
+          "desc": "Abu-abu perak berkilau dingin yang modern dan bersih. Tampil sangat modis dan kekinian untuk konsep wisuda minimalis.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 2,
+            "L": 2,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 7
+        }
+      ]
+    },
+    {
+      "id": "ananda",
+      "name": "By Ananda",
+      "tagline": "Korean Glowing Look & Modern Hijab Specialist",
+      "coverImage": "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80",
+      "portfolioImages": [
+        "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=85"
+      ],
+      "categories": [
+        {
+          "id": "ananda-pass-foto",
+          "name": "Pass Foto",
+          "iconType": "camera",
+          "description": "Look segar alami khas Korea yang mencerahkan wajah di foto identitas.",
+          "subPackages": [
+            {
+              "id": "ananda-pf-1",
+              "name": "Paket 1 — Clean Girl Look",
+              "price": 80000,
+              "duration": "30 Menit",
+              "features": [
+                "Korean Clean & Minimalist Skin Look",
+                "Rapikan Alis & Natural Peach / Pink Blush On",
+                "Penataan Rambut / Hijab Minimalis Simpel",
+                "Free Lip Gloss Refresh & Hydration"
+              ]
+            },
+            {
+              "id": "ananda-pf-2",
+              "name": "Paket 2 — Signature Dewy Pass Foto",
+              "price": 130000,
+              "duration": "45 Menit",
+              "badge": "Best Seller",
+              "features": [
+                "Glass-Skin Finish Tahan Kilas Lampu Studio",
+                "Bulu Mata Korea Tipis Lembut Super Ringan",
+                "Hijabdo Clean Look / Hairdo Sleek Low Ponytail",
+                "Free Setting Mist Hydration Tahan Seharian"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-wedding",
+          "name": "Wedding",
+          "iconType": "wedding",
+          "description": "Korean Bride Look yang mempesona dengan riasan glass-skin bercahaya alami.",
+          "subPackages": [
+            {
+              "id": "ananda-wd-1",
+              "name": "Paket 1 — Korean Sweet Bride",
+              "price": 480000,
+              "duration": "90 Menit",
+              "features": [
+                "Signature Glass-Skin Makeup Tahan 16 Jam",
+                "Custom Eye Makeup & Glitter Detail Korea",
+                "Styling Rambut Korean Wave / Hijab Turban Glam",
+                "Free Ampoule Hydration Sheet Mask"
+              ]
+            },
+            {
+              "id": "ananda-wd-2",
+              "name": "Paket 2 — Royal Korean Goddess",
+              "price": 800000,
+              "duration": "120 Menit",
+              "badge": "Best Look",
+              "features": [
+                "Ultra Flawless Dewy Foundation Waterproof",
+                "Double Layer Eyelash Korea Super Ringan",
+                "Hairdo Korean Updo dengan Tiara Mutiara",
+                "Retouch Standby selama pemotretan studio"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-grad-indoor",
+          "name": "Graduation Indoor",
+          "iconType": "graduation",
+          "description": "Riasan wisuda manis cerah ala drakor dengan ketahanan studio ber-AC.",
+          "subPackages": [
+            {
+              "id": "ananda-gi-1",
+              "name": "Paket 1 — Wisuda Korean Glowing Fresh",
+              "price": 200000,
+              "duration": "50 Menit",
+              "features": [
+                "Korean Flawless Glow Complexion Sweatproof",
+                "Aegyo Sal & Soft Shimmer Eyelook Cantik",
+                "Hijabdo Simpel Modern / Hairdo Korean Wave",
+                "Free Bulu Mata Korea Super Nyaman Dipakai"
+              ]
+            },
+            {
+              "id": "ananda-gi-2",
+              "name": "Paket 2 — Wisuda Luxury Sparkle Look",
+              "price": 275000,
+              "duration": "65 Menit",
+              "badge": "Favorit",
+              "features": [
+                "High Coverage Glow Complexion Tahan 16 Jam",
+                "Eyelash Double 3D Fluffy Custom Korea Style",
+                "Hijabdo Silang / French Twist Hairdo Elegan",
+                "Termasuk Pemasangan Aksesoris & Touch-Up Kit Pribadi"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-grad-outdoor",
+          "name": "Graduation Outdoor",
+          "iconType": "outdoor",
+          "description": "Tampilan fresh dewy yang tahan terik sinar matahari di kampus atau taman.",
+          "subPackages": [
+            {
+              "id": "ananda-go-1",
+              "name": "Paket 1 — Outdoor Fresh Radiance",
+              "price": 210000,
+              "duration": "50 Menit",
+              "features": [
+                "Sunproof & Sweatproof Glow Base Foundation",
+                "Bulu Mata Korea Kuat Terpaan Angin",
+                "Hijabdo Rapi Anti-Kusut"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-prewed-indoor",
+          "name": "Prewedding Indoor",
+          "iconType": "prewedding",
+          "description": "Romantisme ala drama Korea untuk foto prewedding studio.",
+          "subPackages": [
+            {
+              "id": "ananda-pwi-1",
+              "name": "Paket 1 — Korean Studio Romance",
+              "price": 320000,
+              "duration": "60 Menit",
+              "features": [
+                "Riasan Soft Romantic Glowing Studio",
+                "Hairdo Wave / Hijabdo Berselendang Organza",
+                "Free Softlens & Lip Gloss Hydration"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-prewed-outdoor",
+          "name": "Prewedding Outdoor",
+          "iconType": "outdoor",
+          "description": "Riasan cerah natural untuk foto prewedding outdoor sunset dan alam.",
+          "subPackages": [
+            {
+              "id": "ananda-pwo-1",
+              "name": "Paket 1 — Sunset Glow Outdoor",
+              "price": 360000,
+              "duration": "70 Menit",
+              "features": [
+                "Glow Complexion Water-Resistant",
+                "Styling Rambut Curls / Hijab Modern",
+                "Free Setting Spray Khusus Outdoor"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-kebaya",
+          "name": "Kebaya",
+          "iconType": "kebaya",
+          "description": "Sewa busana kebaya pastel modern.",
+          "subPackages": [
+            {
+              "id": "ananda-kb-1",
+              "name": "Paket 1 — Kebaya Pastel Modern",
+              "price": 100000,
+              "colors": [
+                "Sage",
+                "Nude",
+                "Silver",
+                "Dusty Pink"
+              ],
+              "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL"
+              ],
+              "features": [
+                "Pilihan Warna: Sage, Nude, Silver, Pink Pastel",
+                "Termasuk Jarik / Rok Batik Modern",
+                "Ukuran S, M, L, XL"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "ananda-hijabdo",
+          "name": "Hijabdo",
+          "iconType": "hairdo",
+          "description": "Layanan penataan jilbab clean look ala selebgram.",
+          "subPackages": [
+            {
+              "id": "ananda-hj-1",
+              "name": "Paket 1 — Clean Girl Hijab Styling",
+              "price": 50000,
+              "duration": "20 Menit",
+              "features": [
+                "Pashmina Silk / Segiempat Paris Rapi Tegak",
+                "Bentuk Wajah Tirus & Bersih di Kamera"
+              ]
+            },
+            {
+              "id": "ananda-hj-2",
+              "name": "Paket 2 — Creative Layering Hijab",
+              "price": 85000,
+              "duration": "35 Menit",
+              "features": [
+                "Kreasi Hijab Silang / Turban Wisuda Modern",
+                "Free Bobby Pins & Hairspray Strong Hold"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        }
+      ],
+      "kebayas": [
+        {
+          "id": "ananda-sage",
+          "name": "Sage",
+          "hex": "#8FA38D",
+          "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85",
+          "tag": "Pastel Soft Touch",
+          "desc": "Hijau sage pastel nuansa glowing Korea yang manis dan sangat anggun untuk foto studio.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "stock": {
+            "S": 3,
+            "M": 5,
+            "L": 4,
+            "XL": 2
+          },
+          "totalStock": 14
+        },
+        {
+          "id": "ananda-nude",
+          "name": "Nude",
+          "hex": "#D8B89E",
+          "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+          "tag": "Korean Glowing Pastel",
+          "desc": "Krem nude cerah dengan detail payet modern minimalis yang menyatu sempurna dengan kulit.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 4,
+            "L": 3,
+            "XL": 1
+          },
+          "totalStock": 10
+        },
+        {
+          "id": "ananda-silver",
+          "name": "Silver",
+          "hex": "#B8BAC2",
+          "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+          "tag": "Minimalist Modern",
+          "desc": "Perak modern bersih untuk konsep foto wisuda kontemporer dan modis.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 3,
+            "L": 2,
+            "XL": 1
+          },
+          "totalStock": 7
+        },
+        {
+          "id": "ananda-dusty-pink",
+          "name": "Dusty Pink",
+          "hex": "#DDA7A5",
+          "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",
+          "tag": "Sweet Feminine",
+          "desc": "Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 3,
+            "L": 3,
+            "XL": 1
+          },
+          "totalStock": 9
+        }
+      ]
+    },
+    {
+      "id": "masaya",
+      "name": "By Masaya",
+      "tagline": "Editorial & Bold Glamour Specialist",
+      "coverImage": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+      "portfolioImages": [
+        "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?auto=format&fit=crop&w=700&q=85"
+      ],
+      "categories": [
+        {
+          "id": "masaya-pass-foto",
+          "name": "Pass Foto",
+          "iconType": "camera",
+          "description": "Tampilan tegas berkarakter dengan shading presisi tinggi.",
+          "subPackages": [
+            {
+              "id": "masaya-pf-1",
+              "name": "Paket 1 — Sculpted ID Look",
+              "price": 85000,
+              "duration": "30 Menit",
+              "features": [
+                "Contour Wajah Tajam & Matte",
+                "Rapikan Alis & Natural Lips"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-wedding",
+          "name": "Wedding",
+          "iconType": "wedding",
+          "description": "Riasan pengantin bold glamour bergaya kerajaan.",
+          "subPackages": [
+            {
+              "id": "masaya-wd-1",
+              "name": "Paket 1 — Royal Bold Bride",
+              "price": 650000,
+              "duration": "100 Menit",
+              "features": [
+                "Full Airbrush Luxury Finish Waterproof",
+                "Full Sanggul Paes / Hijabdo Pengantin Mewah"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-grad-indoor",
+          "name": "Graduation Indoor",
+          "iconType": "graduation",
+          "description": "Tampilan wisuda tegas, berkarakter, dan mewah di hadapan lensa kamera studio.",
+          "subPackages": [
+            {
+              "id": "masaya-gi-1",
+              "name": "Paket 1 — Velvet Matte Wisuda",
+              "price": 185000,
+              "duration": "45 Menit",
+              "features": [
+                "Velvet Matte Complexion Khusus Tipe Kulit Berminyak",
+                "Bulu Mata Natural Wisuda 1 Layer",
+                "Hairdo / Hijabdo Standar Wisuda Rapi"
+              ]
+            },
+            {
+              "id": "masaya-gi-2",
+              "name": "Paket 2 — Bold Glamour Wisuda",
+              "price": 260000,
+              "duration": "60 Menit",
+              "badge": "Favorite",
+              "features": [
+                "High Coverage Sculpted Contour & Bold Eyelook",
+                "Double Eyelashes Dramatic Fluffy Look",
+                "Hijabdo Kreasi Editorial / Sanggul Modern Berkelas"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-grad-outdoor",
+          "name": "Graduation Outdoor",
+          "iconType": "outdoor",
+          "description": "Riasan tebal berkarakter yang tidak mudah pudar oleh keringat luar ruangan.",
+          "subPackages": [
+            {
+              "id": "masaya-go-1",
+              "name": "Paket 1 — Outdoor High Glam",
+              "price": 220000,
+              "duration": "50 Menit",
+              "features": [
+                "Heavy Duty Base Anti-Keringat",
+                "Bold Eyelashes Tahan Angin"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-prewed-indoor",
+          "name": "Prewedding Indoor",
+          "iconType": "prewedding",
+          "description": "Riasan editorial pencahayaan dramatis studio.",
+          "subPackages": [
+            {
+              "id": "masaya-pwi-1",
+              "name": "Paket 1 — Studio Editorial Drama",
+              "price": 330000,
+              "duration": "60 Menit",
+              "features": [
+                "Contour Tajam Studio",
+                "Hairdo / Hijabdo Chic"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-prewed-outdoor",
+          "name": "Prewedding Outdoor",
+          "iconType": "outdoor",
+          "description": "Foto prewedding konsep megah di alam bebas.",
+          "subPackages": [
+            {
+              "id": "masaya-pwo-1",
+              "name": "Paket 1 — Majestic Outdoor Prewed",
+              "price": 450000,
+              "duration": "80 Menit",
+              "features": [
+                "Waterproof Extreme",
+                "Standby Touch Up di Lokasi"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-kebaya",
+          "name": "Kebaya",
+          "iconType": "kebaya",
+          "description": "Kebaya brokat berpayet mewah.",
+          "subPackages": [
+            {
+              "id": "masaya-kb-1",
+              "name": "Paket 1 — Kebaya Glamour Brokat",
+              "price": 120000,
+              "colors": [
+                "Maroon",
+                "Black",
+                "Gold",
+                "Navy"
+              ],
+              "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ],
+              "features": [
+                "Pilihan Warna: Maroon, Black, Gold, Navy",
+                "Lengkap dengan Jarik & Manset"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "masaya-hijabdo",
+          "name": "Hijabdo",
+          "iconType": "hairdo",
+          "description": "Styling hijab tegas berturban atau berselendang mewah.",
+          "subPackages": [
+            {
+              "id": "masaya-hj-1",
+              "name": "Paket 1 — Bold Modern Hijabdo",
+              "price": 60000,
+              "duration": "25 Menit",
+              "features": [
+                "Gaya Turban / Silang Bersudut Tajam",
+                "Free Pins & Hold Spray"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        }
+      ],
+      "kebayas": [
+        {
+          "id": "masaya-maroon",
+          "name": "Maroon",
+          "hex": "#7A1C29",
+          "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+          "tag": "Bold Glamour Couture",
+          "desc": "Merah maroon pekat tegas dengan bordir couture mewah berkarakter kuat.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 3,
+            "L": 3,
+            "XL": 2,
+            "XXL": 1
+          },
+          "totalStock": 11
+        },
+        {
+          "id": "masaya-black",
+          "name": "Black",
+          "hex": "#242424",
+          "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+          "tag": "High Fashion Velvet",
+          "desc": "Hitam beludru mewah kontras tinggi dramatis dan sangat memukau.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 4,
+            "L": 2,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 9
+        },
+        {
+          "id": "masaya-gold",
+          "name": "Gold",
+          "hex": "#C8A34A",
+          "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+          "tag": "Luxury Royal Gold",
+          "desc": "Emas kilau spektakuler untuk konsep foto wisuda atau keluarga mewah formal.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 2,
+            "M": 3,
+            "L": 2,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 9
+        },
+        {
+          "id": "masaya-navy",
+          "name": "Navy",
+          "hex": "#1D2A44",
+          "image": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+          "tag": "Dramatic Night Glamour",
+          "desc": "Biru malam gelap tegas dengan aksen mutiara kristal berkilauan.",
+          "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ],
+          "stock": {
+            "S": 1,
+            "M": 3,
+            "L": 2,
+            "XL": 1,
+            "XXL": 1
+          },
+          "totalStock": 8
+        }
+      ]
+    },
+    {
+      "id": "tiwi",
+      "name": "By Tiwi",
+      "tagline": "Master Hair Styling, Updo & Hijabdo Artistry",
+      "coverImage": "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80",
+      "portfolioImages": [
+        "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=700&q=85",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=700&q=85"
+      ],
+      "categories": [
+        {
+          "id": "tiwi-hairdo",
+          "name": "Hairdo",
+          "iconType": "hairdo",
+          "description": "Penataan rambut profesional dari curly natural hingga sanggul wisuda modern.",
+          "subPackages": [
+            {
+              "id": "tiwi-hd-1",
+              "name": "Paket 1 — Blow Dry & Natural Curls",
+              "price": 60000,
+              "duration": "25 Menit",
+              "features": [
+                "Catok Curly / Blow Natural Volume Bouncy",
+                "Heat Protection Serum & Vitamin Rambut",
+                "Ketahanan Hair Styling dengan Soft Mist"
+              ]
+            },
+            {
+              "id": "tiwi-hd-2",
+              "name": "Paket 2 — Modern Updo & Sanggul Wisuda",
+              "price": 95000,
+              "duration": "40 Menit",
+              "badge": "Best Seller",
+              "features": [
+                "Sanggul Modern / Korean Low Bun / Half-Up Braided",
+                "Free Hairnet, Bobby Pins & Hairspray Tahan Seharian",
+                "Pemasangan Sirkam, Tiara, atau Bunga Rambut"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        },
+        {
+          "id": "tiwi-hijabdo",
+          "name": "Hijabdo",
+          "iconType": "hairdo",
+          "description": "Bentuk jilbab simetris, tegak rapi dan membingkai wajah dengan proporsional.",
+          "subPackages": [
+            {
+              "id": "tiwi-hj-1",
+              "name": "Paket 1 — Clean & Formal Hijabdo",
+              "price": 50000,
+              "duration": "15 Menit",
+              "features": [
+                "Bentuk Wajah Proporsional & Ramping di Kamera",
+                "Pashmina Silk / Segiempat Paris Rapi Tanpa Kusut",
+                "Jarum Pentul & Inner Hijab Anti-Geser"
+              ]
+            },
+            {
+              "id": "tiwi-hj-2",
+              "name": "Paket 2 — Creative Graduation & Wedding Hijabdo",
+              "price": 85000,
+              "duration": "30 Menit",
+              "badge": "Favorit",
+              "features": [
+                "Hijab Layering Mewah, Veil / Selendang Styling Anggun",
+                "Pemasangan Bros, Mahkota, atau Aksesoris Kepala",
+                "Garansi Bentuk Hijab Tidak Berubah Selama Sesi Foto"
+              ]
+            }
+          ],
+          "portfolioImage": ""
+        }
+      ],
+      "kebayas": []
+    }
+  ],
+  "kebayaColorCatalog": {
+    "Sage": {
+      "name": "Sage",
+      "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85",
+      "hex": "#8FA38D",
+      "tag": "Best Seller Wisuda",
+      "desc": "Hijau sage pastel redup berpadu brokat payet halus timbul. Sangat fotogenik di studio foto dan menjadi warna terfavorit para wisudawati."
+    },
+    "Nude": {
+      "name": "Nude",
+      "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+      "hex": "#D8B89E",
+      "tag": "Warm Natural",
+      "desc": "Nuansa krem nude hangat yang menyatu lembut dengan warna kulit alami. Memberi kesan anggun, bersih, dan memancarkan aura natural."
+    },
+    "Black": {
+      "name": "Black",
+      "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+      "hex": "#242424",
+      "tag": "Royal Classic",
+      "desc": "Hitam elegan mewah klasik dengan aksen payet berkilau. Memberikan efek siluet tubuh yang ramping, tegas, dan berwibawa."
+    },
+    "Maroon": {
+      "name": "Maroon",
+      "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+      "hex": "#7A1C29",
+      "tag": "Bold Elegance",
+      "desc": "Merah maroon anggun berkarakter mewah. Pilihan sempurna untuk sesi foto wisuda resmi, lamaran, maupun foto keluarga."
+    },
+    "Navy": {
+      "name": "Navy",
+      "image": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+      "hex": "#1D2A44",
+      "tag": "Exclusive Modern",
+      "desc": "Biru navy tua berkilau payet kristal mewah. Kontras sangat tajam dan memukau di bawah pencahayaan softbox studio Alviero."
+    },
+    "Gold": {
+      "name": "Gold",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+      "hex": "#C8A34A",
+      "tag": "Glamour Luxury",
+      "desc": "Kuning keemasan berpayet timbul premium. Memancarkan aura megah, cerah, dan berkelas khas pesta formal."
+    },
+    "Silver": {
+      "name": "Silver",
+      "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+      "hex": "#B8BAC2",
+      "tag": "Chic Futuristic",
+      "desc": "Abu-abu perak berkilau dingin yang modern dan bersih. Tampil sangat modis dan kekinian untuk konsep wisuda minimalis."
+    },
+    "Dusty Pink": {
+      "name": "Dusty Pink",
+      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",
+      "hex": "#DDA7A5",
+      "tag": "Sweet Feminine",
+      "desc": "Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria."
+    }
+  }
 }

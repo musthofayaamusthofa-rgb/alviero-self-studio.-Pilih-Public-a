@@ -156,7 +156,7 @@ export const getPackageCategoryInfo = (pkg: { id: string; category: string; name
   if (cat === 'couple' || id.includes('couple')) {
     return { key: 'couple', label: 'Paket Couple', badge: 'Couple Studio', note: '' };
   }
-  if (cat === 'prewedding' || id.includes('prewed')) {
+  if (cat === 'prewedding' || cat === 'prewed' || id.includes('prewed')) {
     return { key: 'prewedding', label: 'Paket Prewedding', badge: 'Prewedding Suite', note: '' };
   }
   if (cat === 'undangan' || id.includes('undangan')) {
@@ -2852,6 +2852,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               { id: 'prewedding', label: 'Prewedding', pastelDot: '#C084FC' },
                               { id: 'pass-foto', label: 'Pass Foto', pastelDot: '#2DD4BF' },
                               { id: 'sewa-studio', label: 'Sewa Studio', pastelDot: '#A88870' },
+                              { id: 'undangan', label: 'Undangan Digital', pastelDot: '#E11D48' },
                             ].map((tab) => {
                               const isActive = packageCategoryFilter === tab.id;
                               return (
