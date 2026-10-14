@@ -1468,11 +1468,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             loading="lazy"
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                           />
-                          {/* Floating Zoom Badge on Top-Right */ }
-                          <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-md text-white text-[10px] font-sans font-bold px-2.5 py-1 rounded-full border border-white/20 shadow-md opacity-90 group-hover:opacity-100 group-hover:bg-[#6E856C] group-hover:border-[#6E856C] transition-all">
-                            <ZoomIn className="w-3 h-3 text-[#A9BCA7] group-hover:text-white" />
-                            <span>Preview</span>
-                          </div>
 
                           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-transparent px-3 pb-2.5 pt-8">
                             <p className="text-[10px] sm:text-[11px] text-white font-bold leading-tight line-clamp-2">{photo.title}</p>
