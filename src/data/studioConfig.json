@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-14T08:45:39.869Z",
+  "lastUpdated": "2026-10-14T09:22:36.277Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -3925,5 +3925,1343 @@
       "tag": "Sweet Feminine",
       "desc": "Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria."
     }
-  }
+  },
+  "addOns": [
+    {
+      "id": "studio-keep-drive-1m",
+      "name": "Keep Link Google Drive 1 Bulan",
+      "price": 10000,
+      "unit": "bulan",
+      "description": "Penyimpanan & masa aktif link file Google Drive diperpanjang selama 1 bulan.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor",
+        "grad-outdoor",
+        "pass-foto",
+        "group",
+        "family",
+        "birthday",
+        "maternity",
+        "personal",
+        "couple",
+        "prewedding",
+        "undangan",
+        "sewa-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "studio-keep-drive-2m",
+      "name": "Keep Link Google Drive 2 Bulan",
+      "price": 20000,
+      "unit": "bulan",
+      "description": "Penyimpanan & masa aktif link file Google Drive diperpanjang selama 2 bulan.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor",
+        "grad-outdoor",
+        "pass-foto",
+        "group",
+        "family",
+        "birthday",
+        "maternity",
+        "personal",
+        "couple",
+        "prewedding",
+        "undangan",
+        "sewa-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-keep-drive-1m",
+      "name": "Keep Link Google Drive 1 Bulan",
+      "price": 5000,
+      "unit": "bulan",
+      "description": "Penyimpanan & masa aktif link file Google Drive diperpanjang selama 1 bulan.",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-keep-drive-2m",
+      "name": "Keep Link Google Drive 2 Bulan",
+      "price": 10000,
+      "unit": "bulan",
+      "description": "Penyimpanan & masa aktif link file Google Drive diperpanjang selama 2 bulan.",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-flashdisk-16gb",
+      "name": "Flashdisk 16GB",
+      "price": 105000,
+      "unit": "pcs",
+      "description": "Penyimpanan seluruh file foto resolusi tinggi ke dalam flashdisk USB 32GB siap pakai.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-4r",
+      "name": "Cetak Lab Uk 4R",
+      "price": 5000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 4R (10.2 x 15.2 cm) kertas Glossy Lab premium.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-5r",
+      "name": "Cetak Lab Uk 5R",
+      "price": 8000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 5R (12.7 x 17.8 cm) kertas Glossy Lab premium.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-6r",
+      "name": "Cetak Lab Uk 6R",
+      "price": 9000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 6R (15.2 x 20.3 cm) meja kantor/kamar.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-10rs",
+      "name": "Cetak Lab Uk 10Rs",
+      "price": 15000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm) resolusi tinggi tahan pudar.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-12rs",
+      "name": "Cetak Lab Uk 12Rs",
+      "price": 50000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 12Rs (30.5 x 45 cm) pigura dinding.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-16rs",
+      "name": "Cetak Lab Uk 16Rs",
+      "price": 100000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 16Rs (40 x 60 cm) pajangan dinding besar.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-20rs",
+      "name": "Cetak Lab Uk 20Rs",
+      "price": 137000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 20Rs (50 x 75 cm) pajangan ruang tamu.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-print-24rs",
+      "name": "Cetak Lab Uk 24Rs",
+      "price": 172000,
+      "unit": "foto",
+      "description": "Cetak foto lab ukuran 24Rs (60 x 90 cm) ukuran kanvas jumbo.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-4r",
+      "name": "Bingkai Uk 4R",
+      "price": 17000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura minimalis modern ukuran 4R (15 x 20 cm) dengan penyangga meja.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-10rs",
+      "name": "Bingkai Uk 10Rs",
+      "price": 35000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura minimalis elegan ukuran 10Rs (20 x 30 cm) untuk meja & dinding.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-12rs",
+      "name": "Bingkai Uk 12Rs",
+      "price": 50000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura dinding minimalis modern ukuran 12Rs (30 x 45 cm).",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-16rs",
+      "name": "Bingkai Uk 16Rs",
+      "price": 145000,
+      "unit": "bingkai",
+      "description": "Bingkai eksklusif mewah ukuran 16Rs (40 x 60 cm) list linen ganda.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-20rs",
+      "name": "Bingkai Uk 20Rs",
+      "price": 175000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura dinding jumbo ukuran 20Rs (50 x 75 cm) sangat megah.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-bundle-10rs",
+      "name": "Paket Cetak + Bingkai 10Rs",
+      "price": 50000,
+      "unit": "paket",
+      "description": "Paket hemat lengkap: 1x Cetak Lab 10Rs + 1x Bingkai Minimalis 10Rs siap pajang.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-bundle-12rs",
+      "name": "Paket Cetak + Bingkai 12Rs",
+      "price": 100000,
+      "unit": "paket",
+      "description": "Paket hemat lengkap: 1x Cetak Lab 12Rs + 1x Bingkai Minimalis 12Rs siap pajang.",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-indoor-extra-bg",
+      "name": "Tambahan Background",
+      "price": 75000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema indoor saat sesi foto.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-indoor-kostum-klien",
+      "name": "Kostum (Dari Klien)",
+      "price": 50000,
+      "unit": "kostum",
+      "description": "Biaya ganti 1 stel kostum tambahan yang dibawa klien.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-indoor-extra-person",
+      "name": "Tambahan Orang (Di Atas 10 Orang)",
+      "price": 10000,
+      "unit": "orang",
+      "description": "Tambahan biaya per orang untuk rombongan wisuda di atas 10 peserta.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-indoor-wisudawan-saudara",
+      "name": "Wisudawan (Saudara Kandung)",
+      "price": 50000,
+      "unit": "orang",
+      "description": "Tambahan sesi untuk wisudawan saudara kandung dalam 1 sesi.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-indoor-makeup",
+      "name": "Make Up Wisuda",
+      "price": 250000,
+      "unit": "orang",
+      "description": "Jasa makeup profesional wisuda tahan lama dan flawless.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-indoor-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit foto wisuda retouching halus.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-indoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-outdoor-extra-time",
+      "name": "Tambahan Waktu (per 10 Menit)",
+      "price": 50000,
+      "unit": "10 menit",
+      "description": "Tambahan durasi pemotretan wisuda outdoor per 10 menit.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-outdoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-outdoor-makeup",
+      "name": "Make Up Wisuda Outdoor",
+      "price": 280000,
+      "unit": "orang",
+      "description": "Jasa makeup outdoor tahan keringat & cuaca terbuka.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-outdoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "grad-outdoor-hairdo",
+      "name": "Hairdo Wisuda",
+      "price": 150000,
+      "unit": "orang",
+      "description": "Penataan rambut / hijab styling khusus wisuda outdoor.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "grad-outdoor"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-print-3x3",
+      "name": "Cetak 3×3 (6 Foto)",
+      "price": 9000,
+      "unit": "paket (6 foto)",
+      "description": "Cetak fisik pass foto 3x3 sebanyak 6 lembar kertas Glossy Lab.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-print-2x3",
+      "name": "Cetak 2×3 (6 Foto)",
+      "price": 9000,
+      "unit": "paket (6 foto)",
+      "description": "Cetak fisik pass foto 2x3 sebanyak 6 lembar kertas Glossy Lab.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-print-3x4",
+      "name": "Cetak 3×4 (6 Foto)",
+      "price": 9000,
+      "unit": "paket (6 foto)",
+      "description": "Cetak fisik pass foto 3x4 sebanyak 6 lembar kertas Glossy Lab.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-print-4x6",
+      "name": "Cetak 4×6 (4 Foto)",
+      "price": 9000,
+      "unit": "paket (4 foto)",
+      "description": "Cetak fisik pass foto 4x6 sebanyak 4 lembar kertas Glossy Lab.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-print-6x9",
+      "name": "Cetak 6×9 (3 Foto)",
+      "price": 9000,
+      "unit": "paket (3 foto)",
+      "description": "Cetak fisik pass foto 6x9 sebanyak 3 lembar kertas Glossy Lab.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-outfit-pose",
+      "name": "Ganti Outfit / Pose",
+      "price": 15000,
+      "unit": "pose",
+      "description": "Ganti 1 stel pakaian atau 1 variasi pose pass foto.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-additional-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit pass foto retouching wajah.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-gandeng-1warna",
+      "name": "Foto Gandeng 1 Warna",
+      "price": 25000,
+      "unit": "file",
+      "description": "Edit foto gandeng buku nikah/resmi 1 warna latar.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-makeup",
+      "name": "Make Up Pass Foto",
+      "price": 100000,
+      "unit": "orang",
+      "description": "Jasa makeup natural rapi untuk foto resmi/ijazah/nikah.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "passfoto-bulumata",
+      "name": "Pasang Bulu Mata",
+      "price": 25000,
+      "unit": "orang",
+      "description": "Pemasangan bulu mata natural untuk mempertegas mata.",
+      "category": "pass-foto",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "pass-foto"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "group-extra-bg",
+      "name": "Tambahan Background",
+      "price": 75000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema studio.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "group"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "group-kostum",
+      "name": "Kostum Tambahan",
+      "price": 50000,
+      "unit": "kostum",
+      "description": "Ganti 1 stel kostum tambahan per sesi group.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "group"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "group-extra-person-41",
+      "name": "Orang (ke-41 ke Atas)",
+      "price": 10000,
+      "unit": "orang",
+      "description": "Tambahan peserta group untuk orang ke-41 dan seterusnya.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "group"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "group-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit foto group retouching warna & lighting.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "group"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "group-foto-sendiri",
+      "name": "Foto Sendiri (Solo Shot)",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Sesi foto solo / individu di sela sesi group.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "group"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "family-extra-bg",
+      "name": "Tambahan Background",
+      "price": 75000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema keluarga.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "family"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "family-kostum",
+      "name": "Kostum Tambahan",
+      "price": 50000,
+      "unit": "kostum",
+      "description": "Ganti 1 stel kostum keluarga saat sesi.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "family"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "family-extra-person",
+      "name": "Tambahan Orang",
+      "price": 10000,
+      "unit": "orang",
+      "description": "Tambahan anggota keluarga melebihi kuota paket.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "family"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "family-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit foto keluarga retouching tone.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "family"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-petasan-kertas",
+      "name": "Petasan Kertas (Confetti)",
+      "price": 30000,
+      "unit": "pcs",
+      "description": "Confetti popper kertas warna-warni pesta ulang tahun.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-balon-latex",
+      "name": "Balon Latex",
+      "price": 1500,
+      "unit": "pcs",
+      "description": "Balon latex warna pastel / metallic per buah.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-balon-angka",
+      "name": "Balon Angka Foil",
+      "price": 15000,
+      "unit": "pcs",
+      "description": "Balon foil angka ukuran besar penanda umur.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-balon-hewan",
+      "name": "Balon Hewan Lucu",
+      "price": 15000,
+      "unit": "pcs",
+      "description": "Balon karakter hewan lucu untuk properti anak.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-extra-person-3",
+      "name": "Tambahan Orang (di Atas 3 Orang)",
+      "price": 25000,
+      "unit": "orang",
+      "description": "Tambahan teman/anggota ulang tahun di atas 3 orang.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-extra-bg-time",
+      "name": "Tambahan Background (+ Waktu 7 Menit)",
+      "price": 75000,
+      "unit": "background",
+      "description": "Tambah 1 background include ekstra waktu 7 menit.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-spotlight",
+      "name": "Spotlight",
+      "price": 25000,
+      "unit": "sesi",
+      "description": "Pencahayaan sorot fokus spotlight artistik.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-color-spotlight",
+      "name": "Color Spotlight",
+      "price": 25000,
+      "unit": "sesi",
+      "description": "Pencahayaan warna-warni RGB spotlight aesthetic.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "birthday-makeup",
+      "name": "Make Up Birthday",
+      "price": 250000,
+      "unit": "orang",
+      "description": "Jasa makeup flawless fresh tema ulang tahun.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "birthday"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "maternity-extra-bg",
+      "name": "Tambahan Background",
+      "price": 75000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema maternity.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "maternity"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "maternity-kostum",
+      "name": "Kostum Tambahan",
+      "price": 50000,
+      "unit": "kostum",
+      "description": "Ganti 1 stel gaun / kostum maternity hamil.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "maternity"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "maternity-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit foto maternity retouching lembut.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "maternity"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "maternity-makeup",
+      "name": "Make Up Maternity",
+      "price": 250000,
+      "unit": "orang",
+      "description": "Jasa makeup ibu hamil natural glowing elegan.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "maternity"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "personal-extra-bg",
+      "name": "Tambahan Background",
+      "price": 50000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema personal.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "personal"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "personal-kostum",
+      "name": "Kostum Tambahan",
+      "price": 35000,
+      "unit": "kostum",
+      "description": "Ganti 1 stel outfit / kostum saat sesi personal.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "personal"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "personal-extra-person",
+      "name": "Tambahan Orang",
+      "price": 10000,
+      "unit": "orang",
+      "description": "Menambah 1 teman ikut dalam sesi personal.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "personal"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "personal-makeup",
+      "name": "Make Up Personal",
+      "price": 280000,
+      "unit": "orang",
+      "description": "Jasa makeup profesional glam / soft glam personal.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "personal"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "couple-extra-bg",
+      "name": "Tambahan Background",
+      "price": 75000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema pasangan.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "couple"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "couple-outfit",
+      "name": "Outfit / Kostum Tambahan",
+      "price": 50000,
+      "unit": "kostum",
+      "description": "Ganti 1 pasang pakaian couple saat sesi.",
+      "category": "prop",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "couple"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "couple-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit foto couple retouching romantis.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "couple"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "couple-makeup",
+      "name": "Make Up Couple",
+      "price": 250000,
+      "unit": "orang",
+      "description": "Jasa makeup pasangan rapi & natural.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "couple"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "prewed-extra-bg",
+      "name": "Tambahan Background",
+      "price": 75000,
+      "unit": "background",
+      "description": "Ganti / tambah 1 background tema prewedding.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "prewedding"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "prewed-hairdo",
+      "name": "Hairdo",
+      "price": 150000,
+      "unit": "orang",
+      "description": "Penataan rambut / sanggul / hijab stylist prewedding.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "prewedding"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "prewed-makeup",
+      "name": "Make Up",
+      "price": 400000,
+      "unit": "orang",
+      "description": "Jasa MUA prewedding eksklusif tahan lama & mewah.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "prewedding"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "prewed-edit",
+      "name": "Additional Edit",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit foto prewedding cinematic tone.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "prewedding"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-extra-time",
+      "name": "Waktu per 5 Menit",
+      "price": 20000,
+      "unit": "5 menit",
+      "description": "Tambahan durasi sesi pemotretan selfstudio (+5 menit).",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-print-polaroid-grid4",
+      "name": "Cetak 1 Lembar (Polaroid / Grid 4)",
+      "price": 7500,
+      "unit": "1 lembar",
+      "description": "Cetak fisik foto Polaroid / Grid 4 kertas Glossy Lab.",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-print-grid3",
+      "name": "Cetak 2 Lembar (GRID 3)",
+      "price": 8000,
+      "unit": "2 lembar",
+      "description": "Cetak fisik foto strip Grid 3 kertas Glossy Lab (2 lembar).",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-pet",
+      "name": "Hewan Peliharaan selain Anjing (dari Client)",
+      "price": 25000,
+      "unit": "hewan",
+      "description": "Membawa hewan peliharaan dari klien (selain anjing).",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-extra-person",
+      "name": "Tambahan Orang",
+      "price": 15000,
+      "unit": "orang",
+      "description": "Tambahan biaya per orang untuk sesi foto selfstudio.",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-dino-single",
+      "name": "Sewa Kostum Dino",
+      "price": 15000,
+      "unit": "orang",
+      "description": "Sewa kostum dinosaurus lucu untuk sesi foto mandiri.",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "self-spotlight-tirai",
+      "name": "Spotlight (Khusus Background Tirai Coklat)",
+      "price": 25000,
+      "unit": "sesi",
+      "description": "Pencahayaan spotlight artistik latar tirai coklat.",
+      "category": "selfstudio",
+      "isSelfStudioOnly": true,
+      "applicableCategories": [
+        "self-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "undangan-edit",
+      "name": "Additional Edit Foto Undangan",
+      "price": 10000,
+      "unit": "foto",
+      "description": "Tambahan 1 file edit resolusi tinggi khusus desain undangan.",
+      "category": "file",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "undangan",
+        "sewa-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "undangan-makeup",
+      "name": "Make Up Sesi Undangan",
+      "price": 250000,
+      "unit": "orang",
+      "description": "Jasa makeup rapi & elegan untuk foto undangan.",
+      "category": "person",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "undangan",
+        "sewa-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    }
+  ]
 }

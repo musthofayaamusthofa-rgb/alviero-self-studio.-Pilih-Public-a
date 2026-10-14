@@ -1323,7 +1323,7 @@ export const FRAME_TEMPLATES: FrameTemplate[] = [
   }
 ];
 
-export const ADD_ONS: AddOnOption[] = [
+export const DEFAULT_ADD_ONS: AddOnOption[] = [
   // ==================== GLOBAL GOOGLE DRIVE STORAGE ADD-ONS ====================
   // Photo Studio (Semua Paket Foto selain Self Studio): 1 Bulan 10K, 2 Bulan 20K
   {
@@ -2108,6 +2108,14 @@ export const ADD_ONS: AddOnOption[] = [
     applicableCategories: ['undangan', 'sewa-studio']
   }
 ];
+
+export const ALL_ADD_ONS: AddOnOption[] = (
+  (studioConfig.addOns && Array.isArray(studioConfig.addOns) && studioConfig.addOns.length > 0)
+    ? studioConfig.addOns
+    : DEFAULT_ADD_ONS
+) as AddOnOption[];
+
+export const ADD_ONS: AddOnOption[] = ALL_ADD_ONS.filter((a: any) => a.active !== false);
 
 export const PRICELIST_SHEETS: PricelistSheet[] = [
   {
