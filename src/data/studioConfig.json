@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-14T09:22:36.277Z",
+  "lastUpdated": "2026-10-14T09:26:44.444Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -4018,7 +4018,7 @@
       "name": "Flashdisk 16GB",
       "price": 105000,
       "unit": "pcs",
-      "description": "Penyimpanan seluruh file foto resolusi tinggi ke dalam flashdisk USB 32GB siap pakai.",
+      "description": "Penyimpanan seluruh file foto resolusi tinggi ke dalam flashdisk USB 16GB siap pakai.",
       "category": "file",
       "isSelfStudioOnly": false,
       "applicableCategories": [
