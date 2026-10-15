@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-15T07:51:44.881Z",
+  "lastUpdated": "2026-10-15T11:05:07.991Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2270,52 +2270,31 @@
   },
   "heroBannerSlides": [
     {
-      "id": "hero-1",
-      "image": "/images/backdrops/backdrop-1.jpg",
-      "title": "Mint Modern Aesthetic Sofa",
-      "theme": "Fresh & Elegant",
+      "id": "hero-1792061221965",
+      "image": "/images/gallery/dscf0829_jpg_1792061219342.jpg",
+      "title": "Putih Tengah",
+      "theme": "Classic White Fireplace",
       "active": true
     },
     {
-      "id": "hero-2",
-      "image": "/images/backdrops/backdrop-2.jpg",
-      "title": "Bohemian Rustic Texture Wall",
-      "theme": "Warm Natural",
+      "id": "hero-1792061785623",
+      "image": "/images/gallery/dscf0802_jpg_1792061784209.jpg",
+      "title": "Abu-abu",
+      "theme": "Rustic Grey",
       "active": true
     },
     {
-      "id": "hero-3",
-      "image": "/images/backdrops/backdrop-3.jpg",
-      "title": "Black Arch Window Bar Stool",
-      "theme": "Bold & Chic",
+      "id": "hero-1792062006349",
+      "image": "/images/gallery/dscf0830_jpg_1792062003875.jpg",
+      "title": "Tematic Cream",
+      "theme": "Cozy Beige Corner",
       "active": true
     },
     {
-      "id": "hero-4",
-      "image": "/images/backdrops/backdrop-4.jpg",
-      "title": "Charcoal Classic Deep Sofa",
-      "theme": "Timeless Luxury",
-      "active": true
-    },
-    {
-      "id": "hero-5",
-      "image": "/images/backdrops/backdrop-5.jpg",
-      "title": "Luxury White Fireplace & Frame",
-      "theme": "European Royal",
-      "active": true
-    },
-    {
-      "id": "hero-6",
-      "image": "/images/backdrops/backdrop-6.jpg",
-      "title": "Warm Beige Classic Armchair",
-      "theme": "Cozy Editorial",
-      "active": true
-    },
-    {
-      "id": "hero-7",
-      "image": "/images/backdrops/backdrop-7.jpg",
-      "title": "White Arch Windows & Grey Sofa",
-      "theme": "Minimalist Bright",
+      "id": "hero-1792062280804",
+      "image": "/images/gallery/dscf0842_jpg_1792062279503.jpg",
+      "title": "Hitam",
+      "theme": "Luxury Noir",
       "active": true
     }
   ],
@@ -3042,7 +3021,10 @@
             "XL": 2,
             "XXL": 1
           },
-          "totalStock": 12
+          "totalStock": 12,
+          "images": [
+            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "novita-nude",
@@ -3065,7 +3047,10 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 9
+          "totalStock": 9,
+          "images": [
+            "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "novita-black",
@@ -3088,7 +3073,10 @@
             "XL": 2,
             "XXL": 1
           },
-          "totalStock": 9
+          "totalStock": 9,
+          "images": [
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "novita-maroon",
@@ -3111,7 +3099,10 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 11
+          "totalStock": 11,
+          "images": [
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "novita-navy",
@@ -3134,7 +3125,10 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 7
+          "totalStock": 7,
+          "images": [
+            "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "novita-gold",
@@ -3157,7 +3151,10 @@
             "XL": 1,
             "XXL": 0
           },
-          "totalStock": 5
+          "totalStock": 5,
+          "images": [
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "novita-silver",
@@ -3180,7 +3177,10 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 7
+          "totalStock": 7,
+          "images": [
+            "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85"
+          ]
         }
       ]
     },
@@ -3438,7 +3438,10 @@
             "L": 4,
             "XL": 2
           },
-          "totalStock": 14
+          "totalStock": 14,
+          "images": [
+            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "ananda-nude",
@@ -3459,7 +3462,10 @@
             "L": 3,
             "XL": 1
           },
-          "totalStock": 10
+          "totalStock": 10,
+          "images": [
+            "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "ananda-silver",
@@ -3480,7 +3486,10 @@
             "L": 2,
             "XL": 1
           },
-          "totalStock": 7
+          "totalStock": 7,
+          "images": [
+            "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "ananda-dusty-pink",
@@ -3501,7 +3510,10 @@
             "L": 3,
             "XL": 1
           },
-          "totalStock": 9
+          "totalStock": 9,
+          "images": [
+            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85"
+          ]
         }
       ]
     },
@@ -3716,7 +3728,12 @@
             "XL": 2,
             "XXL": 1
           },
-          "totalStock": 11
+          "totalStock": 11,
+          "images": [
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+            "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=900&q=85",
+            "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "masaya-black",
@@ -3739,7 +3756,11 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 9
+          "totalStock": 9,
+          "images": [
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+            "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "masaya-gold",
@@ -3762,7 +3783,12 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 9
+          "totalStock": 9,
+          "images": [
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+            "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85",
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
+          ]
         },
         {
           "id": "masaya-navy",
@@ -3785,7 +3811,11 @@
             "XL": 1,
             "XXL": 1
           },
-          "totalStock": 8
+          "totalStock": 8,
+          "images": [
+            "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=85"
+          ]
         }
       ]
     },
@@ -5261,6 +5291,17 @@
       "applicableBranches": [
         "all"
       ],
+      "active": true
+    }
+  ],
+  "backgroundConflictRules": [
+    {
+      "id": "rule-c2-coklat-cream",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-coklat-jendela",
+      "backgroundIdB": "c2-tematik-cream",
+      "scope": "both",
+      "reason": "Bentrok area panggung yang sama di Studio 2 (Dinoyo)",
       "active": true
     }
   ]

@@ -1,5 +1,5 @@
 import studioConfig from './studioConfig.json';
-import { PackageItem, CategoryInfo, BackdropOption, BackgroundOption, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
+import { PackageItem, CategoryInfo, BackdropOption, BackgroundOption, BackgroundConflictRule, FrameTemplate, AddOnOption, PricelistSheet, ReviewItem, BranchInfo, StudioBranch } from '../types';
 
 export interface SelfStudioSubPackageOption {
   id: string;
@@ -1231,6 +1231,7 @@ export const SELF_STUDIO_1_BACKGROUNDS: BackgroundOption[] = (studioConfig.backg
 
 export const BACKGROUNDS: BackgroundOption[] = (studioConfig.backgrounds.filter(b => b.active !== false) as BackgroundOption[]);
 export const BACKDROPS = BACKGROUNDS;
+export const BACKGROUND_CONFLICT_RULES: BackgroundConflictRule[] = ((studioConfig as any).backgroundConflictRules || []) as BackgroundConflictRule[];
 
 export interface MuaServiceOption {
   id: string;
