@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-15T11:05:07.991Z",
+  "lastUpdated": "2026-10-15T11:07:51.411Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2295,6 +2295,13 @@
       "image": "/images/gallery/dscf0842_jpg_1792062279503.jpg",
       "title": "Hitam",
       "theme": "Luxury Noir",
+      "active": true
+    },
+    {
+      "id": "hero-1792062460413",
+      "image": "/images/gallery/dscf0789_jpg_1792062458920.jpg",
+      "title": "Coklat Jendela",
+      "theme": "Royal Warmth",
       "active": true
     }
   ],
