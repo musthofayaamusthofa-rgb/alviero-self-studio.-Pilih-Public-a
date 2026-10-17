@@ -1412,23 +1412,25 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                           <div className="border-l-3 border-[#5C725A] pl-3 space-y-2.5">
                             {/* Foto Portofolio Kategori MUA (Jika Ada) */}
                             {category.portfolioImage && (
-                              <div
-                                onClick={() => setPreviewPortfolioImg(category.portfolioImage || null)}
-                                className="relative mb-3 w-full overflow-hidden rounded-xl border border-[#EAE2DC] bg-[#1E1E1E]/5 shadow-xs flex items-center justify-center cursor-pointer group"
-                                title="Klik untuk melihat foto ukuran penuh"
-                              >
-                                <img
-                                  src={category.portfolioImage}
-                                  alt={`Portofolio ${category.name}`}
-                                  className="w-full h-auto max-h-[460px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
-                                  loading="lazy"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
-                                  <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2.5 py-0.5 rounded-full text-[9.5px] font-mono font-bold flex items-center gap-1 shadow-sm">
-                                    <Camera className="w-3 h-3 text-[#A9BCA7]" />
-                                    <span>Hasil Portofolio {category.name}</span>
-                                  </span>
+                              <div className="mb-3 flex justify-center">
+                                <div
+                                  onClick={() => setPreviewPortfolioImg(category.portfolioImage || null)}
+                                  className="relative h-48 sm:h-56 w-auto max-w-xs sm:max-w-sm overflow-hidden rounded-xl border border-[#EAE2DC] bg-[#1E1E1E]/5 shadow-xs flex items-center justify-center cursor-pointer group hover:border-[#5C725A] transition-colors"
+                                  title="Klik untuk melihat foto ukuran penuh"
+                                >
+                                  <img
+                                    src={category.portfolioImage}
+                                    alt={`Portofolio ${category.name}`}
+                                    className="h-full w-auto max-w-full object-contain mx-auto block group-hover:scale-105 transition-transform duration-300"
+                                    loading="lazy"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-center pointer-events-none">
+                                    <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold flex items-center gap-1 shadow-sm">
+                                      <Camera className="w-3 h-3 text-[#A9BCA7]" />
+                                      <span>Hasil Portofolio {category.name}</span>
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
                             )}
