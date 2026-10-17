@@ -1,3 +1,4 @@
+import studioConfig from '../data/studioConfig.json';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import {
@@ -13,7 +14,8 @@ import {
   SELF_STUDIO_SUB_PACKAGES,
   SELF_STUDIO_1_BACKGROUNDS,
   PRINT_OPTIONS,
-  MUA_VENDOR_OPTIONS
+  MUA_VENDOR_OPTIONS,
+  BACKGROUND_CONFLICT_RULES
 } from '../data/pricelistData';
 import {
   X,
@@ -517,7 +519,34 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   const a = idA.toLowerCase();
   const b = idB.toLowerCase();
 
-  // Studio 2: Coklat vs Cream bentrok panggung yang sama (mutually exclusive)
+  // 1. Aturan dinamis dari studioConfig / BACKGROUND_CONFLICT_RULES
+  const rules = (studioConfig as any).backgroundConflictRules || BACKGROUND_CONFLICT_RULES || [];
+  for (const r of rules) {
+    if (r.active === false) continue;
+    if (r.scope === 'slot') continue; // hanya berlaku di bentrok slot jam bersamaan, bukan 1 sesi
+    const rA = String(r.backgroundIdA || '').toLowerCase();
+    const rB = String(r.backgroundIdB || '').toLowerCase();
+    if ((a === rA && b === rB) || (a === rB && b === rA)) {
+      return true;
+    }
+  }
+
+  // 2. Aturan dinamis dari properti incompatibleWith pada objek background
+  const allBgs = (studioConfig.backgrounds || []) as any[];
+  const objA = allBgs.find(bg => String(bg.id).toLowerCase() === a);
+  if (objA && Array.isArray(objA.incompatibleWith)) {
+    if (objA.incompatibleWith.some((inc: string) => String(inc).toLowerCase() === b)) {
+      return true;
+    }
+  }
+  const objB = allBgs.find(bg => String(bg.id).toLowerCase() === b);
+  if (objB && Array.isArray(objB.incompatibleWith)) {
+    if (objB.incompatibleWith.some((inc: string) => String(inc).toLowerCase() === a)) {
+      return true;
+    }
+  }
+
+  // 3. Fallback default: Studio 2: Coklat vs Cream bentrok panggung yang sama (mutually exclusive)
   const isC2CoklatA = a.includes('coklat') || a.includes('cokelat');
   const isC2CreamA = a.includes('cream') || a.includes('krem');
   const isC2CoklatB = b.includes('coklat') || b.includes('cokelat');
@@ -527,6 +556,30 @@ export const isConflictingBackdrop = (idA: string, idB: string): boolean => {
   }
 
   return false;
+};
+
+export const getBackdropConflictReason = (idA: string, idB: string): string => {
+  if (!idA || !idB || idA === idB) return '';
+  const a = idA.toLowerCase();
+  const b = idB.toLowerCase();
+
+  const rules = (studioConfig as any).backgroundConflictRules || BACKGROUND_CONFLICT_RULES || [];
+  for (const r of rules) {
+    if (r.active === false) continue;
+    const rA = String(r.backgroundIdA || '').toLowerCase();
+    const rB = String(r.backgroundIdB || '').toLowerCase();
+    if ((a === rA && b === rB) || (a === rB && b === rA)) {
+      return r.reason || 'Kedua background ini berada di area panggung/ruangan yang sama sehingga tidak bisa dipilih bersamaan.';
+    }
+  }
+
+  const allBgs = (studioConfig.backgrounds || []) as any[];
+  const objA = allBgs.find(bg => String(bg.id).toLowerCase() === a);
+  if (objA && objA.clashReason) return objA.clashReason;
+  const objB = allBgs.find(bg => String(bg.id).toLowerCase() === b);
+  if (objB && objB.clashReason) return objB.clashReason;
+
+  return 'Kedua background ini berada di area panggung yang sama sehingga tidak bisa dipilih bersamaan.';
 };
 
 export interface Studio2BackdropAvailabilityResult {
@@ -603,13 +656,29 @@ export const getAvailableBackgroundsStudio2 = (
       return;
     }
 
-    // Bentrok Posisi Panggung Coklat vs Cream
-    if (bg.id === 'c2-tematik-cream' && hasBookedCoklat) {
-      isClashed = true;
-      clashReason = 'Tidak tersedia (bentrok panggung dengan Coklat Jendela yang sedang terpakai)';
-    } else if (bg.id === 'c2-coklat-jendela' && hasBookedCream) {
-      isClashed = true;
-      clashReason = 'Tidak tersedia (bentrok panggung dengan Tematik Cream yang sedang terpakai)';
+        // 1. Dynamic check dari backgroundConflictRules (Studio 2)
+    const dynamicRules = ((studioConfig as any).backgroundConflictRules || [])
+      .filter((r: any) => r.active !== false && r.scope !== 'session');
+    for (const r of dynamicRules) {
+      if (r.branch && r.branch !== 'all' && r.branch !== 'cabang-2') continue;
+      const targetId = r.backgroundIdA === bg.id ? r.backgroundIdB : r.backgroundIdB === bg.id ? r.backgroundIdA : null;
+      if (targetId && (bookedSet.has(targetId) || (targetId === 'c2-abu' && bookedSet.has('c2-abu-abu')))) {
+        isClashed = true;
+        const otherName = (STUDIO_2_BGS.find(b => b.id === targetId) || { name: targetId }).name;
+        clashReason = r.reason || `Tidak tersedia (bentrok dengan ${otherName} yang sedang terpakai)`;
+        break;
+      }
+    }
+
+    // 2. Fallback: Bentrok Posisi Panggung Coklat vs Cream
+    if (!isClashed) {
+      if (bg.id === 'c2-tematik-cream' && hasBookedCoklat) {
+        isClashed = true;
+        clashReason = 'Tidak tersedia (bentrok panggung dengan Coklat Jendela yang sedang terpakai)';
+      } else if (bg.id === 'c2-coklat-jendela' && hasBookedCream) {
+        isClashed = true;
+        clashReason = 'Tidak tersedia (bentrok panggung dengan Tematik Cream yang sedang terpakai)';
+      }
     }
 
     if (isClashed) {
@@ -2444,7 +2513,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
         outdoor_time: hasOutdoorSession ? outdoorTimeSlot : '',
         outdoor_duration: hasOutdoorSession ? outdoorSessionDurationMinutes : 0,
         outdoor_location: hasOutdoorSession ? outdoorLocation.trim() : '',
-        instagram: socialUsername.trim().replace(/^@/, ''),
+        instagram: socialUsername.trim().replace(/^@/, '') || (allowSocialUpload ? '' : '-'),
         izin_publikasi: allowSocialUpload ? 'Ya' : 'Tidak',
         universitas: isGraduationPackage ? universityName.trim() : '',
         studio_type: studioType,
@@ -3841,7 +3910,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
             const relevantAddOns = ADD_ONS.filter(addOn => {
               if (addOn.id.startsWith('self-keep-drive')) return isSelf;
               if (addOn.id.startsWith('studio-keep-drive')) return !isSelf;
-              if (!addOn.applicableCategories) return true;
+              if (addOn.applicableBranches && addOn.applicableBranches.length > 0 && !addOn.applicableBranches.includes('all')) {
+                if (!addOn.applicableBranches.includes(selectedBranch)) return false;
+              }
+              if (!addOn.applicableCategories || addOn.applicableCategories.length === 0 || addOn.applicableCategories.includes('all')) return true;
               return addOn.applicableCategories.includes(packageCatInfo.key);
             });
             const addOnGroupMeta: Record<string, { label: string; description: string; className: string }> = {
@@ -3850,13 +3922,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               background: { label: 'Background', description: 'Tambahan pilihan latar foto', className: 'bg-cyan-50 border-cyan-200 text-cyan-950' },
               prop: { label: 'Properti & Aksesori', description: 'Tambahan properti sesi foto', className: 'bg-orange-50 border-orange-200 text-orange-950' },
               person: { label: 'Orang & Kostum', description: 'Tambahan peserta dan outfit', className: 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-950' },
+              time: { label: 'Waktu & Durasi', description: 'Ekstra durasi pemotretan sesi foto', className: 'bg-indigo-50 border-indigo-200 text-indigo-950' },
               selfstudio: { label: 'Self Studio', description: 'Tambahan khusus sesi foto mandiri', className: 'bg-emerald-50 border-emerald-200 text-emerald-950' },
-              'pass-foto': { label: 'Pass Foto', description: 'Layanan tambahan pass foto', className: 'bg-lime-50 border-lime-200 text-lime-950' }
+              'pass-foto': { label: 'Pass Foto', description: 'Layanan tambahan pass foto', className: 'bg-lime-50 border-lime-200 text-lime-950' },
+              other: { label: 'Layanan Tambahan', description: 'Pilihan opsi ekstra studio lainnya', className: 'bg-rose-50 border-rose-200 text-rose-950' }
             };
             const getAddOnGroupKey = (addOn: typeof relevantAddOns[number]): string => {
               const normalizedName = addOn.name.toLowerCase();
               if (normalizedName.includes('background')) return 'background';
               if (normalizedName.includes('cetak') || normalizedName.includes('bingkai')) return 'frame';
+              if (normalizedName.includes('waktu') || normalizedName.includes('durasi') || (addOn.unit && addOn.unit.includes('menit'))) return 'time';
               return addOn.category || 'person';
             };
             const groupedAddOns = relevantAddOns.reduce<Record<string, typeof relevantAddOns>>((groups, addOn) => {

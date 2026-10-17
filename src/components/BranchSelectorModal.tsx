@@ -547,33 +547,30 @@ export const ClientReviewCarousel: React.FC = () => {
           <button
             type="button"
             onClick={() => handleFilterChange('all')}
-            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${
-              activeBranchFilter === 'all'
+            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${activeBranchFilter === 'all'
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] font-semibold shadow-xs'
                 : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
-            }`}
+              }`}
           >
             Semua Ulasan ({CLIENT_REVIEWS.length})
           </button>
           <button
             type="button"
             onClick={() => handleFilterChange('cabang-1')}
-            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${
-              activeBranchFilter === 'cabang-1'
+            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${activeBranchFilter === 'cabang-1'
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] font-semibold shadow-xs'
                 : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
-            }`}
+              }`}
           >
             Studio 1 (Junrejo)
           </button>
           <button
             type="button"
             onClick={() => handleFilterChange('cabang-2')}
-            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${
-              activeBranchFilter === 'cabang-2'
+            className={`px-3 py-1 rounded-full text-[11px] font-sans transition-all cursor-pointer border ${activeBranchFilter === 'cabang-2'
                 ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] font-semibold shadow-xs'
                 : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
-            }`}
+              }`}
           >
             Studio 2 (Dinoyo)
           </button>
@@ -630,11 +627,10 @@ export const ClientReviewCarousel: React.FC = () => {
                       <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] group-hover/card:text-black uppercase tracking-wider leading-tight">
                         {review.name}
                       </h4>
-                      <span className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded-full border ${
-                        review.branch === 'cabang-2'
+                      <span className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded-full border ${review.branch === 'cabang-2'
                           ? 'bg-[#F4EBE2] text-[#8C6D58] border-[#E5D7CA]'
                           : 'bg-[#EBF2EA] text-[#6E856C] border-[#D5E5D3]'
-                      }`}>
+                        }`}>
                         {review.studioBadge}
                       </span>
                     </div>
@@ -674,11 +670,10 @@ export const ClientReviewCarousel: React.FC = () => {
                 key={idx}
                 onClick={() => setCurrentReviewIdx(idx)}
                 aria-label={`Review page ${idx + 1}`}
-                className={`transition-all rounded-full cursor-pointer ${
-                  currentReviewIdx === idx
+                className={`transition-all rounded-full cursor-pointer ${currentReviewIdx === idx
                     ? 'w-6 h-1 bg-[#3A3A3A]'
                     : 'w-2 h-1 bg-stone-300 hover:bg-stone-500'
-                }`}
+                  }`}
               />
             ))}
           </div>
@@ -1492,9 +1487,8 @@ export const PromoDetailModal: React.FC<{
                             setCurrentImgIndex(dotIdx);
                           }}
                           aria-label={`Lihat Foto ${dotIdx + 1}`}
-                          className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                            safeImgIndex === dotIdx ? 'w-4 bg-[#A9BCA7]' : 'w-1.5 bg-white/60 hover:bg-white'
-                          }`}
+                          className={`h-1.5 rounded-full transition-all cursor-pointer ${safeImgIndex === dotIdx ? 'w-4 bg-[#A9BCA7]' : 'w-1.5 bg-white/60 hover:bg-white'
+                            }`}
                         />
                       ))}
                     </div>
@@ -1576,11 +1570,10 @@ export const PromoDetailModal: React.FC<{
               <button
                 type="button"
                 onClick={() => setActiveView(activeView === 'struktur' ? 'default' : 'struktur')}
-                className={`w-full py-2.5 px-3 rounded-xl border text-xs sm:text-[12.5px] font-serif font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs active:scale-98 ${
-                  activeView === 'struktur'
+                className={`w-full py-2.5 px-3 rounded-xl border text-xs sm:text-[12.5px] font-serif font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs active:scale-98 ${activeView === 'struktur'
                     ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                     : 'bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] border-[#E8DDD6] hover:border-[#D5C7BE]'
-                }`}
+                  }`}
                 aria-label="Tampilkan Bagan Struktur Tim"
               >
                 <Network className={`w-4 h-4 shrink-0 transition-transform ${activeView === 'struktur' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1590,11 +1583,10 @@ export const PromoDetailModal: React.FC<{
               <button
                 type="button"
                 onClick={() => setActiveView(activeView === 'galeri' ? 'default' : 'galeri')}
-                className={`w-full py-2.5 px-3 rounded-xl border text-xs sm:text-[12.5px] font-serif font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs active:scale-98 ${
-                  activeView === 'galeri'
+                className={`w-full py-2.5 px-3 rounded-xl border text-xs sm:text-[12.5px] font-serif font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer shadow-2xs active:scale-98 ${activeView === 'galeri'
                     ? 'bg-[#3A3A3A] text-white border-[#3A3A3A] shadow-xs'
                     : 'bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] border-[#E8DDD6] hover:border-[#D5C7BE]'
-                }`}
+                  }`}
                 aria-label="Tampilkan Kumpulan Foto Galeri Tim"
               >
                 <Images className={`w-4 h-4 shrink-0 transition-transform ${activeView === 'galeri' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
@@ -1913,8 +1905,8 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
       <div className="bg-[#FDFBF7] border-x-0 sm:border sm:border-[#E8DDD6] shadow-none sm:shadow-xl overflow-hidden flex flex-col relative w-full">
 
         {/* Top Hero Banner Slider */}
-        <BackgroundHeroSlider 
-          onViewPlans={() => onSelectBranch(selectedBranch)} 
+        <BackgroundHeroSlider
+          onViewPlans={() => onSelectBranch(selectedBranch)}
           onOpenAbout={() => setIsAboutModalOpen(true)}
         />
 
@@ -2817,7 +2809,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 Photography <span className="text-[#A9BCA7] px-1">•</span> Videography <span className="text-[#A9BCA7] px-1">•</span> Creative Production
               </p>
               <p className="text-[11px] text-stone-400 mt-1">
-                Studio 1 Junrejo & Studio 2 Cabang Eksklusif
+                Studio 1 Junrejo & Studio 2 Dinoyo
               </p>
             </div>
           </div>

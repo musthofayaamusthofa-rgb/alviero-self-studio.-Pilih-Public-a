@@ -311,11 +311,19 @@ function handleRequest(e) {
         });
       }
 
-      if (!instagram || ['Ya', 'Tidak'].indexOf(publicationPermission) === -1) {
+      if (['Ya', 'Tidak'].indexOf(publicationPermission) === -1) {
         return jsonResponse({
           status: 'ERROR',
           code: 'MISSING_PUBLICATION_DATA',
-          message: 'Akun Instagram dan pilihan izin publikasi wajib diisi.'
+          message: 'Pilihan izin publikasi wajib dipilih.'
+        });
+      }
+
+      if (publicationPermission === 'Ya' && !instagram) {
+        return jsonResponse({
+          status: 'ERROR',
+          code: 'MISSING_INSTAGRAM_ACCOUNT',
+          message: 'Akun Instagram wajib diisi jika bersedia foto dipublikasikan.'
         });
       }
 

@@ -55,6 +55,7 @@ export interface MuaKebayaItem {
   name: string;        // Contoh: "Sage"
   hex: string;         // Contoh: "#8FA38D"
   image: string;       // Foto baju kebaya
+  images?: string[];   // Contoh-contoh foto kebaya (multi-foto preview)
   tag: string;         // Contoh: "Best Seller Wisuda"
   desc: string;
   sizes: string[];     // Contoh: ["S", "M", "L", "XL", "XXL"]
@@ -75,6 +76,7 @@ export interface MuaVendorDefinition {
 export interface KebayaColorInfo {
   name: string;
   image: string;
+  images?: string[];
   hex: string;
   tag: string;
   desc: string;
@@ -1024,6 +1026,8 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
     vendorName?: string;
   } | null>(null);
 
+  const [previewKebayaPhotoIdx, setPreviewKebayaPhotoIdx] = useState<number>(0);
+
   // Size chart guide modal
   const [isSizeChartOpen, setIsSizeChartOpen] = useState<boolean>(false);
 
@@ -1847,6 +1851,14 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
             desc: 'Kebaya modern berpayet timbul anggun untuk sesi foto studio Alviero.',
           };
 
+          const kebayaImages: string[] = (vendorKebaya?.images && vendorKebaya.images.length > 0)
+            ? vendorKebaya.images
+            : (colorInfo.images && colorInfo.images.length > 0)
+              ? colorInfo.images
+              : (colorInfo.image ? [colorInfo.image] : []);
+
+          const activePhotoUrl = kebayaImages[previewKebayaPhotoIdx] || kebayaImages[0] || colorInfo.image;
+
           return (
             <div
               className="fixed inset-0 z-[90] flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-sm animate-in fade-in duration-200"
@@ -1882,9 +1894,9 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                   {/* Foto Besar Contoh Baju */}
                   <div className="relative overflow-hidden rounded-xl border border-[#E8DDD6] bg-stone-100 shadow-xs">
                     <img
-                      src={colorInfo.image}
-                      alt={`Contoh baju kebaya warna ${colorInfo.name}`}
-                      className="h-72 sm:h-80 w-full object-cover object-top"
+                      src={activePhotoUrl}
+                      alt={`Contoh baju kebaya warna ${colorInfo.name} foto #${previewKebayaPhotoIdx + 1}`}
+                      className="h-72 sm:h-80 w-full object-cover object-top transition-all duration-300"
                     />
                     {/* Tag Badge */}
                     <div className="absolute top-2.5 left-2.5 rounded-full bg-black/70 backdrop-blur-md px-2.5 py-1 text-[10px] font-mono font-bold text-white shadow-sm flex items-center gap-1.5">
@@ -1894,7 +1906,56 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                       />
                       <span>{colorInfo.tag}</span>
                     </div>
+
+                    {kebayaImages.length > 1 && (
+                      <div className="absolute bottom-2.5 right-2.5 rounded-full bg-black/60 backdrop-blur-md px-2.5 py-0.5 text-[9.5px] font-mono font-bold text-white shadow-xs">
+                        Foto {previewKebayaPhotoIdx + 1} / {kebayaImages.length}
+                      </div>
+                    )}
                   </div>
+
+                  {/* Multi-Photo Thumbnails Contoh Kebaya */}
+                  {kebayaImages.length > 1 && (
+                    <div className="rounded-xl border border-[#E8DDD6] bg-white p-2.5 shadow-2xs space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#2E2E2E]">
+                          Pilihan Sudut / Contoh Foto ({kebayaImages.length}):
+                        </span>
+                        <span className="text-[9px] font-sans text-stone-500">
+                          Klik foto untuk melihat
+                        </span>
+                      </div>
+                      <div className="flex gap-2 overflow-x-auto py-0.5">
+                        {kebayaImages.map((imgUrl, imgIdx) => {
+                          const isCurrent = previewKebayaPhotoIdx === imgIdx;
+                          const slotLabel = imgIdx === 0 ? 'Foto Utama' : imgIdx === 1 ? 'Detail Payet' : 'Full Look';
+                          return (
+                            <button
+                              key={imgIdx}
+                              type="button"
+                              onClick={() => setPreviewKebayaPhotoIdx(imgIdx)}
+                              className={`group relative flex flex-col items-center gap-1 shrink-0 rounded-lg p-1 border-2 transition-all cursor-pointer ${
+                                isCurrent
+                                  ? 'border-[#5C725A] bg-[#EFF6EE] ring-1.5 ring-[#5C725A]'
+                                  : 'border-[#E2D8CF] bg-stone-50 hover:border-[#5C725A]/60'
+                              }`}
+                            >
+                              <div className="h-12 w-12 overflow-hidden rounded-md bg-stone-200">
+                                <img
+                                  src={imgUrl}
+                                  alt={`Contoh ${imgIdx + 1}`}
+                                  className="h-full w-full object-cover"
+                                />
+                              </div>
+                              <span className={`text-[8.5px] font-mono font-bold ${isCurrent ? 'text-[#14532D]' : 'text-stone-500'}`}>
+                                {slotLabel}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Deskripsi & Karakter Warna */}
                   <div className="rounded-xl border border-[#E8DDD6] bg-white p-3 space-y-1.5 shadow-2xs">
@@ -1952,6 +2013,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                               key={colorName}
                               type="button"
                               onClick={() => {
+                                setPreviewKebayaPhotoIdx(0);
                                 setPreviewKebayaModal((prev) =>
                                   prev ? { ...prev, color: colorName } : null
                                 );

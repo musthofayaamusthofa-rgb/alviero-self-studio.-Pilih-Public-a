@@ -68,7 +68,7 @@ export interface BranchInfo {
 export interface BackgroundOption {
   id: string;
   name: string;
-  category: 'spotlight-special' | 'spotlight-normal' | 'solid-color';
+  category: 'spotlight-special' | 'spotlight-normal' | 'solid-color' | string;
   hex: string;
   colorClass?: string;
   secondaryHex?: string;
@@ -77,6 +77,18 @@ export interface BackgroundOption {
   previewImages?: string[];
   applicableTo?: ('self-studio' | 'pro-studio')[];
   applicableBranches?: StudioBranch[];
+  active?: boolean;
+  incompatibleWith?: string[];
+}
+
+export interface BackgroundConflictRule {
+  id: string;
+  branch?: StudioBranch | 'all';
+  backgroundIdA: string;
+  backgroundIdB: string;
+  scope: 'both' | 'session' | 'slot';
+  reason?: string;
+  active?: boolean;
 }
 
 export type BackdropOption = BackgroundOption;
@@ -96,9 +108,11 @@ export interface AddOnOption {
   price: number;
   unit: string;
   description: string;
-  category: 'selfstudio' | 'pass-foto' | 'person' | 'print' | 'frame' | 'file' | 'prop';
+  category: 'selfstudio' | 'pass-foto' | 'person' | 'print' | 'frame' | 'file' | 'prop' | string;
   isSelfStudioOnly?: boolean;
   applicableCategories?: string[];
+  applicableBranches?: string[];
+  active?: boolean;
 }
 
 export interface PricelistSheet {

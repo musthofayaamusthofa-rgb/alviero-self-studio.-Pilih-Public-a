@@ -596,7 +596,547 @@
     }
 
   
-    </style>
+    
+    /* =========================================================================
+       ADD-ONS MANAGEMENT STYLES
+       ========================================================================= */
+    .addon-metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .addon-metric-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      transition: all 0.2s ease;
+    }
+    .addon-metric-card:hover {
+      border-color: var(--sage-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .addon-metric-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--charcoal);
+      line-height: 1.1;
+    }
+    .addon-metric-lbl {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #71717A;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
+    }
+    .addon-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+      position: relative;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .addon-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--sage-subtle);
+    }
+    .addon-card.inactive {
+      opacity: 0.6;
+      background: #FAFAFA;
+      border-style: dashed;
+    }
+    .addon-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .addon-badges-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+    }
+    .addon-cat-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .cat-pill-person { background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+    .cat-pill-time { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+    .cat-pill-frame { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .cat-pill-file { background: #F0F9FF; color: #0369A1; border: 1px solid #BAE6FD; }
+    .cat-pill-prop { background: #FFF7ED; color: #C2410C; border: 1px solid #FFEDD5; }
+    .cat-pill-selfstudio { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+    .cat-pill-pass-foto { background: #F7FEE7; color: #4D7C0F; border: 1px solid #D9F99D; }
+    .cat-pill-other { background: #F4F4F5; color: #3F3F46; border: 1px solid #E4E4E7; }
+
+    .addon-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.35;
+      margin-top: 0.35rem;
+    }
+    .addon-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-top: 0.25rem;
+    }
+    .addon-price-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--sage-primary);
+      font-family: monospace;
+    }
+    .addon-price-unit {
+      font-size: 0.78rem;
+      color: #71717A;
+      font-weight: 600;
+    }
+    .addon-desc-text {
+      font-size: 0.8rem;
+      color: #52525B;
+      line-height: 1.4;
+      margin-top: 0.35rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .addon-applicable-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 0.5rem;
+    }
+    .addon-tag-pill {
+      font-size: 0.68rem;
+      font-weight: 600;
+      background: #F4F4F5;
+      color: #52525B;
+      padding: 2px 7px;
+      border-radius: 6px;
+      border: 1px solid #E4E4E7;
+    }
+    .addon-tag-pill.all {
+      background: #FEF3C7;
+      color: #92400E;
+      border-color: #FDE68A;
+      font-weight: 700;
+    }
+    .addon-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid #F1F5F9;
+      margin-top: 0.25rem;
+    }
+    .badge-tag-btn {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: #52525B;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .badge-tag-btn:hover {
+      background: var(--champagne);
+      border-color: var(--sage-subtle);
+      color: var(--charcoal);
+    }
+
+    /* =========================================================================
+       BACKGROUND CONFLICT & COMPATIBILITY LOGIC STYLES
+       ========================================================================= */
+    .bg-subnav-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .conflict-guidance-box {
+      background: #FEF9F5;
+      border: 1.5px solid #F3DFD1;
+      border-radius: 14px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .conflict-guidance-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .conflict-guidance-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #7C2D12;
+      margin-bottom: 0.25rem;
+    }
+    .conflict-guidance-desc {
+      font-size: 0.78rem;
+      color: #9A3412;
+      line-height: 1.45;
+    }
+    .conflict-metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .conflict-metric-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      transition: all 0.2s ease;
+    }
+    .conflict-metric-card:hover {
+      border-color: var(--sage-subtle);
+      box-shadow: var(--shadow-sm);
+    }
+    .conflict-metric-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--charcoal);
+      line-height: 1.1;
+    }
+    .conflict-metric-lbl {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #71717A;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .conflict-rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.15rem;
+      margin-bottom: 2rem;
+    }
+    .conflict-rule-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+      transition: all 0.2s ease;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    .conflict-rule-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #F87171;
+    }
+    .conflict-rule-card.inactive {
+      opacity: 0.6;
+      background: #FAFAFA;
+      border-style: dashed;
+    }
+    .conflict-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .conflict-scope-pill {
+      font-size: 0.68rem;
+      font-weight: 750;
+      padding: 2.5px 8px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .scope-both { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+    .scope-session { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+    .scope-slot { background: #E0E7FF; color: #3730A3; border: 1px solid #C7D2FE; }
+
+    .clash-battle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      background: #FAF9F6;
+      border: 1px solid #EFEAE3;
+      border-radius: 12px;
+      padding: 0.85rem 0.65rem;
+      margin: 0.25rem 0;
+    }
+    .clash-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+    .clash-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .clash-name {
+      font-size: 0.85rem;
+      font-weight: 750;
+      color: var(--charcoal);
+      line-height: 1.25;
+      word-break: break-word;
+    }
+    .clash-center-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0 0.35rem;
+    }
+    .clash-icon-badge {
+      width: 30px;
+      height: 30px;
+      background: #EF4444;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+    }
+    .clash-label-text {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #DC2626;
+      text-transform: uppercase;
+      margin-top: 3px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .conflict-reason-box {
+      font-size: 0.78rem;
+      color: #4B5563;
+      background: #F3F4F6;
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      line-height: 1.4;
+      border-left: 3px solid #EF4444;
+    }
+    .conflict-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid #F1F5F9;
+      margin-top: 0.25rem;
+    }
+
+    /* Matrix Table Styles */
+    .matrix-section-wrapper {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .matrix-scroll-container {
+      overflow-x: auto;
+      margin-top: 1rem;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+    }
+    .matrix-table th, .matrix-table td {
+      border: 1px solid #E5E7EB;
+      padding: 6px 8px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .matrix-table th {
+      background: #F9FAFB;
+      font-weight: 700;
+      color: var(--charcoal);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .matrix-table th.matrix-corner {
+      left: 0;
+      z-index: 20;
+      background: #F3F4F6;
+    }
+    .matrix-table td.matrix-row-head {
+      position: sticky;
+      left: 0;
+      background: #F9FAFB;
+      font-weight: 700;
+      text-align: left;
+      z-index: 5;
+    }
+    .matrix-cell-self {
+      background: #F3F4F6;
+      color: #9CA3AF;
+      font-weight: 700;
+    }
+    .matrix-cell-yes {
+      background: #F0FDF4;
+      color: #166534;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .matrix-cell-yes:hover {
+      background: #DCFCE7;
+    }
+    .matrix-cell-no {
+      background: #FEF2F2;
+      color: #991B1B;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .matrix-cell-no:hover {
+      background: #FEE2E2;
+    }
+
+    /* Reorder Controls & Drag-and-Drop */
+    .order-badge-btn {
+      background: rgba(0, 0, 0, 0.75);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      font-weight: 800;
+      font-family: monospace;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: all 0.15s ease;
+    }
+    .order-badge-btn:hover {
+      background: #5C725A;
+      border-color: #8FA38D;
+      transform: scale(1.05);
+    }
+    .bg-card.is-dragging {
+      opacity: 0.45 !important;
+      transform: scale(0.98);
+    }
+    .bg-card.drag-target-over {
+      outline: 2.5px dashed #5C725A !important;
+      outline-offset: 4px;
+      transform: scale(1.02);
+      transition: transform 0.15s ease;
+    }
+    .btn-action.order-btn {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      color: var(--charcoal);
+      transition: all 0.15s ease;
+    }
+    .btn-action.order-btn:hover:not(:disabled) {
+      background: #EFF6EE;
+      color: #14532D;
+      border-color: #5C725A;
+    }
+    .btn-action.order-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background: #F3F4F6;
+    }
+
+
+    /* Swipeable Vendor Action Buttons */
+    .vendor-actions-swipeable {
+      display: flex;
+      gap: 0.45rem;
+      overflow-x: auto;
+      flex: 1;
+      min-width: 0;
+      padding-bottom: 3px;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #D1D5DB transparent;
+      cursor: grab;
+      touch-action: pan-x;
+    }
+    .vendor-actions-swipeable:active {
+      cursor: grabbing;
+    }
+    .vendor-actions-swipeable::-webkit-scrollbar {
+      height: 4px;
+    }
+    .vendor-actions-swipeable::-webkit-scrollbar-thumb {
+      background: #D1D5DB;
+      border-radius: 9999px;
+    }
+    .vendor-actions-swipeable::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .vendor-actions-swipeable > button {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+</style>
 </head>
 <body>
 
@@ -667,6 +1207,9 @@
       <button class="tab-btn" onclick="switchTab('tab-mua', this)">
         💄 MUA & Hairdo <span class="tab-badge" id="muaCountBadge">4</span>
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-addons', this)">
+        ✨ Add-Ons & Tambahan <span class="tab-badge" id="addonsCountBadge">0</span>
+      </button>
       <button class="tab-btn" onclick="switchTab('tab-history', this)">
         📖 Sejarah & Filosofi Studio
       </button>
@@ -683,15 +1226,33 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h2 class="card-title">Daftar Background & Backdrop Studio</h2>
-            <p class="card-desc">Kelola warna latar, preview foto, dan status buka/tutup background untuk Studio 1 & Studio 2.</p>
+            <h2 class="card-title" id="bgSectionTitle">🎨 Background & Backdrop Studio</h2>
+            <p class="card-desc" id="bgSectionDesc">Kelola warna latar, preview foto, status buka/tutup, serta aturan logika background mana yang bisa bertemu dan tidak bisa bertemu.</p>
           </div>
-          <button class="btn btn-add" onclick="openAddBgModal()">
-            + Tambah Background Baru
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-add" id="btnAddBgHeader" onclick="openAddBgModal()">
+              + Tambah Background Baru
+            </button>
+            <button class="btn btn-save-local" id="btnAddBgConflictHeader" style="display: none; background: #DC2626; border-color: #B91C1C;" onclick="openAddBgConflictModal()">
+              + Tambah Aturan Bentrok
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-View Navigation Bar -->
+        <div class="bg-subnav-bar">
+          <button type="button" class="pill-btn active" id="btnSubViewBgList" onclick="switchBgSubView('list')">
+            🖼️ Daftar Background (<span id="bgListSubCountBadge">0</span>)
+          </button>
+          <button type="button" class="pill-btn" id="btnSubViewBgConflicts" onclick="switchBgSubView('conflicts')">
+            ⚡ Aturan Bentrok & Logika Pertemuan (<span id="conflictRulesCountBadge">0</span>)
           </button>
         </div>
 
-        <div class="filter-panel">
+        
+        <!-- VIEW 1: DAFTAR BACKGROUND -->
+        <div id="bgListViewContainer">
+          <div class="filter-panel">
           <div class="filter-group">
             <span class="filter-label">Studio:</span>
             <button class="pill-btn active" onclick="filterBackgrounds('all', this)">Semua Cabang</button>
@@ -716,7 +1277,96 @@
           <!-- Rendered dynamically -->
         </div>
       </div>
-    </section>
+   
+        </div>
+
+        <!-- VIEW 2: LOGIKA BENTROK / PERTEMUAN BACKGROUND -->
+        <div id="bgConflictsViewContainer" style="display: none;">
+          <!-- Guidance Box -->
+          <div class="conflict-guidance-box">
+            <div class="conflict-guidance-icon">💡</div>
+            <div>
+              <div class="conflict-guidance-title">Panduan Logika Pertemuan Background</div>
+              <div class="conflict-guidance-desc">
+                Atur pasangan background yang <b>TIDAK BISA BERTEMU / BENTROK</b> karena berada di panggung fisik yang sama, dekorasi permanen, atau tata lighting yang bertabrakan.
+                <br>• <b>1 Sesi Booking (Paket 2):</b> Pelanggan dilarang memilih kedua latar ini sekaligus dalam 1 reservasi.
+                <br>• <b>1 Jam Slot (Klien Bersamaan):</b> Klien lain di jam slot yang sama tidak dapat memilih latar ini jika pasangannya sedang digunakan.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Metrics Bar -->
+          <div class="conflict-metrics-bar">
+            <div class="conflict-metric-card">
+              <span class="conflict-metric-val" id="conflictMetricTotal">0</span>
+              <span class="conflict-metric-lbl">Total Aturan</span>
+            </div>
+            <div class="conflict-metric-card">
+              <span class="conflict-metric-val" id="conflictMetricC1">0</span>
+              <span class="conflict-metric-lbl">Studio 1 (Junrejo)</span>
+            </div>
+            <div class="conflict-metric-card">
+              <span class="conflict-metric-val" id="conflictMetricC2">0</span>
+              <span class="conflict-metric-lbl">Studio 2 (Dinoyo)</span>
+            </div>
+            <div class="conflict-metric-card">
+              <span class="conflict-metric-val" id="conflictMetricActive" style="color: var(--success);">0</span>
+              <span class="conflict-metric-lbl">Aturan Aktif</span>
+            </div>
+          </div>
+
+          <!-- Filter Panel for Conflicts -->
+          <div class="filter-panel" style="margin-bottom: 1.25rem;">
+            <div class="filter-group">
+              <span class="filter-label">Studio:</span>
+              <button class="pill-btn active" onclick="filterConflictBranch('all', this)">Semua Cabang</button>
+              <button class="pill-btn" onclick="filterConflictBranch('cabang-1', this)">Studio 1 (Junrejo)</button>
+              <button class="pill-btn" onclick="filterConflictBranch('cabang-2', this)">Studio 2 (Dinoyo)</button>
+            </div>
+
+            <div class="filter-group">
+              <span class="filter-label">Lingkup:</span>
+              <button class="pill-btn active" onclick="filterConflictScope('all', this)">Semua</button>
+              <button class="pill-btn" onclick="filterConflictScope('both', this)">🔒 Keduanya</button>
+              <button class="pill-btn" onclick="filterConflictScope('session', this)">👥 1 Sesi</button>
+              <button class="pill-btn" onclick="filterConflictScope('slot', this)">⏰ 1 Slot Jam</button>
+            </div>
+
+            <div class="search-box" style="flex-grow: 1; max-width: 320px;">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="conflictSearchInput" class="search-input" placeholder="Cari nama background bentrok..." oninput="renderBackgroundConflictRules()">
+            </div>
+          </div>
+
+          <!-- Conflict Rules Grid -->
+          <div class="conflict-rules-grid" id="bgConflictRulesGrid">
+            <!-- Rendered dynamically by renderBackgroundConflictRules() -->
+          </div>
+
+          <!-- Visual Compatibility Matrix Table Section -->
+          <div class="matrix-section-wrapper">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 800; color: var(--charcoal); margin-bottom: 0.2rem;">
+                  📊 Matriks Visual: Hubungan Pertemuan Antar Background
+                </h3>
+                <p style="font-size: 0.78rem; color: #71717A; margin: 0;">
+                  Klik pada sel untuk mengubah status: <span style="color: #166534; font-weight: 700;">✅ Bisa Bertemu</span> atau <span style="color: #991B1B; font-weight: 700;">❌ Bentrok</span>.
+                </p>
+              </div>
+              <div class="filter-group">
+                <span class="filter-label">Pilih Matriks:</span>
+                <button class="pill-btn active" id="btnMatrixC2" onclick="switchMatrixBranch('cabang-2', this)">Studio 2 (Dinoyo)</button>
+                <button class="pill-btn" id="btnMatrixC1" onclick="switchMatrixBranch('cabang-1', this)">Studio 1 (Junrejo)</button>
+              </div>
+            </div>
+
+            <div class="matrix-scroll-container" id="bgConflictMatrixContainer">
+              <!-- Rendered dynamically by renderBackgroundConflictMatrix() -->
+            </div>
+          </div>
+        </div>
+   </section>
 
     <!-- TAB 2: TIME SLOTS MANAGER (PER CABANG) -->
     <section id="tab-slots" class="tab-pane">
@@ -909,6 +1559,9 @@
             <h2 class="card-title">Manajemen Foto & Galeri Tiap Bagian Web</h2>
             <p class="card-desc">Atur dan upload foto untuk Banner Utama (Hero Slider), Showcase Koleksi Background, Fasilitas Ruangan, dan Peralatan Studio secara visual.</p>
           </div>
+          <button class="btn btn-preview" style="font-size: 0.82rem; padding: 0.45rem 0.85rem; font-weight: 700; background: #FAF5F0; border-color: #E2D8CF; color: #8A5A36; margin-right: 0.5rem;" onclick="openGalleryReorderModal()" title="Buka dialog untuk menyusun ulang urutan tampilan foto">
+            ↕️ Atur Urutan Foto
+          </button>
           <button class="btn btn-add" onclick="openAddGalleryItemModal()">
             + Tambah Foto / Item Baru
           </button>
@@ -1034,6 +1687,107 @@
           <div class="bg-grid" id="muaKebayaGrid" style="grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));">
             <!-- Rendered dynamically -->
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB ADD-ONS & TAMBAHAN
+         ========================================================================= -->
+    <section id="tab-addons" class="tab-pane">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">✨ Manajemen Add-Ons & Layanan Tambahan</h2>
+            <p class="card-desc">Kelola opsi tambahan seperti Tambahan Orang, Durasi Waktu, Cetak & Frame, Kostum Dino, Properti, Google Drive, MUA, serta atur harga dan paket yang berhak memesan.</p>
+          </div>
+          <button class="btn btn-add" onclick="openAddAddonModal()">
+            + Tambah Add-On Baru
+          </button>
+        </div>
+
+        <!-- Quick Metrics Bar -->
+        <div class="addon-metrics-bar">
+          <div class="addon-metric-card">
+            <span class="addon-metric-val" id="addonMetricTotal">0</span>
+            <span class="addon-metric-lbl">Total Add-Ons</span>
+          </div>
+          <div class="addon-metric-card">
+            <span class="addon-metric-val" id="addonMetricActive" style="color: var(--success);">0</span>
+            <span class="addon-metric-lbl">Aktif di Web</span>
+          </div>
+          <div class="addon-metric-card">
+            <span class="addon-metric-val" id="addonMetricPerson">0</span>
+            <span class="addon-metric-lbl">Orang & Kostum</span>
+          </div>
+          <div class="addon-metric-card">
+            <span class="addon-metric-val" id="addonMetricFrame">0</span>
+            <span class="addon-metric-lbl">Cetak & Frame</span>
+          </div>
+          <div class="addon-metric-card">
+            <span class="addon-metric-val" id="addonMetricTime">0</span>
+            <span class="addon-metric-lbl">Waktu / Durasi</span>
+          </div>
+          <div class="addon-metric-card">
+            <span class="addon-metric-val" id="addonMetricFile">0</span>
+            <span class="addon-metric-lbl">File & Storage</span>
+          </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel" style="flex-direction: column; align-items: stretch; gap: 0.85rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; align-items: center;">
+            <div class="filter-group">
+              <span class="filter-label">Studio:</span>
+              <button class="pill-btn active" onclick="filterAddonBranch('all', this)">Semua Cabang</button>
+              <button class="pill-btn" onclick="filterAddonBranch('cabang-1', this)">Studio 1 (Junrejo)</button>
+              <button class="pill-btn" onclick="filterAddonBranch('cabang-2', this)">Studio 2 (Dinoyo)</button>
+            </div>
+
+            <div class="search-box" style="flex-grow: 1; max-width: 380px;">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="addonSearchInput" class="search-input" placeholder="Cari nama add-on, harga, atau fungsi..." oninput="handleSearchAddon(this.value)">
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+            <div class="filter-group" style="flex-wrap: wrap;">
+              <span class="filter-label">Kategori:</span>
+              <button class="pill-btn active" onclick="filterAddonCategory('all', this)">Semua</button>
+              <button class="pill-btn" onclick="filterAddonCategory('person', this)">👥 Orang & Kostum</button>
+              <button class="pill-btn" onclick="filterAddonCategory('time', this)">⏰ Waktu & Durasi</button>
+              <button class="pill-btn" onclick="filterAddonCategory('frame', this)">🖼️ Cetak & Frame</button>
+              <button class="pill-btn" onclick="filterAddonCategory('file', this)">💾 File & Storage</button>
+              <button class="pill-btn" onclick="filterAddonCategory('prop', this)">✨ Properti & Balon</button>
+              <button class="pill-btn" onclick="filterAddonCategory('selfstudio', this)">📸 Self Studio</button>
+              <button class="pill-btn" onclick="filterAddonCategory('pass-foto', this)">👤 Pass Foto</button>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;">
+            <div class="filter-group" style="flex-wrap: wrap;">
+              <span class="filter-label">Paket:</span>
+              <button class="pill-btn active" onclick="filterAddonPkg('all', this)">Semua Paket</button>
+              <button class="pill-btn" onclick="filterAddonPkg('grad', this)">Wisuda</button>
+              <button class="pill-btn" onclick="filterAddonPkg('group_family', this)">Group & Family</button>
+              <button class="pill-btn" onclick="filterAddonPkg('couple_prewed', this)">Couple & Prewed</button>
+              <button class="pill-btn" onclick="filterAddonPkg('personal_maternity', this)">Personal & Maternity</button>
+              <button class="pill-btn" onclick="filterAddonPkg('birthday', this)">Birthday</button>
+              <button class="pill-btn" onclick="filterAddonPkg('self-studio', this)">Self Studio</button>
+            </div>
+
+            <div class="filter-group" style="margin-left: auto;">
+              <span class="filter-label">Status:</span>
+              <button class="pill-btn active" onclick="filterAddonStatus('all', this)">Semua</button>
+              <button class="pill-btn" onclick="filterAddonStatus('active', this)">🟢 Aktif</button>
+              <button class="pill-btn" onclick="filterAddonStatus('inactive', this)">⚪ Nonaktif</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add-Ons Grid -->
+        <div class="addons-grid" id="addonsGrid" style="margin-top: 1.25rem;">
+          <!-- Rendered dynamically by renderAddOns() -->
         </div>
       </div>
     </section>
@@ -1976,6 +2730,32 @@
     </div>
   </div>
 
+  <!-- MODAL: ATUR URUTAN FOTO & ITEM GALERI -->
+  <div class="modal-overlay" id="galleryReorderModal">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="galleryReorderModalTitle">↕️ Atur Urutan Foto</h3>
+          <span style="font-size: 0.74rem; color: #71717A;" id="galleryReorderModalSubtitle">Geser atau gunakan tombol panah untuk mengatur urutan tampilan foto di web</span>
+        </div>
+        <button class="btn-close" onclick="closeModal('galleryReorderModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="max-height: 60vh; overflow-y: auto; padding: 1rem;">
+        <div id="galleryReorderListContainer" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- List items rendered dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <span style="font-size: 0.72rem; color: #6B7280;">💡 Urutan di atas menentukan urutan foto dari kiri ke kanan / slide pertama di web.</span>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-preview" onclick="closeModal('galleryReorderModal')">Batal</button>
+          <button class="btn btn-save-local" onclick="saveGalleryReorderModal()">Simpan Urutan Foto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- MODAL: ADD / EDIT MUA VENDOR -->
   <div class="modal-overlay" id="muaVendorModal">
     <div class="modal-card" style="max-width: 680px;">
@@ -2125,6 +2905,8 @@
     </div>
   </div>
 
+  <input type="file" id="directKebayaFileInput" accept="image/*" style="display:none;" onchange="handleDirectKebayaUpload(event)">
+
   <!-- MODAL: ADD / EDIT KEBAYA & STOK UKURAN PER VENDOR -->
   <div class="modal-overlay" id="kebayaColorModal">
     <div class="modal-card" style="max-width: 620px;">
@@ -2168,28 +2950,139 @@
           <textarea id="kebayaColorDescInput" class="form-control" rows="2" placeholder="Jelaskan bahan, detail payet, karakter, dan kesan kebaya ini..."></textarea>
         </div>
 
-        <!-- Foto Contoh Kebaya -->
+                <!-- Contoh Foto Kebaya (Multi-Slot up to 3 Foto) -->
         <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-            <label class="form-label" style="margin: 0; font-weight: 700;">Foto Baju Kebaya *</label>
-            <span style="font-size: 0.72rem; color: #71717A;">Maks. 25MB (PNG/JPG/WEBP)</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+            <div>
+              <label class="form-label" style="margin: 0; font-weight: 800; color: #2E2E2E;">📷 Contoh Foto Busana Kebaya (Hingga 3 Foto) *</label>
+              <div style="font-size: 0.72rem; color: #71717A;">Slot 1 wajib sebagai foto utama. Slot 2 &amp; 3 opsional untuk detail payet/kain &amp; variasi styling.</div>
+            </div>
+            <span style="font-size: 0.72rem; color: #5C725A; font-weight: 700; background: rgba(92,114,90,0.12); padding: 0.15rem 0.5rem; border-radius: 6px;">Maks. 25MB (PNG/JPG/WEBP)</span>
           </div>
 
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.65rem;">
-            <input type="text" id="kebayaColorImageInput" class="form-control" placeholder="/images/kebaya/... atau https://..." oninput="updateKebayaPhotoPreview(this.value)">
-            <input type="file" id="kebayaColorFileInput" accept="image/*" style="display:none;" onchange="handleKebayaPhotoUpload(event)">
-            <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.5rem 0.85rem;" onclick="document.getElementById('kebayaColorFileInput').click()">
-              📁 Upload Lokal
-            </button>
-          </div>
+          <!-- Hidden legacy input to ensure 100% compatibility -->
+          <input type="hidden" id="kebayaColorImageInput" value="">
 
-          <div id="kebayaColorUploadStatus" style="display:none; font-size: 0.78rem; color: #5C725A; font-weight: 600; margin-bottom: 0.5rem;"></div>
+          <!-- 3-Slot Grid Container -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.65rem;">
+            
+            <!-- SLOT 1: FOTO UTAMA -->
+            <div style="border: 1px solid var(--border); background: #FFFFFF; border-radius: 10px; padding: 0.65rem; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span style="font-size: 0.72rem; font-weight: 800; color: #2E2E2E; display: flex; align-items: center; gap: 0.25rem;">
+                  <span>⭐</span> <span>Foto 1 (Utama) *</span>
+                </span>
+                <button type="button" class="btn-icon-subtle" onclick="promptKebayaSlotUrl(1)" title="Input URL Gambar" style="font-size: 0.65rem; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: #F9FAFB; cursor: pointer;">
+                  🔗 URL
+                </button>
+              </div>
+              <input type="file" id="kebayaColorFileInput1" accept="image/*" style="display: none;" onchange="handleKebayaSlotPhotoUpload(1, event)">
+              <input type="hidden" id="kebayaColorSlotInput1" value="">
+              
+              <div id="kebayaColorUploadStatus1" style="display: none; font-size: 0.68rem; font-weight: 700; color: #2563EB; margin-bottom: 0.35rem; padding: 0.25rem 0.45rem; background: #EFF6FF; border-radius: 6px;">
+                ⏳ Mengunggah Foto 1...
+              </div>
 
-          <div id="kebayaColorPreviewBox" style="width: 100%; height: 160px; border-radius: 10px; background: #E4E4E7; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #D4D4D8; position: relative;">
-            <img id="kebayaColorPreviewImg" src="" style="width:100%; height:100%; object-fit: cover; display:none;">
-            <span id="kebayaColorPreviewPlaceholder" style="color: #71717A; font-size: 0.82rem; font-weight: 600;">Belum ada foto yang dipilih</span>
+              <!-- Empty State 1 -->
+              <div id="kebayaColorEmptyState1" style="border: 1.5px dashed #D6D3D1; border-radius: 8px; padding: 1rem 0.4rem; text-align: center; cursor: pointer; background: #FAF9F6; transition: all 0.2s; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;" onclick="document.getElementById('kebayaColorFileInput1').click()">
+                <div style="font-size: 1.5rem; margin-bottom: 0.15rem;">📷</div>
+                <div style="font-size: 0.74rem; font-weight: 700; color: #2E2E2E;">Upload Foto Utama</div>
+                <div style="font-size: 0.64rem; color: #9CA3AF; margin-top: 0.15rem;">Klik untuk pilih file</div>
+              </div>
+
+              <!-- Filled State 1 -->
+              <div id="kebayaColorFilledState1" style="display: none; position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 120px;">
+                <img id="kebayaColorPreviewImg1" src="" alt="Preview Foto 1" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; align-items: center; gap: 0.25rem;">
+                  <button type="button" onclick="document.getElementById('kebayaColorFileInput1').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                    🔄 Ganti
+                  </button>
+                  <button type="button" onclick="removeKebayaSlotImage(1)" style="background: rgba(239,68,68,0.92); color: #fff; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLOT 2: DETAIL KAIN / BROKAT -->
+            <div style="border: 1px solid var(--border); background: #FFFFFF; border-radius: 10px; padding: 0.65rem; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span style="font-size: 0.72rem; font-weight: 800; color: #4B5563; display: flex; align-items: center; gap: 0.25rem;">
+                  <span>🔍</span> <span>Foto 2 (Detail Payet)</span>
+                </span>
+                <button type="button" class="btn-icon-subtle" onclick="promptKebayaSlotUrl(2)" title="Input URL Gambar" style="font-size: 0.65rem; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: #F9FAFB; cursor: pointer;">
+                  🔗 URL
+                </button>
+              </div>
+              <input type="file" id="kebayaColorFileInput2" accept="image/*" style="display: none;" onchange="handleKebayaSlotPhotoUpload(2, event)">
+              <input type="hidden" id="kebayaColorSlotInput2" value="">
+              
+              <div id="kebayaColorUploadStatus2" style="display: none; font-size: 0.68rem; font-weight: 700; color: #2563EB; margin-bottom: 0.35rem; padding: 0.25rem 0.45rem; background: #EFF6FF; border-radius: 6px;">
+                ⏳ Mengunggah Foto 2...
+              </div>
+
+              <!-- Empty State 2 -->
+              <div id="kebayaColorEmptyState2" style="border: 1.5px dashed #D6D3D1; border-radius: 8px; padding: 1rem 0.4rem; text-align: center; cursor: pointer; background: #FAF9F6; transition: all 0.2s; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;" onclick="document.getElementById('kebayaColorFileInput2').click()">
+                <div style="font-size: 1.5rem; margin-bottom: 0.15rem;">✨</div>
+                <div style="font-size: 0.74rem; font-weight: 700; color: #4B5563;">Upload Detail Payet</div>
+                <div style="font-size: 0.64rem; color: #9CA3AF; margin-top: 0.15rem;">Opsional</div>
+              </div>
+
+              <!-- Filled State 2 -->
+              <div id="kebayaColorFilledState2" style="display: none; position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 120px;">
+                <img id="kebayaColorPreviewImg2" src="" alt="Preview Foto 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; align-items: center; gap: 0.25rem;">
+                  <button type="button" onclick="document.getElementById('kebayaColorFileInput2').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                    🔄 Ganti
+                  </button>
+                  <button type="button" onclick="removeKebayaSlotImage(2)" style="background: rgba(239,68,68,0.92); color: #fff; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLOT 3: TAMPAK BELAKANG / FULL LOOK -->
+            <div style="border: 1px solid var(--border); background: #FFFFFF; border-radius: 10px; padding: 0.65rem; display: flex; flex-direction: column;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                <span style="font-size: 0.72rem; font-weight: 800; color: #4B5563; display: flex; align-items: center; gap: 0.25rem;">
+                  <span>👗</span> <span>Foto 3 (Full Look)</span>
+                </span>
+                <button type="button" class="btn-icon-subtle" onclick="promptKebayaSlotUrl(3)" title="Input URL Gambar" style="font-size: 0.65rem; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--border); background: #F9FAFB; cursor: pointer;">
+                  🔗 URL
+                </button>
+              </div>
+              <input type="file" id="kebayaColorFileInput3" accept="image/*" style="display: none;" onchange="handleKebayaSlotPhotoUpload(3, event)">
+              <input type="hidden" id="kebayaColorSlotInput3" value="">
+              
+              <div id="kebayaColorUploadStatus3" style="display: none; font-size: 0.68rem; font-weight: 700; color: #2563EB; margin-bottom: 0.35rem; padding: 0.25rem 0.45rem; background: #EFF6FF; border-radius: 6px;">
+                ⏳ Mengunggah Foto 3...
+              </div>
+
+              <!-- Empty State 3 -->
+              <div id="kebayaColorEmptyState3" style="border: 1.5px dashed #D6D3D1; border-radius: 8px; padding: 1rem 0.4rem; text-align: center; cursor: pointer; background: #FAF9F6; transition: all 0.2s; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;" onclick="document.getElementById('kebayaColorFileInput3').click()">
+                <div style="font-size: 1.5rem; margin-bottom: 0.15rem;">✨</div>
+                <div style="font-size: 0.74rem; font-weight: 700; color: #4B5563;">Upload Full Look</div>
+                <div style="font-size: 0.64rem; color: #9CA3AF; margin-top: 0.15rem;">Opsional</div>
+              </div>
+
+              <!-- Filled State 3 -->
+              <div id="kebayaColorFilledState3" style="display: none; position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #E7E5E4; background: #1C1917; height: 120px;">
+                <img id="kebayaColorPreviewImg3" src="" alt="Preview Foto 3" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 4px; left: 4px; right: 4px; display: flex; justify-content: space-between; align-items: center; gap: 0.25rem;">
+                  <button type="button" onclick="document.getElementById('kebayaColorFileInput3').click()" style="background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                    🔄 Ganti
+                  </button>
+                  <button type="button" onclick="removeKebayaSlotImage(3)" style="background: rgba(239,68,68,0.92); color: #fff; font-size: 0.65rem; font-weight: 700; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                    🗑️ Hapus
+                  </button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+
 
         <!-- Pengaturan Ukuran & Jumlah Stok Fisik -->
         <div class="form-group" style="background: #FDFBF7; border: 1px solid #E2D8CF; border-radius: 12px; padding: 1rem; margin-top: 1rem;">
@@ -2221,6 +3114,189 @@
       <div class="modal-footer">
         <button class="btn btn-preview" onclick="closeModal('kebayaColorModal')">Batal</button>
         <button class="btn btn-save-local" onclick="saveKebayaColor()">Simpan Kebaya &amp; Stok</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Addon Modal -->
+  <div class="modal-overlay" id="addonModal">
+    <div class="modal-card" style="max-width: 660px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="addonModalTitle">Tambah Add-On Baru</h3>
+        <button class="btn-close" onclick="closeModal('addonModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="addonEditIndex" value="-1">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nama Add-On *</label>
+            <input type="text" id="addonNameInput" class="form-control" placeholder="Contoh: Tambahan Orang / Cetak 4R Lab">
+          </div>
+          <div class="form-group">
+            <label class="form-label">ID Add-On (Unik) *</label>
+            <input type="text" id="addonIdInput" class="form-control" placeholder="addon-extra-person">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Kategori *</label>
+            <select id="addonCategorySelect" class="form-control">
+              <option value="person">👥 Orang & Kostum (person)</option>
+              <option value="time">⏰ Waktu & Durasi (time)</option>
+              <option value="frame">🖼️ Cetak & Bingkai Frame (frame)</option>
+              <option value="file">💾 File & Drive Storage (file)</option>
+              <option value="prop">✨ Properti, Balon & Lighting (prop)</option>
+              <option value="selfstudio">📸 Self Studio Khusus (selfstudio)</option>
+              <option value="pass-foto">👤 Pass Foto (pass-foto)</option>
+              <option value="other">📦 Lain-lain (other)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Harga (Rp) *</label>
+            <input type="number" id="addonPriceInput" class="form-control" placeholder="15000" min="0" step="500">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Satuan / Unit *</label>
+          <input type="text" id="addonUnitInput" class="form-control" placeholder="Contoh: orang, 5 menit, 1 lembar, file, kostum">
+          <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.35rem;">
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('orang')">orang</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('5 menit')">5 menit</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('10 menit')">10 menit</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('1 lembar')">1 lembar</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('2 lembar')">2 lembar</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('foto')">foto</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('file')">file</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('kostum')">kostum</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('bulan')">bulan</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('sesi')">sesi</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('pcs')">pcs</button>
+            <button type="button" class="badge-tag-btn" onclick="setAddonUnit('background')">background</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Deskripsi / Penjelasan Add-On</label>
+          <textarea id="addonDescInput" class="form-control" rows="2" placeholder="Jelaskan apa yang didapatkan pelanggan saat memilih add-on ini..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Berlaku untuk Cabang:</label>
+          <div style="display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 0.25rem;">
+            <label class="checkbox-item" style="font-weight: 600;">
+              <input type="checkbox" id="addonBranch1" value="cabang-1" checked> Studio 1 (Junrejo)
+            </label>
+            <label class="checkbox-item" style="font-weight: 600;">
+              <input type="checkbox" id="addonBranch2" value="cabang-2" checked> Studio 2 (Dinoyo)
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+            <label class="form-label" style="margin-bottom: 0;">Berlaku untuk Paket / Kategori:</label>
+            <button type="button" class="badge-tag-btn" style="color: var(--sage-primary); font-weight: 700;" onclick="toggleAllAddonPkgCheckboxes()">Centang / Hapus Semua</button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.5rem; background: #FAF9F7; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; max-height: 160px; overflow-y: auto;" id="addonPkgCheckboxesList">
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="all"> 🌐 <b>Semua Paket</b></label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="grad-indoor"> 🎓 Wisuda Indoor</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="grad-outdoor"> 🎓 Wisuda Outdoor</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="group"> 👥 Group</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="family"> 👨‍👩‍👧 Family</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="couple"> 💑 Couple</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="prewedding"> 💍 Prewedding</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="personal"> 👤 Personal</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="maternity"> 🤰 Maternity</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="birthday"> 🎂 Birthday</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="self-studio"> 📸 Self Studio</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="pass-foto"> 🪪 Pass Foto</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="undangan"> 💌 Foto Undangan</label>
+            <label class="checkbox-item"><input type="checkbox" name="addonPkgCat" value="sewa-studio"> 🏢 Sewa Studio</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #F1F5F9;">
+          <label class="checkbox-item" style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">
+            <input type="checkbox" id="addonActiveCheckbox" checked>
+            <span>Aktifkan Add-on di Web Pelanggan (dapat dipilih saat kalkulator dibuka)</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('addonModal')">Batal</button>
+        <button class="btn btn-save" onclick="saveAddonModal()">Simpan Add-On</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- MODAL: ADD / EDIT BACKGROUND CONFLICT RULE -->
+  <div class="modal-overlay" id="bgConflictModal">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="bgConflictModalTitle">Tambah Aturan Bentrok Background Baru</h3>
+        <button class="btn-close" onclick="closeModal('bgConflictModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="bgConflictEditIndex" value="-1">
+
+        <div class="form-group">
+          <label class="form-label">Cabang Studio *</label>
+          <select id="bgConflictBranchSelect" class="form-control" onchange="updateBgConflictModalOptions()">
+            <option value="cabang-2">Studio 2 (Dinoyo)</option>
+            <option value="cabang-1">Studio 1 (Junrejo)</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Background Pertama (A) *</label>
+            <select id="bgConflictSelectA" class="form-control" onchange="updateBgConflictModalOptions(true)">
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Background Kedua (B) *</label>
+            <select id="bgConflictSelectB" class="form-control">
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Lingkup Bentrok (Kapan Tidak Boleh Bertemu) *</label>
+          <select id="bgConflictScopeSelect" class="form-control">
+            <option value="both">🔒 Keduanya (1 Sesi Pemotretan & 1 Jam Slot yang Sama) - Disarankan</option>
+            <option value="session">👥 Hanya 1 Sesi Pemotretan (Paket 2 background tidak boleh digabung)</option>
+            <option value="slot">⏰ Hanya 1 Jam Slot yang Sama (2 klien berbeda tidak boleh booking bersamaan)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Alasan Bentrok / Pesan Peringatan untuk Pelanggan di Web *</label>
+          <input type="text" id="bgConflictReasonInput" class="form-control" placeholder="Contoh: Bentrok area panggung yang sama (Coklat Jendela ⇄ Tematik Cream)">
+          <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.35rem;">
+            <button type="button" class="badge-tag-btn" onclick="setConflictReason('Bentrok area panggung yang sama')">Bentrok panggung yang sama</button>
+            <button type="button" class="badge-tag-btn" onclick="setConflictReason('Peralatan lighting khusus bertabrakan')">Lighting bertabrakan</button>
+            <button type="button" class="badge-tag-btn" onclick="setConflictReason('Setting dekorasi fisik permanen bentrok')">Dekorasi bentrok</button>
+            <button type="button" class="badge-tag-btn" onclick="setConflictReason('Area ruangan tidak dapat dibagi bersamaan')">Area tidak dapat dibagi</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #F1F5F9;">
+          <label class="checkbox-item" style="font-weight: 700; color: var(--charcoal); font-size: 0.9rem;">
+            <input type="checkbox" id="bgConflictActiveCheckbox" checked>
+            <span>Aturan Bentrok Aktif (berlaku di kalkulator web pelanggan)</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('bgConflictModal')">Batal</button>
+        <button class="btn btn-save" style="background: #DC2626; border-color: #B91C1C;" onclick="saveBgConflictModal()">Simpan Aturan Bentrok</button>
       </div>
     </div>
   </div>
@@ -3610,6 +4686,7 @@
       renderBranches();
       renderGalleryGrid();
       renderMuaSection();
+      renderAddOns();
     }
 
     function renderBackgrounds() {
@@ -3677,6 +4754,11 @@
         card.innerHTML = `
           <div class="bg-photo-area" style="background-image: url('${bg.previewImage || ''}'); position: relative;">
             <div class="bg-photo-gradient"></div>
+            <div style="position: absolute; top: 10px; left: 10px; z-index: 3;">
+              <span class="order-badge-btn" style="cursor: default;" title="Urutan background #${bg._origIndex + 1}">
+                #${bg._origIndex + 1}
+              </span>
+            </div>
             ${branchTagHtml}
             ${statusTagHtml}
             ${photoBadgeHtml}
@@ -3707,6 +4789,14 @@
               </label>
 
               <div class="card-actions-group">
+                <div style="display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #FFFFFF; margin-right: 0.2rem;">
+                  <button type="button" class="btn-action order-btn" ${bg._origIndex === 0 ? 'disabled' : ''} onclick="moveBackground(${bg._origIndex}, -1)" title="${bg._origIndex === 0 ? 'Sudah di posisi pertama' : 'Geser background ke kiri / urutan sebelumnya'}" style="${bg._origIndex === 0 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
+                    ◀
+                  </button>
+                  <button type="button" class="btn-action order-btn" ${bg._origIndex === appConfig.backgrounds.length - 1 ? 'disabled' : ''} onclick="moveBackground(${bg._origIndex}, 1)" title="${bg._origIndex === appConfig.backgrounds.length - 1 ? 'Sudah di posisi terakhir' : 'Geser background ke kanan / urutan berikutnya'}" style="${bg._origIndex === appConfig.backgrounds.length - 1 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
+                    ▶
+                  </button>
+                </div>
                 <button class="btn-action" onclick="openEditBgModal(${bg._origIndex})">✏️ Edit</button>
                 <button class="btn-action delete" onclick="deleteBackground(${bg._origIndex})">🗑️ Hapus</button>
               </div>
@@ -3839,6 +4929,7 @@
     }
 
     function openAddBgModal() {
+      setTimeout(() => populateBgIncompatibleCheckboxes('bg-new', ['cabang-1', 'cabang-2']), 50);
       document.getElementById('bgEditIndex').value = -1;
       document.getElementById('bgModalTitle').textContent = 'Tambah Background Baru (Min. 3 Foto)';
       document.getElementById('bgNameInput').value = '';
@@ -3854,6 +4945,45 @@
       setBgImagePreview('', 2);
       setBgImagePreview('', 3);
       openModal('bgModal');
+    }
+
+    
+    function populateBgIncompatibleCheckboxes(currentBgId, currentBranches = []) {
+      const container = document.getElementById('bgIncompatibleCheckboxesContainer');
+      if (!container || !appConfig) return;
+
+      const bgs = appConfig.backgrounds || [];
+      const rules = appConfig.backgroundConflictRules || [];
+
+      // Filter backgrounds that share at least one branch
+      const relevantBgs = bgs.filter(b => {
+        if (b.id === currentBgId) return false;
+        if (currentBranches.length === 0) return true;
+        const bBranches = b.applicableBranches || [];
+        return currentBranches.some(br => bBranches.includes(br));
+      });
+
+      if (relevantBgs.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1 / -1; font-size: 0.75rem; color: #A1A1AA; text-align: center; padding: 0.5rem;">Tidak ada background lain pada cabang yang dipilih.</div>';
+        return;
+      }
+
+      container.innerHTML = relevantBgs.map(b => {
+        // Check if there is an active conflict rule
+        const hasConflict = rules.some(r => {
+          if (r.active === false) return false;
+          return (r.backgroundIdA === currentBgId && r.backgroundIdB === b.id) ||
+                 (r.backgroundIdA === b.id && r.backgroundIdB === currentBgId);
+        });
+
+        return `
+          <label class="checkbox-item" style="font-size: 0.76rem; display: flex; align-items: center; gap: 6px;">
+            <input type="checkbox" name="bgIncompatibleCheckbox" value="${b.id}" ${hasConflict ? 'checked' : ''}>
+            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${b.hex || '#999'}; flex-shrink: 0;"></span>
+            <span>${escapeHtml(b.name)}</span>
+          </label>
+        `;
+      }).join('');
     }
 
     function openEditBgModal(origIdx) {
@@ -3875,6 +5005,7 @@
         : (bg.previewImage ? [bg.previewImage] : []);
       
       setBgImagePreview(imgs[0] || '', 1);
+      populateBgIncompatibleCheckboxes(bg.id, bg.applicableBranches || []);
       setBgImagePreview(imgs[1] || '', 2);
       setBgImagePreview(imgs[2] || '', 3);
       openModal('bgModal');
@@ -3919,6 +5050,11 @@
       if (document.getElementById('bgServiceSelf').checked) applicableTo.push('self-studio');
       if (applicableTo.length === 0) return alert('Pilih minimal 1 layanan (Pro Studio / Self Studio)!');
 
+      
+      // Read incompatible checkboxes
+      const incCheckboxes = document.querySelectorAll('input[name="bgIncompatibleCheckbox"]:checked');
+      const incompatibleIds = Array.from(incCheckboxes).map(c => c.value);
+
       if (origIdx === -1) {
         const id = 'bg-' + Date.now();
         appConfig.backgrounds.push({
@@ -3933,7 +5069,43 @@
           applicableTo: applicableTo,
           active: true
         });
-        showToast(`Background '${name}' (3 foto) berhasil ditambahkan!`);
+        
+      // Synchronize conflict rules
+      const currentBgId = origIdx === -1 ? id : appConfig.backgrounds[origIdx].id;
+      if (!appConfig.backgroundConflictRules) appConfig.backgroundConflictRules = [];
+      
+      // Remove previous rules involving currentBgId that are not checked anymore
+      appConfig.backgroundConflictRules = appConfig.backgroundConflictRules.filter(r => {
+        const involves = (r.backgroundIdA === currentBgId || r.backgroundIdB === currentBgId);
+        if (!involves) return true;
+        const otherId = r.backgroundIdA === currentBgId ? r.backgroundIdB : r.backgroundIdA;
+        return incompatibleIds.includes(otherId);
+      });
+
+      // Add rules for newly checked incompatible IDs
+      incompatibleIds.forEach(otherId => {
+        const alreadyExists = appConfig.backgroundConflictRules.some(r => {
+          return (r.backgroundIdA === currentBgId && r.backgroundIdB === otherId) ||
+                 (r.backgroundIdA === otherId && r.backgroundIdB === currentBgId);
+        });
+        if (!alreadyExists) {
+          const otherBg = (appConfig.backgrounds || []).find(b => b.id === otherId) || { name: otherId };
+          const ruleBranch = branches.includes('cabang-2') ? 'cabang-2' : 'cabang-1';
+          appConfig.backgroundConflictRules.push({
+            id: 'rule-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+            branch: ruleBranch,
+            backgroundIdA: currentBgId,
+            backgroundIdB: otherId,
+            scope: 'both',
+            reason: `Bentrok area panggung yang sama (${name} ⇄ ${otherBg.name})`,
+            active: true
+          });
+        }
+      });
+      renderBackgroundConflictRules();
+      renderBackgroundConflictMatrix();
+
+      showToast(`Background '${name}' (3 foto) berhasil ditambahkan!`);
       } else {
         const item = appConfig.backgrounds[origIdx];
         item.name = name;
@@ -4562,7 +5734,7 @@
 
       let renderedCount = 0;
 
-      list.forEach((item, idx) => {
+      list.forEach((item) => {
         // Filter branch for showcase
         if (currentGallerySection === 'showcase' && currentGalleryBranch !== 'all') {
           if (item.branchId && item.branchId !== 'all' && item.branchId !== currentGalleryBranch) {
@@ -4581,6 +5753,7 @@
         }
 
         renderedCount++;
+        const realIdx = list.indexOf(item);
 
         const isInactive = item.active === false;
         const imgUrl = item.imageUrl || item.image || item.src || '';
@@ -4590,6 +5763,40 @@
 
         const card = document.createElement('div');
         card.className = 'bg-card' + (isInactive ? ' inactive' : '');
+        card.setAttribute('draggable', 'true');
+        card.dataset.idx = String(realIdx);
+        card.style.cursor = 'grab';
+
+        // Drag & Drop handlers for instant reordering
+        card.ondragstart = (e) => {
+          e.dataTransfer.setData('text/plain', String(realIdx));
+          e.dataTransfer.effectAllowed = 'move';
+          card.classList.add('is-dragging');
+        };
+
+        card.ondragend = () => {
+          card.classList.remove('is-dragging');
+          document.querySelectorAll('#galleryGridContainer .bg-card').forEach(c => c.classList.remove('drag-target-over'));
+        };
+
+        card.ondragover = (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          card.classList.add('drag-target-over');
+        };
+
+        card.ondragleave = () => {
+          card.classList.remove('drag-target-over');
+        };
+
+        card.ondrop = (e) => {
+          e.preventDefault();
+          card.classList.remove('drag-target-over');
+          const fromIdx = parseInt(e.dataTransfer.getData('text/plain'), 10);
+          if (!isNaN(fromIdx) && fromIdx !== realIdx) {
+            reorderGalleryItem(currentGallerySection, fromIdx, realIdx);
+          }
+        };
 
         let branchBadgeHtml = '';
         if (item.branchId === 'cabang-1') {
@@ -4603,6 +5810,15 @@
         card.innerHTML = `
           <div class="bg-photo-area" style="background-image: url('${imgUrl}'); height: 165px; position: relative;">
             <div class="bg-photo-gradient"></div>
+            
+            <!-- Badge Nomor Urutan Foto -->
+            <div style="position: absolute; top: 10px; left: 10px; z-index: 3;">
+              <button type="button" class="order-badge-btn" onclick="promptChangeGalleryOrder('${currentGallerySection}', ${realIdx})" title="Klik untuk ubah urutan (Saat ini Urutan #${realIdx + 1} dari ${list.length})">
+                <span>#${realIdx + 1}</span>
+                <span style="font-size: 0.62rem; opacity: 0.85;">↕️</span>
+              </button>
+            </div>
+
             ${branchBadgeHtml || '<div></div>'}
             <div class="status-indicator-chip ${isInactive ? 'inactive' : 'active'}">
               <span class="status-dot"></span>
@@ -4618,13 +5834,23 @@
             ${item.description ? `<p style="font-size: 0.76rem; color: #52525B; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0.75rem;">${item.description}</p>` : ''}
             
             <div class="bg-card-bottom" style="padding-top: 0.65rem; margin-top: auto;">
-              <label class="switch">
-                <input type="checkbox" ${isInactive ? '' : 'checked'} onchange="toggleGalleryItemActive('${currentGallerySection}', ${idx}, this.checked)">
+              <label class="switch" title="Aktifkan atau sembunyikan foto ini di web">
+                <input type="checkbox" ${isInactive ? '' : 'checked'} onchange="toggleGalleryItemActive('${currentGallerySection}', ${realIdx}, this.checked)">
                 <span class="slider"></span>
               </label>
-              <div class="card-actions-group">
-                <button class="btn-action" onclick="openEditGalleryItemModal('${currentGallerySection}', ${idx})">✏️ Edit</button>
-                <button class="btn-action delete" onclick="deleteGalleryItem('${currentGallerySection}', ${idx})">🗑️</button>
+              <div class="card-actions-group" style="display: flex; align-items: center; gap: 0.25rem;">
+                <!-- Tombol Geser Urutan Foto (◀ dan ▶) -->
+                <div style="display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #FFFFFF; margin-right: 0.2rem;">
+                  <button type="button" class="btn-action order-btn" ${realIdx === 0 ? 'disabled' : ''} onclick="moveGalleryItem('${currentGallerySection}', ${realIdx}, -1)" title="${realIdx === 0 ? 'Sudah di posisi pertama' : 'Geser foto ke urutan sebelumnya (Kiri/Atas)'}" style="${realIdx === 0 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
+                    ◀
+                  </button>
+                  <button type="button" class="btn-action order-btn" ${realIdx === list.length - 1 ? 'disabled' : ''} onclick="moveGalleryItem('${currentGallerySection}', ${realIdx}, 1)" title="${realIdx === list.length - 1 ? 'Sudah di posisi terakhir' : 'Geser foto ke urutan berikutnya (Kanan/Bawah)'}" style="${realIdx === list.length - 1 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
+                    ▶
+                  </button>
+                </div>
+
+                <button class="btn-action" onclick="openEditGalleryItemModal('${currentGallerySection}', ${realIdx})">✏️ Edit</button>
+                <button class="btn-action delete" onclick="deleteGalleryItem('${currentGallerySection}', ${realIdx})" title="Hapus foto">🗑️</button>
               </div>
             </div>
           </div>
@@ -4879,6 +6105,256 @@
       }
     }
 
+    
+    // =========================================================================
+    // FITUR PENGATUR URUTAN FOTO & ITEM GALERI WEB
+    // =========================================================================
+    let reorderWorkingList = [];
+    let reorderWorkingSection = 'hero';
+
+    function moveGalleryItem(sec, fromIndex, direction) {
+      const list = getActiveGalleryList(sec);
+      if (!list || list.length <= 1) return;
+      const toIndex = fromIndex + direction;
+      if (toIndex < 0 || toIndex >= list.length) return;
+
+      const temp = list[fromIndex];
+      list[fromIndex] = list[toIndex];
+      list[toIndex] = temp;
+
+      saveConfigLocally();
+      renderGalleryGrid();
+      const title = temp.title || temp.caption || 'Foto';
+      showToast(`Urutan foto '${title}' dipindahkan ke posisi #${toIndex + 1}!`, '↕️');
+    }
+
+    function reorderGalleryItem(sec, fromIndex, toIndex) {
+      const list = getActiveGalleryList(sec);
+      if (!list || list.length <= 1) return;
+      if (fromIndex < 0 || fromIndex >= list.length || toIndex < 0 || toIndex >= list.length || fromIndex === toIndex) return;
+
+      const [movedItem] = list.splice(fromIndex, 1);
+      list.splice(toIndex, 0, movedItem);
+
+      saveConfigLocally();
+      renderGalleryGrid();
+      const title = movedItem.title || movedItem.caption || 'Foto';
+      showToast(`Foto '${title}' dipindahkan ke posisi #${toIndex + 1}!`, '✅');
+    }
+
+    function promptChangeGalleryOrder(sec, currentIndex) {
+      const list = getActiveGalleryList(sec);
+      if (!list || list.length <= 1) return;
+      const item = list[currentIndex];
+      const itemName = item.title || item.caption || 'Foto';
+
+      const input = prompt(`Ubah urutan untuk foto '${itemName}'\nMasukkan nomor posisi baru (1 s/d ${list.length}):`, currentIndex + 1);
+      if (input === null) return;
+      const newPos = parseInt(input.trim(), 10);
+      if (isNaN(newPos) || newPos < 1 || newPos > list.length) {
+        alert(`Posisi tidak valid! Masukkan angka antara 1 dan ${list.length}.`);
+        return;
+      }
+      const targetIndex = newPos - 1;
+      if (targetIndex === currentIndex) return;
+
+      reorderGalleryItem(sec, currentIndex, targetIndex);
+    }
+
+    function openGalleryReorderModal() {
+      reorderWorkingSection = currentGallerySection;
+      const list = getActiveGalleryList(reorderWorkingSection);
+      if (!list || list.length === 0) {
+        alert('Belum ada foto pada bagian ini untuk diatur urutannya.');
+        return;
+      }
+
+      reorderWorkingList = [...list];
+
+      const secNames = {
+        hero: 'Banner Utama (Hero Slider)',
+        showcase: 'Showcase Background & Hasil Foto',
+        facility: 'Fasilitas Ruangan Studio',
+        equipment: 'Peralatan Studio Pro'
+      };
+
+      document.getElementById('galleryReorderModalTitle').textContent = `↕️ Atur Urutan: ${secNames[reorderWorkingSection] || 'Foto Galeri'}`;
+      document.getElementById('galleryReorderModalSubtitle').textContent = `Total ${reorderWorkingList.length} foto. Geser atau gunakan tombol panah untuk mengatur urutan tampilan.`;
+
+      renderGalleryReorderList();
+      openModal('galleryReorderModal');
+    }
+
+    function renderGalleryReorderList() {
+      const container = document.getElementById('galleryReorderListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      reorderWorkingList.forEach((item, idx) => {
+        const title = item.title || item.caption || `Foto #${idx + 1}`;
+        const subtitle = item.theme || item.subtitle || item.tag || '';
+        const img = item.imageUrl || item.image || item.src || '';
+
+        const row = document.createElement('div');
+        row.style.cssText = 'display: flex; align-items: center; gap: 0.65rem; background: #FFFFFF; border: 1.5px solid #E5E7EB; border-radius: 10px; padding: 0.5rem 0.75rem; transition: all 0.15s;';
+        row.setAttribute('draggable', 'true');
+
+        row.ondragstart = (e) => {
+          e.dataTransfer.setData('text/plain', String(idx));
+          row.style.opacity = '0.4';
+        };
+        row.ondragend = () => {
+          row.style.opacity = '1';
+          document.querySelectorAll('#galleryReorderListContainer > div').forEach(r => r.style.borderColor = '#E5E7EB');
+        };
+        row.ondragover = (e) => {
+          e.preventDefault();
+          row.style.borderColor = '#5C725A';
+        };
+        row.ondragleave = () => {
+          row.style.borderColor = '#E5E7EB';
+        };
+        row.ondrop = (e) => {
+          e.preventDefault();
+          row.style.borderColor = '#E5E7EB';
+          const fromIdx = parseInt(e.dataTransfer.getData('text/plain'), 10);
+          if (!isNaN(fromIdx) && fromIdx !== idx) {
+            const [moved] = reorderWorkingList.splice(fromIdx, 1);
+            reorderWorkingList.splice(idx, 0, moved);
+            renderGalleryReorderList();
+          }
+        };
+
+        row.innerHTML = `
+          <span style="cursor: grab; color: #9CA3AF; font-size: 1.1rem; padding: 0 0.2rem;" title="Drag untuk memindahkan urutan">⠿</span>
+
+          <span style="font-family: monospace; font-size: 0.76rem; font-weight: 800; background: #5C725A; color: white; padding: 0.2rem 0.55rem; border-radius: 9999px; min-width: 32px; text-align: center;">
+            #${idx + 1}
+          </span>
+
+          <div style="width: 44px; height: 44px; border-radius: 8px; overflow: hidden; background: #E5E7EB; border: 1px solid #D1D5DB; flex-shrink: 0;">
+            ${img ? `<img src="${img}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #9CA3AF;">📷</div>`}
+          </div>
+
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-weight: 700; font-size: 0.84rem; color: #2E2E2E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+              ${escapeHtml(title)}
+            </div>
+            ${subtitle ? `<div style="font-size: 0.72rem; color: #71717A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${escapeHtml(subtitle)}</div>` : ''}
+          </div>
+
+          <div style="display: flex; gap: 0.25rem; align-items: center;">
+            <button type="button" class="btn-action order-btn" ${idx === 0 ? 'disabled' : ''} onclick="shiftModalItemOrder(${idx}, -1)" title="Pindah ke atas" style="padding: 0.25rem 0.55rem; font-size: 0.75rem;">
+              ▲
+            </button>
+            <button type="button" class="btn-action order-btn" ${idx === reorderWorkingList.length - 1 ? 'disabled' : ''} onclick="shiftModalItemOrder(${idx}, 1)" title="Pindah ke bawah" style="padding: 0.25rem 0.55rem; font-size: 0.75rem;">
+              ▼
+            </button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function shiftModalItemOrder(fromIdx, direction) {
+      const toIdx = fromIdx + direction;
+      if (toIdx < 0 || toIdx >= reorderWorkingList.length) return;
+      const temp = reorderWorkingList[fromIdx];
+      reorderWorkingList[fromIdx] = reorderWorkingList[toIdx];
+      reorderWorkingList[toIdx] = temp;
+      renderGalleryReorderList();
+    }
+
+    function saveGalleryReorderModal() {
+      if (!appConfig) return;
+      if (reorderWorkingSection === 'hero') {
+        appConfig.heroBannerSlides = [...reorderWorkingList];
+      } else if (reorderWorkingSection === 'showcase') {
+        appConfig.showcaseImages = [...reorderWorkingList];
+      } else if (reorderWorkingSection === 'facility') {
+        appConfig.facilityItems = [...reorderWorkingList];
+      } else if (reorderWorkingSection === 'equipment') {
+        appConfig.equipmentItems = [...reorderWorkingList];
+      }
+
+      saveConfigLocally();
+      closeModal('galleryReorderModal');
+      renderGalleryGrid();
+      showToast('Urutan foto berhasil disimpan dan diterapkan!', '✅');
+    }
+
+    // --- REORDER BACKGROUNDS & KEBAYAS ---
+    function moveBackground(origIdx, direction) {
+      if (!appConfig || !appConfig.backgrounds || appConfig.backgrounds.length <= 1) return;
+      const targetIdx = origIdx + direction;
+      if (targetIdx < 0 || targetIdx >= appConfig.backgrounds.length) return;
+
+      const temp = appConfig.backgrounds[origIdx];
+      appConfig.backgrounds[origIdx] = appConfig.backgrounds[targetIdx];
+      appConfig.backgrounds[targetIdx] = temp;
+
+      saveConfigLocally();
+      renderBackgrounds();
+      showToast(`Urutan background '${temp.name}' dipindahkan ke posisi #${targetIdx + 1}!`, '↕️');
+    }
+
+    function moveKebaya(vendorId, kebayaId, direction) {
+      if (!appConfig || !appConfig.muaVendors) return;
+      const vendor = appConfig.muaVendors.find(v => v.id === vendorId);
+      if (!vendor || !vendor.kebayas || vendor.kebayas.length <= 1) return;
+
+      const fromIdx = vendor.kebayas.findIndex(k => k.id === kebayaId);
+      if (fromIdx === -1) return;
+      const toIdx = fromIdx + direction;
+      if (toIdx < 0 || toIdx >= vendor.kebayas.length) return;
+
+      const temp = vendor.kebayas[fromIdx];
+      vendor.kebayas[fromIdx] = vendor.kebayas[toIdx];
+      vendor.kebayas[toIdx] = temp;
+
+      saveConfigLocally();
+      renderKebayaColors();
+      showToast(`Urutan kebaya '${temp.name}' dipindahkan ke posisi #${toIdx + 1}!`, '👗');
+    }
+
+
+    
+    // Helper Drag/Swipe Mouse untuk Container Horisontal
+    function initSwipeDrag(el, e) {
+      if (e.button !== 0) return; // hanya klik kiri
+      const startX = e.pageX - el.offsetLeft;
+      const scrollLeft = el.scrollLeft;
+      let isMoved = false;
+
+      function onMouseMove(ev) {
+        const x = ev.pageX - el.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        if (Math.abs(walk) > 4) {
+          isMoved = true;
+          ev.preventDefault();
+          el.scrollLeft = scrollLeft - walk;
+        }
+      }
+
+      function onMouseUp() {
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+        if (isMoved) {
+          const preventClick = (clickEvent) => {
+            clickEvent.stopImmediatePropagation();
+            clickEvent.preventDefault();
+            window.removeEventListener('click', preventClick, true);
+          };
+          window.addEventListener('click', preventClick, true);
+          setTimeout(() => window.removeEventListener('click', preventClick, true), 100);
+        }
+      }
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    }
+
+
     // =========================================================================
     // MODUL MANAJEMEN PRICELIST MUA, KEBAYA, HAIRDO & HIJABDO
     // =========================================================================
@@ -5010,16 +6486,19 @@
               </div>
             ` : ''}
 
-            <div class="bg-card-bottom" style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-              <div style="display: flex; gap: 0.4rem;">
-                <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.7rem;" onclick="openEditMuaVendorModal(${origIdx})">
+            <div class="bg-card-bottom" style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 0.45rem;">
+              <div class="vendor-actions-swipeable" onwheel="event.preventDefault(); this.scrollLeft += event.deltaY * 0.8;" onmousedown="initSwipeDrag(this, event)">
+                <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; flex-shrink: 0; white-space: nowrap;" onclick="openEditMuaVendorModal(${origIdx})">
                   ✏️ Edit Profil &amp; Foto
                 </button>
-                <button class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.35rem 0.7rem;" onclick="openMuaPackagesManagerModal(${origIdx})">
+                <button class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; flex-shrink: 0; white-space: nowrap;" onclick="openMuaPackagesManagerModal(${origIdx})">
                   📋 Kelola Paket &amp; Harga
                 </button>
+                <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; background: #FAF5F0; border-color: #E2D8CF; color: #8A5A36; font-weight: 700; flex-shrink: 0; white-space: nowrap;" onclick="switchMuaSubTab('kebaya', document.getElementById('muaSubTabKebayaBtn')); selectKebayaVendor('${v.id}');" title="Kelola Contoh Kebaya &amp; Stok Ukuran Vendor Ini">
+                  👗 Koleksi Kebaya (${(v.kebayas || []).length})
+                </button>
               </div>
-              <button class="btn-action delete" style="padding: 0.35rem 0.6rem;" onclick="deleteMuaVendor(${origIdx})" title="Hapus Vendor">
+              <button class="btn-action delete" style="padding: 0.35rem 0.6rem; flex-shrink: 0;" onclick="deleteMuaVendor(${origIdx})" title="Hapus Vendor">
                 🗑️
               </button>
             </div>
@@ -5174,6 +6653,14 @@
             </div>
 
             <div class="bg-card-bottom" style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #FFFFFF; margin-right: 0.3rem;">
+                <button type="button" class="btn-action order-btn" onclick="moveKebaya('${activeVendor.id}', '${item.id}', -1)" title="Geser kebaya ke kiri / sebelumnya" style="cursor: pointer;">
+                  ◀
+                </button>
+                <button type="button" class="btn-action order-btn" onclick="moveKebaya('${activeVendor.id}', '${item.id}', 1)" title="Geser kebaya ke kanan / berikutnya" style="cursor: pointer;">
+                  ▶
+                </button>
+              </div>
               <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.8rem;" onclick="openEditKebayaColorModal('${activeVendor.id}', '${item.id}')">
                 ✏️ Edit Kebaya &amp; Stok
               </button>
@@ -5680,39 +7167,89 @@
               <span style="font-size: 0.7rem; color: #71717A; font-weight: normal;">(Tampil pada kartu sub-paket di web)</span>
             </div>
 
-            <!-- Bagian Warna -->
-            <div style="margin-bottom: 0.65rem;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                        <!-- Bagian Warna & Contoh Kebaya -->
+            <div style="margin-bottom: 0.75rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;">
                 <label class="checkbox-item" style="font-size: 0.76rem; font-weight: 700; color: #374151;">
                   <input type="checkbox" ${hasColors ? 'checked' : ''} onchange="togglePkgColorsEnabled(${activePkgEditorCatIdx}, ${pIdx}, this.checked)">
-                  <span>Aktifkan Pilihan Warna Kebaya</span>
+                  <span>Aktifkan Pilihan Warna &amp; Contoh Kebaya</span>
                 </label>
-                <span style="font-size: 0.7rem; color: #5C725A; font-weight: 600;" id="pkgColorCount_${pIdx}">
-                  ${(pkg.colors || []).length} Warna Terpilih
-                </span>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="font-size: 0.7rem; color: #5C725A; font-weight: 600;" id="pkgColorCount_${pIdx}">
+                    ${(pkg.colors || []).length} Warna Terpilih
+                  </span>
+                  <button type="button" class="btn btn-save-local" style="font-size: 0.7rem; padding: 0.2rem 0.55rem;" onclick="openAddKebayaModalFromPackageEditor(${pIdx})" title="Tambah busana kebaya baru khusus vendor ini">
+                    + Tambah Kebaya
+                  </button>
+                </div>
               </div>
 
-              <div id="pkgColorOptions_${pIdx}" style="display: ${hasColors ? 'flex' : 'none'}; gap: 0.4rem; flex-wrap: wrap; padding: 0.5rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px;">
+              <div id="pkgColorOptions_${pIdx}" style="display: ${hasColors ? 'grid' : 'none'}; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 0.5rem; padding: 0.6rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px;">
                 ${(() => {
                   const vKebayas = editingVendorPackagesClone.kebayas || [];
                   if (vKebayas.length === 0) {
-                    return '<div style="font-size: 0.74rem; color: #71717A; padding: 0.35rem;">Vendor ini belum memiliki kebaya tersimpan. Tambahkan busana di tab Koleksi Kebaya Vendor.</div>';
+                    return `
+                      <div style="grid-column: 1 / -1; font-size: 0.75rem; color: #71717A; padding: 0.85rem; text-align: center; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 8px;">
+                        <div style="font-weight: 700; color: var(--charcoal); margin-bottom: 0.25rem;">👗 Vendor ini belum memiliki koleksi contoh kebaya tersimpan.</div>
+                        <div style="margin-bottom: 0.5rem; color: #78716C;">Tambahkan contoh kebaya lengkap dengan foto, warna, dan stok ukuran untuk vendor ini.</div>
+                        <button type="button" class="btn btn-save-local" style="font-size: 0.74rem; padding: 0.3rem 0.75rem;" onclick="openAddKebayaModalFromPackageEditor(${pIdx})">
+                          + Masukkan Contoh Kebaya Pertama
+                        </button>
+                      </div>
+                    `;
                   }
                   return vKebayas.map(item => {
                     const isChecked = (pkg.colors || []).includes(item.name);
                     const totalStock = item.totalStock ?? (item.stock ? Object.values(item.stock).reduce((a, b) => a + (Number(b) || 0), 0) : 0);
+                    const imgUrl = item.image || (item.images && item.images[0]) || '';
                     return `
-                      <label style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.74rem; background: #F9FAFB; border: 1px solid ${isChecked ? '#5C725A' : '#E5E7EB'}; padding: 0.2rem 0.55rem; border-radius: 6px; cursor: pointer;">
-                        <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="togglePkgColorItem(${activePkgEditorCatIdx}, ${pIdx}, '${escapeHtml(item.name)}', this.checked)">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: ${item.hex || '#ccc'}; display: inline-block; border: 1px solid #D1D5DB;"></span>
-                        <span style="font-weight: ${isChecked ? '700' : 'normal'}; color: ${isChecked ? '#1F2937' : '#4B5563'};">${escapeHtml(item.name)}</span>
-                        <span style="font-size: 0.68rem; color: #6B7280; font-family: monospace;">(${totalStock} pcs)</span>
-                      </label>
+                      <div style="display: flex; align-items: center; gap: 0.45rem; background: ${isChecked ? '#F4F7F4' : '#FAFAFA'}; border: 1.5px solid ${isChecked ? '#5C725A' : '#E5E7EB'}; padding: 0.35rem 0.5rem; border-radius: 8px; transition: all 0.15s; position: relative;">
+                        <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; margin: 0;">
+                          <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="togglePkgColorItem(${activePkgEditorCatIdx}, ${pIdx}, '${escapeHtml(item.name)}', this.checked)">
+                          <span style="width: 12px; height: 12px; border-radius: 50%; background: ${item.hex || '#ccc'}; display: inline-block; border: 1px solid #D1D5DB; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"></span>
+                        </label>
+
+                        <!-- Mini Thumbnail Contoh Kebaya -->
+                        <div style="width: 36px; height: 36px; border-radius: 6px; overflow: hidden; border: 1px solid #D1D5DB; background: #E5E7EB; flex-shrink: 0; cursor: pointer; position: relative;" onclick="openEditKebayaColorModal('${editingVendorPackagesClone.id}', '${item.id}')" title="Klik untuk lihat / ubah foto contoh kebaya ini">
+                          ${imgUrl ? `<img src="${imgUrl}" style="width: 100%; height: 100%; object-fit: cover; display: block;">` : `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #9CA3AF;">📷</div>`}
+                        </div>
+
+                        <!-- Info Warna & Stok -->
+                        <div style="display: flex; flex-direction: column; min-width: 0; flex: 1; cursor: pointer;" onclick="openEditKebayaColorModal('${editingVendorPackagesClone.id}', '${item.id}')" title="Klik untuk edit kebaya ini">
+                          <div style="display: flex; align-items: center; gap: 0.25rem;">
+                            <span style="font-weight: ${isChecked ? '800' : '600'}; font-size: 0.74rem; color: ${isChecked ? '#14532D' : '#1F2937'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                              ${escapeHtml(item.name)}
+                            </span>
+                            <span style="font-size: 0.65rem; color: #6B7280; font-family: monospace;">(${totalStock} pcs)</span>
+                          </div>
+                          <span style="font-size: 0.64rem; color: #71717A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(item.tag || '')}">
+                            ${escapeHtml(item.tag || 'Koleksi Studio')}
+                          </span>
+                        </div>
+
+                        <!-- Tombol Aksi Langsung -->
+                        <div style="display: flex; align-items: center; gap: 0.2rem; margin-left: auto;">
+                          <button type="button" class="btn-icon-subtle" style="font-size: 0.65rem; padding: 0.2rem 0.4rem; border-radius: 5px; border: 1px solid #C4D3C2; background: #F1F6F0; color: #2D5A27; font-weight: 700; cursor: pointer;" onclick="event.stopPropagation(); triggerDirectKebayaUpload('${editingVendorPackagesClone.id}', '${item.id}')" title="Upload Cepat Foto Contoh Kebaya">
+                            ⬆️ Foto
+                          </button>
+                          <button type="button" class="btn-icon-subtle" style="font-size: 0.65rem; padding: 0.2rem 0.35rem; border-radius: 5px; border: 1px solid var(--border); background: #FFFFFF; cursor: pointer;" onclick="event.stopPropagation(); openEditKebayaColorModal('${editingVendorPackagesClone.id}', '${item.id}')" title="Buka Detail & Edit 3 Foto Contoh">
+                            ✏️
+                          </button>
+                        </div>
+                      </div>
                     `;
-                  }).join('');
+                  }).join('') + `
+                    <div style="grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding-top: 0.45rem; border-top: 1px dashed #E5E7EB; margin-top: 0.25rem;">
+                      <span style="font-size: 0.68rem; color: #6B7280;">💡 Klik <b>⬆️ Foto</b> untuk upload instan dari disk, atau <b>✏️</b> untuk kelola 3 foto &amp; stok.</span>
+                      <button type="button" class="btn btn-save-local" style="font-size: 0.7rem; padding: 0.25rem 0.6rem;" onclick="openAddKebayaModalFromPackageEditor(${pIdx})">
+                        + Tambah Contoh Kebaya Baru
+                      </button>
+                    </div>
+                  `;
                 })()}
               </div>
             </div>
+
 
             <!-- Bagian Ukuran -->
             <div>
@@ -5817,21 +7354,55 @@
       }
     }
 
-    // --- KEBAYA COLOR MODAL ---
-    function updateKebayaPhotoPreview(url) {
-      const img = document.getElementById('kebayaColorPreviewImg');
-      const placeholder = document.getElementById('kebayaColorPreviewPlaceholder');
-      if (url && url.trim()) {
-        img.src = url.trim();
-        img.style.display = 'block';
-        placeholder.style.display = 'none';
+        // --- KEBAYA COLOR & CONTOH FOTO MANAGEMENT ---
+    let packageEditorTargetPkgIdx = null;
+    let directKebayaVendorId = null;
+    let directKebayaId = null;
+
+    function setKebayaSlotImage(slotIdx, url) {
+      const hiddenInput = document.getElementById('kebayaColorSlotInput' + slotIdx);
+      const emptyState = document.getElementById('kebayaColorEmptyState' + slotIdx);
+      const filledState = document.getElementById('kebayaColorFilledState' + slotIdx);
+      const previewImg = document.getElementById('kebayaColorPreviewImg' + slotIdx);
+      
+      const cleanUrl = (url || '').trim();
+      if (hiddenInput) hiddenInput.value = cleanUrl;
+      if (slotIdx === 1) {
+        const legacyInput = document.getElementById('kebayaColorImageInput');
+        if (legacyInput) legacyInput.value = cleanUrl;
+      }
+
+      if (cleanUrl) {
+        if (previewImg) previewImg.src = cleanUrl;
+        if (emptyState) emptyState.style.display = 'none';
+        if (filledState) filledState.style.display = 'block';
       } else {
-        img.style.display = 'none';
-        placeholder.style.display = 'block';
+        if (previewImg) previewImg.src = '';
+        if (emptyState) emptyState.style.display = 'flex';
+        if (filledState) filledState.style.display = 'none';
       }
     }
 
-    async function handleKebayaPhotoUpload(e) {
+    function getKebayaSlotImage(slotIdx) {
+      const hiddenInput = document.getElementById('kebayaColorSlotInput' + slotIdx);
+      return (hiddenInput?.value || '').trim();
+    }
+
+    function removeKebayaSlotImage(slotIdx) {
+      setKebayaSlotImage(slotIdx, '');
+      const fileInput = document.getElementById('kebayaColorFileInput' + slotIdx);
+      if (fileInput) fileInput.value = '';
+    }
+
+    function promptKebayaSlotUrl(slotIdx) {
+      const currentUrl = getKebayaSlotImage(slotIdx);
+      const url = prompt(`Masukkan URL Foto Contoh Kebaya Slot #${slotIdx} (https://...):`, currentUrl);
+      if (url !== null) {
+        setKebayaSlotImage(slotIdx, url.trim());
+      }
+    }
+
+    async function handleKebayaSlotPhotoUpload(slotIdx, e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
 
@@ -5840,10 +7411,10 @@
         return;
       }
 
-      const status = document.getElementById('kebayaColorUploadStatus');
+      const status = document.getElementById('kebayaColorUploadStatus' + slotIdx);
       if (status) {
         status.style.display = 'block';
-        status.textContent = '⏳ Mengunggah foto kebaya (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+        status.textContent = `⏳ Mengunggah Foto #${slotIdx} (${(file.size / (1024 * 1024)).toFixed(1)} MB)...`;
       }
 
       const reader = new FileReader();
@@ -5860,13 +7431,15 @@
           });
           const data = await res.json();
           if (data.success && data.url) {
-            document.getElementById('kebayaColorImageInput').value = data.url;
-            updateKebayaPhotoPreview(data.url);
+            setKebayaSlotImage(slotIdx, data.url);
             if (status) {
-              status.textContent = '✅ Foto kebaya berhasil diunggah!';
+              status.textContent = `✅ Foto #${slotIdx} berhasil diunggah!`;
               setTimeout(() => { status.style.display = 'none'; }, 2000);
             }
-            showToast('Foto kebaya berhasil diunggah!', '📸');
+            showToast(`Foto contoh kebaya slot #${slotIdx} berhasil diunggah!`, '📸');
+          } else {
+            alert('Upload gagal: ' + (data.error || 'Server error'));
+            if (status) status.style.display = 'none';
           }
         } catch (err) {
           alert('Upload gagal: ' + err.message);
@@ -5875,6 +7448,104 @@
       };
       reader.readAsDataURL(file);
     }
+
+    // Kompatibilitas dengan pemanggil lama
+    function updateKebayaPhotoPreview(url) {
+      setKebayaSlotImage(1, url);
+    }
+
+    async function handleKebayaPhotoUpload(e) {
+      handleKebayaSlotPhotoUpload(1, e);
+    }
+
+    // Membuka modal tambah kebaya langsung dari editor paket sub-layanan
+    function openAddKebayaModalFromPackageEditor(pIdx) {
+      if (typeof saveCurrentCategoryInputs === 'function') {
+        saveCurrentCategoryInputs();
+      }
+      packageEditorTargetPkgIdx = pIdx;
+      const vId = (editingVendorPackagesClone && editingVendorPackagesClone.id) ? editingVendorPackagesClone.id : selectedKebayaVendorId;
+      openAddKebayaModalForActiveVendor(vId);
+    }
+
+    // Upload langsung foto kebaya 1-klik dari kartu paket
+    function triggerDirectKebayaUpload(vendorId, kebayaId) {
+      directKebayaVendorId = vendorId;
+      directKebayaId = kebayaId;
+      const fileInput = document.getElementById('directKebayaFileInput');
+      if (fileInput) {
+        fileInput.value = '';
+        fileInput.click();
+      }
+    }
+
+    async function handleDirectKebayaUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file || !directKebayaVendorId || !directKebayaId) return;
+
+      if (file.size > 25 * 1024 * 1024) {
+        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+        return;
+      }
+
+      showToast(`Mengunggah foto contoh kebaya (${(file.size / (1024 * 1024)).toFixed(1)} MB)...`, '⏳');
+
+      const reader = new FileReader();
+      reader.onload = async function(evt) {
+        try {
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dataUrl: evt.target.result,
+              fileName: file.name,
+              folder: 'kebaya'
+            })
+          });
+          const data = await res.json();
+          if (data.success && data.url) {
+            // Update di appConfig
+            const vendor = (appConfig.muaVendors || []).find(v => v.id === directKebayaVendorId);
+            const item = vendor?.kebayas?.find(k => k.id === directKebayaId);
+            if (item) {
+              item.image = data.url;
+              if (!item.images) item.images = [];
+              if (item.images.length === 0) item.images.push(data.url);
+              else item.images[0] = data.url;
+            }
+
+            // Update di editingVendorPackagesClone jika editor paket sedang aktif
+            if (typeof editingVendorPackagesClone !== 'undefined' && editingVendorPackagesClone && editingVendorPackagesClone.id === directKebayaVendorId) {
+              const cloneItem = (editingVendorPackagesClone.kebayas || []).find(k => k.id === directKebayaId);
+              if (cloneItem) {
+                cloneItem.image = data.url;
+                if (!cloneItem.images) cloneItem.images = [];
+                if (cloneItem.images.length === 0) cloneItem.images.push(data.url);
+                else cloneItem.images[0] = data.url;
+              }
+              if (typeof renderMuaPkgEditorPackages === 'function') {
+                renderMuaPkgEditorPackages();
+              }
+            }
+
+            // Update di katalog warna cadangan
+            if (item && appConfig.kebayaColorCatalog && appConfig.kebayaColorCatalog[item.name]) {
+              appConfig.kebayaColorCatalog[item.name].image = data.url;
+            }
+
+            saveConfigLocally();
+            renderMuaSection();
+            showToast(`Foto contoh kebaya '${item ? item.name : ''}' berhasil diperbarui!`, '👗');
+          } else {
+            alert('Upload gagal: ' + (data.error || 'Server error'));
+          }
+        } catch (err) {
+          alert('Upload gagal: ' + err.message);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
 
     // Helper Dropdown & Stock per Ukuran
     function populateVendorDropdown(selectEl, selectedId) {
@@ -5960,7 +7631,7 @@
       }
     }
 
-    function openAddKebayaModalForActiveVendor(targetVendorId) {
+        function openAddKebayaModalForActiveVendor(targetVendorId) {
       const vId = targetVendorId || selectedKebayaVendorId || (appConfig.muaVendors && appConfig.muaVendors[0]?.id) || 'novita';
       const vendor = (appConfig.muaVendors || []).find(v => v.id === vId);
 
@@ -5976,8 +7647,10 @@
       document.getElementById('kebayaColorPicker').value = '#8FA38D';
       document.getElementById('kebayaColorTagInput').value = 'Koleksi Terbaru';
       document.getElementById('kebayaColorDescInput').value = '';
-      document.getElementById('kebayaColorImageInput').value = '';
-      updateKebayaPhotoPreview('');
+
+      setKebayaSlotImage(1, '');
+      setKebayaSlotImage(2, '');
+      setKebayaSlotImage(3, '');
 
       const initialStock = { S: 2, M: 4, L: 3, XL: 2, XXL: 1 };
       renderModalSizeStockInputs(initialStock);
@@ -6010,8 +7683,11 @@
       document.getElementById('kebayaColorPicker').value = hex;
       document.getElementById('kebayaColorTagInput').value = item.tag || '';
       document.getElementById('kebayaColorDescInput').value = item.desc || '';
-      document.getElementById('kebayaColorImageInput').value = item.image || '';
-      updateKebayaPhotoPreview(item.image || '');
+
+      const imgs = (item.images && item.images.length > 0) ? item.images : (item.image ? [item.image] : []);
+      setKebayaSlotImage(1, imgs[0] || '');
+      setKebayaSlotImage(2, imgs[1] || '');
+      setKebayaSlotImage(3, imgs[2] || '');
 
       const stockData = Object.assign({}, item.stock || { S: 2, M: 4, L: 3, XL: 2, XXL: 1 });
       renderModalSizeStockInputs(stockData);
@@ -6027,10 +7703,15 @@
       const hex = document.getElementById('kebayaColorHexInput').value.trim();
       const tag = document.getElementById('kebayaColorTagInput').value.trim();
       const desc = document.getElementById('kebayaColorDescInput').value.trim();
-      const image = document.getElementById('kebayaColorImageInput').value.trim();
+
+      const slot1 = getKebayaSlotImage(1);
+      const slot2 = getKebayaSlotImage(2);
+      const slot3 = getKebayaSlotImage(3);
+      const kebayaImages = [slot1, slot2, slot3].filter(Boolean);
+      const primaryImage = kebayaImages[0] || '';
 
       if (!name) return alert('Nama Model / Warna Kebaya wajib diisi!');
-      if (!image) return alert('Foto Baju Kebaya wajib diisi!');
+      if (!primaryImage) return alert('Foto Utama Kebaya (Slot 1) wajib diisi atau diunggah!');
 
       const targetVendor = (appConfig.muaVendors || []).find(v => v.id === targetVendorId);
       if (!targetVendor) return alert('Vendor yang dipilih tidak valid!');
@@ -6045,7 +7726,8 @@
         hex: hex || '#8FA38D',
         tag: tag || 'Koleksi Studio',
         desc: desc || `Kebaya modern berpayet timbul koleksi ${targetVendor.name}.`,
-        image,
+        image: primaryImage,
+        images: kebayaImages,
         sizes,
         stock: Object.assign({}, modalKebayaStock),
         totalStock
@@ -6072,6 +7754,33 @@
         targetVendor.kebayas.push(kebayaItemData);
       }
 
+      // Sinkronisasi dengan editingVendorPackagesClone jika editor paket sedang aktif
+      if (typeof editingVendorPackagesClone !== 'undefined' && editingVendorPackagesClone && editingVendorPackagesClone.id === targetVendorId) {
+        if (!editingVendorPackagesClone.kebayas) editingVendorPackagesClone.kebayas = [];
+        const cloneIdx = editingVendorPackagesClone.kebayas.findIndex(k => k.id === kebayaItemData.id);
+        if (cloneIdx !== -1) {
+          editingVendorPackagesClone.kebayas[cloneIdx] = JSON.parse(JSON.stringify(kebayaItemData));
+        } else {
+          editingVendorPackagesClone.kebayas.push(JSON.parse(JSON.stringify(kebayaItemData)));
+        }
+
+        // Jika dipanggil dari editor paket untuk paket tertentu, otomatis centang kebaya baru ini
+        if (packageEditorTargetPkgIdx !== null && editingVendorPackagesClone.categories && editingVendorPackagesClone.categories[activePkgEditorCatIdx]) {
+          const targetPkg = editingVendorPackagesClone.categories[activePkgEditorCatIdx].subPackages[packageEditorTargetPkgIdx];
+          if (targetPkg) {
+            if (!targetPkg.colors) targetPkg.colors = [];
+            if (!targetPkg.colors.includes(name)) {
+              targetPkg.colors.push(name);
+            }
+          }
+        }
+
+        if (typeof renderMuaPkgEditorPackages === 'function' && document.getElementById('muaPackageEditorModal')?.classList.contains('active')) {
+          renderMuaPkgEditorPackages();
+        }
+      }
+      packageEditorTargetPkgIdx = null;
+
       // Sinkronisasi katalog umum sebagai backup
       if (!appConfig.kebayaColorCatalog) appConfig.kebayaColorCatalog = {};
       appConfig.kebayaColorCatalog[name] = {
@@ -6079,7 +7788,8 @@
         hex: hex || '#8FA38D',
         tag: tag || 'Koleksi Studio',
         desc: desc || `Kebaya modern koleksi ${targetVendor.name}.`,
-        image
+        image: primaryImage,
+        images: kebayaImages
       };
 
       selectedKebayaVendorId = targetVendorId;
@@ -6088,6 +7798,7 @@
       saveConfigLocally();
       showToast(`Kebaya '${name}' milik ${targetVendor.name} (${totalStock} pcs) berhasil disimpan!`);
     }
+
 
     function deleteKebayaColor(vendorId, kebayaId) {
       if (!appConfig || !appConfig.muaVendors) return;
@@ -6098,6 +7809,12 @@
 
       if (confirm(`Hapus kebaya '${item.name}' dari koleksi ${vendor.name}?`)) {
         vendor.kebayas = vendor.kebayas.filter(k => k.id !== kebayaId);
+        if (typeof editingVendorPackagesClone !== 'undefined' && editingVendorPackagesClone && editingVendorPackagesClone.id === vendorId) {
+          editingVendorPackagesClone.kebayas = (editingVendorPackagesClone.kebayas || []).filter(k => k.id !== kebayaId);
+          if (typeof renderMuaPkgEditorPackages === 'function' && document.getElementById('muaPackageEditorModal')?.classList.contains('active')) {
+            renderMuaPkgEditorPackages();
+          }
+        }
         renderMuaSection();
         saveConfigLocally();
         showToast(`Kebaya '${item.name}' telah dihapus dari ${vendor.name}.`, '🗑️');
@@ -6113,6 +7830,860 @@
       }
     });
   
+
+    // =========================================================================
+    // SECTION ADD-ONS & TAMBAHAN MANAGEMENT LOGIC
+    // =========================================================================
+    let currentAddonBranchFilter = 'all';
+    let currentAddonCategoryFilter = 'all';
+    let currentAddonPkgFilter = 'all';
+    let currentAddonStatusFilter = 'all';
+    let currentAddonSearchQuery = '';
+
+    const ADDON_CAT_META = {
+      person: { label: 'Orang & Kostum', icon: '👥', pillClass: 'cat-pill-person' },
+      time: { label: 'Waktu & Durasi', icon: '⏰', pillClass: 'cat-pill-time' },
+      frame: { label: 'Cetak & Frame', icon: '🖼️', pillClass: 'cat-pill-frame' },
+      file: { label: 'File & Storage', icon: '💾', pillClass: 'cat-pill-file' },
+      prop: { label: 'Properti & Balon', icon: '✨', pillClass: 'cat-pill-prop' },
+      selfstudio: { label: 'Self Studio', icon: '📸', pillClass: 'cat-pill-selfstudio' },
+      'pass-foto': { label: 'Pass Foto', icon: '👤', pillClass: 'cat-pill-pass-foto' },
+      other: { label: 'Lain-lain', icon: '📦', pillClass: 'cat-pill-other' }
+    };
+
+    const ADDON_PKG_NAMES = {
+      all: 'Semua Paket',
+      'grad-indoor': 'Wisuda Indoor',
+      'grad-outdoor': 'Wisuda Outdoor',
+      group: 'Group',
+      family: 'Family',
+      couple: 'Couple',
+      prewedding: 'Prewedding',
+      personal: 'Personal',
+      maternity: 'Maternity',
+      birthday: 'Birthday',
+      'self-studio': 'Self Studio',
+      'pass-foto': 'Pass Foto',
+      undangan: 'Foto Undangan',
+      'sewa-studio': 'Sewa Studio'
+    };
+
+    function renderAddOns() {
+      if (!appConfig) return;
+      if (!appConfig.addOns) appConfig.addOns = [];
+
+      const addOns = appConfig.addOns;
+
+      // Update badge in top nav
+      const badge = document.getElementById('addonsCountBadge');
+      if (badge) badge.textContent = addOns.length;
+
+      // Update quick metrics
+      const activeCount = addOns.filter(a => a.active !== false).length;
+      const personCount = addOns.filter(a => a.category === 'person').length;
+      const frameCount = addOns.filter(a => a.category === 'frame' || (a.name || '').toLowerCase().includes('cetak')).length;
+      const timeCount = addOns.filter(a => a.category === 'time' || (a.unit || '').includes('menit') || (a.name || '').toLowerCase().includes('waktu')).length;
+      const fileCount = addOns.filter(a => a.category === 'file' || (a.name || '').toLowerCase().includes('drive')).length;
+
+      const mTotal = document.getElementById('addonMetricTotal');
+      const mActive = document.getElementById('addonMetricActive');
+      const mPerson = document.getElementById('addonMetricPerson');
+      const mFrame = document.getElementById('addonMetricFrame');
+      const mTime = document.getElementById('addonMetricTime');
+      const mFile = document.getElementById('addonMetricFile');
+
+      if (mTotal) mTotal.textContent = addOns.length;
+      if (mActive) mActive.textContent = activeCount;
+      if (mPerson) mPerson.textContent = personCount;
+      if (mFrame) mFrame.textContent = frameCount;
+      if (mTime) mTime.textContent = timeCount;
+      if (mFile) mFile.textContent = fileCount;
+
+      const container = document.getElementById('addonsGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      // Filter add-ons
+      const filtered = addOns.map((item, origIndex) => ({ ...item, _origIndex: origIndex })).filter(item => {
+        // Branch filter
+        if (currentAddonBranchFilter !== 'all') {
+          const branches = item.applicableBranches || ['all'];
+          if (!branches.includes('all') && !branches.includes(currentAddonBranchFilter)) {
+            return false;
+          }
+        }
+
+        // Category filter
+        if (currentAddonCategoryFilter !== 'all') {
+          let itemCat = item.category || 'other';
+          const nameLower = (item.name || '').toLowerCase();
+          if (currentAddonCategoryFilter === 'time') {
+            const isTime = itemCat === 'time' || nameLower.includes('waktu') || (item.unit && item.unit.includes('menit'));
+            if (!isTime) return false;
+          } else if (currentAddonCategoryFilter === 'frame') {
+            const isFrame = itemCat === 'frame' || nameLower.includes('cetak') || nameLower.includes('bingkai');
+            if (!isFrame) return false;
+          } else if (itemCat !== currentAddonCategoryFilter) {
+            return false;
+          }
+        }
+
+        // Pkg filter
+        if (currentAddonPkgFilter !== 'all') {
+          const pkgs = item.applicableCategories || ['all'];
+          if (!pkgs.includes('all')) {
+            if (currentAddonPkgFilter === 'grad') {
+              if (!pkgs.includes('grad-indoor') && !pkgs.includes('grad-outdoor')) return false;
+            } else if (currentAddonPkgFilter === 'group_family') {
+              if (!pkgs.includes('group') && !pkgs.includes('family')) return false;
+            } else if (currentAddonPkgFilter === 'couple_prewed') {
+              if (!pkgs.includes('couple') && !pkgs.includes('prewedding')) return false;
+            } else if (currentAddonPkgFilter === 'personal_maternity') {
+              if (!pkgs.includes('personal') && !pkgs.includes('maternity')) return false;
+            } else if (!pkgs.includes(currentAddonPkgFilter)) {
+              return false;
+            }
+          }
+        }
+
+        // Status filter
+        if (currentAddonStatusFilter === 'active' && item.active === false) return false;
+        if (currentAddonStatusFilter === 'inactive' && item.active !== false) return false;
+
+        // Search query
+        if (currentAddonSearchQuery) {
+          const q = currentAddonSearchQuery.toLowerCase();
+          const matchName = (item.name || '').toLowerCase().includes(q);
+          const matchDesc = (item.description || '').toLowerCase().includes(q);
+          const matchId = (item.id || '').toLowerCase().includes(q);
+          const matchUnit = (item.unit || '').toLowerCase().includes(q);
+          const matchPrice = String(item.price || '').includes(q);
+          if (!matchName && !matchDesc && !matchId && !matchUnit && !matchPrice) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 3rem 1.5rem; text-align: center; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 16px;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🔍</div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.35rem;">Tidak Ada Add-On Ditemukan</h3>
+            <p style="font-size: 0.85rem; color: #71717A; margin-bottom: 1rem;">Coba sesuaikan kata kunci pencarian atau ubah filter cabang & kategori di atas.</p>
+            <button class="btn btn-add" onclick="openAddAddonModal()">+ Tambah Add-On Baru</button>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isInactive = item.active === false;
+        const catMeta = ADDON_CAT_META[item.category] || ADDON_CAT_META.other;
+        
+        let branchTagHtml = '';
+        const branches = item.applicableBranches || ['all'];
+        if (branches.includes('all') || (branches.includes('cabang-1') && branches.includes('cabang-2'))) {
+          branchTagHtml = '<span class="badge-branch-tag badge-branch-both" style="font-size: 0.66rem;">Studio 1 & 2</span>';
+        } else if (branches.includes('cabang-2')) {
+          branchTagHtml = '<span class="badge-branch-tag badge-branch-2" style="font-size: 0.66rem;">Studio 2 (Dinoyo)</span>';
+        } else {
+          branchTagHtml = '<span class="badge-branch-tag badge-branch-1" style="font-size: 0.66rem;">Studio 1 (Junrejo)</span>';
+        }
+
+        const pkgs = item.applicableCategories || ['all'];
+        let pkgsHtml = '';
+        if (pkgs.includes('all')) {
+          pkgsHtml = '<span class="addon-tag-pill all">🌐 Semua Paket</span>';
+        } else {
+          const maxDisplay = 3;
+          const displayPkgs = pkgs.slice(0, maxDisplay);
+          pkgsHtml = displayPkgs.map(k => `<span class="addon-tag-pill">${ADDON_PKG_NAMES[k] || k}</span>`).join('');
+          if (pkgs.length > maxDisplay) {
+            pkgsHtml += `<span class="addon-tag-pill" title="${pkgs.slice(maxDisplay).map(k => ADDON_PKG_NAMES[k] || k).join(', ')}">+${pkgs.length - maxDisplay} lainnya</span>`;
+          }
+        }
+
+        const card = document.createElement('div');
+        card.className = 'addon-card' + (isInactive ? ' inactive' : '');
+        card.innerHTML = `
+          <div>
+            <div class="addon-card-header">
+              <div class="addon-badges-left">
+                <span class="addon-cat-pill ${catMeta.pillClass}">${catMeta.icon} ${catMeta.label}</span>
+                ${branchTagHtml}
+              </div>
+              <span class="status-indicator-chip ${isInactive ? 'inactive' : 'active'}" style="font-size: 0.68rem; padding: 2px 7px;">
+                ${isInactive ? '⚪ Nonaktif' : '🟢 Aktif di Web'}
+              </span>
+            </div>
+
+            <div class="addon-title">${escapeHtml(item.name)}</div>
+            <div style="font-size: 0.72rem; color: #A1A1AA; font-family: monospace; margin-top: 1px;">ID: ${escapeHtml(item.id)}</div>
+
+            <div class="addon-price-row">
+              <span class="addon-price-val">Rp ${(item.price || 0).toLocaleString('id-ID')}</span>
+              <span class="addon-price-unit">/ ${escapeHtml(item.unit || 'sesi')}</span>
+            </div>
+
+            <div class="addon-desc-text" title="${escapeHtml(item.description || '')}">${escapeHtml(item.description || 'Pilihan add-on ekstra Alviero Studio.')}</div>
+
+            <div class="addon-applicable-tags">
+              ${pkgsHtml}
+            </div>
+          </div>
+
+          <div class="addon-card-footer">
+            <label class="toggle-label-wrap" title="Aktifkan atau sembunyikan add-on dari kalkulator web">
+              <div class="switch">
+                <input type="checkbox" ${!isInactive ? 'checked' : ''} onchange="toggleAddonActive(${item._origIndex}, this.checked)">
+                <span class="slider"></span>
+              </div>
+              <span class="toggle-text">${!isInactive ? 'Aktif' : 'Tutup'}</span>
+            </label>
+
+            <div class="card-actions-group">
+              <button class="btn-action" onclick="openEditAddonModal(${item._origIndex})">✏️ Edit</button>
+              <button class="btn-action delete" onclick="deleteAddon(${item._origIndex})">🗑️ Hapus</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterAddonBranch(branch, btn) {
+      currentAddonBranchFilter = branch;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAddOns();
+    }
+
+    function filterAddonCategory(cat, btn) {
+      currentAddonCategoryFilter = cat;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAddOns();
+    }
+
+    function filterAddonPkg(pkg, btn) {
+      currentAddonPkgFilter = pkg;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAddOns();
+    }
+
+    function filterAddonStatus(status, btn) {
+      currentAddonStatusFilter = status;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAddOns();
+    }
+
+    function handleSearchAddon(val) {
+      currentAddonSearchQuery = (val || '').trim();
+      renderAddOns();
+    }
+
+    function setAddonUnit(unit) {
+      const input = document.getElementById('addonUnitInput');
+      if (input) input.value = unit;
+    }
+
+    function toggleAllAddonPkgCheckboxes() {
+      const container = document.getElementById('addonPkgCheckboxesList');
+      if (!container) return;
+      const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+      const allChecked = Array.from(checkboxes).every(c => c.checked);
+      checkboxes.forEach(c => { c.checked = !allChecked; });
+    }
+
+    function openAddAddonModal() {
+      document.getElementById('addonModalTitle').textContent = 'Tambah Add-On Baru';
+      document.getElementById('addonEditIndex').value = '-1';
+      document.getElementById('addonNameInput').value = '';
+      document.getElementById('addonIdInput').value = 'addon-' + Date.now();
+      document.getElementById('addonCategorySelect').value = 'person';
+      document.getElementById('addonPriceInput').value = '';
+      document.getElementById('addonUnitInput').value = 'orang';
+      document.getElementById('addonDescInput').value = '';
+      document.getElementById('addonBranch1').checked = true;
+      document.getElementById('addonBranch2').checked = true;
+      document.getElementById('addonActiveCheckbox').checked = true;
+
+      // Check all packages by default
+      const container = document.getElementById('addonPkgCheckboxesList');
+      if (container) {
+        container.querySelectorAll('input[type="checkbox"]').forEach(c => {
+          c.checked = (c.value === 'all');
+        });
+      }
+
+      openModal('addonModal');
+      setTimeout(() => document.getElementById('addonNameInput')?.focus(), 150);
+    }
+
+    function openEditAddonModal(origIndex) {
+      if (!appConfig || !appConfig.addOns || !appConfig.addOns[origIndex]) return;
+      const item = appConfig.addOns[origIndex];
+
+      document.getElementById('addonModalTitle').textContent = 'Edit Add-On: ' + item.name;
+      document.getElementById('addonEditIndex').value = origIndex;
+      document.getElementById('addonNameInput').value = item.name || '';
+      document.getElementById('addonIdInput').value = item.id || '';
+      document.getElementById('addonCategorySelect').value = item.category || 'person';
+      document.getElementById('addonPriceInput').value = item.price !== undefined ? item.price : '';
+      document.getElementById('addonUnitInput').value = item.unit || '';
+      document.getElementById('addonDescInput').value = item.description || '';
+      
+      const branches = item.applicableBranches || ['all'];
+      const isAllBranches = branches.includes('all');
+      document.getElementById('addonBranch1').checked = isAllBranches || branches.includes('cabang-1');
+      document.getElementById('addonBranch2').checked = isAllBranches || branches.includes('cabang-2');
+
+      const pkgs = item.applicableCategories || ['all'];
+      const container = document.getElementById('addonPkgCheckboxesList');
+      if (container) {
+        container.querySelectorAll('input[type="checkbox"]').forEach(c => {
+          c.checked = pkgs.includes('all') ? (c.value === 'all') : pkgs.includes(c.value);
+        });
+      }
+
+      document.getElementById('addonActiveCheckbox').checked = item.active !== false;
+
+      openModal('addonModal');
+      setTimeout(() => document.getElementById('addonNameInput')?.focus(), 150);
+    }
+
+    function saveAddonModal() {
+      const editIndex = parseInt(document.getElementById('addonEditIndex').value, 10);
+      const name = (document.getElementById('addonNameInput').value || '').trim();
+      let id = (document.getElementById('addonIdInput').value || '').trim();
+      const category = document.getElementById('addonCategorySelect').value;
+      const priceRaw = document.getElementById('addonPriceInput').value;
+      const price = parseFloat(priceRaw) || 0;
+      const unit = (document.getElementById('addonUnitInput').value || '').trim();
+      const description = (document.getElementById('addonDescInput').value || '').trim();
+      const active = document.getElementById('addonActiveCheckbox').checked;
+
+      if (!name) {
+        alert('Nama Add-On wajib diisi!');
+        document.getElementById('addonNameInput').focus();
+        return;
+      }
+
+      if (!id) {
+        id = 'addon-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      }
+
+      // Check unique ID if new or renamed
+      if (!appConfig.addOns) appConfig.addOns = [];
+      const duplicate = appConfig.addOns.find((a, idx) => idx !== editIndex && a.id === id);
+      if (duplicate) {
+        alert('ID Add-On "' + id + '" sudah digunakan oleh add-on lain! Gunakan ID yang unik.');
+        document.getElementById('addonIdInput').focus();
+        return;
+      }
+
+      // Branches
+      const b1 = document.getElementById('addonBranch1').checked;
+      const b2 = document.getElementById('addonBranch2').checked;
+      let applicableBranches = ['all'];
+      if (b1 && !b2) applicableBranches = ['cabang-1'];
+      else if (!b1 && b2) applicableBranches = ['cabang-2'];
+      else if (b1 && b2) applicableBranches = ['all'];
+      else applicableBranches = ['all'];
+
+      // Applicable packages
+      const container = document.getElementById('addonPkgCheckboxesList');
+      let applicableCategories = ['all'];
+      if (container) {
+        const checkedVals = Array.from(container.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
+        if (checkedVals.includes('all') || checkedVals.length === 0) {
+          applicableCategories = ['all'];
+        } else {
+          applicableCategories = checkedVals;
+        }
+      }
+
+      const isSelf = category === 'selfstudio' || applicableCategories.includes('self-studio');
+
+      const addonData = {
+        id,
+        name,
+        price,
+        unit: unit || 'sesi',
+        description,
+        category,
+        isSelfStudioOnly: !!isSelf,
+        applicableCategories,
+        applicableBranches,
+        active
+      };
+
+      if (editIndex >= 0) {
+        appConfig.addOns[editIndex] = addonData;
+      } else {
+        appConfig.addOns.push(addonData);
+      }
+
+      closeModal('addonModal');
+      renderAddOns();
+      saveConfigLocally();
+      showToast(editIndex >= 0 ? `✅ Add-on "${name}" berhasil diperbarui!` : `✅ Add-on "${name}" berhasil ditambahkan!`, '✨');
+    }
+
+    function toggleAddonActive(origIndex, isChecked) {
+      if (!appConfig || !appConfig.addOns || !appConfig.addOns[origIndex]) return;
+      appConfig.addOns[origIndex].active = isChecked;
+      renderAddOns();
+      saveConfigLocally();
+      showToast(`Status Add-on "${appConfig.addOns[origIndex].name}" diubah ke ${isChecked ? 'Aktif' : 'Nonaktif'}.`, isChecked ? '🟢' : '⚪');
+    }
+
+    function deleteAddon(origIndex) {
+      if (!appConfig || !appConfig.addOns || !appConfig.addOns[origIndex]) return;
+      const item = appConfig.addOns[origIndex];
+      if (!confirm(`Hapus add-on "${item.name}" (ID: ${item.id})?\n\nTindakan ini akan menghapus opsi add-on dari kalkulator pemesanan.`)) {
+        return;
+      }
+      appConfig.addOns.splice(origIndex, 1);
+      renderAddOns();
+      saveConfigLocally();
+      showToast(`Add-on "${item.name}" berhasil dihapus.`, '🗑️');
+    }
+
+
+    // =========================================================================
+    // SECTION BACKGROUND CONFLICT & COMPATIBILITY LOGIC
+    // =========================================================================
+    let currentBgSubView = 'list';
+    let currentConflictBranchFilter = 'all';
+    let currentConflictScopeFilter = 'all';
+    let currentMatrixBranch = 'cabang-2';
+
+    function switchBgSubView(view) {
+      currentBgSubView = view;
+      const btnList = document.getElementById('btnSubViewBgList');
+      const btnConflicts = document.getElementById('btnSubViewBgConflicts');
+      const viewList = document.getElementById('bgListViewContainer');
+      const viewConflicts = document.getElementById('bgConflictsViewContainer');
+      const btnAddBg = document.getElementById('btnAddBgHeader');
+      const btnAddConflict = document.getElementById('btnAddBgConflictHeader');
+
+      if (view === 'list') {
+        if (btnList) btnList.classList.add('active');
+        if (btnConflicts) btnConflicts.classList.remove('active');
+        if (viewList) viewList.style.display = 'block';
+        if (viewConflicts) viewConflicts.style.display = 'none';
+        if (btnAddBg) btnAddBg.style.display = 'inline-flex';
+        if (btnAddConflict) btnAddConflict.style.display = 'none';
+      } else {
+        if (btnList) btnList.classList.remove('active');
+        if (btnConflicts) btnConflicts.classList.add('active');
+        if (viewList) viewList.style.display = 'none';
+        if (viewConflicts) viewConflicts.style.display = 'block';
+        if (btnAddBg) btnAddBg.style.display = 'none';
+        if (btnAddConflict) btnAddConflict.style.display = 'inline-flex';
+        renderBackgroundConflictRules();
+        renderBackgroundConflictMatrix();
+      }
+    }
+
+    function renderBackgroundConflictRules() {
+      if (!appConfig) return;
+      if (!appConfig.backgroundConflictRules) appConfig.backgroundConflictRules = [];
+
+      const rules = appConfig.backgroundConflictRules;
+      const bgs = appConfig.backgrounds || [];
+
+      // Update badge
+      const badge = document.getElementById('conflictRulesCountBadge');
+      if (badge) badge.textContent = rules.length;
+      const subListBadge = document.getElementById('bgListSubCountBadge');
+      if (subListBadge) subListBadge.textContent = bgs.length;
+
+      // Quick metrics
+      const c1Count = rules.filter(r => r.branch === 'cabang-1').length;
+      const c2Count = rules.filter(r => r.branch === 'cabang-2').length;
+      const activeCount = rules.filter(r => r.active !== false).length;
+
+      const mTotal = document.getElementById('conflictMetricTotal');
+      const mC1 = document.getElementById('conflictMetricC1');
+      const mC2 = document.getElementById('conflictMetricC2');
+      const mActive = document.getElementById('conflictMetricActive');
+
+      if (mTotal) mTotal.textContent = rules.length;
+      if (mC1) mC1.textContent = c1Count;
+      if (mC2) mC2.textContent = c2Count;
+      if (mActive) mActive.textContent = activeCount;
+
+      const container = document.getElementById('bgConflictRulesGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const searchQ = (document.getElementById('conflictSearchInput')?.value || '').toLowerCase().trim();
+
+      const filtered = rules.map((r, idx) => ({ ...r, _origIndex: idx })).filter(r => {
+        if (currentConflictBranchFilter !== 'all' && r.branch && r.branch !== currentConflictBranchFilter) {
+          return false;
+        }
+        if (currentConflictScopeFilter !== 'all' && r.scope !== currentConflictScopeFilter) {
+          return false;
+        }
+
+        const bgA = bgs.find(b => b.id === r.backgroundIdA) || { name: r.backgroundIdA };
+        const bgB = bgs.find(b => b.id === r.backgroundIdB) || { name: r.backgroundIdB };
+
+        if (searchQ) {
+          const matchA = (bgA.name || '').toLowerCase().includes(searchQ);
+          const matchB = (bgB.name || '').toLowerCase().includes(searchQ);
+          const matchReason = (r.reason || '').toLowerCase().includes(searchQ);
+          if (!matchA && !matchB && !matchReason) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; padding: 2.5rem 1.5rem; text-align: center; background: #FAF9F6; border: 1px dashed var(--border); border-radius: 16px;">
+            <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚡</div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.35rem;">Belum Ada Aturan Bentrok yang Sesuai</h3>
+            <p style="font-size: 0.82rem; color: #71717A; margin-bottom: 1rem;">Latar yang tidak memiliki aturan bentrok dapat saling bertemu dan dipilih bersamaan.</p>
+            <button class="btn btn-add" onclick="openAddBgConflictModal()">+ Tambah Aturan Bentrok</button>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(r => {
+        const isInactive = r.active === false;
+        const bgA = bgs.find(b => b.id === r.backgroundIdA) || { id: r.backgroundIdA, name: r.backgroundIdA, hex: '#A9BCA7' };
+        const bgB = bgs.find(b => b.id === r.backgroundIdB) || { id: r.backgroundIdB, name: r.backgroundIdB, hex: '#A9BCA7' };
+
+        const branchLabel = r.branch === 'cabang-2' ? 'Studio 2 (Dinoyo)' : 'Studio 1 (Junrejo)';
+        const branchBadgeClass = r.branch === 'cabang-2' ? 'badge-branch-2' : 'badge-branch-1';
+
+        let scopeLabel = '🔒 Keduanya (Sesi & Slot)';
+        let scopeClass = 'scope-both';
+        if (r.scope === 'session') {
+          scopeLabel = '👥 1 Sesi (Paket 2)';
+          scopeClass = 'scope-session';
+        } else if (r.scope === 'slot') {
+          scopeLabel = '⏰ 1 Slot Jam Bersamaan';
+          scopeClass = 'scope-slot';
+        }
+
+        const card = document.createElement('div');
+        card.className = 'conflict-rule-card' + (isInactive ? ' inactive' : '');
+        card.innerHTML = `
+          <div>
+            <div class="conflict-card-header">
+              <div style="display: flex; gap: 5px; align-items: center; flex-wrap: wrap;">
+                <span class="badge-branch-tag ${branchBadgeClass}" style="font-size: 0.66rem;">${branchLabel}</span>
+                <span class="conflict-scope-pill ${scopeClass}">${scopeLabel}</span>
+              </div>
+              <span class="status-indicator-chip ${isInactive ? 'inactive' : 'active'}" style="font-size: 0.68rem; padding: 2px 7px;">
+                ${isInactive ? '⚪ Nonaktif' : '🟢 Aktif di Web'}
+              </span>
+            </div>
+
+            <div class="clash-battle-row">
+              <div class="clash-side">
+                <div class="clash-swatch" style="background-color: ${bgA.hex || '#A9BCA7'};" title="${escapeHtml(bgA.name)}"></div>
+                <div class="clash-name">${escapeHtml(bgA.name)}</div>
+              </div>
+
+              <div class="clash-center-badge">
+                <div class="clash-icon-badge">⚡</div>
+                <span class="clash-label-text">TIDAK BISA BERTEMU</span>
+              </div>
+
+              <div class="clash-side">
+                <div class="clash-swatch" style="background-color: ${bgB.hex || '#A9BCA7'};" title="${escapeHtml(bgB.name)}"></div>
+                <div class="clash-name">${escapeHtml(bgB.name)}</div>
+              </div>
+            </div>
+
+            <div class="conflict-reason-box">
+              <b>Alasan Bentrok:</b> ${escapeHtml(r.reason || 'Bentrok area panggung yang sama')}
+            </div>
+          </div>
+
+          <div class="conflict-card-footer">
+            <label class="toggle-label-wrap" title="Aktifkan atau matikan aturan bentrok ini">
+              <div class="switch">
+                <input type="checkbox" ${!isInactive ? 'checked' : ''} onchange="toggleBgConflictActive(${r._origIndex}, this.checked)">
+                <span class="slider"></span>
+              </div>
+              <span class="toggle-text">${!isInactive ? 'Aktif' : 'Mati'}</span>
+            </label>
+
+            <div class="card-actions-group">
+              <button class="btn-action" onclick="openEditBgConflictModal(${r._origIndex})">✏️ Edit</button>
+              <button class="btn-action delete" onclick="deleteBgConflictRule(${r._origIndex})">🗑️ Hapus</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderBackgroundConflictMatrix() {
+      const container = document.getElementById('bgConflictMatrixContainer');
+      if (!container || !appConfig) return;
+
+      const branch = currentMatrixBranch;
+      const bgs = (appConfig.backgrounds || []).filter(b => (b.applicableBranches || []).includes(branch) && b.active !== false);
+      const rules = (appConfig.backgroundConflictRules || []).filter(r => (r.branch === branch || !r.branch || r.branch === 'all') && r.active !== false);
+
+      if (bgs.length === 0) {
+        container.innerHTML = '<div style="padding: 1.5rem; text-align: center; color: #A1A1AA;">Tidak ada background aktif di cabang ini.</div>';
+        return;
+      }
+
+      let html = '<table class="matrix-table">';
+      
+      // Table Header Row
+      html += '<thead><tr><th class="matrix-corner">Background ⇄ Background</th>';
+      bgs.forEach(b => {
+        html += `<th title="${escapeHtml(b.name)}">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${b.hex || '#999'};"></span>
+            <span>${escapeHtml(b.name)}</span>
+          </div>
+        </th>`;
+      });
+      html += '</tr></thead><tbody>';
+
+      // Table Body Rows
+      bgs.forEach(rowBg => {
+        html += `<tr><td class="matrix-row-head" title="${escapeHtml(rowBg.name)}">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: ${rowBg.hex || '#999'}; flex-shrink: 0;"></span>
+            <span>${escapeHtml(rowBg.name)}</span>
+          </div>
+        </td>`;
+
+        bgs.forEach(colBg => {
+          if (rowBg.id === colBg.id) {
+            html += '<td class="matrix-cell-self" title="Background yang sama">-</td>';
+          } else {
+            // Check if conflict rule exists
+            const ruleIdx = (appConfig.backgroundConflictRules || []).findIndex(r => {
+              if (r.active === false) return false;
+              if (r.branch && r.branch !== 'all' && r.branch !== branch) return false;
+              return (r.backgroundIdA === rowBg.id && r.backgroundIdB === colBg.id) ||
+                     (r.backgroundIdA === colBg.id && r.backgroundIdB === rowBg.id);
+            });
+
+            if (ruleIdx !== -1) {
+              const rule = appConfig.backgroundConflictRules[ruleIdx];
+              html += `<td class="matrix-cell-no" onclick="openEditBgConflictModal(${ruleIdx})" title="❌ BENTROK: ${escapeHtml(rule.reason || 'Tidak bisa bertemu')}. Klik untuk edit.">
+                ❌ Bentrok
+              </td>`;
+            } else {
+              html += `<td class="matrix-cell-yes" onclick="quickAddConflictRule('${branch}', '${rowBg.id}', '${colBg.id}')" title="✅ BISA BERTEMU: Klik jika ingin membuat kedua background ini bentrok.">
+                ✅ Bisa
+              </td>`;
+            }
+          }
+        });
+
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function switchMatrixBranch(branch, btn) {
+      currentMatrixBranch = branch;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBackgroundConflictMatrix();
+    }
+
+    function filterConflictBranch(branch, btn) {
+      currentConflictBranchFilter = branch;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBackgroundConflictRules();
+    }
+
+    function filterConflictScope(scope, btn) {
+      currentConflictScopeFilter = scope;
+      btn.closest('.filter-group').querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderBackgroundConflictRules();
+    }
+
+    function setConflictReason(reason) {
+      const input = document.getElementById('bgConflictReasonInput');
+      if (input) input.value = reason;
+    }
+
+    function updateBgConflictModalOptions(preserveB = false) {
+      const branch = document.getElementById('bgConflictBranchSelect').value;
+      const bgs = (appConfig.backgrounds || []).filter(b => (b.applicableBranches || []).includes(branch));
+      
+      const selectA = document.getElementById('bgConflictSelectA');
+      const selectB = document.getElementById('bgConflictSelectB');
+
+      const valA = selectA.value;
+      const valB = selectB.value;
+
+      selectA.innerHTML = bgs.map(b => `<option value="${b.id}">${escapeHtml(b.name)} (${(b.applicableTo || []).join(', ')})</option>`).join('');
+      if (bgs.some(b => b.id === valA)) selectA.value = valA;
+
+      const currentSelectedA = selectA.value;
+      const bgsForB = bgs.filter(b => b.id !== currentSelectedA);
+
+      selectB.innerHTML = bgsForB.map(b => `<option value="${b.id}">${escapeHtml(b.name)} (${(b.applicableTo || []).join(', ')})</option>`).join('');
+      if (preserveB && bgsForB.some(b => b.id === valB)) selectB.value = valB;
+    }
+
+    function openAddBgConflictModal() {
+      document.getElementById('bgConflictModalTitle').textContent = 'Tambah Aturan Bentrok Background Baru';
+      document.getElementById('bgConflictEditIndex').value = '-1';
+      document.getElementById('bgConflictBranchSelect').value = currentMatrixBranch || 'cabang-2';
+      updateBgConflictModalOptions();
+      document.getElementById('bgConflictScopeSelect').value = 'both';
+      document.getElementById('bgConflictReasonInput').value = 'Bentrok area panggung yang sama';
+      document.getElementById('bgConflictActiveCheckbox').checked = true;
+
+      openModal('bgConflictModal');
+    }
+
+    function quickAddConflictRule(branch, bgIdA, bgIdB) {
+      document.getElementById('bgConflictModalTitle').textContent = 'Tambah Aturan Bentrok Background';
+      document.getElementById('bgConflictEditIndex').value = '-1';
+      document.getElementById('bgConflictBranchSelect').value = branch;
+      updateBgConflictModalOptions();
+      
+      document.getElementById('bgConflictSelectA').value = bgIdA;
+      updateBgConflictModalOptions(true);
+      document.getElementById('bgConflictSelectB').value = bgIdB;
+
+      const bgs = appConfig.backgrounds || [];
+      const nameA = (bgs.find(b => b.id === bgIdA) || {}).name || bgIdA;
+      const nameB = (bgs.find(b => b.id === bgIdB) || {}).name || bgIdB;
+
+      document.getElementById('bgConflictScopeSelect').value = 'both';
+      document.getElementById('bgConflictReasonInput').value = `Bentrok area panggung yang sama (${nameA} ⇄ ${nameB})`;
+      document.getElementById('bgConflictActiveCheckbox').checked = true;
+
+      openModal('bgConflictModal');
+    }
+
+    function openEditBgConflictModal(origIndex) {
+      if (!appConfig || !appConfig.backgroundConflictRules || !appConfig.backgroundConflictRules[origIndex]) return;
+      const r = appConfig.backgroundConflictRules[origIndex];
+
+      document.getElementById('bgConflictModalTitle').textContent = 'Edit Aturan Bentrok Background';
+      document.getElementById('bgConflictEditIndex').value = origIndex;
+      document.getElementById('bgConflictBranchSelect').value = r.branch || 'cabang-2';
+      
+      updateBgConflictModalOptions();
+      document.getElementById('bgConflictSelectA').value = r.backgroundIdA;
+      updateBgConflictModalOptions(true);
+      document.getElementById('bgConflictSelectB').value = r.backgroundIdB;
+
+      document.getElementById('bgConflictScopeSelect').value = r.scope || 'both';
+      document.getElementById('bgConflictReasonInput').value = r.reason || 'Bentrok area panggung yang sama';
+      document.getElementById('bgConflictActiveCheckbox').checked = r.active !== false;
+
+      openModal('bgConflictModal');
+    }
+
+    function saveBgConflictModal() {
+      const editIndex = parseInt(document.getElementById('bgConflictEditIndex').value, 10);
+      const branch = document.getElementById('bgConflictBranchSelect').value;
+      const idA = document.getElementById('bgConflictSelectA').value;
+      const idB = document.getElementById('bgConflictSelectB').value;
+      const scope = document.getElementById('bgConflictScopeSelect').value;
+      const reason = (document.getElementById('bgConflictReasonInput').value || '').trim();
+      const active = document.getElementById('bgConflictActiveCheckbox').checked;
+
+      if (!idA || !idB) {
+        alert('Harap pilih Background A dan Background B!');
+        return;
+      }
+
+      if (idA === idB) {
+        alert('Background A dan Background B tidak boleh sama!');
+        return;
+      }
+
+      if (!appConfig.backgroundConflictRules) appConfig.backgroundConflictRules = [];
+
+      // Check if duplicate rule exists
+      const duplicate = appConfig.backgroundConflictRules.find((r, idx) => {
+        if (idx === editIndex) return false;
+        if (r.branch && r.branch !== 'all' && branch !== 'all' && r.branch !== branch) return false;
+        return (r.backgroundIdA === idA && r.backgroundIdB === idB) ||
+               (r.backgroundIdA === idB && r.backgroundIdB === idA);
+      });
+
+      if (duplicate) {
+        alert('Aturan bentrok untuk pasangan background ini sudah ada!');
+        return;
+      }
+
+      const bgs = appConfig.backgrounds || [];
+      const nameA = (bgs.find(b => b.id === idA) || {}).name || idA;
+      const nameB = (bgs.find(b => b.id === idB) || {}).name || idB;
+
+      const ruleData = {
+        id: editIndex >= 0 ? appConfig.backgroundConflictRules[editIndex].id : ('rule-' + branch + '-' + Date.now()),
+        branch,
+        backgroundIdA: idA,
+        backgroundIdB: idB,
+        scope,
+        reason: reason || `Bentrok area panggung yang sama (${nameA} ⇄ ${nameB})`,
+        active
+      };
+
+      if (editIndex >= 0) {
+        appConfig.backgroundConflictRules[editIndex] = ruleData;
+      } else {
+        appConfig.backgroundConflictRules.push(ruleData);
+      }
+
+      closeModal('bgConflictModal');
+      renderBackgroundConflictRules();
+      renderBackgroundConflictMatrix();
+      saveConfigLocally();
+      showToast(editIndex >= 0 ? `✅ Aturan bentrok "${nameA} ⇄ ${nameB}" berhasil diperbarui!` : `✅ Aturan bentrok "${nameA} ⇄ ${nameB}" berhasil ditambahkan!`, '⚡');
+    }
+
+    function toggleBgConflictActive(origIndex, isChecked) {
+      if (!appConfig || !appConfig.backgroundConflictRules || !appConfig.backgroundConflictRules[origIndex]) return;
+      appConfig.backgroundConflictRules[origIndex].active = isChecked;
+      renderBackgroundConflictRules();
+      renderBackgroundConflictMatrix();
+      saveConfigLocally();
+      showToast(`Status aturan bentrok diubah ke ${isChecked ? 'Aktif' : 'Nonaktif'}.`, isChecked ? '🟢' : '⚪');
+    }
+
+    function deleteBgConflictRule(origIndex) {
+      if (!appConfig || !appConfig.backgroundConflictRules || !appConfig.backgroundConflictRules[origIndex]) return;
+      const r = appConfig.backgroundConflictRules[origIndex];
+      const bgs = appConfig.backgrounds || [];
+      const nameA = (bgs.find(b => b.id === r.backgroundIdA) || {}).name || r.backgroundIdA;
+      const nameB = (bgs.find(b => b.id === r.backgroundIdB) || {}).name || r.backgroundIdB;
+
+      if (!confirm(`Hapus aturan bentrok antara "${nameA}" dan "${nameB}"?\n\nSetelah dihapus, kedua background ini akan BISA BERTEMU kembali di kalkulator pemesanan.`)) {
+        return;
+      }
+
+      appConfig.backgroundConflictRules.splice(origIndex, 1);
+      renderBackgroundConflictRules();
+      renderBackgroundConflictMatrix();
+      saveConfigLocally();
+      showToast(`Aturan bentrok "${nameA} ⇄ ${nameB}" berhasil dihapus.`, '🗑️');
+    }
+
 </script>
 </body>
 </html>
