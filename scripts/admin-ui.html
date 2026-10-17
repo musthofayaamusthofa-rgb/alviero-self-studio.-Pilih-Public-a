@@ -2858,28 +2858,33 @@
             </button>
           </div>
 
-          <!-- Foto Portofolio Kategori (1 Foto) Sesuai Permintaan Foto 1 -->
-          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-              <label class="form-label" style="margin: 0; font-size: 0.78rem; font-weight: 700;">
-                📸 Foto Portofolio Kategori Ini (1 Foto) *
-              </label>
-              <span style="font-size: 0.7rem; color: #71717A;">Maks. 25MB (PNG/JPG/WEBP)</span>
+          <!-- Foto Portofolio Kategori (Bisa Lebih Dari 1 Foto) -->
+          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.45rem;">
+              <div>
+                <label class="form-label" style="margin: 0; font-size: 0.82rem; font-weight: 700; color: var(--charcoal);">
+                  📸 Foto Portofolio Kategori Ini (Bisa Lebih Dari 1 Foto)
+                </label>
+                <div style="font-size: 0.71rem; color: #71717A;">
+                  Unggah satu atau beberapa contoh hasil rias untuk kategori ini (Maks. 25MB per foto)
+                </div>
+              </div>
+              <div style="display: flex; gap: 0.4rem; align-items: center;">
+                <input type="file" id="muaActiveCategoryMultiFileInput" accept="image/*" multiple style="display:none;" onchange="handleCategoryMultiPhotoUpload(this)">
+                <button type="button" class="btn btn-preview" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; white-space: nowrap;" onclick="document.getElementById('muaActiveCategoryMultiFileInput').click()">
+                  📁 Upload Foto (Bisa Banyak)
+                </button>
+                <button type="button" class="btn btn-save-local" style="padding: 0.35rem 0.75rem; font-size: 0.75rem; white-space: nowrap;" onclick="addActiveCategoryPhotoSlot()">
+                  + Input URL
+                </button>
+              </div>
             </div>
 
-            <div style="display: flex; gap: 0.4rem; margin-bottom: 0.45rem;">
-              <input type="text" id="muaActiveCategoryPhotoInput" class="form-control" style="font-size: 0.8rem;" placeholder="/images/mua/... atau https://..." oninput="updateActiveCategoryPhotoPreview(this.value)">
-              <input type="file" id="muaActiveCategoryFileInput" accept="image/*" style="display:none;" onchange="handleActiveCategoryPhotoUpload(this)">
-              <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.4rem 0.75rem; font-size: 0.76rem;" onclick="document.getElementById('muaActiveCategoryFileInput').click()">
-                📁 Upload Lokal
-              </button>
-            </div>
+            <div id="muaActiveCategoryPhotoStatus" style="display:none; font-size: 0.74rem; color: #5C725A; font-weight: 600; margin-bottom: 0.45rem;"></div>
 
-            <div id="muaActiveCategoryPhotoStatus" style="display:none; font-size: 0.74rem; color: #5C725A; font-weight: 600; margin-bottom: 0.35rem;"></div>
-
-            <div id="muaActiveCategoryPhotoPreviewBox" style="width: 100%; height: 110px; border-radius: 8px; background: #F4F4F5; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #D1D5DB; position: relative;">
-              <img id="muaActiveCategoryPhotoPreviewImg" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-              <span id="muaActiveCategoryPhotoPlaceholder" style="color: #9CA3AF; font-size: 0.76rem; font-weight: 500;">Belum ada foto portofolio kategori</span>
+            <!-- List Slot Foto Portofolio Kategori -->
+            <div id="muaActiveCategoryPhotosContainer" style="display: flex; flex-direction: column; gap: 0.55rem;">
+              <!-- Rendered dynamically -->
             </div>
           </div>
         </div>
@@ -6932,22 +6937,148 @@
       openModal('muaPackageEditorModal');
     }
 
-    function updateActiveCategoryPhotoPreview(url) {
-      const img = document.getElementById('muaActiveCategoryPhotoPreviewImg');
-      const placeholder = document.getElementById('muaActiveCategoryPhotoPlaceholder');
-      if (img && placeholder) {
-        if (url && url.trim()) {
-          img.src = url.trim();
-          img.style.display = 'block';
-          placeholder.style.display = 'none';
+    // Multi-Foto Portofolio Kategori
+    function getActiveCategoryPortfolioList() {
+      if (!editingVendorPackagesClone || !editingVendorPackagesClone.categories) return [];
+      const cat = editingVendorPackagesClone.categories[activePkgEditorCatIdx];
+      if (!cat) return [];
+      if (!Array.isArray(cat.portfolioImages)) {
+        cat.portfolioImages = (cat.portfolioImage && cat.portfolioImage.trim()) ? [cat.portfolioImage.trim()] : [];
+      }
+      return cat.portfolioImages;
+    }
+
+    function syncActiveCategoryPortfolio() {
+      if (!editingVendorPackagesClone || !editingVendorPackagesClone.categories) return;
+      const cat = editingVendorPackagesClone.categories[activePkgEditorCatIdx];
+      if (!cat) return;
+      const clean = (cat.portfolioImages || []).filter(u => u && u.trim());
+      cat.portfolioImage = clean[0] || '';
+    }
+
+    function renderActiveCategoryPhotos() {
+      const container = document.getElementById('muaActiveCategoryPhotosContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const photos = getActiveCategoryPortfolioList();
+      if (photos.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 1.25rem 0.75rem; border: 1px dashed #D1D5DB; border-radius: 8px; background: #FAF9F7; color: #71717A; font-size: 0.78rem;">
+            <div style="font-size: 1.35rem; margin-bottom: 0.25rem;">📷</div>
+            <div>Belum ada foto portofolio untuk kategori ini.</div>
+            <div style="font-size: 0.72rem; color: #9CA3AF; margin-top: 0.2rem;">Klik tombol <strong>"📁 Upload Foto (Bisa Banyak)"</strong> atau <strong>"+ Input URL"</strong> di atas.</div>
+          </div>
+        `;
+        return;
+      }
+
+      photos.forEach((url, pIdx) => {
+        const row = document.createElement('div');
+        row.style.cssText = 'background: #FAF8F5; border: 1px solid #E8DDD6; border-radius: 8px; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.75rem;';
+        row.innerHTML = `
+          <div style="width: 58px; height: 58px; border-radius: 6px; overflow: hidden; background: #E5E7EB; border: 1px solid #D1D5DB; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative;">
+            ${url ? `<img id="catPhotoSlotPreview_${pIdx}" src="${escapeHtml(url)}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none; font-size: 0.65rem; color: #EF4444;">Error</span>` : `<span style="font-size: 0.65rem; color: #9CA3AF; text-align: center;">Kosong</span>`}
+          </div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+              <span style="font-size: 0.74rem; font-weight: 800; color: #4B5563;">Foto Portofolio #${pIdx + 1}</span>
+              <div style="display: flex; gap: 0.25rem; align-items: center;">
+                <button type="button" class="btn btn-preview" style="padding: 0.15rem 0.45rem; font-size: 0.7rem; line-height: 1.2; ${pIdx === 0 ? 'opacity: 0.35; pointer-events: none;' : ''}" onclick="moveCategoryPhotoSlot(${pIdx}, -1)" title="Pindah ke Atas">⬆️</button>
+                <button type="button" class="btn btn-preview" style="padding: 0.15rem 0.45rem; font-size: 0.7rem; line-height: 1.2; ${pIdx === photos.length - 1 ? 'opacity: 0.35; pointer-events: none;' : ''}" onclick="moveCategoryPhotoSlot(${pIdx}, 1)" title="Pindah ke Bawah">⬇️</button>
+                <button type="button" class="btn-action delete" style="padding: 0.15rem 0.45rem; font-size: 0.7rem; line-height: 1.2;" onclick="removeCategoryPhotoSlot(${pIdx})" title="Hapus Foto">🗑️ Hapus</button>
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.35rem;">
+              <input type="text" class="form-control" style="font-size: 0.78rem; padding: 0.25rem 0.5rem; height: 32px;" value="${escapeHtml(url || '')}" placeholder="/images/mua/... atau https://..." oninput="updateCategoryPhotoSlotUrl(${pIdx}, this.value)">
+              <input type="file" id="catPhotoSlotFile_${pIdx}" accept="image/*" style="display:none;" onchange="handleCategoryPhotoSlotUpload(this, ${pIdx})">
+              <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.25rem 0.6rem; font-size: 0.74rem; height: 32px;" onclick="document.getElementById('catPhotoSlotFile_${pIdx}').click()">
+                📁 Ganti
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function addActiveCategoryPhotoSlot(initialUrl = '') {
+      const photos = getActiveCategoryPortfolioList();
+      photos.push(initialUrl);
+      syncActiveCategoryPortfolio();
+      renderActiveCategoryPhotos();
+    }
+
+    function removeCategoryPhotoSlot(photoIdx) {
+      const photos = getActiveCategoryPortfolioList();
+      photos.splice(photoIdx, 1);
+      syncActiveCategoryPortfolio();
+      renderActiveCategoryPhotos();
+    }
+
+    function moveCategoryPhotoSlot(photoIdx, dir) {
+      const photos = getActiveCategoryPortfolioList();
+      const targetIdx = photoIdx + dir;
+      if (targetIdx < 0 || targetIdx >= photos.length) return;
+      const temp = photos[photoIdx];
+      photos[photoIdx] = photos[targetIdx];
+      photos[targetIdx] = temp;
+      syncActiveCategoryPortfolio();
+      renderActiveCategoryPhotos();
+    }
+
+    function updateCategoryPhotoSlotUrl(photoIdx, val) {
+      const photos = getActiveCategoryPortfolioList();
+      photos[photoIdx] = (val || '').trim();
+      syncActiveCategoryPortfolio();
+      const preview = document.getElementById(`catPhotoSlotPreview_${photoIdx}`);
+      if (preview) {
+        if (photos[photoIdx]) {
+          preview.src = photos[photoIdx];
+          preview.style.display = 'block';
         } else {
-          img.style.display = 'none';
-          placeholder.style.display = 'block';
+          preview.style.display = 'none';
         }
       }
     }
 
-    async function handleActiveCategoryPhotoUpload(input) {
+    function compressImageForUpload(file, maxDimension = 1400, quality = 0.85) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('Gagal membaca file gambar.'));
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onerror = () => reject(new Error('Format file gambar tidak valid.'));
+          img.onload = () => {
+            let width = img.width;
+            let height = img.height;
+            if (width > maxDimension || height > maxDimension) {
+              if (width > height) {
+                height = Math.round((height / width) * maxDimension);
+                width = maxDimension;
+              } else {
+                width = Math.round((width / height) * maxDimension);
+                height = maxDimension;
+              }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.max(1, width);
+            canvas.height = Math.max(1, height);
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+              return resolve(e.target.result); // Fallback
+            }
+            ctx.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            resolve(dataUrl);
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function handleCategoryPhotoSlotUpload(input, photoIdx) {
       const file = input.files && input.files[0];
       if (!file) return;
 
@@ -6955,50 +7086,106 @@
         alert('Mohon pilih file gambar yang valid.');
         return;
       }
-      if (file.size > 25 * 1024 * 1024) {
-        alert('Ukuran foto terlalu besar. Maksimal 25MB.');
+
+      const status = document.getElementById('muaActiveCategoryPhotoStatus');
+      if (status) {
+        status.style.display = 'block';
+        status.textContent = '⏳ Mengompres & mengunggah foto...';
+      }
+
+      try {
+        const dataUrl = await compressImageForUpload(file, 1400, 0.85);
+        const res = await fetch('/api/upload-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dataUrl,
+            fileName: file.name,
+            folder: 'mua'
+          })
+        });
+        const data = await res.json();
+        if (data.success && data.url) {
+          const photos = getActiveCategoryPortfolioList();
+          photos[photoIdx] = data.url;
+          syncActiveCategoryPortfolio();
+          renderActiveCategoryPhotos();
+          if (status) {
+            status.textContent = '✅ Foto berhasil diunggah (terkompres ringan & jernih)!';
+            setTimeout(() => { status.style.display = 'none'; }, 2000);
+          }
+          showToast('Foto portofolio kategori berhasil diunggah!', '📸');
+        } else {
+          throw new Error(data.error || 'Gagal upload foto');
+        }
+      } catch (err) {
+        alert('Upload gagal: ' + err.message);
+        if (status) status.style.display = 'none';
+      }
+    }
+
+    async function handleCategoryMultiPhotoUpload(input) {
+      const files = Array.from(input.files || []);
+      if (files.length === 0) return;
+
+      const invalidFiles = files.filter(f => !f.type.startsWith('image/'));
+      if (invalidFiles.length > 0) {
+        alert('Ada file yang bukan gambar valid.');
         return;
       }
 
       const status = document.getElementById('muaActiveCategoryPhotoStatus');
       if (status) {
         status.style.display = 'block';
-        status.textContent = '⏳ Mengunggah foto portofolio kategori (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+        status.textContent = `⏳ Mengompres & mengunggah ${files.length} foto...`;
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(evt) {
+      let uploadedCount = 0;
+      const photos = getActiveCategoryPortfolioList();
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (status) {
+          status.textContent = `⏳ Mengompres & mengunggah (${i + 1}/${files.length}): ${file.name}...`;
+        }
         try {
+          const dataUrl = await compressImageForUpload(file, 1400, 0.85);
+
           const res = await fetch('/api/upload-image', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              dataUrl: evt.target.result,
+              dataUrl,
               fileName: file.name,
               folder: 'mua'
             })
           });
           const data = await res.json();
           if (data.success && data.url) {
-            document.getElementById('muaActiveCategoryPhotoInput').value = data.url;
-            updateActiveCategoryPhotoPreview(data.url);
-            if (editingVendorPackagesClone && editingVendorPackagesClone.categories && editingVendorPackagesClone.categories[activePkgEditorCatIdx]) {
-              editingVendorPackagesClone.categories[activePkgEditorCatIdx].portfolioImage = data.url;
-            }
-            if (status) {
-              status.textContent = '✅ Foto portofolio kategori berhasil diunggah!';
-              setTimeout(() => { status.style.display = 'none'; }, 2000);
-            }
-            showToast('Foto portofolio kategori berhasil diunggah!', '📸');
+            photos.push(data.url);
+            uploadedCount++;
           } else {
-            throw new Error(data.error || 'Gagal upload foto');
+            console.error('Upload error for file:', file.name, data.error);
           }
         } catch (err) {
-          alert('Upload gagal: ' + err.message);
-          if (status) status.style.display = 'none';
+          console.error('Upload failed for file:', file.name, err);
         }
-      };
-      reader.readAsDataURL(file);
+      }
+
+      syncActiveCategoryPortfolio();
+      renderActiveCategoryPhotos();
+      input.value = ''; // Reset input agar bisa upload file lagi
+
+      if (status) {
+        if (uploadedCount > 0) {
+          status.textContent = `✅ Berhasil mengunggah ${uploadedCount} foto portofolio kategori!`;
+          setTimeout(() => { status.style.display = 'none'; }, 2500);
+          showToast(`${uploadedCount} foto portofolio kategori berhasil diunggah!`, '📸');
+        } else {
+          status.style.display = 'none';
+          alert('Gagal mengunggah foto. Silakan coba lagi.');
+        }
+      }
     }
 
     function renderMuaPkgEditorCategories() {
@@ -7013,6 +7200,7 @@
           name: 'Layanan Utama',
           description: 'Layanan makeup & styling',
           portfolioImage: '',
+          portfolioImages: [],
           subPackages: []
         });
       }
@@ -7037,11 +7225,10 @@
       document.getElementById('muaActiveCategoryNameInput').value = activeCat.name || '';
       document.getElementById('muaActiveCategoryDescInput').value = activeCat.description || '';
       
-      const photoInput = document.getElementById('muaActiveCategoryPhotoInput');
-      if (photoInput) {
-        photoInput.value = activeCat.portfolioImage || '';
-        updateActiveCategoryPhotoPreview(activeCat.portfolioImage || '');
+      if (!Array.isArray(activeCat.portfolioImages)) {
+        activeCat.portfolioImages = (activeCat.portfolioImage && activeCat.portfolioImage.trim()) ? [activeCat.portfolioImage.trim()] : [];
       }
+      renderActiveCategoryPhotos();
     }
 
     function saveCurrentCategoryInputs() {
@@ -7050,10 +7237,9 @@
       if (cats[activePkgEditorCatIdx]) {
         cats[activePkgEditorCatIdx].name = document.getElementById('muaActiveCategoryNameInput').value.trim() || 'Kategori';
         cats[activePkgEditorCatIdx].description = document.getElementById('muaActiveCategoryDescInput').value.trim() || '';
-        const photoInput = document.getElementById('muaActiveCategoryPhotoInput');
-        if (photoInput) {
-          cats[activePkgEditorCatIdx].portfolioImage = photoInput.value.trim();
-        }
+        const clean = (cats[activePkgEditorCatIdx].portfolioImages || []).map(u => (u || '').trim()).filter(Boolean);
+        cats[activePkgEditorCatIdx].portfolioImages = clean;
+        cats[activePkgEditorCatIdx].portfolioImage = clean[0] || '';
       }
     }
 
@@ -7346,6 +7532,14 @@
     function saveMuaPackages() {
       saveCurrentCategoryInputs();
       if (editingVendorPackagesOrigIdx >= 0 && appConfig.muaVendors[editingVendorPackagesOrigIdx]) {
+        if (editingVendorPackagesClone.categories) {
+          editingVendorPackagesClone.categories.forEach(cat => {
+            const list = Array.isArray(cat.portfolioImages) ? cat.portfolioImages : (cat.portfolioImage ? [cat.portfolioImage] : []);
+            const clean = list.map(u => (u || '').trim()).filter(Boolean);
+            cat.portfolioImages = clean;
+            cat.portfolioImage = clean[0] || '';
+          });
+        }
         appConfig.muaVendors[editingVendorPackagesOrigIdx] = JSON.parse(JSON.stringify(editingVendorPackagesClone));
         closeModal('muaPackageEditorModal');
         renderMuaSection();

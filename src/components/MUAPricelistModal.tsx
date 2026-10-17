@@ -48,7 +48,8 @@ export interface MuaCategory {
   name: string;        // Contoh: "Pass Foto", "Wedding", "Graduation Indoor"
   iconType?: 'camera' | 'wedding' | 'graduation' | 'outdoor' | 'prewedding' | 'kebaya' | 'hairdo' | 'sparkles';
   description?: string;
-  portfolioImage?: string; // 1 Foto Portofolio Hasil Rias Kategori Ini
+  portfolioImage?: string; // 1 Foto Portofolio Hasil Rias Kategori Ini (legacy)
+  portfolioImages?: string[]; // Multi-foto Portofolio Hasil Rias Kategori Ini
   subPackages: MuaSubPackage[];
 }
 
@@ -1035,6 +1036,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
   // Lightbox preview untuk foto portofolio kategori MUA
   const [previewPortfolioImg, setPreviewPortfolioImg] = useState<string | null>(null);
+  const [previewImageContext, setPreviewImageContext] = useState<{ title?: string; images: string[] } | null>(null);
 
   // Kebaya selection state: pkgId -> { color: string, size: string }
   const [kebayaSelections, setKebayaSelections] = useState<Record<string, { color: string; size: string }>>({});
@@ -1333,7 +1335,13 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                     <button
                       key={`${currentPopupVendor.id}-portfolio-${index}`}
                       type="button"
-                      onClick={() => setPreviewPortfolioImg(image)}
+                      onClick={() => {
+                        setPreviewPortfolioImg(image);
+                        setPreviewImageContext({
+                          title: currentPopupVendor.name,
+                          images: currentPopupVendor.portfolioImages || []
+                        });
+                      }}
                       className="group relative h-full w-auto shrink-0 snap-center rounded-xl overflow-hidden border border-[#E8DDD6] shadow-xs cursor-pointer transition-all hover:scale-[1.03] hover:border-[#5C725A] hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#5C725A]"
                       title="Klik untuk melihat foto lebih besar"
                     >
@@ -1425,30 +1433,89 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                         <div className="border-t border-[#EAE2DC] px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
                           {/* Garis batas indentasi hierarki level 3 */}
                           <div className="border-l-3 border-[#5C725A] pl-3 space-y-2.5">
-                            {/* Foto Portofolio Kategori MUA (Jika Ada) */}
-                            {category.portfolioImage && (
-                              <div className="mb-3 flex justify-center">
-                                <div
-                                  onClick={() => setPreviewPortfolioImg(category.portfolioImage || null)}
-                                  className="relative h-48 sm:h-56 w-auto max-w-xs sm:max-w-sm overflow-hidden rounded-xl border border-[#EAE2DC] bg-[#1E1E1E]/5 shadow-xs flex items-center justify-center cursor-pointer group hover:border-[#5C725A] transition-colors"
-                                  title="Klik untuk melihat foto ukuran penuh"
-                                >
-                                  <img
-                                    src={category.portfolioImage}
-                                    alt={`Portofolio ${category.name}`}
-                                    className="h-full w-auto max-w-full object-contain mx-auto block group-hover:scale-105 transition-transform duration-300"
-                                    loading="lazy"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-center pointer-events-none">
-                                    <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold flex items-center gap-1 shadow-sm">
-                                      <Camera className="w-3 h-3 text-[#A9BCA7]" />
-                                      <span>Hasil Portofolio {category.name}</span>
+                            {/* Foto Portofolio Kategori MUA (Mendukung 1 atau Banyak Foto) */}
+                            {(() => {
+                              const categoryImages = (category.portfolioImages && category.portfolioImages.length > 0)
+                                ? category.portfolioImages.filter(Boolean)
+                                : (category.portfolioImage ? [category.portfolioImage] : []);
+
+                              if (categoryImages.length === 0) return null;
+
+                              if (categoryImages.length === 1) {
+                                const singleImg = categoryImages[0];
+                                return (
+                                  <div className="mb-3 flex justify-center">
+                                    <div
+                                      onClick={() => {
+                                        setPreviewPortfolioImg(singleImg);
+                                        setPreviewImageContext({
+                                          title: `Hasil Portofolio ${category.name}`,
+                                          images: categoryImages
+                                        });
+                                      }}
+                                      className="relative h-48 sm:h-56 w-auto max-w-xs sm:max-w-sm overflow-hidden rounded-xl border border-[#EAE2DC] bg-[#1E1E1E]/5 shadow-xs flex items-center justify-center cursor-pointer group hover:border-[#5C725A] transition-colors"
+                                      title="Klik untuk melihat foto ukuran penuh"
+                                    >
+                                      <img
+                                        src={singleImg}
+                                        alt={`Portofolio ${category.name}`}
+                                        className="h-full w-auto max-w-full object-contain mx-auto block group-hover:scale-105 transition-transform duration-300"
+                                        loading="lazy"
+                                      />
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                      <div className="absolute bottom-2 left-2 right-2 flex items-center justify-center pointer-events-none">
+                                        <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold flex items-center gap-1 shadow-sm">
+                                          <Camera className="w-3 h-3 text-[#A9BCA7]" />
+                                          <span>Hasil Portofolio {category.name}</span>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              }
+
+                              return (
+                                <div className="mb-3.5">
+                                  <div className="flex items-center justify-between mb-1.5">
+                                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#5C725A] flex items-center gap-1">
+                                      <Camera className="w-3 h-3" />
+                                      <span>Portofolio Hasil Rias {category.name} ({categoryImages.length} Foto)</span>
                                     </span>
+                                    <span className="text-[9px] text-stone-500 font-sans">Geser untuk melihat semua foto</span>
+                                  </div>
+                                  <div className="h-36 sm:h-44 flex snap-x gap-2.5 overflow-x-auto pb-1.5 no-scrollbar">
+                                    {categoryImages.map((image, catImgIdx) => (
+                                      <button
+                                        key={`cat-${category.id}-img-${catImgIdx}`}
+                                        type="button"
+                                        onClick={() => {
+                                          setPreviewPortfolioImg(image);
+                                          setPreviewImageContext({
+                                            title: `Hasil Portofolio ${category.name}`,
+                                            images: categoryImages
+                                          });
+                                        }}
+                                        className="group relative h-full w-auto shrink-0 snap-center rounded-xl overflow-hidden border border-[#E8DDD6] shadow-xs cursor-pointer transition-all hover:scale-[1.03] hover:border-[#5C725A] hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#5C725A]"
+                                        title="Klik untuk melihat foto lebih besar"
+                                      >
+                                        <img
+                                          src={image}
+                                          alt={`Portofolio ${category.name} ${catImgIdx + 1}`}
+                                          className="h-full w-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                                          loading="lazy"
+                                        />
+                                        <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                          <span className="rounded-full bg-black/65 backdrop-blur-xs px-2 py-1 text-white shadow-md flex items-center gap-1 text-[9px] font-mono font-bold">
+                                            <Eye className="w-3 h-3 text-[#A9BCA7]" />
+                                            <span>Lihat Foto</span>
+                                          </span>
+                                        </div>
+                                      </button>
+                                    ))}
                                   </div>
                                 </div>
-                              </div>
-                            )}
+                              );
+                            })()}
 
                             <p className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#6E856C]">
                               Daftar Sub-Paket {category.name}
@@ -2229,7 +2296,8 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
                 {/* Navigasi Carousel jika foto berasal dari portfolio vendor */}
                 {(() => {
-                  const imagesList = currentPopupVendor?.portfolioImages || [];
+                  const imagesList = previewImageContext?.images || currentPopupVendor?.portfolioImages || [];
+                  const titleLabel = previewImageContext?.title || currentPopupVendor?.name || '';
                   const currentIndex = imagesList.indexOf(previewPortfolioImg);
                   if (currentIndex === -1 || imagesList.length <= 1) return null;
 
@@ -2266,7 +2334,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
                       {/* Badge info foto */}
                       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/75 backdrop-blur-xs border border-white/20 px-3.5 py-1 text-[10px] font-mono font-bold text-white shadow-md flex items-center gap-1.5 pointer-events-none">
-                        <span>{currentPopupVendor?.name}</span>
+                        <span>{titleLabel}</span>
                         <span>•</span>
                         <span>{currentIndex + 1} / {imagesList.length}</span>
                       </div>

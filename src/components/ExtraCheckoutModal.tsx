@@ -54,7 +54,7 @@ interface PersistedExtraForm {
   isScheduleConfirmed?: boolean;
   confirmedDate?: string;
   confirmedTime?: string;
-  confirmedStudio?: 'Studio 1' | 'Studio 2';
+  confirmedStudio?: 'Studio 1' | 'Studio 2' | '';
 }
 
 const getSavedFormData = (): PersistedExtraForm => {
