@@ -105,30 +105,31 @@ export default function App() {
     const paymentMethod = payload.paymentMethod.toUpperCase();
     const targetWaNumber = selectedMuaStudio === 'Studio 2' ? ADMIN_STUDIO_2_WA : ADMIN_STUDIO_1_WA;
 
-    const pesanTemplate = `Halo Admin ${selectedMuaStudio} Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).
+    const lines: string[] = [];
+    lines.push(`Halo Admin ${selectedMuaStudio} Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).`);
+    lines.push('');
+    lines.push('*DATA PEMESAN:*');
+    lines.push(`• Nama: ${payload.customerName}`);
+    lines.push(`• WA: ${payload.customerPhone}`);
+    lines.push(`• IG: ${payload.customerInstagram || '-'}`);
+    lines.push('');
+    lines.push('*RINCIAN PESANAN:*');
+    lines.push(cartDetailsString);
+    lines.push('');
+    lines.push('*JADWAL & PENGAMBILAN:*');
+    lines.push(`• Tanggal: ${payload.selectedDate}`);
+    lines.push(`• Jam: ${payload.selectedTime}`);
+    lines.push(`• Catatan/Lokasi: ${payload.pickupNote || 'Belum diisi'}`);
+    lines.push('');
+    lines.push('*RINCIAN PEMBAYARAN:*');
+    lines.push(`• Total Estimasi: Rp ${payload.total.toLocaleString('id-ID')}`);
+    lines.push(`• Pembayaran: ${paymentOption}`);
+    lines.push(`• Metode: ${paymentMethod}`);
+    lines.push('');
+    lines.push('Berikut saya lampirkan bukti transfer pembayarannya. Mohon dikonfirmasi ya min. Terima kasih!');
 
-*👤 Data Pemesan:*
-- Nama: ${payload.customerName}
-- WA: ${payload.customerPhone}
-- IG: ${payload.customerInstagram || '-'}
-
-*🛍️ Rincian Pesanan:*
-${cartDetailsString}
-
-*📅 Jadwal & Pengambilan:*
-- Tanggal: ${payload.selectedDate}
-- Jam: ${payload.selectedTime}
-- Catatan/Lokasi: ${payload.pickupNote || 'Belum diisi'}
-
-*💳 Rincian Pembayaran:*
-- Total Estimasi: Rp ${payload.total.toLocaleString('id-ID')}
-- Pembayaran: ${paymentOption}
-- Metode: ${paymentMethod}
-
-Berikut saya lampirkan bukti transfer pembayarannya.`;
-
-    const encodedText = encodeURIComponent(pesanTemplate);
-    const whatsappUrl = `https://wa.me/${targetWaNumber}?text=${encodedText}`;
+    const encodedText = encodeURIComponent(lines.join('\n'));
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetWaNumber}&text=${encodedText}`;
     setExtraCart([]);
     setIsExtraCheckoutOpen(false);
     return whatsappUrl;

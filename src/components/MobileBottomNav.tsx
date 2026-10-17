@@ -36,7 +36,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   const openWhatsApp = (branchId: string) => {
     const branch = STUDIO_BRANCHES.find(item => item.id === branchId) || STUDIO_BRANCHES[0];
     const message = `Halo Admin ${branch.name}, saya ingin bertanya mengenai jadwal dan layanan Alviero Studio.`;
-    window.open(`https://wa.me/${branch.whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://api.whatsapp.com/send?phone=${branch.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
     setIsHelpOpen(false);
   };
 

@@ -255,7 +255,7 @@ ${cartDetailsString}
 Apakah slot dan layanan di atas tersedia?`
     );
 
-    window.open(`https://wa.me/${recipientWaNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://api.whatsapp.com/send?phone=${recipientWaNumber}&text=${message}`, '_blank', 'noopener,noreferrer');
     setIsScheduleConfirmed(true);
   };
 

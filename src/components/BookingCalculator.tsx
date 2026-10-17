@@ -2320,86 +2320,99 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     });
   };
 
-  // Format Pesan WhatsApp Booking
+  // Format Pesan WhatsApp Booking (Clean & Universal Format - bebas karakter rusak & rapi di semua platform)
   const generateWhatsAppMessageText = () => {
-    let message = `*HALO ADMIN ALVIERO STUDIO FOTO!* 👋\n`;
-    message += `Saya mau reservasi/booking sesi foto dengan rincian berikut:\n\n`;
-    message += `📌 *DATA PEMESAN:*\n`;
-    message += `• Nama: ${customerName || '-'}\n`;
-    message += `• No. WhatsApp: ${customerPhone || '-'}\n`;
+    const lines: string[] = [];
+
+    lines.push('*HALO ADMIN ALVIERO STUDIO FOTO!*');
+    lines.push('Saya mau reservasi/booking sesi foto dengan rincian berikut:');
+    lines.push('');
+    lines.push('*DATA PEMESAN:*');
+    lines.push(`• Nama: ${customerName || '-'}`);
+    lines.push(`• No. WhatsApp: ${customerPhone || '-'}`);
     if (isGraduationPackage && universityName.trim()) {
-      message += `• Asal Universitas: *${universityName.trim()}*\n`;
+      lines.push(`• Asal Universitas: *${universityName.trim()}*`);
     }
-    message += `• Izin Upload Instagram: ${allowSocialUpload === true ? '✅ Boleh Di-upload' : '🔒 Jangan Di-upload (Privat)'}\n`;
+    lines.push(`• Izin Upload Instagram: ${allowSocialUpload === true ? 'Boleh Di-upload' : 'Jangan Di-upload (Privat)'}`);
     if (socialUsername.trim()) {
-      message += `• Akun Instagram: @${socialUsername.trim().replace(/^@/, '')}\n`;
+      lines.push(`• Akun Instagram: @${socialUsername.trim().replace(/^@/, '')}`);
     }
-    message += `• Tanggal Foto: ${bookingDate}\n`;
-    message += `• Jam Sesi Foto: *${formattedSessionTime} WIB* (Durasi: ${sessionDurationMinutes} Menit / ${maxBackdrops} Background)\n`;
+    lines.push(`• Tanggal Foto: ${bookingDate}`);
+    lines.push(`• Jam Sesi Foto: *${formattedSessionTime} WIB* (Durasi: ${sessionDurationMinutes} Menit / ${maxBackdrops} Background)`);
     if (hasOutdoorSession) {
       if (!isOutdoorOnly) {
-        message += `• Waktu Indoor: *${formattedIndoorTime} WIB*\n`;
+        lines.push(`• Waktu Indoor: *${formattedIndoorTime} WIB*`);
       }
-      message += `• Waktu Outdoor: *${formattedOutdoorTime} WIB* (Durasi sesi ${outdoorSessionDurationMinutes} menit)\n`;
-      message += `• Lokasi Foto Outdoor: *${outdoorLocation.trim()}*\n`;
+      lines.push(`• Waktu Outdoor: *${formattedOutdoorTime} WIB* (Durasi sesi ${outdoorSessionDurationMinutes} menit)`);
+      lines.push(`• Lokasi Foto Outdoor: *${outdoorLocation.trim()}*`);
     }
-    message += `• *Tipe Ruangan:* ${isSelfStudio ? '✨ Bilik Self Studio (Shutter Mandiri)' : '📸 Studio Foto (Fotografer Pro)'}\n`;
-    message += `• *Lokasi Studio:* *${currentBranchInfo.name}*\n\n`;
+    lines.push(`• Tipe Ruangan: *${isSelfStudio ? 'Bilik Self Studio (Shutter Mandiri)' : 'Studio Foto Profesional (Fotografer)'}*`);
+    lines.push(`• Lokasi Studio: *${currentBranchInfo.name}*`);
+    lines.push('');
 
-    message += `📷 *PAKET & KONSEP STUDIO:*\n`;
-    message += `• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})\n`;
+    lines.push('*PAKET & KONSEP STUDIO:*');
+    lines.push(`• Paket Utama: *${currentPackage.name}* (Rp ${currentPackage.price.toLocaleString('id-ID')})`);
     if (isPassFoto) {
-      message += `• Warna Background Cetak: *${passFotoColor || '-'}*\n`;
+      lines.push(`• Warna Background Cetak: *${passFotoColor || '-'}*`);
     } else {
-      message += `• Pencahayaan / Background: ${backdropDisplayName}\n`;
+      lines.push(`• Pencahayaan / Background: ${backdropDisplayName}`);
     }
     if (isSelfStudio) {
-      message += `• Template Layout Grid: ${currentFrame.name}\n`;
+      lines.push(`• Template Layout Grid: ${currentFrame.name}`);
       if (hasFreePrint) {
-        message += `• Gratis Cetak: ${ukuranCetak} - ${gridCetak}\n`;
+        lines.push(`• Gratis Cetak: ${ukuranCetak} - ${gridCetak}`);
       }
     }
-    message += `\n`;
 
     if (Object.keys(selectedAddOns).length > 0) {
-      message += `✨ *ADD-ONS TAMBAHAN:*\n`;
+      lines.push('');
+      lines.push('*ADD-ONS TAMBAHAN:*');
       Object.entries(selectedAddOns).forEach(([id, qty]) => {
         const addOn = ADD_ONS.find(a => a.id === id);
         if (addOn) {
           const numQty = typeof qty === 'number' ? qty : Number(qty) || 0;
-          message += `• ${addOn.name} (${numQty} ${addOn.unit}) = Rp ${(addOn.price * numQty).toLocaleString('id-ID')}\n`;
+          lines.push(`• ${addOn.name} (${numQty} ${addOn.unit}) = Rp ${(addOn.price * numQty).toLocaleString('id-ID')}`);
         }
       });
-      message += `\n`;
     }
 
     if (earlyMorningFee > 0) {
-      message += `⏰ *BIAYA TAMBAHAN EKSTRA PAGI:* +Rp 35.000 (Sesi Khusus Studio Foto Pagi 07:00 WIB)\n\n`;
+      lines.push('');
+      lines.push('*BIAYA TAMBAHAN EKSTRA PAGI:* +Rp 35.000 (Sesi Khusus Studio Foto Pagi 07:00 WIB)');
     }
 
     if (lateNightOvertimeFee > 0) {
-      message += `⏰ *BIAYA TAMBAHAN OVERTIME MALAM:* +Rp 35.000 (Sesi ${timeSlot} WIB Melebihi Jam Tutup Studio 21.00 WIB)\n\n`;
+      lines.push('');
+      lines.push(`*BIAYA TAMBAHAN OVERTIME MALAM:* +Rp 35.000 (Sesi ${timeSlot} WIB Melebihi Jam Tutup Studio 21.00 WIB)`);
     }
 
     if (appliedPromo) {
-      message += `🎟️ *KODE PROMO:* ${appliedPromo.code} (Hemat Rp ${discountValue.toLocaleString('id-ID')})\n`;
+      lines.push('');
+      lines.push(`*KODE PROMO:* ${appliedPromo.code} (Hemat Rp ${discountValue.toLocaleString('id-ID')})`);
     }
 
     if (paymentMethod === 'qris' && qrisFee > 0) {
-      message += `📱 *BIAYA LAYANAN QRIS (1%):* +Rp ${qrisFee.toLocaleString('id-ID')}\n`;
+      lines.push('');
+      lines.push(`*BIAYA LAYANAN QRIS (1%):* +Rp ${qrisFee.toLocaleString('id-ID')}`);
     }
 
-    if (notes) {
-      message += `📝 *Catatan Khusus:* ${notes}\n`;
+    if (notes.trim()) {
+      lines.push('');
+      lines.push(`*Catatan Khusus:* ${notes.trim()}`);
     }
 
-    const paymentMethodLabel = paymentMethod === 'bca' ? 'Transfer Bank BCA (No. Rek 0113324021 a.n Muhammad Azzam Fakhri)' : 'QRIS Resmi Alviero Studio';
-    message += `💳 *METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : `LUNAS FULL (Rp ${grandTotal.toLocaleString('id-ID')})`} via ${paymentMethodLabel}\n`;
-    message += `🧾 *STATUS BUKTI TRANSFER:* ✅ Sudah Diunggah (${paymentProofFileName || (paymentMethod === 'bca' ? 'Bukti Transfer BCA' : 'Bukti Transfer QRIS')})\n`;
-    message += `💰 *TOTAL BIAYA:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n`;
-    message += `Bukti transfer pembayaran sudah terlampir bersama chat ini ya min. Mohon dikonfirmasi jadwalnya. Terima kasih! 🙏`;
+    const paymentMethodLabel = paymentMethod === 'bca'
+      ? 'Transfer Bank BCA (No. Rek 0113324021 a.n Muhammad Azzam Fakhri)'
+      : 'QRIS Resmi Alviero Studio';
 
-    return message;
+    lines.push('');
+    lines.push(`*METODE PEMBAYARAN:* ${paymentOption === 'dp' ? `DP 50% (Rp ${dpAmount.toLocaleString('id-ID')})` : `LUNAS FULL (Rp ${grandTotal.toLocaleString('id-ID')})`} via ${paymentMethodLabel}`);
+    lines.push(`*STATUS BUKTI TRANSFER:* Sudah Diunggah (${paymentProofFileName || (paymentMethod === 'bca' ? 'Bukti Transfer BCA' : 'Bukti Transfer QRIS')})`);
+    lines.push(`*TOTAL BIAYA:* *Rp ${grandTotal.toLocaleString('id-ID')}*`);
+    lines.push('');
+    lines.push('Bukti transfer pembayaran sudah terlampir bersama chat ini ya min. Mohon dikonfirmasi jadwalnya. Terima kasih!');
+
+    return lines.join('\n');
   };
 
   const handleCopySummary = () => {
@@ -2476,19 +2489,29 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       return;
     }
 
+    const message = generateWhatsAppMessageText();
+    const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
+    const waUrl = `https://api.whatsapp.com/send?phone=${studioWaNumber}&text=${encodeURIComponent(message)}`;
+    const bookingId = getBookingId();
+
+    // 1. LANGSUNG BUKA WHATSAPP SEKETIKA PADA KLIK USER!
+    // Langsung dieksekusi di context user gesture (tanpa menunggu async fetch) agar tidak pernah terhambat popup blocker
+    let waWindow: Window | null = null;
+    try {
+      waWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
+    } catch {
+      // Fallback
+    }
+    if (!waWindow || waWindow.closed || typeof waWindow.closed === 'undefined') {
+      window.location.href = waUrl;
+    }
+
+    // Jika background submission sedang berjalan, jangan kirim ulang payload ganda
     if (bookingSubmissionInFlight.current) return;
     bookingSubmissionInFlight.current = true;
     setIsSubmittingBooking(true);
 
-    const message = generateWhatsAppMessageText();
-    const studioWaNumber = currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164');
-    const waUrl = `https://wa.me/${studioWaNumber}?text=${encodeURIComponent(message)}`;
-    const bookingId = getBookingId();
-
-    // Buka tab placeholder sebelum async fetch agar tidak terblokir oleh browser popup blocker
-    const waWindow = window.open('about:blank', '_blank');
-
-    // Sinkronisasi background ke Google Spreadsheet via Google Apps Script
+    // 2. SINKRONISASI KE GOOGLE SPREADSHEET SECARA ASINKRON DI BACKGROUND
     try {
       const selectedAddOnsSummary = Object.entries(selectedAddOns)
         .map(([id, qty]) => {
@@ -2553,42 +2576,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           signal: controller.signal
         });
 
-        if (!response.ok) {
-          throw new Error(`Booking server mengembalikan HTTP ${response.status}.`);
-        }
-
-        const result = await response.json() as { status?: string; message?: string };
-        if (result.status !== 'SUCCESS') {
-          throw new Error(result.message || 'Booking tidak berhasil disimpan.');
-        }
-
-        bookingIdRef.current = null;
-
-        // Navigasi ke WhatsApp setelah data berhasil terverifikasi di Google Sheets
-        if (waWindow && !waWindow.closed) {
-          waWindow.location.href = waUrl;
-        } else {
-          window.open(waUrl, '_blank', 'noopener,noreferrer');
+        if (response.ok) {
+          const result = await response.json() as { status?: string; message?: string };
+          if (result.status === 'SUCCESS') {
+            bookingIdRef.current = null;
+          }
         }
       } finally {
         clearTimeout(timeoutId);
       }
     } catch (e) {
-      console.error('GAS sync error:', e);
-
-      // Tutup tab kosong jika sinkronisasi gagal
-      if (waWindow && !waWindow.closed) {
-        waWindow.close();
-      }
-
-      if (e instanceof DOMException && e.name === 'AbortError') {
-        alert('⏱️ Koneksi ke server booking timeout. Mohon coba lagi dalam beberapa saat atau cek koneksi internet Anda.');
-        return;
-      }
-
-      alert(e instanceof Error
-        ? e.message
-        : 'Booking gagal disinkronkan. Silakan coba lagi.');
+      console.warn('Background GAS sync warning:', e);
     } finally {
       bookingSubmissionInFlight.current = false;
       setIsSubmittingBooking(false);
