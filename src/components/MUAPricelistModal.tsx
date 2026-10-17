@@ -4,6 +4,8 @@ import {
   X,
   ArrowLeft,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   CheckCircle2,
   Sparkles,
   Clock,
@@ -1328,19 +1330,32 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
               <div className="pr-10 shrink-0">
                 <div className="mb-3.5 h-36 sm:h-44 flex snap-x gap-2.5 overflow-x-auto pb-2 no-scrollbar">
                   {currentPopupVendor.portfolioImages.map((image, index) => (
-                    <img
+                    <button
                       key={`${currentPopupVendor.id}-portfolio-${index}`}
-                      src={image}
-                      alt={`Portofolio ${currentPopupVendor.name} ${index + 1}`}
-                      className="h-full w-auto shrink-0 snap-center rounded-xl object-cover shadow-xs border border-[#E8DDD6]"
-                    />
+                      type="button"
+                      onClick={() => setPreviewPortfolioImg(image)}
+                      className="group relative h-full w-auto shrink-0 snap-center rounded-xl overflow-hidden border border-[#E8DDD6] shadow-xs cursor-pointer transition-all hover:scale-[1.03] hover:border-[#5C725A] hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#5C725A]"
+                      title="Klik untuk melihat foto lebih besar"
+                    >
+                      <img
+                        src={image}
+                        alt={`Portofolio ${currentPopupVendor.name} ${index + 1}`}
+                        className="h-full w-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span className="rounded-full bg-black/65 backdrop-blur-xs px-2 py-1 text-white shadow-md flex items-center gap-1 text-[9.5px] font-mono font-bold">
+                          <Eye className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                          <span>Lihat Foto</span>
+                        </span>
+                      </div>
+                    </button>
                   ))}
                 </div>
                 <h4 className="font-serif text-2xl sm:text-3xl font-black uppercase text-[#2E2E2E] leading-none">
                   {currentPopupVendor.name}
                 </h4>
                 <p className="text-xs font-sans text-stone-500 mt-1">
-                  {currentPopupVendor.tagline} — Klik kategori layanan untuk melihat detail sub-paket.
+                  {currentPopupVendor.tagline} — Klik foto untuk melihat detail atau klik kategori untuk sub-paket.
                 </p>
               </div>
 
@@ -2184,26 +2199,81 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
           </div>
         )}
 
-        {/* Lightbox Preview Foto Portofolio Kategori */}
+        {/* Lightbox Preview Foto Portofolio Vendor & Kategori */}
         {previewPortfolioImg && (
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-3 backdrop-blur-xs animate-in fade-in duration-200"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-2 sm:p-6 backdrop-blur-md animate-in fade-in duration-200"
             onClick={() => setPreviewPortfolioImg(null)}
           >
-            <div className="relative max-w-3xl max-h-[92vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <div
+              className="relative max-w-3xl max-h-[92vh] flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Tombol Tutup X */}
               <button
                 type="button"
                 onClick={() => setPreviewPortfolioImg(null)}
-                className="absolute -top-11 right-0 rounded-full bg-white/20 hover:bg-white/30 text-white p-2 transition-colors cursor-pointer"
+                className="absolute top-2 right-2 sm:-top-11 sm:right-0 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer shadow-lg"
                 aria-label="Tutup preview"
               >
                 <X className="w-5 h-5" />
               </button>
-              <img
-                src={previewPortfolioImg}
-                alt="Preview Portofolio Kategori"
-                className="max-h-[85vh] max-w-full rounded-2xl object-contain shadow-2xl border border-white/10"
-              />
+
+              {/* Kontainer Gambar Utama */}
+              <div className="relative flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl border border-white/10 bg-black/50">
+                <img
+                  src={previewPortfolioImg}
+                  alt="Preview Portofolio"
+                  className="max-h-[82vh] sm:max-h-[86vh] max-w-full w-auto object-contain select-none"
+                />
+
+                {/* Navigasi Carousel jika foto berasal dari portfolio vendor */}
+                {(() => {
+                  const imagesList = currentPopupVendor?.portfolioImages || [];
+                  const currentIndex = imagesList.indexOf(previewPortfolioImg);
+                  if (currentIndex === -1 || imagesList.length <= 1) return null;
+
+                  const handlePrev = (e: React.MouseEvent) => {
+                    e.stopPropagation();
+                    const prevIdx = (currentIndex - 1 + imagesList.length) % imagesList.length;
+                    setPreviewPortfolioImg(imagesList[prevIdx]);
+                  };
+
+                  const handleNext = (e: React.MouseEvent) => {
+                    e.stopPropagation();
+                    const nextIdx = (currentIndex + 1) % imagesList.length;
+                    setPreviewPortfolioImg(imagesList[nextIdx]);
+                  };
+
+                  return (
+                    <>
+                      <button
+                        type="button"
+                        onClick={handlePrev}
+                        className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer shadow-md active:scale-95"
+                        aria-label="Foto sebelumnya"
+                      >
+                        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNext}
+                        className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all cursor-pointer shadow-md active:scale-95"
+                        aria-label="Foto selanjutnya"
+                      >
+                        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </button>
+
+                      {/* Badge info foto */}
+                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/75 backdrop-blur-xs border border-white/20 px-3.5 py-1 text-[10px] font-mono font-bold text-white shadow-md flex items-center gap-1.5 pointer-events-none">
+                        <span>{currentPopupVendor?.name}</span>
+                        <span>•</span>
+                        <span>{currentIndex + 1} / {imagesList.length}</span>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
             </div>
           </div>
         )}
