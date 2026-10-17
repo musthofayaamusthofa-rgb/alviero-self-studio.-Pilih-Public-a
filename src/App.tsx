@@ -57,10 +57,51 @@ export default function App() {
 
   const [isBranchModalOpen, setIsBranchModalOpen] = useState<boolean>(false);
   const [isBeautyModalOpen, setIsBeautyModalOpen] = useState<boolean>(false);
-  const [selectedMuaStudio, setSelectedMuaStudio] = useState<'Studio 1' | 'Studio 2'>('Studio 1');
-  const [extraCart, setExtraCart] = useState<ExtraCartItem[]>([]);
+  const [selectedMuaStudio, setSelectedMuaStudio] = useState<'Studio 1' | 'Studio 2'>(() => {
+    const saved = localStorage.getItem('alviero_selected_mua_studio');
+    if (saved === 'Studio 2' || saved === 'Studio 1') return saved;
+    const savedBranch = localStorage.getItem('alviero_selected_branch');
+    return savedBranch === 'cabang-2' ? 'Studio 2' : 'Studio 1';
+  });
+
+  const [extraCart, setExtraCart] = useState<ExtraCartItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('alviero_extra_cart');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const extraCartCount = useMemo(() => extraCart.reduce((sum, item) => sum + (item?.qty || 1), 0), [extraCart]);
-  const [isExtraCheckoutOpen, setIsExtraCheckoutOpen] = useState<boolean>(false);
+
+  const [isExtraCheckoutOpen, setIsExtraCheckoutOpen] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('alviero_extra_checkout_open') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  // Sync extra cart and checkout modal open state to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('alviero_extra_cart', JSON.stringify(extraCart));
+    } catch (e) {
+      console.warn('Failed to save extraCart to localStorage', e);
+    }
+  }, [extraCart]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('alviero_extra_checkout_open', isExtraCheckoutOpen ? 'true' : 'false');
+    } catch {}
+  }, [isExtraCheckoutOpen]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('alviero_selected_mua_studio', selectedMuaStudio);
+    } catch {}
+  }, [selectedMuaStudio]);
 
   const handleAddExtraItem = (item: ExtraCartItem) => {
     setExtraCart((prev) => {
@@ -88,6 +129,7 @@ export default function App() {
 
   const handleExtraCheckoutSubmit = (payload: {
     items: ExtraCartItem[];
+    selectedStudio?: 'Studio 1' | 'Studio 2';
     selectedDate: string;
     selectedTime: string;
     pickupNote: string;
@@ -99,15 +141,16 @@ export default function App() {
     paymentAmount: number;
     total: number;
   }) => {
+    const targetStudio = payload.selectedStudio || selectedMuaStudio;
     const cartDetailsString = payload.items
       .map((item) => `- ${item.qty}x ${item.itemName}${item.vendor ? ` ${item.vendor}` : ''}`)
       .join('\n');
     const paymentOption = payload.paymentType === 'dp' ? 'DP 50%' : 'Lunas/Full';
     const paymentMethod = payload.paymentMethod.toUpperCase();
-    const targetWaNumber = selectedMuaStudio === 'Studio 2' ? ADMIN_STUDIO_2_WA : ADMIN_STUDIO_1_WA;
+    const targetWaNumber = targetStudio === 'Studio 2' ? ADMIN_STUDIO_2_WA : ADMIN_STUDIO_1_WA;
 
     const lines: string[] = [];
-    lines.push(`Halo Admin ${selectedMuaStudio} Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).`);
+    lines.push(`Halo Admin ${targetStudio} Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).`);
     lines.push('');
     lines.push('*DATA PEMESAN:*');
     lines.push(`• Nama: ${payload.customerName}`);
@@ -118,6 +161,7 @@ export default function App() {
     lines.push(cartDetailsString);
     lines.push('');
     lines.push('*JADWAL & PENGAMBILAN:*');
+    lines.push(`• Studio Tujuan: ${targetStudio}`);
     lines.push(`• Tanggal: ${payload.selectedDate}`);
     lines.push(`• Jam: ${payload.selectedTime}`);
     lines.push(`• Catatan/Lokasi: ${payload.pickupNote || 'Belum diisi'}`);
@@ -133,14 +177,21 @@ export default function App() {
     const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetWaNumber}&text=${encodedText}`;
     setExtraCart([]);
     setIsExtraCheckoutOpen(false);
+    try {
+      localStorage.removeItem('alviero_extra_cart');
+      localStorage.removeItem('alviero_extra_checkout_form');
+      localStorage.removeItem('alviero_extra_checkout_open');
+    } catch {}
     return whatsappUrl;
   };
 
   const handleSelectBranch = (branch: StudioBranch) => {
     setSelectedBranch(branch);
+    setSelectedMuaStudio(branch === 'cabang-2' ? 'Studio 2' : 'Studio 1');
     setInitialMenuCategory(undefined);
     setInitialCatalogTab('menu');
     localStorage.setItem('alviero_selected_branch', branch);
+    localStorage.setItem('alviero_selected_mua_studio', branch === 'cabang-2' ? 'Studio 2' : 'Studio 1');
     setHasEnteredBranch(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -350,6 +401,7 @@ export default function App() {
         onUpdateQty={handleUpdateExtraQty}
         onRemoveItem={handleRemoveExtraItem}
         selectedMuaStudio={selectedMuaStudio}
+        onSelectStudio={(studio) => setSelectedMuaStudio(studio)}
         onSubmit={handleExtraCheckoutSubmit}
       />
 
