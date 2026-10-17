@@ -262,26 +262,26 @@ Apakah slot dan layanan di atas tersedia?`
   if (!isOpen) return null;
 
   const steps = [
-    { id: 1, label: 'Rincian Pesanan' },
-    { id: 2, label: 'Jadwal & Pengambilan' },
-    { id: 3, label: 'Data & Pembayaran' },
+    { id: 1, label: 'Pesanan' },
+    { id: 2, label: 'Jadwal' },
+    { id: 3, label: 'Pembayaran' },
   ];
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/60 p-2 backdrop-blur-[2px] sm:p-6">
-      <div className="flex max-h-[96vh] w-full max-w-3xl flex-col overflow-hidden rounded-[20px] border border-[#292929] bg-[#F7F3EE] shadow-[0_24px_80px_rgba(0,0,0,0.35)] sm:max-h-[90vh] sm:rounded-[28px]">
-        <div className="flex items-center justify-between gap-2 bg-[#1C1C1C] px-3 py-3 text-white sm:gap-3 sm:px-6 sm:py-4">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/5 shadow-sm">
-              <ShoppingBag className="h-5 w-5 text-[#A9BCA7]" />
+    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/65 p-2 sm:p-4 backdrop-blur-xs animate-in fade-in duration-200">
+      <div className="flex max-h-[92vh] sm:max-h-[88vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-[#292929] bg-[#F7F3EE] shadow-2xl">
+        {/* Header Modal */}
+        <div className="flex items-center justify-between gap-3 bg-[#1C1C1C] px-3.5 py-2.5 sm:px-4 sm:py-3 text-white shrink-0">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-white/10 text-[#A9BCA7] shrink-0">
+              <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </div>
-
             <div className="min-w-0">
-              <h3 className="font-serif text-base sm:text-xl font-black uppercase tracking-[0.2em] text-white truncate">
-                KERANJANG & RESERVASI TAMBAHAN
+              <h3 className="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider text-white truncate">
+                Keranjang Layanan
               </h3>
-              <p className="text-[10px] sm:text-[11px] font-sans uppercase tracking-[0.18em] text-stone-300">
-                Non-Studio Booking
+              <p className="text-[9.5px] font-sans text-stone-400">
+                Rias MUA, Busana & Cetak
               </p>
             </div>
           </div>
@@ -289,250 +289,250 @@ Apakah slot dan layanan di atas tersedia?`
           <button
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white border border-white/10 transition hover:bg-white/15"
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-stone-300 hover:text-white hover:bg-white/20 transition-colors cursor-pointer"
             aria-label="Tutup checkout"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3.5 w-3.5" />
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 space-y-3 overflow-y-auto p-3 sm:space-y-4 sm:p-6">
-          <div className="flex flex-wrap items-center gap-2">
+        {/* Segmented Step Indicator */}
+        <div className="px-3 pt-2.5 pb-1 sm:px-4 sm:pt-3 shrink-0">
+          <div className="grid grid-cols-3 gap-1 bg-[#E8DDD6]/70 p-1 rounded-xl">
             {steps.map((item) => {
               const isActive = step === item.id;
               const isDone = step > item.id;
-
               return (
-                <div key={item.id} className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (item.id === 3 && !isScheduleConfirmed) return;
-                      setStep(item.id as 1 | 2 | 3);
-                    }}
-                    disabled={item.id === 3 && !isScheduleConfirmed}
-                    className={`rounded-full border px-3 py-1.5 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.14em] transition-colors ${
-                      isActive
-                        ? 'bg-[#2D2D2D] text-white border-[#2D2D2D]'
-                        : isDone
-                          ? 'bg-[#E7F0E8] text-[#3E5D44] border-[#C7D7C6]'
-                          : 'bg-white text-[#3A3A3A] border-[#D9CFC7]'
-                    } ${item.id === 3 && !isScheduleConfirmed ? 'opacity-50 cursor-not-allowed' : ''}`}
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setStep(item.id as 1 | 2 | 3)}
+                  className={`flex items-center justify-center gap-1.5 py-1.5 px-1 rounded-lg text-[10px] sm:text-xs font-serif font-bold uppercase tracking-wide transition-all ${
+                    isActive
+                      ? 'bg-[#2D2D2D] text-white shadow-xs'
+                      : isDone
+                        ? 'bg-white/70 text-[#3E5D44] hover:bg-white'
+                        : 'text-stone-500 hover:text-stone-800'
+                  } cursor-pointer`}
+                >
+                  <span
+                    className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-mono font-bold shrink-0 ${
+                      isActive ? 'bg-[#A9BCA7] text-[#1E1E1E]' : isDone ? 'bg-[#3E5D44] text-white' : 'bg-stone-300 text-stone-600'
+                    }`}
                   >
-                    {item.id}. {item.label}
-                  </button>
-
-                  {item.id !== steps.length && (
-                    <span className="text-[#9B8E86]">›</span>
-                  )}
-                </div>
+                    {isDone ? '✓' : item.id}
+                  </span>
+                  <span className="truncate">{item.label}</span>
+                </button>
               );
             })}
           </div>
+        </div>
 
+        {/* Modal Scrollable Body */}
+        <div className="min-h-0 flex-1 overflow-y-auto px-3 py-2 sm:px-4 sm:py-3 space-y-3">
+          {/* STEP 1: RINCIAN PESANAN */}
           {step === 1 && (
-            <div className="space-y-4">
-              <div className="rounded-2xl border border-[#E8DDD6] bg-white p-4 shadow-sm">
-                <div className="mb-3 flex items-center justify-between gap-3">
-                  <h4 className="font-serif text-lg sm:text-xl font-black uppercase tracking-wide text-[#2E2E2E]">
-                    Rincian Pesanan
-                  </h4>
-                  <span className="rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#2E2E2E]">
+            <div className="space-y-3">
+              <div className="rounded-xl border border-[#E8DDD6] bg-white p-3 sm:p-3.5 shadow-2xs">
+                <div className="mb-2.5 flex items-center justify-between">
+                  <span className="font-serif text-xs font-bold uppercase tracking-wider text-[#2E2E2E]">
+                    Daftar Item Terpilih
+                  </span>
+                  <span className="rounded-full border border-[#E8DDD6] bg-[#F2E9E4] px-2 py-0.5 text-[9px] font-mono font-bold uppercase text-[#2E2E2E]">
                     {items.length} item
                   </span>
                 </div>
 
-                <div className="space-y-3">
-                  {items.length === 0 ? (
-                    <div className="rounded-2xl border border-dashed border-[#D9CFC7] bg-[#F9F6F3] p-6 text-center text-sm text-stone-500">
-                      Keranjang masih kosong.
-                    </div>
-                  ) : (
-                    items.map((item) => (
+                {items.length === 0 ? (
+                  <div className="rounded-xl border border-dashed border-[#D9CFC7] bg-[#FDFBF7] p-6 text-center text-xs text-stone-500">
+                    Keranjang masih kosong. Silakan pilih layanan terlebih dahulu.
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {items.map((item) => (
                       <div
                         key={item.id}
-                        className="rounded-2xl border border-[#E8DDD6] bg-[#F9F6F3] p-3 sm:p-4"
+                        className="rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] p-2.5 sm:p-3"
                       >
-                        <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="rounded-full bg-[#2D2D2D] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-[0.15em] text-white">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="rounded bg-[#2D2D2D] px-1.5 py-0.5 text-[8.5px] font-mono font-bold uppercase text-white">
                                 {item.category}
                               </span>
                               {item.vendor && (
-                                <span className="text-[10px] font-sans uppercase tracking-[0.12em] text-stone-500">
+                                <span className="text-[9.5px] font-bold uppercase text-[#6E856C]">
                                   {item.vendor}
                                 </span>
                               )}
                             </div>
-
-                            <div className="mt-2 font-serif text-base sm:text-lg font-black uppercase text-[#2E2E2E]">
+                            <h5 className="mt-1 font-serif text-xs sm:text-sm font-bold text-[#2E2E2E] leading-snug">
                               {item.itemName}
-                            </div>
+                            </h5>
                           </div>
-
                           <button
                             type="button"
                             onClick={() => onRemoveItem(item.id)}
-                            className="rounded-full border border-[#E2D7D1] bg-white px-2 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#2E2E2E] transition hover:bg-[#F2E9E4]"
+                            className="text-stone-400 hover:text-rose-600 transition-colors p-1"
+                            title="Hapus item"
                           >
-                            Hapus
+                            <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
 
-                        <div className="mt-3 flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-2 rounded-full border border-[#E8DDD6] bg-white p-1 shadow-sm">
+                        <div className="mt-2.5 flex items-center justify-between border-t border-[#E8DDD6]/60 pt-2">
+                          {/* Stepper Qty */}
+                          <div className="flex items-center gap-1.5 rounded-lg border border-[#E8DDD6] bg-white p-0.5 shadow-2xs">
                             <button
                               type="button"
                               onClick={() => onUpdateQty(item.id, Math.max(item.qty - 1, 1))}
-                              className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-[#F2E9E4]"
+                              className="flex h-6 w-6 items-center justify-center rounded hover:bg-[#F2E9E4] text-stone-600 cursor-pointer"
                             >
-                              <Minus className="h-3.5 w-3.5" />
+                              <Minus className="h-3 w-3" />
                             </button>
-
-                            <span className="min-w-8 text-center font-mono text-sm font-black text-[#2E2E2E]">
+                            <span className="min-w-6 text-center font-mono text-xs font-bold text-[#2E2E2E]">
                               {item.qty}
                             </span>
-
                             <button
                               type="button"
                               onClick={() => onUpdateQty(item.id, item.qty + 1)}
-                              className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2D2D2D] text-white"
+                              className="flex h-6 w-6 items-center justify-center rounded bg-[#2D2D2D] text-white hover:bg-black cursor-pointer"
                             >
-                              <Plus className="h-3.5 w-3.5" />
+                              <Plus className="h-3 w-3" />
                             </button>
                           </div>
 
-                          <div className="font-mono text-sm sm:text-base font-black text-[#2E2E2E]">
+                          <div className="font-mono text-xs sm:text-sm font-bold text-[#2E2E2E]">
                             Rp {(item.price * item.qty).toLocaleString('id-ID')}
                           </div>
                         </div>
                       </div>
-                    ))
-                  )}
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-[#E8DDD6] bg-[#F2E9E4] p-4 shadow-sm">
-                <div className="flex items-center justify-between gap-3 text-[#2E2E2E]">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.18em]">Subtotal</span>
-                  <span className="font-mono text-xl font-black">Rp {subtotal.toLocaleString('id-ID')}</span>
-                </div>
-              </div>
-
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setStep(2)}
-                  disabled={items.length === 0}
-                  className="inline-flex items-center gap-2 rounded-full bg-[#2D2D2D] px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-white disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Lanjut ke Jadwal
-                  <ArrowRight className="h-4 w-4" />
-                </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
 
+          {/* STEP 2: JADWAL & LOKASI */}
           {step === 2 && (
-            <div className="space-y-4">
-              <div className="rounded-2xl border border-[#E8DDD6] bg-white p-4 shadow-sm">
-                <div className="mb-4 flex items-center gap-2 text-[#2E2E2E]">
-                  <CalendarDays className="h-4 w-4 text-[#6E856C]" />
-                  <h4 className="font-serif text-lg font-black uppercase tracking-wide">Jadwal & Pengambilan</h4>
+            <div className="space-y-3">
+              <div className="rounded-xl border border-[#E8DDD6] bg-white p-3.5 sm:p-4 shadow-2xs">
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-[#2E2E2E]">
+                    <CalendarDays className="h-4 w-4 text-[#6E856C]" />
+                    <h4 className="font-serif text-xs sm:text-sm font-bold uppercase tracking-wider">
+                      Waktu & Lokasi
+                    </h4>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleScheduleConfirmation}
+                    className="text-[9.5px] font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-lg flex items-center gap-1 transition-colors cursor-pointer"
+                    title="Konsultasikan ketersediaan slot ke WhatsApp admin"
+                  >
+                    <span>💬</span> Tanya Jadwal WA
+                  </button>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2.5 sm:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
+                    <label className="mb-1 block text-[9.5px] font-mono font-bold uppercase tracking-wider text-stone-600">
                       Pilih Tanggal
                     </label>
                     <input
                       type="date"
                       value={selectedDate}
                       onChange={(e) => setSelectedDate(e.target.value)}
-                      className="w-full min-h-[46px] rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] px-3 text-sm text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
+                      className="w-full min-h-[38px] rounded-lg border border-[#E8DDD6] bg-[#FDFBF7] px-2.5 text-xs text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
+                    <label className="mb-1 block text-[9.5px] font-mono font-bold uppercase tracking-wider text-stone-600">
                       Pilih Jam
                     </label>
                     <div className="relative">
-                      <Clock3 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6E856C]" />
+                      <Clock3 className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#6E856C]" />
                       <input
                         type="time"
                         value={selectedTime}
                         onChange={(e) => setSelectedTime(e.target.value)}
-                        className="w-full min-h-[46px] rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] pl-9 pr-3 text-sm text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
+                        className="w-full min-h-[38px] rounded-lg border border-[#E8DDD6] bg-[#FDFBF7] pl-8 pr-2.5 text-xs text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
                       />
                     </div>
-                    <p className="mt-1.5 text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200/80 rounded-lg px-2.5 py-1 flex items-center gap-1.5 shadow-2xs">
-                      <span>⚠️</span> Jam Make Up wajib 1 jam sebelum sesi foto
-                    </p>
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <label className="mb-2 flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                    <MapPin className="h-4 w-4 text-[#6E856C]" />
-                    Lokasi MakeUp
+                <div className="mt-2.5">
+                  <p className="text-[9.5px] font-bold text-amber-800 bg-amber-50/80 border border-amber-200/80 rounded-lg px-2.5 py-1 flex items-center gap-1.5">
+                    <span>⚠️</span> Jam Make Up disarankan minimal 1 jam sebelum jadwal sesi foto.
+                  </p>
+                </div>
+
+                <div className="mt-3">
+                  <label className="mb-1 flex items-center gap-1.5 text-[9.5px] font-mono font-bold uppercase tracking-wider text-stone-600">
+                    <MapPin className="h-3 w-3 text-[#6E856C]" />
+                    Lokasi / Catatan Layanan
                   </label>
                   <textarea
-                    rows={3}
+                    rows={2}
                     value={pickupNote}
                     onChange={(e) => setPickupNote(e.target.value)}
-                    placeholder="Contoh: Lokasi MakeUp di Studio / di rumah klien / alamat venue"
-                    className="w-full rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] px-3 py-3 text-sm text-[#2E2E2E] placeholder:text-stone-400 focus:border-[#2D2D2D] focus:outline-none"
+                    placeholder="Contoh: Rias di studio / di rumah klien / alamat venue"
+                    className="w-full rounded-lg border border-[#E8DDD6] bg-[#FDFBF7] px-2.5 py-2 text-xs text-[#2E2E2E] placeholder:text-stone-400 focus:border-[#2D2D2D] focus:outline-none resize-none"
                   />
                 </div>
               </div>
-
             </div>
           )}
 
+          {/* STEP 3: DATA & PEMBAYARAN */}
           {step === 3 && (
-            <div className="space-y-4">
-              <div className="rounded-[22px] border border-[#E8DDD6] bg-white p-4 sm:p-5 shadow-sm">
-                <div className="mb-4 flex items-center gap-2 text-[#2E2E2E]">
-                  <User className="h-4 w-4 text-[#6E856C]" />
-                  <h4 className="font-serif text-lg font-black uppercase tracking-wide">Data & Pembayaran</h4>
+            <div className="space-y-3">
+              {/* Form Data Pemesan */}
+              <div className="rounded-xl border border-[#E8DDD6] bg-white p-3 sm:p-3.5 shadow-2xs">
+                <div className="mb-2.5 flex items-center gap-1.5 text-[#2E2E2E]">
+                  <User className="h-3.5 w-3.5 text-[#6E856C]" />
+                  <h4 className="font-serif text-xs font-bold uppercase tracking-wider">
+                    Data Pemesan
+                  </h4>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2 sm:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                      Nama Lengkap
+                    <label className="mb-1 block text-[9px] font-mono font-bold uppercase text-stone-600">
+                      Nama Lengkap *
                     </label>
                     <input
                       type="text"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
                       placeholder="Contoh: Anisa Putri"
-                      className="w-full min-h-[46px] rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] px-3 text-sm text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
+                      className="w-full min-h-[38px] rounded-lg border border-[#E8DDD6] bg-[#FDFBF7] px-2.5 text-xs text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                      No. WhatsApp
+                    <label className="mb-1 block text-[9px] font-mono font-bold uppercase text-stone-600">
+                      No. WhatsApp *
                     </label>
                     <div className="relative">
-                      <Smartphone className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6E856C]" />
+                      <Smartphone className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#6E856C]" />
                       <input
                         type="tel"
                         value={customerPhone}
                         onChange={(e) => setCustomerPhone(e.target.value)}
                         placeholder="0812xxxxxxxx"
-                        className="w-full min-h-[46px] rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] pl-9 pr-3 text-sm text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
+                        className="w-full min-h-[38px] rounded-lg border border-[#E8DDD6] bg-[#FDFBF7] pl-8 pr-2.5 text-xs text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
                       />
                     </div>
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="mb-2 flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                      <Instagram className="h-4 w-4 text-[#6E856C]" />
+                    <label className="mb-1 flex items-center gap-1 text-[9px] font-mono font-bold uppercase text-stone-600">
+                      <Instagram className="h-3 w-3 text-[#6E856C]" />
                       Instagram (Opsional)
                     </label>
                     <input
@@ -540,307 +540,223 @@ Apakah slot dan layanan di atas tersedia?`
                       value={customerInstagram}
                       onChange={(e) => setCustomerInstagram(e.target.value)}
                       placeholder="@username"
-                      className="w-full min-h-[46px] rounded-xl border border-[#E8DDD6] bg-[#FDFBF7] px-3 text-sm text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
+                      className="w-full min-h-[38px] rounded-lg border border-[#E8DDD6] bg-[#FDFBF7] px-2.5 text-xs text-[#2E2E2E] focus:border-[#2D2D2D] focus:outline-none"
                     />
                   </div>
                 </div>
 
-                <div className="mt-4 border-t border-[#E8DDD6] pt-4 space-y-3">
-                  <label className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                    <CreditCard className="h-4 w-4 text-[#6E856C]" />
-                    Opsi Pembayaran Booking
+                {/* Pilihan Metode Bayar */}
+                <div className="mt-3 border-t border-[#E8DDD6]/70 pt-2.5">
+                  <label className="mb-1.5 flex items-center gap-1 text-[9px] font-mono font-bold uppercase text-stone-600">
+                    <CreditCard className="h-3 w-3 text-[#6E856C]" />
+                    Metode Pembayaran
                   </label>
 
-                  <div className="grid grid-cols-1 gap-3 text-xs">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentType('dp')}
-                      className="min-h-[48px] rounded-[9999px] border border-[#2D2D2D] bg-white ring-1 ring-[#2D2D2D] shadow-sm px-3 py-3 text-left transition-all"
-                    >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="font-serif text-[11px] font-bold uppercase text-[#2E2E2E]">Bayar DP 50%</span>
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[#2D2D2D] text-[10px] font-bold text-white">
-                          ✓
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-4 border-t border-[#E8DDD6] pt-4 space-y-3">
-                  <label className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                    <CreditCard className="h-4 w-4 text-[#6E856C]" />
-                    Pilih Metode Pembayaran
-                  </label>
-
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('qris')}
-                      className={`flex min-h-[56px] items-center gap-3 rounded-2xl border p-3 text-left transition-all ${
+                      className={`flex items-center gap-2 rounded-lg border p-2 text-left transition-all cursor-pointer ${
                         paymentMethod === 'qris'
-                          ? 'border-[#2D2D2D] bg-white ring-1 ring-[#2D2D2D] shadow-sm'
-                          : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7]'
+                          ? 'border-[#2D2D2D] bg-[#F2E9E4]/60 ring-1 ring-[#2D2D2D] shadow-2xs'
+                          : 'border-[#E8DDD6] bg-[#FDFBF7] hover:bg-[#F2E9E4]/30'
                       }`}
                     >
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2D2D2D] text-[#A9BCA7]">
-                        <QrCode className="h-5 w-5" />
+                      <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#2D2D2D] text-[#A9BCA7] shrink-0">
+                        <QrCode className="h-3.5 w-3.5" />
                       </div>
                       <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-1.5">
-                          <span className="font-serif text-[11px] font-bold uppercase text-[#2E2E2E]">QRIS Resmi</span>
-                          <span className="rounded border border-[#A9BCA7] bg-[#EBF2EA] px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase text-[#6E856C]">+1% Biaya</span>
-                        </div>
+                        <span className="block font-serif text-[10.5px] font-bold text-[#2E2E2E]">QRIS Resmi</span>
+                        <span className="text-[8.5px] font-mono text-stone-500">+1% Biaya</span>
                       </div>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('bca')}
-                      className={`flex min-h-[56px] items-center gap-3 rounded-2xl border p-3 text-left transition-all ${
+                      className={`flex items-center gap-2 rounded-lg border p-2 text-left transition-all cursor-pointer ${
                         paymentMethod === 'bca'
-                          ? 'border-[#2D2D2D] bg-white ring-1 ring-[#2D2D2D] shadow-sm'
-                          : 'border-[#E8DDD6] bg-white text-stone-700 hover:bg-[#FDFBF7]'
+                          ? 'border-[#2D2D2D] bg-[#F2E9E4]/60 ring-1 ring-[#2D2D2D] shadow-2xs'
+                          : 'border-[#E8DDD6] bg-[#FDFBF7] hover:bg-[#F2E9E4]/30'
                       }`}
                     >
-                      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#005EAA] text-xs font-black text-white">BCA</div>
+                      <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#005EAA] text-[10px] font-black text-white shrink-0">
+                        BCA
+                      </div>
                       <div className="min-w-0">
-                        <span className="font-serif text-[11px] font-bold uppercase text-[#2E2E2E]">Transfer Bank BCA</span>
+                        <span className="block font-serif text-[10.5px] font-bold text-[#2E2E2E]">Transfer BCA</span>
+                        <span className="text-[8.5px] font-mono text-stone-500">0113324021</span>
                       </div>
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[#3A3A3A] bg-[#1C1C1C] p-4 text-white shadow-md">
-                <div className="flex items-center justify-between gap-3 border-b border-[#3A3A3A] pb-3">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#A9BCA7]">
-                    Rincian Pesanan Tambahan (MUA/DLL)
+              {/* Rincian Total Bayar & Rekening / QRIS */}
+              <div className="rounded-xl border border-[#3A3A3A] bg-[#222222] p-3 text-white shadow-xs">
+                <div className="flex items-center justify-between text-xs border-b border-[#3A3A3A] pb-2">
+                  <span className="text-[9.5px] font-mono uppercase tracking-wider text-[#A9BCA7]">Total Estimasi Biaya</span>
+                  <span className="font-mono text-sm sm:text-base font-bold text-[#A9BCA7]">
+                    Rp {totalWithFee.toLocaleString('id-ID')}
                   </span>
-                  <span className="font-serif text-xs uppercase tracking-[0.12em] text-stone-200">{items.length} item</span>
                 </div>
 
-                <div className="mt-3 space-y-2 text-xs text-stone-200">
-                  <div className="flex items-center justify-between gap-3">
-                    <span>Subtotal Keranjang Ekstra</span>
-                    <span className="font-mono font-bold">Rp {subtotal.toLocaleString('id-ID')}</span>
-                  </div>
-
-                  {paymentMethod === 'qris' && (
-                    <div className="flex items-center justify-between gap-3">
-                      <span>Biaya Layanan QRIS (1%)</span>
-                      <span className="font-mono font-bold text-amber-300">+ Rp {qrisFee.toLocaleString('id-ID')}</span>
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between gap-3 border-t border-[#3A3A3A] pt-3 text-base font-serif font-black text-white">
-                    <span className="uppercase tracking-[0.12em]">Total Estimasi Biaya</span>
-                    <span className="font-mono text-[#A9BCA7]">Rp {totalWithFee.toLocaleString('id-ID')}</span>
-                  </div>
-
-                  {paymentType === 'dp' && (
-                    <div className="mt-3 rounded-xl border border-[#A9BCA7]/40 bg-[#1F2B1F] p-3">
-                      <div className="flex items-center justify-between gap-3 text-[11px] font-serif font-bold uppercase tracking-[0.12em] text-stone-200">
-                        <span>Minimum Transfer DP 50%:</span>
-                        <span className="font-mono text-[#A9BCA7]">Rp {paymentAmount.toLocaleString('id-ID')}</span>
+                {/* QRIS / BCA details */}
+                <div className="mt-2.5">
+                  {paymentMethod === 'qris' ? (
+                    <div className="flex items-center gap-3 bg-white/5 p-2 rounded-lg">
+                      <div className="h-16 w-16 bg-white rounded-md p-1 shrink-0 flex items-center justify-center">
+                        <img src="/images/qris-alviero.png" alt="QRIS Alviero" className="h-full w-full object-contain" />
+                      </div>
+                      <div className="text-[10px] text-stone-300">
+                        <span className="font-bold text-white block">QRIS Nasional Alviero</span>
+                        <span>Scan dari BCA, Mandiri, GoPay, OVO, ShopeePay, Dana dll.</span>
                       </div>
                     </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-[#E8DDD6] bg-[#FDFBF7] p-4 shadow-sm">
-                {paymentMethod === 'qris' ? (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between gap-3 border-b border-[#E8DDD6] pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2D2D2D] text-[#A9BCA7]">
-                          <QrCode className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <h4 className="font-serif text-xs font-black uppercase tracking-[0.12em] text-[#2E2E2E]">Scan Pembayaran QRIS Resmi Alviero Studio</h4>
-                        </div>
-                      </div>
-                      <span className="rounded-full border border-[#A9BCA7] bg-[#EBF2EA] px-2 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.12em] text-[#6E856C]">QRIS Nasional</span>
-                    </div>
-
-                    <div className="flex justify-center">
-                      <div className="max-w-[200px] rounded-2xl border border-[#2D2D2D] bg-white p-3 shadow-sm">
-                        <img src="/images/qris-alviero.png" alt="QRIS Resmi Alviero Studio" className="mx-auto h-auto w-full max-w-[200px] object-contain" />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between gap-3 border-b border-[#E8DDD6] pb-2">
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#005EAA] text-xs font-black text-white">BCA</div>
-                        <div>
-                          <h4 className="font-serif text-xs font-black uppercase tracking-[0.12em] text-[#2E2E2E]">Transfer Rekening Bank BCA</h4>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between gap-3 rounded-xl border border-[#D7D9DA] bg-white p-3">
+                  ) : (
+                    <div className="flex items-center justify-between bg-white/5 p-2 rounded-lg text-xs">
                       <div>
-                        <div className="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-[#5F5F5F]">No. Rekening</div>
-                        <div className="mt-1 font-mono text-lg font-black text-[#2E2E2E]">0113324021</div>
+                        <span className="text-[9px] text-stone-400 block uppercase font-mono">BCA a.n Muhammad Azzam Fakhri</span>
+                        <span className="font-mono font-bold text-white tracking-wider">0113324021</span>
                       </div>
                       <button
                         type="button"
                         onClick={handleCopyBankAccount}
-                        className="inline-flex items-center gap-2 rounded-full border border-[#D9CFC7] bg-[#F2E9E4] px-3 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#2E2E2E]"
+                        className="rounded-lg bg-white/10 hover:bg-white/20 px-2 py-1 text-[9.5px] font-mono font-bold uppercase text-white transition-colors cursor-pointer"
                       >
-                        <Copy className="h-3.5 w-3.5" />
-                        {copiedAccount ? 'Tersalin' : 'Salin Rekening'}
+                        {copiedAccount ? 'Tersalin' : 'Salin'}
                       </button>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
-              <div className="rounded-2xl border border-[#DDE9DF] bg-[#F9FBF9] p-4 shadow-sm">
-                <label className="mb-3 flex items-center justify-between gap-3 text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-[#2E2E2E]">
-                  <span className="flex items-center gap-2">
-                    <Camera className="h-4 w-4 text-[#6E856C]" />
-                    Unggah Bukti Transfer ({paymentMethod === 'bca' ? 'BCA' : 'QRIS'}):
-                    <span className="text-rose-600">*</span>
+              {/* Upload Bukti Bayar */}
+              <div className="rounded-xl border border-[#DDE9DF] bg-white p-3 shadow-2xs">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="flex items-center gap-1.5 text-[9.5px] font-mono font-bold uppercase text-[#2E2E2E]">
+                    <Camera className="h-3.5 w-3.5 text-[#6E856C]" />
+                    Upload Bukti Transfer *
                   </span>
                   {paymentProofImage ? (
-                    <span className="rounded-full border border-emerald-200 bg-emerald-100 px-2 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.12em] text-emerald-800">
-                      ✅ Terlampir
+                    <span className="rounded bg-emerald-100 text-emerald-800 text-[8.5px] font-mono font-bold px-1.5 py-0.5">
+                      ✓ Terlampir
                     </span>
                   ) : (
-                    <span className="rounded-full border border-rose-200 bg-rose-100 px-2 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.12em] text-rose-700">
+                    <span className="rounded bg-rose-100 text-rose-700 text-[8.5px] font-mono font-bold px-1.5 py-0.5">
                       Wajib
                     </span>
                   )}
-                </label>
+                </div>
 
                 {!paymentProofImage ? (
-                  <label className="relative block cursor-pointer rounded-[20px] border-2 border-dashed border-[#A9BCA7] bg-[#FDFBF7] p-5 text-center transition hover:bg-[#F2E9E4]">
+                  <label className="flex items-center justify-center gap-2 border-2 border-dashed border-[#A9BCA7] bg-[#FDFBF7] hover:bg-[#F2E9E4] p-3 rounded-lg cursor-pointer transition-colors">
                     <input type="file" accept="image/*" onChange={handleProofUpload} className="hidden" />
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#2D2D2D] text-[#A9BCA7] shadow-sm">
-                        <Upload className="h-5 w-5" />
-                      </div>
-                      <p className="font-serif text-[11px] font-black uppercase tracking-[0.12em] text-[#2E2E2E]">
-                        Klik Di Sini Untuk Memilih Foto Bukti Transfer
-                      </p>
-                      <p className="text-[10.5px] text-stone-500">
-                        Mendukung format JPG, PNG, WebP, atau Screenshot Struk Pembayaran (Maks. 5MB)
-                      </p>
-                    </div>
+                    <Upload className="h-4 w-4 text-[#6E856C]" />
+                    <span className="text-[10px] font-bold text-[#2E2E2E]">Pilih Foto Bukti Transfer (Maks. 5MB)</span>
                   </label>
                 ) : (
-                  <div className="flex items-center justify-between gap-3 rounded-[20px] border border-emerald-200 bg-emerald-50/80 p-3">
-                    <div className="flex min-w-0 items-center gap-3">
-                      <img
-                        src={paymentProofImage}
-                        alt="Preview Bukti Transfer"
-                        className="h-14 w-14 rounded-xl border border-emerald-200 bg-white object-cover shadow-sm"
-                      />
-                      <div className="min-w-0">
-                        <p className="truncate text-[11px] font-bold text-emerald-900">
-                          {paymentProofFileName || 'Bukti-Transfer-QRIS.png'}
-                        </p>
-                        <p className="mt-0.5 flex items-center gap-1 text-[10.5px] text-emerald-700">
-                          <Check className="h-3.5 w-3.5" />
-                          Foto bukti transfer siap dikirimkan
-                        </p>
-                      </div>
+                  <div className="flex items-center justify-between gap-2 bg-emerald-50 border border-emerald-200 p-2 rounded-lg">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <img src={paymentProofImage} alt="Bukti" className="h-9 w-9 rounded object-cover border border-emerald-200 shrink-0" />
+                      <span className="text-[10px] text-emerald-900 font-bold truncate">
+                        {paymentProofFileName || 'bukti-transfer.png'}
+                      </span>
                     </div>
-
-                    <div className="flex items-center gap-1.5">
-                      <label className="cursor-pointer rounded-xl border border-stone-300 bg-white px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.12em] text-[#2E2E2E]">
-                        <input type="file" accept="image/*" onChange={handleProofUpload} className="hidden" />
-                        Ganti Foto
-                      </label>
-                      <button
-                        type="button"
-                        onClick={handleRemoveProof}
-                        className="rounded-xl border border-rose-200 bg-rose-50 p-2 text-rose-600 transition hover:bg-rose-100"
-                        aria-label="Hapus bukti transfer"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={handleRemoveProof}
+                      className="text-rose-600 hover:text-rose-800 p-1 cursor-pointer"
+                      title="Hapus"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 )}
               </div>
-
             </div>
           )}
         </div>
 
-        <div className="border-t border-gray-200 bg-gray-50 p-3 sm:p-4">
-          {step === 2 && (
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D9CFC7] bg-white px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-[#2E2E2E]"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Kembali
-              </button>
-
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <button
-                  type="button"
-                  onClick={handleScheduleConfirmation}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-green-500 px-6 py-2 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-white shadow-sm transition hover:bg-green-600"
-                >
-                  <span className="text-base">✆</span>
-                  Konfirmasi Jadwal Via WA
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setStep(3)}
-                  disabled={!isScheduleConfirmed}
-                  className={`inline-flex items-center justify-center gap-2 rounded-full bg-[#2D2D2D] px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-white transition ${
-                    !isScheduleConfirmed ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  Lanjut ke Data
-                  <ArrowRight className="h-4 w-4" />
-                </button>
+        {/* Unified Bottom Footer */}
+        <div className="border-t border-[#E8DDD6] bg-white px-3 py-2.5 sm:px-4 sm:py-3 flex items-center justify-between gap-3 shrink-0">
+          {step === 1 ? (
+            <>
+              <div>
+                <span className="block text-[8.5px] font-mono font-bold uppercase tracking-wider text-stone-500">
+                  Total Biaya
+                </span>
+                <span className="font-mono text-sm sm:text-base font-black text-[#2E2E2E]">
+                  Rp {subtotal.toLocaleString('id-ID')}
+                </span>
               </div>
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D9CFC7] bg-white px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-[#2E2E2E]"
+                disabled={items.length === 0}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#2D2D2D] hover:bg-[#1E1E1E] px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider text-white shadow-xs transition active:scale-95 disabled:opacity-40 cursor-pointer"
               >
-                <ArrowLeft className="h-4 w-4" />
-                Kembali
+                <span>Lanjut Jadwal</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </button>
-
+            </>
+          ) : step === 2 ? (
+            <>
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="inline-flex items-center gap-1 rounded-xl border border-[#D9CFC7] bg-white hover:bg-[#FDFBF7] px-3 py-2 text-xs font-serif font-bold uppercase tracking-wider text-[#2E2E2E] transition active:scale-95 cursor-pointer"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span>Kembali</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!selectedDate || !selectedTime) {
+                    alert('Mohon pilih tanggal dan jam terlebih dahulu.');
+                    return;
+                  }
+                  setStep(3);
+                }}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#2D2D2D] hover:bg-[#1E1E1E] px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider text-white shadow-xs transition active:scale-95 cursor-pointer"
+              >
+                <span>Lanjut Bayar</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => setStep(2)}
+                className="inline-flex items-center gap-1 rounded-xl border border-[#D9CFC7] bg-white hover:bg-[#FDFBF7] px-3 py-2 text-xs font-serif font-bold uppercase tracking-wider text-[#2E2E2E] transition active:scale-95 cursor-pointer"
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span>Kembali</span>
+              </button>
               <button
                 type="button"
                 disabled={!canSubmit || isSubmitting}
                 onClick={handleSubmit}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-[10px] sm:text-[11px] font-serif font-black uppercase tracking-[0.18em] text-white disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#2D2D2D] hover:bg-[#1E1E1E] px-4 py-2 text-xs font-serif font-bold uppercase tracking-wider text-white shadow-xs transition active:scale-95 disabled:opacity-40 cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
-                    <LoaderCircle className="h-4 w-4 animate-spin" />
-                    Menyimpan...
+                    <LoaderCircle className="h-3.5 w-3.5 animate-spin" />
+                    <span>Menyimpan...</span>
                   </>
                 ) : (
                   <>
-                    <span className="text-base">✆</span>
-                    Kirim Booking WA
-                    <ArrowRight className="h-4 w-4" />
+                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 shrink-0">
+                      <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.672 4.8 1.84 6.796L2 30l7.41-1.814A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2Z" fill="#25D366"/>
+                      <path d="M22.5 19.5c-.3-.15-1.77-.873-2.044-.972-.274-.1-.474-.15-.673.15-.2.3-.773.972-.947 1.173-.174.2-.348.225-.648.075-.3-.15-1.267-.467-2.413-1.49-.892-.796-1.494-1.779-1.669-2.079-.174-.3-.018-.462.131-.61.134-.134.3-.35.45-.524.15-.174.2-.3.3-.5.1-.2.05-.374-.025-.524-.075-.15-.673-1.622-.922-2.22-.243-.583-.49-.504-.673-.513l-.574-.01c-.2 0-.524.075-.8.374-.274.3-1.047 1.023-1.047 2.495 0 1.472 1.072 2.895 1.222 3.095.15.2 2.11 3.22 5.11 4.514.714.308 1.272.492 1.707.63.717.228 1.37.196 1.886.119.575-.086 1.77-.724 2.02-1.423.248-.7.248-1.298.173-1.423-.074-.124-.274-.2-.574-.35Z" fill="white"/>
+                    </svg>
+                    <span>Kirim Pesanan WA →</span>
                   </>
                 )}
               </button>
-            </div>
+            </>
           )}
         </div>
       </div>
