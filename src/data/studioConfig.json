@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-17T16:20:24.266Z",
+  "lastUpdated": "2026-10-17T16:45:28.506Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2714,7 +2714,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-wedding",
@@ -2762,7 +2763,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-grad-indoor",
@@ -2811,7 +2813,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-grad-outdoor",
@@ -2845,7 +2848,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-prewed-indoor",
@@ -2879,7 +2883,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-prewed-outdoor",
@@ -2911,7 +2916,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-kebaya",
@@ -2971,7 +2977,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "novita-hijabdo",
@@ -3003,7 +3010,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         }
       ],
       "kebayas": [
@@ -3234,7 +3242,10 @@
               ]
             }
           ],
-          "portfolioImage": "/images/mua/merah__1792248295008.jpg"
+          "portfolioImage": "/images/mua/merah__1792248295008.jpg",
+          "portfolioImages": [
+            "/images/mua/merah__1792248295008.jpg"
+          ]
         },
         {
           "id": "ananda-wedding",
@@ -3268,7 +3279,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "ananda-grad-indoor",
@@ -3302,7 +3314,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "ananda-grad-outdoor",
@@ -3322,7 +3335,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "ananda-prewed-indoor",
@@ -3342,7 +3356,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "ananda-prewed-outdoor",
@@ -3362,7 +3377,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "ananda-kebaya",
@@ -3393,7 +3409,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "ananda-hijabdo",
@@ -3422,7 +3439,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         }
       ],
       "kebayas": [
@@ -3552,7 +3570,10 @@
               ]
             }
           ],
-          "portfolioImage": "/images/mua/merah__1792248453424.jpg"
+          "portfolioImage": "/images/mua/merah__1792248453424.jpg",
+          "portfolioImages": [
+            "/images/mua/merah__1792248453424.jpg"
+          ]
         },
         {
           "id": "masaya-wedding",
@@ -3571,7 +3592,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "masaya-grad-indoor",
@@ -3603,7 +3625,15 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "/images/mua/makeup_graduation__4__1792255489781.jpg",
+          "portfolioImages": [
+            "/images/mua/makeup_graduation__4__1792255489781.jpg",
+            "/images/mua/makeup_graduation__1__1792255491711.jpg",
+            "/images/mua/makeup_graduation__2__1792255491010.jpg",
+            "/images/mua/makeup_graduation__1792255492987.jpg",
+            "/images/mua/makeup_graduation__3__1792255490409.jpg",
+            "/images/mua/makeup_graduation_1792255492362.jpg"
+          ]
         },
         {
           "id": "masaya-grad-outdoor",
@@ -3622,7 +3652,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "masaya-prewed-indoor",
@@ -3641,7 +3672,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "masaya-prewed-outdoor",
@@ -3660,7 +3692,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "masaya-kebaya",
@@ -3691,7 +3724,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "masaya-hijabdo",
@@ -3710,7 +3744,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         }
       ],
       "kebayas": [
@@ -3867,7 +3902,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         },
         {
           "id": "tiwi-hijabdo",
@@ -3899,7 +3935,8 @@
               ]
             }
           ],
-          "portfolioImage": ""
+          "portfolioImage": "",
+          "portfolioImages": []
         }
       ],
       "kebayas": []
