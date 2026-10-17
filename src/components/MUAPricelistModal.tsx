@@ -1031,6 +1031,9 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   // Size chart guide modal
   const [isSizeChartOpen, setIsSizeChartOpen] = useState<boolean>(false);
 
+  // Lightbox preview untuk foto portofolio kategori MUA
+  const [previewPortfolioImg, setPreviewPortfolioImg] = useState<string | null>(null);
+
   // Kebaya selection state: pkgId -> { color: string, size: string }
   const [kebayaSelections, setKebayaSelections] = useState<Record<string, { color: string; size: string }>>({});
 
@@ -1409,18 +1412,22 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                           <div className="border-l-3 border-[#5C725A] pl-3 space-y-2.5">
                             {/* Foto Portofolio Kategori MUA (Jika Ada) */}
                             {category.portfolioImage && (
-                              <div className="relative mb-3 h-36 sm:h-44 w-full overflow-hidden rounded-xl border border-[#EAE2DC] shadow-xs group">
+                              <div
+                                onClick={() => setPreviewPortfolioImg(category.portfolioImage || null)}
+                                className="relative mb-3 w-full overflow-hidden rounded-xl border border-[#EAE2DC] bg-[#1E1E1E]/5 shadow-xs flex items-center justify-center cursor-pointer group"
+                                title="Klik untuk melihat foto ukuran penuh"
+                              >
                                 <img
                                   src={category.portfolioImage}
                                   alt={`Portofolio ${category.name}`}
-                                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                  className="w-full h-auto max-h-[460px] object-contain mx-auto block group-hover:scale-[1.01] transition-transform duration-300"
                                   loading="lazy"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                                 <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between pointer-events-none">
                                   <span className="bg-[#2A2A2A]/85 backdrop-blur-xs text-white border border-white/20 px-2.5 py-0.5 rounded-full text-[9.5px] font-mono font-bold flex items-center gap-1 shadow-sm">
                                     <Camera className="w-3 h-3 text-[#A9BCA7]" />
-                                    <span>Hasil Portofolio ${category.name}</span>
+                                    <span>Hasil Portofolio {category.name}</span>
                                   </span>
                                 </div>
                               </div>
@@ -2171,6 +2178,30 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                   Tutup Panduan Ukuran
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Lightbox Preview Foto Portofolio Kategori */}
+        {previewPortfolioImg && (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-3 backdrop-blur-xs animate-in fade-in duration-200"
+            onClick={() => setPreviewPortfolioImg(null)}
+          >
+            <div className="relative max-w-3xl max-h-[92vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+              <button
+                type="button"
+                onClick={() => setPreviewPortfolioImg(null)}
+                className="absolute -top-11 right-0 rounded-full bg-white/20 hover:bg-white/30 text-white p-2 transition-colors cursor-pointer"
+                aria-label="Tutup preview"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <img
+                src={previewPortfolioImg}
+                alt="Preview Portofolio Kategori"
+                className="max-h-[85vh] max-w-full rounded-2xl object-contain shadow-2xl border border-white/10"
+              />
             </div>
           </div>
         )}

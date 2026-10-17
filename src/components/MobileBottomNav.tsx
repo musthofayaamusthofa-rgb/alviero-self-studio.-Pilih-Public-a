@@ -9,6 +9,8 @@ interface MobileBottomNavProps {
   onOpenBooking: () => void;
   onBackToLanding?: () => void;
   onNavigateToPricelist?: () => void;
+  extraCartCount?: number;
+  onOpenExtraCheckout?: () => void;
 }
 
 const scrollToTop = () => {
@@ -26,7 +28,9 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   setActiveTab,
   onOpenBooking,
   onBackToLanding,
-  onNavigateToPricelist
+  onNavigateToPricelist,
+  extraCartCount = 0,
+  onOpenExtraCheckout
 }) => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
 
@@ -80,7 +84,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         </div>
       )}
 
-      <div className="grid grid-cols-4 gap-0.5 text-center max-w-md mx-auto">
+      <div className={`grid ${extraCartCount > 0 ? 'grid-cols-5' : 'grid-cols-4'} gap-0.5 text-center max-w-md mx-auto`}>
         <button
           onClick={() => {
             if (onNavigateToPricelist) {
@@ -116,6 +120,25 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           <Sparkles className={`w-4 h-4 mb-0.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
           <span className="text-[8px] uppercase tracking-wide leading-none font-bold">Strip</span>
         </button>
+
+        {extraCartCount > 0 && (
+          <button
+            type="button"
+            onClick={onOpenExtraCheckout}
+            className="min-h-[42px] flex flex-col items-center justify-center py-1 transition-all duration-200 cursor-pointer bg-[#2D2D2D] hover:bg-[#1E1E1E] text-white font-bold shadow-xs active:scale-95 rounded-lg my-0.5"
+            aria-label={`Keranjang (${extraCartCount} item)`}
+          >
+            <div className="relative mb-0.5 flex items-center justify-center">
+              <span className="text-xs leading-none">🛒</span>
+              <span className="absolute -top-1.5 -right-2.5 flex h-3.5 min-w-[14px] items-center justify-center rounded-full bg-[#E57373] px-1 text-[7.5px] font-mono font-black text-white shadow-2xs">
+                {extraCartCount}
+              </span>
+            </div>
+            <span className="text-[7.5px] uppercase tracking-wider leading-none font-bold text-[#A9BCA7]">
+              {extraCartCount} Item
+            </span>
+          </button>
+        )}
 
         <button
           type="button"

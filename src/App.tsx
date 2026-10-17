@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Header } from './components/Header';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { PricelistViewer } from './components/PricelistViewer';
@@ -59,6 +59,7 @@ export default function App() {
   const [isBeautyModalOpen, setIsBeautyModalOpen] = useState<boolean>(false);
   const [selectedMuaStudio, setSelectedMuaStudio] = useState<'Studio 1' | 'Studio 2'>('Studio 1');
   const [extraCart, setExtraCart] = useState<ExtraCartItem[]>([]);
+  const extraCartCount = useMemo(() => extraCart.reduce((sum, item) => sum + (item?.qty || 1), 0), [extraCart]);
   const [isExtraCheckoutOpen, setIsExtraCheckoutOpen] = useState<boolean>(false);
 
   const handleAddExtraItem = (item: ExtraCartItem) => {
@@ -300,6 +301,8 @@ export default function App() {
         onOpenBooking={() => setIsBookingOpen(true)}
         onBackToLanding={handleBackToLanding}
         onNavigateToPricelist={handleNavigateToPricelist}
+        extraCartCount={extraCartCount}
+        onOpenExtraCheckout={() => setIsExtraCheckoutOpen(true)}
       />
 
       {/* Booking Modal */}
@@ -354,14 +357,14 @@ export default function App() {
         <button
           type="button"
           onClick={() => setIsExtraCheckoutOpen(true)}
-          className="fixed bottom-5 right-5 z-[85] flex items-center gap-3 rounded-full bg-[#2D2D2D] px-4 py-3 text-white shadow-[0_18px_40px_rgba(0,0,0,0.26)] transition hover:bg-[#1e1e1e]"
+          className="hidden md:flex fixed bottom-5 right-5 z-[85] items-center gap-3 rounded-full bg-[#2D2D2D] px-4 py-3 text-white shadow-[0_18px_40px_rgba(0,0,0,0.26)] transition hover:bg-[#1e1e1e]"
           aria-label="Lihat keranjang tambahan"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-[#A9BCA7]">
             🛒
           </span>
           <span className="flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.18em]">
-            {extraCart.reduce((sum, item) => sum + (item?.qty || 1), 0)} item
+            {extraCartCount} item
           </span>
         </button>
       )}
