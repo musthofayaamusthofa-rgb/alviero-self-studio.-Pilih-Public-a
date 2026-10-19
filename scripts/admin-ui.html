@@ -95,13 +95,13 @@
     .bg-card.inactive { opacity: 0.58; background: #FAFAFA; }
     .bg-photo-area { height: 155px; position: relative; background-size: cover; background-position: center; background-color: #F4F4F5; display: flex; justify-content: space-between; align-items: flex-start; padding: 0.75rem; }
     .bg-photo-gradient { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%); pointer-events: none; }
-    .badge-branch-tag { position: relative; z-index: 2; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 6px; backdrop-filter: blur(8px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-    .badge-branch-1 { background: rgba(254, 243, 199, 0.92); color: #92400E; }
-    .badge-branch-2 { background: rgba(224, 231, 255, 0.92); color: #3730A3; }
-    .badge-branch-both { background: rgba(243, 232, 255, 0.92); color: #6B21A8; }
-    .status-indicator-chip { position: relative; z-index: 2; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 6px; backdrop-filter: blur(8px); display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
-    .status-indicator-chip.active { background: rgba(220, 252, 231, 0.92); color: #166534; }
-    .status-indicator-chip.inactive { background: rgba(244, 244, 245, 0.92); color: #71717A; }
+    .badge-branch-tag { position: relative; z-index: 2; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; backdrop-filter: blur(8px); box-shadow: 0 2px 6px rgba(0,0,0,0.15); display: inline-flex; align-items: center; gap: 0.25rem; white-space: nowrap; line-height: 1.25; }
+    .badge-branch-1 { background: rgba(254, 243, 199, 0.95); color: #92400E; border: 1px solid rgba(217, 119, 6, 0.25); }
+    .badge-branch-2 { background: rgba(224, 231, 255, 0.95); color: #3730A3; border: 1px solid rgba(99, 102, 241, 0.25); }
+    .badge-branch-both { background: rgba(243, 232, 255, 0.95); color: #6B21A8; border: 1px solid rgba(168, 85, 247, 0.25); }
+    .status-indicator-chip { position: relative; z-index: 2; font-size: 0.68rem; font-weight: 700; padding: 0.2rem 0.55rem; border-radius: 9999px; backdrop-filter: blur(8px); display: inline-flex; align-items: center; gap: 0.3rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15); white-space: nowrap; line-height: 1.25; }
+    .status-indicator-chip.active { background: rgba(220, 252, 231, 0.95); color: #166534; border: 1px solid rgba(22, 101, 52, 0.2); }
+    .status-indicator-chip.inactive { background: rgba(244, 244, 245, 0.95); color: #71717A; border: 1px solid rgba(113, 113, 122, 0.2); }
     .bg-content-area { padding: 1.1rem; display: flex; flex-direction: column; flex: 1; }
     .bg-main-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.35rem; }
     .bg-title-wrap { display: flex; align-items: center; gap: 0.6rem; }
@@ -1066,6 +1066,8 @@
       gap: 0.25rem;
       box-shadow: 0 2px 5px rgba(0,0,0,0.3);
       transition: all 0.15s ease;
+      line-height: 1.25;
+      white-space: nowrap;
     }
     .order-badge-btn:hover {
       background: #5C725A;
@@ -4759,12 +4761,12 @@
         card.innerHTML = `
           <div class="bg-photo-area" style="background-image: url('${bg.previewImage || ''}'); position: relative;">
             <div class="bg-photo-gradient"></div>
-            <div style="position: absolute; top: 10px; left: 10px; z-index: 3;">
-              <span class="order-badge-btn" style="cursor: default;" title="Urutan background #${bg._origIndex + 1}">
+            <div style="display: inline-flex; align-items: center; gap: 6px; z-index: 2; flex-wrap: wrap;">
+              <button type="button" class="order-badge-btn" onclick="promptChangeBackgroundOrder(${bg._origIndex})" title="Urutan background #${bg._origIndex + 1} — Klik untuk ubah urutan">
                 #${bg._origIndex + 1}
-              </span>
+              </button>
+              ${branchTagHtml}
             </div>
-            ${branchTagHtml}
             ${statusTagHtml}
             ${photoBadgeHtml}
           </div>
@@ -5816,15 +5818,15 @@
           <div class="bg-photo-area" style="background-image: url('${imgUrl}'); height: 165px; position: relative;">
             <div class="bg-photo-gradient"></div>
             
-            <!-- Badge Nomor Urutan Foto -->
-            <div style="position: absolute; top: 10px; left: 10px; z-index: 3;">
+            <!-- Badge Nomor Urutan Foto & Cabang -->
+            <div style="display: inline-flex; align-items: center; gap: 6px; z-index: 2; flex-wrap: wrap;">
               <button type="button" class="order-badge-btn" onclick="promptChangeGalleryOrder('${currentGallerySection}', ${realIdx})" title="Klik untuk ubah urutan (Saat ini Urutan #${realIdx + 1} dari ${list.length})">
                 <span>#${realIdx + 1}</span>
                 <span style="font-size: 0.62rem; opacity: 0.85;">↕️</span>
               </button>
+              ${branchBadgeHtml || ''}
             </div>
 
-            ${branchBadgeHtml || '<div></div>'}
             <div class="status-indicator-chip ${isInactive ? 'inactive' : 'active'}">
               <span class="status-dot"></span>
               ${isInactive ? 'Nonaktif' : 'Aktif'}
@@ -6301,6 +6303,30 @@
       saveConfigLocally();
       renderBackgrounds();
       showToast(`Urutan background '${temp.name}' dipindahkan ke posisi #${targetIdx + 1}!`, '↕️');
+    }
+
+    function promptChangeBackgroundOrder(origIdx) {
+      if (!appConfig || !appConfig.backgrounds || appConfig.backgrounds.length <= 1) return;
+      const list = appConfig.backgrounds;
+      const bg = list[origIdx];
+      if (!bg) return;
+
+      const input = prompt(`Ubah urutan background '${bg.name}'\nMasukkan nomor posisi baru (1 s/d ${list.length}):`, origIdx + 1);
+      if (input === null) return;
+      const newPos = parseInt(input.trim(), 10);
+      if (isNaN(newPos) || newPos < 1 || newPos > list.length) {
+        alert(`Posisi tidak valid! Masukkan angka antara 1 dan ${list.length}.`);
+        return;
+      }
+      const targetIdx = newPos - 1;
+      if (targetIdx === origIdx) return;
+
+      const [moved] = list.splice(origIdx, 1);
+      list.splice(targetIdx, 0, moved);
+
+      saveConfigLocally();
+      renderBackgrounds();
+      showToast(`Background '${moved.name}' dipindahkan ke posisi #${targetIdx + 1}!`, '✅');
     }
 
     function moveKebaya(vendorId, kebayaId, direction) {
