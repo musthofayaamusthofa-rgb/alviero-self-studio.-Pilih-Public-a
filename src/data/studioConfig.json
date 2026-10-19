@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-19T02:52:05.092Z",
+  "lastUpdated": "2026-10-19T06:36:48.230Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -3561,7 +3561,7 @@
       "id": "masaya",
       "name": "By Masaya",
       "tagline": "Natural dan flawless make up. Menonjolkan kecantikan alami dengan hasil makeup yang fresh, soft, dan tidak berlebihan.",
-      "coverImage": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+      "coverImage": "/images/mua/makeup_graduation_1792391744451.jpg",
       "portfolioImages": [
         "/images/mua/makeup_pass_foto_1792253312845.jpg",
         "/images/mua/makeup_graduation__4__1792254004714.jpg",
@@ -3589,26 +3589,6 @@
           "portfolioImages": [
             "/images/mua/merah__1792248453424.jpg"
           ]
-        },
-        {
-          "id": "masaya-wedding",
-          "name": "Wedding",
-          "iconType": "wedding",
-          "description": "Riasan pengantin bold glamour bergaya kerajaan.",
-          "subPackages": [
-            {
-              "id": "masaya-wd-1",
-              "name": "Paket 1 — Royal Bold Bride",
-              "price": 650000,
-              "duration": "100 Menit",
-              "features": [
-                "Full Airbrush Luxury Finish Waterproof",
-                "Full Sanggul Paes / Hijabdo Pengantin Mewah"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
         },
         {
           "id": "masaya-grad-indoor",
@@ -3664,46 +3644,6 @@
               "features": [
                 "Heavy Duty Base Anti-Keringat",
                 "Bold Eyelashes Tahan Angin"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "masaya-prewed-indoor",
-          "name": "Prewedding Indoor",
-          "iconType": "prewedding",
-          "description": "Riasan editorial pencahayaan dramatis studio.",
-          "subPackages": [
-            {
-              "id": "masaya-pwi-1",
-              "name": "Paket 1 — Studio Editorial Drama",
-              "price": 330000,
-              "duration": "60 Menit",
-              "features": [
-                "Contour Tajam Studio",
-                "Hairdo / Hijabdo Chic"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "masaya-prewed-outdoor",
-          "name": "Prewedding Outdoor",
-          "iconType": "outdoor",
-          "description": "Foto prewedding konsep megah di alam bebas.",
-          "subPackages": [
-            {
-              "id": "masaya-pwo-1",
-              "name": "Paket 1 — Majestic Outdoor Prewed",
-              "price": 450000,
-              "duration": "80 Menit",
-              "features": [
-                "Waterproof Extreme",
-                "Standby Touch Up di Lokasi"
               ]
             }
           ],
