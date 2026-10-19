@@ -27,6 +27,8 @@ import {
   QrCode,
   CreditCard,
   ChevronRight,
+  ChevronLeft,
+  ZoomIn,
   Calculator,
   Plus,
   Minus,
@@ -1553,6 +1555,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const [gridCetak, setGridCetak] = useState<string>('');
   const [selectedBackdropIds, setSelectedBackdropIds] = useState<string[]>([preselectedBackdropId || BACKDROPS[0].id]);
   const [activeBackdropDetail, setActiveBackdropDetail] = useState<typeof BACKDROPS[number] | null>(null);
+  const [activeBackdropImgIndex, setActiveBackdropImgIndex] = useState<number>(0);
+  const [isBackdropImageZoomed, setIsBackdropImageZoomed] = useState<boolean>(false);
   const [passFotoBgOption, setPassFotoBgOption] = useState<'Biru' | 'Merah' | 'Putih' | 'custom'>('Biru');
   const [passFotoCustomColor, setPassFotoCustomColor] = useState<string>('');
   const [selectedFrameId, setSelectedFrameId] = useState<string>(preselectedFrameId || FRAME_TEMPLATES[0].id);
@@ -3674,12 +3678,34 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               }`}
                           >
                             <div
-                              className={`w-8 h-8 rounded-xl border border-black/15 shrink-0 flex items-center justify-center text-white text-[11px] font-bold shadow-2xs ${backdrop.colorClass || ''}`}
-                              style={backdrop.colorClass ? undefined : { backgroundColor: backdrop.hex }}
+                              className="w-10 h-10 rounded-xl border border-black/15 shrink-0 overflow-hidden relative flex items-center justify-center text-white text-[11px] font-bold shadow-2xs cursor-pointer group/thumb"
+                              style={{ backgroundColor: backdrop.hex }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveBackdropImgIndex(0);
+                                setIsBackdropImageZoomed(false);
+                                setActiveBackdropDetail(backdrop);
+                              }}
+                              title="Klik untuk melihat foto/detail background"
                             >
-                              {isSelected && maxBackdrops > 1 && (
-                                <span className="bg-black/50 w-full h-full rounded-xl flex items-center justify-center font-bold">
+                              {backdrop.previewImage && (
+                                <img
+                                  src={backdrop.previewImage}
+                                  alt={backdrop.name}
+                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover/thumb:scale-110"
+                                />
+                              )}
+                              {isSelected && maxBackdrops > 1 ? (
+                                <span className="relative z-10 bg-black/65 w-full h-full flex items-center justify-center font-bold text-white text-xs backdrop-blur-2xs">
                                   {selectionIndex + 1}
+                                </span>
+                              ) : isSelected ? (
+                                <span className="relative z-10 bg-black/45 w-full h-full flex items-center justify-center text-white backdrop-blur-2xs">
+                                  <Check className="w-4 h-4 stroke-[3]" />
+                                </span>
+                              ) : (
+                                <span className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
+                                  <ZoomIn className="w-3.5 h-3.5 text-white drop-shadow" />
                                 </span>
                               )}
                             </div>
@@ -3717,6 +3743,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                 type="button"
                                 onClick={(event) => {
                                   event.stopPropagation();
+                                  setActiveBackdropImgIndex(0);
+                                  setIsBackdropImageZoomed(false);
                                   setActiveBackdropDetail(backdrop);
                                 }}
                                 className="min-h-[28px] rounded-lg border border-[#E8DDD6] bg-white px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-stone-600 hover:border-[#6E856C] hover:text-[#3A3A3A] cursor-pointer"
@@ -3771,63 +3799,242 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
               </div>
 
-              {activeBackdropDetail && (
-                <div className="fixed inset-0 z-[75] flex items-center justify-center bg-black/55 p-4" role="dialog" aria-modal="true" aria-label={`Detail ${activeBackdropDetail.name}`}>
-                  <div className="w-full max-w-md overflow-hidden rounded-3xl bg-[#FDFBF7] shadow-2xl">
-                    <div className="h-32 sm:h-40" style={{ backgroundColor: activeBackdropDetail.hex }}>
-                      {activeBackdropDetail.previewImage && (
-                        <img
-                          src={activeBackdropDetail.previewImage}
-                          alt={activeBackdropDetail.name}
-                          className="h-full w-full object-cover mix-blend-multiply opacity-80"
-                        />
-                      )}
-                    </div>
-                    <div className="space-y-3 p-5 text-left">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">Detail Background</p>
-                          <h3 className="mt-1 font-serif text-xl font-black text-[#3A3A3A]">{activeBackdropDetail.name}</h3>
-                        </div>
-                        <span className="h-8 w-8 shrink-0 rounded-xl border border-black/10" style={{ backgroundColor: activeBackdropDetail.hex }} />
-                      </div>
-                      <p className="text-sm leading-relaxed text-stone-600">{activeBackdropDetail.description}</p>
-                      <div className="grid grid-cols-2 gap-2 text-[11px]">
-                        <div className="rounded-xl border border-[#E8DDD6] bg-white p-3">
-                          <span className="block font-bold uppercase tracking-wide text-stone-400">Kategori</span>
-                          <span className="mt-1 block font-semibold text-[#3A3A3A]">{activeBackdropDetail.category.replace('-', ' ')}</span>
-                        </div>
-                        <div className="rounded-xl border border-[#E8DDD6] bg-white p-3">
-                          <span className="block font-bold uppercase tracking-wide text-stone-400">Status</span>
-                          <span className="mt-1 block font-semibold text-[#3A3A3A]">
-                            {selectedBackdropIds.includes(activeBackdropDetail.id) ? 'Sedang dipilih' : 'Bisa dipilih'}
+              {activeBackdropDetail && (() => {
+                const backdropPhotos = (Array.isArray(activeBackdropDetail.previewImages) && activeBackdropDetail.previewImages.length > 0)
+                  ? activeBackdropDetail.previewImages
+                  : (activeBackdropDetail.previewImage ? [activeBackdropDetail.previewImage] : []);
+                const currentPhoto = backdropPhotos[activeBackdropImgIndex] || backdropPhotos[0] || activeBackdropDetail.previewImage;
+                const isAvailable = getBackdropAvailability(activeBackdropDetail.id).isAvailable || selectedBackdropIds.includes(activeBackdropDetail.id);
+
+                return (
+                  <div
+                    className="fixed inset-0 z-[75] flex items-center justify-center bg-black/65 backdrop-blur-xs p-4 animate-fadeIn"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`Detail ${activeBackdropDetail.name}`}
+                    onClick={() => {
+                      setActiveBackdropDetail(null);
+                      setIsBackdropImageZoomed(false);
+                    }}
+                  >
+                    <div
+                      className="w-full max-w-lg overflow-hidden rounded-3xl bg-[#FDFBF7] shadow-2xl border border-stone-200/80 transition-all text-left"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {/* Photo Container - Clear, Full Contrast, No Multiply Blend */}
+                      <div className="relative w-full aspect-[16/10] sm:h-64 bg-stone-900 overflow-hidden group select-none">
+                        {currentPhoto ? (
+                          <img
+                            src={currentPhoto}
+                            alt={activeBackdropDetail.name}
+                            className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-102"
+                            loading="eager"
+                          />
+                        ) : (
+                          <div
+                            className="h-full w-full flex flex-col items-center justify-center text-white p-6"
+                            style={{ backgroundColor: activeBackdropDetail.hex }}
+                          >
+                            <span className="text-3xl mb-2">🎨</span>
+                            <span className="font-serif font-bold text-lg">{activeBackdropDetail.name}</span>
+                            <span className="text-xs text-white/80 mt-1">Latar Warna Solid</span>
+                          </div>
+                        )}
+
+                        {/* Top Gradient & Quick Controls */}
+                        <div className="absolute inset-x-0 top-0 p-3.5 bg-gradient-to-b from-black/65 via-black/25 to-transparent flex items-center justify-between pointer-events-auto">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/45 backdrop-blur-md text-white text-[10px] font-sans font-semibold tracking-wide border border-white/20">
+                            <span
+                              className="w-2.5 h-2.5 rounded-full border border-white/50 shrink-0"
+                              style={{ backgroundColor: activeBackdropDetail.hex }}
+                            />
+                            {selectedBranch === 'cabang-2' ? 'Studio 2 (Dinoyo)' : 'Studio 1 (Junrejo)'}
                           </span>
+                          <div className="flex items-center gap-1.5">
+                            {currentPhoto && (
+                              <button
+                                type="button"
+                                onClick={() => setIsBackdropImageZoomed(true)}
+                                className="w-8 h-8 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-md border border-white/20"
+                                title="Perbesar Foto (Fullscreen)"
+                              >
+                                <ZoomIn className="w-4 h-4" />
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveBackdropDetail(null);
+                                setIsBackdropImageZoomed(false);
+                              }}
+                              className="w-8 h-8 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-md border border-white/20"
+                              title="Tutup"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Multiple photos navigation arrows if count > 1 */}
+                        {backdropPhotos.length > 1 && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveBackdropImgIndex((prev) => (prev > 0 ? prev - 1 : backdropPhotos.length - 1));
+                              }}
+                              className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm border border-white/20 shadow-md"
+                              aria-label="Foto sebelumnya"
+                            >
+                              <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setActiveBackdropImgIndex((prev) => (prev < backdropPhotos.length - 1 ? prev + 1 : 0));
+                              }}
+                              className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm border border-white/20 shadow-md"
+                              aria-label="Foto berikutnya"
+                            >
+                              <ChevronRight className="w-4 h-4" />
+                            </button>
+                            <div className="absolute bottom-2.5 inset-x-0 flex items-center justify-center gap-1.5 pointer-events-none">
+                              {backdropPhotos.map((_, idx) => (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveBackdropImgIndex(idx);
+                                  }}
+                                  className={`pointer-events-auto h-1.5 rounded-full transition-all cursor-pointer ${
+                                    idx === activeBackdropImgIndex
+                                      ? 'w-5 bg-white shadow-xs'
+                                      : 'w-1.5 bg-white/50 hover:bg-white/80'
+                                  }`}
+                                  aria-label={`Lihat foto ${idx + 1}`}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Modal Details */}
+                      <div className="space-y-3.5 p-5 sm:p-6 text-left">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <p className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#6E856C]">Detail Background Studio</p>
+                              {activeBackdropDetail.id.includes('cream') && (
+                                <span className="text-[9px] font-bold bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full">
+                                  Maks. 5 Orang
+                                </span>
+                              )}
+                            </div>
+                            <h3 className="mt-1 font-serif text-2xl font-bold text-[#3A3A3A] tracking-tight">{activeBackdropDetail.name}</h3>
+                          </div>
+                          <div className="flex flex-col items-center gap-1 shrink-0">
+                            <span
+                              className="h-9 w-9 rounded-2xl border-2 border-white shadow-md ring-1 ring-black/10"
+                              style={{ backgroundColor: activeBackdropDetail.hex }}
+                              title={`Warna: ${activeBackdropDetail.hex}`}
+                            />
+                            <span className="text-[9px] font-mono text-stone-400 uppercase">{activeBackdropDetail.hex}</span>
+                          </div>
+                        </div>
+
+                        <p className="text-xs sm:text-sm leading-relaxed text-stone-600 font-sans">
+                          {activeBackdropDetail.description}
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-2.5 text-[11px]">
+                          <div className="rounded-2xl border border-[#E8DDD6] bg-white p-3 shadow-2xs">
+                            <span className="block font-bold uppercase tracking-wider text-stone-400 text-[9.5px]">Kategori</span>
+                            <span className="mt-1 block font-semibold text-[#3A3A3A] capitalize">
+                              {activeBackdropDetail.category.replace('-', ' ')}
+                            </span>
+                          </div>
+                          <div className="rounded-2xl border border-[#E8DDD6] bg-white p-3 shadow-2xs">
+                            <span className="block font-bold uppercase tracking-wider text-stone-400 text-[9.5px]">Status Pemilihan</span>
+                            <span className="mt-1 flex items-center gap-1.5 font-semibold">
+                              {selectedBackdropIds.includes(activeBackdropDetail.id) ? (
+                                <span className="inline-flex items-center gap-1 text-[#6E856C]">
+                                  <Check className="w-3.5 h-3.5 stroke-[3]" /> Sedang Dipilih
+                                </span>
+                              ) : isAvailable ? (
+                                <span className="text-emerald-700">✓ Bisa Dipilih</span>
+                              ) : (
+                                <span className="text-rose-600">✕ Tidak Tersedia</span>
+                              )}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2.5 pt-1.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveBackdropDetail(null);
+                              setIsBackdropImageZoomed(false);
+                            }}
+                            className="min-h-[44px] flex-1 rounded-2xl border border-[#E8DDD6] bg-white text-xs font-bold uppercase tracking-wide text-stone-700 hover:bg-[#F2E9E4] transition-colors cursor-pointer"
+                          >
+                            Tutup
+                          </button>
+                          <button
+                            type="button"
+                            disabled={!isAvailable}
+                            onClick={() => {
+                              handleSelectBackdrop(activeBackdropDetail.id);
+                              setActiveBackdropDetail(null);
+                              setIsBackdropImageZoomed(false);
+                            }}
+                            className="min-h-[44px] flex-1 rounded-2xl bg-[#3A3A3A] text-xs font-bold uppercase tracking-wide text-white hover:bg-[#2A2A2A] transition-colors disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer shadow-sm"
+                          >
+                            {selectedBackdropIds.includes(activeBackdropDetail.id) ? 'Batal Pilih' : 'Pilih Background'}
+                          </button>
                         </div>
                       </div>
-                      <div className="flex gap-2 pt-1">
-                        <button
-                          type="button"
-                          onClick={() => setActiveBackdropDetail(null)}
-                          className="min-h-[42px] flex-1 rounded-xl border border-[#E8DDD6] bg-white text-xs font-bold uppercase tracking-wide text-stone-700 hover:bg-[#F2E9E4] cursor-pointer"
-                        >
-                          Tutup
-                        </button>
-                        <button
-                          type="button"
-                          disabled={!getBackdropAvailability(activeBackdropDetail.id).isAvailable && !selectedBackdropIds.includes(activeBackdropDetail.id)}
-                          onClick={() => {
-                            handleSelectBackdrop(activeBackdropDetail.id);
-                            setActiveBackdropDetail(null);
-                          }}
-                          className="min-h-[42px] flex-1 rounded-xl bg-[#3A3A3A] text-xs font-bold uppercase tracking-wide text-white hover:bg-[#2A2A2A] disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
-                        >
-                          Pilih Background
-                        </button>
-                      </div>
                     </div>
+
+                    {/* Lightbox Zoom Fullscreen */}
+                    {isBackdropImageZoomed && currentPhoto && (
+                      <div
+                        className="fixed inset-0 z-[85] bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-fadeIn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsBackdropImageZoomed(false);
+                        }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setIsBackdropImageZoomed(false)}
+                          className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center cursor-pointer transition-all border border-white/20"
+                          title="Tutup Zoom"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                        <div
+                          className="relative max-w-4xl max-h-[85vh] w-full flex items-center justify-center overflow-hidden rounded-2xl"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <img
+                            src={currentPhoto}
+                            alt={activeBackdropDetail.name}
+                            className="max-h-[85vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl"
+                          />
+                        </div>
+                        <div className="mt-3 text-center text-white/90 font-serif text-sm">
+                          {activeBackdropDetail.name} • {selectedBranch === 'cabang-2' ? 'Studio 2' : 'Studio 1'}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              )}
+                );
+              })()}
 
               {/* 4. Pemilihan Template Frame Grid (Khusus Self Studio) */}
               {isSelfStudio && (
