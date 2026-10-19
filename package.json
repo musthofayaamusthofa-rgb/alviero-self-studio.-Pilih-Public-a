@@ -13,7 +13,9 @@
     "pull": "git pull origin main",
     "push": "git add . && git commit -m \"Auto update\" && git push origin main",
     "sync": "git pull origin main && git add . && git commit -m \"Auto sync\" && git push origin main",
-    "admin": "node scripts/admin-server.cjs"
+    "admin": "node scripts/admin-server.cjs",
+    "tunnel": "npx cloudflared tunnel --url http://localhost:3001",
+    "tunnel:web": "npx cloudflared tunnel --url http://localhost:3000"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
