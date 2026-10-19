@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-17T18:03:35.786Z",
+  "lastUpdated": "2026-10-19T02:52:00.777Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -211,7 +211,7 @@
       "category": "solid-color",
       "hex": "#111827",
       "description": "Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.",
-      "previewImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "previewImage": "/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -219,7 +219,10 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 10
+      "_origIndex": 10,
+      "previewImages": [
+        "/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg"
+      ]
     },
     {
       "id": "c2-putih",
@@ -227,7 +230,7 @@
       "category": "solid-color",
       "hex": "#F8FAFC",
       "description": "Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.",
-      "previewImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "previewImage": "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -235,7 +238,10 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 11
+      "_origIndex": 11,
+      "previewImages": [
+        "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg"
+      ]
     },
     {
       "id": "c2-abu",
@@ -243,7 +249,7 @@
       "category": "solid-color",
       "hex": "#64748B",
       "description": "Latar abu-abu netral elegan untuk kesan modern & aesthetic.",
-      "previewImage": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "previewImage": "/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -251,7 +257,10 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 12
+      "_origIndex": 12,
+      "previewImages": [
+        "/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg"
+      ]
     },
     {
       "id": "c2-coklat-jendela",
@@ -259,7 +268,7 @@
       "category": "solid-color",
       "hex": "#92400E",
       "description": "Latar coklat klasik dengan ornamen jendela mewah berkarakter.",
-      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "previewImage": "/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -267,7 +276,10 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 13
+      "_origIndex": 13,
+      "previewImages": [
+        "/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg"
+      ]
     },
     {
       "id": "c2-tematik-cream",
@@ -275,7 +287,7 @@
       "category": "solid-color",
       "hex": "#FEF3C7",
       "description": "Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).",
-      "previewImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "previewImage": "/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -283,7 +295,10 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 14
+      "_origIndex": 14,
+      "previewImages": [
+        "/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg"
+      ]
     },
     {
       "id": "c2-self-abu",
