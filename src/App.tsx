@@ -22,7 +22,7 @@ export default function App() {
     const handleAdminShortcut = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
         e.preventDefault();
-        window.open('/admin', '_blank');
+        window.open('/adminsalto', '_blank');
       }
     };
     window.addEventListener('keydown', handleAdminShortcut);

@@ -98,16 +98,7 @@ export const Header: React.FC<HeaderProps> = ({
               <MessageCircle className="w-3.5 h-3.5 text-[#A9BCA7]" />
               <span>Admin WA ({currentBranchInfo.badge}): +62 {currentBranchInfo.whatsappDisplay?.replace(/^0/, '') || (selectedBranch === 'cabang-2' ? '851-6887-9214' : '877-7753-8164')}</span>
             </a>
-            <a 
-              href="/admin" 
-              target="_blank" 
-              rel="noreferrer"
-              className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-[#5C725A] text-white/90 hover:text-white transition-all text-[10px] font-mono font-bold tracking-wider uppercase border border-white/15"
-              title="Buka Alviero Studio Manager (Dashboard Admin)"
-            >
-              <span>⚙️</span>
-              <span>Dashboard Admin</span>
-            </a>
+            
           </div>
         </div>
       </div>

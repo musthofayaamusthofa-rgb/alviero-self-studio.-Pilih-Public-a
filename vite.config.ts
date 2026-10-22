@@ -18,10 +18,10 @@ export default defineConfig(() => {
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
       proxy: {
-        '/admin': {
+        '/adminsalto': {
           target: 'http://127.0.0.1:3001',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/admin/, ''),
+          rewrite: (path) => path.replace(/^\/adminsalto/, ''),
         },
         '/api': {
           target: 'http://127.0.0.1:3001',

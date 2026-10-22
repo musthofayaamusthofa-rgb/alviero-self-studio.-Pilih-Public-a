@@ -153,7 +153,7 @@ app.post('/api/sync-github', async (req, res) => {
     const commitMsg = req.body.commitMessage || `Update studio config (background & slots) via Alviero Manager [${new Date().toLocaleTimeString('id-ID')}]`;
 
     // Step 1: git add
-    const addRes = await runCmd('git add src/data/studioConfig.json src/data/pricelistData.ts src/utils/bookingScheduleUtils.ts public/images');
+    const addRes = await runCmd('git add src/data/studioConfig.json src/data/pricelistData.ts src/utils/bookingScheduleUtils.ts public/images public/data/studioConfig.json public/adminsalto/index.html');
     
     // Check if there is anything to commit
     const statusRes = await runCmd('git status --porcelain');
@@ -206,7 +206,7 @@ app.get('*', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`\n============================================================`);
   console.log(`✨ ALVIERO STUDIO MANAGER (CONTROL HUB) BERJALAN AKTIF!`);
-  console.log(`🌐 Akses Dashboard Admin: http://localhost:${PORT}`);
+  console.log(`🌐 Akses Dashboard Admin: http://localhost:3000/adminsalto (atau http://localhost:${PORT})`);
   console.log(`💻 Web Utama Alviero    : http://localhost:3000`);
   console.log(`============================================================\n`);
 });

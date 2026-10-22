@@ -1138,9 +1138,315 @@
       white-space: nowrap;
     }
 
-</style>
+
+    /* Secure Login Gate Overlay */
+    .login-gate-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999999;
+      background: #141614;
+      background: radial-gradient(circle at 50% 25%, #252e24 0%, #111311 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      backdrop-filter: blur(12px);
+    }
+
+    .login-card {
+      background: #1E231D;
+      border: 1px solid rgba(169, 188, 167, 0.25);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 40px rgba(92, 114, 90, 0.15);
+      border-radius: 20px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 420px;
+      color: #F2E9E4;
+      animation: loginFadeIn 0.35s ease-out;
+    }
+
+    @keyframes loginFadeIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .login-brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .login-logo {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      margin: 0 auto 12px;
+      filter: drop-shadow(0 4px 12px rgba(169, 188, 167, 0.3));
+    }
+
+    .login-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0 0 6px;
+    }
+
+    .login-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(92, 114, 90, 0.35);
+      color: #A9BCA7;
+      border: 1px solid rgba(169, 188, 167, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .login-desc {
+      font-size: 12.5px;
+      color: #A9BCA7;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .auth-error-box {
+      background: rgba(220, 38, 38, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #FCA5A5;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-bottom: 18px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .shake {
+      animation: shakeAnim 0.4s ease-in-out;
+    }
+
+    @keyframes shakeAnim {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+
+    .login-form .input-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .login-form label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #D6E0D5;
+      margin-bottom: 6px;
+    }
+
+    .input-field-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 14px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .input-field-wrap input {
+      width: 100%;
+      background: #141713;
+      border: 1.5px solid rgba(169, 188, 167, 0.25);
+      color: #FFFFFF;
+      padding: 12px 14px 12px 42px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .input-field-wrap input:focus {
+      border-color: #6E856C;
+      box-shadow: 0 0 0 3px rgba(110, 133, 108, 0.25);
+      background: #181C17;
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: #A9BCA7;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      font-size: 12px;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #B5C4B4;
+      cursor: pointer;
+      user-select: none;
+      font-size: 12px;
+      text-transform: none !important;
+    }
+
+    .remember-label input[type="checkbox"] {
+      accent-color: #5C725A;
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    .btn-login-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #5C725A 0%, #445643 100%);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-login-submit:hover {
+      background: linear-gradient(135deg, #6E856C 0%, #51664F 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(92, 114, 90, 0.35);
+    }
+
+    .btn-login-submit:active {
+      transform: translateY(0);
+    }
+
+    .login-footer {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(169, 188, 167, 0.55);
+      letter-spacing: 0.3px;
+    }
+
+    /* Logout Button Styling */
+    .btn-logout {
+      background: rgba(220, 38, 38, 0.15) !important;
+      border: 1px solid rgba(239, 68, 68, 0.35) !important;
+      color: #FCA5A5 !important;
+      font-weight: 700 !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-logout:hover {
+      background: rgba(220, 38, 38, 0.3) !important;
+      border-color: rgba(239, 68, 68, 0.6) !important;
+      color: #FFFFFF !important;
+    }
+
+  </style>
 </head>
 <body>
+
+  <!-- Secure Login Gate -->
+  <div id="loginGate" class="login-gate-overlay">
+    <div class="login-card">
+      <div class="login-brand">
+        <img src="/images/alviero-logo-official.png" alt="Alviero Studio" class="login-logo" onerror="this.style.display='none'">
+        <h1 class="login-title">ALVIERO STUDIO</h1>
+        <div class="login-badge">PORTAL PENGELOLA INTERNAL</div>
+        <p class="login-desc">Masukkan kredensial resmi untuk mengakses Dashboard Studio.</p>
+      </div>
+
+      <div id="authError" class="auth-error-box" style="display: none;">
+        <span>❌ Username atau password salah! Akses ditolak.</span>
+      </div>
+
+      <form onsubmit="submitLogin(event)" class="login-form">
+        <div class="input-group">
+          <label for="authUsername">Username</label>
+          <div class="input-field-wrap">
+            <span class="input-icon">👤</span>
+            <input 
+              type="text" 
+              id="authUsername" 
+              placeholder="Masukkan username (ALVS)" 
+              required 
+              autocomplete="username"
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="authPassword">Password</label>
+          <div class="input-field-wrap">
+            <span class="input-icon">🔑</span>
+            <input 
+              type="password" 
+              id="authPassword" 
+              placeholder="Masukkan password" 
+              required 
+              autocomplete="current-password"
+            />
+            <button type="button" class="eye-btn" onclick="togglePasswordVisibility()" title="Lihat / Sembunyikan Password">
+              <span id="eyeIcon">👁️</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-options">
+          <label class="remember-label">
+            <input type="checkbox" id="authRemember" checked>
+            <span>Ingat login di perangkat ini</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-login-submit" id="btnLogin">
+          <span>Masuk ke Dashboard</span>
+          <span>➔</span>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        🔒 Akses Terbatas Khusus Manajemen Alviero Studio
+      </div>
+    </div>
+  </div>
+
 
   <!-- Top Header Navigation -->
   <header>
@@ -1166,6 +1472,9 @@
         <button class="btn btn-publish" onclick="saveAndSyncToInternet()" title="Upload dan publikasikan ke internet via GitHub & Vercel">
           🚀 Publikasikan ke Web Internet
         </button>
+      </div>
+    </div>
+    <button class="btn btn-logout" onclick="logoutAdmin()" title="Kunci Dashboard dan Keluar" style="margin-left: 8px;">🔒 Logout</button>
       </div>
     </div>
   </header>
@@ -5615,7 +5924,7 @@
         'Anda sedang membuka dashboard langsung dari domain publik Vercel.\n' +
         'Karena Vercel adalah hosting statis, sistem tidak memiliki akses langsung untuk menyimpan file ke harddisk laptop atau menjalankan perintah Git.\n\n' +
         'CARA MENYIMPAN / UPLOAD FOTO:\n' +
-        '1. Jika satu Wi-Fi dengan laptop: Buka http://192.168.18.103:3000/admin\n' +
+        '1. Jika satu Wi-Fi dengan laptop: Buka http://192.168.18.103:3000/adminsalto\n' +
         '2. Jika di luar jaringan: Jalankan "npm run tunnel" di laptop lalu buka link Cloudflare.\n\n' +
         'File konfigurasi hasil editan Anda saat ini juga otomatis diunduh (studioConfig.json).'
       );
@@ -8067,13 +8376,109 @@
     }
 
 
-    loadConfig().then(() => {
-      const hash = window.location.hash ? window.location.hash.substring(1) : '';
-      if (hash && document.getElementById(hash)) {
-        const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
-        switchTab(hash, btn);
+    
+    // --- AUTHENTICATION GATE LOGIC ---
+    function checkAuthOnLoad() {
+      const isAuth = sessionStorage.getItem('alvs_auth') === 'authenticated' || 
+                     localStorage.getItem('alvs_auth') === 'authenticated';
+      const gate = document.getElementById('loginGate');
+      
+      if (isAuth) {
+        if (gate) gate.style.display = 'none';
+        loadConfig().then(() => {
+          const hash = window.location.hash ? window.location.hash.substring(1) : '';
+          if (hash && document.getElementById(hash)) {
+            const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
+            if (btn) switchTab(hash, btn);
+          }
+        });
+      } else {
+        if (gate) {
+          gate.style.display = 'flex';
+          gate.style.opacity = '1';
+          gate.style.pointerEvents = 'auto';
+        }
+        setTimeout(() => {
+          const u = document.getElementById('authUsername');
+          if (u) u.focus();
+        }, 200);
       }
-    });
+    }
+
+    function submitLogin(e) {
+      if (e) e.preventDefault();
+      const uInput = document.getElementById('authUsername');
+      const pInput = document.getElementById('authPassword');
+      const errBox = document.getElementById('authError');
+      const remember = document.getElementById('authRemember')?.checked;
+
+      const username = (uInput?.value || '').trim();
+      const password = (pInput?.value || '').trim();
+
+      // Required: Username "ALVS", Password "calonmilyader"
+      if (username.toUpperCase() === 'ALVS' && password === 'calonmilyader') {
+        if (errBox) errBox.style.display = 'none';
+        
+        sessionStorage.setItem('alvs_auth', 'authenticated');
+        if (remember) {
+          localStorage.setItem('alvs_auth', 'authenticated');
+        }
+
+        const gate = document.getElementById('loginGate');
+        if (gate) {
+          gate.style.transition = 'opacity 0.25s ease';
+          gate.style.opacity = '0';
+          gate.style.pointerEvents = 'none';
+          setTimeout(() => {
+            gate.style.display = 'none';
+          }, 250);
+        }
+
+        loadConfig().then(() => {
+          const hash = window.location.hash ? window.location.hash.substring(1) : '';
+          if (hash && document.getElementById(hash)) {
+            const btn = document.querySelector(`.tab-btn[onclick*="${hash}"]`);
+            if (btn) switchTab(hash, btn);
+          }
+        });
+        showToast('Selamat datang, Admin ALVS! ✨', '👋');
+      } else {
+        if (errBox) {
+          errBox.textContent = '❌ Username atau password salah! Akses ditolak.';
+          errBox.style.display = 'block';
+          errBox.classList.remove('shake');
+          void errBox.offsetWidth;
+          errBox.classList.add('shake');
+        }
+        if (pInput) {
+          pInput.value = '';
+          pInput.focus();
+        }
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const p = document.getElementById('authPassword');
+      const eye = document.getElementById('eyeIcon');
+      if (!p) return;
+      if (p.type === 'password') {
+        p.type = 'text';
+        if (eye) eye.textContent = '🙈';
+      } else {
+        p.type = 'password';
+        if (eye) eye.textContent = '👁️';
+      }
+    }
+
+    function logoutAdmin() {
+      if (confirm('Kunci Dashboard Admin dan keluar sekarang?')) {
+        sessionStorage.removeItem('alvs_auth');
+        localStorage.removeItem('alvs_auth');
+        location.reload();
+      }
+    }
+
+    checkAuthOnLoad();
   
 
     // =========================================================================

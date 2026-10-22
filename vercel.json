@@ -1,15 +1,15 @@
 {
   "rewrites": [
     {
-      "source": "/admin",
-      "destination": "/admin/index.html"
+      "source": "/adminsalto",
+      "destination": "/adminsalto/index.html"
     },
     {
-      "source": "/admin/:match*",
-      "destination": "/admin/index.html"
+      "source": "/adminsalto/:match*",
+      "destination": "/adminsalto/index.html"
     },
     {
-      "source": "/((?!api|admin|images|data|assets|fonts|.*\\..*).*)",
+      "source": "/((?!api|adminsalto|images|data|assets|fonts|.*\\..*).*)",
       "destination": "/index.html"
     }
   ]
