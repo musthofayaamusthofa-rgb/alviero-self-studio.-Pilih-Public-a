@@ -1012,7 +1012,17 @@ export const StudioTourAndEducationShowcase: React.FC<{
 /**
  * Struktur Data Promo & Kupon Alviero Studio
  */
-export interface StudioPromo {
+export interface TeamMemberRole {
+  id?: string;
+  division?: string;
+  role: string;
+  name: string;
+  description?: string;
+  photo?: string;
+  badge?: string;
+}
+
+interface StudioPromo {
   id: string;
   kind?: 'promo' | 'berita' | 'tim';
   code: string;
@@ -1029,7 +1039,53 @@ export interface StudioPromo {
   howToUse: string[];
   preselectedPackageId?: string;
   active?: boolean;
+  structureSubtitle?: string;
+  teamStructure?: TeamMemberRole[];
 }
+
+
+export const DEFAULT_ALVIERO_TEAM_STRUCTURE: TeamMemberRole[] = [
+  {
+    id: 'team-1',
+    division: 'Pimpinan & Manajemen',
+    role: 'Studio Manager & Creative Director',
+    name: 'M. Azzam Fakhri',
+    description: 'Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.',
+    badge: 'Management'
+  },
+  {
+    id: 'team-2',
+    division: 'Fotografi & Pengarah Gaya',
+    role: 'Lead Photographer & Pose Director',
+    name: 'Tim Fotografer Utama',
+    description: 'Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.',
+    badge: 'Creative Lead'
+  },
+  {
+    id: 'team-3',
+    division: 'Tata Cahaya & Kru Studio',
+    role: 'Lighting Specialist & Studio Assistant',
+    name: 'Kru Asisten Studio',
+    description: 'Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.',
+    badge: 'Studio Crew'
+  },
+  {
+    id: 'team-4',
+    division: 'Pelayanan & Reservasi',
+    role: 'Customer Service & Schedule Coordinator',
+    name: 'Admin Reservasi & Front Office',
+    description: 'Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.',
+    badge: 'Guest Care'
+  },
+  {
+    id: 'team-5',
+    division: 'Editing & Post-Production',
+    role: 'Colorist & Retouch Specialist',
+    name: 'Tim Editor Visual & Print Lab',
+    description: 'Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.',
+    badge: 'Post-Prod'
+  }
+];
 
 export const STUDIO_PROMOS: StudioPromo[] = [
   {
@@ -1641,19 +1697,19 @@ export const PromoDetailModal: React.FC<{
               </div>
             </>
           ) : activeView === 'struktur' ? (
-            /* Tampilan Placeholder Struktur Tim Alviero Studio */
-            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-3.5 shadow-2xs animate-in fade-in duration-200">
+            /* Tampilan Dinamis Struktur Tim Alviero Studio */
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-4 shadow-2xs animate-in fade-in duration-200 text-left">
               <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#EBF2EA] text-[#6E856C] flex items-center justify-center">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#EBF2EA] text-[#5C725A] flex items-center justify-center shrink-0">
                     <Network className="w-4 h-4" />
                   </div>
                   <div>
-                    <h6 className="font-serif font-bold text-xs uppercase tracking-wider text-[#3A3A3A]">
+                    <h6 className="font-serif font-black text-xs sm:text-sm uppercase tracking-wider text-[#2E2E2E]">
                       Bagan Struktur Tim Alviero
                     </h6>
                     <span className="text-[10px] font-mono text-stone-500 block">
-                      Struktur Organisasi & Pembagian Peran
+                      {promo.structureSubtitle || 'Struktur Organisasi & Pembagian Peran'}
                     </span>
                   </div>
                 </div>
@@ -1661,30 +1717,116 @@ export const PromoDetailModal: React.FC<{
                 <button
                   type="button"
                   onClick={() => setActiveView('default')}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
                 >
-                  <ArrowLeft className="w-3 h-3" />
+                  <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Kembali</span>
                 </button>
               </div>
 
-              {/* Area Placeholder Bagan Tim */}
-              <div className="border-2 border-dashed border-[#E8DDD6] rounded-xl p-4 sm:p-6 bg-[#FDFBF7] text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-[#F2E9E4] text-[#6E856C] mx-auto flex items-center justify-center border border-[#E8DDD6]">
-                  <Users className="w-6 h-6" />
-                </div>
-                <div className="space-y-1">
-                  <p className="font-serif font-bold text-sm text-[#3A3A3A]">
-                    Komponen Bagan Struktur Tim
-                  </p>
-                  <p className="font-sans text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
-                    Area ini disiapkan untuk merender bagan interaktif susunan tim fotografer, asisten studio, lighting crew, dan customer service Alviero Studio.
-                  </p>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#A9BCA7]">
-                  <span>Status: Siap Dirender</span>
-                </div>
-              </div>
+              {/* Render Struktur Anggota Tim Dinamis */}
+              {(() => {
+                const members = (promo.teamStructure && promo.teamStructure.length > 0)
+                  ? promo.teamStructure
+                  : DEFAULT_ALVIERO_TEAM_STRUCTURE;
+
+                // Group members by division
+                const divisionsMap = new Map<string, typeof members>();
+                members.forEach((m) => {
+                  const div = m.division || 'Tim Operasional Studio';
+                  if (!divisionsMap.has(div)) {
+                    divisionsMap.set(div, []);
+                  }
+                  divisionsMap.get(div)!.push(m);
+                });
+
+                return (
+                  <div className="space-y-4">
+                    {Array.from(divisionsMap.entries()).map(([divisionName, divMembers], divIdx) => (
+                      <div key={divIdx} className="space-y-2">
+                        {/* Division Header */}
+                        <div className="flex items-center justify-between border-b border-[#F0EAE3] pb-1.5">
+                          <div className="flex items-center gap-2">
+                            <div className="h-3.5 w-1 rounded-full bg-[#5C725A]" />
+                            <span className="font-serif text-[11.5px] font-black uppercase tracking-wide text-[#2E2E2E]">
+                              {divisionName}
+                            </span>
+                          </div>
+                          <span className="text-[9px] font-mono font-bold text-[#5C725A] bg-[#5C725A]/10 px-2 py-0.5 rounded-full border border-[#5C725A]/20">
+                            {divMembers.length} Personil
+                          </span>
+                        </div>
+
+                        {/* Division Members Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          {divMembers.map((member, mIdx) => {
+                            const initials = (member.name || 'AL')
+                              .split(' ')
+                              .map((n) => n[0])
+                              .filter(Boolean)
+                              .slice(0, 2)
+                              .join('')
+                              .toUpperCase();
+
+                            return (
+                              <div
+                                key={member.id || mIdx}
+                                className="rounded-xl border border-[#E8DDD6] bg-[#FAF8F5] p-3 shadow-2xs hover:border-[#5C725A] transition-all flex flex-col justify-between"
+                              >
+                                <div>
+                                  <div className="flex items-start gap-2.5">
+                                    {member.photo ? (
+                                      <img
+                                        src={member.photo}
+                                        alt={member.name}
+                                        className="w-10 h-10 rounded-full object-cover border border-[#5C725A]/30 shrink-0"
+                                      />
+                                    ) : (
+                                      <div className="w-10 h-10 rounded-full bg-[#5C725A] text-white font-serif font-black flex items-center justify-center text-xs shrink-0 shadow-2xs">
+                                        {initials}
+                                      </div>
+                                    )}
+
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex items-center justify-between gap-1">
+                                        <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-[#6E856C] truncate">
+                                          {member.role}
+                                        </span>
+                                        {member.badge && (
+                                          <span className="text-[8px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-full bg-white text-[#5C725A] border border-[#E8DDD6] shrink-0">
+                                            {member.badge}
+                                          </span>
+                                        )}
+                                      </div>
+                                      <h6 className="font-serif font-black text-sm text-[#2E2E2E] leading-tight mt-0.5">
+                                        {member.name}
+                                      </h6>
+                                    </div>
+                                  </div>
+
+                                  {member.description && (
+                                    <p className="text-[11px] font-sans text-stone-600 leading-relaxed mt-2 pt-2 border-t border-[#EAE2DC] text-justify">
+                                      {member.description}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Footer Komitmen Tim */}
+                    <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 flex items-start gap-2.5 text-left mt-2">
+                      <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0 mt-0.5" />
+                      <p className="text-[11px] font-sans text-stone-700 leading-relaxed">
+                        <strong>Standar Pelayanan:</strong> Seluruh personil Alviero Studio telah terlatih secara profesional untuk mengarahkan gaya pose terbaik, mengatur tata lampu studio yang proporsional, dan memastikan setiap sesi foto berjalan hangat dan menyenangkan.
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           ) : (
             /* Tampilan Placeholder Galeri Foto Tim (Our Galery) */

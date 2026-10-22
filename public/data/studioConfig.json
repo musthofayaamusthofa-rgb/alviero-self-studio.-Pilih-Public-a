@@ -1121,6 +1121,54 @@
       "_origIndex": 4,
       "images": [
         "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
+      ],
+      "structureSubtitle": "Struktur Organisasi & Pembagian Peran",
+      "teamStructure": [
+        {
+          "id": "team-1",
+          "division": "Pimpinan & Manajemen",
+          "role": "Studio Manager & Creative Director",
+          "name": "M. Azzam Fakhri",
+          "description": "Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.",
+          "badge": "Management",
+          "photo": ""
+        },
+        {
+          "id": "team-2",
+          "division": "Fotografi & Pengarah Gaya",
+          "role": "Lead Photographer & Pose Director",
+          "name": "Tim Fotografer Utama",
+          "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
+          "badge": "Creative Lead",
+          "photo": ""
+        },
+        {
+          "id": "team-3",
+          "division": "Tata Cahaya & Kru Studio",
+          "role": "Lighting Specialist & Studio Assistant",
+          "name": "Kru Asisten Studio",
+          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
+          "badge": "Studio Crew",
+          "photo": ""
+        },
+        {
+          "id": "team-4",
+          "division": "Pelayanan & Reservasi",
+          "role": "Customer Service & Schedule Coordinator",
+          "name": "Admin Reservasi & Front Office",
+          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
+          "badge": "Guest Care",
+          "photo": ""
+        },
+        {
+          "id": "team-5",
+          "division": "Editing & Post-Production",
+          "role": "Colorist & Retouch Specialist",
+          "name": "Tim Editor Visual & Print Lab",
+          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
+          "badge": "Post-Prod",
+          "photo": ""
+        }
       ]
     }
   ],

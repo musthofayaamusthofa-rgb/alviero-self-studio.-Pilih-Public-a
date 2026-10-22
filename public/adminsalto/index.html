@@ -2643,6 +2643,42 @@
           <input type="text" id="promoDiscountHighlightInput" class="form-control" placeholder="Contoh: Potongan 10% Total Transaksi">
         </div>
 
+        
+        <!-- PENGATURAN BAGAN STRUKTUR TIM ALVIERO (KHUSUS KONTEN TIM - FOTO 2) -->
+        <div id="promoTeamStructureSection" style="display: none; background: #FAF8F5; border: 1.5px solid #A9BCA7; border-radius: 14px; padding: 1.15rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.45rem;">
+                <span style="font-size: 1.25rem;">🏛️</span>
+                <label class="form-label" style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #2E2E2E;">
+                  Pengaturan Bagan Struktur Tim (Tampil di Tombol Struktur Foto 2)
+                </label>
+              </div>
+              <div style="font-size: 0.75rem; color: #5C725A; margin-top: 0.2rem; font-weight: 600;">
+                Kelola susunan organisasi, pembagian divisi, nama personil, dan peran tim yang tampil di website.
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.45rem;">
+              <button type="button" class="btn btn-preview" style="padding: 0.35rem 0.7rem; font-size: 0.74rem; font-weight: 600;" onclick="loadDefaultTeamStructureTemplate()" title="Isi dengan susunan tim standar Alviero Studio">
+                📋 Isi Template Standar
+              </button>
+              <button type="button" class="btn btn-add" style="padding: 0.35rem 0.8rem; font-size: 0.76rem; font-weight: 700;" onclick="addTeamStructureMemberSlot()">
+                + Tambah Peran / Anggota
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0.85rem;">
+            <label class="form-label" style="font-size: 0.8rem; font-weight: 700;">Sub-judul Bagan Struktur *</label>
+            <input type="text" id="promoStructureSubtitleInput" class="form-control" placeholder="Contoh: Struktur Organisasi & Pembagian Peran" value="Struktur Organisasi & Pembagian Peran">
+          </div>
+
+          <!-- Dynamic Team Structure List Container -->
+          <div id="promoTeamStructureListContainer" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
         <!-- MULTI-PHOTO PROMO & INFORMASI -->
         <div class="form-group" style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem; margin-bottom: 1.25rem;">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem;">
@@ -4800,6 +4836,214 @@
       reader.readAsDataURL(file);
     }
 
+    
+    // =========================================================================
+    // SECTION: PENGATURAN BAGAN STRUKTUR TIM (KONTEN TIM ALVIERO)
+    // =========================================================================
+    let currentTeamStructure = [];
+
+    const DEFAULT_TEAM_STRUCTURE_DATA = [
+      {
+        id: 'team-1',
+        division: 'Pimpinan & Manajemen',
+        role: 'Studio Manager & Creative Director',
+        name: 'M. Azzam Fakhri',
+        description: 'Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.',
+        badge: 'Management',
+        photo: ''
+      },
+      {
+        id: 'team-2',
+        division: 'Fotografi & Pengarah Gaya',
+        role: 'Lead Photographer & Pose Director',
+        name: 'Tim Fotografer Utama',
+        description: 'Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.',
+        badge: 'Creative Lead',
+        photo: ''
+      },
+      {
+        id: 'team-3',
+        division: 'Tata Cahaya & Kru Studio',
+        role: 'Lighting Specialist & Studio Assistant',
+        name: 'Kru Asisten Studio',
+        description: 'Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.',
+        badge: 'Studio Crew',
+        photo: ''
+      },
+      {
+        id: 'team-4',
+        division: 'Pelayanan & Reservasi',
+        role: 'Customer Service & Schedule Coordinator',
+        name: 'Admin Reservasi & Front Office',
+        description: 'Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.',
+        badge: 'Guest Care',
+        photo: ''
+      },
+      {
+        id: 'team-5',
+        division: 'Editing & Post-Production',
+        role: 'Colorist & Retouch Specialist',
+        name: 'Tim Editor Visual & Print Lab',
+        description: 'Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.',
+        badge: 'Post-Prod',
+        photo: ''
+      }
+    ];
+
+    function renderTeamStructureSlots() {
+      const container = document.getElementById('promoTeamStructureListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (currentTeamStructure.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 1.25rem; text-align: center; background: #FFFFFF; border: 1px dashed #D4D4D8; border-radius: 10px;">
+            <div style="font-size: 1.35rem; margin-bottom: 0.25rem;">👥</div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: #374151;">Belum Ada Anggota / Peran Struktur</div>
+            <div style="font-size: 0.76rem; color: #6B7280; margin-top: 0.25rem;">Klik tombol <strong>"+ Tambah Peran / Anggota"</strong> atau gunakan <strong>"📋 Isi Template Standar"</strong> untuk mengisi cepat.</div>
+          </div>
+        `;
+        return;
+      }
+
+      currentTeamStructure.forEach((member, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.style.cssText = 'background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 10px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);';
+
+        itemEl.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <span style="font-size: 0.72rem; font-family: monospace; font-weight: 700; color: #5C725A; background: #EBF2EA; padding: 0.15rem 0.5rem; border-radius: 999px;">
+                #${index + 1}
+              </span>
+              <span style="font-size: 0.82rem; font-weight: 700; color: #1F2937;">
+                ${escapeHtml(member.role || 'Peran Anggota')} — ${escapeHtml(member.name || 'Nama Personil')}
+              </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.3rem;">
+              <button type="button" class="btn btn-preview" style="padding: 0.2rem 0.45rem; font-size: 0.7rem;" title="Geser ke Atas" onclick="moveTeamStructureMember(${index}, -1)" ${index === 0 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
+                ⬆️
+              </button>
+              <button type="button" class="btn btn-preview" style="padding: 0.2rem 0.45rem; font-size: 0.7rem;" title="Geser ke Bawah" onclick="moveTeamStructureMember(${index}, 1)" ${index === currentTeamStructure.length - 1 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
+                ⬇️
+              </button>
+              <button type="button" class="btn" style="background:#FEE2E2; color:#DC2626; border:1px solid #FCA5A5; padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="removeTeamStructureMember(${index})" title="Hapus Anggota Ini">
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.45rem;">
+            <div>
+              <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Divisi / Bidang *</label>
+              <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(member.division || '')}" placeholder="Contoh: Fotografi & Pengarah Gaya" oninput="updateTeamStructureField(${index}, 'division', this.value)">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Jabatan / Posisi *</label>
+              <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(member.role || '')}" placeholder="Contoh: Lead Photographer" oninput="updateTeamStructureField(${index}, 'role', this.value)">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.5rem; margin-bottom: 0.45rem;">
+            <div>
+              <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Nama Personil / Tim *</label>
+              <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(member.name || '')}" placeholder="Contoh: M. Azzam Fakhri / Tim Fotografer" oninput="updateTeamStructureField(${index}, 'name', this.value)">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Label Badge (Opsional)</label>
+              <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(member.badge || '')}" placeholder="Contoh: Creative Lead" oninput="updateTeamStructureField(${index}, 'badge', this.value)">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 0.45rem;">
+            <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Tugas & Tanggung Jawab (Deskripsi Peran)</label>
+            <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(member.description || '')}" placeholder="Contoh: Mengarahkan pose, tata lampu studio, dan kepuasan tamu." oninput="updateTeamStructureField(${index}, 'description', this.value)">
+          </div>
+
+          <div>
+            <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Foto Profil Personil (Opsional URL)</label>
+            <div style="display: flex; gap: 0.4rem; align-items: center;">
+              <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem; flex: 1;" value="${escapeHtml(member.photo || '')}" placeholder="/images/... atau https://..." oninput="updateTeamStructureField(${index}, 'photo', this.value)">
+              <input type="file" id="teamMemberPhotoFile_${index}" accept="image/*" style="display:none;" onchange="handleTeamMemberUpload(event, ${index})">
+              <button type="button" class="btn btn-preview" style="padding: 0.35rem 0.55rem; font-size: 0.72rem; white-space:nowrap;" onclick="document.getElementById('teamMemberPhotoFile_${index}').click()">
+                📁 Upload
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(itemEl);
+      });
+    }
+
+    function addTeamStructureMemberSlot() {
+      currentTeamStructure.push({
+        id: 'team-' + Date.now(),
+        division: 'Fotografi & Kreatif',
+        role: 'Kru Fotografi',
+        name: '',
+        description: '',
+        badge: 'Kru',
+        photo: ''
+      });
+      renderTeamStructureSlots();
+    }
+
+    function removeTeamStructureMember(index) {
+      if (confirm('Hapus peran/anggota ini dari susunan struktur tim?')) {
+        currentTeamStructure.splice(index, 1);
+        renderTeamStructureSlots();
+      }
+    }
+
+    function moveTeamStructureMember(index, direction) {
+      const target = index + direction;
+      if (target < 0 || target >= currentTeamStructure.length) return;
+      const temp = currentTeamStructure[index];
+      currentTeamStructure[index] = currentTeamStructure[target];
+      currentTeamStructure[target] = temp;
+      renderTeamStructureSlots();
+    }
+
+    function updateTeamStructureField(index, field, value) {
+      if (currentTeamStructure[index]) {
+        currentTeamStructure[index][field] = value;
+      }
+    }
+
+    function loadDefaultTeamStructureTemplate() {
+      if (currentTeamStructure.length > 0 && !confirm('Ganti susunan saat ini dengan Template Standar Alviero Studio?')) {
+        return;
+      }
+      currentTeamStructure = JSON.parse(JSON.stringify(DEFAULT_TEAM_STRUCTURE_DATA));
+      renderTeamStructureSlots();
+      showToast('Template struktur tim standar berhasil dimuat!', '📋');
+    }
+
+    async function handleTeamMemberUpload(event, index) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      try {
+        const res = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data.success && data.imageUrl) {
+          updateTeamStructureField(index, 'photo', data.imageUrl);
+          renderTeamStructureSlots();
+          showToast('Foto anggota berhasil diunggah!', '📸');
+        } else {
+          showToast('Gagal upload: ' + (data.error || 'Unknown error'), '❌');
+        }
+      } catch (err) {
+        showToast('Error upload: ' + err.message, '❌');
+      }
+    }
+
     function openAddPromoModal() {
       document.getElementById('promoEditIndex').value = '-1';
       document.getElementById('promoModalTitle').textContent = 'Tambah Promo / Informasi Baru';
@@ -4856,15 +5100,26 @@
     function handlePromoKindChange(kind) {
       const codeLabel = document.getElementById('promoCodeLabel');
       const codeInput = document.getElementById('promoCodeInput');
+      const teamSection = document.getElementById('promoTeamStructureSection');
+
       if (kind === 'berita') {
         codeLabel.textContent = 'Label Tag Berita *';
         if (!codeInput.value || codeInput.value === 'STUDENT10' || codeInput.value === 'TEAM') codeInput.value = 'INFO';
+        if (teamSection) teamSection.style.display = 'none';
       } else if (kind === 'tim') {
         codeLabel.textContent = 'Label Tag Tim *';
         if (!codeInput.value || codeInput.value === 'STUDENT10' || codeInput.value === 'INFO') codeInput.value = 'TEAM';
+        if (teamSection) {
+          teamSection.style.display = 'block';
+          if (currentTeamStructure.length === 0) {
+            currentTeamStructure = JSON.parse(JSON.stringify(DEFAULT_TEAM_STRUCTURE_DATA));
+            renderTeamStructureSlots();
+          }
+        }
       } else {
         codeLabel.textContent = 'Kode Kupon / Voucher *';
         if (!codeInput.value || codeInput.value === 'INFO' || codeInput.value === 'TEAM') codeInput.value = 'PROMO10';
+        if (teamSection) teamSection.style.display = 'none';
       }
     }
 

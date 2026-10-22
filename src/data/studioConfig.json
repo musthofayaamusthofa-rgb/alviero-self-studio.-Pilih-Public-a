@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-22T12:27:03.189Z",
+  "lastUpdated": "2026-10-22T12:47:56.533Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1080,7 +1080,7 @@
       "fullDesc": "Kami sedang menghadirkan pembaruan setup lighting agar pencahayaan sesi foto semakin fleksibel. Tim studio dapat membantu menyesuaikan karakter cahaya dengan konsep dan kebutuhan setiap klien.",
       "discountHighlight": "Pembaruan Fasilitas Studio",
       "period": "Informasi Studio",
-      "imageUrl": "/images/categories/selfphoto.jpg",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
       "terms": [
         "Ketersediaan setup menyesuaikan jenis sesi dan paket.",
         "Konsultasikan kebutuhan lighting kepada admin atau fotografer."
@@ -1093,7 +1093,7 @@
       "active": true,
       "_origIndex": 3,
       "images": [
-        "/images/categories/selfphoto.jpg"
+        "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85"
       ]
     },
     {
@@ -1107,7 +1107,10 @@
       "fullDesc": "Di balik setiap sesi foto ada tim yang memastikan pengalaman Anda tetap nyaman dan terarah. Fotografer, admin, dan kru studio bekerja bersama untuk membantu persiapan, pencahayaan, pose, hingga proses konfirmasi jadwal.",
       "discountHighlight": "Fotografer & Kru Studio",
       "period": "Tentang Tim Kami",
-      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85",
+      "imageUrl": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+      "images": [
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg"
+      ],
       "terms": [
         "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
         "Konsultasi konsep dapat dilakukan sebelum sesi foto."
@@ -1119,8 +1122,53 @@
       ],
       "active": true,
       "_origIndex": 4,
-      "images": [
-        "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
+      "structureSubtitle": "Struktur Organisasi & Pembagian Peran",
+      "teamStructure": [
+        {
+          "id": "team-1",
+          "division": "Pimpinan & Manajemen",
+          "role": "Studio Manager & Creative Director",
+          "name": "M. Azzam Fakhri",
+          "description": "Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.",
+          "badge": "Management",
+          "photo": ""
+        },
+        {
+          "id": "team-2",
+          "division": "Fotografi & Pengarah Gaya",
+          "role": "Lead Photographer & Pose Director",
+          "name": "Tim Fotografer Utama",
+          "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
+          "badge": "Creative Lead",
+          "photo": ""
+        },
+        {
+          "id": "team-3",
+          "division": "Tata Cahaya & Kru Studio",
+          "role": "Lighting Specialist & Studio Assistant",
+          "name": "Kru Asisten Studio",
+          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
+          "badge": "Studio Crew",
+          "photo": ""
+        },
+        {
+          "id": "team-4",
+          "division": "Pelayanan & Reservasi",
+          "role": "Customer Service & Schedule Coordinator",
+          "name": "Admin Reservasi & Front Office",
+          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
+          "badge": "Guest Care",
+          "photo": ""
+        },
+        {
+          "id": "team-5",
+          "division": "Editing & Post-Production",
+          "role": "Colorist & Retouch Specialist",
+          "name": "Tim Editor Visual & Print Lab",
+          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
+          "badge": "Post-Prod",
+          "photo": ""
+        }
       ]
     }
   ],
@@ -2557,7 +2605,7 @@
       "packageName": "Peralatan Studio",
       "icon": "💡",
       "badge": "Pencahayaan Studio Pro",
-      "imageUrl": "/images/categories/selfphoto.jpg",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
       "description": "Sistem pencahayaan flash studio Godox dengan modifier softbox oktagonal besar dan diffuser ganda, menghasilkan cahaya lembut alami pada kulit (flattering skin tone) tanpa bayangan keras.",
       "conceptNote": "Dikalibrasi berkala agar warna pakaian, toga wisuda, dan riasan make-up keluar dengan akurat 100%.",
       "highlights": [
