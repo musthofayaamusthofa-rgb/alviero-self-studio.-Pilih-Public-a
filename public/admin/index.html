@@ -1174,7 +1174,7 @@
   <div class="status-banner">
     <div class="status-banner-inner">
       <div class="status-pills">
-        <span class="status-badge online">
+        <span class="status-badge online" id="serverBadge">
           <span class="dot-live"></span>
           Server Aktif: Port 3001
         </span>
@@ -4643,6 +4643,7 @@
 
 
     let appConfig = null;
+    let isCloudStaticMode = false;
     let currentBranchFilter = 'all';
     let currentServiceFilter = 'all';
 
@@ -5595,7 +5596,37 @@
       saveConfigLocally();
     }
 
+    
+    function downloadConfigJSON() {
+      if (!appConfig) return;
+      const blob = new Blob([JSON.stringify(appConfig, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'studioConfig.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('File studioConfig.json berhasil diunduh!', '📥');
+    }
+
+    function showCloudNotice() {
+      alert(
+        'ℹ️ PEMBERITAHUAN MODE CLOUD (VERCEL):\n\n' +
+        'Anda sedang membuka dashboard langsung dari domain publik Vercel.\n' +
+        'Karena Vercel adalah hosting statis, sistem tidak memiliki akses langsung untuk menyimpan file ke harddisk laptop atau menjalankan perintah Git.\n\n' +
+        'CARA MENYIMPAN / UPLOAD FOTO:\n' +
+        '1. Jika satu Wi-Fi dengan laptop: Buka http://192.168.18.103:3000/admin\n' +
+        '2. Jika di luar jaringan: Jalankan "npm run tunnel" di laptop lalu buka link Cloudflare.\n\n' +
+        'File konfigurasi hasil editan Anda saat ini juga otomatis diunduh (studioConfig.json).'
+      );
+    }
+
     async function saveConfigLocally() {
+      if (isCloudStaticMode) {
+        showCloudNotice();
+        downloadConfigJSON();
+        return;
+      }
       if (!appConfig) return;
       try {
         const res = await fetch('/api/config', {
