@@ -80,6 +80,22 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                 </svg>
               </button>
             ))}
+            <a
+              href="/admin"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setIsHelpOpen(false)}
+              className="flex min-h-[40px] items-center justify-between rounded-xl border border-[#3A3A3A] bg-[#2A2A2A] text-white px-3 text-left transition-colors hover:bg-[#1E1E1E] mt-0.5"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-xs">⚙️</span>
+                <span>
+                  <span className="block text-[11px] font-bold text-white">Dashboard Studio Manager</span>
+                  <span className="block text-[9px] text-[#A9BCA7]">Kelola Background, Paket & Jadwal</span>
+                </span>
+              </span>
+              <span className="text-[10px] text-white/70">Buka ↗</span>
+            </a>
           </div>
         </div>
       )}

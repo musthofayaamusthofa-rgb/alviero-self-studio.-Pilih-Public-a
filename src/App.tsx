@@ -17,6 +17,18 @@ const ADMIN_STUDIO_1_WA = '6287777538164';
 const ADMIN_STUDIO_2_WA = '6285168879214';
 
 export default function App() {
+  // Shortcut keyboard untuk membuka Dashboard Admin secara instan: Ctrl + Shift + A
+  useEffect(() => {
+    const handleAdminShortcut = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        window.open('/admin', '_blank');
+      }
+    };
+    window.addEventListener('keydown', handleAdminShortcut);
+    return () => window.removeEventListener('keydown', handleAdminShortcut);
+  }, []);
+
   useAutoHideScrollbar();
 
   const [activeTab, setActiveTab] = useState<string>('katalog');
