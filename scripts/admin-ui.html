@@ -3102,17 +3102,6 @@
             <span>💡 <strong>Tips Rapi:</strong> Tekan <strong>Enter</strong> untuk membuat paragraf baru agar teks tidak menumpuk.</span>
             <span id="taglineCharCount">0 karakter</span>
           </div>
-
-          <!-- Pratinjau Teks Rapi di Modal -->
-          <div style="margin-top: 0.65rem; background: #FAF9F7; border: 1px dashed #D6D3D1; border-radius: 10px; padding: 0.75rem;">
-            <div style="font-size: 0.7rem; font-family: monospace; font-weight: 700; color: #5C725A; text-transform: uppercase; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;">
-              <span>👁️</span>
-              <span>Pratinjau Teks Rapi (Tampilan di Website Pelanggan):</span>
-            </div>
-            <div id="vendorTaglineLivePreview" style="font-size: 0.82rem; line-height: 1.65; color: #44403C; text-align: justify; white-space: pre-line; max-height: 130px; overflow-y: auto; background: #FFFFFF; padding: 0.6rem 0.75rem; border-radius: 6px; border: 1px solid #E7E5E4;">
-              (Teks yang Anda ketik akan langsung ditampilkan rapi di sini...)
-            </div>
-          </div>
         </div>
 
         <!-- Foto Cover Utama -->
@@ -7247,10 +7236,6 @@
       const val = document.getElementById('muaVendorTaglineInput')?.value || '';
       const countEl = document.getElementById('taglineCharCount');
       if (countEl) countEl.textContent = val.length + ' karakter';
-      const prevEl = document.getElementById('vendorTaglineLivePreview');
-      if (prevEl) {
-        prevEl.textContent = val.trim() || '(Teks yang Anda ketik akan langsung ditampilkan rapi di sini...)';
-      }
     }
 
     function formatVendorTaglineNeatly() {
