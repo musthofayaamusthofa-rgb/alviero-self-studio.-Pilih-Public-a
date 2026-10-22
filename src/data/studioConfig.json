@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-22T11:23:52.557Z",
+  "lastUpdated": "2026-10-22T12:01:06.389Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2675,11 +2675,12 @@
       "id": "novita",
       "name": "By Novita",
       "tagline": "Wujudkan pesona cantikmu dengan sentuhan riasan yang simpel, elegan, dan modern bersama kami sebagai Flawless & Long Lasting Makeup Specialist!\n\nKami hadir untuk menyempurnakan penampilanmu dengan berbagai pilihan gaya makeup by request, mulai dari Korean, Barbie, Arabian, Natural, Pinkish, Bold, hingga look kekinian ala Gen Z.\n\nDengan menggunakan produk-produk berkualitas tinggi dan selalu upgrade mengikuti tren terkini, kami memastikan hasil riasan dipersonalisasi sesuai bentuk wajah klien agar tetap memukau, awet tahan lama seharian, dan pastinya anti longsor tanpa terlihat berlebihan.",
-      "coverImage": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+      "coverImage": "/images/mua/img_3328_jpg_1792670216999.jpg",
       "portfolioImages": [
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=85",
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=85",
-        "https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&w=700&q=85"
+        "/images/mua/img_1444_1792670243293.jpg",
+        "/images/mua/img_1916_1792670252089.jpg",
+        "/images/mua/img_3343_1792670265927.jpg",
+        "/images/mua/img_3006_1792670298979.jpg"
       ],
       "categories": [
         {
@@ -2778,8 +2779,18 @@
               ]
             }
           ],
-          "portfolioImage": "",
-          "portfolioImages": []
+          "portfolioImage": "/images/mua/img_1951_1792670440780.jpg",
+          "portfolioImages": [
+            "/images/mua/img_1951_1792670440780.jpg",
+            "/images/mua/img_1958_1792670440918.jpg",
+            "/images/mua/img_3033_1792670441161.jpg",
+            "/images/mua/img_3082_jpg_1792670441239.jpg",
+            "/images/mua/img_3131_jpg_1792670441286.jpg",
+            "/images/mua/img_3133_jpg_1792670441325.jpg",
+            "/images/mua/img_3343_1792670441392.jpg",
+            "/images/mua/img_3346_1792670441453.jpg",
+            "/images/mua/img_3348_1792670441537.jpg"
+          ]
         },
         {
           "id": "novita-grad-indoor",

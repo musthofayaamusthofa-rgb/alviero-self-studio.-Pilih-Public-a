@@ -1016,6 +1016,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
   // Step 2 & 3: Accordion state for category (e.g. "novita-pass-foto")
   const [expandedCategoryId, setExpandedCategoryId] = useState<string | null>(null);
+  const [isVendorTaglineExpanded, setIsVendorTaglineExpanded] = useState<boolean>(false);
 
   // Temporary visual feedback when a sub-package is added to cart
   const [addedPackageId, setAddedPackageId] = useState<string | null>(null);
@@ -1092,11 +1093,23 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
     setActivePopupVendor(vendorName);
     // Semua kategori berstatus tertutup di awal, hanya terbuka ketika ditekan oleh pengguna
     setExpandedCategoryId(null);
+    setIsVendorTaglineExpanded(false);
   };
 
-  // Handler toggle accordion kategori
+  // Handler toggle accordion kategori (dengan auto-scroll halus agar sub-paket terlihat jelas)
   const handleToggleCategory = (categoryId: string) => {
-    setExpandedCategoryId((prev) => (prev === categoryId ? null : categoryId));
+    setExpandedCategoryId((prev) => {
+      const next = prev === categoryId ? null : categoryId;
+      if (next) {
+        setTimeout(() => {
+          const el = document.getElementById('popup-cat-' + categoryId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 80);
+      }
+      return next;
+    });
   };
 
   // Handler tambah sub-paket ke keranjang
@@ -1317,19 +1330,21 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
         {/* ========================================================================= */}
         {currentPopupVendor && (
           <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 p-3 sm:p-4 backdrop-blur-xs animate-in fade-in duration-150">
-            <div className="relative flex max-h-[92vh] w-full max-w-lg flex-col rounded-2xl border border-[#E8DDD6] bg-white p-4 sm:p-6 shadow-2xl overflow-hidden">
-              {/* Tombol Tutup X Popup */}
+            <div className="relative flex max-h-[92vh] w-full max-w-lg flex-col rounded-2xl border border-[#E8DDD6] bg-white shadow-2xl overflow-hidden">
+              {/* Tombol Tutup X Popup (Melayang di pojok kanan atas, tetap terlihat saat scroll) */}
               <button
                 type="button"
                 onClick={() => setActivePopupVendor(null)}
-                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#F2E9E4] text-[#2E2E2E] border border-[#E8DDD6] hover:bg-[#E4D9D3] transition-colors"
+                className="absolute right-3.5 top-3.5 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-white/95 backdrop-blur-md text-[#2E2E2E] border border-[#E8DDD6] hover:bg-[#F2E9E4] shadow-md transition-all active:scale-95 cursor-pointer"
                 aria-label="Tutup popup"
               >
                 <X className="h-4 w-4" />
               </button>
 
-              {/* Portofolio Carousel Vendor di Atas */}
-              <div className="pr-10 shrink-0">
+              {/* Satu scrollable container terpadu: Detail Vendor + Daftar Paket ikut ter-scroll bersamaan */}
+              <div className="min-h-0 flex-1 overflow-y-auto p-4 sm:p-6 overscroll-contain">
+                {/* Portofolio Carousel Vendor & Detail Profil di Atas */}
+                <div className="pr-10">
                 <div className="mb-3.5 h-36 sm:h-44 flex snap-x gap-2.5 overflow-x-auto pb-2 no-scrollbar">
                   {currentPopupVendor.portfolioImages.map((image, index) => (
                     <button
@@ -1363,9 +1378,26 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                   {currentPopupVendor.name}
                 </h4>
                 {currentPopupVendor.tagline && (
-                  <p className="text-xs sm:text-[13px] font-sans text-stone-600 mt-2.5 text-justify leading-relaxed whitespace-pre-line">
-                    {currentPopupVendor.tagline.replace(/\s*—\s*Klik foto untuk melihat detail[^\n]*/gi, '')}
-                  </p>
+                  <div className="mt-2.5">
+                    <p
+                      className={`text-xs sm:text-[13px] font-sans text-stone-600 text-justify leading-relaxed whitespace-pre-line ${
+                        !isVendorTaglineExpanded && currentPopupVendor.tagline.length > 200
+                          ? 'line-clamp-3'
+                          : ''
+                      }`}
+                    >
+                      {currentPopupVendor.tagline.replace(/\s*—\s*Klik foto untuk melihat detail[^\n]*/gi, '')}
+                    </p>
+                    {currentPopupVendor.tagline.length > 200 && (
+                      <button
+                        type="button"
+                        onClick={() => setIsVendorTaglineExpanded((prev) => !prev)}
+                        className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-serif font-bold text-[#5C725A] hover:text-[#465744] hover:underline cursor-pointer"
+                      >
+                        <span>{isVendorTaglineExpanded ? 'Tampilkan Lebih Sedikit ▲' : 'Baca Profil Selengkapnya ▼'}</span>
+                      </button>
+                    )}
+                  </div>
                 )}
                 <div className="mt-2.5 flex items-center gap-2 text-[11px] text-[#5C725A] font-medium bg-[#5C725A]/8 px-3 py-1.5 rounded-lg border border-[#5C725A]/15">
                   <span className="text-xs shrink-0">💡</span>
@@ -1375,15 +1407,16 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
               {/* ===================================================================== */}
               {/* DAFTAR KATEGORI LAYANAN DENGAN ACCORDION SUB-PAKET */}
-              {/* Contoh: PASS FOTO di-klik -> muncul Paket 1, Paket 2, Paket 3 */}
-              {/* ===================================================================== */}
-              <div className="mt-4 flex-1 space-y-2.5 overflow-y-auto pr-1 sm:pr-2 overscroll-contain">
-                {currentPopupVendor.categories.map((category) => {
-                  const isExpanded = expandedCategoryId === category.id;
+                {/* Contoh: PASS FOTO di-klik -> muncul Paket 1, Paket 2, Paket 3 */}
+                {/* ===================================================================== */}
+                <div className="mt-4 space-y-2.5">
+                  {currentPopupVendor.categories.map((category) => {
+                    const isExpanded = expandedCategoryId === category.id;
 
-                  return (
-                    <div
-                      key={category.id}
+                    return (
+                      <div
+                        id={'popup-cat-' + category.id}
+                        key={category.id}
                       className={`overflow-hidden rounded-xl border transition-all duration-200 ${
                         isExpanded
                           ? 'border-[#5C725A] bg-[#FAF7F2] shadow-xs'
@@ -1901,15 +1934,18 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                         </div>
                       )}
                     </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
 
               {/* ===================================================================== */}
               {/* RINGKASAN KERANJANG DI POPUP (JIKA SUDAH PILIH PAKET) */}
+              {/* Tetap sticky/menetap di bawah modal agar selalu siap checkout */}
+              {/* ===================================================================== */}
               {/* ===================================================================== */}
               {cartItems.length > 0 && (
-                <div className="mt-3 shrink-0 rounded-xl border border-[#DDE7DF] bg-[#FAF7F2] p-3 shadow-xs">
+                <div className="shrink-0 border-t border-[#DDE7DF] bg-[#FAF7F2] p-3 sm:px-6 shadow-md z-20">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <span className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#5C725A] block">
