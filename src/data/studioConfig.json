@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-22T12:01:06.389Z",
+  "lastUpdated": "2026-10-22T12:27:03.189Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1080,7 +1080,7 @@
       "fullDesc": "Kami sedang menghadirkan pembaruan setup lighting agar pencahayaan sesi foto semakin fleksibel. Tim studio dapat membantu menyesuaikan karakter cahaya dengan konsep dan kebutuhan setiap klien.",
       "discountHighlight": "Pembaruan Fasilitas Studio",
       "period": "Informasi Studio",
-      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "imageUrl": "/images/categories/selfphoto.jpg",
       "terms": [
         "Ketersediaan setup menyesuaikan jenis sesi dan paket.",
         "Konsultasikan kebutuhan lighting kepada admin atau fotografer."
@@ -1093,7 +1093,7 @@
       "active": true,
       "_origIndex": 3,
       "images": [
-        "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85"
+        "/images/categories/selfphoto.jpg"
       ]
     },
     {
@@ -2557,7 +2557,7 @@
       "packageName": "Peralatan Studio",
       "icon": "💡",
       "badge": "Pencahayaan Studio Pro",
-      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "imageUrl": "/images/categories/selfphoto.jpg",
       "description": "Sistem pencahayaan flash studio Godox dengan modifier softbox oktagonal besar dan diffuser ganda, menghasilkan cahaya lembut alami pada kulit (flattering skin tone) tanpa bayangan keras.",
       "conceptNote": "Dikalibrasi berkala agar warna pakaian, toga wisuda, dan riasan make-up keluar dengan akurat 100%.",
       "highlights": [

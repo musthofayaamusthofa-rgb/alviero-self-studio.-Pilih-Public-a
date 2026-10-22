@@ -1119,7 +1119,7 @@ export const STUDIO_PROMOS: StudioPromo[] = [
     fullDesc: 'Kami sedang menghadirkan pembaruan setup lighting agar pencahayaan sesi foto semakin fleksibel. Tim studio dapat membantu menyesuaikan karakter cahaya dengan konsep dan kebutuhan setiap klien.',
     discountHighlight: 'Pembaruan Fasilitas Studio',
     period: 'Informasi Studio',
-    imageUrl: 'https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85',
+    imageUrl: '/images/categories/selfphoto.jpg',
     terms: ['Ketersediaan setup menyesuaikan jenis sesi dan paket.', 'Konsultasikan kebutuhan lighting kepada admin atau fotografer.'],
     howToUse: ['Pilih paket dan jadwal sesi foto.', 'Sampaikan referensi konsep kepada admin.', 'Tim Alviero akan membantu menyiapkan setup yang sesuai.']
   },
@@ -1144,11 +1144,8 @@ const rawConfigPromos = ((studioConfig as any)?.promos as StudioPromo[]);
 const sourcePromos = (rawConfigPromos && rawConfigPromos.length > 0) ? rawConfigPromos : STUDIO_PROMOS;
 const activePromos = sourcePromos.filter(p => (p as any).active !== false);
 
-const DISPLAY_STUDIO_PROMOS = (activePromos.length > 0 ? activePromos : sourcePromos).filter((promo, index, promos) =>
-  promo.kind === 'promo'
-    ? promos.findIndex(item => item.kind === 'promo') === index
-    : promo.kind === 'berita' || promo.kind === 'tim'
-);
+// Tampilkan seluruh kartu promo, berita, dan tim yang aktif sesuai sinkronisasi dashboard
+const DISPLAY_STUDIO_PROMOS = activePromos.length > 0 ? activePromos : sourcePromos;
 
 /**
  * Komponen Bagian Promo Spesial Alviero Studio
@@ -1261,6 +1258,12 @@ export const PromoSpecialSection: React.FC<{
                   alt={promo.title}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement;
+                    if (!target.src.includes('selfphoto.jpg')) {
+                      target.src = '/images/categories/selfphoto.jpg';
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
 
@@ -1431,6 +1434,12 @@ export const PromoDetailModal: React.FC<{
                   src={promoImages[safeImgIndex] || promo.imageUrl}
                   alt={promo.title}
                   className="w-full h-full object-cover object-center transition-all duration-300"
+                  onError={(e) => {
+                    const target = e.currentTarget as HTMLImageElement;
+                    if (!target.src.includes('selfphoto.jpg')) {
+                      target.src = '/images/categories/selfphoto.jpg';
+                    }
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
