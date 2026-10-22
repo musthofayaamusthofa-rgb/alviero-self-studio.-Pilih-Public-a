@@ -1362,9 +1362,15 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
                 <h4 className="font-serif text-2xl sm:text-3xl font-black uppercase text-[#2E2E2E] leading-none">
                   {currentPopupVendor.name}
                 </h4>
-                <p className="text-xs font-sans text-stone-500 mt-1">
-                  {currentPopupVendor.tagline} — Klik foto untuk melihat detail atau klik kategori untuk sub-paket.
-                </p>
+                {currentPopupVendor.tagline && (
+                  <p className="text-xs sm:text-[13px] font-sans text-stone-600 mt-2.5 text-justify leading-relaxed whitespace-pre-line">
+                    {currentPopupVendor.tagline.replace(/\s*—\s*Klik foto untuk melihat detail[^\n]*/gi, '')}
+                  </p>
+                )}
+                <div className="mt-2.5 flex items-center gap-2 text-[11px] text-[#5C725A] font-medium bg-[#5C725A]/8 px-3 py-1.5 rounded-lg border border-[#5C725A]/15">
+                  <span className="text-xs shrink-0">💡</span>
+                  <span>Klik foto untuk melihat galeri detail, atau pilih kategori di bawah untuk melihat pilihan sub-paket.</span>
+                </div>
               </div>
 
               {/* ===================================================================== */}
