@@ -4648,17 +4648,35 @@
 
     async function loadConfig() {
       try {
-        const res = await fetch('/api/config');
-        const data = await res.json();
-        if (data.success && data.data) {
-          appConfig = data.data;
-          renderAll();
-          checkGitStatus();
-        } else {
-          showToast('Gagal memuat konfigurasi: ' + (data.error || 'Unknown'), '❌');
+        let loaded = false;
+        try {
+          const res = await fetch('/api/config');
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success && data.data) {
+              appConfig = data.data;
+              loaded = true;
+              renderAll();
+              checkGitStatus();
+            }
+          }
+        } catch (e) {}
+
+        if (!loaded) {
+          const resStatic = await fetch('/data/studioConfig.json?t=' + Date.now());
+          if (resStatic.ok) {
+            appConfig = await resStatic.json();
+            loaded = true;
+            renderAll();
+            showToast('Konfigurasi live Alviero Studio berhasil dimuat!', '✨');
+          }
+        }
+
+        if (!loaded) {
+          showToast('Gagal memuat konfigurasi studio.', '❌');
         }
       } catch (err) {
-        showToast('Koneksi ke server admin gagal: ' + err.message, '❌');
+        showToast('Koneksi gagal: ' + err.message, '❌');
       }
     }
 

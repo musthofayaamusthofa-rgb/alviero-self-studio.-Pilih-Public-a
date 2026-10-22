@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/admin/:match*",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/((?!api|admin|images|data|assets|fonts|.*\\..*).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

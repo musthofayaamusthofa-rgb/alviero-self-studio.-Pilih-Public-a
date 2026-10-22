@@ -111,6 +111,10 @@ app.post('/api/config', (req, res) => {
 
     // Write new config
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(newConfig, null, 2), 'utf-8');
+    try {
+      const publicDataPath = path.join(ROOT_DIR, 'public', 'data', 'studioConfig.json');
+      fs.writeFileSync(publicDataPath, JSON.stringify(newConfig, null, 2), 'utf-8');
+    } catch(e) {}
 
     res.json({
       success: true,
