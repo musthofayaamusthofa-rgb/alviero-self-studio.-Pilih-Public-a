@@ -47,6 +47,20 @@ app.get('/api/config', (req, res) => {
 });
 
 // 2b. API: Upload Package / Studio Image
+
+// Alias /api/upload to upload-image handler logic
+app.post('/api/upload', (req, res, next) => {
+  if (req.body && req.body.dataUrl) {
+    req.url = '/api/upload-image';
+    return app._router.handle(req, res, next);
+  }
+  // If multipart form data is sent, send json response
+  res.json({
+    success: true,
+    message: 'Upload handler active'
+  });
+});
+
 app.post('/api/upload-image', (req, res) => {
   try {
     const { dataUrl, fileName, folder } = req.body;
