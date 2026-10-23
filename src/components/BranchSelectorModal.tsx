@@ -33,7 +33,6 @@ import {
   BookOpen,
   Network,
   Images,
-  SlidersHorizontal,
   ZoomIn,
   Eye,
   ArrowLeft,
@@ -1481,6 +1480,8 @@ export const PromoDetailModal: React.FC<{
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
   const [activeView, setActiveView] = useState<'default' | 'struktur' | 'galeri'>('default');
   const [currentImgIndex, setCurrentImgIndex] = useState<number>(0);
+  const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('Semua');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   // Integrasi tombol Back fisik / Swipe Back HP untuk modal info & promo
   useMobileBackButton(Boolean(promo), onClose, 'promo-detail');
@@ -1488,6 +1489,8 @@ export const PromoDetailModal: React.FC<{
   useEffect(() => {
     setActiveView('default');
     setCurrentImgIndex(0);
+    setSelectedGalleryCategory('Semua');
+    setLightboxIndex(null);
   }, [promo?.id]);
 
   if (!promo) return null;
@@ -1903,17 +1906,6 @@ export const PromoDetailModal: React.FC<{
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <a
-                    href="/adminsalto"
-                    target="_blank"
-                    rel="noreferrer"
-                    title="Buka Control Panel Admin untuk mengatur & upload foto galeri"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white text-[11px] font-serif font-bold uppercase tracking-wide transition-all shadow-2xs hover:shadow-sm cursor-pointer"
-                  >
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-[#A9BCA7]" />
-                    <span>Atur Our Galery</span>
-                  </a>
-
                   <button
                     type="button"
                     onClick={() => setActiveView('default')}
@@ -2019,22 +2011,12 @@ export const PromoDetailModal: React.FC<{
                       ))}
                     </div>
 
-                    {/* Footer Informasi & Fitur Atur Galeri */}
-                    <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 flex items-start justify-between gap-3 text-left mt-2 flex-wrap sm:flex-nowrap">
-                      <div className="flex items-start gap-2.5">
-                        <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0 mt-0.5" />
-                        <p className="text-[11px] font-sans text-stone-700 leading-relaxed">
-                          <strong>Koleksi Our Galery:</strong> Menampilkan suasana studio, persiapan tata lampu, dan dokumentasi kru Alviero Studio. Klik pada foto untuk melihat ukuran penuh.
-                        </p>
-                      </div>
-                      <a
-                        href="/adminsalto"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="shrink-0 text-[10px] font-mono font-bold uppercase tracking-wider text-[#5C725A] hover:underline bg-white px-2.5 py-1 rounded-md border border-[#A9BCA7] inline-flex items-center gap-1"
-                      >
-                        <span>Kelola Foto ↗</span>
-                      </a>
+                    {/* Footer Informasi Galeri */}
+                    <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 flex items-start gap-2.5 text-left mt-2">
+                      <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0 mt-0.5" />
+                      <p className="text-[11px] font-sans text-stone-700 leading-relaxed">
+                        <strong>Koleksi Our Galery:</strong> Menampilkan suasana studio, persiapan tata lampu, dan dokumentasi kru Alviero Studio. Klik pada foto untuk melihat ukuran penuh.
+                      </p>
                     </div>
 
                     {/* Lightbox Modal Fullscreen */}
