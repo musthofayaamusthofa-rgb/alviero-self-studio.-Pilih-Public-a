@@ -4696,14 +4696,21 @@
       container.innerHTML = '';
 
       if (!promoPhotos || promoPhotos.length === 0) {
-        promoPhotos = [''];
+        promoPhotos = [{ url: '', tag: 'BEHIND THE SCENES', caption: '' }];
       }
 
-      promoPhotos.forEach((url, idx) => {
+      promoPhotos.forEach((itemRaw, idx) => {
+        const item = typeof itemRaw === 'object' && itemRaw !== null
+          ? itemRaw
+          : { url: itemRaw || '', tag: idx === 0 ? 'BEHIND THE SCENES' : 'DOKUMENTASI', caption: '' };
+        const url = item.url || '';
+        const tag = item.tag || (idx === 0 ? 'BEHIND THE SCENES' : 'DOKUMENTASI');
+        const caption = item.caption || '';
         const isCover = idx === 0;
+
         const slotEl = document.createElement('div');
         slotEl.className = 'promo-photo-slot-card';
-        slotEl.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+        slotEl.style.cssText = 'background: #FFFFFF; border: 1.5px solid #D5E2D3; border-radius: 12px; padding: 0.9rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); margin-bottom: 0.5rem;';
 
         slotEl.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
@@ -4720,18 +4727,52 @@
             ` : ''}
           </div>
 
-          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <input type="text" class="form-control" style="font-size: 0.82rem;" placeholder="URL / Path Foto (/images/... atau https://...)" value="${escapeHtml(url || '')}" oninput="updatePromoPhotoSlotUrl(${idx}, this.value)">
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.6rem;">
+            <input type="text" class="form-control" style="font-size: 0.82rem; flex: 1;" placeholder="URL / Path Foto (/images/... atau https://...)" value="${escapeHtml(url)}" oninput="updatePromoPhotoSlotUrl(${idx}, this.value)">
             <input type="file" id="promoFileInput_${idx}" accept="image/*" style="display:none;" onchange="handlePromoPhotoFileUpload(this, ${idx})">
             <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.45rem 0.8rem; font-size: 0.78rem;" onclick="document.getElementById('promoFileInput_${idx}').click()">
               📁 Upload Lokal
             </button>
           </div>
 
+          <!-- KOLOM EDIT TAG KATEGORI (MENGGANTI TAG PADA FOTO 1) & CAPTION -->
+          <div style="background: #FAF8F5; border: 1.5px solid #A9BCA7; border-radius: 10px; padding: 0.65rem 0.75rem; margin-bottom: 0.6rem; display: grid; grid-template-columns: 1.1fr 1.4fr; gap: 0.6rem; align-items: start;">
+            <div>
+              <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: #2E2E2E; margin-bottom: 0.25rem;">
+                <span>🏷️ Tag Kategori (Tampil di Foto 1) *</span>
+              </label>
+              <div style="display: flex; gap: 0.35rem;">
+                <input type="text" id="promoPhotoTagInput_${idx}" class="form-control" style="font-size: 0.8rem; padding: 0.35rem 0.5rem; font-weight: 800; color: #5C725A; text-transform: uppercase;" value="${escapeHtml(tag)}" placeholder="Contoh: BEHIND THE SCENES" oninput="updatePromoPhotoSlotTag(${idx}, this.value)">
+                <select class="form-control" style="font-size: 0.73rem; width: auto; max-width: 110px; padding: 0.35rem 0.25rem; font-weight: 600; cursor: pointer;" onchange="updatePromoPhotoSlotTag(${idx}, this.value); document.getElementById('promoPhotoTagInput_${idx}').value = this.value;">
+                  <option value="">Pilih Preset</option>
+                  <option value="BEHIND THE SCENES" ${tag === 'BEHIND THE SCENES' ? 'selected' : ''}>BEHIND THE SCENES</option>
+                  <option value="DOKUMENTASI TIM" ${tag === 'DOKUMENTASI TIM' ? 'selected' : ''}>DOKUMENTASI TIM</option>
+                  <option value="SETUP STUDIO" ${tag === 'SETUP STUDIO' ? 'selected' : ''}>SETUP STUDIO</option>
+                  <option value="SPOT FOTO" ${tag === 'SPOT FOTO' ? 'selected' : ''}>SPOT FOTO</option>
+                  <option value="SESI FOTO" ${tag === 'SESI FOTO' ? 'selected' : ''}>SESI FOTO</option>
+                  <option value="KRU ALVIERO" ${tag === 'KRU ALVIERO' ? 'selected' : ''}>KRU ALVIERO</option>
+                </select>
+              </div>
+              <span style="font-size: 0.68rem; color: #5C725A; display: block; margin-top: 0.2rem;">
+                Ketik langsung atau pilih preset untuk mengganti label tag hijau di Foto 1.
+              </span>
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.75rem; font-weight: 800; color: #2E2E2E; margin-bottom: 0.25rem;">
+                💬 Keterangan / Caption Foto (Opsional)
+              </label>
+              <input type="text" class="form-control" style="font-size: 0.8rem; padding: 0.35rem 0.5rem;" value="${escapeHtml(caption)}" placeholder="Contoh: Foto bersama seluruh kru studio Alviero..." oninput="updatePromoPhotoSlotCaption(${idx}, this.value)">
+              <span style="font-size: 0.68rem; color: #71717A; display: block; margin-top: 0.2rem;">
+                Tampil sebagai teks penjelasan di bawah foto saat pengunjung melihat galeri.
+              </span>
+            </div>
+          </div>
+
           <div id="promoUploadStatus_${idx}" style="display:none; font-size: 0.75rem; color: #5C725A; font-weight: 600; margin-bottom: 0.45rem;"></div>
 
           <div style="height: 120px; border-radius: 8px; background: #F3F4F6; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #D1D5DB; position: relative;">
-            <img id="promoPreviewImg_${idx}" src="${escapeHtml(url || '')}" style="width: 100%; height: 100%; object-fit: cover; display: ${url ? 'block' : 'none'};" onerror="this.style.display='none'; document.getElementById('promoPlaceholder_${idx}').style.display='block';">
+            <img id="promoPreviewImg_${idx}" src="${escapeHtml(url)}" style="width: 100%; height: 100%; object-fit: cover; display: ${url ? 'block' : 'none'};" onerror="this.style.display='none'; document.getElementById('promoPlaceholder_${idx}').style.display='block';">
             <span id="promoPlaceholder_${idx}" style="color: #9CA3AF; font-size: 0.78rem; font-weight: 500; display: ${url ? 'none' : 'block'};">
               Belum ada foto yang dipilih
             </span>
@@ -4743,11 +4784,14 @@
 
       // Update hidden promoImageUrlInput for fallback
       const hiddenInput = document.getElementById('promoImageUrlInput');
-      if (hiddenInput) hiddenInput.value = promoPhotos[0] || '';
+      if (hiddenInput) {
+        const first = promoPhotos[0];
+        hiddenInput.value = (typeof first === 'object' && first !== null) ? (first.url || '') : (first || '');
+      }
     }
 
     function addPromoPhotoSlot(initialUrl = '') {
-      promoPhotos.push(initialUrl);
+      promoPhotos.push({ url: initialUrl, tag: 'BEHIND THE SCENES', caption: '' });
       renderPromoPhotoSlots();
     }
 
@@ -4761,9 +4805,13 @@
     }
 
     function updatePromoPhotoSlotUrl(index, val) {
-      promoPhotos[index] = val;
-      const img = document.getElementById(`promoPreviewImg_${index}`);
-      const placeholder = document.getElementById(`promoPlaceholder_${index}`);
+      if (typeof promoPhotos[index] !== 'object' || promoPhotos[index] === null) {
+        promoPhotos[index] = { url: val, tag: index === 0 ? 'BEHIND THE SCENES' : 'DOKUMENTASI', caption: '' };
+      } else {
+        promoPhotos[index].url = val;
+      }
+      const img = document.getElementById('promoPreviewImg_' + index);
+      const placeholder = document.getElementById('promoPlaceholder_' + index);
       if (img && placeholder) {
         if (val && val.trim()) {
           img.src = val.trim();
@@ -4776,6 +4824,22 @@
       }
       const hiddenInput = document.getElementById('promoImageUrlInput');
       if (hiddenInput && index === 0) hiddenInput.value = val;
+    }
+
+    function updatePromoPhotoSlotTag(index, val) {
+      if (typeof promoPhotos[index] !== 'object' || promoPhotos[index] === null) {
+        promoPhotos[index] = { url: promoPhotos[index] || '', tag: val, caption: '' };
+      } else {
+        promoPhotos[index].tag = val;
+      }
+    }
+
+    function updatePromoPhotoSlotCaption(index, val) {
+      if (typeof promoPhotos[index] !== 'object' || promoPhotos[index] === null) {
+        promoPhotos[index] = { url: promoPhotos[index] || '', tag: index === 0 ? 'BEHIND THE SCENES' : 'DOKUMENTASI', caption: val };
+      } else {
+        promoPhotos[index].caption = val;
+      }
     }
 
     async function handlePromoPhotoFileUpload(input, index) {
@@ -5359,10 +5423,25 @@
       document.getElementById('promoHowToUseInput').value = Array.isArray(p.howToUse) ? p.howToUse.join('\n') : (p.howToUse || '');
       document.getElementById('promoPreselectedPackageInput').value = p.preselectedPackageId || '';
 
-      const existingImages = (Array.isArray(p.images) && p.images.length > 0)
-        ? p.images
-        : (p.imageUrl ? [p.imageUrl] : ['/images/categories/selfphoto.jpg']);
-      promoPhotos = [...existingImages];
+      if (Array.isArray(p.teamGallery) && p.teamGallery.length > 0) {
+        promoPhotos = p.teamGallery.map(g => ({
+          url: g.url || '',
+          tag: g.category || 'BEHIND THE SCENES',
+          caption: g.caption || ''
+        }));
+      } else if (Array.isArray(p.images) && p.images.length > 0) {
+        promoPhotos = p.images.map((imgUrl, idx) => ({
+          url: imgUrl || '',
+          tag: idx === 0 ? 'BEHIND THE SCENES' : 'DOKUMENTASI',
+          caption: ''
+        }));
+      } else {
+        promoPhotos = [{
+          url: p.imageUrl || '',
+          tag: 'BEHIND THE SCENES',
+          caption: ''
+        }];
+      }
       renderPromoPhotoSlots();
 
       handlePromoKindChange(p.kind || 'promo');
@@ -5432,14 +5511,22 @@
       const howToUseRaw = document.getElementById('promoHowToUseInput').value;
       const preselectedPackageId = document.getElementById('promoPreselectedPackageInput').value.trim();
 
-      let validPhotos = promoPhotos.map(u => (u || '').trim()).filter(u => u.length > 0);
-
-      if (kind === 'tim') {
-        const galleryValid = currentTeamGallery.filter(g => g.url && g.url.trim().length > 0);
-        if (galleryValid.length > 0) {
-          validPhotos = galleryValid.map(g => g.url.trim());
+      const validItems = promoPhotos.map(p => {
+        if (typeof p === 'object' && p !== null) {
+          return {
+            url: (p.url || '').trim(),
+            tag: (p.tag || 'BEHIND THE SCENES').trim().toUpperCase(),
+            caption: (p.caption || '').trim()
+          };
         }
-      }
+        return {
+          url: (p || '').trim(),
+          tag: 'BEHIND THE SCENES',
+          caption: ''
+        };
+      }).filter(p => p.url.length > 0);
+
+      const validPhotos = validItems.map(p => p.url);
 
       if (!title || !category || validPhotos.length === 0) {
         alert('Harap lengkapi Judul, Kategori, dan minimal 1 Foto!');
@@ -5472,7 +5559,12 @@
       if (kind === 'tim') {
         promoData.structureSubtitle = document.getElementById('promoStructureSubtitleInput')?.value.trim() || 'Struktur Organisasi & Pembagian Peran';
         promoData.teamStructure = JSON.parse(JSON.stringify(currentTeamStructure));
-        promoData.teamGallery = JSON.parse(JSON.stringify(currentTeamGallery));
+        promoData.teamGallery = validItems.map((item, idx) => ({
+          id: 'gal-' + (idx + 1),
+          url: item.url,
+          category: item.tag || 'BEHIND THE SCENES',
+          caption: item.caption || ''
+        }));
       } else if (editIndex >= 0) {
         if (appConfig.promos[editIndex].structureSubtitle) promoData.structureSubtitle = appConfig.promos[editIndex].structureSubtitle;
         if (appConfig.promos[editIndex].teamStructure) promoData.teamStructure = appConfig.promos[editIndex].teamStructure;

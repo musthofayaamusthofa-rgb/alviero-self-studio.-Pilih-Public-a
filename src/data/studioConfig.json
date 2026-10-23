@@ -1169,7 +1169,14 @@
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
         }
       ],
-      "teamGallery": [],
+      "teamGallery": [
+        {
+          "id": "gal-1",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+          "caption": "Foto Bersama Seluruh Kru Alviero Studio",
+          "category": "BEHIND THE SCENES"
+        }
+      ],
       "_origIndex": 4
     }
   ],
