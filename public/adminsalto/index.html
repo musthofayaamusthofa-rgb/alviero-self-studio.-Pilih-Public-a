@@ -4841,6 +4841,46 @@
     // SECTION: PENGATURAN BAGAN STRUKTUR TIM (KONTEN TIM ALVIERO)
     // =========================================================================
     let currentTeamStructure = [];
+    let currentTeamGallery = [];
+
+    const DEFAULT_TEAM_GALLERY_DATA = [
+      {
+        id: 'gal-1',
+        url: '/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg',
+        caption: 'Briefing & Pendampingan Konsep Sesi Foto Alviero Studio',
+        category: 'Behind The Scenes'
+      },
+      {
+        id: 'gal-2',
+        url: '/images/backdrops/luxury-studio-hero.jpg',
+        caption: 'Penataan Ruang Utama Studio & Tata Lampu Profesional',
+        category: 'Setup Studio'
+      },
+      {
+        id: 'gal-3',
+        url: '/images/backdrops/backdrop-1.jpg',
+        caption: 'Spot Mint Modern Aesthetic Sofa untuk Foto Kasual & Pasangan',
+        category: 'Spot Foto'
+      },
+      {
+        id: 'gal-4',
+        url: '/images/backdrops/backdrop-3.jpg',
+        caption: 'Spot Black Arch Window Bar Stool Bernuansa Bold & Chic',
+        category: 'Spot Foto'
+      },
+      {
+        id: 'gal-5',
+        url: '/images/backdrops/backdrop-5.jpg',
+        caption: 'Spot Klasik European Fireplace untuk Foto Keluarga & Wisuda',
+        category: 'Spot Foto'
+      },
+      {
+        id: 'gal-6',
+        url: '/images/categories/selfphoto.jpg',
+        caption: 'Pengalaman Seru Sesi Self Photo Studio Bersama Teman & Sahabat',
+        category: 'Sesi Foto'
+      }
+    ];
 
     const DEFAULT_TEAM_STRUCTURE_DATA = [
       {
@@ -4850,43 +4890,43 @@
         name: 'M. Azzam Fakhri',
         description: 'Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.',
         badge: 'Management',
-        photo: ''
+        photo: '/images/promos/team_studio_manager___creative_director_m__azzam_fakhri_1792773231938_1792773231946.jpg'
       },
       {
         id: 'team-2',
-        division: 'Fotografi & Pengarah Gaya',
-        role: 'Lead Photographer & Pose Director',
-        name: 'Tim Fotografer Utama',
+        division: 'Fotografi & Editor',
+        role: 'Kepala Fotografer & Kepala Cabang 2',
+        name: 'Ricky',
         description: 'Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.',
         badge: 'Creative Lead',
-        photo: ''
+        photo: '/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg'
       },
       {
         id: 'team-3',
-        division: 'Tata Cahaya & Kru Studio',
-        role: 'Lighting Specialist & Studio Assistant',
-        name: 'Kru Asisten Studio',
-        description: 'Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.',
-        badge: 'Studio Crew',
-        photo: ''
+        division: 'Pelayanan & Reservasi',
+        role: 'Kepala Admin Reservasi & Front Office',
+        name: 'Sheila',
+        description: 'Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.',
+        badge: 'Guest Care',
+        photo: '/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg'
       },
       {
         id: 'team-4',
-        division: 'Pelayanan & Reservasi',
-        role: 'Customer Service & Schedule Coordinator',
-        name: 'Admin Reservasi & Front Office',
-        description: 'Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.',
-        badge: 'Guest Care',
-        photo: ''
+        division: 'Editing & Post-Production',
+        role: 'Lead Editor Visual & Print Lab',
+        name: 'Dewa Hasan Musthofa',
+        description: 'Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.',
+        badge: 'Post-Prod',
+        photo: '/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg'
       },
       {
         id: 'team-5',
-        division: 'Editing & Post-Production',
-        role: 'Colorist & Retouch Specialist',
-        name: 'Tim Editor Visual & Print Lab',
-        description: 'Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.',
-        badge: 'Post-Prod',
-        photo: ''
+        division: 'Tata Cahaya & Kru Studio',
+        role: 'Lighting Specialist & Studio Assistant',
+        name: 'Dimas',
+        description: 'Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.',
+        badge: 'Studio Crew',
+        photo: '/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg'
       }
     ];
 
@@ -5117,6 +5157,165 @@
       }
     }
 
+    
+
+    // =========================================================================
+    // SECTION: PENGATURAN OUR GALERY (KONTEN TIM ALVIERO - FOTO 2)
+    // =========================================================================
+    function renderTeamGallerySlots() {
+      const container = document.getElementById('promoTeamGalleryListContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (currentTeamGallery.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 1.25rem; text-align: center; background: #FFFFFF; border: 1px dashed #D4D4D8; border-radius: 10px;">
+            <div style="font-size: 1.35rem; margin-bottom: 0.25rem;">🖼️</div>
+            <div style="font-size: 0.84rem; font-weight: 700; color: #374151;">Belum Ada Foto Dokumentasi di Our Galery</div>
+            <div style="font-size: 0.76rem; color: #6B7280; margin-top: 0.25rem;">
+              Klik tombol <strong>"+ Tambah Foto Galeri"</strong> atau gunakan <strong>"⚡ Isi Koleksi Standar"</strong> untuk mengisi otomatis.
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      currentTeamGallery.forEach((item, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.style.cssText = 'background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 10px; padding: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);';
+
+        itemEl.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; border-bottom: 1px solid #F3F4F6; padding-bottom: 0.4rem;">
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <span style="font-size: 0.72rem; font-family: monospace; font-weight: 700; color: #5C725A; background: #EBF2EA; padding: 0.15rem 0.5rem; border-radius: 999px;">
+                Foto #${index + 1}
+              </span>
+              <span style="font-size: 0.82rem; font-weight: 700; color: #1F2937; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                ${escapeHtml(item.caption || 'Foto Dokumentasi Tim')}
+              </span>
+              ${item.category ? `<span style="font-size:0.68rem; font-weight:700; color:#5C725A; background:#EBF2EA; border:1px solid #A9BCA7; padding:0.1rem 0.4rem; border-radius:4px;">${escapeHtml(item.category)}</span>` : ''}
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.3rem;">
+              <button type="button" class="btn btn-preview" style="padding: 0.2rem 0.45rem; font-size: 0.7rem;" title="Geser ke Atas" onclick="moveTeamGalleryItem(${index}, -1)" ${index === 0 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
+                ⬆️
+              </button>
+              <button type="button" class="btn btn-preview" style="padding: 0.2rem 0.45rem; font-size: 0.7rem;" title="Geser ke Bawah" onclick="moveTeamGalleryItem(${index}, 1)" ${index === currentTeamGallery.length - 1 ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
+                ⬇️
+              </button>
+              <button type="button" class="btn" style="background:#FEE2E2; color:#DC2626; border:1px solid #FCA5A5; padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="removeTeamGalleryItem(${index})" title="Hapus Foto Ini">
+                🗑️ Hapus
+              </button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 80px 1fr; gap: 0.75rem; align-items: start;">
+            <div style="height: 80px; width: 80px; border-radius: 8px; background: #F3F4F6; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px dashed #D1D5DB; position: relative;">
+              <img id="teamGalleryPreview_${index}" src="${escapeHtml(item.url || '')}" style="width: 100%; height: 100%; object-fit: cover; display: ${item.url ? 'block' : 'none'};" onerror="this.style.display='none'; document.getElementById('teamGalleryPlaceholder_${index}').style.display='block';">
+              <span id="teamGalleryPlaceholder_${index}" style="color: #9CA3AF; font-size: 0.68rem; font-weight: 500; display: ${item.url ? 'none' : 'block'}; text-align: center; padding: 4px;">
+                No Image
+              </span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+              <div style="display: flex; gap: 0.4rem;">
+                <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem; flex: 1;" value="${escapeHtml(item.url || '')}" placeholder="URL Foto (/images/... atau https://...)" oninput="updateTeamGalleryField(${index}, 'url', this.value); updateTeamGalleryPreview(${index}, this.value);">
+                <input type="file" id="teamGalleryPhotoFile_${index}" accept="image/*" style="display:none;" onchange="handleTeamGalleryUpload(event, ${index})">
+                <button type="button" class="btn btn-preview" style="padding: 0.35rem 0.65rem; font-size: 0.74rem; white-space:nowrap;" onclick="document.getElementById('teamGalleryPhotoFile_${index}').click()">
+                  📁 Upload
+                </button>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.4rem;">
+                <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(item.caption || '')}" placeholder="Judul / Keterangan Foto (Caption)" oninput="updateTeamGalleryField(${index}, 'caption', this.value)">
+                <select class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" onchange="updateTeamGalleryField(${index}, 'category', this.value)">
+                  <option value="Behind The Scenes" ${item.category === 'Behind The Scenes' ? 'selected' : ''}>Behind The Scenes</option>
+                  <option value="Setup Studio" ${item.category === 'Setup Studio' ? 'selected' : ''}>Setup Studio</option>
+                  <option value="Spot Foto" ${item.category === 'Spot Foto' ? 'selected' : ''}>Spot Foto</option>
+                  <option value="Sesi Foto" ${item.category === 'Sesi Foto' ? 'selected' : ''}>Sesi Foto</option>
+                  <option value="Aktivitas Kru" ${item.category === 'Aktivitas Kru' ? 'selected' : ''}>Aktivitas Kru</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(itemEl);
+      });
+    }
+
+    function updateTeamGalleryPreview(index, url) {
+      const img = document.getElementById('teamGalleryPreview_' + index);
+      const placeholder = document.getElementById('teamGalleryPlaceholder_' + index);
+      if (img && placeholder) {
+        if (url && url.trim()) {
+          img.src = url.trim();
+          img.style.display = 'block';
+          placeholder.style.display = 'none';
+        } else {
+          img.style.display = 'none';
+          placeholder.style.display = 'block';
+        }
+      }
+    }
+
+    function addTeamGallerySlot() {
+      currentTeamGallery.push({
+        id: 'gal-' + Date.now(),
+        url: '',
+        caption: '',
+        category: 'Behind The Scenes'
+      });
+      renderTeamGallerySlots();
+    }
+
+    function removeTeamGalleryItem(index) {
+      if (confirm('Hapus foto ini dari galeri Our Galery?')) {
+        currentTeamGallery.splice(index, 1);
+        renderTeamGallerySlots();
+      }
+    }
+
+    function moveTeamGalleryItem(index, direction) {
+      const target = index + direction;
+      if (target < 0 || target >= currentTeamGallery.length) return;
+      const temp = currentTeamGallery[index];
+      currentTeamGallery[index] = currentTeamGallery[target];
+      currentTeamGallery[target] = temp;
+      renderTeamGallerySlots();
+    }
+
+    function updateTeamGalleryField(index, field, value) {
+      if (currentTeamGallery[index]) {
+        currentTeamGallery[index][field] = value;
+      }
+    }
+
+    function loadDefaultTeamGalleryTemplate() {
+      if (currentTeamGallery.length > 0 && !confirm('Ganti koleksi galeri saat ini dengan Koleksi Standar Alviero Studio?')) {
+        return;
+      }
+      currentTeamGallery = JSON.parse(JSON.stringify(DEFAULT_TEAM_GALLERY_DATA));
+      renderTeamGallerySlots();
+      showToast('Koleksi galeri standar berhasil dimuat!', '🖼️');
+    }
+
+    async function handleTeamGalleryUpload(e, index) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      try {
+        const item = currentTeamGallery[index];
+        const prefix = `gallery_${(item?.category || 'bts').toLowerCase().replace(/[^a-z0-9]/g, '_')}_${index}`;
+        showToast('Mengompresi & mengupload foto galeri...', '⏳');
+        const result = await smartUploadImage(file, 'promos', prefix);
+
+        updateTeamGalleryField(index, 'url', result.url);
+        renderTeamGallerySlots();
+        showToast('Foto galeri berhasil diupload!', '✅');
+      } catch (err) {
+        alert('Gagal mengupload foto galeri: ' + err.message);
+      }
+    }
+
     function openAddPromoModal() {
       document.getElementById('promoEditIndex').value = '-1';
       document.getElementById('promoModalTitle').textContent = 'Tambah Promo / Informasi Baru';
@@ -5174,11 +5373,15 @@
       const codeLabel = document.getElementById('promoCodeLabel');
       const codeInput = document.getElementById('promoCodeInput');
       const teamSection = document.getElementById('promoTeamStructureSection');
+      const teamGallerySection = document.getElementById('promoTeamGallerySection');
+      const photosSection = document.getElementById('promoPhotosSection');
 
       if (kind === 'berita') {
         codeLabel.textContent = 'Label Tag Berita *';
         if (!codeInput.value || codeInput.value === 'STUDENT10' || codeInput.value === 'TEAM') codeInput.value = 'INFO';
         if (teamSection) teamSection.style.display = 'none';
+        if (teamGallerySection) teamGallerySection.style.display = 'none';
+        if (photosSection) photosSection.style.display = 'block';
       } else if (kind === 'tim') {
         codeLabel.textContent = 'Label Tag Tim *';
         if (!codeInput.value || codeInput.value === 'STUDENT10' || codeInput.value === 'INFO') codeInput.value = 'TEAM';
@@ -5189,10 +5392,20 @@
             renderTeamStructureSlots();
           }
         }
+        if (teamGallerySection) {
+          teamGallerySection.style.display = 'block';
+          if (currentTeamGallery.length === 0) {
+            currentTeamGallery = JSON.parse(JSON.stringify(DEFAULT_TEAM_GALLERY_DATA));
+            renderTeamGallerySlots();
+          }
+        }
+        if (photosSection) photosSection.style.display = 'none';
       } else {
         codeLabel.textContent = 'Kode Kupon / Voucher *';
         if (!codeInput.value || codeInput.value === 'INFO' || codeInput.value === 'TEAM') codeInput.value = 'PROMO10';
         if (teamSection) teamSection.style.display = 'none';
+        if (teamGallerySection) teamGallerySection.style.display = 'none';
+        if (photosSection) photosSection.style.display = 'block';
       }
     }
 
@@ -5219,7 +5432,15 @@
       const howToUseRaw = document.getElementById('promoHowToUseInput').value;
       const preselectedPackageId = document.getElementById('promoPreselectedPackageInput').value.trim();
 
-      const validPhotos = promoPhotos.map(u => (u || '').trim()).filter(u => u.length > 0);
+      let validPhotos = promoPhotos.map(u => (u || '').trim()).filter(u => u.length > 0);
+
+      if (kind === 'tim') {
+        const galleryValid = currentTeamGallery.filter(g => g.url && g.url.trim().length > 0);
+        if (galleryValid.length > 0) {
+          validPhotos = galleryValid.map(g => g.url.trim());
+        }
+      }
+
       if (!title || !category || validPhotos.length === 0) {
         alert('Harap lengkapi Judul, Kategori, dan minimal 1 Foto!');
         return;
@@ -5247,6 +5468,16 @@
         howToUse,
         active
       };
+
+      if (kind === 'tim') {
+        promoData.structureSubtitle = document.getElementById('promoStructureSubtitleInput')?.value.trim() || 'Struktur Organisasi & Pembagian Peran';
+        promoData.teamStructure = JSON.parse(JSON.stringify(currentTeamStructure));
+        promoData.teamGallery = JSON.parse(JSON.stringify(currentTeamGallery));
+      } else if (editIndex >= 0) {
+        if (appConfig.promos[editIndex].structureSubtitle) promoData.structureSubtitle = appConfig.promos[editIndex].structureSubtitle;
+        if (appConfig.promos[editIndex].teamStructure) promoData.teamStructure = appConfig.promos[editIndex].teamStructure;
+        if (appConfig.promos[editIndex].teamGallery) promoData.teamGallery = appConfig.promos[editIndex].teamGallery;
+      }
 
       if (preselectedPackageId) {
         promoData.preselectedPackageId = preselectedPackageId;

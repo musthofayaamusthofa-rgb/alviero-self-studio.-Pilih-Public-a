@@ -1107,7 +1107,7 @@
       "fullDesc": "Di balik setiap sesi foto ada tim yang memastikan pengalaman Anda tetap nyaman dan terarah. Fotografer, admin, dan kru studio bekerja bersama untuk membantu persiapan, pencahayaan, pose, hingga proses konfirmasi jadwal.",
       "discountHighlight": "Fotografer & Kru Studio",
       "period": "Tentang Tim Kami",
-      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85",
+      "imageUrl": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
       "terms": [
         "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
         "Konsultasi konsep dapat dilakukan sebelum sesi foto."
@@ -1120,7 +1120,12 @@
       "active": true,
       "_origIndex": 4,
       "images": [
-        "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+        "/images/backdrops/luxury-studio-hero.jpg",
+        "/images/backdrops/backdrop-1.jpg",
+        "/images/backdrops/backdrop-3.jpg",
+        "/images/backdrops/backdrop-5.jpg",
+        "/images/categories/selfphoto.jpg"
       ],
       "structureSubtitle": "Struktur Organisasi & Pembagian Peran",
       "teamStructure": [
@@ -1131,43 +1136,81 @@
           "name": "M. Azzam Fakhri",
           "description": "Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.",
           "badge": "Management",
-          "photo": ""
+          "photo": "/images/promos/team_studio_manager___creative_director_m__azzam_fakhri_1792773231938_1792773231946.jpg"
         },
         {
           "id": "team-2",
-          "division": "Fotografi & Pengarah Gaya",
-          "role": "Lead Photographer & Pose Director",
-          "name": "Tim Fotografer Utama",
+          "division": "Fotografi & Editor",
+          "role": "Kepala Fotografer & Kepala Cabang 2",
+          "name": "Ricky",
           "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
           "badge": "Creative Lead",
-          "photo": ""
+          "photo": "/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg"
         },
         {
           "id": "team-3",
-          "division": "Tata Cahaya & Kru Studio",
-          "role": "Lighting Specialist & Studio Assistant",
-          "name": "Kru Asisten Studio",
-          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
-          "badge": "Studio Crew",
-          "photo": ""
+          "division": "Pelayanan & Reservasi",
+          "role": "Kepala Admin Reservasi & Front Office",
+          "name": "Sheila",
+          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
+          "badge": "Guest Care",
+          "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
         },
         {
           "id": "team-4",
-          "division": "Pelayanan & Reservasi",
-          "role": "Customer Service & Schedule Coordinator",
-          "name": "Admin Reservasi & Front Office",
-          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
-          "badge": "Guest Care",
-          "photo": ""
+          "division": "Editing & Post-Production",
+          "role": "Lead Editor Visual & Print Lab",
+          "name": "Dewa Hasan Musthofa",
+          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
+          "badge": "Post-Prod",
+          "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
         },
         {
           "id": "team-5",
-          "division": "Editing & Post-Production",
-          "role": "Colorist & Retouch Specialist",
-          "name": "Tim Editor Visual & Print Lab",
-          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
-          "badge": "Post-Prod",
-          "photo": ""
+          "division": "Tata Cahaya & Kru Studio",
+          "role": "Lighting Specialist & Studio Assistant",
+          "name": "Dimas",
+          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
+          "badge": "Studio Crew",
+          "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
+        }
+      ],
+      "teamGallery": [
+        {
+          "id": "gal-1",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+          "caption": "Briefing & Pendampingan Konsep Sesi Foto Alviero Studio",
+          "category": "Behind The Scenes"
+        },
+        {
+          "id": "gal-2",
+          "url": "/images/backdrops/luxury-studio-hero.jpg",
+          "caption": "Penataan Ruang Utama Studio & Tata Lampu Profesional",
+          "category": "Setup Studio"
+        },
+        {
+          "id": "gal-3",
+          "url": "/images/backdrops/backdrop-1.jpg",
+          "caption": "Spot Mint Modern Aesthetic Sofa untuk Foto Kasual & Pasangan",
+          "category": "Spot Foto"
+        },
+        {
+          "id": "gal-4",
+          "url": "/images/backdrops/backdrop-3.jpg",
+          "caption": "Spot Black Arch Window Bar Stool Bernuansa Bold & Chic",
+          "category": "Spot Foto"
+        },
+        {
+          "id": "gal-5",
+          "url": "/images/backdrops/backdrop-5.jpg",
+          "caption": "Spot Klasik European Fireplace untuk Foto Keluarga & Wisuda",
+          "category": "Spot Foto"
+        },
+        {
+          "id": "gal-6",
+          "url": "/images/categories/selfphoto.jpg",
+          "caption": "Pengalaman Seru Sesi Self Photo Studio Bersama Teman & Sahabat",
+          "category": "Sesi Foto"
         }
       ]
     }

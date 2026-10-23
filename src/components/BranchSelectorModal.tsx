@@ -33,6 +33,9 @@ import {
   BookOpen,
   Network,
   Images,
+  SlidersHorizontal,
+  ZoomIn,
+  Eye,
   ArrowLeft,
   Users
 } from 'lucide-react';
@@ -1022,6 +1025,13 @@ export interface TeamMemberRole {
   badge?: string;
 }
 
+export interface TeamGalleryItem {
+  id?: string;
+  url: string;
+  caption?: string;
+  category?: string;
+}
+
 interface StudioPromo {
   id: string;
   kind?: 'promo' | 'berita' | 'tim';
@@ -1041,6 +1051,7 @@ interface StudioPromo {
   active?: boolean;
   structureSubtitle?: string;
   teamStructure?: TeamMemberRole[];
+  teamGallery?: TeamGalleryItem[];
 }
 
 
@@ -1051,39 +1062,83 @@ export const DEFAULT_ALVIERO_TEAM_STRUCTURE: TeamMemberRole[] = [
     role: 'Studio Manager & Creative Director',
     name: 'M. Azzam Fakhri',
     description: 'Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.',
-    badge: 'Management'
+    badge: 'Management',
+    photo: '/images/promos/team_studio_manager___creative_director_m__azzam_fakhri_1792773231938_1792773231946.jpg'
   },
   {
     id: 'team-2',
-    division: 'Fotografi & Pengarah Gaya',
-    role: 'Lead Photographer & Pose Director',
-    name: 'Tim Fotografer Utama',
+    division: 'Fotografi & Editor',
+    role: 'Kepala Fotografer & Kepala Cabang 2',
+    name: 'Ricky',
     description: 'Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.',
-    badge: 'Creative Lead'
+    badge: 'Creative Lead',
+    photo: '/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg'
   },
   {
     id: 'team-3',
-    division: 'Tata Cahaya & Kru Studio',
-    role: 'Lighting Specialist & Studio Assistant',
-    name: 'Kru Asisten Studio',
-    description: 'Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.',
-    badge: 'Studio Crew'
+    division: 'Pelayanan & Reservasi',
+    role: 'Kepala Admin Reservasi & Front Office',
+    name: 'Sheila',
+    description: 'Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.',
+    badge: 'Guest Care',
+    photo: '/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg'
   },
   {
     id: 'team-4',
-    division: 'Pelayanan & Reservasi',
-    role: 'Customer Service & Schedule Coordinator',
-    name: 'Admin Reservasi & Front Office',
-    description: 'Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.',
-    badge: 'Guest Care'
+    division: 'Editing & Post-Production',
+    role: 'Lead Editor Visual & Print Lab',
+    name: 'Dewa Hasan Musthofa',
+    description: 'Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.',
+    badge: 'Post-Prod',
+    photo: '/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg'
   },
   {
     id: 'team-5',
-    division: 'Editing & Post-Production',
-    role: 'Colorist & Retouch Specialist',
-    name: 'Tim Editor Visual & Print Lab',
-    description: 'Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.',
-    badge: 'Post-Prod'
+    division: 'Tata Cahaya & Kru Studio',
+    role: 'Lighting Specialist & Studio Assistant',
+    name: 'Dimas',
+    description: 'Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.',
+    badge: 'Studio Crew',
+    photo: '/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg'
+  }
+];
+
+export const DEFAULT_ALVIERO_TEAM_GALLERY: TeamGalleryItem[] = [
+  {
+    id: 'gal-1',
+    url: '/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg',
+    caption: 'Briefing & Pendampingan Konsep Sesi Foto Alviero Studio',
+    category: 'Behind The Scenes'
+  },
+  {
+    id: 'gal-2',
+    url: '/images/backdrops/luxury-studio-hero.jpg',
+    caption: 'Penataan Ruang Utama Studio & Tata Lampu Profesional',
+    category: 'Setup Studio'
+  },
+  {
+    id: 'gal-3',
+    url: '/images/backdrops/backdrop-1.jpg',
+    caption: 'Spot Mint Modern Aesthetic Sofa untuk Foto Kasual & Pasangan',
+    category: 'Spot Foto'
+  },
+  {
+    id: 'gal-4',
+    url: '/images/backdrops/backdrop-3.jpg',
+    caption: 'Spot Black Arch Window Bar Stool Bernuansa Bold & Chic',
+    category: 'Spot Foto'
+  },
+  {
+    id: 'gal-5',
+    url: '/images/backdrops/backdrop-5.jpg',
+    caption: 'Spot Klasik European Fireplace untuk Foto Keluarga & Wisuda',
+    category: 'Spot Foto'
+  },
+  {
+    id: 'gal-6',
+    url: '/images/categories/selfphoto.jpg',
+    caption: 'Pengalaman Seru Sesi Self Photo Studio Bersama Teman & Sahabat',
+    category: 'Sesi Foto'
   }
 ];
 
@@ -1829,87 +1884,237 @@ export const PromoDetailModal: React.FC<{
               })()}
             </div>
           ) : (
-            /* Tampilan Placeholder Galeri Foto Tim (Our Galery) */
-            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-3.5 shadow-2xs animate-in fade-in duration-200">
-              <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#EBF2EA] text-[#6E856C] flex items-center justify-center">
+            /* Tampilan Interaktif Our Galery Foto & Dokumentasi Tim */
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-4 shadow-2xs animate-in fade-in duration-200 text-left">
+              {/* Header Our Galery */}
+              <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3 flex-wrap gap-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#EBF2EA] text-[#5C725A] flex items-center justify-center shrink-0">
                     <Images className="w-4 h-4" />
                   </div>
                   <div>
-                    <h6 className="font-serif font-bold text-xs uppercase tracking-wider text-[#3A3A3A]">
-                      Our Galery — Tim Alviero Studio
+                    <h6 className="font-serif font-black text-xs sm:text-sm uppercase tracking-wider text-[#2E2E2E]">
+                      Our Galery — Tim & Dokumentasi
                     </h6>
                     <span className="text-[10px] font-mono text-stone-500 block">
-                      Dokumentasi & Behind The Scenes
+                      Behind The Scenes & Suasana Studio Alviero
                     </span>
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setActiveView('default')}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
-                >
-                  <ArrowLeft className="w-3 h-3" />
-                  <span>Kembali</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <a
+                    href="/adminsalto"
+                    target="_blank"
+                    rel="noreferrer"
+                    title="Buka Control Panel Admin untuk mengatur & upload foto galeri"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white text-[11px] font-serif font-bold uppercase tracking-wide transition-all shadow-2xs hover:shadow-sm cursor-pointer"
+                  >
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-[#A9BCA7]" />
+                    <span>Atur Our Galery</span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveView('default')}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    <span>Kembali</span>
+                  </button>
+                </div>
               </div>
 
-              {/* Grid Galeri Foto Tim */}
+              {/* Render Galeri Interaktif */}
               {(() => {
-                const teamPhotos = (promo.images && promo.images.length > 0)
-                  ? promo.images
-                  : (promo.imageUrl ? [promo.imageUrl] : []);
+                const rawGallery: (TeamGalleryItem | string)[] = (promo.teamGallery && promo.teamGallery.length > 0)
+                  ? promo.teamGallery
+                  : (promo.images && promo.images.length > 0)
+                    ? promo.images
+                    : DEFAULT_ALVIERO_TEAM_GALLERY;
 
-                if (teamPhotos.length > 1) {
-                  return (
-                    <div className="space-y-2">
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {teamPhotos.map((imgUrl, i) => (
-                          <div
-                            key={i}
-                            onClick={() => {
-                              setCurrentImgIndex(i);
-                              setActiveView('default');
-                            }}
-                            className="relative aspect-square rounded-xl overflow-hidden border border-[#E8DDD6] cursor-pointer group hover:border-[#6E856C] transition-all shadow-2xs"
-                          >
-                            <img
-                              src={imgUrl}
-                              alt={`Galeri ${i + 1}`}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                            <span className="absolute bottom-1.5 left-1.5 bg-black/70 text-white text-[9px] font-mono font-bold px-1.5 py-0.5 rounded">
-                              Foto #{i + 1}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                      <p className="text-[11px] font-sans text-stone-500 text-center pt-1">
-                        Klik pada foto di atas untuk menampilkan foto tersebut di layar utama.
-                      </p>
-                    </div>
-                  );
-                }
+                const galleryItems: TeamGalleryItem[] = rawGallery.map((item, idx) => {
+                  if (typeof item === 'string') {
+                    return {
+                      id: 'gal-' + idx,
+                      url: item,
+                      caption: idx === 0 ? 'Foto Sampul & Sesi Studio Alviero' : ('Dokumentasi Studio Alviero #' + (idx + 1)),
+                      category: idx === 0 ? 'Behind The Scenes' : 'Spot Foto'
+                    };
+                  }
+                  return item;
+                });
+
+                const categories = ['Semua', ...Array.from(new Set(galleryItems.map((g) => g.category || 'Dokumentasi')))];
+                const displayedGallery = selectedGalleryCategory === 'Semua'
+                  ? galleryItems
+                  : galleryItems.filter((g) => (g.category || 'Dokumentasi') === selectedGalleryCategory);
 
                 return (
-                  <div className="border-2 border-dashed border-[#E8DDD6] rounded-xl p-4 sm:p-6 bg-[#FDFBF7] text-center space-y-3">
-                    <div className="w-12 h-12 rounded-full bg-[#F2E9E4] text-[#6E856C] mx-auto flex items-center justify-center border border-[#E8DDD6]">
-                      <Images className="w-6 h-6" />
+                  <div className="space-y-3.5">
+                    {/* Category Filter Pills */}
+                    {categories.length > 2 && (
+                      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs">
+                        {categories.map((cat) => (
+                          <button
+                            key={cat}
+                            type="button"
+                            onClick={() => setSelectedGalleryCategory(cat)}
+                            className={`px-2.5 py-1 rounded-full text-[10.5px] font-mono font-bold transition-all shrink-0 cursor-pointer ${
+                              selectedGalleryCategory === cat
+                                ? 'bg-[#5C725A] text-white shadow-2xs'
+                                : 'bg-[#FAF8F5] text-stone-600 hover:bg-[#F0EAE3] border border-[#E8DDD6]'
+                            }`}
+                          >
+                            {cat} {cat === 'Semua' ? `(${galleryItems.length})` : ''}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Responsive Grid Foto */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                      {displayedGallery.map((item, idx) => (
+                        <div
+                          key={item.id || idx}
+                          onClick={() => setLightboxIndex(idx)}
+                          className="group relative aspect-4/3 sm:aspect-square rounded-xl overflow-hidden border border-[#E8DDD6] hover:border-[#5C725A] shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer bg-stone-100 flex flex-col justify-end"
+                        >
+                          <img
+                            src={item.url}
+                            alt={item.caption || 'Foto Galeri Alviero'}
+                            className="absolute inset-0 w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
+                            onError={(e) => {
+                              const target = e.currentTarget as HTMLImageElement;
+                              if (!target.src.includes('selfphoto.jpg')) {
+                                target.src = '/images/categories/selfphoto.jpg';
+                              }
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+
+                          {/* Category Badge */}
+                          {item.category && (
+                            <div className="absolute top-2 left-2 z-10">
+                              <span className="bg-black/65 backdrop-blur-xs text-[#A9BCA7] text-[8.5px] font-mono font-bold px-1.5 py-0.5 rounded border border-white/10 uppercase">
+                                {item.category}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Zoom Hover Icon */}
+                          <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="w-6 h-6 rounded-full bg-white/90 text-stone-800 flex items-center justify-center shadow-sm">
+                              <ZoomIn className="w-3.5 h-3.5" />
+                            </span>
+                          </div>
+
+                          {/* Caption Bar */}
+                          <div className="relative z-10 p-2 sm:p-2.5">
+                            <p className="text-[10.5px] sm:text-[11px] font-sans font-semibold text-white leading-tight line-clamp-2 drop-shadow">
+                              {item.caption || 'Dokumentasi Alviero'}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div className="space-y-1">
-                      <p className="font-serif font-bold text-sm text-[#3A3A3A]">
-                        Komponen Galeri Foto Tim
-                      </p>
-                      <p className="font-sans text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
-                        Tambahkan lebih banyak foto melalui Control Panel Admin untuk mengisi galeri dokumentasi kru Alviero Studio ini.
-                      </p>
+
+                    {/* Footer Informasi & Fitur Atur Galeri */}
+                    <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 flex items-start justify-between gap-3 text-left mt-2 flex-wrap sm:flex-nowrap">
+                      <div className="flex items-start gap-2.5">
+                        <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0 mt-0.5" />
+                        <p className="text-[11px] font-sans text-stone-700 leading-relaxed">
+                          <strong>Koleksi Our Galery:</strong> Menampilkan suasana studio, persiapan tata lampu, dan dokumentasi kru Alviero Studio. Klik pada foto untuk melihat ukuran penuh.
+                        </p>
+                      </div>
+                      <a
+                        href="/adminsalto"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="shrink-0 text-[10px] font-mono font-bold uppercase tracking-wider text-[#5C725A] hover:underline bg-white px-2.5 py-1 rounded-md border border-[#A9BCA7] inline-flex items-center gap-1"
+                      >
+                        <span>Kelola Foto ↗</span>
+                      </a>
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#A9BCA7]">
-                      <span>{teamPhotos.length} Foto Terpasang</span>
-                    </div>
+
+                    {/* Lightbox Modal Fullscreen */}
+                    {lightboxIndex !== null && displayedGallery[lightboxIndex] && (
+                      <div
+                        className="fixed inset-0 z-60 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200"
+                        onClick={() => setLightboxIndex(null)}
+                      >
+                        {/* Close Lightbox */}
+                        <button
+                          type="button"
+                          onClick={() => setLightboxIndex(null)}
+                          className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 hover:bg-white/35 text-white flex items-center justify-center cursor-pointer transition-all z-20"
+                          aria-label="Tutup Preview"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+
+                        {/* Prev Button */}
+                        {displayedGallery.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setLightboxIndex((prev) => (prev! > 0 ? prev! - 1 : displayedGallery.length - 1));
+                            }}
+                            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center cursor-pointer transition-all z-20"
+                            aria-label="Foto Sebelumnya"
+                          >
+                            <ChevronLeft className="w-6 h-6" />
+                          </button>
+                        )}
+
+                        {/* Next Button */}
+                        {displayedGallery.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setLightboxIndex((prev) => (prev! < displayedGallery.length - 1 ? prev! + 1 : 0));
+                            }}
+                            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center cursor-pointer transition-all z-20"
+                            aria-label="Foto Selanjutnya"
+                          >
+                            <ChevronRight className="w-6 h-6" />
+                          </button>
+                        )}
+
+                        {/* Lightbox Center Image Card */}
+                        <div
+                          className="max-w-2xl w-full flex flex-col items-center gap-3 my-auto z-10"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <div className="relative rounded-2xl overflow-hidden border border-white/20 shadow-2xl max-h-[72vh] bg-black/40 flex items-center justify-center">
+                            <img
+                              src={displayedGallery[lightboxIndex].url}
+                              alt={displayedGallery[lightboxIndex].caption || 'Galeri Alviero'}
+                              className="max-h-[72vh] w-auto max-w-full object-contain rounded-2xl"
+                            />
+                          </div>
+
+                          {/* Lightbox Caption Box */}
+                          <div className="bg-[#1C1C1C]/90 border border-white/15 backdrop-blur-md rounded-xl px-4 py-2.5 text-center max-w-lg w-full space-y-1">
+                            <div className="flex items-center justify-center gap-2">
+                              {displayedGallery[lightboxIndex].category && (
+                                <span className="bg-[#5C725A] text-white text-[9.5px] font-mono font-bold uppercase px-2 py-0.5 rounded-full">
+                                  {displayedGallery[lightboxIndex].category}
+                                </span>
+                              )}
+                              <span className="text-stone-400 text-[10px] font-mono">
+                                Foto {lightboxIndex + 1} dari {displayedGallery.length}
+                              </span>
+                            </div>
+                            <p className="text-white font-sans text-xs sm:text-sm font-medium leading-snug">
+                              {displayedGallery[lightboxIndex].caption || 'Dokumentasi Studio Alviero'}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })()}
