@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-23T17:17:02.288Z",
+  "lastUpdated": "2026-10-24T12:02:29.126Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1121,7 +1121,7 @@
         "Nikmati sesi foto dengan pendampingan tim Alviero."
       ],
       "active": true,
-      "structureSubtitle": "Struktur Organisasi & Pembagian Peran",
+      "structureSubtitle": "Struktur Tim Alviero",
       "teamStructure": [
         {
           "id": "team-1",
@@ -1173,8 +1173,8 @@
         {
           "id": "gal-1",
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
-          "caption": "Foto Bersama Seluruh Kru Alviero Studio",
-          "category": "BEHIND THE SCENES"
+          "category": "BEHIND THE SCENES",
+          "caption": "Foto Bersama Seluruh Kru Alviero Studio"
         }
       ],
       "_origIndex": 4
