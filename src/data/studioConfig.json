@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-24T12:02:29.126Z",
+  "lastUpdated": "2026-10-24T12:09:20.056Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1109,7 +1109,11 @@
       "period": "Tentang Tim Kami",
       "imageUrl": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
       "images": [
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg"
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg"
       ],
       "terms": [
         "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
@@ -1175,6 +1179,30 @@
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
           "category": "BEHIND THE SCENES",
           "caption": "Foto Bersama Seluruh Kru Alviero Studio"
+        },
+        {
+          "id": "gal-2",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-3",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-4",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-5",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
         }
       ],
       "_origIndex": 4
