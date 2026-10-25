@@ -1713,7 +1713,7 @@ export const PromoDetailModal: React.FC<{
                 aria-label="Tampilkan Kumpulan Foto Galeri Tim"
               >
                 <Images className={`w-4 h-4 shrink-0 transition-transform ${activeView === 'galeri' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
-                <span>Our Galery</span>
+                <span>Our Gallery</span>
               </button>
             </div>
           )}
@@ -1756,18 +1756,21 @@ export const PromoDetailModal: React.FC<{
             </>
           ) : activeView === 'struktur' ? (
             /* Tampilan Dinamis Struktur Tim Alviero Studio */
-            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-4 shadow-2xs animate-in fade-in duration-200 text-left">
-              <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] space-y-4 sm:space-y-5 shadow-2xs animate-in fade-in duration-200 text-left">
+              {/* Header Bagan Struktur */}
+              <div className="flex items-center justify-between border-b border-[#E8DDD6] pb-3.5 flex-wrap gap-2">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#EBF2EA] text-[#5C725A] flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-[#EBF2EA] text-[#5C725A] flex items-center justify-center border border-[#A9BCA7]/50 shadow-2xs shrink-0">
                     <Network className="w-4 h-4" />
                   </div>
                   <div>
-                    <h6 className="font-serif font-black text-xs sm:text-sm uppercase tracking-wider text-[#2E2E2E]">
+                    <h6 className="font-serif font-black text-sm sm:text-base uppercase tracking-wider text-[#2E2E2E]">
                       Bagan Struktur Tim Alviero
                     </h6>
-                    <span className="text-[10px] font-mono text-stone-500 block">
-                      {promo.structureSubtitle || 'Struktur Organisasi & Pembagian Peran'}
+                    <span className="text-[10px] sm:text-[10.5px] font-mono text-stone-500 block">
+                      {promo.structureSubtitle && promo.structureSubtitle !== 'Struktur Tim Alviero'
+                        ? promo.structureSubtitle
+                        : 'Struktur Organisasi & Tanggung Jawab Operasional Studio'}
                     </span>
                   </div>
                 </div>
@@ -1775,7 +1778,7 @@ export const PromoDetailModal: React.FC<{
                 <button
                   type="button"
                   onClick={() => setActiveView('default')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F2E9E4] hover:bg-[#E8DDD6] text-[#3A3A3A] text-[11px] font-serif font-bold uppercase tracking-wide transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F2E9E4] hover:bg-[#3A3A3A] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] text-[10.5px] font-serif font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-2xs active:scale-95"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Kembali</span>
@@ -1799,24 +1802,24 @@ export const PromoDetailModal: React.FC<{
                 });
 
                 return (
-                  <div className="space-y-4">
+                  <div className="space-y-4 sm:space-y-5">
                     {Array.from(divisionsMap.entries()).map(([divisionName, divMembers], divIdx) => (
-                      <div key={divIdx} className="space-y-2">
+                      <div key={divIdx} className="space-y-2.5">
                         {/* Division Header */}
                         <div className="flex items-center justify-between border-b border-[#F0EAE3] pb-1.5">
                           <div className="flex items-center gap-2">
-                            <div className="h-3.5 w-1 rounded-full bg-[#5C725A]" />
-                            <span className="font-serif text-[11.5px] font-black uppercase tracking-wide text-[#2E2E2E]">
+                            <div className="h-3.5 w-1.5 rounded-full bg-[#5C725A]" />
+                            <span className="font-serif text-xs sm:text-[13px] font-black uppercase tracking-wider text-[#2E2E2E]">
                               {divisionName}
                             </span>
                           </div>
-                          <span className="text-[9px] font-mono font-bold text-[#5C725A] bg-[#5C725A]/10 px-2 py-0.5 rounded-full border border-[#5C725A]/20">
+                          <span className="text-[9.5px] font-mono font-bold text-[#5C725A] bg-[#5C725A]/10 px-2.5 py-0.5 rounded-full border border-[#5C725A]/20">
                             {divMembers.length} Personil
                           </span>
                         </div>
 
-                        {/* Division Members Grid */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        {/* Division Members Grid (Penuh dan proporsional jika 1 personil, 2 kolom jika personil lebih dari 1) */}
+                        <div className={divMembers.length === 1 ? 'grid grid-cols-1' : 'grid grid-cols-1 sm:grid-cols-2 gap-3'}>
                           {divMembers.map((member, mIdx) => {
                             const initials = (member.name || 'AL')
                               .split(' ')
@@ -1829,41 +1832,51 @@ export const PromoDetailModal: React.FC<{
                             return (
                               <div
                                 key={member.id || mIdx}
-                                className="rounded-xl border border-[#E8DDD6] bg-[#FAF8F5] p-3 shadow-2xs hover:border-[#5C725A] transition-all flex flex-col justify-between"
+                                className="rounded-2xl border border-[#E8DDD6] bg-[#FAF8F5] hover:bg-white p-3.5 sm:p-4 shadow-2xs hover:border-[#5C725A] hover:shadow-sm transition-all duration-200 flex flex-col justify-between"
                               >
                                 <div>
-                                  <div className="flex items-start gap-2.5">
-                                    {member.photo ? (
-                                      <img
-                                        src={member.photo}
-                                        alt={member.name}
-                                        className="w-10 h-10 rounded-full object-cover border border-[#5C725A]/30 shrink-0"
-                                      />
-                                    ) : (
-                                      <div className="w-10 h-10 rounded-full bg-[#5C725A] text-white font-serif font-black flex items-center justify-center text-xs shrink-0 shadow-2xs">
-                                        {initials}
-                                      </div>
-                                    )}
+                                  <div className="flex items-start gap-3 sm:gap-3.5">
+                                    {/* Avatar Foto / Inisial */}
+                                    <div className="relative shrink-0">
+                                      {member.photo ? (
+                                        <img
+                                          src={member.photo}
+                                          alt={member.name}
+                                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover object-top border-2 border-white ring-2 ring-[#5C725A]/25 shadow-xs"
+                                        />
+                                      ) : (
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#5C725A] to-[#3E4F3C] text-white font-serif font-black flex items-center justify-center text-sm shadow-xs">
+                                          {initials}
+                                        </div>
+                                      )}
+                                    </div>
 
+                                    {/* Detail Identitas Personil */}
                                     <div className="min-w-0 flex-1">
-                                      <div className="flex items-center justify-between gap-1">
-                                        <span className="block text-[9px] font-mono font-bold uppercase tracking-wider text-[#6E856C] truncate">
-                                          {member.role}
-                                        </span>
-                                        {member.badge && (
-                                          <span className="text-[8px] font-mono font-bold uppercase px-1.5 py-0.2 rounded-full bg-white text-[#5C725A] border border-[#E8DDD6] shrink-0">
+                                      {/* Badge Chip */}
+                                      {member.badge && (
+                                        <div className="mb-1">
+                                          <span className="inline-block text-[8.5px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#EBF2EA] text-[#5C725A] border border-[#5C725A]/25">
                                             {member.badge}
                                           </span>
-                                        )}
-                                      </div>
-                                      <h6 className="font-serif font-black text-sm text-[#2E2E2E] leading-tight mt-0.5">
+                                        </div>
+                                      )}
+
+                                      {/* Nama Lengkap (Font Serif Luxury Book Antiqua) */}
+                                      <h6 className="font-serif font-black text-sm sm:text-base text-[#2E2E2E] leading-tight tracking-wide">
                                         {member.name}
                                       </h6>
+
+                                      {/* Jabatan Lengkap (Tanpa Truncate) */}
+                                      <p className="text-[10px] sm:text-[10.5px] font-sans font-bold text-[#6E856C] tracking-wide leading-snug mt-1">
+                                        {member.role}
+                                      </p>
                                     </div>
                                   </div>
 
+                                  {/* Rincian Tanggung Jawab / Deskripsi */}
                                   {member.description && (
-                                    <p className="text-[11px] font-sans text-stone-600 leading-relaxed mt-2 pt-2 border-t border-[#EAE2DC] text-justify">
+                                    <p className="text-[11px] sm:text-xs font-sans text-stone-600 leading-relaxed mt-2.5 pt-2.5 border-t border-[#EAE2DC] text-left">
                                       {member.description}
                                     </p>
                                   )}
@@ -1876,9 +1889,9 @@ export const PromoDetailModal: React.FC<{
                     ))}
 
                     {/* Footer Komitmen Tim */}
-                    <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 flex items-start gap-2.5 text-left mt-2">
+                    <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 sm:p-3.5 flex items-start gap-2.5 text-left mt-2">
                       <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0 mt-0.5" />
-                      <p className="text-[11px] font-sans text-stone-700 leading-relaxed">
+                      <p className="text-[11px] sm:text-xs font-sans text-stone-700 leading-relaxed">
                         <strong>Standar Pelayanan:</strong> Seluruh personil Alviero Studio telah terlatih secara profesional untuk mengarahkan gaya pose terbaik, mengatur tata lampu studio yang proporsional, dan memastikan setiap sesi foto berjalan hangat dan menyenangkan.
                       </p>
                     </div>
@@ -1897,7 +1910,7 @@ export const PromoDetailModal: React.FC<{
                   </div>
                   <div>
                     <h6 className="font-serif font-black text-xs sm:text-sm uppercase tracking-wider text-[#2E2E2E]">
-                      Our Galery — Tim & Dokumentasi
+                      Our Gallery — Tim & Dokumentasi
                     </h6>
                     <span className="text-[10px] font-mono text-stone-500 block">
                       Behind The Scenes & Suasana Studio Alviero
@@ -2015,7 +2028,7 @@ export const PromoDetailModal: React.FC<{
                     <div className="rounded-xl border border-[#A9BCA7]/40 bg-[#EBF2EA]/60 p-3 flex items-start gap-2.5 text-left mt-2">
                       <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0 mt-0.5" />
                       <p className="text-[11px] font-sans text-stone-700 leading-relaxed">
-                        <strong>Koleksi Our Galery:</strong> Menampilkan suasana studio, persiapan tata lampu, dan dokumentasi kru Alviero Studio. Klik pada foto untuk melihat ukuran penuh.
+                        <strong>Koleksi Our Gallery:</strong> Menampilkan suasana studio, persiapan tata lampu, dan dokumentasi kru Alviero Studio. Klik pada foto untuk melihat ukuran penuh.
                       </p>
                     </div>
 
