@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T11:17:21.774Z",
+  "lastUpdated": "2026-10-25T11:46:00.003Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1146,15 +1146,6 @@
           "photo": "/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg"
         },
         {
-          "id": "team-3",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kepala Admin Reservasi & Front Office",
-          "name": "Sheila",
-          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
-          "badge": "Guest Care",
-          "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
-        },
-        {
           "id": "team-4",
           "division": "Fotografi & Editor",
           "role": "Lead Editor Visual & Print Lab",
@@ -1171,6 +1162,24 @@
           "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
           "badge": "Studio Crew",
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
+        },
+        {
+          "id": "team-3",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kepala Admin Reservasi & Front Office",
+          "name": "Sheila",
+          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
+          "badge": "Guest Care",
+          "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
+        },
+        {
+          "id": "team-1792928666552",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Dewi",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_5_1792928681170_1792928681183.jpg"
         }
       ],
       "teamGallery": [
