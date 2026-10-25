@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T12:02:03.991Z",
+  "lastUpdated": "2026-10-25T12:06:56.002Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1173,6 +1173,24 @@
           "photo": "/images/promos/team_kru_fotografi_6_1792929633427_1792929633434.jpg"
         },
         {
+          "id": "team-1792929673207",
+          "division": "Fotografi & Editor",
+          "role": "Kru Fotografi",
+          "name": "Masaya",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_7_1792929687642_1792929687646.jpg"
+        },
+        {
+          "id": "team-1792929675332",
+          "division": "Fotografi & Editor",
+          "role": "Kru Fotografi",
+          "name": "Ario",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_ario_1792929719668_1792929719665.jpg"
+        },
+        {
           "id": "team-3",
           "division": "Pelayanan & Reservasi",
           "role": "Kepala Admin Reservasi & Front Office",
@@ -1191,22 +1209,31 @@
           "photo": "/images/promos/team_kru_fotografi_5_1792928681170_1792928681183.jpg"
         },
         {
-          "id": "team-1792929673207",
-          "division": "Fotografi & Editor",
-          "role": "Kru Fotografi",
-          "name": "Masaya",
+          "id": "team-1792929855400",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Ayu",
           "description": "",
           "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_7_1792929687642_1792929687646.jpg"
+          "photo": "/images/promos/team_kru_admin_ayu_1792929935873_1792929935878.jpg"
         },
         {
-          "id": "team-1792929675332",
-          "division": "Fotografi & Editor",
-          "role": "Kru Fotografi",
-          "name": "Ario",
+          "id": "team-1792929948543",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Intan",
           "description": "",
           "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_ario_1792929719668_1792929719665.jpg"
+          "photo": "/images/promos/team_kru_admin_intan_1792929981858_1792929981866.jpg"
+        },
+        {
+          "id": "team-1792929987083",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Fara",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_11_1792929995906_1792929995913.jpg"
         }
       ],
       "teamGallery": [
