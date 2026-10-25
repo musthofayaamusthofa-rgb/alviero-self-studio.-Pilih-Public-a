@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T12:36:51.286Z",
+  "lastUpdated": "2026-10-25T12:41:08.512Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1169,7 +1169,7 @@
           "role": "Kru Fotografi",
           "name": "Sahrul",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_fotografi_sahrul_1792930903059_1792930903053.jpg"
         },
         {
@@ -1178,7 +1178,7 @@
           "role": "Kru Fotografi",
           "name": "Masaya",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_fotografi_masaya_1792930952143_1792930952133.jpg"
         },
         {
@@ -1187,7 +1187,7 @@
           "role": "Kru Fotografi",
           "name": "Ario",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_fotografi_ario_1792930975491_1792930975488.jpg"
         },
         {
@@ -1205,7 +1205,7 @@
           "role": "Kru Admin",
           "name": "Ayu",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_admin_ayu_1792931028707_1792931028709.jpg"
         },
         {
@@ -1214,7 +1214,7 @@
           "role": "Kru Admin",
           "name": "Dewi",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_admin_dewi_1792931557836_1792931557843.jpg"
         },
         {
@@ -1223,7 +1223,7 @@
           "role": "Kru Admin",
           "name": "Intan",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_admin_intan_1792931582518_1792931582527.jpg"
         },
         {
@@ -1232,7 +1232,7 @@
           "role": "Kru Admin",
           "name": "Fara",
           "description": "",
-          "badge": "Kru",
+          "badge": "Studio Crew",
           "photo": "/images/promos/team_kru_admin_fara_1792931609807_1792931609814.jpg"
         }
       ],
