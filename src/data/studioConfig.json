@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-24T12:09:20.056Z",
+  "lastUpdated": "2026-10-25T11:17:21.774Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1156,9 +1156,9 @@
         },
         {
           "id": "team-4",
-          "division": "Editing & Post-Production",
+          "division": "Fotografi & Editor",
           "role": "Lead Editor Visual & Print Lab",
-          "name": "Dewa Hasan Musthofa",
+          "name": "Sang Hasan Musthofa",
           "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
           "badge": "Post-Prod",
           "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
