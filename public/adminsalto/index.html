@@ -5061,7 +5061,7 @@
 
           <div style="margin-bottom: 0.45rem;">
             <label style="display:block; font-size:0.72rem; font-weight:600; color:#4B5563; margin-bottom:0.2rem;">Tugas & Tanggung Jawab (Deskripsi Peran)</label>
-            <input type="text" class="form-control" style="font-size:0.8rem; padding:0.35rem 0.5rem;" value="${escapeHtml(member.description || '')}" placeholder="Contoh: Mengarahkan pose, tata lampu studio, dan kepuasan tamu." oninput="updateTeamStructureField(${index}, 'description', this.value)">
+            <textarea class="form-control" rows="2" style="font-size:0.8rem; padding:0.4rem 0.55rem; width:100%; min-height:58px; line-height:1.45; resize:vertical; border-radius:6px; box-sizing:border-box;" placeholder="Contoh: Mengarahkan pose, tata lampu studio, dan kepuasan tamu." oninput="updateTeamStructureField(${index}, 'description', this.value)">${escapeHtml(member.description || '')}</textarea>
           </div>
 
           <div>
