@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T12:41:08.512Z",
+  "lastUpdated": "2026-10-25T15:59:11.700Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1132,7 +1132,7 @@
           "division": "Pimpinan & Manajemen",
           "role": "Studio Manager & Creative Director",
           "name": "M. Azzam Fakhri",
-          "description": "Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.",
+          "description": "",
           "badge": "Management",
           "photo": "/images/promos/team_studio_manager___creative_director_m__azzam_fakhri_1792773231938_1792773231946.jpg"
         },
@@ -1141,7 +1141,7 @@
           "division": "Fotografi & Editor",
           "role": "Kepala Fotografer & Kepala Cabang 2",
           "name": "Ricky",
-          "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
+          "description": "",
           "badge": "Creative Lead",
           "photo": "/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg"
         },
@@ -1149,8 +1149,8 @@
           "id": "team-4",
           "division": "Fotografi & Editor",
           "role": "Lead Editor Visual & Print Lab",
-          "name": "Mr. Hasan Musthofa",
-          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, memastikan kualitas cetakan foto maksimal dan manipulasi foto tingkat semesta.",
+          "name": "Bang Hasan Musthofa",
+          "description": "",
           "badge": "Post-Prod",
           "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
         },
@@ -1159,7 +1159,7 @@
           "division": "Fotografi & Editor",
           "role": "Lighting Specialist & Studio Assistant",
           "name": "Dimas",
-          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
+          "description": "",
           "badge": "Studio Crew",
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
         },
@@ -1195,7 +1195,7 @@
           "division": "Pelayanan & Reservasi",
           "role": "Kepala Admin Reservasi & Front Office",
           "name": "Sheila",
-          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
+          "description": "",
           "badge": "Guest Care",
           "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
         },
