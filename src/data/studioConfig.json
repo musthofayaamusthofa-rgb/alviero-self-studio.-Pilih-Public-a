@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T12:36:17.207Z",
+  "lastUpdated": "2026-10-25T12:36:51.286Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1156,7 +1156,7 @@
         },
         {
           "id": "team-5",
-          "division": "Tata Cahaya & Kru Studio",
+          "division": "Fotografi & Editor",
           "role": "Lighting Specialist & Studio Assistant",
           "name": "Dimas",
           "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
