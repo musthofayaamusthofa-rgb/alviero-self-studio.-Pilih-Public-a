@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T12:23:52.726Z",
+  "lastUpdated": "2026-10-25T12:33:49.303Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1207,6 +1207,33 @@
           "description": "",
           "badge": "Kru",
           "photo": "/images/promos/team_kru_admin_ayu_1792931028707_1792931028709.jpg"
+        },
+        {
+          "id": "team-1792931529031",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Dewi",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_admin_dewi_1792931557836_1792931557843.jpg"
+        },
+        {
+          "id": "team-1792931562957",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Intan",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_admin_intan_1792931582518_1792931582527.jpg"
+        },
+        {
+          "id": "team-1792931585416",
+          "division": "Pelayanan & Reservasi",
+          "role": "Kru Admin",
+          "name": "Fara",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_admin_fara_1792931609807_1792931609814.jpg"
         }
       ],
       "teamGallery": [
