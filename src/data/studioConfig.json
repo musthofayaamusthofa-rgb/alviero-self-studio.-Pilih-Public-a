@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T12:06:56.002Z",
+  "lastUpdated": "2026-10-25T12:23:52.726Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1125,7 +1125,7 @@
         "Nikmati sesi foto dengan pendampingan tim Alviero."
       ],
       "active": true,
-      "structureSubtitle": "Struktur Tim Alviero",
+      "structureSubtitle": "Struktur Organisasi & Pembagian Peran",
       "teamStructure": [
         {
           "id": "team-1",
@@ -1147,16 +1147,16 @@
         },
         {
           "id": "team-4",
-          "division": "Fotografi & Editor",
+          "division": "Editing & Post-Production",
           "role": "Lead Editor Visual & Print Lab",
-          "name": "Sang Hasan Musthofa",
+          "name": "Mr. Hasan Musthofa",
           "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
           "badge": "Post-Prod",
           "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
         },
         {
           "id": "team-5",
-          "division": "Fotografi & Editor",
+          "division": "Tata Cahaya & Kru Studio",
           "role": "Lighting Specialist & Studio Assistant",
           "name": "Dimas",
           "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
@@ -1164,31 +1164,31 @@
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
         },
         {
-          "id": "team-1792929619590",
+          "id": "team-1792930883306",
           "division": "Fotografi & Editor",
           "role": "Kru Fotografi",
           "name": "Sahrul",
           "description": "",
           "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_6_1792929633427_1792929633434.jpg"
+          "photo": "/images/promos/team_kru_fotografi_sahrul_1792930903059_1792930903053.jpg"
         },
         {
-          "id": "team-1792929673207",
+          "id": "team-1792930928482",
           "division": "Fotografi & Editor",
           "role": "Kru Fotografi",
           "name": "Masaya",
           "description": "",
           "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_7_1792929687642_1792929687646.jpg"
+          "photo": "/images/promos/team_kru_fotografi_masaya_1792930952143_1792930952133.jpg"
         },
         {
-          "id": "team-1792929675332",
+          "id": "team-1792930958146",
           "division": "Fotografi & Editor",
           "role": "Kru Fotografi",
           "name": "Ario",
           "description": "",
           "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_ario_1792929719668_1792929719665.jpg"
+          "photo": "/images/promos/team_kru_fotografi_ario_1792930975491_1792930975488.jpg"
         },
         {
           "id": "team-3",
@@ -1200,40 +1200,13 @@
           "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
         },
         {
-          "id": "team-1792928666552",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Dewi",
-          "description": "",
-          "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_5_1792928681170_1792928681183.jpg"
-        },
-        {
-          "id": "team-1792929855400",
+          "id": "team-1792931002159",
           "division": "Pelayanan & Reservasi",
           "role": "Kru Admin",
           "name": "Ayu",
           "description": "",
           "badge": "Kru",
-          "photo": "/images/promos/team_kru_admin_ayu_1792929935873_1792929935878.jpg"
-        },
-        {
-          "id": "team-1792929948543",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Intan",
-          "description": "",
-          "badge": "Kru",
-          "photo": "/images/promos/team_kru_admin_intan_1792929981858_1792929981866.jpg"
-        },
-        {
-          "id": "team-1792929987083",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Fara",
-          "description": "",
-          "badge": "Kru",
-          "photo": "/images/promos/team_kru_fotografi_11_1792929995906_1792929995913.jpg"
+          "photo": "/images/promos/team_kru_admin_ayu_1792931028707_1792931028709.jpg"
         }
       ],
       "teamGallery": [
