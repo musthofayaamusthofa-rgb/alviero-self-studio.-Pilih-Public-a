@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T11:46:00.003Z",
+  "lastUpdated": "2026-10-25T12:02:03.991Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1156,12 +1156,21 @@
         },
         {
           "id": "team-5",
-          "division": "Tata Cahaya & Kru Studio",
+          "division": "Fotografi & Editor",
           "role": "Lighting Specialist & Studio Assistant",
           "name": "Dimas",
           "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
           "badge": "Studio Crew",
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
+        },
+        {
+          "id": "team-1792929619590",
+          "division": "Fotografi & Editor",
+          "role": "Kru Fotografi",
+          "name": "Sahrul",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_6_1792929633427_1792929633434.jpg"
         },
         {
           "id": "team-3",
@@ -1180,6 +1189,24 @@
           "description": "",
           "badge": "Kru",
           "photo": "/images/promos/team_kru_fotografi_5_1792928681170_1792928681183.jpg"
+        },
+        {
+          "id": "team-1792929673207",
+          "division": "Fotografi & Editor",
+          "role": "Kru Fotografi",
+          "name": "Masaya",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_7_1792929687642_1792929687646.jpg"
+        },
+        {
+          "id": "team-1792929675332",
+          "division": "Fotografi & Editor",
+          "role": "Kru Fotografi",
+          "name": "Ario",
+          "description": "",
+          "badge": "Kru",
+          "photo": "/images/promos/team_kru_fotografi_ario_1792929719668_1792929719665.jpg"
         }
       ],
       "teamGallery": [
