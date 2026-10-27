@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-27T11:45:31.611Z",
+  "lastUpdated": "2026-10-27T12:00:38.476Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1111,9 +1111,6 @@
       "images": [
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg"
       ],
@@ -1190,30 +1187,12 @@
         },
         {
           "id": "gal-3",
-          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
-          "category": "BEHIND THE SCENES",
-          "caption": ""
-        },
-        {
-          "id": "gal-4",
-          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
-          "category": "BEHIND THE SCENES",
-          "caption": ""
-        },
-        {
-          "id": "gal-5",
-          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
-          "category": "BEHIND THE SCENES",
-          "caption": ""
-        },
-        {
-          "id": "gal-6",
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
           "category": "BEHIND THE SCENES",
           "caption": ""
         },
         {
-          "id": "gal-7",
+          "id": "gal-4",
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg",
           "category": "BEHIND THE SCENES",
           "caption": ""
