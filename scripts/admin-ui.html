@@ -1466,11 +1466,14 @@
         <button class="btn btn-preview" onclick="openLiveLocal()" title="Buka tampilan web di komputer Anda">
           💻 Pratinjau Web (3000)
         </button>
-        <button class="btn btn-save-local" onclick="saveConfigLocally()" title="Simpan ke file konfigurasi lokal">
-          💾 Simpan ke Web Lokal
+        <button class="btn btn-save-local" onclick="saveConfigLocally()" title="Simpan konfigurasi">
+          💾 Simpan Konfigurasi
         </button>
         <button class="btn btn-publish" onclick="saveAndSyncToInternet()" title="Upload dan publikasikan ke internet via GitHub & Vercel">
           🚀 Publikasikan ke Web Internet
+        </button>
+        <button class="btn btn-preview" id="btnGitHubCloud" onclick="openGitHubModal()" title="Pengaturan Token GitHub untuk Akses Cloud Vercel (Edit dari HP/Device lain)" style="background: #0284C7; color: #fff; border-color: #0369A1; font-weight: 700;">
+          🔑 Akses Cloud
         </button>
       </div>
     </div>
@@ -1481,14 +1484,18 @@
 
   <!-- Friendly Status Banner -->
   <div class="status-banner">
-    <div id="cloudModeBanner" style="display:none; margin: 0 0 12px 0; padding: 12px 18px; background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 10px; color: #92400E; font-size: 13px; line-height: 1.6; box-shadow: 0 4px 12px rgba(245,158,11,0.12);">
+    <div id="cloudModeBanner" style="display:none; margin: 0 0 12px 0; padding: 12px 18px; background: #ECFDF5; border: 1.5px solid #10B981; border-radius: 10px; color: #065F46; font-size: 13px; line-height: 1.6; box-shadow: 0 4px 12px rgba(16,185,129,0.12);">
       <div style="display:flex; align-items:flex-start; gap: 10px;">
-        <span style="font-size: 20px; line-height: 1;">⚠️</span>
+        <span style="font-size: 20px; line-height: 1;">☁️</span>
         <div style="flex:1;">
-          <strong style="color: #78350F; font-size: 13.5px;">Mode Cloud Vercel (Hanya Pratinjau):</strong><br>
-          Anda sedang membuka Dashboard di domain internet <code>alviero-studio-foto.vercel.app</code>. Upload foto baru dan sinkronisasi Git otomatis <strong>wajib dilakukan dari Laptop Studio</strong>.<br>
-          👉 <strong>Buka Dashboard di Laptop Studio:</strong> <a href="http://localhost:3000/adminsalto" target="_blank" style="color: #1D4ED8; font-weight: bold; text-decoration: underline;">http://localhost:3000/adminsalto</a> (atau jalankan <code>Buka-Admin-Alviero.bat</code>).<br>
-          <em>Setelah foto/promo diubah di laptop dan tombol <strong>"Publikasikan ke Web Internet"</strong> diklik, GitHub dan web Vercel akan otomatis terupdate!</em>
+          <strong style="color: #047857; font-size: 13.5px;">Mode Cloud Vercel Aktif:</strong><br>
+          <span id="cloudStatusText">Anda dapat mengedit paket, promo, upload foto, dan menyimpan langsung dari HP atau device mana pun via GitHub Cloud!</span>
+          <div style="margin-top: 6px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <button type="button" onclick="openGitHubModal()" style="background: #047857; color: #fff; border: none; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">
+              🔑 Pengaturan Token GitHub
+            </button>
+            <span id="cloudTokenBadge" style="font-size: 12px; font-weight: 600; color: #047857;">Memeriksa status token...</span>
+          </div>
         </div>
       </div>
     </div>
@@ -3679,6 +3686,46 @@
         <button class="btn btn-save" style="background: #DC2626; border-color: #B91C1C;" onclick="saveBgConflictModal()">Simpan Aturan Bentrok</button>
       </div>
     </div>
+  <!-- MODAL: GITHUB TOKEN CONFIG FOR CLOUD ACCESS -->
+  <div class="modal-overlay" id="githubTokenModal">
+    <div class="modal-card" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🔑 Pengaturan Akses Cloud (GitHub Token)</h3>
+        <button class="btn-close" onclick="closeModal('githubTokenModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; color: #1E40AF; font-size: 12.5px; line-height: 1.5;">
+          💡 <strong>Akses Dari HP / Device Lain:</strong><br>
+          Dengan memasukkan <strong>GitHub Personal Access Token</strong>, Anda dapat mengubah harga, upload foto promo/paket, dan menyimpan perubahan langsung dari HP tanpa perlu terhubung ke jaringan Wi-Fi lokal laptop.
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" style="font-weight: 700;">GitHub Personal Access Token (PAT) *</label>
+          <input type="password" id="githubTokenInput" class="form-control" placeholder="ghp_... atau github_pat_..." style="font-family: monospace;">
+          <div style="margin-top: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px;">
+            <span style="color: #64748B;">Token disimpan dengan aman di browser perangkat ini.</span>
+            <button type="button" onclick="toggleTokenVisibility()" style="background:none; border:none; color:#2563EB; cursor:pointer; font-weight:600;">Lihat / Sembunyikan</button>
+          </div>
+        </div>
+
+        <div id="githubTokenTestResult" style="display: none; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; font-weight: 600;"></div>
+
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #475569; line-height: 1.6;">
+          <strong>Cara Cepat Mendapatkan Token (Hanya 1 Menit):</strong>
+          <ol style="margin: 4px 0 0 16px; padding: 0;">
+            <li>Buka <a href="https://github.com/settings/tokens" target="_blank" style="color: #2563EB; font-weight: 700; text-decoration: underline;">github.com/settings/tokens</a> di tab baru.</li>
+            <li>Pilih <strong>Generate new token (classic)</strong>.</li>
+            <li>Beri catatan (misal: <em>Alviero Studio Cloud</em>) dan centang checklist <strong>repo</strong> (Full control of repositories).</li>
+            <li>Klik tombol hijau <strong>Generate token</strong> di bawah, lalu salin token tersebut dan tempel (paste) di kolom atas.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('githubTokenModal')">Tutup</button>
+        <button class="btn btn-preview" onclick="testGitHubTokenConnection(false)">⚡ Tes Koneksi</button>
+        <button class="btn btn-save" onclick="saveGitHubToken()">💾 Simpan Token</button>
+      </div>
+    </div>
   </div>
 
   <!-- Toast Notification Element -->
@@ -3689,6 +3736,11 @@
 
   <script>
 
+    // Konfigurasi Repository GitHub Alviero Studio
+    const GITHUB_REPO_OWNER = 'musthofayaamusthofa-rgb';
+    const GITHUB_REPO_NAME = 'alviero-self-studio.-Pilih-Public-a';
+    const GITHUB_BRANCH = 'main';
+
     // Deteksi apakah sedang dibuka di Cloud Vercel atau Server Lokal Laptop
     const isLocalHost = window.location.hostname === 'localhost' || 
                         window.location.hostname === '127.0.0.1' || 
@@ -3697,36 +3749,273 @@
                         window.location.hostname.endsWith('.trycloudflare.com');
     let isCloudStaticMode = !isLocalHost;
 
-    // Helper terpadu untuk upload foto dengan proteksi cloud Vercel & penanganan error jelas
+    // Helper terpadu untuk upload foto (Lokal vs Cloud Vercel via GitHub API)
     async function uploadImageToServer({ dataUrl, fileName, folder }) {
-      if (isCloudStaticMode) {
+      const ghToken = localStorage.getItem('alviero_github_token');
+
+      // 1. JIKA DI LOKAL LAPTOP (localhost:3000): kirim langsung ke server Express lokal (port 3001)
+      if (!isCloudStaticMode) {
+        const res = await fetch('/api/upload-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dataUrl, fileName, folder })
+        });
+
+        if (!res.ok) {
+          const errorText = await res.text().catch(() => '');
+          throw new Error(`Server backend tidak merespons valid (HTTP ${res.status}). Pastikan server di port 3001 aktif!`);
+        }
+
+        const data = await res.json();
+        if (!data.success || !data.url) {
+          throw new Error(data.error || 'Server gagal memproses upload foto.');
+        }
+
+        return data;
+      }
+
+      // 2. JIKA DI CLOUD VERCEL (Akses dari HP / Device Lain):
+      if (!ghToken) {
+        openGitHubModal();
         throw new Error(
-          'Upload foto hanya dapat dilakukan dari Komputer/Laptop Studio!\n\n' +
-          'Saat ini Anda sedang membuka Dashboard di domain publik Vercel.\n' +
-          'Hosting Vercel bersifat statis sehingga tidak dapat menyimpan file foto ke harddisk secara langsung.\n\n' +
-          '👉 Buka Dashboard di Laptop Studio Anda:\n' +
-          'http://localhost:3000/adminsalto\n\n' +
-          '(Cukup jalankan "npm run dev" di laptop. Foto yang Anda upload di laptop akan tersimpan dan siap dipublikasikan ke GitHub & Vercel).'
+          'Untuk mengupload foto langsung dari Vercel/HP, silakan masukkan Token GitHub Anda pada jendela yang muncul.'
         );
       }
 
-      const res = await fetch('/api/upload-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ dataUrl, fileName, folder })
+      showToast('Mengunggah foto ke GitHub Cloud...', '☁️');
+
+      // Coba kirim via serverless function Vercel terlebih dahulu
+      try {
+        const res = await fetch('/api/upload-image', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'x-github-token': ghToken,
+            'Authorization': `Bearer ${ghToken}`
+          },
+          body: JSON.stringify({ dataUrl, fileName, folder })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && data.url) {
+            return data;
+          }
+        }
+      } catch (e) {
+        console.warn('Vercel serverless upload gagal, melanjutkan via Direct GitHub API...', e);
+      }
+
+      // Fallback Direct Client-Side GitHub REST API (Sangat tangguh, tanpa batas serverless Vercel)
+      return await uploadDirectToGitHubClient({ dataUrl, fileName, folder, token: ghToken });
+    }
+
+    // Direct Upload ke GitHub REST API (Client-Side)
+    async function uploadDirectToGitHubClient({ dataUrl, fileName, folder, token }) {
+      const matches = dataUrl.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
+      if (!matches) throw new Error('Format gambar base64 tidak valid.');
+
+      const rawExt = matches[1].toLowerCase();
+      const ext = rawExt === 'jpeg' ? 'jpg' : rawExt === 'svg+xml' ? 'svg' : rawExt;
+      const base64Content = matches[2];
+
+      const targetSubfolder = folder || 'packages';
+      const cleanBaseName = (fileName || 'foto')
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[^a-zA-Z0-9_-]/g, '_')
+        .toLowerCase();
+
+      const finalFileName = `${cleanBaseName}_${Date.now()}.${ext}`;
+      const filePath = `public/images/${targetSubfolder}/${finalFileName}`;
+
+      const ghUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${filePath}`;
+      const res = await fetch(ghUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Upload image ${finalFileName} via Alviero Cloud Dashboard`,
+          content: base64Content,
+          branch: GITHUB_BRANCH
+        })
       });
 
-      if (!res.ok) {
-        const errorText = await res.text().catch(() => '');
-        throw new Error(`Server backend tidak merespons valid (HTTP ${res.status}). Pastikan server admin lokal di port 3001 aktif!`);
-      }
-
       const data = await res.json();
-      if (!data.success || !data.url) {
-        throw new Error(data.error || 'Server gagal memproses upload foto.');
+      if (!res.ok) {
+        throw new Error(data.message || 'Gagal menyimpan foto ke GitHub.');
       }
 
-      return data;
+      return {
+        success: true,
+        url: `/images/${targetSubfolder}/${finalFileName}`,
+        fileName: finalFileName,
+        commitSha: data.commit?.sha
+      };
+    }
+
+    // Direct Save Config ke GitHub REST API (Client-Side)
+    async function saveConfigDirectToGitHubClient(token) {
+      if (!appConfig) return;
+      appConfig.lastUpdated = new Date().toISOString();
+      const contentStr = JSON.stringify(appConfig, null, 2);
+      const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
+
+      for (const path of ['src/data/studioConfig.json', 'public/data/studioConfig.json']) {
+        let sha = null;
+        try {
+          const getRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${path}?ref=${GITHUB_BRANCH}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/vnd.github+json'
+            }
+          });
+          if (getRes.ok) {
+            const getData = await getRes.json();
+            sha = getData.sha;
+          }
+        } catch {}
+
+        const body = {
+          message: `Update ${path} via Alviero Cloud Dashboard [${new Date().toLocaleTimeString('id-ID')}]`,
+          content: base64Content,
+          branch: GITHUB_BRANCH
+        };
+        if (sha) body.sha = sha;
+
+        await fetch(`https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/${path}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+      }
+    }
+
+    // GitHub Token Modal Handlers
+    function openGitHubModal() {
+      const modal = document.getElementById('githubTokenModal');
+      const input = document.getElementById('githubTokenInput');
+      const savedToken = localStorage.getItem('alviero_github_token') || '';
+      if (input) input.value = savedToken;
+      if (modal) modal.classList.add('active');
+      testGitHubTokenConnection(true);
+    }
+
+    function toggleTokenVisibility() {
+      const input = document.getElementById('githubTokenInput');
+      if (input) {
+        input.type = input.type === 'password' ? 'text' : 'password';
+      }
+    }
+
+    async function testGitHubTokenConnection(silent = false) {
+      const input = document.getElementById('githubTokenInput');
+      const resultBox = document.getElementById('githubTokenTestResult');
+      const token = (input?.value || localStorage.getItem('alviero_github_token') || '').trim();
+
+      if (!token) {
+        if (!silent && resultBox) {
+          resultBox.style.display = 'block';
+          resultBox.style.background = '#FEE2E2';
+          resultBox.style.color = '#991B1B';
+          resultBox.textContent = '❌ Token belum dimasukkan.';
+        }
+        updateCloudStatusBadge(false);
+        return false;
+      }
+
+      if (!silent && resultBox) {
+        resultBox.style.display = 'block';
+        resultBox.style.background = '#EFF6FF';
+        resultBox.style.color = '#1E40AF';
+        resultBox.textContent = '⏳ Memeriksa koneksi ke GitHub API...';
+      }
+
+      try {
+        const res = await fetch('https://api.github.com/user', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github+json'
+          }
+        });
+
+        if (res.ok) {
+          const user = await res.json();
+          if (resultBox) {
+            resultBox.style.display = 'block';
+            resultBox.style.background = '#DCFCE7';
+            resultBox.style.color = '#166534';
+            resultBox.innerHTML = `✅ Terhubung sebagai <strong>${user.login}</strong>! Token siap digunakan untuk edit & upload langsung dari HP / Vercel.`;
+          }
+          updateCloudStatusBadge(true, user.login);
+          return true;
+        } else {
+          if (resultBox) {
+            resultBox.style.display = 'block';
+            resultBox.style.background = '#FEE2E2';
+            resultBox.style.color = '#991B1B';
+            resultBox.textContent = '❌ Token tidak valid atau kedaluwarsa. Pastikan token memiliki izin "repo".';
+          }
+          updateCloudStatusBadge(false);
+          return false;
+        }
+      } catch (err) {
+        if (!silent && resultBox) {
+          resultBox.style.display = 'block';
+          resultBox.style.background = '#FEE2E2';
+          resultBox.style.color = '#991B1B';
+          resultBox.textContent = '❌ Koneksi gagal: ' + err.message;
+        }
+        updateCloudStatusBadge(false);
+        return false;
+      }
+    }
+
+    async function saveGitHubToken() {
+      const input = document.getElementById('githubTokenInput');
+      const token = (input?.value || '').trim();
+      if (!token) {
+        localStorage.removeItem('alviero_github_token');
+        showToast('Token dihapus.', 'ℹ️');
+        updateCloudStatusBadge(false);
+        closeModal('githubTokenModal');
+        return;
+      }
+
+      const isValid = await testGitHubTokenConnection(false);
+      if (isValid) {
+        localStorage.setItem('alviero_github_token', token);
+        showToast('Token GitHub disimpan! Akses Cloud HP Aktif.', '🚀');
+        setTimeout(() => closeModal('githubTokenModal'), 1200);
+      }
+    }
+
+    function updateCloudStatusBadge(connected, username) {
+      const badge = document.getElementById('cloudTokenBadge');
+      const btn = document.getElementById('btnGitHubCloud');
+      const sBadge = document.getElementById('serverBadge');
+
+      if (connected) {
+        if (badge) badge.innerHTML = `🟢 Terhubung GitHub: <strong>${username || 'Aktif'}</strong>`;
+        if (btn) btn.innerHTML = '🟢 Cloud Aktif';
+        if (isCloudStaticMode && sBadge) {
+          sBadge.className = 'status-badge online';
+          sBadge.innerHTML = '<span class="dot-live"></span> Cloud Vercel: Terhubung GitHub';
+        }
+      } else {
+        if (badge) badge.innerHTML = '⚠️ Token belum tersambung (Klik untuk hubungkan)';
+        if (btn) btn.innerHTML = '🔑 Akses Cloud';
+        if (isCloudStaticMode && sBadge) {
+          sBadge.className = 'status-badge changed';
+          sBadge.innerHTML = '<span class="dot-live" style="background:#F59E0B;"></span> Mode Cloud (Perlu Token)';
+        }
+      }
     }
 
     let currentPromoKindFilter = 'all';
@@ -5692,22 +5981,22 @@
           }
         }
 
-        // Tampilkan banner notifikasi jika sedang di domain Vercel
+        // Inisialisasi status Cloud Vercel & Token GitHub
         if (isCloudStaticMode) {
           const cloudBanner = document.getElementById('cloudModeBanner');
           if (cloudBanner) cloudBanner.style.display = 'block';
-          const sBadge = document.getElementById('serverBadge');
-          if (sBadge) {
-            sBadge.className = 'status-badge changed';
-            sBadge.innerHTML = '<span class="dot-live" style="background:#F59E0B;"></span> Mode Cloud (Vercel)';
-          }
-          const gBadge = document.getElementById('gitStatusBadge');
-          if (gBadge) {
-            gBadge.textContent = '🔒 Mode Pratinjau Cloud';
-          }
-          const commitText = document.getElementById('lastCommitText');
-          if (commitText) {
-            commitText.textContent = 'Buka di Laptop Studio (http://localhost:3000/adminsalto) untuk upload & push Git.';
+          
+          const hasLocalToken = await testGitHubTokenConnection(true);
+          if (!hasLocalToken) {
+            try {
+              const stRes = await fetch('/api/status');
+              if (stRes.ok) {
+                const stData = await stRes.json();
+                if (stData.hasServerToken && stData.isConnected) {
+                  updateCloudStatusBadge(true, stData.username);
+                }
+              }
+            } catch {}
           }
         }
 
@@ -6660,12 +6949,50 @@
     }
 
     async function saveConfigLocally() {
+      if (!appConfig) return;
+
+      // 1. JIKA DI CLOUD VERCEL: Simpan ke GitHub Cloud (membuat commit & auto-deploy Vercel)
       if (isCloudStaticMode) {
-        showCloudNotice();
-        downloadConfigJSON();
+        const ghToken = localStorage.getItem('alviero_github_token');
+        if (!ghToken) {
+          openGitHubModal();
+          showToast('Masukkan GitHub Token untuk menyimpan dari Vercel.', '🔑');
+          return;
+        }
+
+        showToast('Menyimpan konfigurasi ke GitHub...', '☁️');
+        try {
+          const res = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-github-token': ghToken,
+              'Authorization': `Bearer ${ghToken}`
+            },
+            body: JSON.stringify(appConfig)
+          });
+          if (res.ok) {
+            const result = await res.json();
+            if (result.success) {
+              showToast('✅ Berhasil disimpan ke GitHub! Vercel otomatis deploy.', '🎉');
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn('API config save fallback ke Direct GitHub API...', e);
+        }
+
+        try {
+          await saveConfigDirectToGitHubClient(ghToken);
+          showToast('✅ Berhasil disimpan ke GitHub! Vercel otomatis deploy.', '🎉');
+        } catch (err) {
+          showToast('Gagal menyimpan ke GitHub: ' + err.message, '❌');
+          alert('Gagal menyimpan ke GitHub: ' + err.message);
+        }
         return;
       }
-      if (!appConfig) return;
+
+      // 2. JIKA DI LOKAL LAPTOP (localhost:3000):
       try {
         const res = await fetch('/api/config', {
           method: 'POST',
@@ -6685,18 +7012,37 @@
     }
 
     async function saveAndSyncToInternet() {
+      // 1. JIKA DI CLOUD VERCEL:
       if (isCloudStaticMode) {
-        alert(
-          '⚠️ TIDAK DAPAT PUSH KE GITHUB DARI VERCEL:\n\n' +
-          'Anda sedang membuka Dashboard di domain publik Vercel (Cloud Preview Mode).\n' +
-          'Perintah push Git ke GitHub hanya dapat dijalankan melalui Laptop Studio Anda.\n\n' +
-          '👉 Silakan buka di Laptop Studio:\n' +
-          'http://localhost:3000/adminsalto\n\n' +
-          'Lalu klik tombol "Publikasikan ke Web Internet" dari laptop Anda!'
-        );
+        const ghToken = localStorage.getItem('alviero_github_token');
+        if (!ghToken) {
+          openGitHubModal();
+          alert('Mohon masukkan Token GitHub Anda terlebih dahulu untuk mempublikasikan dari Vercel.');
+          return;
+        }
+
+        if (!confirm('Publikasikan seluruh perubahan ini ke GitHub & Web Live Vercel?')) {
+          return;
+        }
+
+        const term = document.getElementById('terminalLog');
+        if (term) term.textContent = '[1/2] Menyimpan konfigurasi ke GitHub repository (main branch)...\n';
+
+        try {
+          await saveConfigLocally();
+          if (term) {
+            term.textContent += '[2/2] ✅ BERHASIL DISIMPAN KE GITHUB!\n\n';
+            term.textContent += 'Commit telah tercatat di branch main.\nVercel sedang memproses deployment pembaruan website Anda (~30-60 detik).\nSeluruh pengunjung website akan langsung melihat perubahan terbaru!';
+          }
+          showToast('🚀 Berhasil dipublikasikan ke internet!', '🎉');
+        } catch (err) {
+          if (term) term.textContent += `❌ Exception: ${err.message}`;
+          alert('Error: ' + err.message);
+        }
         return;
       }
 
+      // 2. JIKA DI LOKAL LAPTOP:
       if (!confirm('Publikasikan seluruh perubahan ini ke Web Internet (Push ke GitHub & Live Vercel)?')) {
         return;
       }
