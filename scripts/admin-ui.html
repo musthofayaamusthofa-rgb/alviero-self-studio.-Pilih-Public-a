@@ -1481,6 +1481,17 @@
 
   <!-- Friendly Status Banner -->
   <div class="status-banner">
+    <div id="cloudModeBanner" style="display:none; margin: 0 0 12px 0; padding: 12px 18px; background: #FEF3C7; border: 1.5px solid #F59E0B; border-radius: 10px; color: #92400E; font-size: 13px; line-height: 1.6; box-shadow: 0 4px 12px rgba(245,158,11,0.12);">
+      <div style="display:flex; align-items:flex-start; gap: 10px;">
+        <span style="font-size: 20px; line-height: 1;">⚠️</span>
+        <div style="flex:1;">
+          <strong style="color: #78350F; font-size: 13.5px;">Mode Cloud Vercel (Hanya Pratinjau):</strong><br>
+          Anda sedang membuka Dashboard di domain internet <code>alviero-studio-foto.vercel.app</code>. Upload foto baru dan sinkronisasi Git otomatis <strong>wajib dilakukan dari Laptop Studio</strong>.<br>
+          👉 <strong>Buka Dashboard di Laptop Studio:</strong> <a href="http://localhost:3000/adminsalto" target="_blank" style="color: #1D4ED8; font-weight: bold; text-decoration: underline;">http://localhost:3000/adminsalto</a> (atau jalankan <code>Buka-Admin-Alviero.bat</code>).<br>
+          <em>Setelah foto/promo diubah di laptop dan tombol <strong>"Publikasikan ke Web Internet"</strong> diklik, GitHub dan web Vercel akan otomatis terupdate!</em>
+        </div>
+      </div>
+    </div>
     <div class="status-banner-inner">
       <div class="status-pills">
         <span class="status-badge online" id="serverBadge">
@@ -3678,6 +3689,46 @@
 
   <script>
 
+    // Deteksi apakah sedang dibuka di Cloud Vercel atau Server Lokal Laptop
+    const isLocalHost = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.hostname.startsWith('192.168.') || 
+                        window.location.hostname.startsWith('10.') ||
+                        window.location.hostname.endsWith('.trycloudflare.com');
+    let isCloudStaticMode = !isLocalHost;
+
+    // Helper terpadu untuk upload foto dengan proteksi cloud Vercel & penanganan error jelas
+    async function uploadImageToServer({ dataUrl, fileName, folder }) {
+      if (isCloudStaticMode) {
+        throw new Error(
+          'Upload foto hanya dapat dilakukan dari Komputer/Laptop Studio!\n\n' +
+          'Saat ini Anda sedang membuka Dashboard di domain publik Vercel.\n' +
+          'Hosting Vercel bersifat statis sehingga tidak dapat menyimpan file foto ke harddisk secara langsung.\n\n' +
+          '👉 Buka Dashboard di Laptop Studio Anda:\n' +
+          'http://localhost:3000/adminsalto\n\n' +
+          '(Cukup jalankan "npm run dev" di laptop. Foto yang Anda upload di laptop akan tersimpan dan siap dipublikasikan ke GitHub & Vercel).'
+        );
+      }
+
+      const res = await fetch('/api/upload-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dataUrl, fileName, folder })
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text().catch(() => '');
+        throw new Error(`Server backend tidak merespons valid (HTTP ${res.status}). Pastikan server admin lokal di port 3001 aktif!`);
+      }
+
+      const data = await res.json();
+      if (!data.success || !data.url) {
+        throw new Error(data.error || 'Server gagal memproses upload foto.');
+      }
+
+      return data;
+    }
+
     let currentPromoKindFilter = 'all';
 
     function escapeHtml(str) {
@@ -4415,17 +4466,12 @@
           const ext = extMatch ? extMatch[0] : '.jpg';
           const fileName = pkgName + '_foto' + slot + ext;
 
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: dataUrl,
-              fileName: fileName,
-              folder: 'packages'
-            })
+          const data = await uploadImageToServer({
+            dataUrl: dataUrl,
+            fileName: fileName,
+            folder: 'packages'
           });
 
-          const data = await res.json();
           if (data.success && data.url) {
             setPackageImagePreview(data.url, slot);
             if (statusEl) {
@@ -4873,17 +4919,12 @@
           const ext = extMatch ? extMatch[0] : '.jpg';
           const fileName = `promo_${promoTitle}_foto${index + 1}_${Date.now()}${ext}`;
 
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: dataUrl,
-              fileName: fileName,
-              folder: 'promos'
-            })
+          const data = await uploadImageToServer({
+            dataUrl: dataUrl,
+            fileName: fileName,
+            folder: 'promos'
           });
 
-          const data = await res.json();
           if (data.success && data.url) {
             updatePromoPhotoSlotUrl(index, data.url);
             renderPromoPhotoSlots();
@@ -5620,25 +5661,26 @@
 
 
     let appConfig = null;
-    let isCloudStaticMode = false;
     let currentBranchFilter = 'all';
     let currentServiceFilter = 'all';
 
     async function loadConfig() {
       try {
         let loaded = false;
-        try {
-          const res = await fetch('/api/config');
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success && data.data) {
-              appConfig = data.data;
-              loaded = true;
-              renderAll();
-              checkGitStatus();
+        if (!isCloudStaticMode) {
+          try {
+            const res = await fetch('/api/config');
+            if (res.ok) {
+              const data = await res.json();
+              if (data.success && data.data) {
+                appConfig = data.data;
+                loaded = true;
+                renderAll();
+                checkGitStatus();
+              }
             }
-          }
-        } catch (e) {}
+          } catch (e) {}
+        }
 
         if (!loaded) {
           const resStatic = await fetch('/data/studioConfig.json?t=' + Date.now());
@@ -5647,6 +5689,25 @@
             loaded = true;
             renderAll();
             showToast('Konfigurasi live Alviero Studio berhasil dimuat!', '✨');
+          }
+        }
+
+        // Tampilkan banner notifikasi jika sedang di domain Vercel
+        if (isCloudStaticMode) {
+          const cloudBanner = document.getElementById('cloudModeBanner');
+          if (cloudBanner) cloudBanner.style.display = 'block';
+          const sBadge = document.getElementById('serverBadge');
+          if (sBadge) {
+            sBadge.className = 'status-badge changed';
+            sBadge.innerHTML = '<span class="dot-live" style="background:#F59E0B;"></span> Mode Cloud (Vercel)';
+          }
+          const gBadge = document.getElementById('gitStatusBadge');
+          if (gBadge) {
+            gBadge.textContent = '🔒 Mode Pratinjau Cloud';
+          }
+          const commitText = document.getElementById('lastCommitText');
+          if (commitText) {
+            commitText.textContent = 'Buka di Laptop Studio (http://localhost:3000/adminsalto) untuk upload & push Git.';
           }
         }
 
@@ -6624,6 +6685,18 @@
     }
 
     async function saveAndSyncToInternet() {
+      if (isCloudStaticMode) {
+        alert(
+          '⚠️ TIDAK DAPAT PUSH KE GITHUB DARI VERCEL:\n\n' +
+          'Anda sedang membuka Dashboard di domain publik Vercel (Cloud Preview Mode).\n' +
+          'Perintah push Git ke GitHub hanya dapat dijalankan melalui Laptop Studio Anda.\n\n' +
+          '👉 Silakan buka di Laptop Studio:\n' +
+          'http://localhost:3000/adminsalto\n\n' +
+          'Lalu klik tombol "Publikasikan ke Web Internet" dari laptop Anda!'
+        );
+        return;
+      }
+
       if (!confirm('Publikasikan seluruh perubahan ini ke Web Internet (Push ke GitHub & Live Vercel)?')) {
         return;
       }

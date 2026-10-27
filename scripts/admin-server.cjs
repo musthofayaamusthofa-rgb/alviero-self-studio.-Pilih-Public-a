@@ -1,4 +1,4 @@
-﻿const express = require('express');
+const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
@@ -166,8 +166,8 @@ app.post('/api/sync-github', async (req, res) => {
   try {
     const commitMsg = req.body.commitMessage || `Update studio config (background & slots) via Alviero Manager [${new Date().toLocaleTimeString('id-ID')}]`;
 
-    // Step 1: git add
-    const addRes = await runCmd('git add src/data/studioConfig.json src/data/pricelistData.ts src/utils/bookingScheduleUtils.ts public/images public/data/studioConfig.json public/adminsalto/index.html');
+    // Step 1: git add all changes (photos, configs, data)
+    const addRes = await runCmd('git add .');
     
     // Check if there is anything to commit
     const statusRes = await runCmd('git status --porcelain');
