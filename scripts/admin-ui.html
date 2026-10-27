@@ -142,8 +142,8 @@
     .charge-badge { font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 6px; font-weight: 700; }
     .charge-badge.free { background: #F4F4F5; color: #52525B; }
     .charge-badge.extra { background: #FEF3C7; color: #B45309; border: 1px solid #FDE68A; }
-    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 1.25rem; flex-direction: column; }
-    .modal-overlay.open { display: flex; }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 1.25rem; flex-direction: column; }
+    .modal-overlay.open, .modal-overlay.active { display: flex !important; }
     .modal-card { background: #FFFFFF; border-radius: 20px; max-width: 620px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.22), 0 0 0 1px rgba(0,0,0,0.06); border: 1px solid var(--border); animation: modalIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes modalIn { from { opacity: 0; transform: scale(0.96) translateY(6px); } to { opacity: 1; transform: scale(1) translateY(0); } }
     .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; background: #FFFFFF; }
@@ -1475,9 +1475,7 @@
         <button class="btn btn-preview" id="btnGitHubCloud" onclick="openGitHubModal()" title="Pengaturan Token GitHub untuk Akses Cloud Vercel (Edit dari HP/Device lain)" style="background: #0284C7; color: #fff; border-color: #0369A1; font-weight: 700;">
           🔑 Akses Cloud
         </button>
-      </div>
-    </div>
-    <button class="btn btn-logout" onclick="logoutAdmin()" title="Kunci Dashboard dan Keluar" style="margin-left: 8px;">🔒 Logout</button>
+        <button class="btn btn-logout" onclick="logoutAdmin()" title="Kunci Dashboard dan Keluar" style="margin-left: 8px;">🔒 Logout</button>
       </div>
     </div>
   </header>
@@ -3686,6 +3684,8 @@
         <button class="btn btn-save" style="background: #DC2626; border-color: #B91C1C;" onclick="saveBgConflictModal()">Simpan Aturan Bentrok</button>
       </div>
     </div>
+  </div>
+
   <!-- MODAL: GITHUB TOKEN CONFIG FOR CLOUD ACCESS -->
   <div class="modal-overlay" id="githubTokenModal">
     <div class="modal-card" style="max-width: 600px;">
@@ -3899,11 +3899,10 @@
 
     // GitHub Token Modal Handlers
     function openGitHubModal() {
-      const modal = document.getElementById('githubTokenModal');
       const input = document.getElementById('githubTokenInput');
       const savedToken = localStorage.getItem('alviero_github_token') || '';
       if (input) input.value = savedToken;
-      if (modal) modal.classList.add('active');
+      openModal('githubTokenModal');
       testGitHubTokenConnection(true);
     }
 
@@ -7092,8 +7091,22 @@
       }
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('open'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    function openModal(id) { 
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.add('open');
+        el.classList.add('active');
+        el.style.display = 'flex';
+      }
+    }
+    function closeModal(id) { 
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('open');
+        el.classList.remove('active');
+        el.style.display = 'none';
+      }
+    }
 
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
