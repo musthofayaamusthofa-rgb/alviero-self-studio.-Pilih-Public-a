@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T15:59:11.700Z",
+  "lastUpdated": "2026-10-27T11:45:31.611Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1113,7 +1113,9 @@
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg"
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg"
       ],
       "terms": [
         "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
@@ -1132,7 +1134,7 @@
           "division": "Pimpinan & Manajemen",
           "role": "Studio Manager & Creative Director",
           "name": "M. Azzam Fakhri",
-          "description": "",
+          "description": "Memimpin arahan konsep visual, supervisi operasional harian, dan memastikan seluruh tamu mendapatkan pengalaman studio foto terbaik.",
           "badge": "Management",
           "photo": "/images/promos/team_studio_manager___creative_director_m__azzam_fakhri_1792773231938_1792773231946.jpg"
         },
@@ -1141,99 +1143,36 @@
           "division": "Fotografi & Editor",
           "role": "Kepala Fotografer & Kepala Cabang 2",
           "name": "Ricky",
-          "description": "",
+          "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
           "badge": "Creative Lead",
           "photo": "/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg"
-        },
-        {
-          "id": "team-4",
-          "division": "Fotografi & Editor",
-          "role": "Lead Editor Visual & Print Lab",
-          "name": "Bang Hasan Musthofa",
-          "description": "",
-          "badge": "Post-Prod",
-          "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
-        },
-        {
-          "id": "team-5",
-          "division": "Fotografi & Editor",
-          "role": "Lighting Specialist & Studio Assistant",
-          "name": "Dimas",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
-        },
-        {
-          "id": "team-1792930883306",
-          "division": "Fotografi & Editor",
-          "role": "Kru Fotografi",
-          "name": "Sahrul",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_fotografi_sahrul_1792930903059_1792930903053.jpg"
-        },
-        {
-          "id": "team-1792930928482",
-          "division": "Fotografi & Editor",
-          "role": "Kru Fotografi",
-          "name": "Masaya",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_fotografi_masaya_1792930952143_1792930952133.jpg"
-        },
-        {
-          "id": "team-1792930958146",
-          "division": "Fotografi & Editor",
-          "role": "Kru Fotografi",
-          "name": "Ario",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_fotografi_ario_1792930975491_1792930975488.jpg"
         },
         {
           "id": "team-3",
           "division": "Pelayanan & Reservasi",
           "role": "Kepala Admin Reservasi & Front Office",
           "name": "Sheila",
-          "description": "",
+          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
           "badge": "Guest Care",
           "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
         },
         {
-          "id": "team-1792931002159",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Ayu",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_admin_ayu_1792931028707_1792931028709.jpg"
+          "id": "team-4",
+          "division": "Editing & Post-Production",
+          "role": "Lead Editor Visual & Print Lab",
+          "name": "Dewa Hasan Musthofa",
+          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
+          "badge": "Post-Prod",
+          "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
         },
         {
-          "id": "team-1792931529031",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Dewi",
-          "description": "",
+          "id": "team-5",
+          "division": "Tata Cahaya & Kru Studio",
+          "role": "Lighting Specialist & Studio Assistant",
+          "name": "Dimas",
+          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
           "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_admin_dewi_1792931557836_1792931557843.jpg"
-        },
-        {
-          "id": "team-1792931562957",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Intan",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_admin_intan_1792931582518_1792931582527.jpg"
-        },
-        {
-          "id": "team-1792931585416",
-          "division": "Pelayanan & Reservasi",
-          "role": "Kru Admin",
-          "name": "Fara",
-          "description": "",
-          "badge": "Studio Crew",
-          "photo": "/images/promos/team_kru_admin_fara_1792931609807_1792931609814.jpg"
+          "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
         }
       ],
       "teamGallery": [
@@ -1264,6 +1203,18 @@
         {
           "id": "gal-5",
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-6",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-7",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg",
           "category": "BEHIND THE SCENES",
           "caption": ""
         }

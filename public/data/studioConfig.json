@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-19T14:44:33.154Z",
+  "lastUpdated": "2026-10-27T11:45:31.611Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1108,6 +1108,15 @@
       "discountHighlight": "Fotografer & Kru Studio",
       "period": "Tentang Tim Kami",
       "imageUrl": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+      "images": [
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg"
+      ],
       "terms": [
         "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
         "Konsultasi konsep dapat dilakukan sebelum sesi foto."
@@ -1118,15 +1127,6 @@
         "Nikmati sesi foto dengan pendampingan tim Alviero."
       ],
       "active": true,
-      "_origIndex": 4,
-      "images": [
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
-        "/images/backdrops/luxury-studio-hero.jpg",
-        "/images/backdrops/backdrop-1.jpg",
-        "/images/backdrops/backdrop-3.jpg",
-        "/images/backdrops/backdrop-5.jpg",
-        "/images/categories/selfphoto.jpg"
-      ],
       "structureSubtitle": "Struktur Organisasi & Pembagian Peran",
       "teamStructure": [
         {
@@ -1179,10 +1179,47 @@
         {
           "id": "gal-1",
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
-          "caption": "Foto Bersama Seluruh Kru Alviero Studio",
-          "category": "BEHIND THE SCENES"
+          "category": "BEHIND THE SCENES",
+          "caption": "Foto Bersama Seluruh Kru Alviero Studio"
+        },
+        {
+          "id": "gal-2",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-3",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto3_1792843715450_1792843715990.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-4",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto4_1792843733917_1792843734446.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-5",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto5_1792843751771_1792843752273.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-6",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
+        },
+        {
+          "id": "gal-7",
+          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg",
+          "category": "BEHIND THE SCENES",
+          "caption": ""
         }
-      ]
+      ],
+      "_origIndex": 4
     }
   ],
   "history": {
@@ -2736,11 +2773,12 @@
       "id": "novita",
       "name": "By Novita",
       "tagline": "Wujudkan pesona cantikmu dengan sentuhan riasan yang simpel, elegan, dan modern bersama kami sebagai Flawless & Long Lasting Makeup Specialist!\n\nKami hadir untuk menyempurnakan penampilanmu dengan berbagai pilihan gaya makeup by request, mulai dari Korean, Barbie, Arabian, Natural, Pinkish, Bold, hingga look kekinian ala Gen Z.\n\nDengan menggunakan produk-produk berkualitas tinggi dan selalu upgrade mengikuti tren terkini, kami memastikan hasil riasan dipersonalisasi sesuai bentuk wajah klien agar tetap memukau, awet tahan lama seharian, dan pastinya anti longsor tanpa terlihat berlebihan.",
-      "coverImage": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+      "coverImage": "/images/mua/img_3328_jpg_1792670216999.jpg",
       "portfolioImages": [
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=700&q=85",
-        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=85",
-        "https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&w=700&q=85"
+        "/images/mua/img_1444_1792670243293.jpg",
+        "/images/mua/img_1916_1792670252089.jpg",
+        "/images/mua/img_3343_1792670265927.jpg",
+        "/images/mua/img_3006_1792670298979.jpg"
       ],
       "categories": [
         {
@@ -2839,12 +2877,22 @@
               ]
             }
           ],
-          "portfolioImage": "",
-          "portfolioImages": []
+          "portfolioImage": "/images/mua/img_1951_1792670440780.jpg",
+          "portfolioImages": [
+            "/images/mua/img_1951_1792670440780.jpg",
+            "/images/mua/img_1958_1792670440918.jpg",
+            "/images/mua/img_3033_1792670441161.jpg",
+            "/images/mua/img_3082_jpg_1792670441239.jpg",
+            "/images/mua/img_3131_jpg_1792670441286.jpg",
+            "/images/mua/img_3133_jpg_1792670441325.jpg",
+            "/images/mua/img_3343_1792670441392.jpg",
+            "/images/mua/img_3346_1792670441453.jpg",
+            "/images/mua/img_3348_1792670441537.jpg"
+          ]
         },
         {
           "id": "novita-grad-indoor",
-          "name": "Graduation Indoor",
+          "name": "Graduation",
           "iconType": "graduation",
           "description": "Tampil anggun mempesona di momen wisuda dengan ketahanan makeup di studio indoor.",
           "subPackages": [
@@ -2889,47 +2937,17 @@
               ]
             }
           ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "novita-grad-outdoor",
-          "name": "Graduation Outdoor",
-          "iconType": "outdoor",
-          "description": "Formula riasan khusus tahan terik matahari, angin kencang, dan keringat sesi luar ruangan.",
-          "subPackages": [
-            {
-              "id": "novita-go-1",
-              "name": "Paket 1 — Natural Sweatproof Outdoor",
-              "price": 195000,
-              "duration": "45 Menit",
-              "features": [
-                "Complexion Khusus Tahan Panas & Keringat Luar Ruangan",
-                "Bulu Mata Ringan Anti-Angin & Tidak Menusuk Mata",
-                "Hijabdo Rapi Kencang / Hairdo Ponytail Curled Tahan Angin",
-                "UV Protection Primer Base"
-              ]
-            },
-            {
-              "id": "novita-go-2",
-              "name": "Paket 2 — Full Glam Outdoor + Retouch",
-              "price": 280000,
-              "duration": "65 Menit",
-              "badge": "Best Outdoor",
-              "features": [
-                "Waterproof & UV Protection Foundation Tahan Luntur",
-                "Standby Touch-Up selama sesi foto outdoor berlangsung",
-                "Bulu Mata 3D Luxury Waterproof",
-                "Free Blotting Paper & Setting Spray Tahan Panas"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
+          "portfolioImage": "/images/mua/img_1444_1792772132350.jpg",
+          "portfolioImages": [
+            "/images/mua/img_1444_1792772132350.jpg",
+            "/images/mua/img_1702_1792772132498.jpg",
+            "/images/mua/img_2006_1792772132965.jpg",
+            "/images/mua/img_3340_1792772133015.jpg"
+          ]
         },
         {
           "id": "novita-prewed-indoor",
-          "name": "Prewedding Indoor",
+          "name": "Prewedding",
           "iconType": "prewedding",
           "description": "Konsep riasan editorial dan cinematic khusus sesi foto studio pasangan.",
           "subPackages": [
@@ -2959,41 +2977,17 @@
               ]
             }
           ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "novita-prewed-outdoor",
-          "name": "Prewedding Outdoor",
-          "iconType": "outdoor",
-          "description": "Riasan tahan lama seharian untuk foto prewedding di alam bebas atau taman terbuka.",
-          "subPackages": [
-            {
-              "id": "novita-pwo-1",
-              "name": "Paket 1 — Outdoor Scenic Look",
-              "price": 350000,
-              "duration": "60 Menit",
-              "features": [
-                "Heavy Duty Waterproof & Sweatproof Complexion",
-                "Hairdo / Hijabdo Kuat Angin & Cuaca Terbuka",
-                "Free Bulu Mata 3D Tahan Badai & Hairspray Kuat"
-              ]
-            },
-            {
-              "id": "novita-pwo-2",
-              "name": "Paket 2 — All Day Prewedding Outdoor",
-              "price": 550000,
-              "duration": "120 Menit",
-              "badge": "Complete",
-              "features": [
-                "Standby MUA Penuh di Lokasi Outdoor Malang & Sekitarnya",
-                "2x Ganti Konsep Makeup & Rambut/Hijab",
-                "Free Touch Up Kit Lengkap Pribadi"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
+          "portfolioImage": "/images/mua/img_1445_1792772190603.jpg",
+          "portfolioImages": [
+            "/images/mua/img_1445_1792772190603.jpg",
+            "/images/mua/img_1446_1792772191214.jpg",
+            "/images/mua/img_1447_1792772191796.jpg",
+            "/images/mua/img_1449_1792772192408.jpg",
+            "/images/mua/img_1450_1792772192991.jpg",
+            "/images/mua/img_3005_1792772193184.jpg",
+            "/images/mua/img_3006_1792772193332.jpg",
+            "/images/mua/img_3015_1792772193577.jpg"
+          ]
         },
         {
           "id": "novita-kebaya",
@@ -3088,6 +3082,56 @@
           ],
           "portfolioImage": "",
           "portfolioImages": []
+        },
+        {
+          "id": "cat-1792772217326",
+          "name": "Birthday",
+          "description": "Layanan Birthday Alviero Studio",
+          "subPackages": [
+            {
+              "id": "pkg-1792772217326",
+              "name": "Paket 1 — Birthday",
+              "price": 100000,
+              "duration": "45 Menit",
+              "features": [
+                "Fasilitas rias lengkap",
+                "Softfile dokumentasi"
+              ]
+            }
+          ],
+          "portfolioImages": [
+            "/images/mua/img_3322_jpg_1792772225624.jpg",
+            "/images/mua/img_3327_jpg_1792772225665.jpg",
+            "/images/mua/img_3328_jpg_1792772225711.jpg"
+          ],
+          "portfolioImage": "/images/mua/img_3322_jpg_1792772225624.jpg"
+        },
+        {
+          "id": "cat-1792772232305",
+          "name": "Personal",
+          "description": "Layanan Personal Alviero Studio",
+          "subPackages": [
+            {
+              "id": "pkg-1792772232305",
+              "name": "Paket 1 — Personal",
+              "price": 100000,
+              "duration": "45 Menit",
+              "features": [
+                "Fasilitas rias lengkap",
+                "Softfile dokumentasi"
+              ]
+            }
+          ],
+          "portfolioImages": [
+            "/images/mua/img_1916_1792772258828.jpg",
+            "/images/mua/img_3441_1792772259016.jpg",
+            "/images/mua/img_3443_1792772259198.jpg",
+            "/images/mua/img_3445_1792772259394.jpg",
+            "/images/mua/img_3446_1792772259608.jpg",
+            "/images/mua/img_3447_1792772259813.jpg",
+            "/images/mua/img_3448_1792772259996.jpg"
+          ],
+          "portfolioImage": "/images/mua/img_1916_1792772258828.jpg"
         }
       ],
       "kebayas": [
