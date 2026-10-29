@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Camera, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
+import { useStudioConfig } from '../utils/studioConfigManager';
 
 interface HeaderProps {
   activeTab: string;
@@ -23,8 +24,9 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigateToPricelist,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+  const studioConfig = useStudioConfig();
+  const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
+  const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
 
   // Check studio open status dynamically (08:00 - 21:00 WIB)
   const checkIsOpen = (): boolean => {

@@ -222,7 +222,13 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavigateToFacilities = () => {
+  const handleNavigateToFacilities = (branch?: StudioBranch) => {
+    if (branch) {
+      setSelectedBranch(branch);
+      setSelectedMuaStudio(branch === 'cabang-2' ? 'Studio 2' : 'Studio 1');
+      localStorage.setItem('alviero_selected_branch', branch);
+      localStorage.setItem('alviero_selected_mua_studio', branch === 'cabang-2' ? 'Studio 2' : 'Studio 1');
+    }
     setHasEnteredBranch(true);
     setInitialMenuCategory(undefined);
     setInitialCatalogTab('gallery');

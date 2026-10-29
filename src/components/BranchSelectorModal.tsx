@@ -1,4 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
+import { useStudioConfig } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
@@ -78,6 +79,7 @@ export type BackdropHeroSliderProps = BackgroundHeroSliderProps;
  * Hero Slider Banner Background Studio (Desain Tegas, Modern, Responsif Mobile & Desktop)
  */
 export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onViewPlans, onOpenAbout }) => {
+  const studioConfig = useStudioConfig();
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
@@ -90,7 +92,7 @@ export const BackgroundHeroSlider: React.FC<BackgroundHeroSliderProps> = ({ onVi
       if (activeOnly.length > 0) return activeOnly;
     }
     return BACKGROUND_BANNER_IMAGES;
-  }, []);
+  }, [studioConfig]);
 
   const safeIdx = Math.min(currentIdx, Math.max(0, bannerSlides.length - 1));
 
@@ -871,6 +873,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
   onSelectBranch?: (branch: StudioBranch) => void;
   selectedBranch?: StudioBranch;
 }> = ({ selectedBranch }) => {
+  const studioConfig = useStudioConfig();
   const [currentSlideIdx, setCurrentSlideIdx] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const touchStartX = useRef<number | null>(null);
@@ -889,7 +892,7 @@ export const StudioTourAndEducationShowcase: React.FC<{
       if (active.length > 0) return active;
     }
     return STUDIO_SHOWCASE_IMAGES;
-  }, [selectedBranch]);
+  }, [selectedBranch, studioConfig]);
 
   const safeSlideIdx = Math.min(currentSlideIdx, Math.max(0, showcaseSlides.length - 1));
   const activeSlide = showcaseSlides[safeSlideIdx] || showcaseSlides[0];
@@ -2162,7 +2165,11 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isAboutModalOpen, setIsAboutModalOpen] = useState<boolean>(false);
   const [selectedPromoModal, setSelectedPromoModal] = useState<StudioPromo | null>(null);
-  const selectedBranchData = STUDIO_BRANCHES.find((b) => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+  const studioConfig = useStudioConfig();
+  const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
+  const studio1Branch = branches.find((b: any) => b.id === 'cabang-1') || branches[0];
+  const studio2Branch = branches.find((b: any) => b.id === 'cabang-2') || branches[1];
+  const selectedBranchData = branches.find((b: any) => b.id === selectedBranch) || branches[0];
 
   // Dynamic WIB Studio Open Status (08:00 - 21:00 WIB)
   const checkIsOpen = (): boolean => {
@@ -2496,7 +2503,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/b1:text-stone-300 truncate mt-0.5">
-                                  Jl. Raya Kertanegara, Karangploso
+                                  {studio1Branch.address || 'Junrejo, Kota Batu'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/b1:text-[#A9BCA7] shrink-0">
@@ -2523,7 +2530,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/b2:text-stone-300 truncate mt-0.5">
-                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                  {studio2Branch.address || 'Dinoyo, Kota Malang'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/b2:text-[#A9BCA7] shrink-0">
@@ -2612,7 +2619,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/s1:text-stone-300 truncate mt-0.5">
-                                  Jl. Raya Kertanegara, Karangploso
+                                  {studio1Branch.address || 'Junrejo, Kota Batu'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/s1:text-[#A9BCA7] shrink-0">
@@ -2643,7 +2650,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/s2:text-stone-300 truncate mt-0.5">
-                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                  {studio2Branch.address || 'Dinoyo, Kota Malang'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/s2:text-[#A9BCA7] shrink-0">
@@ -2732,7 +2739,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/c1:text-stone-300 truncate mt-0.5">
-                                  Jl. Raya Kertanegara, Karangploso
+                                  {studio1Branch.address || 'Junrejo, Kota Batu'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/c1:text-[#A9BCA7] shrink-0">
@@ -2763,7 +2770,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/c2:text-stone-300 truncate mt-0.5">
-                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                  {studio2Branch.address || 'Dinoyo, Kota Malang'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/c2:text-[#A9BCA7] shrink-0">
@@ -2852,7 +2859,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/w1:text-stone-300 truncate mt-0.5">
-                                  Jl. Raya Kertanegara, Karangploso
+                                  {studio1Branch.address || 'Junrejo, Kota Batu'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/w1:text-[#A9BCA7] shrink-0">
@@ -2883,7 +2890,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/w2:text-stone-300 truncate mt-0.5">
-                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                  {studio2Branch.address || 'Dinoyo, Kota Malang'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/w2:text-[#A9BCA7] shrink-0">
@@ -2972,7 +2979,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/e1:text-stone-300 truncate mt-0.5">
-                                  Jl. Raya Kertanegara, Karangploso
+                                  {studio1Branch.address || 'Junrejo, Kota Batu'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/e1:text-[#A9BCA7] shrink-0">
@@ -3003,7 +3010,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/e2:text-stone-300 truncate mt-0.5">
-                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                  {studio2Branch.address || 'Dinoyo, Kota Malang'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/e2:text-[#A9BCA7] shrink-0">
@@ -3089,7 +3096,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Junrejo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/m1:text-stone-300 truncate mt-0.5">
-                                  Jl. Raya Kertanegara, Karangploso
+                                  {studio1Branch.address || 'Junrejo, Kota Batu'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/m1:text-[#A9BCA7] shrink-0">
@@ -3117,7 +3124,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                   <span className="font-serif font-bold text-xs tracking-wide">Dinoyo</span>
                                 </div>
                                 <p className="text-[9.5px] text-[#777777] group-hover/m2:text-stone-300 truncate mt-0.5">
-                                  Ruko Gajayana, Jl. Simpang Gajayana, Dinoyo
+                                  {studio2Branch.address || 'Dinoyo, Kota Malang'}
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/m2:text-[#A9BCA7] shrink-0">
@@ -3299,6 +3306,8 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
   onClose,
   canDismiss = true,
 }) => {
+  const studioConfig = useStudioConfig();
+  const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
   // Integrasi tombol Back fisik / Swipe Back HP untuk popup selector studio
   useMobileBackButton(isOpen && canDismiss, () => onClose?.(), 'branch-selector');
 
@@ -3342,7 +3351,7 @@ export const BranchSelectorModal: React.FC<BranchSelectorModalProps> = ({
 
         {/* Branch Cards */}
         <div className="p-4 sm:p-5 space-y-3 bg-[#FDFBF7] flex-1">
-          {STUDIO_BRANCHES.map((branch) => {
+          {branches.map((branch: any) => {
             const isSelected = selectedBranch === branch.id;
 
             return (

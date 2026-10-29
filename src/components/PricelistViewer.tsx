@@ -1,4 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
+import { useStudioConfig } from '../utils/studioConfigManager';
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
@@ -91,7 +92,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     return cat;
   };
 
-  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+  const studioConfig = useStudioConfig();
+  const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
+  const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
 
   const packageImageMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -102,7 +105,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       }
     });
     return map;
-  }, []);
+  }, [studioConfig]);
   // Mode: 'menu' (Figma Bio-Link Style), 'gallery' (Fasilitas Studio), or 'guide' (Panduan, Disclaimer & FAQ)
   const [activeTab, setActiveTab] = useState<'menu' | 'gallery' | 'guide'>(initialTab);
   const isTabActive = (tab: 'menu' | 'gallery' | 'guide') => activeTab === tab;
@@ -803,86 +806,40 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   const branchFacilityPhotos = useMemo<StudioGalleryPhoto[]>(() => {
-    if (selectedBranch === 'cabang-2') {
-      return [
-        {
-          id: 'facility-studio2-setup',
-          title: 'Setup Studio Foto Profesional',
-          category: 'peralatan',
-          packageName: 'Fasilitas Studio 2',
-          icon: '📷',
+    const rawFacilities = (studioConfig as any)?.facilityItems || [];
+    const rawEquipment = (studioConfig as any)?.equipmentItems || [];
+    const combined = [...rawFacilities, ...rawEquipment];
+
+    const branchItems = combined.filter((item: any) => {
+      if (item.active === false) return false;
+      if (!item.branchId || item.branchId === 'all') return true;
+      return item.branchId === selectedBranch;
+    });
+
+    if (branchItems.length > 0) {
+      return branchItems.map((item: any) => {
+        const imgs = (Array.isArray(item.images) && item.images.length > 0)
+          ? item.images
+          : (item.imageUrl ? [item.imageUrl] : ['https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85']);
+
+        return {
+          id: item.id,
+          title: item.title,
+          category: item.category || 'ruangan',
+          packageName: item.packageName || (selectedBranch === 'cabang-2' ? 'Fasilitas Studio 2' : 'Fasilitas Studio 1'),
+          icon: item.icon || '🛋️',
           targetPackageId: 'sewa-studio-hourly',
-          imageUrl: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85',
-          description: 'Setup lighting, background, dan area final shoot yang siap dipakai untuk sesi family, wisuda, grup, maupun personal.',
-          conceptNote: 'Studio 2 menyiapkan alat pencahayaan dan layout yang lebih ekstensif untuk sesi foto profesional.',
-          tags: ['#Studio2', '#LightingProfesional', '#SetupFoto']
-        },
-        {
-          id: 'facility-studio2-wardrobe',
-          title: 'Area Persiapan & Wardrobe',
-          category: 'ruangan',
-          packageName: 'Fasilitas Studio 2',
-          icon: '🪞',
-          targetPackageId: 'personal-bold-statement',
-          imageUrl: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=85',
-          description: 'Ruang fitting dan persiapan untuk membantu klien tampil lebih siap sebelum sesi foto dimulai.',
-          conceptNote: 'Cocok untuk kebutuhan outfit, kostum, dan penyusunan pose sebelum shooting.',
-          tags: ['#Wardrobe', '#Persiapan', '#Studio2']
-        },
-        {
-          id: 'facility-studio2-parking',
-          title: 'Akses Mudah & Parkir',
-          category: 'layanan',
-          packageName: 'Fasilitas Studio 2',
-          icon: '🅿️',
-          targetPackageId: 'sewa-studio-hourly',
-          imageUrl: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85',
-          description: 'Lokasi yang mudah dijangkau dan area parkir yang membantu kenyamanan kedatangan klien.',
-          conceptNote: 'Studio 2 didesain untuk pengalaman booking yang cepat dan nyaman untuk keluarga maupun kelompok.',
-          tags: ['#Lokasi', '#Parkir', '#Studio2']
-        }
-      ];
+          imageUrl: imgs[0],
+          images: imgs,
+          description: item.description || '',
+          conceptNote: item.conceptNote || `Fasilitas tersedia di ${currentBranchInfo.shortName}.`,
+          tags: item.tags || [`#${item.title.replace(/\s+/g, '')}`, `#${selectedBranch === 'cabang-1' ? 'Studio1' : 'Studio2'}`]
+        };
+      });
     }
 
-    return [
-      {
-        id: 'facility-studio1-sudut',
-        title: 'Sudut Fotografi & Area Comfort',
-        category: 'ruangan',
-        packageName: 'Fasilitas Studio 1',
-        icon: '🛋️',
-        targetPackageId: 'sewa-studio-hourly',
-        imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=85',
-        description: 'Studio 1 menampilkan area foto dengan background lembut dan style yang nyaman untuk sesi personal maupun keluarga.',
-        conceptNote: 'Kombinasi sudut ruangan dan pencahayaan hangat cocok untuk sesi yang santai dan estetik.',
-        tags: ['#Studio1', '#SudutFoto', '#Comfort']
-      },
-      {
-        id: 'facility-studio1-lighting',
-        title: 'Lighting Hangat & Estetik',
-        category: 'peralatan',
-        packageName: 'Fasilitas Studio 1',
-        icon: '💡',
-        targetPackageId: 'sewa-studio-hourly',
-        imageUrl: 'https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85',
-        description: 'Pencahayaan yang diarahkan untuk menjaga warna kulit tetap natural serta tetap menghasilkan look yang soft dan aesthetic.',
-        conceptNote: 'Ideal untuk semua kebutuhan foto self studio, keluarga, hingga sesi wisuda.',
-        tags: ['#Lighting', '#Studio1', '#Estetik']
-      },
-      {
-        id: 'facility-studio1-support',
-        title: 'Kenyamanan & Dukungan Klien',
-        category: 'kenyamanan',
-        packageName: 'Fasilitas Studio 1',
-        icon: '✅',
-        targetPackageId: 'sewa-studio-hourly',
-        imageUrl: 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=85',
-        description: 'Area kerja dan area tunggu yang nyaman untuk keluarga maupun klien yang datang bersama dalam satu sesi.',
-        conceptNote: 'Studio 1 dirancang untuk pengalaman booking yang santai, jelas, dan rapi.',
-        tags: ['#Kenyamanan', '#Studio1', '#Support']
-      }
-    ];
-  }, [selectedBranch]);
+    return [];
+  }, [selectedBranch, currentBranchInfo.shortName, studioConfig]);
 
   const branchBackgroundPhotos = useMemo<StudioGalleryPhoto[]>(() => {
     const selectedBackgrounds = BACKGROUNDS.filter(bg => bg.applicableBranches.includes(selectedBranch));

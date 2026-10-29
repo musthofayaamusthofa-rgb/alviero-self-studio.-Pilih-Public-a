@@ -9,11 +9,11 @@
       "name": "Alviero Studio – Studio 1",
       "shortName": "Studio 1 (Junrejo)",
       "tagline": "Junrejo, Kota Batu",
-      "address": "Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151",
+      "address": "Ruko Hijau, Jl. Ir. Soekarno No.2, Dadaprejo, Kec. Junrejo, Kota Batu, Jawa Timur 65233",
       "badge": "Studio 1",
       "description": "Pusat Self Studio & Studio Foto",
       "icon": "🏛️",
-      "mapsUrl": "https://maps.app.goo.gl/oxtptpr3RSDL9zCj6",
+      "mapsUrl": "https://maps.app.goo.gl/Jk52HH9ZxmBads9q6",
       "reviewUrl": "https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu",
       "whatsappNumber": "6287777538164",
       "whatsappDisplay": "0877-7753-8164"
@@ -2517,66 +2517,94 @@
   ],
   "facilityItems": [
     {
-      "id": "fac-studio-ac",
-      "title": "Ruang Studio Utama Ber-AC",
-      "subtitle": "Climate Controlled Studio Space",
+      "id": "fac-c1-limbo",
+      "title": "Panggung Limbo Putih Seamless (Infinity Curve)",
+      "subtitle": "Signature Seamless Floor Studio 1 Junrejo",
       "category": "ruangan",
-      "packageName": "Fasilitas Studio",
-      "icon": "🛋️",
-      "badge": "Kenyamanan Standar Utama",
-      "imageUrl": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
-      "description": "Ruang studio utama yang sejuk dengan pendingin ruangan (AC) terawat, berdaya tampung luas untuk perorangan, keluarga, hingga rombongan wisuda dan grup.",
-      "conceptNote": "Suhu ruangan selalu dijaga sejuk dan nyaman agar makeup dan outfit tetap prima selama pemotretan.",
+      "packageName": "Fasilitas Studio 1",
+      "branchId": "cabang-1",
+      "icon": "⚪",
+      "badge": "Ikonik Studio 1 (Infinity)",
+      "imageUrl": "/images/gallery/graduation-indoor/grad-indoor-1.jpg",
+      "description": "Panggung Limbo Putih lengkung tanpa batas sudut antara lantai dan dinding, memberikan kesan visual luas tanpa garis batas untuk wisuda dan rombongan keluarga besar.",
+      "conceptNote": "Didesain khusus untuk wisuda rombongan besar dan keluarga, mampu menampung pose formasi dinamis tanpa terganggu sudut lantai.",
       "highlights": [
-        "AC Dingin & Bersih",
-        "Ruang Gerak Luas",
-        "Bebas Pengap & Gerah",
-        "Kapasitas Hingga 15 Orang"
+        "Lengkung Seamless Tanpa Sudut",
+        "Kapasitas s.d 15 Orang",
+        "Favorit Wisuda & Grup",
+        "Pencahayaan Merata"
       ],
       "tags": [
-        "#RuangStudioBerAC",
-        "#Nyaman",
+        "#LimboPutih",
+        "#Studio1Junrejo",
+        "#InfinityCurve"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-c1-ac",
+      "title": "Ruang Studio Utama Ber-AC Sejuk",
+      "subtitle": "Spacious Climate Controlled Studio",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio 1",
+      "branchId": "cabang-1",
+      "icon": "🛋️",
+      "badge": "Ruangan Luas & Sejuk",
+      "imageUrl": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Ruang studio utama berpendingin udara di kawasan sejuk Junrejo dengan daya tampung luas, sirkulasi udara bersih, dan suasana tenang untuk sesi foto santai bersama keluarga.",
+      "conceptNote": "Suhu ruangan selalu dijaga sejuk agar riasan makeup dan pakaian toga wisudawan tetap rapi dan prima sepanjang sesi.",
+      "highlights": [
+        "AC Dingin & Terawat",
+        "Kawasan Sejuk Junrejo",
+        "Bebas Pengap & Gerah",
+        "Daya Tampung Rombongan"
+      ],
+      "tags": [
+        "#StudioBerAC",
+        "#SejukJunrejo",
         "#KapasitasLuas"
       ],
       "active": true
     },
     {
-      "id": "fac-vanity-room",
-      "title": "Ruang Rias & Fitting Eksklusif",
-      "subtitle": "Private Grooming & Wardrobe Area",
+      "id": "fac-c1-rias",
+      "title": "Ruang Rias & Fitting Toga Eksklusif",
+      "subtitle": "Private Wardrobe & Vanity Mirror Area",
       "category": "ruangan",
-      "packageName": "Fasilitas Studio",
+      "packageName": "Fasilitas Studio 1",
+      "branchId": "cabang-1",
       "icon": "🪞",
       "badge": "Ruang Persiapan Khusus",
       "imageUrl": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85",
-      "description": "Area rias privat dengan cermin vanity LED daylight, colokan listrik untuk catokan/hairdryer, serta ruang ganti tertutup untuk kenyamanan persiapan kostum dan kebaya.",
+      "description": "Area rias privat dengan cermin vanity LED daylight, colokan listrik untuk catokan/hairdryer, serta fitting room tertutup untuk kenyamanan persiapan toga wisuda dan kebaya.",
       "conceptNote": "Sangat ideal untuk wisudawan yang memakai toga atau calon pengantin yang berganti gaun prewedding.",
       "highlights": [
         "Cermin Vanity LED",
-        "Fitting Room Privat",
+        "Fitting Room Tertutup",
         "Colokan Listrik Rias",
-        "Gantungan Baju Rapi"
+        "Gantungan Baju & Toga"
       ],
       "tags": [
         "#RuangRias",
         "#FittingPrivat",
-        "#CerminVanity"
+        "#Studio1"
       ],
       "active": true
     },
     {
-      "id": "fac-waiting-lounge",
-      "title": "Lounge & Area Tunggu Santai",
-      "subtitle": "Comfortable Guest & Family Lounge",
+      "id": "fac-c1-lounge",
+      "title": "Lounge & Area Tunggu Keluarga Asri",
+      "subtitle": "Comfortable Family Guest Lounge",
       "category": "ruangan",
-      "packageName": "Fasilitas Studio",
+      "packageName": "Fasilitas Studio 1",
+      "branchId": "cabang-1",
       "icon": "☕",
       "badge": "Kenyamanan Pengantar",
       "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=85",
-      "description": "Ruang tunggu santai dengan sofa empuk, dispenser air mineral gratis, stopkontak untuk pengisian daya gawai, dan suasana tenang untuk keluarga pendamping.",
-      "conceptNote": "Keluarga dan teman yang menemani dapat duduk bersantai tanpa rasa jenuh selama sesi foto berlangsung.",
+      "description": "Ruang tunggu santai dengan sofa empuk, dispenser air mineral gratis, stopkontak untuk isi daya HP, dan suasana sejuk asri khas Junrejo untuk keluarga pendamping.",
+      "conceptNote": "Keluarga dan kerabat yang menemani dapat duduk bersantai tanpa rasa lelah selama pemotretan berlangsung.",
       "highlights": [
-        "Sofa Santai Nyaman",
+        "Sofa Empuk Keluarga",
         "Air Mineral Gratis",
         "Free Charging Station",
         "Suasana Tenang"
@@ -2584,177 +2612,384 @@
       "tags": [
         "#LoungeKeluarga",
         "#AreaTunggu",
-        "#FreeWater"
+        "#Studio1"
       ],
       "active": true
     },
     {
-      "id": "fac-clean-toilet",
-      "title": "Toilet Bersih & Higienis",
-      "subtitle": "Clean & Sanitized Restroom",
-      "category": "fasilitas",
-      "packageName": "Fasilitas Studio",
-      "icon": "🚻",
-      "badge": "Standar Higienitas Tinggi",
-      "imageUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=85",
-      "description": "Toilet dalam studio yang rutin dibersihkan secara berkala, wangi, dilengkapi sabun cuci tangan, tisu, serta cermin wastafel bersih.",
-      "conceptNote": "Higienitas dan kenyamanan sanitasi merupakan prioritas Alviero Studio demi kepuasan setiap pengunjung.",
-      "highlights": [
-        "Selalu Bersih & Wangi",
-        "Sabun Cuci Tangan Tersedia",
-        "Wastafel & Cermin",
-        "Sanitasi Terjaga"
-      ],
-      "tags": [
-        "#ToiletBersih",
-        "#Higienis",
-        "#Kenyamanan"
-      ],
-      "active": true
-    },
-    {
-      "id": "fac-parking-access",
-      "title": "Akses Lokasi & Area Parkir",
-      "subtitle": "Convenient Parking & Road Access",
+      "id": "fac-c1-parkir",
+      "title": "Area Parkir Luas & Aman Junrejo",
+      "subtitle": "Spacious Roadside Parking Space",
       "category": "layanan",
-      "packageName": "Fasilitas Studio",
+      "packageName": "Fasilitas Studio 1",
+      "branchId": "cabang-1",
       "icon": "🅿️",
-      "badge": "Aksesibilitas Mudah",
+      "badge": "Parkir Nyaman Roda 4 & 2",
       "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85",
-      "description": "Lokasi studio berada tepat di pinggir jalan raya utama dengan akses mudah ditemukan, serta area parkir aman untuk kendaraan roda 2 maupun roda 4.",
-      "conceptNote": "Titik penjemputan ojek online dan taksi tepat di depan pintu masuk ruko studio.",
+      "description": "Akses parkir luas tepat di depan studio untuk mobil keluarga maupun rombongan motor di pinggir jalan raya utama Karangploso - Junrejo.",
+      "conceptNote": "Memudahkan akses penurunan lansia, balita, dan pembawaan kostum/bunga wisuda tanpa harus berjalan jauh.",
       "highlights": [
-        "Parkir Mobil & Motor",
-        "Pinggir Jalan Raya",
-        "Akses Mudah Ojol",
-        "Lingkungan Aman"
+        "Parkir Mobil Leluasa",
+        "Akses Langsung Jalan Raya",
+        "Bongkar Muat Barang Mudah",
+        "Aman & Terpantau"
       ],
       "tags": [
-        "#ParkirStudio",
-        "#AksesMudah",
-        "#LokasiStrategis"
+        "#ParkirLuas",
+        "#AksesJunrejo",
+        "#Studio1"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-c2-multibox",
+      "title": "3 Bilik Studio Pemotretan Simultan",
+      "subtitle": "3 Independent Photography Stages",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio 2",
+      "branchId": "cabang-2",
+      "icon": "🏛️",
+      "badge": "Kapasitas 3 Klien Bersamaan",
+      "imageUrl": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1000&q=85",
+      "description": "Studio 2 Dinoyo dilengkapi 3 bilik panggung mandiri dengan sistem pencahayaan independen, memungkinkan hingga 3 sesi pemotretan klien berjalan nyaman bersamaan.",
+      "conceptNote": "Setiap bilik panggung memiliki alokasi background single-use untuk privasi dan ketepatan jadwal setiap sesi.",
+      "highlights": [
+        "3 Panggung Simultan",
+        "Privasi Tiap Klien Terjaga",
+        "Sistem Kuota Anti Bentrok",
+        "Modern & Efisien"
+      ],
+      "tags": [
+        "#3BilikStudio",
+        "#Studio2Dinoyo",
+        "#Kapasitas3Sesi"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-c2-selfstudio",
+      "title": "Bilik Mandiri Self Studio Ber-AC",
+      "subtitle": "Private Self Photo Booth with Wireless Remote",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio 2",
+      "branchId": "cabang-2",
+      "icon": "✨",
+      "badge": "Bilik Foto Mandiri",
+      "imageUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85",
+      "description": "Bilik khusus foto mandiri (Self Studio) berpendingin ruangan privat, bebas berekspresi tanpa fotografer, dilengkapi monitor display besar dan remote shutter nirkabel.",
+      "conceptNote": "Bebas bergaya sesuka hati bersama sahabat atau pasangan dengan hitungan jepret tak terbatas selama durasi sesi.",
+      "highlights": [
+        "Privasi 100% Tanpa Fotografer",
+        "AC Sejuk Dingin",
+        "Layar Monitor Besar",
+        "Remote Nirkabel Cepat"
+      ],
+      "tags": [
+        "#SelfStudioDinoyo",
+        "#BilikMandiri",
+        "#Studio2"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-c2-rias",
+      "title": "Ruang Rias & Vanity Mirror Modern Dinoyo",
+      "subtitle": "Compact Grooming & Dressing Station",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio 2",
+      "branchId": "cabang-2",
+      "icon": "🪞",
+      "badge": "Area Persiapan Mahasiswa & Tamu",
+      "imageUrl": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85",
+      "description": "Meja rias modern dengan cermin lampu LED, hair dryer, catokan, dan ruang ganti baju bersih untuk persiapan kilat sebelum sesi foto.",
+      "conceptNote": "Terletak strategis di lantai Ruko Gajayana Dinoyo, sangat cocok untuk touch-up kilat wisuda UB, UIN, dan ITN.",
+      "highlights": [
+        "Cermin Vanity LED",
+        "Fitting Room Bersih",
+        "Colokan Catokan & Hairdryer",
+        "Rapi & Praktis"
+      ],
+      "tags": [
+        "#RuangRiasDinoyo",
+        "#VanityLED",
+        "#Studio2"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-c2-lounge",
+      "title": "Waiting Area Ruko Gajayana Dinoyo",
+      "subtitle": "Comfortable Waiting Lounge with High-Speed Wi-Fi",
+      "category": "ruangan",
+      "packageName": "Fasilitas Studio 2",
+      "branchId": "cabang-2",
+      "icon": "🛋️",
+      "badge": "Area Tunggu Santai",
+      "imageUrl": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85",
+      "description": "Area tunggu santai dengan tempat duduk empuk, dispenser air minum, stopkontak pengisi daya, dan koneksi Wi-Fi berkecepatan tinggi di Ruko Gajayana.",
+      "conceptNote": "Teman dan keluarga yang menunggu giliran dapat bersantai dengan nyaman sambil melihat katalog portofolio Alviero.",
+      "highlights": [
+        "Tempat Duduk Empuk",
+        "Free High-Speed Wi-Fi",
+        "Air Minum Gratis",
+        "Charging Station"
+      ],
+      "tags": [
+        "#AreaTungguDinoyo",
+        "#FreeWiFi",
+        "#Studio2"
+      ],
+      "active": true
+    },
+    {
+      "id": "fac-c2-parkir",
+      "title": "Akses Ruko Gajayana & Parkir Strategis",
+      "subtitle": "Prime Campus Hub Location & Parking Area",
+      "category": "layanan",
+      "packageName": "Fasilitas Studio 2",
+      "branchId": "cabang-2",
+      "icon": "🅿️",
+      "badge": "Akses Kampus Malang",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=1000&q=85",
+      "description": "Terletak di kawasan Ruko Simpang Gajayana Dinoyo, sangat dekat dengan kampus UB, UIN Maulana Malik Ibrahim, ITN, dan Polinema dengan area parkir ruko yang aman.",
+      "conceptNote": "Akses penjemputan ojek online sangat mudah dan titik lokasi tepat di depan pintu masuk ruko.",
+      "highlights": [
+        "Dekat Kampus UB/UIN/ITN",
+        "Parkir Ruko Roda 2 & 4",
+        "Akses Ojol Sangat Mudah",
+        "Lokasi Sentral Kota"
+      ],
+      "tags": [
+        "#RukoGajayana",
+        "#AksesKampus",
+        "#Studio2Dinoyo"
       ],
       "active": true
     }
   ],
   "equipmentItems": [
     {
-      "id": "eq-godox-lighting",
-      "title": "Lighting Godox & Softbox Diffuser Ganda",
-      "subtitle": "Professional Flash Illumination System",
+      "id": "eq-c1-lighting",
+      "title": "Godox Studio Flash & Giant Octabox Diffuser Ganda",
+      "subtitle": "Professional Large-Scale Lighting System",
       "category": "peralatan",
-      "packageName": "Peralatan Studio",
+      "packageName": "Peralatan Studio 1",
+      "branchId": "cabang-1",
       "icon": "💡",
-      "badge": "Pencahayaan Studio Pro",
+      "badge": "Lighting Softbox Jumbo",
       "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
-      "description": "Sistem pencahayaan flash studio Godox dengan modifier softbox oktagonal besar dan diffuser ganda, menghasilkan cahaya lembut alami pada kulit (flattering skin tone) tanpa bayangan keras.",
-      "conceptNote": "Dikalibrasi berkala agar warna pakaian, toga wisuda, dan riasan make-up keluar dengan akurat 100%.",
+      "description": "Flash studio Godox berkekuatan tinggi dipadukan softbox oktagonal besar dan diffuser ganda, menghasilkan sebaran cahaya lembut tanpa bayangan keras untuk formasi wisuda dan rombongan keluarga.",
+      "conceptNote": "Dikalibrasi agar warna toga, kebaya, dan skin tone subjek tampak natural, bersih, dan mewah.",
       "highlights": [
         "Godox Professional Strobe",
-        "Softbox Diffuser Ganda",
-        "Akurasi Warna Tinggi",
+        "Giant Octabox Diffuser Ganda",
+        "Pencahayaan Formasi Luas",
         "Skin Tone Glowing Halus"
       ],
       "tags": [
-        "#LightingGodox",
-        "#SoftboxStudio",
-        "#SkinToneNatural"
+        "#LightingStudio1",
+        "#OctaboxJumbo",
+        "#GodoxFlash"
       ],
       "active": true
     },
     {
-      "id": "eq-mirrorless-camera",
-      "title": "Kamera Mirrorless Resolusi Tinggi & Lensa Portrait",
-      "subtitle": "Ultra High-Definition Sharpness",
+      "id": "eq-c1-camera",
+      "title": "Kamera Mirrorless Sensor Besar & Lensa Portrait 85mm",
+      "subtitle": "Ultra High-Resolution Studio Sensor",
       "category": "peralatan",
-      "packageName": "Peralatan Studio",
+      "packageName": "Peralatan Studio 1",
+      "branchId": "cabang-1",
       "icon": "📷",
       "badge": "Sensor Resolusi Tinggi",
       "imageUrl": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85",
-      "description": "Kamera sensor besar dipadu lensa portrait premium ber-aperture tajam, menjamin setiap helai rambut, tekstur pakaian, dan detail mata tertangkap dengan kejernihan maksimal saat dicetak ukuran besar.",
-      "conceptNote": "File master foto tajam sempurna bahkan bila dicetak hingga ukuran bingkai 20R ke atas.",
+      "description": "Kamera beresolusi tinggi dengan ketajaman optik superior, menjamin setiap helai bordir kebaya dan ekspresi wajah tetap tajam saat dicetak ukuran besar hingga 24R.",
+      "conceptNote": "File master foto memiliki ketajaman piksel maksimal tanpa pecah untuk arsip kenangan seumur hidup.",
       "highlights": [
         "Sensor Resolusi Tinggi",
         "Lensa Portrait Tajam",
-        "Hasil Cetak Anti Pecah",
-        "Detail Halus Terjaga"
+        "Hasil Cetak Bingkai Besar",
+        "Detail Tajam Maksimal"
       ],
       "tags": [
-        "#KameraPro",
+        "#KameraStudio1",
         "#LensaPortrait",
         "#CetakBesar"
       ],
       "active": true
     },
     {
-      "id": "eq-wireless-trigger",
-      "title": "Trigger Nirkabel & Remote Self Studio Ergonomis",
-      "subtitle": "Zero-Lag Wireless Shutter Trigger",
+      "id": "eq-c1-props",
+      "title": "Properti Wisuda & Keluarga Klasik Lengkap",
+      "subtitle": "Graduation Caps, Diplomas, Floral Bouquets & Classic Stools",
       "category": "peralatan",
-      "packageName": "Peralatan Studio",
-      "icon": "📡",
-      "badge": "Sinkronisasi Cepat",
-      "imageUrl": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85",
-      "description": "Sistem trigger nirkabel tanpa jeda untuk sinkronisasi kilat kamera dan lampu, serta clicker remote yang ringan di tangan khusus untuk paket Self Studio.",
-      "conceptNote": "Klien paket Self Studio dapat memegang remote kecil tersembunyi dan berpose sesuka hati tanpa hambatan kabel.",
+      "packageName": "Peralatan Studio 1",
+      "branchId": "cabang-1",
+      "icon": "🎓",
+      "badge": "Properti Wisuda Lengkap",
+      "imageUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1000&q=85",
+      "description": "Tersedia tabung ijazah wisuda, peminjaman topi toga, buket bunga wisuda artifisial, dan aneka bangku kayu studio untuk komposisi foto formal keluarga.",
+      "conceptNote": "Bebas digunakan tanpa biaya tambahan selama sesi foto wisuda dan keluarga berlangsung.",
       "highlights": [
-        "Trigger Zero Latency",
-        "Remote Self Studio Ringan",
-        "Bebas Kabel Kusut",
-        "Respon Jepret Instan"
+        "Tabung Ijazah & Toga",
+        "Buket Bunga Wisuda",
+        "Bangku Kayu Klasik",
+        "Gratis Dipakai"
       ],
       "tags": [
-        "#WirelessTrigger",
-        "#SelfStudioRemote",
-        "#Responsif"
+        "#PropertiWisuda",
+        "#TogaWisuda",
+        "#Studio1Junrejo"
       ],
       "active": true
     },
     {
-      "id": "eq-live-monitor",
-      "title": "Layar Monitor Live Preview Real-Time",
-      "subtitle": "Instant Frame & Pose Review Display",
+      "id": "eq-c1-monitor",
+      "title": "Monitor Display Review Hasil Foto Dikalibrasi",
+      "subtitle": "Instant Color-Calibrated Preview Display",
       "category": "peralatan",
-      "packageName": "Peralatan Studio",
+      "packageName": "Peralatan Studio 1",
+      "branchId": "cabang-1",
       "icon": "🖥️",
-      "badge": "Review Hasil Seketika",
+      "badge": "Review Bersama Fotografer",
       "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=85",
-      "description": "Layar monitor display berukuran besar yang langsung menampilkan hasil foto hanya 1 detik setelah tombol shutter ditekan, mempermudah evaluasi ekspresi dan kerapian busana secara langsung.",
-      "conceptNote": "Klien tidak perlu menerka hasil foto; Anda dapat langsung melihat senyum dan pose terbaik di layar lebar.",
+      "description": "Layar monitor kalibrasi warna sRGB 100% untuk mengecek pose dan memilih foto terbaik bersama fotografer Alviero langsung setelah pemotretan.",
+      "conceptNote": "Memudahkan klien melihat kecocokan gaya dan ekspresi sebelum sesi berakhir.",
       "highlights": [
+        "Kalibrasi Warna Akurat",
+        "Cek Pose Seketika",
         "Layar Display Besar",
-        "Preview Instan 1 Detik",
-        "Warna Monitor Terkalibrasi",
-        "Cek Gaya & Senyum Langsung"
+        "Dipandu Fotografer"
       ],
       "tags": [
-        "#LiveMonitor",
-        "#CekPoseLangsung",
-        "#LayarPreview"
+        "#MonitorReview",
+        "#WarnaAkurat",
+        "#Studio1"
       ],
       "active": true
     },
     {
-      "id": "eq-props-stools",
-      "title": "Koleksi Bangku Pose, Kursi Kayu & Properti Kreatif",
-      "subtitle": "Aesthetic Stools, Artificial Flowers & Party Props",
+      "id": "eq-c2-lighting",
+      "title": "Multi-Setup Studio Lighting Godox 3 Panggung",
+      "subtitle": "Triple-Stage Independent Illumination Grid",
       "category": "peralatan",
-      "packageName": "Peralatan Studio",
-      "icon": "💐",
-      "badge": "Properti Pose Lengkap",
-      "imageUrl": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1000&q=85",
-      "description": "Pilihan bangku kayu aesthetic, stool studio tinggi/rendah, sofa minimalis, buket bunga artifisial, balon angka ulang tahun, dan kacamata lucu untuk menambah variasi pose.",
-      "conceptNote": "Seluruh properti studio bebas digunakan tanpa biaya sewa tambahan selama sesi foto berlangsung.",
+      "packageName": "Peralatan Studio 2",
+      "branchId": "cabang-2",
+      "icon": "💡",
+      "badge": "Setup 3 Panggung Mandiri",
+      "imageUrl": "https://images.unsplash.com/photo-1606986628253-33f7f8e5e2c2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Sistem pencahayaan 3 set studio flash Godox terpisah yang terpasang di masing-masing bilik panggung foto mandiri maupun pro studio Dinoyo.",
+      "conceptNote": "Dikalibrasi agar warna background (Hitam, Putih, Abu, Coklat, Cream) dan pencahayaan klien selalu presisi.",
       "highlights": [
-        "Bangku Kayu & Stool Studio",
-        "Buket Bunga Bervariasi",
-        "Balon Angka & Kacamata Pesta",
-        "Gratis Pakai Selama Sesi"
+        "3 Set Lighting Terpisah",
+        "Pencahayaan Konsisten",
+        "Akurasi Warna Tinggi",
+        "Optimal Self & Pro Studio"
       ],
       "tags": [
-        "#PropertiFoto",
-        "#StoolStudio",
-        "#BungaAesthetic"
+        "#LightingDinoyo",
+        "#MultiSetup",
+        "#GodoxFlash"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-c2-selfremote",
+      "title": "Clicker Remote Nirkabel Self Studio Ergonomis",
+      "subtitle": "Zero-Lag Handheld Shutter Clicker",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio 2",
+      "branchId": "cabang-2",
+      "icon": "📡",
+      "badge": "Khusus Self Studio Dinoyo",
+      "imageUrl": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=85",
+      "description": "Remote clicker nirkabel tanpa jeda yang pas digenggam, mudah disembunyikan saat berpose, memberikan kebebasan jepret foto mandiri tanpa ribet kabel.",
+      "conceptNote": "Respon jepret instan 0.05 detik membuat momen candid dan ekspresi ceria tertangkap sempurna.",
+      "highlights": [
+        "Koneksi Wireless Cepat",
+        "Ringan & Pas di Tangan",
+        "Mudah Disembunyikan",
+        "Jepret Tak Terbatas"
+      ],
+      "tags": [
+        "#RemoteSelfStudio",
+        "#ClickerWireless",
+        "#Studio2Dinoyo"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-c2-livemonitor",
+      "title": "Layar Live Monitor Display Real-Time 1 Detik",
+      "subtitle": "Instant Pose & Smile Review Screen",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio 2",
+      "branchId": "cabang-2",
+      "icon": "🖥️",
+      "badge": "Review Langsung di Depan Klien",
+      "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=85",
+      "description": "Layar monitor besar tepat di hadapan klien yang menampilkan hasil jepretan secara langsung dalam 1 detik setelah tombol ditekan.",
+      "conceptNote": "Klien dapat langsung mengecek gaya, senyum, dan kerapian rambut tanpa harus bergeser dari panggung.",
+      "highlights": [
+        "Layar Monitor Besar Menghadap Klien",
+        "Tampil Instan 1 Detik",
+        "Evaluasi Pose Seketika",
+        "Sangat Menyenangkan"
+      ],
+      "tags": [
+        "#LiveMonitorDinoyo",
+        "#CekGayaLangsung",
+        "#Studio2"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-c2-camera",
+      "title": "Kamera Mirrorless High-Speed Autofocus",
+      "subtitle": "Fast Eye-Tracking AF for Dynamic Poses",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio 2",
+      "branchId": "cabang-2",
+      "icon": "📷",
+      "badge": "Autofokus Cepat & Tajam",
+      "imageUrl": "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=85",
+      "description": "Kamera mirrorless dengan teknologi pelacakan mata otomatis (Eye-AF), menjamin setiap gerakan lompat, tawa ceria, dan pose candid tetap fokus tajam.",
+      "conceptNote": "Sangat cocok untuk foto strip self studio dan cetak resolusi tinggi tanpa blur.",
+      "highlights": [
+        "Pelacakan Mata Cepat",
+        "Sensor Tajam Modern",
+        "Anti Blur saat Bergerak",
+        "Warna Kulit Glowing"
+      ],
+      "tags": [
+        "#KameraMirrorless",
+        "#EyeAutofocus",
+        "#Studio2Dinoyo"
+      ],
+      "active": true
+    },
+    {
+      "id": "eq-c2-props",
+      "title": "Properti Fun, Balon Angka & Kacamata Pesta",
+      "subtitle": "Aesthetic Props, Party Sunglasses & Cube Stools",
+      "category": "peralatan",
+      "packageName": "Peralatan Studio 2",
+      "branchId": "cabang-2",
+      "icon": "🎉",
+      "badge": "Aksesoris Pose Seru",
+      "imageUrl": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1000&q=85",
+      "description": "Pilihan properti kekinian: aneka kacamata unik, balon foil angka ulang tahun, buket bunga aesthetic, bando lucu, dan stool kubus bertingkat untuk variasi foto grup.",
+      "conceptNote": "Bebas digunakan sepuasnya untuk membuat foto bersama sahabat dan pasangan makin berkesan.",
+      "highlights": [
+        "Kacamata Pesta Lucu",
+        "Balon Angka Ultah",
+        "Stool Kubus Bertingkat",
+        "Gratis Dipakai Sepuasnya"
+      ],
+      "tags": [
+        "#PropertiSeru",
+        "#KacamataUnik",
+        "#Studio2Dinoyo"
       ],
       "active": true
     }
@@ -5399,5 +5634,19 @@
       "reason": "Bentrok area panggung yang sama di Studio 2 (Dinoyo)",
       "active": true
     }
-  ]
+  ],
+  "paymentConfig": {
+    "bca": {
+      "bankName": "Bank Central Asia (BCA)",
+      "accountNumber": "0113324021",
+      "accountHolder": "Muhammad Azzam Fakhri",
+      "active": true
+    },
+    "qris": {
+      "name": "QRIS Nasional Alviero Studio",
+      "imageUrl": "/images/qris-alviero.png",
+      "feePercent": 1,
+      "active": true
+    }
+  }
 }

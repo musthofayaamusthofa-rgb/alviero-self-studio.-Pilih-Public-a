@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Camera, Sparkles, MapPin, X } from 'lucide-react';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 import { useMobileBackButton } from '../hooks/useMobileBackButton';
+import { useStudioConfig } from '../utils/studioConfigManager';
 
 interface MobileBottomNavProps {
   activeTab: string;
@@ -33,12 +34,14 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   onOpenExtraCheckout
 }) => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const studioConfig = useStudioConfig();
+  const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
 
   // Integrasi tombol Back fisik / Swipe Back HP untuk popup Info Bantuan
   useMobileBackButton(isHelpOpen, () => setIsHelpOpen(false), 'bottom-nav-help');
 
   const openWhatsApp = (branchId: string) => {
-    const branch = STUDIO_BRANCHES.find(item => item.id === branchId) || STUDIO_BRANCHES[0];
+    const branch = branches.find((item: any) => item.id === branchId) || branches[0];
     const message = `Halo Admin ${branch.name}, saya ingin bertanya mengenai jadwal dan layanan Alviero Studio.`;
     window.open(`https://api.whatsapp.com/send?phone=${branch.whatsappNumber}&text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
     setIsHelpOpen(false);
@@ -63,7 +66,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             </button>
           </div>
           <div className="grid grid-cols-1 gap-2">
-            {STUDIO_BRANCHES.map(branch => (
+            {branches.map((branch: any) => (
               <button
                 key={branch.id}
                 type="button"

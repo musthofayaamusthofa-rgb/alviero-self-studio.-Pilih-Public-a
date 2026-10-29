@@ -2294,6 +2294,56 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1.5rem;" id="branchesContainer">
           <!-- Rendered dynamically -->
         </div>
+
+        <!-- CARD PENGATURAN PEMBAYARAN REKENING & QRIS -->
+        <div style="margin-top: 2rem; background: #FAF8F5; border: 1.5px solid #E8E1D9; border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-sm);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+                <span>💳</span> <span>Pengaturan Rekening Bank & QRIS Alviero Studio</span>
+              </h3>
+              <p style="font-size: 0.78rem; color: #71717A; margin: 0.25rem 0 0 0;">
+                Atur nomor rekening BCA, nama pemilik, dan barcode QRIS resmi yang tampil otomatis pada Formulir Pemesanan & Kalkulator Booking.
+              </p>
+            </div>
+            <button class="btn btn-save-local" onclick="savePaymentInfo()">
+              💾 Simpan Rekening & QRIS
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; align-items: start;">
+            <div>
+              <div class="form-group">
+                <label class="form-label">Nomor Rekening Bank BCA *</label>
+                <input type="text" id="paymentBcaAccountInput" class="form-control" placeholder="Contoh: 0113324021">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nama Pemilik Rekening BCA *</label>
+                <input type="text" id="paymentBcaNameInput" class="form-control" placeholder="Contoh: Muhammad Azzam Fakhri">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nama Bank</label>
+                <input type="text" id="paymentBcaBankInput" class="form-control" placeholder="Bank Central Asia (BCA)">
+              </div>
+            </div>
+
+            <div style="background: #FFFFFF; padding: 1.15rem; border-radius: 14px; border: 1px solid var(--border);">
+              <label class="form-label">Foto / Barcode QRIS Nasional Alviero</label>
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+                <input type="text" id="paymentQrisUrlInput" class="form-control" placeholder="/images/qris-alviero.png" oninput="updatePaymentQrisPreview(this.value)">
+                <label class="btn btn-preview" style="cursor: pointer; margin: 0; white-space: nowrap;">
+                  📸 Upload QRIS
+                  <input type="file" accept="image/*" style="display: none;" onchange="handlePaymentQrisUpload(event)">
+                </label>
+              </div>
+              <div id="paymentQrisPreviewBox" style="text-align: center; padding: 1rem; background: #FAF8F5; border-radius: 12px; border: 1px dashed var(--border);">
+                <img id="paymentQrisImg" src="/images/qris-alviero.png" alt="QRIS Alviero" style="max-height: 180px; max-width: 100%; margin: 0 auto; object-fit: contain; border-radius: 8px;">
+                <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.5rem;">Pratinjau barcode QRIS yang dilihat klien saat checkout</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -6930,9 +6980,12 @@
 
     function renderBranches() {
       const container = document.getElementById('branchesContainer');
+      if (!container) return;
       container.innerHTML = '';
 
       (appConfig.branches || []).forEach((b, idx) => {
+        const branchOpHours = (appConfig.operationalHoursByBranch && appConfig.operationalHoursByBranch[b.id]) || b.operationalHours || appConfig.operationalHours || 'Buka Setiap Hari: 08:00 - 21:00 WIB';
+
         const card = document.createElement('div');
         card.style.background = '#FFFFFF';
         card.style.padding = '1.35rem';
@@ -6940,45 +6993,170 @@
         card.style.border = '1px solid var(--border)';
         card.style.boxShadow = 'var(--shadow-sm)';
         card.innerHTML = `
-          <h3 style="font-size: 1.15rem; margin-bottom: 0.95rem; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem;">
-            <span>${b.icon || '📍'}</span>
-            <span>${b.name} (${b.badge})</span>
-          </h3>
-          
-          <div class="form-group">
-            <label class="form-label">Nama Tampilan Singkat</label>
-            <input type="text" class="form-control" value="${b.shortName || ''}" onchange="appConfig.branches[${idx}].shortName = this.value">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.65rem; border-bottom: 1px solid var(--border);">
+            <h3 style="font-size: 1.15rem; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+              <span>${b.icon || '📍'}</span>
+              <span>${b.name || 'Studio ' + (idx + 1)}</span>
+            </h3>
+            <span style="font-size: 0.72rem; font-weight: 700; background: var(--sage-bg); color: var(--sage-primary); padding: 0.2rem 0.6rem; border-radius: 999px; border: 1px solid rgba(92,114,90,0.25);">
+              ${b.badge || 'Studio ' + (idx + 1)}
+            </span>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Nomor WhatsApp (Format: 628...)</label>
+            <label class="form-label">Nama Lengkap Studio (Tampil di Heading Web)</label>
+            <input type="text" id="branch_${idx}_name" class="form-control" value="${b.name || ''}" placeholder="Contoh: Alviero Studio — Studio 1">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Nama Tampilan Singkat</label>
+              <input type="text" id="branch_${idx}_shortName" class="form-control" value="${b.shortName || ''}" placeholder="Contoh: Studio 1 (Junrejo)">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tagline / Lokasi Singkat</label>
+              <input type="text" id="branch_${idx}_tagline" class="form-control" value="${b.tagline || ''}" placeholder="Contoh: Junrejo, Kota Batu">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Jam Operasional Cabang Ini</label>
+            <input type="text" id="branch_${idx}_opHours" class="form-control" value="${branchOpHours}" placeholder="Contoh: Buka Setiap Hari: 08:00 - 21:00 WIB">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nomor WhatsApp Admin (Format: 628...)</label>
             <div style="display: flex; gap: 0.5rem;">
-              <input type="text" class="form-control" value="${b.whatsappNumber || ''}" onchange="appConfig.branches[${idx}].whatsappNumber = this.value">
+              <input type="text" id="branch_${idx}_whatsappNumber" class="form-control" value="${b.whatsappNumber || ''}" placeholder="6287777538164">
               <a href="https://wa.me/${b.whatsappNumber}" target="_blank" class="btn btn-preview" style="padding: 0.5rem 0.8rem; font-size: 0.76rem;" title="Test chat ke nomor ini">💬 Test</a>
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Tampilan Nomor WA (Formatted)</label>
-            <input type="text" class="form-control" value="${b.whatsappDisplay || ''}" onchange="appConfig.branches[${idx}].whatsappDisplay = this.value">
+            <input type="text" id="branch_${idx}_whatsappDisplay" class="form-control" value="${b.whatsappDisplay || ''}" placeholder="0877-7753-8164">
           </div>
 
           <div class="form-group">
-            <label class="form-label">Alamat Lengkap Studio</label>
-            <textarea class="form-control" rows="2" onchange="appConfig.branches[${idx}].address = this.value">${b.address || ''}</textarea>
+            <label class="form-label">Alamat Lengkap Studio (Wajib Akurat untuk Navigasi Klien)</label>
+            <textarea id="branch_${idx}_address" class="form-control" rows="2" placeholder="Tulis alamat lengkap...">${b.address || ''}</textarea>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Link Google Maps</label>
-            <input type="text" class="form-control" value="${b.mapsUrl || ''}" onchange="appConfig.branches[${idx}].mapsUrl = this.value">
+            <label class="form-label">Link Google Maps (Tombol 'Buka Maps')</label>
+            <input type="text" id="branch_${idx}_mapsUrl" class="form-control" value="${b.mapsUrl || ''}" placeholder="https://maps.app.goo.gl/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Link Ulasan Google Maps (Google Review)</label>
+            <input type="text" id="branch_${idx}_reviewUrl" class="form-control" value="${b.reviewUrl || ''}" placeholder="https://www.google.com/maps/place/...">
           </div>
         `;
         container.appendChild(card);
       });
+
+      renderPaymentConfig();
     }
 
     function saveBranchInfo() {
+      if (!appConfig || !appConfig.branches) return;
+      if (!appConfig.operationalHoursByBranch) appConfig.operationalHoursByBranch = {};
+
+      appConfig.branches.forEach((b, idx) => {
+        const nameEl = document.getElementById(`branch_${idx}_name`);
+        const shortNameEl = document.getElementById(`branch_${idx}_shortName`);
+        const taglineEl = document.getElementById(`branch_${idx}_tagline`);
+        const opHoursEl = document.getElementById(`branch_${idx}_opHours`);
+        const waEl = document.getElementById(`branch_${idx}_whatsappNumber`);
+        const waDispEl = document.getElementById(`branch_${idx}_whatsappDisplay`);
+        const addrEl = document.getElementById(`branch_${idx}_address`);
+        const mapsEl = document.getElementById(`branch_${idx}_mapsUrl`);
+        const reviewEl = document.getElementById(`branch_${idx}_reviewUrl`);
+
+        if (nameEl) b.name = nameEl.value.trim();
+        if (shortNameEl) b.shortName = shortNameEl.value.trim();
+        if (taglineEl) b.tagline = taglineEl.value.trim();
+        if (opHoursEl) {
+          b.operationalHours = opHoursEl.value.trim();
+          appConfig.operationalHoursByBranch[b.id] = opHoursEl.value.trim();
+        }
+        if (waEl) b.whatsappNumber = waEl.value.trim();
+        if (waDispEl) b.whatsappDisplay = waDispEl.value.trim();
+        if (addrEl) b.address = addrEl.value.trim();
+        if (mapsEl) b.mapsUrl = mapsEl.value.trim();
+        if (reviewEl) b.reviewUrl = reviewEl.value.trim();
+      });
+
       saveConfigLocally();
+      showToast('✅ Informasi cabang studio berhasil disimpan! Web di port 3000 langsung update.', '🏢');
+    }
+
+    function renderPaymentConfig() {
+      const p = appConfig.paymentConfig || {
+        bcaAccountNumber: '0113324021',
+        bcaAccountName: 'Muhammad Azzam Fakhri',
+        bcaBankName: 'Bank Central Asia (BCA)',
+        qrisImageUrl: '/images/qris-alviero.png'
+      };
+      const accEl = document.getElementById('paymentBcaAccountInput');
+      const nameEl = document.getElementById('paymentBcaNameInput');
+      const bankEl = document.getElementById('paymentBcaBankInput');
+      const qrisUrlEl = document.getElementById('paymentQrisUrlInput');
+      const qrisImgEl = document.getElementById('paymentQrisImg');
+
+      if (accEl) accEl.value = p.bcaAccountNumber || '';
+      if (nameEl) nameEl.value = p.bcaAccountName || '';
+      if (bankEl) bankEl.value = p.bcaBankName || 'Bank Central Asia (BCA)';
+      if (qrisUrlEl) qrisUrlEl.value = p.qrisImageUrl || '/images/qris-alviero.png';
+      if (qrisImgEl) qrisImgEl.src = p.qrisImageUrl || '/images/qris-alviero.png';
+    }
+
+    function updatePaymentQrisPreview(url) {
+      const img = document.getElementById('paymentQrisImg');
+      if (img && url) img.src = url.trim();
+    }
+
+    async function handlePaymentQrisUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try {
+        showToast('Mengunggah gambar QRIS...', '⏳');
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: 'qris_alviero',
+          folder: 'qris',
+          maxWidth: 1000,
+          maxHeight: 1000,
+          quality: 0.9
+        });
+        if (data && data.url) {
+          document.getElementById('paymentQrisUrlInput').value = data.url;
+          updatePaymentQrisPreview(data.url);
+          showToast('Foto QRIS berhasil diunggah! Klik Simpan Rekening.', '📸');
+        }
+      } catch(err) {
+        alert('Gagal upload QRIS: ' + err.message);
+      } finally {
+        e.target.value = '';
+      }
+    }
+
+    function savePaymentInfo() {
+      if (!appConfig) return;
+      const acc = (document.getElementById('paymentBcaAccountInput')?.value || '').trim();
+      const name = (document.getElementById('paymentBcaNameInput')?.value || '').trim();
+      const bank = (document.getElementById('paymentBcaBankInput')?.value || '').trim();
+      const qris = (document.getElementById('paymentQrisUrlInput')?.value || '').trim();
+
+      appConfig.paymentConfig = {
+        bcaAccountNumber: acc || '0113324021',
+        bcaAccountName: name || 'Muhammad Azzam Fakhri',
+        bcaBankName: bank || 'Bank Central Asia (BCA)',
+        qrisImageUrl: qris || '/images/qris-alviero.png'
+      };
+
+      saveConfigLocally();
+      showToast('✅ Rekening bank & QRIS berhasil disimpan! Langsung aktif di kalkulator booking.', '💳');
     }
 
     
@@ -7009,9 +7187,17 @@
     async function saveConfigLocally(silent = false) {
       if (!appConfig) return;
 
-      // Selalu simpan salinan draft di localStorage iPad / browser perangkat
+      // Selalu simpan salinan draft & active di localStorage browser dan broadcast cross-tab
       try {
         localStorage.setItem('alviero_studio_config_draft', JSON.stringify(appConfig));
+        localStorage.setItem('alviero_studio_config_active', JSON.stringify(appConfig));
+        if ('BroadcastChannel' in window) {
+          try {
+            const bc = new BroadcastChannel('alviero_config_sync');
+            bc.postMessage({ type: 'CONFIG_UPDATED', config: appConfig });
+            bc.close();
+          } catch(e) {}
+        }
       } catch (e) {
         console.warn('LocalStorage draft save error:', e);
       }
@@ -7218,13 +7404,13 @@
         secHeading.textContent = '✨ Showcase Koleksi Background & Foto';
         secSubtitle.textContent = 'Koleksi panggung tematik dan hasil pemotretan yang tampil di carousel bagian "Koleksi Background & Hasil Foto".';
       } else if (sec === 'facility') {
-        branchRow.style.display = 'none';
-        secHeading.textContent = '🛋️ Fasilitas Ruangan Studio';
-        secSubtitle.textContent = 'Foto fasilitas kenyamanan studio (Ruang Ber-AC, Ruang Rias, Lounge, Toilet, Parkir) yang tampil pada tab Fasilitas.';
+        branchRow.style.display = 'inline-flex';
+        secHeading.textContent = '🛋️ Fasilitas Ruangan Studio (Studio 1 vs Studio 2)';
+        secSubtitle.textContent = 'Kelola fasilitas kenyamanan ruangan studio. Anda dapat memfilter dan mengatur fasilitas khusus Studio 1 (Junrejo), Studio 2 (Dinoyo), atau Semua Cabang.';
       } else if (sec === 'equipment') {
-        branchRow.style.display = 'none';
-        secHeading.textContent = '💡 Peralatan Studio Pro';
-        secSubtitle.textContent = 'Foto perlengkapan studio profesional (Lighting Godox, Kamera Mirrorless, Remote Trigger, Live Monitor, Properti Foto).';
+        branchRow.style.display = 'inline-flex';
+        secHeading.textContent = '💡 Peralatan Studio Pro (Studio 1 vs Studio 2)';
+        secSubtitle.textContent = 'Kelola perlengkapan & peralatan fotografi profesional. Anda dapat memfilter dan mengatur peralatan khusus Studio 1 (Junrejo), Studio 2 (Dinoyo), atau Semua Cabang.';
       }
 
       renderGalleryGrid();
@@ -7267,8 +7453,8 @@
       let renderedCount = 0;
 
       list.forEach((item) => {
-        // Filter branch for showcase
-        if (currentGallerySection === 'showcase' && currentGalleryBranch !== 'all') {
+        // Filter branch for showcase, facility, and equipment
+        if ((currentGallerySection === 'showcase' || currentGallerySection === 'facility' || currentGallerySection === 'equipment') && currentGalleryBranch !== 'all') {
           if (item.branchId && item.branchId !== 'all' && item.branchId !== currentGalleryBranch) {
             return;
           }
@@ -7423,7 +7609,7 @@
         branchGroup.style.display = 'block';
         extFields.style.display = 'none';
       } else if (sec === 'facility' || sec === 'equipment') {
-        branchGroup.style.display = 'none';
+        branchGroup.style.display = 'block';
         extFields.style.display = 'block';
       } else {
         branchGroup.style.display = 'none';
@@ -7592,12 +7778,13 @@
 
         const newItem = {
           id: origIdx === -1 ? (sec === 'facility' ? 'fac-' : 'eq-') + Date.now() : list[origIdx].id,
+          branchId: branchId,
           title: title,
-          subtitle: subtitle || 'Studio Feature',
+          subtitle: subtitle || (sec === 'facility' ? 'Fasilitas Studio' : 'Peralatan Studio'),
           category: sec === 'facility' ? 'ruangan' : 'peralatan',
-          packageName: sec === 'facility' ? 'Fasilitas Studio' : 'Peralatan Studio',
+          packageName: branchId === 'cabang-1' ? (sec === 'facility' ? 'Fasilitas Studio 1' : 'Peralatan Studio 1') : branchId === 'cabang-2' ? (sec === 'facility' ? 'Fasilitas Studio 2' : 'Peralatan Studio 2') : (sec === 'facility' ? 'Fasilitas Studio' : 'Peralatan Studio'),
           icon: sec === 'facility' ? '🛋️' : '💡',
-          badge: badge || (sec === 'facility' ? 'Kenyamanan Utama' : 'Peralatan Pro'),
+          badge: badge || (sec === 'facility' ? (branchId === 'cabang-1' ? 'Studio 1 Junrejo' : branchId === 'cabang-2' ? 'Studio 2 Dinoyo' : 'Kenyamanan Studio') : (branchId === 'cabang-1' ? 'Peralatan Studio 1' : branchId === 'cabang-2' ? 'Peralatan Studio 2' : 'Peralatan Pro')),
           imageUrl: imageUrl,
           description: desc || title,
           conceptNote: concept || '',

@@ -1,4 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
+import { useStudioConfig } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
   ChevronLeft, 
@@ -751,12 +752,76 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
   onPhotoZoom,
   onBackToPricelist
 }) => {
-  // Section 3: Dynamically choose backgrounds based on active studio branch
+  const studioConfig = useStudioConfig();
+
+  // Section 1: Fasilitas dinamis yang disaring berdasarkan cabang aktif (Studio 1 vs Studio 2)
+  const dynamicFacilities = useMemo(() => {
+    const raw = (studioConfig as any)?.facilityItems || DEFAULT_FACILITY_DATA;
+    return raw.filter((item: any) => {
+      if (item.active === false) return false;
+      if (!item.branchId || item.branchId === 'all') return true;
+      return item.branchId === selectedBranch;
+    });
+  }, [selectedBranch, studioConfig]);
+
+  // Section 2: Peralatan studio dinamis yang disaring berdasarkan cabang aktif (Studio 1 vs Studio 2)
+  const dynamicEquipment = useMemo(() => {
+    const raw = (studioConfig as any)?.equipmentItems || DEFAULT_EQUIPMENT_DATA;
+    return raw.filter((item: any) => {
+      if (item.active === false) return false;
+      if (!item.branchId || item.branchId === 'all') return true;
+      return item.branchId === selectedBranch;
+    });
+  }, [selectedBranch, studioConfig]);
+
+  // Section 3: Background dinamis yang terhubung langsung dengan studioConfig.backgrounds
   const dynamicBackgrounds = useMemo(() => {
+    const rawBgs = (studioConfig as any)?.backgrounds;
+    if (Array.isArray(rawBgs) && rawBgs.length > 0) {
+      const branchBgs = rawBgs.filter((b: any) => {
+        if (b.active === false) return false;
+        const branches = b.applicableBranches || [];
+        return branches.length === 0 || branches.includes(selectedBranch);
+      });
+
+      if (branchBgs.length > 0) {
+        return branchBgs.map((b: any) => {
+          const imgs = (Array.isArray(b.previewImages) && b.previewImages.length > 0)
+            ? b.previewImages
+            : [b.previewImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85'];
+          
+          return {
+            id: b.id,
+            title: b.name,
+            subtitle: b.description || `Latar resmi ${b.name} Alviero Studio`,
+            category: 'background',
+            packageName: `Background ${selectedBranch === 'cabang-2' ? 'Studio 2' : 'Studio 1'}`,
+            icon: '🎨',
+            badge: b.applicableTo?.includes('self-studio') && b.applicableTo?.includes('pro-studio')
+              ? 'Pro & Self Studio'
+              : b.applicableTo?.includes('self-studio')
+              ? 'Self Studio'
+              : 'Pro Studio',
+            imageUrl: imgs[0],
+            images: imgs,
+            description: b.description || `Latar resmi pilihan ${b.name} untuk sesi foto Anda.`,
+            conceptNote: `Warna HEX: ${b.hex || '#A9BCA7'}. Tersedia di ${selectedBranch === 'cabang-2' ? 'Studio 2 (Dinoyo)' : 'Studio 1 (Junrejo)'}.`,
+            highlights: [
+              `Nuansa Warna: ${b.name}`,
+              b.applicableTo?.includes('self-studio') ? 'Bisa untuk Self Studio' : 'Pro Studio Foto',
+              'Pencahayaan Terkalibrasi',
+              'Warna Akurat'
+            ],
+            tags: [`#${b.name.replace(/\s+/g, '')}`, `#${selectedBranch === 'cabang-2' ? 'Studio2Dinoyo' : 'Studio1Junrejo'}`]
+          };
+        });
+      }
+    }
+
     return selectedBranch === 'cabang-2' 
       ? STUDIO_2_BACKGROUNDS_DATA 
       : STUDIO_1_BACKGROUNDS_DATA;
-  }, [selectedBranch]);
+  }, [selectedBranch, studioConfig]);
 
   const branchBadgeLabel = selectedBranch === 'cabang-2' 
     ? 'Studio 2 (Dinoyo)' 
@@ -811,13 +876,13 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
           <div className="w-full md:w-auto grid grid-cols-3 divide-x divide-[#E8DDD6] bg-[#FAF8F5] p-2 sm:p-2.5 rounded-2xl border border-[#E8DDD6] text-center shrink-0">
             <div className="px-2 sm:px-3">
               <span className="block text-sm sm:text-base font-serif font-bold text-[#3A3A3A]">
-                {STUDIO_FACILITY_DATA.length}
+                {dynamicFacilities.length}
               </span>
               <span className="text-[9.5px] sm:text-[10px] font-mono text-stone-500 uppercase">Fasilitas</span>
             </div>
             <div className="px-2 sm:px-3">
               <span className="block text-sm sm:text-base font-serif font-bold text-[#3A3A3A]">
-                {STUDIO_EQUIPMENT_DATA.length}
+                {dynamicEquipment.length}
               </span>
               <span className="text-[9.5px] sm:text-[10px] font-mono text-stone-500 uppercase">Alat Studio</span>
             </div>
@@ -866,7 +931,7 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
         sectionSubtitle="Dukungan ruangan ber-AC, ruang rias privat, area tunggu keluarga, dan kebersihan yang dirawat maksimal demi kenyamanan sesi Anda."
         sectionIcon={<span className="text-sm">🛋️</span>}
         badgeLabel="Section 1 · Fasilitas Ruangan"
-        items={STUDIO_FACILITY_DATA}
+        items={dynamicFacilities}
         onPhotoZoom={handlePhotoZoomWrapper}
       />
 
@@ -880,7 +945,21 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
         sectionSubtitle="Setup lighting flash studio Godox, diffuser softbox, kamera mirrorless beresolusi tinggi, serta layar monitor review langsung."
         sectionIcon={<Lightbulb className="w-3.5 h-3.5 text-[#5C725A]" />}
         badgeLabel="Section 2 · Peralatan Studio"
-        items={STUDIO_EQUIPMENT_DATA}
+        items={dynamicEquipment}
+        onPhotoZoom={handlePhotoZoomWrapper}
+      />
+
+      {/* ================================================================== */}
+      {/* SECTION 3: BACKGROUND STUDIO (Dinamis Sesuai Cabang Aktif)          */}
+      {/* ================================================================== */}
+      <SynchronizedGalleryCarousel
+        sectionId="section-background"
+        sectionNumber="3"
+        sectionTitle={`Pilihan Background ${branchBadgeLabel}`}
+        sectionSubtitle={`Daftar latar resmi yang aktif dan dapat dipilih untuk pemotretan di ${currentBranchName}. Setiap latar memiliki karakter visual dan suasana khas.`}
+        sectionIcon={<Layers className="w-3.5 h-3.5 text-[#5C725A]" />}
+        badgeLabel={`Section 3 · Background ${branchBadgeLabel}`}
+        items={dynamicBackgrounds}
         onPhotoZoom={handlePhotoZoomWrapper}
       />
 

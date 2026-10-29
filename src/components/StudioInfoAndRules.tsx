@@ -1,15 +1,15 @@
-import studioConfig from '../data/studioConfig.json';
 import React, { useState } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
+import { useStudioConfig } from '../utils/studioConfigManager';
 import {
   MapPin, Clock, Navigation, Copy, Check, MessageCircle,
-  Sparkles, Car, Wind, Camera, Heart, ExternalLink
+  Sparkles, Camera, ExternalLink, CheckCircle2
 } from 'lucide-react';
 
 interface StudioInfoAndRulesProps {
   selectedBranch?: StudioBranch;
-  onNavigateToFacilities?: () => void;
+  onNavigateToFacilities?: (branchId?: StudioBranch) => void;
 }
 
 export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
@@ -17,9 +17,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
   onNavigateToFacilities
 }) => {
   const [copiedBranch, setCopiedBranch] = useState<string | null>(null);
-
-  const studio1 = STUDIO_BRANCHES.find(b => b.id === 'cabang-1') || STUDIO_BRANCHES[0];
-  const studio2 = STUDIO_BRANCHES.find(b => b.id === 'cabang-2') || STUDIO_BRANCHES[1];
+  const studioConfig = useStudioConfig();
 
   const handleCopyAddress = (branchId: string, address: string) => {
     navigator.clipboard.writeText(address);
@@ -27,40 +25,70 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
     setTimeout(() => setCopiedBranch(null), 2000);
   };
 
-  const studios = [
-    {
-      id: 'cabang-1',
-      name: 'Alviero Studio — Studio 1',
-      subtitle: 'Junrejo, Kota Batu',
-      badge: 'Studio 1',
-      address: 'Jl. Raya Kertanegara, RT.003/RW.001, Karangploso, Girimoyo, Kec. Karang Ploso, Kabupaten Malang, Jawa Timur 65151',
-      mapsUrl: 'https://maps.app.goo.gl/oxtptpr3RSDL9zCj6',
-      reviewUrl: 'https://www.google.com/maps/place/Alviero+Studio+Foto/@-7.8935471,112.5930502,17z/data=!4m18!1m9!3m8!1s0x2e788121b3705f25:0xed1add8fb06fdc8!2sAlviero+Studio+Foto!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86!3m7!1s0x2e788121b3705f25:0xed1add8fb06fdc8!8m2!3d-7.8935471!4d112.5956251!9m1!1b1!16s%2Fg%2F11q9m93g86?entry=ttu',
-      whatsappNumber: '6287777538164',
-      whatsappDisplay: '0877-7753-8164',
-      operationalHours: (studioConfig as any)?.operationalHoursByBranch?.['cabang-1'] || (studioConfig as any)?.operationalHours || 'Setiap Hari: 08:00 - 21:00 WIB',
-      backdrops: [
-        'Studio Foto: Hitam List, Putih List, Limbo, Putih Tematik, Coklat Tematik, Ivory Mediterania',
-        'SelfStudio: Abu-abu, Coklat, Putih, Tematik Coklat'
-      ],
-    },
-    {
-      id: 'cabang-2',
-      name: 'Alviero Studio — Studio 2',
-      subtitle: 'Dinoyo, Kota Malang',
-      badge: 'Studio 2',
-      address: 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65144',
-      mapsUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9',
-      reviewUrl: 'https://www.google.com/maps/place/Alviero+Studio+Foto+2/@-7.9465117,112.6053447,17z/data=!3m1!4b1!4m6!3m5!1s0x2e78830048878fc5:0x90e97fc84d555935!8m2!3d-7.946517!4d112.6079196!16s%2Fg%2F11yqbx4j72?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D',
-      whatsappNumber: '6285168879214',
-      whatsappDisplay: '0851-6887-9214',
-      operationalHours: (studioConfig as any)?.operationalHoursByBranch?.['cabang-2'] || (studioConfig as any)?.operationalHours || 'Setiap Hari: 08:00 - 21:00 WIB',
-      backdrops: [
-        'Studio Foto: Hitam, Putih, Abu-abu, Coklat Jendela, Tematik Cream (Maks 5 Org)',
-        'SelfStudio: Abu-abu, Biru, Putih, Tematik Cream'
-      ],
+  const rawBranches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches) && studioConfig.branches.length > 0)
+    ? studioConfig.branches
+    : STUDIO_BRANCHES;
+
+  const allBackgrounds: any[] = (studioConfig?.backgrounds && Array.isArray(studioConfig.backgrounds))
+    ? studioConfig.backgrounds
+    : [];
+
+  const allFacilities: any[] = (studioConfig?.facilityItems && Array.isArray(studioConfig.facilityItems))
+    ? studioConfig.facilityItems
+    : [];
+
+  const studios = rawBranches.map((branch: any) => {
+    // Backgrounds dinamis per cabang
+    const branchBgs = allBackgrounds.filter((b: any) => {
+      if (b.active === false) return false;
+      const applicable = b.applicableBranches || [];
+      return applicable.length === 0 || applicable.includes(branch.id);
+    });
+
+    const proBgs = branchBgs
+      .filter((b: any) => !b.applicableTo || b.applicableTo.includes('pro-studio'))
+      .map((b: any) => b.name);
+    const selfBgs = branchBgs
+      .filter((b: any) => b.applicableTo?.includes('self-studio'))
+      .map((b: any) => b.name);
+
+    const backdropsList: string[] = [];
+    if (proBgs.length > 0) {
+      backdropsList.push(`Studio Foto: ${proBgs.join(', ')}`);
     }
-  ];
+    if (selfBgs.length > 0) {
+      backdropsList.push(`SelfStudio: ${selfBgs.join(', ')}`);
+    }
+    if (backdropsList.length === 0) {
+      backdropsList.push('Pilihan background studio & self photo');
+    }
+
+    // Fasilitas teratas per cabang
+    const branchFacilities = allFacilities.filter((f: any) => {
+      if (f.active === false) return false;
+      return !f.branchId || f.branchId === 'all' || f.branchId === branch.id;
+    });
+
+    const opHours = (studioConfig as any)?.operationalHoursByBranch?.[branch.id] ||
+                    branch.operationalHours ||
+                    (studioConfig as any)?.operationalHours ||
+                    'Buka Setiap Hari: 08:00 - 21:00 WIB';
+
+    return {
+      id: branch.id as StudioBranch,
+      name: branch.name || (branch.id === 'cabang-2' ? 'Alviero Studio — Studio 2' : 'Alviero Studio — Studio 1'),
+      subtitle: branch.tagline || (branch.id === 'cabang-2' ? 'Dinoyo, Kota Malang' : 'Junrejo, Kota Batu'),
+      badge: branch.badge || (branch.id === 'cabang-2' ? 'Studio 2' : 'Studio 1'),
+      address: branch.address || '',
+      mapsUrl: branch.mapsUrl || '#',
+      reviewUrl: branch.reviewUrl || '',
+      whatsappNumber: branch.whatsappNumber || (branch.id === 'cabang-2' ? '6285168879214' : '6287777538164'),
+      whatsappDisplay: branch.whatsappDisplay || (branch.id === 'cabang-2' ? '0851-6887-9214' : '0877-7753-8164'),
+      operationalHours: opHours,
+      backdrops: backdropsList,
+      featuredFacilities: branchFacilities.slice(0, 3)
+    };
+  });
 
   return (
     <section className="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 sm:space-y-12 text-left animate-in fade-in duration-300">
@@ -156,17 +184,44 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
                   </div>
                 </div>
 
-                {/* Fasilitas & Keunggulan */}
-                <div className="space-y-2 pt-1 border-t border-[#F2E9E4]">
+                {/* Fasilitas Unggulan Spesifik Studio Ini */}
+                {studio.featuredFacilities.length > 0 && (
+                  <div className="space-y-2 pt-2 border-t border-[#F2E9E4]">
+                    <div className="text-[10.5px] font-mono font-bold text-stone-600 uppercase tracking-wider flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
+                      <span>Fasilitas Ruangan Unggulan {studio.badge}:</span>
+                    </div>
+                    <div className="grid grid-cols-1 gap-1.5">
+                      {studio.featuredFacilities.map((fac: any) => (
+                        <div
+                          key={fac.id}
+                          className="flex items-center gap-2 text-[11px] bg-[#FAF8F5] p-2 rounded-xl border border-[#E8DDD6]/80 text-stone-800"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#6E856C] shrink-0" />
+                          <span className="font-medium truncate">{fac.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Tombol Lihat Fasilitas & Layanan Studio Lengkap */}
+                <div className="pt-1">
                   <button
                     type="button"
-                    onClick={onNavigateToFacilities}
+                    onClick={() => {
+                      if (onNavigateToFacilities) {
+                        onNavigateToFacilities(studio.id);
+                      }
+                    }}
                     className="w-full min-h-11 px-3.5 py-2.5 rounded-xl border border-[#A9BCA7] bg-[#FDFBF7] hover:bg-[#EBF2EA] text-left text-[11px] font-serif font-bold text-[#3A3A3A] uppercase tracking-wider flex items-center justify-between gap-2 cursor-pointer group transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6E856C] focus-visible:ring-offset-2"
-                    aria-label="Buka halaman fasilitas dan layanan studio"
+                    aria-label={`Buka halaman fasilitas dan layanan ${studio.name}`}
                   >
                     <span className="flex items-center gap-2">
                       <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
-                      <span className="group-hover:text-[#6E856C] transition-colors">Fasilitas & layanan Studio</span>
+                      <span className="group-hover:text-[#6E856C] transition-colors">
+                        Fasilitas & Layanan {studio.badge}
+                      </span>
                     </span>
                     <ExternalLink className="w-3.5 h-3.5 text-[#6E856C] shrink-0 opacity-70 group-hover:opacity-100 transition-opacity" />
                   </button>
@@ -242,3 +297,4 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
     </section>
   );
 };
+

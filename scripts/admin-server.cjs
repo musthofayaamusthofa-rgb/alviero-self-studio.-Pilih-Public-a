@@ -109,8 +109,8 @@ app.post('/api/upload-image', (req, res) => {
   }
 });
 
-// 2. API: Save Config Locally
-app.post('/api/config', (req, res) => {
+// 2. API: Save Config Locally & Auto-Sync to GitHub/Vercel
+app.post('/api/config', async (req, res) => {
   try {
     const newConfig = req.body;
     if (!newConfig || !newConfig.backgrounds || !newConfig.timeSlots) {
@@ -125,16 +125,37 @@ app.post('/api/config', (req, res) => {
       fs.copyFileSync(CONFIG_PATH, path.join(BACKUP_DIR, backupName));
     }
 
-    // Write new config
+    // Write new config to both local data paths
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(newConfig, null, 2), 'utf-8');
     try {
       const publicDataPath = path.join(ROOT_DIR, 'public', 'data', 'studioConfig.json');
       fs.writeFileSync(publicDataPath, JSON.stringify(newConfig, null, 2), 'utf-8');
     } catch(e) {}
 
+    // Auto-commit & push to GitHub so Vercel updates automatically
+    let gitSynced = false;
+    try {
+      await runCmd('git add .');
+      const st = await runCmd('git status --porcelain');
+      if (st.stdout) {
+        const msg = `Update studio config via Alviero Manager [${new Date().toLocaleTimeString('id-ID')}]`;
+        await runCmd(`git commit -m "${msg}"`);
+        await runCmd('git pull origin main --rebase --autostash');
+        const pushRes = await runCmd('git push origin main');
+        gitSynced = pushRes.success;
+      } else {
+        gitSynced = true;
+      }
+    } catch (gErr) {
+      console.warn('[Admin Server] Auto git push warning:', gErr.message);
+    }
+
     res.json({
       success: true,
-      message: 'Konfigurasi studio berhasil disimpan ke file lokal!',
+      message: gitSynced
+        ? 'Konfigurasi studio berhasil disimpan ke lokal & otomatis disinkronkan ke Vercel!'
+        : 'Konfigurasi studio berhasil disimpan ke file lokal!',
+      gitSynced,
       lastUpdated: newConfig.lastUpdated
     });
   } catch (err) {

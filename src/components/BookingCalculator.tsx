@@ -1,4 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
+import { useStudioConfig, getPaymentConfig } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import {
@@ -1486,6 +1487,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   preselectedFrameId,
   initialPromoCode
 }) => {
+  const studioConfig = useStudioConfig();
+  const paymentConfig = useMemo(() => getPaymentConfig(studioConfig), [studioConfig]);
+
   // Integrasi tombol Back fisik / Swipe Back HP (Native PWA Experience)
   useMobileBackButton(isOpen, onClose, 'booking-modal');
 
@@ -1634,7 +1638,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   const handleCopyAccount = () => {
-    navigator.clipboard.writeText('0113324021');
+    navigator.clipboard.writeText(paymentConfig.bcaAccountNumber || '0113324021');
     setCopiedAccount(true);
     setTimeout(() => setCopiedAccount(false), 2000);
   };
@@ -1650,7 +1654,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const isPassFotoValid = !isPassFoto || (
     passFotoBgOption !== 'custom' ? Boolean(passFotoBgOption) : passFotoCustomColor.trim().length > 0
   );
-  const currentBranchInfo = STUDIO_BRANCHES.find(b => b.id === selectedBranch) || STUDIO_BRANCHES[0];
+  const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
+  const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
   const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
   const isGraduationPackage = (
     currentPackage.category === 'graduation-indoor' ||
@@ -2742,7 +2747,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 </div>
 
                 <div className="grid grid-cols-2 sm:flex sm:items-center gap-1.5 w-full sm:w-auto shrink-0">
-                  {STUDIO_BRANCHES.map((b) => (
+                  {branches.map((b: any) => (
                     <button
                       key={b.id}
                       type="button"
@@ -4892,14 +4897,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       <div className="sm:col-span-5 flex flex-col items-center">
                         <div className="w-full max-w-[210px] bg-white p-3 rounded-2xl border border-[#3A3A3A] shadow-sm flex flex-col items-center">
                           <img
-                            src="/images/qris-alviero.png"
+                            src={paymentConfig.qrisImageUrl || '/images/qris-alviero.png'}
                             alt="QRIS Resmi Alviero Studio"
                             className="w-full h-auto object-contain rounded-lg"
                           />
                         </div>
                         <a
-                          href="/images/qris-alviero.png"
+                          href={paymentConfig.qrisImageUrl || '/images/qris-alviero.png'}
                           download="QRIS-Alviero-Studio.png"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="mt-2.5 w-full max-w-[210px] py-2 px-3 rounded-xl bg-[#3A3A3A] hover:bg-[#2A2A2A] text-white font-serif text-[11px] font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
                         >
                           <Download className="w-3.5 h-3.5 text-[#A9BCA7]" />
@@ -4947,11 +4954,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <div className="bg-white border-2 border-[#005EAA]/40 rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
                       <div>
                         <span className="text-[10px] font-serif font-bold uppercase tracking-wider text-stone-500 block">
-                          Nomor Rekening Bank BCA:
+                          Nomor Rekening {paymentConfig.bcaBankName || 'Bank BCA'}:
                         </span>
                         <div className="flex items-center gap-2.5 mt-1">
                           <span className="text-xl sm:text-2xl font-mono font-black text-[#3A3A3A] tracking-wider selection:bg-blue-100">
-                            0113324021
+                            {paymentConfig.bcaAccountNumber || '0113324021'}
                           </span>
                           <span className="text-[10px] font-sans font-bold text-white bg-[#005EAA] px-2 py-0.5 rounded shadow-2xs">
                             BCA
@@ -4959,7 +4966,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                         </div>
                         <div className="mt-1">
                           <span className="text-xs font-bold text-stone-800 block">
-                            A.n Muhammad Azzam Fakhri
+                            A.n {paymentConfig.bcaAccountName || 'Muhammad Azzam Fakhri'}
                           </span>
                           <span className="text-[10.5px] text-stone-500 block mt-0.5">
                             Rekening Resmi Alviero Studio
