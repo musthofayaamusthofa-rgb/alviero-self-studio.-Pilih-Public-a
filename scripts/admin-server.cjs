@@ -140,7 +140,7 @@ app.post('/api/config', async (req, res) => {
       if (st.stdout) {
         const msg = `Update studio config via Alviero Manager [${new Date().toLocaleTimeString('id-ID')}]`;
         await runCmd(`git commit -m "${msg}"`);
-        await runCmd('git pull origin main --rebase --autostash');
+        await runCmd('git pull origin main --no-rebase -X ours --no-edit');
         const pushRes = await runCmd('git push origin main');
         gitSynced = pushRes.success;
       } else {

@@ -88,19 +88,49 @@ if (typeof window !== 'undefined') {
     }
   });
 
-  // Background fetch to ensure latest public/data/studioConfig.json is applied
+  // Background fetch to ensure latest configuration from Cloud / GitHub / Server is applied
   const fetchLatestConfig = async () => {
     try {
-      const res = await fetch(`/data/studioConfig.json?t=${Date.now()}`);
-      if (res.ok) {
-        const latest = await res.json();
-        if (latest && latest.backgrounds) {
-          // If local draft exists, prioritize user's local edits
-          const localDraft = localStorage.getItem('alviero_studio_config_draft');
-          if (!localDraft) {
-            currentConfig = { ...bundledConfig, ...latest };
-            notifyListeners();
+      let latest: any = null;
+
+      // 1. Coba ambil real-time dari /api/config (langsung dari GitHub Cloud tanpa delay build Vercel)
+      try {
+        const apiRes = await fetch('/api/config', { cache: 'no-store' });
+        if (apiRes.ok) {
+          const apiData = await apiRes.json();
+          if (apiData && apiData.data && apiData.data.backgrounds) {
+            latest = apiData.data;
           }
+        }
+      } catch {
+        // Abaikan jika offline / lokal dev biasa
+      }
+
+      // 2. Fallback ke /data/studioConfig.json
+      if (!latest) {
+        const res = await fetch(`/data/studioConfig.json?t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.backgrounds) {
+            latest = data;
+          }
+        }
+      }
+
+      if (latest && latest.backgrounds) {
+        const isNotAdminPage = typeof window !== 'undefined' && !window.location.pathname.includes('/adminsalto');
+        const currentUpdated = currentConfig?.lastUpdated ? new Date(currentConfig.lastUpdated).getTime() : 0;
+        const newUpdated = latest.lastUpdated ? new Date(latest.lastUpdated).getTime() : 0;
+
+        // Terapkan jika di halaman publik atau timestamp konfigurasi baru lebih baru
+        if (isNotAdminPage || newUpdated >= currentUpdated || !currentUpdated) {
+          currentConfig = { ...bundledConfig, ...latest };
+          if (typeof window !== 'undefined') {
+            try {
+              localStorage.setItem('alviero_studio_config_active', JSON.stringify(currentConfig));
+            } catch {}
+          }
+          notifyListeners();
         }
       }
     } catch {

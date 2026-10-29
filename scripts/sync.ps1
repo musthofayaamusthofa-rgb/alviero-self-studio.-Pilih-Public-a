@@ -14,8 +14,8 @@ if ($status) {
     Write-Host "[INFO] Tidak ada perubahan baru untuk di-commit." -ForegroundColor Gray
 }
 
-# 2. Sinkronkan dengan remote repository
-git pull origin main --rebase --autostash
+# 2. Sinkronkan dengan remote repository secara mulus tanpa konflik rebase
+git pull origin main --no-rebase -X ours --no-edit
 git push origin main
 
 if ($LASTEXITCODE -eq 0) {

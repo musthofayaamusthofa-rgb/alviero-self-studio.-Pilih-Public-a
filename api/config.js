@@ -59,9 +59,32 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  // 1. GET: Fetch latest config from raw GitHub content
+  // 1. GET: Fetch latest config directly from GitHub API (Zero Cache Delay)
   if (req.method === 'GET') {
     try {
+      const token = req.headers['x-github-token'] || 
+                    (req.headers.authorization && req.headers.authorization.replace(/^Bearer\s+/i, '')) || 
+                    process.env.GITHUB_TOKEN;
+
+      const ghHeaders = {
+        'Accept': 'application/vnd.github.raw+json',
+        'User-Agent': 'AlvieroStudio-VercelAdmin'
+      };
+      if (token) {
+        ghHeaders['Authorization'] = `Bearer ${token}`;
+      }
+
+      // Fast path: GitHub Contents API with raw payload (always fresh)
+      try {
+        const ghUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/contents/src/data/studioConfig.json?ref=${GITHUB_BRANCH}`;
+        const ghRes = await fetch(ghUrl, { headers: ghHeaders });
+        if (ghRes.ok) {
+          const data = await ghRes.json();
+          return res.status(200).json({ success: true, data });
+        }
+      } catch {}
+
+      // Fallback: raw.githubusercontent.com
       const rawUrl = `https://raw.githubusercontent.com/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/${GITHUB_BRANCH}/src/data/studioConfig.json?t=${Date.now()}`;
       const configRes = await fetch(rawUrl);
       if (configRes.ok) {
