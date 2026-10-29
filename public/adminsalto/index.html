@@ -3749,75 +3749,179 @@
                         window.location.hostname.endsWith('.trycloudflare.com');
     let isCloudStaticMode = !isLocalHost;
 
-    // Helper terpadu untuk upload foto (Lokal vs Cloud Vercel via GitHub API)
-    async function uploadImageToServer({ dataUrl, fileName, folder }) {
-      const ghToken = localStorage.getItem('alviero_github_token');
-
-      // 1. JIKA DI LOKAL LAPTOP (localhost:3000): kirim langsung ke server Express lokal (port 3001)
-      if (!isCloudStaticMode) {
-        const res = await fetch('/api/upload-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ dataUrl, fileName, folder })
-        });
-
-        if (!res.ok) {
-          const errorText = await res.text().catch(() => '');
-          throw new Error(`Server backend tidak merespons valid (HTTP ${res.status}). Pastikan server di port 3001 aktif!`);
+    // --- SMART CLIENT-SIDE IMAGE COMPRESSION HELPER ---
+    async function compressImageClientSide(file, maxWidth = 1600, maxHeight = 1600, quality = 0.85) {
+      if (!file) return null;
+      return new Promise((resolve, reject) => {
+        if (file.type === 'image/svg+xml') {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result);
+          r.onerror = reject;
+          r.readAsDataURL(file);
+          return;
         }
 
-        const data = await res.json();
-        if (!data.success || !data.url) {
-          throw new Error(data.error || 'Server gagal memproses upload foto.');
+        const reader = new FileReader();
+        reader.onerror = reject;
+        reader.onload = () => {
+          const img = new Image();
+          img.onerror = () => {
+            // Fallback ke dataUrl mentah jika objek Image gagal dimuat
+            resolve(reader.result);
+          };
+          img.onload = () => {
+            try {
+              let width = img.naturalWidth || img.width;
+              let height = img.naturalHeight || img.height;
+
+              if (width > maxWidth || height > maxHeight) {
+                if (width > height) {
+                  height = Math.round((height * maxWidth) / width);
+                  width = maxWidth;
+                } else {
+                  width = Math.round((width * maxHeight) / height);
+                  height = maxHeight;
+                }
+              }
+
+              const canvas = document.createElement('canvas');
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              if (!ctx) {
+                return resolve(reader.result);
+              }
+              ctx.drawImage(img, 0, 0, width, height);
+
+              const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+              const compressedDataUrl = canvas.toDataURL(mimeType, quality);
+              resolve(compressedDataUrl);
+            } catch (err) {
+              console.warn('Canvas compression error, using raw DataURL fallback:', err);
+              resolve(reader.result);
+            }
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Helper terpadu untuk upload foto (Lokal vs Cloud Vercel via GitHub API)
+    async function uploadImageToServer({ file, dataUrl, fileName, folder, maxWidth = 1600, maxHeight = 1600, quality = 0.85 }) {
+      // 1. Pastikan dataUrl selalu siap dan terkompresi secara optimal
+      let finalDataUrl = dataUrl;
+      if (!finalDataUrl && file) {
+        finalDataUrl = await compressImageClientSide(file, maxWidth, maxHeight, quality);
+      } else if (file && (!finalDataUrl || finalDataUrl.length > 1.5 * 1024 * 1024)) {
+        try {
+          finalDataUrl = await compressImageClientSide(file, maxWidth, maxHeight, quality);
+        } catch (e) {
+          console.warn('Kompresi file dilewati:', e);
+        }
+      }
+
+      if (!finalDataUrl) {
+        throw new Error('Data gambar tidak valid atau kosong.');
+      }
+
+      const ghToken = (localStorage.getItem('alviero_github_token') || '').trim();
+
+      // 1. JIKA DI LOKAL LAPTOP (localhost:3000 / 127.0.0.1): kirim langsung ke server Express lokal (port 3001)
+      if (!isCloudStaticMode) {
+        let res;
+        try {
+          res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ dataUrl: finalDataUrl, fileName, folder })
+          });
+        } catch (err) {
+          throw new Error('Gagal menghubungi server lokal: ' + (err.message || 'Koneksi error'));
+        }
+
+        let data = null;
+        const cType = res.headers.get('content-type') || '';
+        if (cType.includes('application/json')) {
+          try {
+            data = await res.json();
+          } catch (e) {}
+        }
+
+        if (!res.ok) {
+          const errTxt = data?.error || (await res.text().catch(() => '')) || `HTTP ${res.status}`;
+          throw new Error(`Server backend tidak merespons valid (HTTP ${res.status}): ${errTxt}`);
+        }
+
+        if (!data || !data.success || !data.url) {
+          throw new Error(data?.error || 'Server backend gagal memproses upload foto.');
         }
 
         return data;
       }
 
-      // 2. JIKA DI CLOUD VERCEL (Akses dari HP / Device Lain):
-      if (!ghToken) {
-        openGitHubModal();
-        throw new Error(
-          'Untuk mengupload foto langsung dari Vercel/HP, silakan masukkan Token GitHub Anda pada jendela yang muncul.'
-        );
-      }
+      // 2. JIKA DI CLOUD VERCEL (Akses dari HP / iPad / Web Internet):
+      showToast('Mengunggah foto ke Cloud...', '☁️');
 
-      showToast('Mengunggah foto ke GitHub Cloud...', '☁️');
-
-      // Coba kirim via serverless function Vercel terlebih dahulu
+      // Langkah A: Coba kirim via serverless function Vercel (/api/upload-image)
+      let serverlessError = null;
       try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (ghToken) {
+          headers['x-github-token'] = ghToken;
+          headers['Authorization'] = 'Bearer ' + ghToken;
+        }
+
         const res = await fetch('/api/upload-image', {
           method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'x-github-token': ghToken,
-            'Authorization': `Bearer ${ghToken}`
-          },
-          body: JSON.stringify({ dataUrl, fileName, folder })
+          headers: headers,
+          body: JSON.stringify({ dataUrl: finalDataUrl, fileName, folder })
         });
 
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.success && data.url) {
+        const cType = res.headers.get('content-type') || '';
+        if (cType.includes('application/json')) {
+          const data = await res.json().catch(() => null);
+          if (res.ok && data && data.success && data.url) {
             return data;
           }
+          if (data && data.error) {
+            serverlessError = data.error;
+          }
+        } else {
+          serverlessError = `Serverless HTTP ${res.status}`;
         }
       } catch (e) {
-        console.warn('Vercel serverless upload gagal, melanjutkan via Direct GitHub API...', e);
+        console.warn('Vercel serverless upload tidak berhasil:', e);
+        serverlessError = e.message;
       }
 
-      // Fallback Direct Client-Side GitHub REST API (Sangat tangguh, tanpa batas serverless Vercel)
-      return await uploadDirectToGitHubClient({ dataUrl, fileName, folder, token: ghToken });
+      // Langkah B: Fallback Direct Client-Side GitHub REST API jika token tersedia
+      if (ghToken) {
+        try {
+          return await uploadDirectToGitHubClient({ dataUrl: finalDataUrl, fileName, folder, token: ghToken });
+        } catch (ghErr) {
+          console.error('Direct GitHub upload failed:', ghErr);
+          throw new Error('Gagal simpan ke GitHub: ' + (ghErr.message || serverlessError || 'Error tidak diketahui'));
+        }
+      }
+
+      // Langkah C: Jika serverless gagal & belum ada token di browser, minta input token GitHub
+      openGitHubModal();
+      throw new Error(
+        serverlessError || 'Untuk mengupload foto langsung dari Vercel/HP/iPad, silakan masukkan Personal Access Token GitHub Anda pada jendela yang muncul.'
+      );
     }
 
     // Direct Upload ke GitHub REST API (Client-Side)
     async function uploadDirectToGitHubClient({ dataUrl, fileName, folder, token }) {
-      const matches = dataUrl.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
-      if (!matches) throw new Error('Format gambar base64 tidak valid.');
+      const commaIdx = dataUrl.indexOf(',');
+      if (commaIdx === -1) throw new Error('Format gambar base64 tidak valid.');
 
-      const rawExt = matches[1].toLowerCase();
-      const ext = rawExt === 'jpeg' ? 'jpg' : rawExt === 'svg+xml' ? 'svg' : rawExt;
-      const base64Content = matches[2];
+      const headerPart = dataUrl.slice(0, commaIdx);
+      const base64Content = dataUrl.slice(commaIdx + 1).replace(/\s/g, '');
+      const mimeMatch = headerPart.match(/^data:image\/([a-zA-Z0-9+.-]+)/);
+      const rawExt = mimeMatch ? mimeMatch[1].toLowerCase() : 'jpeg';
+      const ext = rawExt === 'jpeg' ? 'jpg' : rawExt.includes('svg') ? 'svg' : rawExt === 'png' ? 'png' : rawExt === 'webp' ? 'webp' : 'jpg';
 
       const targetSubfolder = folder || 'packages';
       const cleanBaseName = (fileName || 'foto')
@@ -3843,9 +3947,16 @@
         })
       });
 
-      const data = await res.json();
+      let data = {};
+      const cType = res.headers.get('content-type') || '';
+      if (cType.includes('application/json')) {
+        try {
+          data = await res.json();
+        } catch (e) {}
+      }
+
       if (!res.ok) {
-        throw new Error(data.message || 'Gagal menyimpan foto ke GitHub.');
+        throw new Error(data.message || `Gagal menyimpan foto ke GitHub (HTTP ${res.status}).`);
       }
 
       return {
@@ -4742,46 +4853,41 @@
       const statusEl = document.getElementById('pkgImageUploadStatus' + slot);
       if (statusEl) {
         statusEl.style.display = 'block';
-        statusEl.innerHTML = '⏳ Mengunggah Foto ' + slot + ' ke server...';
+        statusEl.innerHTML = '⏳ Memproses & mengunggah Foto ' + slot + ' ke server...';
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(e) {
-        try {
-          const dataUrl = e.target.result;
-          const pkgName = (document.getElementById('indoorNameInput').value || 'paket').toLowerCase().replace(/[^a-z0-9]/g, '_');
-          const extMatch = file.name.match(/\.[^.]+$/);
-          const ext = extMatch ? extMatch[0] : '.jpg';
-          const fileName = pkgName + '_foto' + slot + ext;
+      try {
+        const pkgName = (document.getElementById('indoorNameInput').value || 'paket').toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const fileName = pkgName + '_foto' + slot + ext;
 
-          const data = await uploadImageToServer({
-            dataUrl: dataUrl,
-            fileName: fileName,
-            folder: 'packages'
-          });
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: fileName,
+          folder: 'packages',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
 
-          if (data.success && data.url) {
-            setPackageImagePreview(data.url, slot);
-            if (statusEl) {
-              statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah!';
-              setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
-            }
-            showToast('Foto ' + slot + ' paket berhasil diunggah!', '📸');
-          } else {
-            throw new Error(data.error || 'Server gagal memproses upload');
+        if (data && data.success && data.url) {
+          setPackageImagePreview(data.url, slot);
+          if (statusEl) {
+            statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah!';
+            setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
           }
-        } catch (err) {
-          console.error('Upload image error:', err);
-          alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
-          if (statusEl) statusEl.style.display = 'none';
+          showToast('Foto ' + slot + ' paket berhasil diunggah!', '📸');
+        } else {
+          throw new Error(data?.error || 'Server gagal memproses upload');
         }
-      };
-      reader.onerror = function() {
-        alert('Gagal membaca file gambar dari perangkat Anda.');
+      } catch (err) {
+        console.error('Upload image error:', err);
+        alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
         if (statusEl) statusEl.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-      input.value = '';
+      } finally {
+        input.value = '';
+      }
     }
 
     function openAddIndoorPackageModal() {
@@ -5195,38 +5301,42 @@
       const statusEl = document.getElementById(`promoUploadStatus_${index}`);
       if (statusEl) {
         statusEl.style.display = 'block';
-        statusEl.innerHTML = `⏳ Mengunggah foto ${(file.size / (1024 * 1024)).toFixed(1)} MB...`;
+        statusEl.innerHTML = `⏳ Memproses & mengunggah foto ${index + 1}...`;
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(e) {
-        try {
-          const dataUrl = e.target.result;
-          const promoTitle = (document.getElementById('promoTitleInput').value || 'promo').toLowerCase().replace(/[^a-z0-9]/g, '_');
-          const extMatch = file.name.match(/\.[^.]+$/);
-          const ext = extMatch ? extMatch[0] : '.jpg';
-          const fileName = `promo_${promoTitle}_foto${index + 1}_${Date.now()}${ext}`;
+      try {
+        const promoTitle = (document.getElementById('promoTitleInput').value || 'promo').toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const fileName = `promo_${promoTitle}_foto${index + 1}_${Date.now()}${ext}`;
 
-          const data = await uploadImageToServer({
-            dataUrl: dataUrl,
-            fileName: fileName,
-            folder: 'promos'
-          });
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: fileName,
+          folder: 'promos',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
 
-          if (data.success && data.url) {
-            updatePromoPhotoSlotUrl(index, data.url);
-            renderPromoPhotoSlots();
-            showToast(`Foto ${index + 1} berhasil diunggah secara lokal!`, '📸');
-          } else {
-            throw new Error(data.error || 'Server gagal memproses upload');
+        if (data && data.success && data.url) {
+          updatePromoPhotoSlotUrl(index, data.url);
+          renderPromoPhotoSlots();
+          showToast(`Foto ${index + 1} berhasil diunggah!`, '📸');
+          if (statusEl) {
+            statusEl.innerHTML = `✅ Foto ${index + 1} berhasil diunggah!`;
+            setTimeout(() => { statusEl.style.display = 'none'; }, 2000);
           }
-        } catch (err) {
-          console.error('Upload promo photo error:', err);
-          alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
-          if (statusEl) statusEl.style.display = 'none';
+        } else {
+          throw new Error(data?.error || 'Server gagal memproses upload');
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error('Upload promo photo error:', err);
+        alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
+        if (statusEl) statusEl.style.display = 'none';
+      } finally {
+        input.value = '';
+      }
     }
 
     
@@ -5455,76 +5565,30 @@
     }
 
     
-    // --- SMART CLIENT-SIDE IMAGE COMPRESSION & UPLOAD HELPER ---
-    async function compressImageClientSide(file, maxWidth = 800, maxHeight = 800, quality = 0.85) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onerror = reject;
-        reader.onload = () => {
-          const img = new Image();
-          img.onerror = reject;
-          img.onload = () => {
-            let width = img.width;
-            let height = img.height;
-
-            if (width > maxWidth || height > maxHeight) {
-              if (width > height) {
-                height = Math.round((height * maxWidth) / width);
-                width = maxWidth;
-              } else {
-                width = Math.round((width * maxHeight) / height);
-                height = maxHeight;
-              }
-            }
-
-            const canvas = document.createElement('canvas');
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-
-            const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
-            const compressedDataUrl = canvas.toDataURL(mimeType, quality);
-            resolve(compressedDataUrl);
-          };
-          img.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
+    // --- SMART UPLOAD IMAGE HELPER ---
     async function smartUploadImage(file, folder = 'promos', prefix = 'img') {
-      const compressedDataUrl = await compressImageClientSide(file);
       const cleanPrefix = (prefix || 'img').toLowerCase().replace(/[^a-z0-9]/g, '_');
       const ext = file.name.match(/\.[^.]+$/)?.[0] || '.jpg';
       const fileName = `${cleanPrefix}_${Date.now()}${ext}`;
 
-      // Try local server first if available
       try {
-        const res = await fetch('/api/upload-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            dataUrl: compressedDataUrl,
-            fileName: fileName,
-            folder: folder
-          })
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: fileName,
+          folder: folder,
+          maxWidth: 1200,
+          maxHeight: 1200,
+          quality: 0.85
         });
-
-        if (res.ok) {
-          const contentType = res.headers.get('content-type') || '';
-          if (contentType.includes('application/json')) {
-            const data = await res.json();
-            if (data.success && data.url) {
-              return { url: data.url, mode: 'local' };
-            }
-          }
+        if (data && data.success && data.url) {
+          return { url: data.url, mode: 'server' };
         }
       } catch (e) {
-        console.warn('Backend upload unavailable, using cloud dataUrl fallback', e);
+        console.warn('Backend/Cloud upload failed, using client dataUrl fallback:', e);
       }
 
       // Resilient Cloud Fallback (works on Vercel & anywhere without backend)
+      const compressedDataUrl = await compressImageClientSide(file, 800, 800, 0.85);
       return { url: compressedDataUrl, mode: 'cloud' };
     }
 
@@ -6233,51 +6297,41 @@
       const statusEl = document.getElementById('bgImageUploadStatus' + slot);
       if (statusEl) {
         statusEl.style.display = 'block';
-        statusEl.innerHTML = '⏳ Mengunggah foto ' + slot + ' "' + escapeHtml(file.name) + '" ke server lokal...';
+        statusEl.innerHTML = '⏳ Memproses & mengunggah foto ' + slot + '...';
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(e) {
-        try {
-          const dataUrl = e.target.result;
-          const bgName = (document.getElementById('bgNameInput').value || 'bg').toLowerCase().replace(/[^a-z0-9]/g, '_');
-          const extMatch = file.name.match(/\.[^.]+$/);
-          const ext = extMatch ? extMatch[0] : '.jpg';
-          const fileName = 'bg_' + bgName + '_foto' + slot + '_' + Date.now() + ext;
+      try {
+        const bgName = (document.getElementById('bgNameInput').value || 'bg').toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const fileName = 'bg_' + bgName + '_foto' + slot + '_' + Date.now() + ext;
 
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: dataUrl,
-              fileName: fileName,
-              folder: 'backgrounds'
-            })
-          });
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: fileName,
+          folder: 'backgrounds',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
 
-          const data = await res.json();
-          if (data.success && data.url) {
-            setBgImagePreview(data.url, slot);
-            if (statusEl) {
-              statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah secara lokal!';
-              setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
-            }
-            showToast('Foto ' + slot + ' berhasil disimpan ke lokal!', '🖼️');
-          } else {
-            throw new Error(data.error || 'Server gagal memproses upload');
+        if (data && data.success && data.url) {
+          setBgImagePreview(data.url, slot);
+          if (statusEl) {
+            statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah!';
+            setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
           }
-        } catch (err) {
-          console.error('Upload background image error:', err);
-          alert('Gagal mengunggah foto ' + slot + ': ' + (err.message || 'Koneksi error'));
-          if (statusEl) statusEl.style.display = 'none';
+          showToast('Foto ' + slot + ' berhasil disimpan!', '🖼️');
+        } else {
+          throw new Error(data?.error || 'Server gagal memproses upload foto');
         }
-      };
-      reader.onerror = function() {
-        alert('Gagal membaca file gambar dari perangkat Anda.');
+      } catch (err) {
+        console.error('Upload background image error:', err);
+        alert('Gagal mengunggah foto ' + slot + ': ' + (err.message || 'Koneksi error'));
         if (statusEl) statusEl.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-      input.value = '';
+      } finally {
+        input.value = '';
+      }
     }
 
     function openAddBgModal() {
@@ -7434,8 +7488,12 @@
     }
 
     async function handleGalleryUpload(e) {
-      const file = e.target.files[0];
+      const file = e.target.files && e.target.files[0];
       if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        return alert('Format file harus berupa gambar (JPG, PNG, WebP)!');
+      }
 
       if (file.size > 25 * 1024 * 1024) {
         return alert('Ukuran foto melebihi batas maksimal 25MB!');
@@ -7444,42 +7502,37 @@
       const statusEl = document.getElementById('galleryUploadStatus');
       if (statusEl) {
         statusEl.style.display = 'block';
-        statusEl.textContent = '⏳ Mengunggah foto (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+        statusEl.textContent = '⏳ Memproses & mengunggah foto...';
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(evt) {
-        const dataUrl = evt.target.result;
-        try {
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: dataUrl,
-              fileName: file.name,
-              folder: 'gallery'
-            })
-          });
+      try {
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: file.name,
+          folder: 'gallery',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
 
-          const data = await res.json();
-          if (data.success && data.url) {
-            document.getElementById('galleryItemImageUrlInput').value = data.url;
-            updateGalleryModalPreview(data.url);
-            if (statusEl) {
-              statusEl.textContent = '✅ Foto berhasil diunggah secara lokal!';
-              setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
-            }
-            showToast('Foto berhasil diunggah!', '📸');
-          } else {
-            throw new Error(data.error || 'Gagal memproses upload foto');
+        if (data && data.success && data.url) {
+          document.getElementById('galleryItemImageUrlInput').value = data.url;
+          updateGalleryModalPreview(data.url);
+          if (statusEl) {
+            statusEl.textContent = '✅ Foto berhasil diunggah!';
+            setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
           }
-        } catch (err) {
-          console.error('Gallery upload error:', err);
-          alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
-          if (statusEl) statusEl.style.display = 'none';
+          showToast('Foto berhasil diunggah!', '📸');
+        } else {
+          throw new Error(data?.error || 'Gagal memproses upload foto');
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error('Gallery upload error:', err);
+        alert('Gagal mengunggah foto: ' + (err.message || 'Koneksi error'));
+        if (statusEl) statusEl.style.display = 'none';
+      } finally {
+        e.target.value = '';
+      }
     }
 
     function saveGalleryItem() {
@@ -8236,45 +8289,46 @@
       const status = document.getElementById('muaVendorCoverUploadStatus');
       if (status) {
         status.style.display = 'block';
-        status.textContent = '⏳ Mengunggah foto sampul (' + (file.size / (1024 * 1024)).toFixed(1) + ' MB)...';
+        status.textContent = '⏳ Memproses & mengunggah foto sampul...';
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(evt) {
-        try {
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: evt.target.result,
-              fileName: file.name,
-              folder: 'mua'
-            })
-          });
-          const data = await res.json();
-          if (data.success && data.url) {
-            document.getElementById('muaVendorCoverInput').value = data.url;
-            updateMuaCoverPreview(data.url);
-            if (status) {
-              status.textContent = '✅ Foto sampul berhasil diunggah!';
-              setTimeout(() => { status.style.display = 'none'; }, 2000);
-            }
-            showToast('Foto sampul MUA berhasil diunggah!', '📸');
-          } else {
-            throw new Error(data.error || 'Gagal mengunggah foto');
+      try {
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: file.name,
+          folder: 'mua',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          document.getElementById('muaVendorCoverInput').value = data.url;
+          updateMuaCoverPreview(data.url);
+          if (status) {
+            status.textContent = '✅ Foto sampul berhasil diunggah!';
+            setTimeout(() => { status.style.display = 'none'; }, 2000);
           }
-        } catch (err) {
-          console.error(err);
-          alert('Upload foto gagal: ' + err.message);
-          if (status) status.style.display = 'none';
+          showToast('Foto sampul MUA berhasil diunggah!', '📸');
+        } else {
+          throw new Error(data?.error || 'Gagal mengunggah foto');
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error(err);
+        alert('Upload foto gagal: ' + (err.message || 'Koneksi error'));
+        if (status) status.style.display = 'none';
+      } finally {
+        e.target.value = '';
+      }
     }
 
     async function handleVendorPortfolioUpload(input, idx) {
       const file = input.files && input.files[0];
       if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid.');
+        return;
+      }
 
       if (file.size > 25 * 1024 * 1024) {
         alert('Ukuran foto terlalu besar. Maksimal 25MB.');
@@ -8284,33 +8338,32 @@
       const status = document.getElementById(`portStatus_${idx}`);
       if (status) {
         status.style.display = 'block';
-        status.textContent = '⏳ Mengunggah portofolio...';
+        status.textContent = '⏳ Memproses & mengunggah portofolio...';
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(evt) {
-        try {
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: evt.target.result,
-              fileName: file.name,
-              folder: 'mua'
-            })
-          });
-          const data = await res.json();
-          if (data.success && data.url) {
-            editingVendorPortfolio[idx] = data.url;
-            renderVendorPortfolioSlots();
-            showToast('Portofolio foto berhasil diunggah!', '📸');
-          }
-        } catch (err) {
-          alert('Upload gagal: ' + err.message);
+      try {
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: file.name,
+          folder: 'mua',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          editingVendorPortfolio[idx] = data.url;
+          renderVendorPortfolioSlots();
+          showToast('Portofolio foto berhasil diunggah!', '📸');
           if (status) status.style.display = 'none';
+        } else {
+          throw new Error(data?.error || 'Gagal mengunggah foto');
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        alert('Upload gagal: ' + (err.message || 'Koneksi error'));
+        if (status) status.style.display = 'none';
+      } finally {
+        input.value = '';
+      }
     }
 
     
@@ -8579,45 +8632,37 @@
       const status = document.getElementById('muaActiveCategoryPhotoStatus');
       if (status) {
         status.style.display = 'block';
-        status.textContent = '⏳ Mengunggah foto asli...';
+        status.textContent = '⏳ Memproses & mengunggah foto...';
       }
 
-      const reader = new FileReader();
-      reader.onerror = () => {
-        alert('Gagal membaca file gambar.');
-        if (status) status.style.display = 'none';
-      };
-      reader.onload = async function(evt) {
-        try {
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: evt.target.result,
-              fileName: file.name,
-              folder: 'mua'
-            })
-          });
-          const data = await res.json();
-          if (data.success && data.url) {
-            const photos = getActiveCategoryPortfolioList();
-            photos[photoIdx] = data.url;
-            syncActiveCategoryPortfolio();
-            renderActiveCategoryPhotos();
-            if (status) {
-              status.textContent = '✅ Foto asli berhasil diunggah tanpa rotasi!';
-              setTimeout(() => { status.style.display = 'none'; }, 2000);
-            }
-            showToast('Foto portofolio kategori berhasil diunggah!', '📸');
-          } else {
-            throw new Error(data.error || 'Gagal upload foto');
+      try {
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: file.name,
+          folder: 'mua',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          const photos = getActiveCategoryPortfolioList();
+          photos[photoIdx] = data.url;
+          syncActiveCategoryPortfolio();
+          renderActiveCategoryPhotos();
+          if (status) {
+            status.textContent = '✅ Foto berhasil diunggah!';
+            setTimeout(() => { status.style.display = 'none'; }, 2000);
           }
-        } catch (err) {
-          alert('Upload gagal: ' + err.message);
-          if (status) status.style.display = 'none';
+          showToast('Foto portofolio kategori berhasil diunggah!', '📸');
+        } else {
+          throw new Error(data?.error || 'Gagal upload foto');
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        alert('Upload gagal: ' + (err.message || 'Koneksi error'));
+        if (status) status.style.display = 'none';
+      } finally {
+        input.value = '';
+      }
     }
 
     async function handleCategoryMultiPhotoUpload(input) {
@@ -8633,7 +8678,7 @@
       const status = document.getElementById('muaActiveCategoryPhotoStatus');
       if (status) {
         status.style.display = 'block';
-        status.textContent = `⏳ Mengunggah ${files.length} foto asli...`;
+        status.textContent = `⏳ Mengunggah ${files.length} foto...`;
       }
 
       let uploadedCount = 0;
@@ -8645,28 +8690,19 @@
           status.textContent = `⏳ Mengunggah foto (${i + 1}/${files.length}): ${file.name}...`;
         }
         try {
-          const dataUrl = await new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = e => resolve(e.target.result);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
+          const data = await uploadImageToServer({
+            file: file,
+            fileName: file.name,
+            folder: 'mua',
+            maxWidth: 1600,
+            maxHeight: 1600,
+            quality: 0.85
           });
-
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl,
-              fileName: file.name,
-              folder: 'mua'
-            })
-          });
-          const data = await res.json();
-          if (data.success && data.url) {
+          if (data && data.success && data.url) {
             photos.push(data.url);
             uploadedCount++;
           } else {
-            console.error('Upload error for file:', file.name, data.error);
+            console.error('Upload error for file:', file.name, data?.error);
           }
         } catch (err) {
           console.error('Upload failed for file:', file.name, err);
@@ -9101,6 +9137,11 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
 
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid.');
+        return;
+      }
+
       if (file.size > 25 * 1024 * 1024) {
         alert('Ukuran foto terlalu besar. Maksimal 25MB.');
         return;
@@ -9109,39 +9150,35 @@
       const status = document.getElementById('kebayaColorUploadStatus' + slotIdx);
       if (status) {
         status.style.display = 'block';
-        status.textContent = `⏳ Mengunggah Foto #${slotIdx} (${(file.size / (1024 * 1024)).toFixed(1)} MB)...`;
+        status.textContent = `⏳ Memproses & mengunggah Foto #${slotIdx}...`;
       }
 
-      const reader = new FileReader();
-      reader.onload = async function(evt) {
-        try {
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: evt.target.result,
-              fileName: file.name,
-              folder: 'kebaya'
-            })
-          });
-          const data = await res.json();
-          if (data.success && data.url) {
-            setKebayaSlotImage(slotIdx, data.url);
-            if (status) {
-              status.textContent = `✅ Foto #${slotIdx} berhasil diunggah!`;
-              setTimeout(() => { status.style.display = 'none'; }, 2000);
-            }
-            showToast(`Foto contoh kebaya slot #${slotIdx} berhasil diunggah!`, '📸');
-          } else {
-            alert('Upload gagal: ' + (data.error || 'Server error'));
-            if (status) status.style.display = 'none';
+      try {
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: file.name,
+          folder: 'kebaya',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          setKebayaSlotImage(slotIdx, data.url);
+          if (status) {
+            status.textContent = `✅ Foto #${slotIdx} berhasil diunggah!`;
+            setTimeout(() => { status.style.display = 'none'; }, 2000);
           }
-        } catch (err) {
-          alert('Upload gagal: ' + err.message);
+          showToast(`Foto contoh kebaya slot #${slotIdx} berhasil diunggah!`, '📸');
+        } else {
+          alert('Upload gagal: ' + (data?.error || 'Server error'));
           if (status) status.style.display = 'none';
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        alert('Upload gagal: ' + (err.message || 'Koneksi error'));
+        if (status) status.style.display = 'none';
+      } finally {
+        e.target.value = '';
+      }
     }
 
     // Kompatibilitas dengan pemanggil lama
@@ -9178,67 +9215,68 @@
       const file = e.target.files && e.target.files[0];
       if (!file || !directKebayaVendorId || !directKebayaId) return;
 
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid.');
+        return;
+      }
+
       if (file.size > 25 * 1024 * 1024) {
         alert('Ukuran foto terlalu besar. Maksimal 25MB.');
         return;
       }
 
-      showToast(`Mengunggah foto contoh kebaya (${(file.size / (1024 * 1024)).toFixed(1)} MB)...`, '⏳');
+      showToast(`Memproses & mengunggah foto contoh kebaya...`, '⏳');
 
-      const reader = new FileReader();
-      reader.onload = async function(evt) {
-        try {
-          const res = await fetch('/api/upload-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              dataUrl: evt.target.result,
-              fileName: file.name,
-              folder: 'kebaya'
-            })
-          });
-          const data = await res.json();
-          if (data.success && data.url) {
-            // Update di appConfig
-            const vendor = (appConfig.muaVendors || []).find(v => v.id === directKebayaVendorId);
-            const item = vendor?.kebayas?.find(k => k.id === directKebayaId);
-            if (item) {
-              item.image = data.url;
-              if (!item.images) item.images = [];
-              if (item.images.length === 0) item.images.push(data.url);
-              else item.images[0] = data.url;
-            }
-
-            // Update di editingVendorPackagesClone jika editor paket sedang aktif
-            if (typeof editingVendorPackagesClone !== 'undefined' && editingVendorPackagesClone && editingVendorPackagesClone.id === directKebayaVendorId) {
-              const cloneItem = (editingVendorPackagesClone.kebayas || []).find(k => k.id === directKebayaId);
-              if (cloneItem) {
-                cloneItem.image = data.url;
-                if (!cloneItem.images) cloneItem.images = [];
-                if (cloneItem.images.length === 0) cloneItem.images.push(data.url);
-                else cloneItem.images[0] = data.url;
-              }
-              if (typeof renderMuaPkgEditorPackages === 'function') {
-                renderMuaPkgEditorPackages();
-              }
-            }
-
-            // Update di katalog warna cadangan
-            if (item && appConfig.kebayaColorCatalog && appConfig.kebayaColorCatalog[item.name]) {
-              appConfig.kebayaColorCatalog[item.name].image = data.url;
-            }
-
-            saveConfigLocally();
-            renderMuaSection();
-            showToast(`Foto contoh kebaya '${item ? item.name : ''}' berhasil diperbarui!`, '👗');
-          } else {
-            alert('Upload gagal: ' + (data.error || 'Server error'));
+      try {
+        const data = await uploadImageToServer({
+          file: file,
+          fileName: file.name,
+          folder: 'kebaya',
+          maxWidth: 1600,
+          maxHeight: 1600,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          // Update di appConfig
+          const vendor = (appConfig.muaVendors || []).find(v => v.id === directKebayaVendorId);
+          const item = vendor?.kebayas?.find(k => k.id === directKebayaId);
+          if (item) {
+            item.image = data.url;
+            if (!item.images) item.images = [];
+            if (item.images.length === 0) item.images.push(data.url);
+            else item.images[0] = data.url;
           }
-        } catch (err) {
-          alert('Upload gagal: ' + err.message);
+
+          // Update di editingVendorPackagesClone jika editor paket sedang aktif
+          if (typeof editingVendorPackagesClone !== 'undefined' && editingVendorPackagesClone && editingVendorPackagesClone.id === directKebayaVendorId) {
+            const cloneItem = (editingVendorPackagesClone.kebayas || []).find(k => k.id === directKebayaId);
+            if (cloneItem) {
+              cloneItem.image = data.url;
+              if (!cloneItem.images) cloneItem.images = [];
+              if (cloneItem.images.length === 0) cloneItem.images.push(data.url);
+              else cloneItem.images[0] = data.url;
+            }
+            if (typeof renderMuaPkgEditorPackages === 'function') {
+              renderMuaPkgEditorPackages();
+            }
+          }
+
+          // Update di katalog warna cadangan
+          if (item && appConfig.kebayaColorCatalog && appConfig.kebayaColorCatalog[item.name]) {
+            appConfig.kebayaColorCatalog[item.name].image = data.url;
+          }
+
+          saveConfigLocally();
+          renderMuaSection();
+          showToast(`Foto contoh kebaya '${item ? item.name : ''}' berhasil diperbarui!`, '👗');
+        } else {
+          alert('Upload gagal: ' + (data?.error || 'Server error'));
         }
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        alert('Upload gagal: ' + (err.message || 'Koneksi error'));
+      } finally {
+        e.target.value = '';
+      }
     }
 
 

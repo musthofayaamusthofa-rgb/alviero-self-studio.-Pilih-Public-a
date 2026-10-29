@@ -68,14 +68,16 @@ app.post('/api/upload-image', (req, res) => {
       return res.status(400).json({ error: 'dataUrl is required' });
     }
 
-    const matches = dataUrl.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
-    if (!matches) {
+    const commaIdx = dataUrl.indexOf(',');
+    if (commaIdx === -1 || !dataUrl.startsWith('data:image/')) {
       return res.status(400).json({ error: 'Format data URL base64 tidak valid' });
     }
 
-    const rawExt = matches[1].toLowerCase();
-    const ext = rawExt === 'jpeg' ? 'jpg' : rawExt === 'svg+xml' ? 'svg' : rawExt;
-    const base64Data = matches[2];
+    const headerPart = dataUrl.slice(0, commaIdx);
+    const base64Data = dataUrl.slice(commaIdx + 1).replace(/\s/g, '');
+    const mimeMatch = headerPart.match(/^data:image\/([a-zA-Z0-9+.-]+)/);
+    const rawExt = mimeMatch ? mimeMatch[1].toLowerCase() : 'jpeg';
+    const ext = rawExt === 'jpeg' ? 'jpg' : rawExt.includes('svg') ? 'svg' : rawExt === 'png' ? 'png' : rawExt === 'webp' ? 'webp' : 'jpg';
     const buffer = Buffer.from(base64Data, 'base64');
 
     const targetSubfolder = folder || 'packages';

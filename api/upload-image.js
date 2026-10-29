@@ -31,14 +31,16 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'dataUrl wajib disertakan.' });
     }
 
-    const matches = dataUrl.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
-    if (!matches) {
-      return res.status(400).json({ error: 'Format data URL base64 tidak valid.' });
+    const commaIdx = dataUrl.indexOf(',');
+    if (commaIdx === -1 || !dataUrl.startsWith('data:image/')) {
+      return res.status(400).json({ error: 'Format data URL gambar tidak valid.' });
     }
 
-    const rawExt = matches[1].toLowerCase();
-    const ext = rawExt === 'jpeg' ? 'jpg' : rawExt === 'svg+xml' ? 'svg' : rawExt;
-    const base64Content = matches[2];
+    const headerPart = dataUrl.slice(0, commaIdx);
+    const base64Content = dataUrl.slice(commaIdx + 1).replace(/\s/g, '');
+    const mimeMatch = headerPart.match(/^data:image\/([a-zA-Z0-9+.-]+)/);
+    const rawExt = mimeMatch ? mimeMatch[1].toLowerCase() : 'jpeg';
+    const ext = rawExt === 'jpeg' ? 'jpg' : rawExt.includes('svg') ? 'svg' : rawExt === 'png' ? 'png' : rawExt === 'webp' ? 'webp' : 'jpg';
 
     const targetSubfolder = folder || 'packages';
     const cleanBaseName = (fileName || 'foto')
@@ -66,10 +68,18 @@ export default async function handler(req, res) {
       })
     });
 
-    const ghData = await ghRes.json();
+    let ghData = {};
+    const cType = ghRes.headers.get('content-type') || '';
+    if (cType.includes('application/json')) {
+      try {
+        ghData = await ghRes.json();
+      } catch (e) {}
+    }
+
     if (!ghRes.ok) {
-      return res.status(ghRes.status).json({
-        error: ghData.message || 'Gagal menyimpan foto ke GitHub.',
+      const errorMsg = ghData.message || (await ghRes.text().catch(() => '')) || 'Gagal menyimpan foto ke GitHub.';
+      return res.status(ghRes.status || 500).json({
+        error: errorMsg,
         details: ghData
       });
     }
