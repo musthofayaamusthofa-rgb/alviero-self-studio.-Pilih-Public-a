@@ -291,7 +291,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
               >
                 {activeItem.description}
               </p>
-              {activeItem.description.length > 90 && (
+              {(activeItem.description || '').length > 90 && (
                 <button
                   type="button"
                   onClick={() => setIsDescExpanded(!isDescExpanded)}
@@ -962,21 +962,6 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
         items={dynamicBackgrounds}
         onPhotoZoom={handlePhotoZoomWrapper}
       />
-
-      {/* ================================================================== */}
-      {/* SECTION 3: BACKGROUND STUDIO (Dinamis Sesuai Cabang Aktif)          */}
-      {/* ================================================================== */}
-      <SynchronizedGalleryCarousel
-        sectionId="section-background"
-        sectionNumber="3"
-        sectionTitle={`Pilihan Background ${branchBadgeLabel}`}
-        sectionSubtitle={`Daftar latar resmi yang aktif dan dapat dipilih untuk pemotretan di ${currentBranchName}. Setiap latar memiliki karakter visual dan suasana khas.`}
-        sectionIcon={<Layers className="w-3.5 h-3.5 text-[#5C725A]" />}
-        badgeLabel={`Section 3 · Background ${selectedBranch === 'cabang-2' ? 'Studio 2' : 'Studio 1'}`}
-        items={dynamicBackgrounds}
-        onPhotoZoom={handlePhotoZoomWrapper}
-      />
-
     </div>
   );
 };
