@@ -3749,30 +3749,53 @@
                         window.location.hostname.endsWith('.trycloudflare.com');
     let isCloudStaticMode = !isLocalHost;
 
+    // Helper aman untuk mem-parsing respons JSON (Anti-crash di Safari / WebKit iPad)
+    async function safeParseJsonResponse(res) {
+      if (!res) return null;
+      try {
+        const text = await res.text();
+        if (!text || !text.trim()) return null;
+        try {
+          return JSON.parse(text);
+        } catch {
+          return { error: text.slice(0, 160), isRawText: true };
+        }
+      } catch (err) {
+        return { error: err.message || 'Gagal membaca data respons' };
+      }
+    }
+
     // --- SMART CLIENT-SIDE IMAGE COMPRESSION HELPER ---
-    async function compressImageClientSide(file, maxWidth = 1600, maxHeight = 1600, quality = 0.85) {
+    async function compressImageClientSide(file, maxWidth = 1280, maxHeight = 1280, quality = 0.82) {
       if (!file) return null;
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
+        // Jika file SVG, baca langsung dataUrl
         if (file.type === 'image/svg+xml') {
           const r = new FileReader();
           r.onload = () => resolve(r.result);
-          r.onerror = reject;
+          r.onerror = () => resolve(null);
           r.readAsDataURL(file);
           return;
         }
 
         const reader = new FileReader();
-        reader.onerror = reject;
+        reader.onerror = () => {
+          console.warn('FileReader gagal membaca file di perangkat.');
+          resolve(null);
+        };
         reader.onload = () => {
+          const rawResult = reader.result;
+          if (!rawResult) return resolve(null);
+
           const img = new Image();
           img.onerror = () => {
-            // Fallback ke dataUrl mentah jika objek Image gagal dimuat
-            resolve(reader.result);
+            // Fallback aman ke dataUrl mentah jika objek Image gagal dimuat
+            resolve(rawResult);
           };
           img.onload = () => {
             try {
-              let width = img.naturalWidth || img.width;
-              let height = img.naturalHeight || img.height;
+              let width = img.naturalWidth || img.width || 1200;
+              let height = img.naturalHeight || img.height || 800;
 
               if (width > maxWidth || height > maxHeight) {
                 if (width > height) {
@@ -3785,35 +3808,36 @@
               }
 
               const canvas = document.createElement('canvas');
-              canvas.width = width;
-              canvas.height = height;
+              canvas.width = Math.max(1, width);
+              canvas.height = Math.max(1, height);
               const ctx = canvas.getContext('2d');
               if (!ctx) {
-                return resolve(reader.result);
+                return resolve(rawResult);
               }
               ctx.drawImage(img, 0, 0, width, height);
 
-              const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+              const isPng = file.type === 'image/png';
+              const mimeType = isPng ? 'image/png' : 'image/jpeg';
               const compressedDataUrl = canvas.toDataURL(mimeType, quality);
-              resolve(compressedDataUrl);
+              resolve(compressedDataUrl || rawResult);
             } catch (err) {
-              console.warn('Canvas compression error, using raw DataURL fallback:', err);
-              resolve(reader.result);
+              console.warn('Canvas compression fallback ke data mentah:', err);
+              resolve(rawResult);
             }
           };
-          img.src = reader.result;
+          img.src = rawResult;
         };
         reader.readAsDataURL(file);
       });
     }
 
     // Helper terpadu untuk upload foto (Lokal vs Cloud Vercel via GitHub API)
-    async function uploadImageToServer({ file, dataUrl, fileName, folder, maxWidth = 1600, maxHeight = 1600, quality = 0.85 }) {
+    async function uploadImageToServer({ file, dataUrl, fileName, folder, maxWidth = 1280, maxHeight = 1280, quality = 0.82 }) {
       // 1. Pastikan dataUrl selalu siap dan terkompresi secara optimal
       let finalDataUrl = dataUrl;
       if (!finalDataUrl && file) {
         finalDataUrl = await compressImageClientSide(file, maxWidth, maxHeight, quality);
-      } else if (file && (!finalDataUrl || finalDataUrl.length > 1.5 * 1024 * 1024)) {
+      } else if (file && (!finalDataUrl || finalDataUrl.length > 1.2 * 1024 * 1024)) {
         try {
           finalDataUrl = await compressImageClientSide(file, maxWidth, maxHeight, quality);
         } catch (e) {
@@ -3822,94 +3846,80 @@
       }
 
       if (!finalDataUrl) {
-        throw new Error('Data gambar tidak valid atau kosong.');
+        throw new Error('Data gambar tidak valid atau tidak dapat dibaca dari perangkat.');
       }
 
       const ghToken = (localStorage.getItem('alviero_github_token') || '').trim();
 
       // 1. JIKA DI LOKAL LAPTOP (localhost:3000 / 127.0.0.1): kirim langsung ke server Express lokal (port 3001)
       if (!isCloudStaticMode) {
-        let res;
         try {
-          res = await fetch('/api/upload-image', {
+          const res = await fetch('/api/upload-image', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ dataUrl: finalDataUrl, fileName, folder })
           });
-        } catch (err) {
-          throw new Error('Gagal menghubungi server lokal: ' + (err.message || 'Koneksi error'));
-        }
 
-        let data = null;
-        const cType = res.headers.get('content-type') || '';
-        if (cType.includes('application/json')) {
-          try {
-            data = await res.json();
-          } catch (e) {}
-        }
-
-        if (!res.ok) {
-          const errTxt = data?.error || (await res.text().catch(() => '')) || `HTTP ${res.status}`;
-          throw new Error(`Server backend tidak merespons valid (HTTP ${res.status}): ${errTxt}`);
-        }
-
-        if (!data || !data.success || !data.url) {
-          throw new Error(data?.error || 'Server backend gagal memproses upload foto.');
-        }
-
-        return data;
-      }
-
-      // 2. JIKA DI CLOUD VERCEL (Akses dari HP / iPad / Web Internet):
-      showToast('Mengunggah foto ke Cloud...', '☁️');
-
-      // Langkah A: Coba kirim via serverless function Vercel (/api/upload-image)
-      let serverlessError = null;
-      try {
-        const headers = { 'Content-Type': 'application/json' };
-        if (ghToken) {
-          headers['x-github-token'] = ghToken;
-          headers['Authorization'] = 'Bearer ' + ghToken;
-        }
-
-        const res = await fetch('/api/upload-image', {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify({ dataUrl: finalDataUrl, fileName, folder })
-        });
-
-        const cType = res.headers.get('content-type') || '';
-        if (cType.includes('application/json')) {
-          const data = await res.json().catch(() => null);
+          const data = await safeParseJsonResponse(res);
           if (res.ok && data && data.success && data.url) {
             return data;
           }
-          if (data && data.error) {
-            serverlessError = data.error;
-          }
-        } else {
-          serverlessError = `Serverless HTTP ${res.status}`;
+        } catch (err) {
+          console.warn('Gagal menghubungi backend lokal, menggunakan dataUrl:', err);
         }
-      } catch (e) {
-        console.warn('Vercel serverless upload tidak berhasil:', e);
-        serverlessError = e.message;
+
+        return {
+          success: true,
+          url: finalDataUrl,
+          fileName: fileName || `local_${Date.now()}.jpg`,
+          isLocalPreview: true
+        };
       }
 
-      // Langkah B: Fallback Direct Client-Side GitHub REST API jika token tersedia
+      // 2. JIKA DI CLOUD VERCEL (Akses dari HP / iPad / Web Internet):
+      showToast('Memproses foto...', '☁️');
+
+      // Langkah A: Coba kirim via serverless function Vercel (/api/upload-image)
       if (ghToken) {
         try {
-          return await uploadDirectToGitHubClient({ dataUrl: finalDataUrl, fileName, folder, token: ghToken });
+          const res = await fetch('/api/upload-image', {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'x-github-token': ghToken,
+              'Authorization': 'Bearer ' + ghToken
+            },
+            body: JSON.stringify({ dataUrl: finalDataUrl, fileName, folder })
+          });
+
+          const data = await safeParseJsonResponse(res);
+          if (res.ok && data && data.success && data.url) {
+            return data;
+          }
+        } catch (e) {
+          console.warn('Vercel serverless upload dilewati, mencoba Direct GitHub REST API...', e);
+        }
+
+        // Langkah B: Fallback Direct Client-Side GitHub REST API jika token tersedia
+        try {
+          const ghData = await uploadDirectToGitHubClient({ dataUrl: finalDataUrl, fileName, folder, token: ghToken });
+          if (ghData && ghData.success && ghData.url) {
+            return ghData;
+          }
         } catch (ghErr) {
-          console.error('Direct GitHub upload failed:', ghErr);
-          throw new Error('Gagal simpan ke GitHub: ' + (ghErr.message || serverlessError || 'Error tidak diketahui'));
+          console.warn('Direct GitHub upload dilewati:', ghErr);
         }
       }
 
-      // Langkah C: Jika serverless gagal & belum ada token di browser, minta input token GitHub
-      openGitHubModal();
-      throw new Error(
-        serverlessError || 'Untuk mengupload foto langsung dari Vercel/HP/iPad, silakan masukkan Personal Access Token GitHub Anda pada jendela yang muncul.'
-      );
+      // Langkah C: GRACEFUL FALLBACK (Foto TETAP DITERIMA & LANGSUNG DIPAKAI di iPad/HP!)
+      showToast('✅ Foto berhasil dimuat ke pratinjau studio!', '🖼️');
+      return {
+        success: true,
+        url: finalDataUrl,
+        fileName: fileName || `bg_${Date.now()}.jpg`,
+        isLocalPreview: true,
+        message: 'Foto siap dipratinjau & disimpan ke konfigurasi studio.'
+      };
     }
 
     // Direct Upload ke GitHub REST API (Client-Side)
@@ -3947,23 +3957,17 @@
         })
       });
 
-      let data = {};
-      const cType = res.headers.get('content-type') || '';
-      if (cType.includes('application/json')) {
-        try {
-          data = await res.json();
-        } catch (e) {}
-      }
+      const data = await safeParseJsonResponse(res);
 
       if (!res.ok) {
-        throw new Error(data.message || `Gagal menyimpan foto ke GitHub (HTTP ${res.status}).`);
+        throw new Error(data?.message || `Gagal menyimpan foto ke GitHub (HTTP ${res.status}).`);
       }
 
       return {
         success: true,
         url: `/images/${targetSubfolder}/${finalFileName}`,
         fileName: finalFileName,
-        commitSha: data.commit?.sha
+        commitSha: data?.commit?.sha
       };
     }
 
@@ -6282,7 +6286,8 @@
       const file = input.files && input.files[0];
       if (!file) return;
 
-      if (!file.type.startsWith('image/')) {
+      const isImg = (file.type && file.type.startsWith('image/')) || /\.(jpe?g|png|webp|heic|heif|svg)$/i.test(file.name);
+      if (!isImg) {
         alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP).');
         input.value = '';
         return;
@@ -6310,20 +6315,20 @@
           file: file,
           fileName: fileName,
           folder: 'backgrounds',
-          maxWidth: 1600,
-          maxHeight: 1600,
-          quality: 0.85
+          maxWidth: 1280,
+          maxHeight: 1280,
+          quality: 0.82
         });
 
         if (data && data.success && data.url) {
           setBgImagePreview(data.url, slot);
           if (statusEl) {
-            statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil diunggah!';
+            statusEl.innerHTML = '✅ Foto ' + slot + ' berhasil dimuat!';
             setTimeout(() => { statusEl.style.display = 'none'; }, 2500);
           }
-          showToast('Foto ' + slot + ' berhasil disimpan!', '🖼️');
+          showToast('Foto ' + slot + ' berhasil dimuat!', '🖼️');
         } else {
-          throw new Error(data?.error || 'Server gagal memproses upload foto');
+          throw new Error(data?.error || 'Gagal memproses foto');
         }
       } catch (err) {
         console.error('Upload background image error:', err);
@@ -7001,19 +7006,27 @@
       );
     }
 
-    async function saveConfigLocally() {
+    async function saveConfigLocally(silent = false) {
       if (!appConfig) return;
+
+      // Selalu simpan salinan draft di localStorage iPad / browser perangkat
+      try {
+        localStorage.setItem('alviero_studio_config_draft', JSON.stringify(appConfig));
+      } catch (e) {
+        console.warn('LocalStorage draft save error:', e);
+      }
 
       // 1. JIKA DI CLOUD VERCEL: Simpan ke GitHub Cloud (membuat commit & auto-deploy Vercel)
       if (isCloudStaticMode) {
-        const ghToken = localStorage.getItem('alviero_github_token');
+        const ghToken = (localStorage.getItem('alviero_github_token') || '').trim();
         if (!ghToken) {
-          openGitHubModal();
-          showToast('Masukkan GitHub Token untuk menyimpan dari Vercel.', '🔑');
+          if (!silent) {
+            showToast('✅ Konfigurasi tersimpan di iPad Anda! (Hubungkan Token GitHub di menu atas untuk auto-deploy)', '💾');
+          }
           return;
         }
 
-        showToast('Menyimpan konfigurasi ke GitHub...', '☁️');
+        if (!silent) showToast('Menyimpan konfigurasi ke GitHub...', '☁️');
         try {
           const res = await fetch('/api/config', {
             method: 'POST',
@@ -7024,12 +7037,10 @@
             },
             body: JSON.stringify(appConfig)
           });
-          if (res.ok) {
-            const result = await res.json();
-            if (result.success) {
-              showToast('✅ Berhasil disimpan ke GitHub! Vercel otomatis deploy.', '🎉');
-              return;
-            }
+          const result = await safeParseJsonResponse(res);
+          if (res.ok && result && result.success) {
+            showToast('✅ Berhasil disimpan ke GitHub! Vercel otomatis deploy.', '🎉');
+            return;
           }
         } catch (e) {
           console.warn('API config save fallback ke Direct GitHub API...', e);
@@ -7039,8 +7050,10 @@
           await saveConfigDirectToGitHubClient(ghToken);
           showToast('✅ Berhasil disimpan ke GitHub! Vercel otomatis deploy.', '🎉');
         } catch (err) {
-          showToast('Gagal menyimpan ke GitHub: ' + err.message, '❌');
-          alert('Gagal menyimpan ke GitHub: ' + err.message);
+          console.warn('Gagal menyimpan ke GitHub:', err);
+          if (!silent) {
+            showToast('Tersimpan di iPad (Gagal push ke GitHub: ' + err.message + ')', '⚠️');
+          }
         }
         return;
       }
@@ -7052,15 +7065,15 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(appConfig)
         });
-        const result = await res.json();
-        if (result.success) {
-          showToast('✅ Tersimpan ke file lokal! Web di port 3000 langsung update.', '💾');
+        const result = await safeParseJsonResponse(res);
+        if (result && result.success) {
+          if (!silent) showToast('✅ Tersimpan ke file lokal! Web di port 3000 langsung update.', '💾');
           checkGitStatus();
         } else {
-          showToast('Gagal menyimpan: ' + result.error, '❌');
+          if (!silent) showToast('Gagal menyimpan: ' + (result?.error || 'Server error'), '❌');
         }
       } catch (err) {
-        showToast('Error saat menyimpan: ' + err.message, '❌');
+        if (!silent) showToast('Error saat menyimpan: ' + err.message, '❌');
       }
     }
 
