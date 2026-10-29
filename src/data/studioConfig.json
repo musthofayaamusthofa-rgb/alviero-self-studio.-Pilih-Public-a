@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-29T02:10:44.347Z",
+  "lastUpdated": "2026-10-29T02:11:28.561Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -354,8 +354,7 @@
       "active": true,
       "_origIndex": 17,
       "previewImages": [
-        "/images/backgrounds/bg_putih_foto1_1793236907380_1793236909409.jpg",
-        "/images/backgrounds/bg_putih_foto2_1793239720327_1793239721233.jpg"
+        "/images/backgrounds/bg_putih_foto1_1793236907380_1793236909409.jpg"
       ]
     },
     {
