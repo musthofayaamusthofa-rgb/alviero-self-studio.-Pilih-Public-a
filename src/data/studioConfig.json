@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-29T01:27:32.819Z",
+  "lastUpdated": "2026-10-29T03:40:11.275Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2521,13 +2521,6 @@
       "title": "Panggung Limbo Putih Seamless (Infinity Curve)",
       "subtitle": "Signature Seamless Floor Studio 1 Junrejo",
       "category": "ruangan",
-      "packageName": "Fasilitas Studio 1",
-      "branchId": "cabang-1",
-      "icon": "⚪",
-      "badge": "Ikonik Studio 1 (Infinity)",
-      "imageUrl": "/images/gallery/graduation-indoor/grad-indoor-1.jpg",
-      "description": "Panggung Limbo Putih lengkung tanpa batas sudut antara lantai dan dinding, memberikan kesan visual luas tanpa garis batas untuk wisuda dan rombongan keluarga besar.",
-      "conceptNote": "Didesain khusus untuk wisuda rombongan besar dan keluarga, mampu menampung pose formasi dinamis tanpa terganggu sudut lantai.",
       "highlights": [
         "Lengkung Seamless Tanpa Sudut",
         "Kapasitas s.d 15 Orang",
