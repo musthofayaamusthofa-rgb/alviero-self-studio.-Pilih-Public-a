@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-29T02:11:30.647Z",
+  "lastUpdated": "2026-10-29T02:16:37.449Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2524,7 +2524,7 @@
       "packageName": "Fasilitas Studio",
       "icon": "🛋️",
       "badge": "Kenyamanan Standar Utama",
-      "imageUrl": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=85",
+      "imageUrl": "/images/gallery/gemini_generated_image_g0i3htg0i3htg0i3_1793240182870.jpg",
       "description": "Ruang studio utama yang sejuk dengan pendingin ruangan (AC) terawat, berdaya tampung luas untuk perorangan, keluarga, hingga rombongan wisuda dan grup.",
       "conceptNote": "Suhu ruangan selalu dijaga sejuk dan nyaman agar makeup dan outfit tetap prima selama pemotretan.",
       "highlights": [
