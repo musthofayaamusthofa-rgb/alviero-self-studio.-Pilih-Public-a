@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig } from '../utils/studioConfigManager';
+import { useStudioConfig, formatPriceDisplay, getActiveLabPrintItems, getActiveFrameItems, getActiveCategories } from '../utils/studioConfigManager';
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
@@ -93,6 +93,52 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   };
 
   const studioConfig = useStudioConfig();
+  const studioPackagesList = useMemo(() => {
+    return ((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[];
+  }, [studioConfig]);
+
+  const getPkg = (pkgId: string, fallback?: any) => {
+    const found = studioPackagesList.find((p: any) => p.id === pkgId);
+    if (found) return found;
+    const staticFound = PACKAGES.find(p => p.id === pkgId);
+    return staticFound || fallback || {};
+  };
+
+  const getPkgPrice = (pkgId: string, fallbackPrice = ''): string => {
+    const pkg = getPkg(pkgId);
+    if (!pkg) return fallbackPrice;
+    if (pkg.price) {
+      return formatPriceDisplay(pkg.price, fallbackPrice);
+    }
+    return fallbackPrice;
+  };
+
+  const getPkgOriginalPrice = (pkgId: string, fallback = ''): string => {
+    const pkg = getPkg(pkgId);
+    if (pkg && pkg.originalPrice) {
+      return formatPriceDisplay(pkg.originalPrice, fallback);
+    }
+    return fallback;
+  };
+
+  const getPkgName = (pkgId: string, fallback = ''): string => {
+    const pkg = getPkg(pkgId);
+    return (pkg && pkg.name) ? pkg.name : fallback;
+  };
+
+  const getAddOnPriceDisplay = (keywordOrId: string, fallback = ''): string => {
+    const addOns = ((studioConfig as any)?.addOns as any[]) || [];
+    const found = addOns.find((a: any) => 
+      a.id === keywordOrId || 
+      a.id.includes(keywordOrId) || 
+      (a.name && a.name.toLowerCase().includes(keywordOrId.toLowerCase()))
+    );
+    if (found && found.price) {
+      return formatPriceDisplay(found.price, fallback);
+    }
+    return fallback;
+  };
+
   const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
   const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
 
@@ -119,6 +165,89 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [selfStudioSubTab, setSelfStudioSubTab] = useState<'special' | 'normal' | 'spotlight' | 'grid'>('special');
   const [selectedGridFilter, setSelectedGridFilter] = useState<'all' | 'grid-1' | 'grid-3' | 'grid-4' | 'grid-6'>('all');
   const [selectedKebayaFilter, setSelectedKebayaFilter] = useState<'all' | 'adat' | 'modern' | 'gaun'>('all');
+
+  const defaultLabPrintItems = [
+    { code: '4R', size: '10.2 cm x 15.2 cm', price: '5K', note: 'Standar Foto Album' },
+    { code: '5R', size: '12.7 cm x 17.8 cm', price: '8K', note: 'Sedang Meja' },
+    { code: '6R', size: '15.2 cm x 20.3 cm', price: '9K', note: 'Meja Kantor' },
+    { code: '10Rs', size: '20.3 cm x 30.5 cm', price: '16K', note: 'Favorit Pigura Meja/Dinding' },
+    { code: '12Rs', size: '30.5 cm x 45 cm', price: '52K', note: 'Dinding Kamar' },
+    { code: '16Rs', size: '40 cm x 60 cm', price: '102K', note: 'Dinding Ruang Tamu' },
+    { code: '20Rs', size: '50 cm x 75 cm', price: '137K', note: 'Wisuda & Prewed Besar' },
+    { code: '24Rs', size: '60 cm x 90 cm', price: '172K', note: 'Jumbo Pigura Utama' },
+    { code: 'Pass 2x3', size: 'Paket 6 foto', price: '8K', note: 'Dokumen / Ijazah' },
+    { code: 'Pass 3x3', size: 'Paket 6 foto', price: '8K', note: 'Dokumen' },
+    { code: 'Pass 3x4', size: 'Paket 6 foto', price: '8K', note: 'Buku Nikah / Ijazah' },
+    { code: 'Pass 4x6', size: 'Paket 4 foto', price: '8K', note: 'Paspor / Lamaran Kerja' },
+  ];
+
+  const defaultFrameItems = [
+    {
+      code: '4R',
+      size: '15 X 20 CM',
+      price: '17K',
+      type: 'Bingkai Meja / Minimalis',
+      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
+      desc: 'Cocok untuk meja belajar, nakas kamar tidur, dan kado wisuda'
+    },
+    {
+      code: '10Rs',
+      size: '40 X 50 CM',
+      price: '35K',
+      type: 'Bingkai Dinding Sedang',
+      image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80',
+      desc: 'Ukuran paling diminati untuk foto wisuda keluarga & portrait'
+    },
+    {
+      code: '12Rs',
+      size: '50 X 60 CM',
+      price: '50K',
+      type: 'Bingkai Dinding Populer',
+      image: 'https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=600&q=80',
+      desc: 'Sangat pas untuk foto wisuda sarjana & foto couple ruang tamu'
+    },
+    {
+      code: '16Rs',
+      size: '60 X 70 CM',
+      price: '145K',
+      type: 'Bingkai Dinding Eksklusif',
+      image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80',
+      desc: 'Tampilan megah dengan list linen ganda untuk foto keluarga'
+    },
+    {
+      code: '20Rs',
+      size: '70 X 90 CM',
+      price: '175K',
+      type: 'Bingkai Dinding Jumbo',
+      image: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80',
+      desc: 'Sempurna untuk foto prewedding utama & foto keluarga besar'
+    },
+    {
+      code: '24Rs',
+      size: '90 X 120 CM',
+      price: '230K',
+      type: 'Bingkai Dinding Masterpiece',
+      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
+      desc: 'Ukuran kanvas/pigura terbesar untuk background ruang utama'
+    }
+  ];
+
+  const activeLabPrintItems = useMemo(() => {
+    const items = getActiveLabPrintItems(studioConfig, defaultLabPrintItems);
+    return items.map((i: any) => ({
+      ...i,
+      price: i.priceDisplay || (typeof i.price === 'number' ? formatPriceDisplay(i.price) : i.price)
+    }));
+  }, [studioConfig]);
+
+  const activeFrameItems = useMemo(() => {
+    const items = getActiveFrameItems(studioConfig, defaultFrameItems);
+    return items.map((i: any) => ({
+      ...i,
+      price: i.priceDisplay || (typeof i.price === 'number' ? formatPriceDisplay(i.price) : i.price)
+    }));
+  }, [studioConfig]);
+
   const [selectedBingkaiSubTab, setSelectedBingkaiSubTab] = useState<'all' | 'cetak' | 'bingkai' | 'album'>('all');
   const [selectedGradSubTab, setSelectedGradSubTab] = useState<'all' | 'indoor' | 'bundling' | 'outdoor' | 'additional'>('all');
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(!!initialCategory);
@@ -492,7 +621,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
 
   // Grid Category Arrays (Sesuai Urutan 12 Paket Utama Photo Studio)
-  const photoStudioGridItems = [
+  const defaultPhotoStudioGridItems = [
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
     { id: 'group-paket', name: 'Group', icon: '👥', img: '/images/categories/group.jpg', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', img: '/images/categories/family.jpg', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
@@ -505,6 +634,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     { id: 'pass-foto', name: 'Pass photo', icon: '🪪', colorBg: 'bg-[#ecf9f5]', colorBorder: 'border-[#beece0]', colorText: 'text-[#175f4e]' },
     { id: 'sewa-studio', name: 'Sewa Studio', icon: '🏛️', img: '/images/categories/sewa-studio.jpg', colorBg: 'bg-[#eff7f8]', colorBorder: 'border-[#cee6e8]', colorText: 'text-[#1f575c]' }
   ];
+
+  const photoStudioGridItems = useMemo(() => {
+    return getActiveCategories(studioConfig, defaultPhotoStudioGridItems);
+  }, [studioConfig]);
 
   // Social Media Links (From Figma Footer)
   const socialLinks = [
@@ -1447,7 +1580,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
-                        <span>🏷️ Special (55K)</span>
+                        <span>🏷️ Special ({getPkgPrice('self-special-narsis', '55K')})</span>
                       </button>
 
                       <button
@@ -1457,7 +1590,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
-                        <span>✨ Normal (80K)</span>
+                        <span>✨ Normal ({getPkgPrice('self-normal-narsis', '80K')})</span>
                       </button>
 
                       <button
@@ -1467,7 +1600,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           : 'text-slate-600 hover:text-slate-900'
                           }`}
                       >
-                        <span>🌈 Spotlight (99K)</span>
+                        <span>🌈 Spotlight ({getPkgPrice('self-special-spotlight', '99K')})</span>
                       </button>
 
                       <button
@@ -2515,7 +2648,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Allfile Via Googledrive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">95K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("undangan-paket-1", "95K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('undangan-paket-1')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2537,7 +2670,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Allfile Via Googledrive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">155K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("undangan-paket-2", "155K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('undangan-paket-2')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2580,7 +2713,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </div>
 
                         <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                          <div className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-serif">175K</div>
+                          <div className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-serif">{getPkgPrice("sewa-studio-hourly", "175K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('sewa-studio-hourly')}
                             className="px-7 py-3 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95 self-start sm:self-center"
@@ -2627,7 +2760,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Maks 2 kostum | <span className="text-rose-600 font-bold">Cetak 12Rs + Bingkai</span></p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">550K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("prewed-sweet-promise", "550K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('prewed-sweet-promise')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2649,7 +2782,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Maks 2 kostum | <span className="text-rose-600 font-bold">Cetak 12 + Bingkai</span></p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">600K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("prewed-velvet-romance", "600K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('prewed-velvet-romance')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2664,10 +2797,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <div className="md:col-span-4 bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5 order-3 md:order-1">
                           <h4 className="text-center font-serif font-black text-base text-slate-900">Additional</h4>
                           <div className="space-y-1.5 text-xs text-slate-800">
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">75K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Hairdo</span><span className="font-bold">150K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Make UP</span><span className="font-bold">350K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit</span><span className="font-bold">10K</span></div>
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Hairdo</span><span className="font-bold">{getAddOnPriceDisplay("hairdo", "150K")}</span></div>
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Make UP</span><span className="font-bold">{getAddOnPriceDisplay("makeup", "350K")}</span></div>
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit</span><span className="font-bold">{getAddOnPriceDisplay("edit", "10K")}</span></div>
                           </div>
                           <div className="text-center pt-1.5">
                             <span className="inline-block bg-rose-600 text-white font-black text-xs px-3 py-1 rounded-full shadow-xs tracking-wider uppercase animate-pulse">
@@ -2760,7 +2893,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <p>Cetak Uk 4r 4 foto / 10Rs 1 Foto</p>
                           </div>
                           <div className="pt-2 flex items-center justify-between gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">255K</div>
+                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("couple-eternal-love", "255K")}</div>
                             <button
                               onClick={() => onSelectPackageForBooking('couple-eternal-love')}
                               className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2792,7 +2925,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Cetak Uk 4r 4 foto / 10Rs 1 Foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">305K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("couple-sweet-memories", "305K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('couple-sweet-memories')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2838,7 +2971,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Cetak Uk 4R Foto <span className="text-rose-600 font-bold">Atau</span> 10Rs 1 foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">155K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("personal-bold-statement", "155K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('personal-bold-statement')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2869,7 +3002,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <p>Cetak Uk 4R 4 Foto <span className="text-rose-600 font-bold">Atau</span> 10Rs 1 Foto</p>
                           </div>
                           <div className="pt-2 flex items-center justify-end gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">255K</div>
+                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("personal-opulent-shot", "255K")}</div>
                             <button
                               onClick={() => onSelectPackageForBooking('personal-opulent-shot')}
                               className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2917,7 +3050,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <p>Allfile via GoogleDrive</p>
                           </div>
                           <div className="pt-2 flex items-center justify-between gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">255K</div>
+                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("maternity-warm-embrace", "255K")}</div>
                             <button
                               onClick={() => onSelectPackageForBooking('maternity-warm-embrace')}
                               className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2949,7 +3082,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Maks 2 kostum</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">305K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("maternity-golden-motherhood", "305K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('maternity-golden-motherhood')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2996,7 +3129,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p><span className="text-rose-600 font-bold">Properti birthday Dari Klien</span></p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">199K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-sweet-celebration", "199K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('birthday-sweet-celebration')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3017,7 +3150,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>All file Google Drive | <span className="text-rose-600 font-bold">6 Foto Edit</span> | 2 Foto cetak Uk 10Rs</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">275K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-glow-sweet", "275K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('birthday-glow-sweet')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3050,7 +3183,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           </button>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">250K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-sweet-light", "250K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('birthday-sweet-light')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3083,7 +3216,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           </button>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">325K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-ultimate-sweet-light", "325K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('birthday-ultimate-sweet-light')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3319,7 +3452,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>File Edit via WA Dokumen | Cetak 1 Ukuran Pass Foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">50K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-2", "50K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('passfoto-1')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"

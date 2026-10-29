@@ -1,4 +1,4 @@
-import studioConfig from '../data/studioConfig.json';
+import { useStudioConfig } from '../utils/studioConfigManager';
 import React, { useState } from 'react';
 import {
   X,
@@ -1003,6 +1003,7 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
   onUpdateQty,
   onOpenExtraCheckout,
 }) => {
+  const studioConfig = useStudioConfig();
   const activeVendorsData = ((studioConfig as any)?.muaVendors as MuaVendorDefinition[]) || MUA_VENDORS;
   const activeKebayaCatalogData = ((studioConfig as any)?.kebayaColorCatalog as Record<string, KebayaColorInfo>) || KEBAYA_COLOR_CATALOG;
   // Step 1: Active Popup Vendor (when user clicks a vendor button in grid, e.g. "BY NOVITA")

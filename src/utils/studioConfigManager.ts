@@ -239,3 +239,287 @@ export function getEquipmentByBranch(branch: StudioBranch = 'cabang-1', cfg?: an
     return e.branchId === branch;
   });
 }
+
+/**
+ * Parsing nilai harga fleksibel dari format string (misal: "295K", "Rp 350.000", "55k", "1.2jt", 295000)
+ * menjadi angka numerik murni dalam Rupiah.
+ */
+export function parsePriceToNumber(val: any, fallback = 0): number {
+  if (typeof val === 'number') return isNaN(val) ? fallback : val;
+  if (!val || typeof val !== 'string') return fallback;
+  const str = val.trim();
+  if (!str) return fallback;
+
+  // 1. Cek format "1.400K" atau "1.800K"
+  const dotKMatch = str.match(/^([\d.]+)\s*k$/i);
+  if (dotKMatch) {
+    const rawNum = parseFloat(dotKMatch[1].replace(/\./g, ''));
+    if (!isNaN(rawNum)) return Math.round(rawNum * 1000);
+  }
+
+  // 2. Cek satuan ribuan: 'k', 'rb', 'ribu' (contoh: 295k, 295K, 295rb)
+  const kMatch = str.match(/^([\d.,]+)\s*(k|rb|ribu)$/i);
+  if (kMatch) {
+    const numPart = parseFloat(kMatch[1].replace(/,/g, '.'));
+    if (!isNaN(numPart)) return Math.round(numPart * 1000);
+  }
+
+  // 3. Cek satuan jutaan: 'jt', 'juta', 'm' (contoh: 1.2jt, 1.4m)
+  const jtMatch = str.match(/^([\d.,]+)\s*(jt|juta|m)$/i);
+  if (jtMatch) {
+    const numPart = parseFloat(jtMatch[1].replace(/,/g, '.'));
+    if (!isNaN(numPart)) return Math.round(numPart * 1000000);
+  }
+
+  // 4. Ekstrak digit angka murni: "Rp 295.000" atau "295000"
+  const digits = str.replace(/[^\d]/g, '');
+  if (digits) {
+    const parsed = parseInt(digits, 10);
+    if (!isNaN(parsed)) return parsed;
+  }
+
+  return fallback;
+}
+
+/**
+ * Parsing durasi menit dari format teks (misal: "25 Menit Unlimited Foto", "60 Menit", "15 Menit")
+ */
+export function parseDurationMinutes(val: any, fallback = 30): number {
+  if (typeof val === 'number') return isNaN(val) ? fallback : val;
+  if (!val || typeof val !== 'string') return fallback;
+  const m = val.match(/(\d+)\s*menit/i);
+  if (m) {
+    const parsed = parseInt(m[1], 10);
+    if (!isNaN(parsed)) return parsed;
+  }
+  const digits = val.replace(/[^\d]/g, '');
+  if (digits) {
+    const parsed = parseInt(digits, 10);
+    if (!isNaN(parsed)) return parsed;
+  }
+  return fallback;
+}
+
+/**
+ * Format angka atau string harga ke tampilan singkat khas Alviero (misal: 255000 -> "255K")
+ */
+export function formatPriceDisplay(val: any, fallback = ''): string {
+  if (val === undefined || val === null || val === '') return fallback;
+  if (typeof val === 'string') {
+    if (val.trim().endsWith('K') || val.trim().endsWith('k')) return val.trim().toUpperCase();
+    const parsed = parsePriceToNumber(val, 0);
+    if (parsed >= 1000) return `${Math.round(parsed / 1000)}K`;
+    return val;
+  }
+  if (typeof val === 'number') {
+    if (val >= 1000) return `${Math.round(val / 1000)}K`;
+    return `Rp ${val}`;
+  }
+  return fallback;
+}
+
+/**
+ * Mengambil daftar paket foto yang sudah disinkronkan secara reaktif dengan studioConfig.studioPackages.
+ * Harga, durasi, nama, dan detail yang diubah admin di dashboard otomatis menimpa data statis.
+ */
+export function getActivePackages(cfg?: any, basePackages: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  const configuredPackages: any[] = activeCfg?.studioPackages || activeCfg?.indoorPackages || [];
+
+  if (!configuredPackages || configuredPackages.length === 0) {
+    return basePackages;
+  }
+
+  const configuredMap = new Map<string, any>();
+  configuredPackages.forEach((cp) => {
+    if (cp && cp.id) {
+      configuredMap.set(cp.id, cp);
+    }
+  });
+
+  const merged = basePackages.map((bp) => {
+    const cp = configuredMap.get(bp.id);
+    if (!cp) return bp;
+
+    const dynamicPrice = parsePriceToNumber(cp.price, bp.price);
+    const dynamicOrigPrice = cp.originalPrice ? parsePriceToNumber(cp.originalPrice, bp.originalPrice) : bp.originalPrice;
+    const dynamicDuration = cp.duration ? parseDurationMinutes(cp.duration, bp.durationMinutes) : bp.durationMinutes;
+
+    return {
+      ...bp,
+      name: cp.name || bp.name,
+      tag: cp.subtitle || cp.tag || bp.tag,
+      price: dynamicPrice,
+      originalPrice: dynamicOrigPrice,
+      durationMinutes: dynamicDuration,
+      includedPeople: cp.people ? (parseInt(cp.people.replace(/[^\d]/g, ''), 10) || bp.includedPeople) : bp.includedPeople,
+      includedPrints: cp.print || bp.includedPrints,
+      description: cp.note || bp.description,
+      image: (Array.isArray(cp.imageUrls) && cp.imageUrls[0]) || cp.imageUrl || bp.image,
+      popular: cp.badge ? (cp.badge.toLowerCase().includes('favorit') || cp.badge.toLowerCase().includes('best')) : bp.popular,
+      rawConfig: cp
+    };
+  });
+
+  // Tambahkan paket baru dari dashboard jika ada yang belum terdaftar di basePackages
+  const existingIds = new Set(basePackages.map((bp) => bp.id));
+  configuredPackages.forEach((cp) => {
+    if (cp && cp.id && !existingIds.has(cp.id)) {
+      merged.push({
+        id: cp.id,
+        name: cp.name || 'Paket Baru',
+        category: cp.category || 'pro-studio',
+        tag: cp.subtitle || '',
+        price: parsePriceToNumber(cp.price, 0),
+        originalPrice: cp.originalPrice ? parsePriceToNumber(cp.originalPrice, 0) : undefined,
+        durationMinutes: cp.duration ? parseDurationMinutes(cp.duration, 30) : 30,
+        selectionTimeMinutes: 10,
+        includedPeople: cp.people ? (parseInt(cp.people.replace(/[^\d]/g, ''), 10) || 2) : 2,
+        includedPrints: cp.print || '-',
+        softFilesIncluded: true,
+        description: cp.note || '',
+        highlights: [cp.duration, cp.background, cp.people, cp.edit, cp.print].filter(Boolean),
+        image: (Array.isArray(cp.imageUrls) && cp.imageUrls[0]) || cp.imageUrl || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
+        backdropCount: cp.background && (cp.background.includes('2') || cp.background.includes('dua')) ? 2 : 1,
+        rawConfig: cp
+      });
+    }
+  });
+
+  return merged;
+}
+
+/**
+ * Mengambil grup opsi Self Studio yang telah disinkronkan harganya dari dashboard
+ */
+export function getActiveSelfStudioSubPackages(cfg?: any, baseGroups: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  const configuredPackages: any[] = activeCfg?.studioPackages || [];
+  if (!configuredPackages || configuredPackages.length === 0) {
+    return baseGroups;
+  }
+
+  const configuredMap = new Map<string, any>();
+  configuredPackages.forEach((cp) => {
+    if (cp && cp.id) {
+      configuredMap.set(cp.id, cp);
+    }
+  });
+
+  return baseGroups.map((group) => {
+    return {
+      ...group,
+      options: group.options.map((opt: any) => {
+        const cp = configuredMap.get(opt.id);
+        if (!cp) return opt;
+        return {
+          ...opt,
+          name: cp.name || opt.name,
+          price: parsePriceToNumber(cp.price, opt.price),
+          durationMinutes: cp.duration ? parseDurationMinutes(cp.duration, opt.durationMinutes) : opt.durationMinutes
+        };
+      })
+    };
+  });
+}
+
+/**
+ * Mengambil daftar add-ons aktif dari konfigurasi dashboard
+ */
+export function getActiveAddOns(cfg?: any, baseAddOns: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  const configured = activeCfg?.addOns;
+  if (configured && Array.isArray(configured) && configured.length > 0) {
+    return configured.filter((a: any) => a.active !== false);
+  }
+  return baseAddOns;
+}
+
+/**
+ * Mengambil pengumuman teks berjalan (announcement ticker)
+ */
+export function getActiveAnnouncement(cfg?: any): { active: boolean; text: string } {
+  const activeCfg = cfg || currentConfig;
+  const ann = activeCfg?.announcement;
+  if (!ann) {
+    return { active: false, text: '' };
+  }
+  if (typeof ann === 'string') {
+    const trimmed = ann.trim();
+    return { active: trimmed.length > 0, text: trimmed };
+  }
+  if (typeof ann === 'object') {
+    return {
+      active: Boolean(ann.active),
+      text: (ann.text || '').trim()
+    };
+  }
+  return { active: false, text: '' };
+}
+
+/**
+ * Mengambil daftar tarif cetak foto lab aktif
+ */
+export function getActiveLabPrintItems(cfg?: any, fallback: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  if (activeCfg?.labPrintPrices && Array.isArray(activeCfg.labPrintPrices) && activeCfg.labPrintPrices.length > 0) {
+    return activeCfg.labPrintPrices.filter((i: any) => i.active !== false);
+  }
+  return fallback;
+}
+
+/**
+ * Mengambil daftar katalog bingkai foto aktif
+ */
+export function getActiveFrameItems(cfg?: any, fallback: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  if (activeCfg?.framePrices && Array.isArray(activeCfg.framePrices) && activeCfg.framePrices.length > 0) {
+    return activeCfg.framePrices.filter((i: any) => i.active !== false);
+  }
+  return fallback;
+}
+
+/**
+ * Mengambil daftar ulasan klien (Google Reviews)
+ */
+export function getActiveReviews(cfg?: any, fallback: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  if (activeCfg?.clientReviews && Array.isArray(activeCfg.clientReviews) && activeCfg.clientReviews.length > 0) {
+    return activeCfg.clientReviews.filter((r: any) => r.active !== false);
+  }
+  return fallback;
+}
+
+/**
+ * Mengambil seksi aturan studio & disclaimer resmi
+ */
+export function getActiveDisclaimer(cfg?: any, fallback: any = null): any {
+  const activeCfg = cfg || currentConfig;
+  if (activeCfg?.disclaimer && activeCfg.disclaimer.sections) {
+    return activeCfg.disclaimer;
+  }
+  return fallback;
+}
+
+/**
+ * Mengambil konfigurasi Photo Strip Customizer
+ */
+export function getActivePhotoStripConfig(cfg?: any): any {
+  const activeCfg = cfg || currentConfig;
+  return activeCfg?.photoStripConfig || {
+    footerText: 'ALVIERO SELF STUDIO',
+    watermarkEnabled: true,
+    themes: []
+  };
+}
+
+/**
+ * Mengambil daftar 16 kategori menu paket foto
+ */
+export function getActiveCategories(cfg?: any, fallback: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  if (activeCfg?.categories && Array.isArray(activeCfg.categories) && activeCfg.categories.length > 0) {
+    return activeCfg.categories.filter((c: any) => c.active !== false);
+  }
+  return fallback;
+}

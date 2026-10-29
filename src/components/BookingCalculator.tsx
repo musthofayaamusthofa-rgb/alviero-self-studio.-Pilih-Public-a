@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig, getPaymentConfig } from '../utils/studioConfigManager';
+import { useStudioConfig, getPaymentConfig, getActivePackages, getActiveSelfStudioSubPackages, getActiveAddOns, parsePriceToNumber } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import {
@@ -1489,6 +1489,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 }) => {
   const studioConfig = useStudioConfig();
   const paymentConfig = useMemo(() => getPaymentConfig(studioConfig), [studioConfig]);
+  const activePackages = useMemo(() => getActivePackages(studioConfig, PACKAGES), [studioConfig]);
+  const activeSelfStudioGroups = useMemo(() => getActiveSelfStudioSubPackages(studioConfig, SELF_STUDIO_SUB_PACKAGES), [studioConfig]);
+  const activeAddOnsList = useMemo(() => getActiveAddOns(studioConfig, ADD_ONS), [studioConfig]);
 
   // Integrasi tombol Back fisik / Swipe Back HP (Native PWA Experience)
   useMobileBackButton(isOpen, onClose, 'booking-modal');
@@ -1549,10 +1552,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Form State
   const [selectedPackageId, setSelectedPackageId] = useState<string>(preselectedPackageId || PACKAGES[0].id);
-  const initialSelfStudioOption = SELF_STUDIO_SUB_PACKAGES.flatMap(group => group.options).find(option => option.id === preselectedPackageId)
-    || SELF_STUDIO_SUB_PACKAGES[0].options[0];
+  const initialSelfStudioOption = activeSelfStudioGroups.flatMap(group => group.options).find(option => option.id === preselectedPackageId)
+    || (activeSelfStudioGroups[0] && activeSelfStudioGroups[0].options[0]) || SELF_STUDIO_SUB_PACKAGES[0].options[0];
   const [selfStudioCategory, setSelfStudioCategory] = useState<string>(
-    SELF_STUDIO_SUB_PACKAGES.find(group => group.options.some(option => option.id === initialSelfStudioOption.id))?.category || 'Normal'
+    activeSelfStudioGroups.find(group => group.options.some(option => option.id === initialSelfStudioOption.id))?.category || 'Normal'
   );
   const [selfStudioSubPackage, setSelfStudioSubPackage] = useState<string>(initialSelfStudioOption.id);
   const [ukuranCetak, setUkuranCetak] = useState<keyof typeof PRINT_OPTIONS | ''>('');
@@ -1644,7 +1647,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
-  const currentPackage = PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
+  const currentPackage = activePackages.find(p => p.id === selectedPackageId) || PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
   const isPassFoto = (
     currentPackage.category === 'pass-foto' ||
     currentPackage.id.toLowerCase().includes('passfoto') ||
@@ -1701,11 +1704,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Filter paket berdasarkan tipe ruangan yang aktif (SelfStudio vs Studio Foto)
   const filteredPackages = useMemo(() => {
-    return PACKAGES.filter(pkg => {
+    return activePackages.filter(pkg => {
       const isPkgSelf = pkg.category === 'self-studio' || pkg.id.toLowerCase().includes('self');
       return isSelfStudio ? isPkgSelf : !isPkgSelf;
     });
-  }, [isSelfStudio]);
+  }, [isSelfStudio, activePackages]);
 
   // Tema Warna Pastel untuk Paket Aktif
   const currentPackagePastelTheme = useMemo(() => getPackagePastelTheme(currentPackage), [currentPackage]);
@@ -1751,17 +1754,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     });
   }, [filteredPackages, packageCategoryFilter, packageSearchQuery]);
 
-  const selectedSelfStudioCategory = SELF_STUDIO_SUB_PACKAGES.find(group => group.category === selfStudioCategory)
-    || SELF_STUDIO_SUB_PACKAGES[0];
+  const selectedSelfStudioCategory = activeSelfStudioGroups.find(group => group.category === selfStudioCategory)
+    || activeSelfStudioGroups[0] || SELF_STUDIO_SUB_PACKAGES[0];
   const selectedSelfStudioOption = selectedSelfStudioCategory.options.find(option => option.id === selfStudioSubPackage)
     || selectedSelfStudioCategory.options[0];
   const hasFreePrint = isSelfStudio && selectedSelfStudioOption.hasFreePrint;
 
   useEffect(() => {
     if (!isSelfStudio) return;
-    const selectedOption = SELF_STUDIO_SUB_PACKAGES.flatMap(group => group.options).find(option => option.id === selectedPackageId);
+    const selectedOption = activeSelfStudioGroups.flatMap(group => group.options).find(option => option.id === selectedPackageId);
     if (selectedOption) {
-      const selectedGroup = SELF_STUDIO_SUB_PACKAGES.find(group => group.options.some(option => option.id === selectedOption.id));
+      const selectedGroup = activeSelfStudioGroups.find(group => group.options.some(option => option.id === selectedOption.id));
       if (selectedGroup) setSelfStudioCategory(selectedGroup.category);
       setSelfStudioSubPackage(selectedOption.id);
       if (!selectedOption.hasFreePrint) {
@@ -2216,13 +2219,13 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Kalkulasi Biaya & Diskon
   const packagePrice = currentPackage.price;
   const addOnsTotalPrice = Object.entries(selectedAddOns).reduce((sum, [id, qty]) => {
-    const addOn = ADD_ONS.find(a => a.id === id);
+    const addOn = activeAddOnsList.find(a => a.id === id) || ADD_ONS.find(a => a.id === id);
     const numQty = typeof qty === 'number' ? qty : Number(qty) || 0;
     return sum + (addOn ? addOn.price * numQty : 0);
   }, 0);
   const selectedAddOnDetails = Object.entries(selectedAddOns)
     .map(([id, qty]) => {
-      const addOn = ADD_ONS.find(item => item.id === id);
+      const addOn = activeAddOnsList.find(item => item.id === id) || ADD_ONS.find(item => item.id === id);
       const quantity = Number(qty) || 0;
       return addOn && quantity > 0
         ? { ...addOn, quantity, subtotal: addOn.price * quantity }
@@ -2377,7 +2380,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       lines.push('');
       lines.push('*ADD-ONS TAMBAHAN:*');
       Object.entries(selectedAddOns).forEach(([id, qty]) => {
-        const addOn = ADD_ONS.find(a => a.id === id);
+        const addOn = activeAddOnsList.find(a => a.id === id) || ADD_ONS.find(a => a.id === id);
         if (addOn) {
           const numQty = typeof qty === 'number' ? qty : Number(qty) || 0;
           lines.push(`• ${addOn.name} (${numQty} ${addOn.unit}) = Rp ${(addOn.price * numQty).toLocaleString('id-ID')}`);
@@ -2524,7 +2527,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     try {
       const selectedAddOnsSummary = Object.entries(selectedAddOns)
         .map(([id, qty]) => {
-          const a = ADD_ONS.find(item => item.id === id);
+          const a = activeAddOnsList.find(item => item.id === id) || ADD_ONS.find(item => item.id === id);
           return a ? `${a.name} (${qty} ${a.unit})` : '';
         })
         .filter(Boolean)
@@ -2775,7 +2778,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <select
                       value={selfStudioCategory}
                       onChange={(e) => {
-                        const nextCategory = SELF_STUDIO_SUB_PACKAGES.find(group => group.category === e.target.value) || SELF_STUDIO_SUB_PACKAGES[0];
+                        const nextCategory = activeSelfStudioGroups.find(group => group.category === e.target.value) || activeSelfStudioGroups[0] || SELF_STUDIO_SUB_PACKAGES[0];
                         const nextOption = nextCategory.options[0];
                         setSelfStudioCategory(nextCategory.category);
                         setSelfStudioSubPackage(nextOption.id);
@@ -2783,7 +2786,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       }}
                       className="w-full min-h-[44px] p-3 rounded-xl border border-[#E8DDD6] text-xs font-semibold text-[#3A3A3A] bg-white focus:outline-none focus:border-[#3A3A3A] transition-colors"
                     >
-                      {SELF_STUDIO_SUB_PACKAGES.map(group => (
+                      {activeSelfStudioGroups.map(group => (
                         <option key={group.category} value={group.category}>{group.category}</option>
                       ))}
                     </select>
@@ -4117,7 +4120,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
           {step === 2 && (() => {
             const packageCatInfo = getPackageCategoryInfo(currentPackage);
             const isSelf = packageCatInfo.key === 'self-studio' || isSelfStudio;
-            const relevantAddOns = ADD_ONS.filter(addOn => {
+            const relevantAddOns = activeAddOnsList.filter(addOn => {
               if (addOn.id.startsWith('self-keep-drive')) return isSelf;
               if (addOn.id.startsWith('studio-keep-drive')) return !isSelf;
               if (addOn.applicableBranches && addOn.applicableBranches.length > 0 && !addOn.applicableBranches.includes('all')) {

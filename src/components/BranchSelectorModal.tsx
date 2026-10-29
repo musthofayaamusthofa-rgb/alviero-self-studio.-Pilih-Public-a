@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig } from '../utils/studioConfigManager';
+import { useStudioConfig, getActiveReviews } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
@@ -421,6 +421,8 @@ export const CLIENT_REVIEWS: ClientReview[] = [
  * Terhubung langsung dengan Google Review Studio 1 (Junrejo) & Studio 2 (Dinoyo)
  */
 export const ClientReviewCarousel: React.FC = () => {
+  const studioConfig = useStudioConfig();
+  const allReviews = useMemo(() => getActiveReviews(studioConfig, CLIENT_REVIEWS), [studioConfig]);
   const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
   const [activeBranchFilter, setActiveBranchFilter] = useState<'all' | 'cabang-1' | 'cabang-2'>('all');
   const [isPaused, setIsPaused] = useState<boolean>(false);

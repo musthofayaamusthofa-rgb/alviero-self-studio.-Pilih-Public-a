@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Camera, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { useStudioConfig } from '../utils/studioConfigManager';
+import { useStudioConfig, getActiveAnnouncement } from '../utils/studioConfigManager';
 
 interface HeaderProps {
   activeTab: string;
@@ -27,6 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   const studioConfig = useStudioConfig();
   const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
   const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
+  const announcementInfo = useMemo(() => getActiveAnnouncement(studioConfig), [studioConfig]);
 
   // Check studio open status dynamically (08:00 - 21:00 WIB)
   const checkIsOpen = (): boolean => {
@@ -90,6 +91,12 @@ export const Header: React.FC<HeaderProps> = ({
               </>
             )}
           </div>
+          {announcementInfo.active && announcementInfo.text && (
+            <div className="hidden md:flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-400/20 text-amber-200 border border-amber-400/30 text-[10px] font-bold max-w-md truncate">
+              <Sparkles className="w-3 h-3 text-amber-300 shrink-0 animate-pulse" />
+              <span className="truncate">{announcementInfo.text}</span>
+            </div>
+          )}
           <div className="flex items-center gap-4 text-[#F2E9E4]/90 text-[10.5px]">
             <a 
               href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20mau%20tanya%20jadwal%20slot%20kosong`}

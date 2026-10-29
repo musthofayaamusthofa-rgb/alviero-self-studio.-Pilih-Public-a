@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 import { useMobileBackButton } from '../hooks/useMobileBackButton';
-import studioConfig from '../data/studioConfig.json';
+import { useStudioConfig } from '../utils/studioConfigManager';
 
 interface MilestoneItem {
   id?: string;
@@ -48,6 +48,7 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
 
   if (!isOpen) return null;
 
+  const studioConfig = useStudioConfig();
   const history = (studioConfig as any).history || {};
 
   const header = history.header || {
