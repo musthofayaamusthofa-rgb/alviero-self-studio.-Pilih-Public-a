@@ -1,28 +1,31 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import fs from 'fs';
 import {defineConfig, Plugin} from 'vite';
 import http from 'http';
-import {spawn, ChildProcess} from 'child_process';
+import {spawn} from 'child_process';
 
 function autoStartAdminServerPlugin(): Plugin {
   return {
     name: 'auto-start-admin-server',
     configureServer(server) {
-      if ((globalThis as any).__adminServerProcess && !(globalThis as any).__adminServerProcess.killed) {
-        return;
-      }
+      const startAdminServer = () => {
+        if ((globalThis as any).__adminServerProcess && !(globalThis as any).__adminServerProcess.killed) {
+          return;
+        }
 
-      const req = http.get('http://127.0.0.1:3001/api/config', () => {
-        console.log('\n[Vite] ✅ Admin Server Alviero (Port 3001) sudah aktif.');
-      });
-
-      req.on('error', () => {
-        console.log('\n[Vite] 🚀 Menjalankan Admin Server Alviero (Port 3001) secara otomatis...');
         const adminScript = path.resolve(__dirname, 'scripts', 'admin-server.cjs');
-        const proc = spawn('node', [adminScript], {
+        console.log('\n[Vite] 🚀 Memastikan Admin Server Alviero (Port 3001) aktif...');
+
+        const nodeExec = process.execPath || 'node';
+        const proc = spawn(nodeExec, [adminScript], {
           stdio: 'inherit',
-          shell: true,
+          shell: false,
+          env: {
+            ...process.env,
+            PATH: `C:\\Program Files\\nodejs;${process.env.PATH || ''}`,
+          },
         });
 
         (globalThis as any).__adminServerProcess = proc;
@@ -30,7 +33,30 @@ function autoStartAdminServerPlugin(): Plugin {
         proc.on('error', (err) => {
           console.error('[Vite] ❌ Gagal menjalankan admin-server:', err.message);
         });
-      });
+
+        proc.on('exit', (code) => {
+          if (code !== 0 && code !== null) {
+            console.log(`[Vite] Admin server berhenti dengan kode ${code}`);
+          }
+          (globalThis as any).__adminServerProcess = undefined;
+        });
+      };
+
+      const checkAndStart = () => {
+        const req = http.get('http://127.0.0.1:3001/api/config', (res) => {
+          if (res.statusCode === 200) {
+            console.log('\n[Vite] ✅ Admin Server Alviero (Port 3001) sudah aktif.');
+          } else {
+            startAdminServer();
+          }
+        });
+
+        req.on('error', () => {
+          startAdminServer();
+        });
+      };
+
+      checkAndStart();
 
       const cleanup = () => {
         const proc = (globalThis as any).__adminServerProcess;
@@ -69,10 +95,25 @@ export default defineConfig(() => {
           target: 'http://127.0.0.1:3001',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/adminsalto/, ''),
+          configure: (proxy) => {
+            proxy.on('error', (_err, _req, res: any) => {
+              // Jika port 3001 belum sempat ready, layani langsung file static admin-ui
+              const fallbackPath = path.resolve(__dirname, 'public', 'adminsalto', 'index.html');
+              if (fs.existsSync(fallbackPath) && res && !res.headersSent) {
+                res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+                fs.createReadStream(fallbackPath).pipe(res);
+              }
+            });
+          },
         },
         '/api': {
           target: 'http://127.0.0.1:3001',
           changeOrigin: true,
+          configure: (proxy) => {
+            proxy.on('error', (err) => {
+              console.warn('[Proxy API] Port 3001 belum terhubung:', err.message);
+            });
+          },
         },
       },
     },
