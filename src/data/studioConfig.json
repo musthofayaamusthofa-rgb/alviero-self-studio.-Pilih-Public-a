@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T10:58:10.775Z",
+  "lastUpdated": "2026-11-05T10:58:37.409Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1479,16 +1479,6 @@
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
-          "icon": "⏰",
-          "label": "Durasi Foto",
-          "text": "40 Menit Unlimited Foto"
-        },
-        {
-          "icon": "✨",
-          "label": "Background Studio",
-          "text": "2 Background Studio"
-        },
-        {
           "icon": "👥",
           "label": "Kapasitas Orang",
           "text": "1 Wisudawan + Family"
@@ -1497,6 +1487,16 @@
           "icon": "👥",
           "label": "Batas Orang",
           "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "40 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
         },
         {
           "icon": "✏️",
@@ -1621,16 +1621,6 @@
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
-          "icon": "⏰",
-          "label": "Durasi Foto",
-          "text": "40 Menit Unlimited Foto"
-        },
-        {
-          "icon": "✨",
-          "label": "Background Studio",
-          "text": "2 Background Studio"
-        },
-        {
           "icon": "👥",
           "label": "Kapasitas Orang",
           "text": "1 Wisudawan + Family"
@@ -1639,6 +1629,16 @@
           "icon": "👥",
           "label": "Batas Orang",
           "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "40 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
         },
         {
           "icon": "✏️",
