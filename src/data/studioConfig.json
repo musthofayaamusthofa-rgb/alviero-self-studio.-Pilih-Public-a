@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T10:58:37.409Z",
+  "lastUpdated": "2026-11-05T10:58:49.916Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1499,6 +1499,11 @@
           "text": "2 Background Studio"
         },
         {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
           "text": "Edit 8 Foto High-Res"
@@ -1507,11 +1512,6 @@
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
           "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
-        },
-        {
-          "icon": "📁",
-          "label": "Pengiriman Softfile",
-          "text": "All File via Google Drive"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
@@ -1641,6 +1641,11 @@
           "text": "2 Background Studio"
         },
         {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
           "text": "Edit 8 Foto High-Res"
@@ -1649,11 +1654,6 @@
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
           "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
-        },
-        {
-          "icon": "📁",
-          "label": "Pengiriman Softfile",
-          "text": "All File via Google Drive"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
