@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T10:58:49.916Z",
+  "lastUpdated": "2026-11-05T11:24:12.769Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1411,7 +1411,7 @@
       "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
-      "edit": "Editing 6 Foto",
+      "edit": "Editing 6 Foto High-Res",
       "print": "free 2 Cetak 10Rs",
       "fileDelivery": "All fille G drive",
       "facilities": [
@@ -1443,7 +1443,7 @@
         {
           "icon": "✏️",
           "label": "Editing Foto",
-          "text": "Editing 6 Foto"
+          "text": "Editing 6 Foto High-Res"
         },
         {
           "icon": "👗",
@@ -1553,7 +1553,7 @@
       "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
-      "edit": "Editing 6 Foto",
+      "edit": "Editing 6 Foto High-Res",
       "print": "free 2 Cetak 10Rs",
       "fileDelivery": "All fille G drive",
       "facilities": [
@@ -1585,7 +1585,7 @@
         {
           "icon": "✏️",
           "label": "Editing Foto",
-          "text": "Editing 6 Foto"
+          "text": "Editing 6 Foto High-Res"
         },
         {
           "icon": "👗",
