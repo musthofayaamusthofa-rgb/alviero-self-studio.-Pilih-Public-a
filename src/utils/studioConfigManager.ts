@@ -469,12 +469,31 @@ export function getActiveLabPrintItems(cfg?: any, fallback: any[] = []): any[] {
 }
 
 /**
+ * Mengambil gambar banner simulasi skala cetak foto lab
+ */
+export function getActiveLabPrintBanner(cfg?: any): string {
+  const activeCfg = cfg || currentConfig;
+  return activeCfg?.labPrintBannerImage || 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=85';
+}
+
+/**
  * Mengambil daftar katalog bingkai foto aktif
  */
 export function getActiveFrameItems(cfg?: any, fallback: any[] = []): any[] {
   const activeCfg = cfg || currentConfig;
   if (activeCfg?.framePrices && Array.isArray(activeCfg.framePrices) && activeCfg.framePrices.length > 0) {
     return activeCfg.framePrices.filter((i: any) => i.active !== false);
+  }
+  return fallback;
+}
+
+/**
+ * Mengambil daftar katalog album foto eksklusif aktif
+ */
+export function getActiveAlbumItems(cfg?: any, fallback: any[] = []): any[] {
+  const activeCfg = cfg || currentConfig;
+  if (activeCfg?.albumPrices && Array.isArray(activeCfg.albumPrices) && activeCfg.albumPrices.length > 0) {
+    return activeCfg.albumPrices.filter((i: any) => i.active !== false);
   }
   return fallback;
 }

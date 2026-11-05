@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig, formatPriceDisplay, getActiveLabPrintItems, getActiveFrameItems, getActiveCategories, getActivePackages, getActiveDisclaimer } from '../utils/studioConfigManager';
+import { useStudioConfig, formatPriceDisplay, getActiveLabPrintItems, getActiveLabPrintBanner, getActiveFrameItems, getActiveAlbumItems, getActiveCategories, getActivePackages, getActiveDisclaimer } from '../utils/studioConfigManager';
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
@@ -232,6 +232,81 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
+  const defaultAlbumItems = [
+    {
+      id: 'album-1',
+      name: 'ALBUM 4R BIASA',
+      capacity: 'ISI 40 FOTO',
+      price: '25K',
+      badge: 'Ekonomis',
+      image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-2',
+      name: 'ALBUM LULU 4R',
+      capacity: 'ISI 100 FOTO',
+      price: '45,5K',
+      badge: 'Best Seller',
+      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-3',
+      name: 'ALBUM DLK 4R',
+      capacity: 'ISI 40 FOTO',
+      price: '70K',
+      badge: 'Hardcover',
+      image: 'https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-4',
+      name: 'ALBUM DLB 4R',
+      capacity: 'ISI 60 FOTO',
+      price: '75K',
+      badge: 'Hardcover',
+      image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-5',
+      name: 'ALBUM MBT 4R',
+      capacity: 'ISI 80 FOTO',
+      price: '83K',
+      badge: 'Eksklusif',
+      image: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-6',
+      name: 'ALBUM MBT 4R',
+      capacity: 'ISI 120 FOTO',
+      price: '104K',
+      badge: 'Eksklusif',
+      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-7',
+      name: 'ALBUM JUMBO 4R',
+      capacity: 'ISI 120 FOTO',
+      price: '93K',
+      badge: 'Jumbo',
+      image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80',
+      active: true
+    },
+    {
+      id: 'album-8',
+      name: 'ALBUM JUMBO 4R',
+      capacity: 'ISI 160 FOTO',
+      price: '116K',
+      badge: 'Kapasitas Max',
+      image: 'https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80',
+      active: true
+    }
+  ];
+
   const activeLabPrintItems = useMemo(() => {
     const items = getActiveLabPrintItems(studioConfig, defaultLabPrintItems);
     return items.map((i: any) => ({
@@ -240,8 +315,20 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }));
   }, [studioConfig]);
 
+  const labPrintBannerImage = useMemo(() => {
+    return getActiveLabPrintBanner(studioConfig);
+  }, [studioConfig]);
+
   const activeFrameItems = useMemo(() => {
     const items = getActiveFrameItems(studioConfig, defaultFrameItems);
+    return items.map((i: any) => ({
+      ...i,
+      price: i.priceDisplay || (typeof i.price === 'number' ? formatPriceDisplay(i.price) : i.price)
+    }));
+  }, [studioConfig]);
+
+  const activeAlbumItems = useMemo(() => {
+    const items = getActiveAlbumItems(studioConfig, defaultAlbumItems);
     return items.map((i: any) => ({
       ...i,
       price: i.priceDisplay || (typeof i.price === 'number' ? formatPriceDisplay(i.price) : i.price)
@@ -4282,7 +4369,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           {/* Visual Skala Layered Frames */}
                           <div className="relative aspect-[16/9] sm:aspect-[21/9] bg-slate-900 rounded-xl overflow-hidden border border-slate-700 flex items-end justify-start p-3 sm:p-4">
                             <img
-                              src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=85"
+                              src={labPrintBannerImage || "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=85"}
                               alt="Perbandingan Ukuran Cetak Foto"
                               className="absolute inset-0 w-full h-full object-cover opacity-60"
                             />
@@ -4420,64 +4507,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         {/* 8 Kartu Album Foto (Sesuai Desain Poster) */}
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3.5 sm:gap-4">
-                          {[
-                            {
-                              name: 'ALBUM 4R BIASA',
-                              capacity: 'ISI 40 FOTO',
-                              price: '25K',
-                              badge: 'Ekonomis',
-                              image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM LULU 4R',
-                              capacity: 'ISI 100 FOTO',
-                              price: '45,5K',
-                              badge: 'Best Seller',
-                              image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM DLK 4R',
-                              capacity: 'ISI 40 FOTO',
-                              price: '70K',
-                              badge: 'Hardcover',
-                              image: 'https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM DLB 4R',
-                              capacity: 'ISI 60 FOTO',
-                              price: '75K',
-                              badge: 'Hardcover',
-                              image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM MBT 4R',
-                              capacity: 'ISI 80 FOTO',
-                              price: '83K',
-                              badge: 'Eksklusif',
-                              image: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM MBT 4R',
-                              capacity: 'ISI 120 FOTO',
-                              price: '104K',
-                              badge: 'Eksklusif',
-                              image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM JUMBO 4R',
-                              capacity: 'ISI 120 FOTO',
-                              price: '93K',
-                              badge: 'Jumbo',
-                              image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80'
-                            },
-                            {
-                              name: 'ALBUM JUMBO 4R',
-                              capacity: 'ISI 160 FOTO',
-                              price: '116K',
-                              badge: 'Kapasitas Max',
-                              image: 'https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80'
-                            }
-                          ].map((album, idx) => (
+                          {activeAlbumItems.map((album: any, idx: number) => (
                             <div
                               key={idx}
                               className="bg-white/90 rounded-2xl p-3 sm:p-4 border border-blue-200/70 shadow-xs flex flex-col justify-between space-y-2.5 text-center hover:bg-white hover:shadow-md transition-all group"

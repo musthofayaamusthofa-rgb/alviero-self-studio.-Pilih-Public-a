@@ -6178,5 +6178,88 @@
         "customOverlays": {}
       }
     ]
-  }
+  },
+  "labPrintBannerImage": "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=85",
+  "albumPrices": [
+    {
+      "id": "album-1",
+      "name": "ALBUM 4R BIASA",
+      "capacity": "ISI 40 FOTO",
+      "price": 25000,
+      "priceDisplay": "25K",
+      "badge": "Ekonomis",
+      "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-2",
+      "name": "ALBUM LULU 4R",
+      "capacity": "ISI 100 FOTO",
+      "price": 45500,
+      "priceDisplay": "45,5K",
+      "badge": "Best Seller",
+      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-3",
+      "name": "ALBUM DLK 4R",
+      "capacity": "ISI 40 FOTO",
+      "price": 70000,
+      "priceDisplay": "70K",
+      "badge": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-4",
+      "name": "ALBUM DLB 4R",
+      "capacity": "ISI 60 FOTO",
+      "price": 75000,
+      "priceDisplay": "75K",
+      "badge": "Hardcover",
+      "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-5",
+      "name": "ALBUM MBT 4R",
+      "capacity": "ISI 80 FOTO",
+      "price": 83000,
+      "priceDisplay": "83K",
+      "badge": "Eksklusif",
+      "image": "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-6",
+      "name": "ALBUM MBT 4R",
+      "capacity": "ISI 120 FOTO",
+      "price": 104000,
+      "priceDisplay": "104K",
+      "badge": "Eksklusif",
+      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-7",
+      "name": "ALBUM JUMBO 4R",
+      "capacity": "ISI 120 FOTO",
+      "price": 93000,
+      "priceDisplay": "93K",
+      "badge": "Jumbo",
+      "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    },
+    {
+      "id": "album-8",
+      "name": "ALBUM JUMBO 4R",
+      "capacity": "ISI 160 FOTO",
+      "price": 116000,
+      "priceDisplay": "116K",
+      "badge": "Kapasitas Max",
+      "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80",
+      "active": true
+    }
+  ]
 }

@@ -1901,7 +1901,7 @@
             🗂️ 16 Kategori Menu Paket (Thumbnail & Badge)
           </button>
           <button type="button" class="pill-btn" id="indoorSubBtnLabFrame" onclick="switchIndoorSubView('labframe', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
-            🖼️ Harga Cetak Lab & Bingkai Foto
+            🖼️ Cetak Lab, Bingkai & Album Foto
           </button>
         </div>
 
@@ -1952,28 +1952,76 @@
           </div>
         </div>
 
-        <!-- SUB-PANEL 2B: HARGA CETAK LAB & BINGKAI FOTO -->
+        <!-- SUB-PANEL 2B: HARGA CETAK LAB, BINGKAI & ALBUM FOTO -->
         <div id="indoorSubPanelLabFrame" style="display: none;">
-          <div style="display: grid; grid-template-columns: 1fr; gap: 1.75rem;">
-            <!-- Tabel Cetak Foto Lab -->
-            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
-                <div>
-                  <h3 style="font-size: 1rem; font-weight: 800; color: var(--charcoal); margin: 0;">🖨️ Daftar Harga Cetak Foto Lab (4R s.d. 24Rs & Pass Foto)</h3>
-                  <p style="font-size: 0.76rem; color: #71717A; margin: 0.15rem 0 0 0;">Perubahan pada tabel ini langsung mengubah tabel Pricelist Cetak Foto Lab di situs web.</p>
-                </div>
-                <button class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="openAddLabPrintModal()">+ Tambah Ukuran Cetak</button>
+          <div class="preset-box" style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem;">
+                <span>🖼️ Kelola Cetak Foto Lab, Bingkai &amp; Album Foto</span>
               </div>
+              <div style="font-size: 0.78rem; color: #71717A; margin-top: 0.2rem;">
+                Atur banner simulasi ukuran, tabel harga cetak foto lab, kartu bingkai kayu &amp; minimalis, serta kartu album eksklusif lengkap dengan upload foto mandiri.
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-save-local" onclick="saveLabFramePrices()">
+                💾 Simpan Cetak Lab, Bingkai &amp; Album
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <!-- 1. CETAK FOTO LAB & BANNER SIMULASI -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+                <div>
+                  <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🖨️ 1. Banner Simulasi &amp; Pricelist Cetak Foto Lab</span>
+                  </h3>
+                  <p style="font-size: 0.78rem; color: #71717A; margin: 0.25rem 0 0 0;">
+                    Atur foto banner perbandingan skala ukuran cetak lab (16:9 / 21:9) dan daftar harga cetak foto lab (4R s.d. 24Rs).
+                  </p>
+                </div>
+                <button type="button" class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="addLabPrintRow()">+ Tambah Ukuran Cetak</button>
+              </div>
+
+              <!-- Banner Uploader Box -->
+              <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1.15rem; margin-bottom: 1.5rem;">
+                <div style="font-size: 0.82rem; font-weight: 800; color: var(--charcoal); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>✨ Foto Banner Simulasi Skala Ukuran Cetak Foto Lab</span>
+                  <span style="font-size: 0.7rem; font-weight: 600; color: #71717A;">(Muncul di atas tabel pricelist cetak)</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 240px 1fr; gap: 1rem; align-items: center;">
+                  <div style="position: relative; aspect-ratio: 16/9; background: #0F172A; border-radius: 10px; overflow: hidden; border: 1px solid #334155;">
+                    <img id="labBannerPreviewImg" src="" alt="Banner Cetak Lab" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                      <input type="file" id="labBannerFileInput" accept="image/*" style="display: none;" onchange="handleLabBannerUpload(this)">
+                      <button type="button" class="btn btn-preview" style="font-size: 0.78rem; padding: 0.4rem 0.85rem;" onclick="document.getElementById('labBannerFileInput').click()">
+                        📁 Upload Banner Baru
+                      </button>
+                      <button type="button" class="btn btn-preview" style="font-size: 0.78rem; padding: 0.4rem 0.85rem;" onclick="resetLabBannerDefault()">
+                        🔄 Gunakan Default
+                      </button>
+                    </div>
+                    <input type="text" id="labBannerUrlInput" class="form-control" style="font-size: 0.78rem; padding: 0.4rem 0.6rem;" placeholder="Atau paste URL gambar banner..." oninput="updateLabBannerUrl(this.value)">
+                    <div style="font-size: 0.72rem; color: #71717A;">Rekomendasi rasio lanskap lebar 16:9 atau 21:9 dengan resolusi jernih.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tabel Cetak Foto Lab -->
               <div class="table-container">
                 <table>
                   <thead>
                     <tr>
-                      <th style="width: 70px; text-align: center;">Aktif</th>
-                      <th style="width: 110px;">Kode Ukuran</th>
-                      <th>Dimensi / Ukuran (cm)</th>
-                      <th>Catatan Fungsi</th>
+                      <th style="width: 60px; text-align: center;">Aktif</th>
+                      <th style="width: 110px;">Kode</th>
+                      <th>Dimensi / Ukuran</th>
+                      <th>Catatan / Keterangan</th>
                       <th style="width: 130px;">Harga Cetak</th>
-                      <th style="width: 130px; text-align: right;">Aksi</th>
+                      <th style="width: 80px; text-align: right;">Aksi</th>
                     </tr>
                   </thead>
                   <tbody id="labPrintTableBody">
@@ -1983,16 +2031,38 @@
               </div>
             </div>
 
-            <!-- Grid Bingkai Foto -->
-            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+            <!-- 2. PRICELIST BINGKAI FOTO (PHOTO FRAMES) -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
                 <div>
-                  <h3 style="font-size: 1rem; font-weight: 800; color: var(--charcoal); margin: 0;">🖼️ Daftar Harga Bingkai Foto (Photo Frames)</h3>
-                  <p style="font-size: 0.76rem; color: #71717A; margin: 0.15rem 0 0 0;">Kelola kartu ukuran bingkai foto, harga, tipe bingkai, deskripsi, dan foto preview bingkai.</p>
+                  <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🖼️ 2. Daftar Kartu Bingkai Foto (Photo Frames)</span>
+                  </h3>
+                  <p style="font-size: 0.78rem; color: #71717A; margin: 0.25rem 0 0 0;">
+                    Kelola kartu bingkai kayu &amp; minimalis, foto bingkai (upload/URL), ukuran fisik, tipe/badge, harga, dan deskripsi.
+                  </p>
                 </div>
-                <button class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="openAddFramePriceModal()">+ Tambah Bingkai Baru</button>
+                <button type="button" class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="addFramePriceRow()">+ Tambah Bingkai Baru</button>
               </div>
-              <div class="bg-grid" id="framePricesGrid" style="grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));">
+              <div class="bg-grid" id="framePricesGrid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- 3. PRICELIST ALBUM FOTO (PHOTO ALBUMS) -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+                <div>
+                  <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>📚 3. Daftar Kartu Album Foto (Photo Albums)</span>
+                  </h3>
+                  <p style="font-size: 0.78rem; color: #71717A; margin: 0.25rem 0 0 0;">
+                    Kelola kartu koleksi album hardcover &amp; magnetik, foto album (upload/URL), nama album, kapasitas foto, label badge, dan harga.
+                  </p>
+                </div>
+                <button type="button" class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="addAlbumPriceRow()">+ Tambah Album Baru</button>
+              </div>
+              <div class="bg-grid" id="albumPricesGrid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;">
                 <!-- Rendered dynamically -->
               </div>
             </div>
@@ -11330,65 +11400,280 @@
       showToast('✅ Seluruh konfigurasi Kategori Menu berhasil disimpan!', '🗂️');
     }
 
-    // 5. Harga Cetak Foto Lab & Pricelist Bingkai Foto
+    // 5. Kelola Cetak Foto Lab, Bingkai & Album Foto (Comprehensive Manager)
+    const DEFAULT_LAB_BANNER_IMAGE = 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1200&q=85';
+
+    function updateLabBannerUrl(val) {
+      if (!appConfig) return;
+      appConfig.labPrintBannerImage = (val || '').trim();
+      const img = document.getElementById('labBannerPreviewImg');
+      if (img) img.src = appConfig.labPrintBannerImage || DEFAULT_LAB_BANNER_IMAGE;
+    }
+
+    function resetLabBannerDefault() {
+      if (!appConfig) return;
+      appConfig.labPrintBannerImage = DEFAULT_LAB_BANNER_IMAGE;
+      const input = document.getElementById('labBannerUrlInput');
+      if (input) input.value = DEFAULT_LAB_BANNER_IMAGE;
+      const img = document.getElementById('labBannerPreviewImg');
+      if (img) img.src = DEFAULT_LAB_BANNER_IMAGE;
+      showToast('Banner cetak lab dikembalikan ke default!', '✨');
+      saveConfigLocally();
+    }
+
+    async function handleLabBannerUpload(input) {
+      const file = input?.files?.[0];
+      if (!file) return;
+      try {
+        showToast('Mengunggah banner cetak lab...', '⏳');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const data = await uploadImageToServer({
+          file,
+          fileName: `lab_banner_${Date.now()}${ext}`,
+          folder: 'banners',
+          maxWidth: 1920,
+          maxHeight: 1080,
+          quality: 0.88
+        });
+        if (data && data.success && data.url) {
+          updateLabBannerUrl(data.url);
+          const urlInput = document.getElementById('labBannerUrlInput');
+          if (urlInput) urlInput.value = data.url;
+          showToast('Banner cetak lab berhasil diunggah!', '✅');
+          saveConfigLocally();
+        }
+      } catch (err) {
+        console.error('Upload banner error:', err);
+        showToast('Gagal upload banner: ' + err.message, '⚠️');
+      } finally {
+        input.value = '';
+      }
+    }
+
     function renderLabAndFramePrices() {
       if (!appConfig) return;
       if (!Array.isArray(appConfig.labPrintPrices)) appConfig.labPrintPrices = [];
       if (!Array.isArray(appConfig.framePrices)) appConfig.framePrices = [];
+      if (!Array.isArray(appConfig.albumPrices)) appConfig.albumPrices = [];
 
+      // A. Render Banner Cetak Lab
+      const bannerImg = document.getElementById('labBannerPreviewImg');
+      if (bannerImg) {
+        bannerImg.src = appConfig.labPrintBannerImage || DEFAULT_LAB_BANNER_IMAGE;
+      }
+      const bannerInput = document.getElementById('labBannerUrlInput');
+      if (bannerInput) {
+        bannerInput.value = appConfig.labPrintBannerImage || '';
+      }
+
+      // B. Render Tabel Cetak Foto Lab
       const labBody = document.getElementById('labPrintTableBody');
       if (labBody) {
         labBody.innerHTML = '';
-        appConfig.labPrintPrices.forEach((item, idx) => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.code || '')}" onchange="updateLabItemField(${idx}, 'code', this.value)"></td>
-            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.cm || '')}" onchange="updateLabItemField(${idx}, 'cm', this.value)"></td>
-            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.price || '')}" onchange="updateLabItemField(${idx}, 'price', this.value)"></td>
-            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.note || '')}" onchange="updateLabItemField(${idx}, 'note', this.value)"></td>
-            <td style="text-align:center;">
-              <input type="checkbox" ${item.highlight ? 'checked' : ''} onchange="updateLabItemField(${idx}, 'highlight', this.checked)">
-            </td>
-            <td style="text-align:right;">
-              <button type="button" class="btn-action delete" onclick="deleteLabPrintItem(${idx})">🗑️</button>
-            </td>
-          `;
-          labBody.appendChild(tr);
-        });
+        if (appConfig.labPrintPrices.length === 0) {
+          labBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:1.5rem; color:#A1A1AA;">Belum ada daftar ukuran cetak. Klik "+ Tambah Ukuran Cetak" di atas.</td></tr>';
+        } else {
+          appConfig.labPrintPrices.forEach((item, idx) => {
+            const isActive = item.active !== false;
+            const tr = document.createElement('tr');
+            if (!isActive) tr.style.opacity = '0.55';
+            tr.innerHTML = `
+              <td style="text-align:center;">
+                <input type="checkbox" ${isActive ? 'checked' : ''} onchange="updateLabItemField(${idx}, 'active', this.checked); renderLabAndFramePrices();" title="Aktif / Nonaktif">
+              </td>
+              <td>
+                <input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem; font-weight:800;" value="${escapeHtml(item.code || '')}" onchange="updateLabItemField(${idx}, 'code', this.value)" placeholder="Kode (4R, 10Rs)">
+              </td>
+              <td>
+                <input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.size || item.cm || '')}" onchange="updateLabItemField(${idx}, 'size', this.value)" placeholder="Dimensi (cm)">
+              </td>
+              <td>
+                <input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.note || '')}" onchange="updateLabItemField(${idx}, 'note', this.value)" placeholder="Catatan fungsi/laminasi">
+              </td>
+              <td>
+                <input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem; font-weight:800; color:#15803D;" value="${escapeHtml(item.priceDisplay || (typeof item.price === 'number' ? item.price : '') || item.price || '')}" onchange="updateLabItemField(${idx}, 'priceDisplay', this.value)" placeholder="5K / Rp 5.000">
+              </td>
+              <td style="text-align:right;">
+                <button type="button" class="btn-action delete" style="padding:0.25rem 0.5rem; font-size:0.85rem;" title="Hapus Ukuran Cetak" onclick="deleteLabPrintItem(${idx})">🗑️</button>
+              </td>
+            `;
+            labBody.appendChild(tr);
+          });
+        }
       }
 
+      // C. Render Grid Bingkai Foto
       const frameGrid = document.getElementById('framePricesGrid');
       if (frameGrid) {
         frameGrid.innerHTML = '';
-        appConfig.framePrices.forEach((item, idx) => {
-          const card = document.createElement('div');
-          card.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:0.9rem; display:flex; flex-direction:column; gap:0.45rem;';
-          card.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <input type="text" class="form-control" style="font-weight:800; font-size:0.85rem; padding:0.3rem 0.5rem;" value="${escapeHtml(item.size || '')}" onchange="updateFrameItemField(${idx}, 'size', this.value)" placeholder="Ukuran Bingkai">
-              <button type="button" class="btn-action delete" style="margin-left:6px;" onclick="deleteFramePriceItem(${idx})">🗑️</button>
-            </div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.4rem;">
-              <input type="text" class="form-control" style="font-size:0.78rem; padding:0.3rem 0.5rem;" value="${escapeHtml(item.dim || '')}" onchange="updateFrameItemField(${idx}, 'dim', this.value)" placeholder="Dimensi (20x25 cm)">
-              <input type="text" class="form-control" style="font-size:0.78rem; padding:0.3rem 0.5rem; font-weight:700; color:#5C725A;" value="${escapeHtml(item.price || '')}" onchange="updateFrameItemField(${idx}, 'price', this.value)" placeholder="Harga (45k)">
-            </div>
-            <input type="text" class="form-control" style="font-size:0.75rem; padding:0.3rem 0.5rem;" value="${escapeHtml(item.desc || '')}" onchange="updateFrameItemField(${idx}, 'desc', this.value)" placeholder="Deskripsi bingkai">
-          `;
-          frameGrid.appendChild(card);
-        });
+        if (appConfig.framePrices.length === 0) {
+          frameGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:2.5rem 1rem; color:#A1A1AA;">Belum ada data bingkai foto. Klik "+ Tambah Bingkai Baru" di atas.</div>';
+        } else {
+          appConfig.framePrices.forEach((item, idx) => {
+            const card = document.createElement('div');
+            const isActive = item.active !== false;
+            card.style.cssText = `background:#FFFFFF; border:1px solid ${isActive ? 'var(--border)' : '#E2E8F0'}; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; gap:0.75rem; box-shadow:0 1px 3px rgba(0,0,0,0.04); ${isActive ? '' : 'opacity:0.6;'}`;
+            
+            const displayImg = item.image || 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80';
+            
+            card.innerHTML = `
+              <!-- Baris Atas: Status Aktif, Kode & Hapus -->
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #F1F5F9; padding-bottom:0.6rem;">
+                <label style="display:flex; align-items:center; gap:0.4rem; font-size:0.78rem; font-weight:700; color:var(--charcoal); cursor:pointer;">
+                  <input type="checkbox" ${isActive ? 'checked' : ''} onchange="updateFrameField(${idx}, 'active', this.checked); renderLabAndFramePrices();">
+                  <span>${isActive ? '🟢 Aktif' : '⚪ Nonaktif'}</span>
+                </label>
+                <div style="font-weight:800; font-size:0.82rem; color:#854D0E; background:#FEF9C3; padding:0.15rem 0.6rem; border-radius:6px; border:1px solid #FEF08A;">
+                  Bingkai #${idx + 1}
+                </div>
+                <button type="button" class="btn-action delete" style="padding:0.25rem 0.5rem; font-size:0.85rem;" title="Hapus Bingkai" onclick="deleteFramePriceItem(${idx})">🗑️</button>
+              </div>
+
+              <!-- Preview Foto Bingkai & Uploader -->
+              <div style="position:relative; aspect-ratio:4/3; background:#18181B; border-radius:10px; overflow:hidden; border:1px solid var(--border);">
+                <img id="frameImgPrev_${idx}" src="${displayImg}" alt="Foto Bingkai" style="width:100%; height:100%; object-fit:cover;">
+                <div style="position:absolute; top:0.5rem; left:0.5rem; background:rgba(0,0,0,0.72); backdrop-filter:blur(4px); color:#FFF; font-size:0.68rem; font-weight:700; padding:0.2rem 0.55rem; border-radius:999px;">
+                  ${escapeHtml(item.type || 'Bingkai')}
+                </div>
+                <div style="position:absolute; bottom:0.5rem; right:0.5rem; background:#F59E0B; color:#000; font-size:0.72rem; font-weight:900; padding:0.2rem 0.55rem; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.2);">
+                  ${escapeHtml(item.size || item.dim || '')}
+                </div>
+              </div>
+
+              <div style="display:flex; gap:0.4rem; align-items:center;">
+                <input type="file" id="frameFileInput_${idx}" accept="image/*" style="display:none;" onchange="handleFrameImageUpload(${idx}, this)">
+                <button type="button" class="btn btn-preview" style="font-size:0.74rem; padding:0.35rem 0.7rem; flex-shrink:0;" onclick="document.getElementById('frameFileInput_${idx}').click()">
+                  📁 Upload Foto
+                </button>
+                <input type="text" class="form-control" style="font-size:0.75rem; padding:0.35rem 0.55rem;" value="${escapeHtml(item.image || '')}" onchange="updateFrameField(${idx}, 'image', this.value); const el = document.getElementById('frameImgPrev_${idx}'); if (el) el.src = this.value;" placeholder="URL / Path Foto Bingkai">
+              </div>
+
+              <!-- Detail Form -->
+              <div style="display:grid; grid-template-columns: 85px 1fr 90px; gap:0.5rem;">
+                <div>
+                  <label style="display:block; font-size:0.7rem; font-weight:700; color:#64748B; margin-bottom:0.2rem;">Kode</label>
+                  <input type="text" class="form-control" style="font-size:0.8rem; font-weight:800; padding:0.35rem 0.5rem;" value="${escapeHtml(item.code || '')}" onchange="updateFrameField(${idx}, 'code', this.value)" placeholder="4R, 10Rs">
+                </div>
+                <div>
+                  <label style="display:block; font-size:0.7rem; font-weight:700; color:#64748B; margin-bottom:0.2rem;">Dimensi (cm)</label>
+                  <input type="text" class="form-control" style="font-size:0.8rem; font-weight:700; padding:0.35rem 0.5rem;" value="${escapeHtml(item.size || item.dim || '')}" onchange="updateFrameField(${idx}, 'size', this.value)" placeholder="15 X 20 CM">
+                </div>
+                <div>
+                  <label style="display:block; font-size:0.7rem; font-weight:700; color:#64748B; margin-bottom:0.2rem;">Harga</label>
+                  <input type="text" class="form-control" style="font-size:0.8rem; font-weight:800; color:#B45309; padding:0.35rem 0.5rem;" value="${escapeHtml(item.priceDisplay || (typeof item.price === 'number' ? item.price : '') || item.price || '')}" onchange="updateFrameField(${idx}, 'priceDisplay', this.value)" placeholder="17K">
+                </div>
+              </div>
+
+              <div>
+                <label style="display:block; font-size:0.7rem; font-weight:700; color:#64748B; margin-bottom:0.2rem;">Tipe Bingkai / Badge</label>
+                <input type="text" class="form-control" style="font-size:0.78rem; padding:0.35rem 0.5rem;" value="${escapeHtml(item.type || '')}" onchange="updateFrameField(${idx}, 'type', this.value)" placeholder="Contoh: Bingkai Meja / Minimalis">
+              </div>
+
+              <div>
+                <label style="display:block; font-size:0.7rem; font-weight:700; color:#64748B; margin-bottom:0.2rem;">Deskripsi Singkat</label>
+                <textarea class="form-control" rows="2" style="font-size:0.75rem; padding:0.35rem 0.5rem; resize:vertical;" onchange="updateFrameField(${idx}, 'desc', this.value)" placeholder="Deskripsi pemakaian bingkai...">${escapeHtml(item.desc || '')}</textarea>
+              </div>
+            `;
+            frameGrid.appendChild(card);
+          });
+        }
+      }
+
+      // D. Render Grid Album Foto
+      const albumGrid = document.getElementById('albumPricesGrid');
+      if (albumGrid) {
+        albumGrid.innerHTML = '';
+        if (appConfig.albumPrices.length === 0) {
+          albumGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:2.5rem 1rem; color:#A1A1AA;">Belum ada data album foto. Klik "+ Tambah Album Baru" di atas.</div>';
+        } else {
+          appConfig.albumPrices.forEach((item, idx) => {
+            const card = document.createElement('div');
+            const isActive = item.active !== false;
+            card.style.cssText = `background:#F8FAFC; border:1px solid ${isActive ? '#CBD5E1' : '#E2E8F0'}; border-radius:14px; padding:1.15rem; display:flex; flex-direction:column; gap:0.75rem; box-shadow:0 1px 3px rgba(0,0,0,0.03); ${isActive ? '' : 'opacity:0.6;'}`;
+            
+            const displayImg = item.image || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80';
+            
+            card.innerHTML = `
+              <!-- Baris Atas: Status Aktif, Kode & Hapus -->
+              <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E2E8F0; padding-bottom:0.6rem;">
+                <label style="display:flex; align-items:center; gap:0.4rem; font-size:0.78rem; font-weight:700; color:var(--charcoal); cursor:pointer;">
+                  <input type="checkbox" ${isActive ? 'checked' : ''} onchange="updateAlbumField(${idx}, 'active', this.checked); renderLabAndFramePrices();">
+                  <span>${isActive ? '🟢 Aktif' : '⚪ Nonaktif'}</span>
+                </label>
+                <div style="font-weight:800; font-size:0.82rem; color:#1E40AF; background:#DBEAFE; padding:0.15rem 0.6rem; border-radius:6px; border:1px solid #BFDBFE;">
+                  Album #${idx + 1}
+                </div>
+                <button type="button" class="btn-action delete" style="padding:0.25rem 0.5rem; font-size:0.85rem;" title="Hapus Album" onclick="deleteAlbumPriceItem(${idx})">🗑️</button>
+              </div>
+
+              <!-- Preview Foto Album & Uploader -->
+              <div style="position:relative; aspect-ratio:1/1; background:#0F172A; border-radius:10px; overflow:hidden; border:1px solid #CBD5E1;">
+                <img id="albumImgPrev_${idx}" src="${displayImg}" alt="Foto Album" style="width:100%; height:100%; object-fit:cover;">
+                <div style="position:absolute; top:0.5rem; right:0.5rem; background:#2563EB; color:#FFF; font-size:0.68rem; font-weight:800; padding:0.2rem 0.55rem; border-radius:6px; box-shadow:0 2px 4px rgba(0,0,0,0.2);">
+                  ${escapeHtml(item.badge || 'Album')}
+                </div>
+              </div>
+
+              <div style="display:flex; gap:0.4rem; align-items:center;">
+                <input type="file" id="albumFileInput_${idx}" accept="image/*" style="display:none;" onchange="handleAlbumImageUpload(${idx}, this)">
+                <button type="button" class="btn btn-preview" style="font-size:0.74rem; padding:0.35rem 0.7rem; flex-shrink:0;" onclick="document.getElementById('albumFileInput_${idx}').click()">
+                  📁 Upload Foto
+                </button>
+                <input type="text" class="form-control" style="font-size:0.75rem; padding:0.35rem 0.55rem;" value="${escapeHtml(item.image || '')}" onchange="updateAlbumField(${idx}, 'image', this.value); const el = document.getElementById('albumImgPrev_${idx}'); if (el) el.src = this.value;" placeholder="URL / Path Foto Album">
+              </div>
+
+              <!-- Detail Form -->
+              <div>
+                <label style="display:block; font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.2rem;">Nama Album</label>
+                <input type="text" class="form-control" style="font-size:0.8rem; font-weight:800; padding:0.35rem 0.5rem;" value="${escapeHtml(item.name || '')}" onchange="updateAlbumField(${idx}, 'name', this.value)" placeholder="Contoh: ALBUM 4R BIASA">
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem;">
+                <div>
+                  <label style="display:block; font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.2rem;">Kapasitas Foto</label>
+                  <input type="text" class="form-control" style="font-size:0.78rem; font-weight:700; padding:0.35rem 0.5rem;" value="${escapeHtml(item.capacity || '')}" onchange="updateAlbumField(${idx}, 'capacity', this.value)" placeholder="ISI 40 FOTO">
+                </div>
+                <div>
+                  <label style="display:block; font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.2rem;">Harga Display</label>
+                  <input type="text" class="form-control" style="font-size:0.8rem; font-weight:800; color:#2563EB; padding:0.35rem 0.5rem;" value="${escapeHtml(item.priceDisplay || (typeof item.price === 'number' ? item.price : '') || item.price || '')}" onchange="updateAlbumField(${idx}, 'priceDisplay', this.value)" placeholder="25K">
+                </div>
+              </div>
+
+              <div>
+                <label style="display:block; font-size:0.7rem; font-weight:700; color:#475569; margin-bottom:0.2rem;">Label Badge</label>
+                <input type="text" class="form-control" style="font-size:0.78rem; padding:0.35rem 0.5rem;" value="${escapeHtml(item.badge || '')}" onchange="updateAlbumField(${idx}, 'badge', this.value)" placeholder="Ekonomis, Best Seller, Hardcover, Eksklusif">
+              </div>
+            `;
+            albumGrid.appendChild(card);
+          });
+        }
       }
     }
 
+    // Helper update field Cetak Foto Lab
     function updateLabItemField(idx, field, val) {
       if (!appConfig?.labPrintPrices?.[idx]) return;
       appConfig.labPrintPrices[idx][field] = val;
+      if (field === 'size') {
+        appConfig.labPrintPrices[idx].cm = val;
+      }
     }
 
     function addLabPrintRow() {
       if (!Array.isArray(appConfig.labPrintPrices)) appConfig.labPrintPrices = [];
-      appConfig.labPrintPrices.push({ code: 'Ukuran Baru', cm: '00 x 00 cm', price: '00k', note: 'Laminasi Doff', highlight: false, active: true });
+      appConfig.labPrintPrices.push({
+        code: 'Ukuran Baru',
+        size: '00 cm x 00 cm',
+        cm: '00 cm x 00 cm',
+        price: 10000,
+        priceDisplay: '10K',
+        note: 'Cetak Foto Lab',
+        active: true
+      });
       renderLabAndFramePrices();
     }
+    const openAddLabPrintModal = addLabPrintRow;
 
     function deleteLabPrintItem(idx) {
       if (!appConfig?.labPrintPrices?.[idx]) return;
@@ -11397,21 +11682,61 @@
       saveConfigLocally();
     }
 
-    function saveLabPrintPrices() {
-      saveConfigLocally();
-      showToast('✅ Tabel harga Cetak Foto Lab berhasil disimpan!', '🖨️');
-    }
-
-    function updateFrameItemField(idx, field, val) {
+    // Helper update field Bingkai Foto
+    function updateFrameField(idx, field, val) {
       if (!appConfig?.framePrices?.[idx]) return;
       appConfig.framePrices[idx][field] = val;
+      if (field === 'size') {
+        appConfig.framePrices[idx].dim = val;
+      }
+    }
+    const updateFrameItemField = updateFrameField;
+
+    async function handleFrameImageUpload(idx, input) {
+      const file = input?.files?.[0];
+      if (!file) return;
+      try {
+        showToast(`Mengunggah foto bingkai #${idx + 1}...`, '⏳');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const data = await uploadImageToServer({
+          file,
+          fileName: `frame_${idx + 1}_${Date.now()}${ext}`,
+          folder: 'frames',
+          maxWidth: 1200,
+          maxHeight: 1200,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          updateFrameField(idx, 'image', data.url);
+          renderLabAndFramePrices();
+          showToast('Foto bingkai berhasil diunggah!', '✅');
+          saveConfigLocally();
+        }
+      } catch (err) {
+        console.error('Upload frame image error:', err);
+        showToast('Gagal upload foto bingkai: ' + err.message, '⚠️');
+      } finally {
+        input.value = '';
+      }
     }
 
     function addFramePriceRow() {
       if (!Array.isArray(appConfig.framePrices)) appConfig.framePrices = [];
-      appConfig.framePrices.push({ size: 'Ukuran Baru', dim: '00 x 00 cm', price: '00k', desc: 'Minimalis + Kaca', popular: false, active: true });
+      appConfig.framePrices.push({
+        code: 'Ukuran Baru',
+        size: '00 X 00 CM',
+        dim: '00 X 00 CM',
+        price: 35000,
+        priceDisplay: '35K',
+        type: 'Bingkai Minimalis',
+        image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
+        desc: 'Bingkai minimalis elegan dengan kaca pelindung bening',
+        active: true
+      });
       renderLabAndFramePrices();
     }
+    const openAddFramePriceModal = addFramePriceRow;
 
     function deleteFramePriceItem(idx) {
       if (!appConfig?.framePrices?.[idx]) return;
@@ -11420,10 +11745,69 @@
       saveConfigLocally();
     }
 
-    function saveFramePrices() {
-      saveConfigLocally();
-      showToast('✅ Pricelist Bingkai Foto berhasil disimpan!', '🖼️');
+    // Helper update field Album Foto
+    function updateAlbumField(idx, field, val) {
+      if (!appConfig?.albumPrices?.[idx]) return;
+      appConfig.albumPrices[idx][field] = val;
     }
+
+    async function handleAlbumImageUpload(idx, input) {
+      const file = input?.files?.[0];
+      if (!file) return;
+      try {
+        showToast(`Mengunggah foto album #${idx + 1}...`, '⏳');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const data = await uploadImageToServer({
+          file,
+          fileName: `album_${idx + 1}_${Date.now()}${ext}`,
+          folder: 'albums',
+          maxWidth: 1000,
+          maxHeight: 1000,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          updateAlbumField(idx, 'image', data.url);
+          renderLabAndFramePrices();
+          showToast('Foto album berhasil diunggah!', '✅');
+          saveConfigLocally();
+        }
+      } catch (err) {
+        console.error('Upload album image error:', err);
+        showToast('Gagal upload foto album: ' + err.message, '⚠️');
+      } finally {
+        input.value = '';
+      }
+    }
+
+    function addAlbumPriceRow() {
+      if (!Array.isArray(appConfig.albumPrices)) appConfig.albumPrices = [];
+      appConfig.albumPrices.push({
+        id: `album-${Date.now()}`,
+        name: 'ALBUM BARU',
+        capacity: 'ISI 40 FOTO',
+        price: 30000,
+        priceDisplay: '30K',
+        badge: 'Koleksi Baru',
+        image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80',
+        active: true
+      });
+      renderLabAndFramePrices();
+    }
+
+    function deleteAlbumPriceItem(idx) {
+      if (!appConfig?.albumPrices?.[idx]) return;
+      appConfig.albumPrices.splice(idx, 1);
+      renderLabAndFramePrices();
+      saveConfigLocally();
+    }
+
+    function saveLabFramePrices() {
+      saveConfigLocally();
+      showToast('✅ Pengaturan Cetak Lab, Bingkai & Album Foto berhasil disimpan!', '🖼️');
+    }
+    const saveLabPrintPrices = saveLabFramePrices;
+    const saveFramePrices = saveLabFramePrices;
 
     // 6. Kustomisasi Photo Strip Self Studio (Comprehensive Manager)
     const DEFAULT_PHOTO_STRIP_DATA = {
