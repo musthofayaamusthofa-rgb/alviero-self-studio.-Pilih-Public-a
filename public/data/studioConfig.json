@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T09:09:26.070Z",
+  "lastUpdated": "2026-11-05T09:11:03.306Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -6187,7 +6187,7 @@
       "capacity": "ISI 40 FOTO",
       "price": 25000,
       "priceDisplay": "25K",
-      "badge": "Ekonomis",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6197,7 +6197,7 @@
       "capacity": "ISI 100 FOTO",
       "price": 45500,
       "priceDisplay": "45,5K",
-      "badge": "Best Seller",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6207,7 +6207,7 @@
       "capacity": "ISI 40 FOTO",
       "price": 70000,
       "priceDisplay": "70K",
-      "badge": "Hardcover",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6217,7 +6217,7 @@
       "capacity": "ISI 60 FOTO",
       "price": 75000,
       "priceDisplay": "75K",
-      "badge": "Hardcover",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6227,7 +6227,7 @@
       "capacity": "ISI 80 FOTO",
       "price": 83000,
       "priceDisplay": "83K",
-      "badge": "Eksklusif",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6237,7 +6237,7 @@
       "capacity": "ISI 120 FOTO",
       "price": 104000,
       "priceDisplay": "104K",
-      "badge": "Eksklusif",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6247,7 +6247,7 @@
       "capacity": "ISI 120 FOTO",
       "price": 93000,
       "priceDisplay": "93K",
-      "badge": "Jumbo",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80",
       "active": true
     },
@@ -6257,7 +6257,7 @@
       "capacity": "ISI 160 FOTO",
       "price": 116000,
       "priceDisplay": "116K",
-      "badge": "Kapasitas Max",
+      "badge": "",
       "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80",
       "active": true
     }
