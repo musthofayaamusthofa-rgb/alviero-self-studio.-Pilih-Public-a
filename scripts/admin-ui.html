@@ -1525,7 +1525,7 @@
       <button class="tab-btn" onclick="switchTab('tab-promos', this)">
         🎁 Promo & Informasi Studio <span class="tab-badge" id="promoCountBadge">0</span>
       </button>
-      <button class="tab-btn" id="topTabIndoorBtn" onclick="switchTab('tab-indoor', this); switchIndoorSubView('packages', document.getElementById('indoorSubBtnPackages'))">
+      <button class="tab-btn" id="topTabIndoorBtn" onclick="switchTab('tab-indoor', this)">
         📸 Seluruh Paket Studio <span class="tab-badge" id="indoorCountBadge">0</span>
       </button>
       <button class="tab-btn" id="topTabPhotoStripBtn" onclick="openPhotoStripManagerTab(this)">
@@ -1892,7 +1892,7 @@
           </div>
         </div>
 
-        <!-- Sub-Menu Switcher for Tab 4 (Tahap 2A, 2B, 2F) -->
+        <!-- Sub-Menu Switcher for Tab 4 (Tahap 2A, 2B) -->
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--border);">
           <button type="button" class="pill-btn active" id="indoorSubBtnPackages" onclick="switchIndoorSubView('packages', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
             📦 Daftar Paket & Harga Studio
@@ -1902,9 +1902,6 @@
           </button>
           <button type="button" class="pill-btn" id="indoorSubBtnLabFrame" onclick="switchIndoorSubView('labframe', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
             🖼️ Harga Cetak Lab & Bingkai Foto
-          </button>
-          <button type="button" class="pill-btn" id="indoorSubBtnPhotoStrip" onclick="switchIndoorSubView('photostrip', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
-            🎞️ Photo Strip Customizer
           </button>
         </div>
 
@@ -2001,9 +1998,13 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- SUB-PANEL 2F: PHOTO STRIP CUSTOMIZER (COMPREHENSIVE MANAGER) -->
-        <div id="indoorSubPanelPhotoStrip" style="display: none;">
+    <!-- TAB MANDIRI: MANAJEMEN MENYELURUH PHOTO STRIP CUSTOMIZER -->
+    <section id="tab-photostrip" class="tab-pane">
+      <div class="card">
+        <div id="indoorSubPanelPhotoStrip" style="display: block;">
           <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
             
             <!-- Header & Action Buttons -->
@@ -11245,13 +11246,12 @@
       const panels = {
         packages: document.getElementById('indoorSubPanelPackages'),
         categories: document.getElementById('indoorSubPanelCategories'),
-        labframe: document.getElementById('indoorSubPanelLabFrame'),
-        photostrip: document.getElementById('indoorSubPanelPhotoStrip')
+        labframe: document.getElementById('indoorSubPanelLabFrame')
       };
       Object.keys(panels).forEach(k => {
         if (panels[k]) panels[k].style.display = (k === subView) ? 'block' : 'none';
       });
-      ['indoorSubBtnPackages', 'indoorSubBtnCategories', 'indoorSubBtnLabFrame', 'indoorSubBtnPhotoStrip'].forEach(id => {
+      ['indoorSubBtnPackages', 'indoorSubBtnCategories', 'indoorSubBtnLabFrame'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.remove('active');
       });
@@ -11259,7 +11259,6 @@
 
       if (subView === 'categories') renderCategoriesMenu();
       else if (subView === 'labframe') renderLabAndFramePrices();
-      else if (subView === 'photostrip') renderPhotoStripConfig();
     }
 
     // 4. Kategori Menu & Thumbnail Katalog (16 Kategori)
@@ -11549,15 +11548,8 @@
     };
 
     function openPhotoStripManagerTab(btn) {
-      const indoorTabPane = document.getElementById('tab-indoor');
-      if (indoorTabPane) {
-        document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-        indoorTabPane.classList.add('active');
-        if (btn) btn.classList.add('active');
-      }
-      const subBtn = document.getElementById('indoorSubBtnPhotoStrip');
-      switchIndoorSubView('photostrip', subBtn);
+      switchTab('tab-photostrip', btn || document.getElementById('topTabPhotoStripBtn'));
+      renderPhotoStripConfig();
     }
 
     function ensurePhotoStripConfig() {
