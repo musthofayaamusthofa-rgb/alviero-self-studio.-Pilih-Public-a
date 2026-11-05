@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T09:03:15.514Z",
+  "lastUpdated": "2026-11-05T09:09:17.624Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -5817,7 +5817,7 @@
       "size": "10.2 cm x 15.2 cm",
       "price": 5000,
       "priceDisplay": "5K",
-      "note": "Standar Foto Album",
+      "note": "",
       "active": true
     },
     {
@@ -5825,7 +5825,7 @@
       "size": "12.7 cm x 17.8 cm",
       "price": 8000,
       "priceDisplay": "8K",
-      "note": "Sedang Meja",
+      "note": "",
       "active": true
     },
     {
@@ -5833,7 +5833,7 @@
       "size": "15.2 cm x 20.3 cm",
       "price": 9000,
       "priceDisplay": "9K",
-      "note": "Meja Kantor",
+      "note": "",
       "active": true
     },
     {
@@ -5841,7 +5841,7 @@
       "size": "20.3 cm x 30.5 cm",
       "price": 16000,
       "priceDisplay": "16K",
-      "note": "Favorit Pigura Meja/Dinding",
+      "note": "",
       "active": true
     },
     {
@@ -5849,7 +5849,7 @@
       "size": "30.5 cm x 45 cm",
       "price": 52000,
       "priceDisplay": "52K",
-      "note": "Dinding Kamar",
+      "note": "",
       "active": true
     },
     {
@@ -5857,7 +5857,7 @@
       "size": "40 cm x 60 cm",
       "price": 102000,
       "priceDisplay": "102K",
-      "note": "Dinding Ruang Tamu",
+      "note": "",
       "active": true
     },
     {
@@ -5865,7 +5865,7 @@
       "size": "50 cm x 75 cm",
       "price": 137000,
       "priceDisplay": "137K",
-      "note": "Wisuda & Prewed Besar",
+      "note": "",
       "active": true
     },
     {
@@ -5873,39 +5873,39 @@
       "size": "60 cm x 90 cm",
       "price": 172000,
       "priceDisplay": "172K",
-      "note": "Jumbo Pigura Utama",
+      "note": "",
       "active": true
     },
     {
       "code": "Pass 2x3",
       "size": "Paket 6 foto",
       "price": 8000,
-      "priceDisplay": "8K",
-      "note": "Dokumen / Ijazah",
+      "priceDisplay": "9K",
+      "note": "",
       "active": true
     },
     {
       "code": "Pass 3x3",
       "size": "Paket 6 foto",
       "price": 8000,
-      "priceDisplay": "8K",
-      "note": "Dokumen",
+      "priceDisplay": "9K",
+      "note": "",
       "active": true
     },
     {
       "code": "Pass 3x4",
       "size": "Paket 6 foto",
       "price": 8000,
-      "priceDisplay": "8K",
-      "note": "Buku Nikah / Ijazah",
+      "priceDisplay": "9K",
+      "note": "",
       "active": true
     },
     {
       "code": "Pass 4x6",
       "size": "Paket 4 foto",
       "price": 8000,
-      "priceDisplay": "8K",
-      "note": "Paspor / Lamaran Kerja",
+      "priceDisplay": "9K",
+      "note": "",
       "active": true
     }
   ],
