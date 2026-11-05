@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T11:24:31.380Z",
+  "lastUpdated": "2026-11-05T11:24:39.985Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1431,6 +1431,11 @@
           "text": "unlimited foto 20 Menit"
         },
         {
+          "icon": "✨",
+          "label": "Background",
+          "text": "1 Background Studio"
+        },
+        {
           "icon": "🖼️",
           "label": "Jatah Cetak",
           "text": "free 2 Cetak 10Rs"
@@ -1449,11 +1454,6 @@
           "icon": "👗",
           "label": "Kostum & Toga",
           "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
-        },
-        {
-          "icon": "✨",
-          "label": "Background",
-          "text": "1 Background Studio"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
@@ -1578,6 +1578,11 @@
           "text": "unlimited foto 20 Menit"
         },
         {
+          "icon": "✨",
+          "label": "Background",
+          "text": "1 Background Studio"
+        },
+        {
           "icon": "🖼️",
           "label": "Jatah Cetak",
           "text": "free 2 Cetak 10Rs"
@@ -1596,11 +1601,6 @@
           "icon": "👗",
           "label": "Kostum & Toga",
           "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
-        },
-        {
-          "icon": "✨",
-          "label": "Background",
-          "text": "1 Background Studio"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
