@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig, formatPriceDisplay, getActiveLabPrintItems, getActiveFrameItems, getActiveCategories } from '../utils/studioConfigManager';
+import { useStudioConfig, formatPriceDisplay, getActiveLabPrintItems, getActiveFrameItems, getActiveCategories, getActivePackages, getActiveDisclaimer } from '../utils/studioConfigManager';
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRICELIST_SHEETS, PACKAGES, STUDIO_BRANCHES, BACKGROUNDS } from '../data/pricelistData';
 import { PricelistSheet, StudioBranch } from '../types';
@@ -247,6 +247,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       price: i.priceDisplay || (typeof i.price === 'number' ? formatPriceDisplay(i.price) : i.price)
     }));
   }, [studioConfig]);
+
+  const activeDisclaimer = useMemo(() => getActiveDisclaimer(studioConfig), [studioConfig]);
 
   const [selectedBingkaiSubTab, setSelectedBingkaiSubTab] = useState<'all' | 'cetak' | 'bingkai' | 'album'>('all');
   const [selectedGradSubTab, setSelectedGradSubTab] = useState<'all' | 'indoor' | 'bundling' | 'outdoor' | 'additional'>('all');
@@ -618,7 +620,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
-  const allCategoryButtons = [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons];
+  const allCategoryButtons = useMemo(() => {
+    return getActiveCategories(studioConfig, [...mainMenuButtons, ...studioFotoSubButtons, ...additionalMenuButtons]);
+  }, [studioConfig]);
 
   // Grid Category Arrays (Sesuai Urutan 12 Paket Utama Photo Studio)
   const defaultPhotoStudioGridItems = [
@@ -975,8 +979,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   }, [selectedBranch, currentBranchInfo.shortName, studioConfig]);
 
   const branchBackgroundPhotos = useMemo<StudioGalleryPhoto[]>(() => {
-    const selectedBackgrounds = BACKGROUNDS.filter(bg => bg.applicableBranches.includes(selectedBranch));
-    const uniqueBackgrounds = new Map<string, typeof selectedBackgrounds[number]>();
+    const configBgs = Array.isArray((studioConfig as any)?.backgrounds) && (studioConfig as any).backgrounds.length > 0
+      ? (studioConfig as any).backgrounds.filter((b: any) => b.active !== false)
+      : BACKGROUNDS;
+    const selectedBackgrounds = configBgs.filter((bg: any) => (bg.applicableBranches || []).includes(selectedBranch as StudioBranch));
+    const uniqueBackgrounds = new Map<string, any>();
 
     selectedBackgrounds.forEach(bg => {
       const normalizedKey = bg.name.trim().toLowerCase();
@@ -1015,7 +1022,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         tags: [`#${bg.name.replace(/\s+/g, '')}`, `#${selectedBranch === 'cabang-1' ? 'Studio1' : 'Studio2'}`]
       };
     });
-  }, [selectedBranch, currentBranchInfo.shortName]);
+  }, [selectedBranch, currentBranchInfo.shortName, studioConfig]);
 
   // Filter fasilitas & background untuk tab Fasilitas & Background sesuai studio yang dipilih
   const filteredGalleryPhotos = useMemo(() => {
@@ -1033,9 +1040,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   }, [selectedGalleryCategory, branchBackgroundPhotos, branchFacilityPhotos]);
 
   const activeMenuInfo = allCategoryButtons.find(m => m.id === activeMenuCategory) || studioFotoSubButtons[0] || mainMenuButtons[0];
+  const allDynamicPackages = useMemo(() => getActivePackages(studioConfig, PACKAGES), [studioConfig]);
   const activeMenuPackages = useMemo(() => {
-    return PACKAGES.filter(p => activeMenuInfo.targetPackageIds.includes(p.id));
-  }, [activeMenuInfo]);
+    return allDynamicPackages.filter(p => activeMenuInfo.targetPackageIds.includes(p.id));
+  }, [activeMenuInfo, allDynamicPackages]);
 
   const previewCategoryByMenu: Record<string, string> = {
     'selfstudio': 'selfstudio',
@@ -1662,20 +1670,20 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <div className="sm:col-span-7 space-y-2">
                               <div className="relative flex items-center justify-between">
                                 <div className="bg-[#a68c74] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-r-full shadow-xs tracking-wider uppercase">
-                                  SPECIAL NARSIS
+                                  {getPkg('self-special-narsis')?.name || 'SPECIAL NARSIS'}
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[#a68c74] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  55k
+                                  {getPkgPrice('self-special-narsis', '55k')}
                                 </div>
                               </div>
 
                               <div className="bg-[#d2c3b2]/60 p-3 sm:p-4 rounded-2xl border border-[#c1af9c] text-slate-800 text-xs space-y-1 leading-relaxed">
-                                <p className="text-[11px] text-slate-700">Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots</p>
-                                <p className="text-red-600 font-bold">Durasi 15 menit/sesi foto</p>
-                                <p className="text-red-600 font-bold">Belum termasuk cetak</p>
-                                <p>1 Background</p>
+                                <p className="text-[11px] text-slate-700">{getPkg('self-special-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-special-narsis')?.duration || 'Durasi 15 menit/sesi foto'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-special-narsis')?.print || 'Belum termasuk cetak'}</p>
+                                <p>{getPkg('self-special-narsis')?.background || '1 Background'}</p>
                                 <p>Available fun props</p>
-                                <p>All file Google Drive</p>
+                                <p>{getPkg('self-special-narsis')?.fileDelivery || 'All file Google Drive'}</p>
                               </div>
                             </div>
                           </div>
@@ -1687,20 +1695,20 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <div className="sm:col-span-7 space-y-2 order-2 sm:order-1">
                               <div className="relative flex items-center justify-between">
                                 <div className="w-12 h-12 rounded-full bg-[#a68c74] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  70k
+                                  {getPkgPrice('self-special-super-narsis', '70k')}
                                 </div>
                                 <div className="bg-[#a68c74] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-l-full shadow-xs tracking-wider uppercase">
-                                  SPECIAL SUPER NARSIS
+                                  {getPkg('self-special-super-narsis')?.name || 'SPECIAL SUPER NARSIS'}
                                 </div>
                               </div>
 
                               <div className="bg-[#d2c3b2]/60 p-3 sm:p-4 rounded-2xl border border-[#c1af9c] text-slate-800 text-xs space-y-1 leading-relaxed text-right">
-                                <p className="text-[11px] text-slate-700">Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots</p>
-                                <p className="text-red-600 font-bold">Durasi 20 menit/sesi foto</p>
-                                <p className="text-red-600 font-bold">Free cetak 2 polaroid</p>
-                                <p>1 Background</p>
+                                <p className="text-[11px] text-slate-700">{getPkg('self-special-super-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-special-super-narsis')?.duration || 'Durasi 20 menit/sesi foto'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-special-super-narsis')?.print || 'Free cetak 2 polaroid'}</p>
+                                <p>{getPkg('self-special-super-narsis')?.background || '1 Background'}</p>
                                 <p>Available fun props</p>
-                                <p>All file Google Drive</p>
+                                <p>{getPkg('self-special-super-narsis')?.fileDelivery || 'All file Google Drive'}</p>
                               </div>
                             </div>
 
@@ -1823,20 +1831,20 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <div className="sm:col-span-7 space-y-2">
                               <div className="relative flex items-center justify-between">
                                 <div className="bg-[#8c6b65] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-r-full shadow-xs tracking-wider uppercase">
-                                  NORMAL NARSIS
+                                  {getPkg('self-normal-narsis')?.name || 'NORMAL NARSIS'}
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[#8c6b65] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  80K
+                                  {getPkgPrice('self-normal-narsis', '80K')}
                                 </div>
                               </div>
 
                               <div className="bg-[#c2aca5]/60 p-3 sm:p-4 rounded-2xl border border-[#b29a92] text-slate-800 text-xs space-y-1 leading-relaxed">
-                                <p className="text-[11px] text-slate-700">Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots</p>
-                                <p className="text-red-600 font-bold">Durasi 15 menit/sesi foto</p>
-                                <p className="text-red-600 font-bold">Free cetak 2 polaroid</p>
-                                <p>1 Background</p>
+                                <p className="text-[11px] text-slate-700">{getPkg('self-normal-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-normal-narsis')?.duration || 'Durasi 15 menit/sesi foto'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-normal-narsis')?.print || 'Free cetak 2 polaroid'}</p>
+                                <p>{getPkg('self-normal-narsis')?.background || '1 Background'}</p>
                                 <p>Available fun props</p>
-                                <p>All file Google Drive</p>
+                                <p>{getPkg('self-normal-narsis')?.fileDelivery || 'All file Google Drive'}</p>
                               </div>
                             </div>
                           </div>
@@ -1848,20 +1856,20 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <div className="sm:col-span-7 space-y-2 order-2 sm:order-1">
                               <div className="relative flex items-center justify-between">
                                 <div className="w-12 h-12 rounded-full bg-[#8c6b65] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  95K
+                                  {getPkgPrice('self-normal-super-narsis', '95K')}
                                 </div>
                                 <div className="bg-[#8c6b65] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-l-full shadow-xs tracking-wider uppercase">
-                                  NORMAL SUPER NARSIS
+                                  {getPkg('self-normal-super-narsis')?.name || 'NORMAL SUPER NARSIS'}
                                 </div>
                               </div>
 
                               <div className="bg-[#c2aca5]/60 p-3 sm:p-4 rounded-2xl border border-[#b29a92] text-slate-800 text-xs space-y-1 leading-relaxed text-right">
-                                <p className="text-[11px] text-slate-700">Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots</p>
-                                <p className="text-red-600 font-bold">Durasi 20 menit/sesi foto</p>
-                                <p className="text-red-600 font-bold">Free cetak 2 polaroid</p>
-                                <p>1 Background</p>
+                                <p className="text-[11px] text-slate-700">{getPkg('self-normal-super-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-normal-super-narsis')?.duration || 'Durasi 20 menit/sesi foto'}</p>
+                                <p className="text-red-600 font-bold">{getPkg('self-normal-super-narsis')?.print || 'Free cetak 2 polaroid'}</p>
+                                <p>{getPkg('self-normal-super-narsis')?.background || '1 Background'}</p>
                                 <p>Available fun props</p>
-                                <p>All file Google Drive</p>
+                                <p>{getPkg('self-normal-super-narsis')?.fileDelivery || 'All file Google Drive'}</p>
                               </div>
                             </div>
 
@@ -1984,17 +1992,17 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                   <div className="text-[9px] text-pink-200 font-sans font-normal">(WAJIB MENGIKUTI SYARAT DAN KETENTUAN)</div>
                                 </div>
                                 <div className="w-12 h-12 rounded-full bg-[#78283d] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white shrink-0">
-                                  99K
+                                  {getPkgPrice('self-special-spotlight', '99K')}
                                 </div>
                               </div>
 
                               <div className="bg-[#481525]/70 p-3 sm:p-4 rounded-2xl border border-pink-500/30 text-white text-xs space-y-1 leading-relaxed">
-                                <p className="text-[11px] text-pink-200">Maksimal 5 orang, Lebih dari 5 +15k/orang Unlimited shoots</p>
-                                <p className="text-red-400 font-bold">Durasi 20 menit/sesi foto</p>
-                                <p className="text-red-400 font-bold">Free cetak 2 polaroid</p>
-                                <p>1 Background</p>
+                                <p className="text-[11px] text-pink-200">{getPkg('self-special-spotlight')?.people || 'Maksimal 5 orang, Lebih dari 5 +15k/orang Unlimited shoots'}</p>
+                                <p className="text-red-400 font-bold">{getPkg('self-special-spotlight')?.duration || 'Durasi 20 menit/sesi foto'}</p>
+                                <p className="text-red-400 font-bold">{getPkg('self-special-spotlight')?.print || 'Free cetak 2 polaroid'}</p>
+                                <p>{getPkg('self-special-spotlight')?.background || '1 Background'}</p>
                                 <p>Available fun props</p>
-                                <p>All file Google Drive</p>
+                                <p>{getPkg('self-special-spotlight')?.fileDelivery || 'All file Google Drive'}</p>
                               </div>
                             </div>
                           </div>
@@ -2006,7 +2014,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <div className="sm:col-span-7 space-y-2 order-2 sm:order-1">
                               <div className="relative flex items-center justify-between">
                                 <div className="w-12 h-12 rounded-full bg-[#5b248a] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white shrink-0">
-                                  115K
+                                  {getPkgPrice('self-normal-spotlight', '115K')}
                                 </div>
                                 <div className="bg-[#5b248a] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-l-full shadow-xs tracking-wider uppercase">
                                   NORMAL COLOUR SPOTLIGHT
@@ -2822,7 +2830,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               <p>Sepasang Kostum (bisa memilih)</p>
                             </div>
                             <div className="pt-1 flex items-center justify-between gap-3">
-                              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">1.400K</div>
+                              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('prewed-bundling-1', '1.400K')}</div>
                               <button
                                 onClick={() => onSelectPackageForBooking('prewed-bundling-1')}
                                 className="px-6 py-2 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -2844,7 +2852,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               <p>Sepasang Kostum (bisa memilih)</p>
                             </div>
                             <div className="pt-1 flex items-center justify-end gap-3">
-                              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">1.500K</div>
+                              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('prewed-bundling-2', '1.500K')}</div>
                               <button
                                 onClick={() => onSelectPackageForBooking('prewed-bundling-2')}
                                 className="px-6 py-2 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3263,7 +3271,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <p>Maks 10 orang dalam 1 Frame | Maks 1 Kostum</p>
                           </div>
                           <div className="pt-2 flex items-center justify-between gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">330K</div>
+                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('family-sweet-together', '330K')}</div>
                             <button
                               onClick={() => onSelectPackageForBooking('family-sweet-together')}
                               className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3297,7 +3305,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>all file via google drive | Cetak Uk 10Rs 2 Foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">380K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('family-happy-nest', '380K')}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('family-happy-nest')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3343,7 +3351,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>1 background | Edit 6 foto | maks 2 kostum | Allfile via google drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">330K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-friendly-frame', '330K')}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('group-friendly-frame')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3364,7 +3372,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>1 Background | edit 6 foto | maks 2 kostum | Allfile via google drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">430K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-signature-squad', '430K')}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('group-signature-squad')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3385,7 +3393,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>1 background | Edit 6 foto | maks 2 kostum | Allfile via google drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">510K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-royal-ensemble', '510K')}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('group-royal-ensemble')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3406,7 +3414,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Maks 55 menit | 1 background | Edit 6 foto | Maks 2 kostum | Allfile via google drive</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">630K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-imperial-union', '630K')}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('group-imperial-union')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3452,7 +3460,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>File Edit via WA Dokumen | Cetak 1 Ukuran Pass Foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-2", "50K")}</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-1", "50K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('passfoto-1')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3473,7 +3481,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Setengah Badan & Full Badan | File Edit via WA Dokumen | Maks 1 Outfit | Cetak 1 Ukuran Pass Foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">90K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-2", "90K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('passfoto-2')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3494,7 +3502,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           <p>Masing-masing 1 Edit Foto | File edit via WA Dokumen | Cetak Pass Foto</p>
                         </div>
                         <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">98K</div>
+                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-3", "98K")}</div>
                           <button
                             onClick={() => onSelectPackageForBooking('passfoto-3')}
                             className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
@@ -3576,11 +3584,16 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </h4>
                           </div>
                           <span className="text-[11px] font-medium text-slate-500 font-century">
-                            {(studioConfig.indoorPackages || []).length} Pilihan Paket
+                            {(() => {
+                              const fromStudio = ((studioConfig as any)?.studioPackages || []).filter((p: any) => p.category === 'grad-indoor' && p.active !== false);
+                              return (fromStudio.length > 0 ? fromStudio : (studioConfig.indoorPackages || [])).length;
+                            })()} Pilihan Paket
                           </span>
                         </div>
 
-                        {(studioConfig.indoorPackages || [
+                        {(() => {
+                          const fromStudio = ((studioConfig as any)?.studioPackages || []).filter((p: any) => p.category === 'grad-indoor' && p.active !== false);
+                          return (fromStudio.length > 0 ? fromStudio : (studioConfig.indoorPackages || [
                           {
                             id: 'grad-indoor-elegant-scholar',
                             subtitle: 'Graduation Indoor 1',
@@ -3629,7 +3642,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             fileDelivery: 'All File via Google Drive',
                             note: '*Maksimal 1 kostum wisuda (disediakan oleh klien)'
                           }
-                        ]).map((pkg, idx) => {
+                        ]));
+                        })().map((pkg: any, idx: number) => {
                           const badgeColorClass =
                             idx === 0
                               ? 'bg-[#EBF2EA] text-[#3D6345] border-[#CDE0CB]'
@@ -3765,9 +3779,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               </h4>
                             </div>
                             <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 700.000</span>
+                              <span className="text-[11px] text-slate-400 line-through font-century block">{getPkg('grad-bundling-ultimate-1')?.originalPrice || 'Rp 700.000'}</span>
                               <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                625K
+                                {getPkgPrice('grad-bundling-ultimate-1', '625K')}
                               </div>
                               <span className="text-[10px] text-[#8A5A36] font-bold font-century">Paket Bundling Hemat</span>
                             </div>
@@ -3843,9 +3857,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               </h4>
                             </div>
                             <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 820.000</span>
+                              <span className="text-[11px] text-slate-400 line-through font-century block">{getPkg('grad-bundling-ultimate-2')?.originalPrice || 'Rp 820.000'}</span>
                               <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                745K
+                                {getPkgPrice('grad-bundling-ultimate-2', '745K')}
                               </div>
                               <span className="text-[10px] text-[#8A5A36] font-bold font-century">Paket Bundling Hemat</span>
                             </div>
@@ -3935,7 +3949,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             <div className="sm:text-right">
                               <span className="text-xs text-slate-500 font-century">Pilihan Durasi Sesi:</span>
                               <div className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
-                                280K <span className="text-xs font-normal text-slate-400 font-century">(30m)</span> / 355K <span className="text-xs font-normal text-slate-400 font-century">(60m)</span>
+                                {getPkgPrice('grad-outdoor-smart-30', '280K')} <span className="text-xs font-normal text-slate-400 font-century">(30m)</span> / {getPkgPrice('grad-outdoor-smart-60', '355K')} <span className="text-xs font-normal text-slate-400 font-century">(60m)</span>
                               </div>
                             </div>
                           </div>
@@ -3972,13 +3986,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                 onClick={() => onSelectPackageForBooking('grad-outdoor-smart-30')}
                                 className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-[#EBF2EA] hover:bg-[#DEE9DD] text-[#3D6345] border border-[#CDE0CB] font-bold text-xs cursor-pointer active:scale-95 transition-all"
                               >
-                                Pesan 30M (280K)
+                                Pesan 30M ({getPkgPrice('grad-outdoor-smart-30', '280K')})
                               </button>
                               <button
                                 onClick={() => onSelectPackageForBooking('grad-outdoor-smart-60')}
                                 className="flex-1 sm:flex-none px-5 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white font-bold text-xs cursor-pointer active:scale-95 shadow-sm transition-all"
                               >
-                                Pesan 60M (355K)
+                                Pesan 60M ({getPkgPrice('grad-outdoor-smart-60', '355K')})
                               </button>
                             </div>
                           </div>
@@ -4002,9 +4016,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               </h4>
                             </div>
                             <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">Rp 850.000</span>
+                              <span className="text-[11px] text-slate-400 line-through font-century block">{getPkg('grad-outdoor-cumlaude')?.originalPrice || 'Rp 850.000'}</span>
                               <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                710K
+                                {getPkgPrice('grad-outdoor-cumlaude', '710K')}
                               </div>
                               <span className="text-[10px] text-slate-500 font-century">75 Menit • Full Package</span>
                             </div>
@@ -4082,7 +4096,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                 </div>
                               </div>
                               <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                <span className="text-xl font-serif font-black text-[#2A2A2A]">510K</span>
+                                <span className="text-xl font-serif font-black text-[#2A2A2A]">{getPkgPrice('grad-outdoor-group-2', '510K')}</span>
                                 <button
                                   onClick={() => onSelectPackageForBooking('grad-outdoor-group-2')}
                                   className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
@@ -4106,7 +4120,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                 </div>
                               </div>
                               <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                <span className="text-xl font-serif font-black text-[#2A2A2A]">630K</span>
+                                <span className="text-xl font-serif font-black text-[#2A2A2A]">{getPkgPrice('grad-outdoor-group-3', '630K')}</span>
                                 <button
                                   onClick={() => onSelectPackageForBooking('grad-outdoor-group-3')}
                                   className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
@@ -4130,7 +4144,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                 </div>
                               </div>
                               <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                <span className="text-xl font-serif font-black text-[#2A2A2A]">900K</span>
+                                <span className="text-xl font-serif font-black text-[#2A2A2A]">{getPkgPrice('grad-outdoor-group-4-5', '900K')}</span>
                                 <button
                                   onClick={() => onSelectPackageForBooking('grad-outdoor-group-4-5')}
                                   className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
@@ -4296,20 +4310,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-200 font-semibold text-slate-800 bg-white">
-                              {[
-                                { code: '4R', size: '10.2 cm x 15.2 cm', price: '5K', note: 'Standar Foto Album' },
-                                { code: '5R', size: '12.7 cm x 17.8 cm', price: '8K', note: 'Sedang Meja' },
-                                { code: '6R', size: '15.2 cm x 20.3 cm', price: '9K', note: 'Meja Kantor' },
-                                { code: '10Rs', size: '20.3 cm x 30.5 cm', price: '16K', note: 'Favorit Pigura Meja/Dinding' },
-                                { code: '12Rs', size: '30.5 cm x 45 cm', price: '52K', note: 'Dinding Kamar' },
-                                { code: '16Rs', size: '40 cm x 60 cm', price: '102K', note: 'Dinding Ruang Tamu' },
-                                { code: '20Rs', size: '50 cm x 75 cm', price: '137K', note: 'Wisuda & Prewed Besar' },
-                                { code: '24Rs', size: '60 cm x 90 cm', price: '172K', note: 'Jumbo Pigura Utama' },
-                                { code: 'Pass 2x3', size: 'Paket 6 foto', price: '8K', note: 'Dokumen / Ijazah' },
-                                { code: 'Pass 3x3', size: 'Paket 6 foto', price: '8K', note: 'Dokumen' },
-                                { code: 'Pass 3x4', size: 'Paket 6 foto', price: '8K', note: 'Buku Nikah / Ijazah' },
-                                { code: 'Pass 4x6', size: 'Paket 4 foto', price: '8K', note: 'Paspor / Lamaran Kerja' },
-                              ].map((item, idx) => (
+                              {activeLabPrintItems.map((item: any, idx: number) => (
                                 <tr key={idx} className="hover:bg-slate-50 transition-colors">
                                   <td className="py-2.5 px-4 text-center font-black text-slate-900 bg-slate-50/80">
                                     {item.code}
@@ -4352,56 +4353,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         {/* 6 Kartu Bingkai Foto Berdampingan (Sesuai Desain Poster) */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                          {[
-                            {
-                              code: '4R',
-                              size: '15 X 20 CM',
-                              price: '17K',
-                              type: 'Bingkai Meja / Minimalis',
-                              image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Cocok untuk meja belajar, nakas kamar tidur, dan kado wisuda'
-                            },
-                            {
-                              code: '10Rs',
-                              size: '40 X 50 CM',
-                              price: '35K',
-                              type: 'Bingkai Dinding Sedang',
-                              image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Ukuran paling diminati untuk foto wisuda keluarga & portrait'
-                            },
-                            {
-                              code: '12Rs',
-                              size: '50 X 60 CM',
-                              price: '50K',
-                              type: 'Bingkai Dinding Populer',
-                              image: 'https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Sangat pas untuk foto wisuda sarjana & foto couple ruang tamu'
-                            },
-                            {
-                              code: '16Rs',
-                              size: '60 X 70 CM',
-                              price: '145K',
-                              type: 'Bingkai Dinding Eksklusif',
-                              image: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Tampilan megah dengan list linen ganda untuk foto keluarga'
-                            },
-                            {
-                              code: '20Rs',
-                              size: '70 X 90 CM',
-                              price: '175K',
-                              type: 'Bingkai Dinding Jumbo',
-                              image: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Sempurna untuk foto prewedding utama & foto keluarga besar'
-                            },
-                            {
-                              code: '24Rs',
-                              size: '90 X 120 CM',
-                              price: '230K',
-                              type: 'Bingkai Dinding Masterpiece',
-                              image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
-                              desc: 'Ukuran kanvas/pigura terbesar untuk background ruang utama'
-                            }
-                          ].map((item, idx) => (
+                          {activeFrameItems.map((item: any, idx: number) => (
                             <div
                               key={idx}
                               className="bg-white rounded-3xl p-4 sm:p-5 border border-amber-200/80 shadow-sm flex flex-col justify-between space-y-3 hover:shadow-lg transition-all"
@@ -5152,114 +5104,31 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 <span>Ketentuan & Tata Tertib Resmi</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-serif font-black text-rose-600 tracking-wider uppercase">
-                DISCLAIMER
+                {activeDisclaimer.title}
               </h2>
               <p className="text-xs sm:text-sm text-stone-500 font-sans">
-                Kebijakan Operasional, Ketentuan Booking & Prosedur Layanan Alviero Studio
+                {activeDisclaimer.subtitle}
               </p>
             </div>
 
             {/* Disclaimer Sections */}
             <div className="space-y-5 text-stone-800 text-xs sm:text-sm leading-relaxed max-w-3xl mx-auto pt-2">
-              
-              {/* 1. Umum */}
-              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
-                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
-                  <span>1. Ketentuan Umum Operasional</span>
-                </h3>
-                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
-                  <li>
-                    Jam operasional buka setiap hari <strong>08:00 - 21:00 WIB</strong>. <span className="text-rose-600 font-semibold">Bisa request di luar jam operasional</span> dengan biaya tambahan charge <strong>Rp 35.000</strong> (kecuali wisuda outdoor tanpa biaya charge).
-                  </li>
-                  <li>
-                    Jika terlambat dikenakan biaya tambahan <strong>Rp 25.000</strong> dan jika sesi melebihi jam 21.00 WIB dikenakan biaya overtime sebesar <strong>Rp 35.000</strong>.
-                  </li>
-                  <li>
-                    Link all file asli via Google Drive akan dikirim di hari yang sama dan maksimal H+1 apabila kondisi studio sedang ramai.
-                  </li>
-                </ol>
-              </div>
-
-              {/* 2. File Edit dan Cetak */}
-              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
-                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
-                  <span>2. File Edit dan Pengambilan Cetak Foto</span>
-                </h3>
-                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
-                  <li>
-                    Proses File edit maksimal <strong>7 hari</strong> dan Cetak <strong>5 hari</strong> (<span className="text-rose-600 font-semibold">kecuali pass foto langsung jadi kilat</span>) dihitung sejak Anda selesai memilih nomor foto di Google Drive.
-                  </li>
-                  <li>
-                    Hasil cetakan foto diambil kembali di Studio Alviero. Pengiriman via kurir online (Grab / Gojek / Gosend) diperbolehkan dengan pemesanan mandiri oleh klien.
-                  </li>
-                  <li>
-                    Batas waktu pengambilan cetakan foto maksimal <strong>1 bulan</strong>. Di atas 1 bulan, kerusakan atau kehilangan cetakan berada di luar tanggung jawab studio.
-                  </li>
-                  <li>
-                    Pilihan foto yang akan diedit dan dicetak maksimal <strong>1 bulan</strong> dari tanggal sesi foto.
-                  </li>
-                  <li>
-                    Retouch editing foto sebatas pembersihan background, pencahayaan, dan tone warna dasar studio.
-                  </li>
-                </ol>
-              </div>
-
-              {/* 3. Keterlambatan dan Reschedule */}
-              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
-                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
-                  <span>3. Keterlambatan dan Reschedule Jadwal</span>
-                </h3>
-                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
-                  <li>
-                    Apabila kondisi studio tidak ramai, keterlambatan diperbolehkan tanpa pengurangan menit atau dapat digeser ke jam kosong berikutnya.
-                  </li>
-                  <li>
-                    Dalam kondisi studio ramai/penuh, toleransi keterlambatan dihitung dari <strong>5 menit pertama</strong> dari jam booking dan akan dialihkan ke klien berikutnya yang sudah siap.
-                  </li>
-                  <li>
-                    Boleh mengajukan <strong>reschedule ke hari lain tanpa biaya tambahan</strong> selama hari dan jam yang diajukan masih tersedia.
-                  </li>
-                </ol>
-              </div>
-
-              {/* 4. Reservasi dan Pembayaran */}
-              <div className="space-y-2 border-b border-[#E8DDD6] pb-4">
-                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
-                  <span>4. Reservasi dan Ketentuan Pembayaran</span>
-                </h3>
-                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
-                  <li>
-                    Booking jadwal sah setelah pembayaran <span className="text-rose-600 font-bold">DP minimal 50%</span> dari total biaya.
-                  </li>
-                  <li>
-                    Pelunasan dapat diselesaikan sebelum atau setelah sesi foto di studio melalui Cash atau Transfer QRIS.
-                  </li>
-                  <li>
-                    Pembatalan sepihak oleh klien mengakibatkan DP tidak dapat dikembalikan (<em>non-refundable</em>).
-                  </li>
-                  <li>
-                    Klien diperbolehkan untuk upgrade paket, namun tidak dapat melakukan downgrade paket.
-                  </li>
-                </ol>
-              </div>
-
-              {/* 5. Background dan Properti */}
-              <div className="space-y-2">
-                <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
-                  <span>5. Background dan Properti Studio</span>
-                </h3>
-                <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
-                  <li>
-                    Properti studio bersifat fleksibel sesuai ketersediaan. Klien boleh me-request properti yang ada di studio selama keadaan tidak sedang padat.
-                  </li>
-                </ol>
-              </div>
-
+              {activeDisclaimer.sections.map((sec: any, sIdx: number) => (
+                <div
+                  key={sIdx}
+                  className={`space-y-2 ${sIdx < activeDisclaimer.sections.length - 1 ? 'border-b border-[#E8DDD6] pb-4' : ''}`}
+                >
+                  <h3 className="font-serif font-bold text-rose-600 text-sm sm:text-base flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                    <span>{sec.title}</span>
+                  </h3>
+                  <ol className="space-y-2 pl-5 list-decimal text-stone-700 font-sans">
+                    {(sec.items || []).map((itemText: string, iIdx: number) => (
+                      <li key={iIdx}>{itemText}</li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
             </div>
 
             {/* Quick CTA Box */}

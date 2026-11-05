@@ -430,9 +430,9 @@ export const ClientReviewCarousel: React.FC = () => {
   const touchEndX = useRef<number | null>(null);
 
   const filteredReviews = useMemo(() => {
-    if (activeBranchFilter === 'all') return CLIENT_REVIEWS;
-    return CLIENT_REVIEWS.filter((r) => r.branch === activeBranchFilter);
-  }, [activeBranchFilter]);
+    if (activeBranchFilter === 'all') return allReviews;
+    return allReviews.filter((r) => r.branch === activeBranchFilter);
+  }, [activeBranchFilter, allReviews]);
 
   const totalPages = Math.max(1, Math.ceil(filteredReviews.length / 2));
 
@@ -501,7 +501,7 @@ export const ClientReviewCarousel: React.FC = () => {
         <div className="pt-1.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
           {/* Studio 1 (Junrejo) Google Review Link */}
           <a
-            href={GOOGLE_MAPS_STUDIO_1_URL}
+            href={(studioConfig as any)?.branches?.[0]?.reviewUrl || GOOGLE_MAPS_STUDIO_1_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
@@ -524,7 +524,7 @@ export const ClientReviewCarousel: React.FC = () => {
 
           {/* Studio 2 (Dinoyo) Google Review Link */}
           <a
-            href={GOOGLE_MAPS_STUDIO_2_URL}
+            href={(studioConfig as any)?.branches?.[1]?.reviewUrl || GOOGLE_MAPS_STUDIO_2_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
@@ -558,7 +558,7 @@ export const ClientReviewCarousel: React.FC = () => {
                 : 'bg-white hover:bg-[#FAF7F2] text-[#666666] border-[#E8DDD6]'
               }`}
           >
-            Semua Ulasan ({CLIENT_REVIEWS.length})
+            Semua Ulasan ({allReviews.length})
           </button>
           <button
             type="button"
@@ -1271,6 +1271,13 @@ const DISPLAY_STUDIO_PROMOS = activePromos.length > 0 ? activePromos : sourcePro
 export const PromoSpecialSection: React.FC<{
   onSelectPromo: (promo: StudioPromo) => void;
 }> = ({ onSelectPromo }) => {
+  const studioConfig = useStudioConfig();
+  const displayPromos = useMemo(() => {
+    const raw = (studioConfig as any)?.promos as StudioPromo[];
+    const src = (Array.isArray(raw) && raw.length > 0) ? raw : STUDIO_PROMOS;
+    const act = src.filter(p => (p as any).active !== false);
+    return act.length > 0 ? act : src;
+  }, [studioConfig]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activePromoIdx, setActivePromoIdx] = useState<number>(0);
 
@@ -1294,18 +1301,19 @@ export const PromoSpecialSection: React.FC<{
     const scrollLeft = container.scrollLeft;
     const itemWidth = container.querySelector<HTMLElement>('.promo-card-item')?.offsetWidth || 300;
     const newIdx = Math.round(scrollLeft / (itemWidth + 14));
-    if (newIdx >= 0 && newIdx < DISPLAY_STUDIO_PROMOS.length && newIdx !== activePromoIdx) {
+    if (newIdx >= 0 && newIdx < displayPromos.length && newIdx !== activePromoIdx) {
       setActivePromoIdx(newIdx);
     }
   };
 
   const handleNext = () => {
-    const nextIdx = (activePromoIdx + 1) % DISPLAY_STUDIO_PROMOS.length;
+    const nextIdx = (activePromoIdx + 1) % Math.max(1, displayPromos.length);
     scrollToIndex(nextIdx);
   };
 
   const handlePrev = () => {
-    const prevIdx = (activePromoIdx - 1 + DISPLAY_STUDIO_PROMOS.length) % DISPLAY_STUDIO_PROMOS.length;
+    const len = Math.max(1, displayPromos.length);
+    const prevIdx = (activePromoIdx - 1 + len) % len;
     scrollToIndex(prevIdx);
   };
 
@@ -1360,7 +1368,7 @@ export const PromoSpecialSection: React.FC<{
           className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 sm:gap-5 pb-3 scroll-smooth no-scrollbar overscroll-x-contain"
           style={{ WebkitOverflowScrolling: 'touch', touchAction: 'pan-x pan-y' }}
         >
-          {DISPLAY_STUDIO_PROMOS.map((promo) => (
+          {displayPromos.map((promo) => (
             <div
               key={promo.id}
               onClick={() => onSelectPromo(promo)}
@@ -1454,7 +1462,7 @@ export const PromoSpecialSection: React.FC<{
           </span>
 
           <div className="flex items-center gap-1.5 mx-auto sm:mx-0">
-            {DISPLAY_STUDIO_PROMOS.map((_, dotIdx) => (
+            {displayPromos.map((_, dotIdx) => (
               <button
                 key={dotIdx}
                 type="button"

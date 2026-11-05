@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { useStudioConfig } from '../utils/studioConfigManager';
+import { useStudioConfig, getActiveDisclaimer } from '../utils/studioConfigManager';
 import {
   MapPin, Clock, Navigation, Copy, Check, MessageCircle,
-  Sparkles, Camera, ExternalLink, CheckCircle2
+  Sparkles, Camera, ExternalLink, CheckCircle2, ShieldCheck
 } from 'lucide-react';
 
 interface StudioInfoAndRulesProps {
@@ -18,6 +18,7 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
 }) => {
   const [copiedBranch, setCopiedBranch] = useState<string | null>(null);
   const studioConfig = useStudioConfig();
+  const activeDisclaimer = getActiveDisclaimer(studioConfig);
 
   const handleCopyAddress = (branchId: string, address: string) => {
     navigator.clipboard.writeText(address);
@@ -292,6 +293,40 @@ export const StudioInfoAndRules: React.FC<StudioInfoAndRulesProps> = ({
             </div>
           );
         })}
+      </div>
+
+      {/* 3. Ketentuan Operasional & Tata Tertib Studio (Terhubung ke Dashboard) */}
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8DDD6] shadow-sm space-y-5 relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#6E856C] via-[#A9BCA7] to-[#3A3A3A]" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E8DDD6] pb-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] text-[10px] font-mono font-bold tracking-widest uppercase px-3 py-1 rounded-full border border-[#A9BCA7]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#6E856C]" />
+              <span>Ketentuan & Tata Tertib Resmi</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#3A3A3A] uppercase tracking-wide">
+              {activeDisclaimer.title}
+            </h2>
+            <p className="text-xs text-stone-500 font-sans">
+              {activeDisclaimer.subtitle}
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {(activeDisclaimer.sections || []).map((sec: any, sIdx: number) => (
+            <div key={sIdx} className="bg-[#FDFBF7] p-4 rounded-2xl border border-[#E8DDD6] space-y-2">
+              <h3 className="font-serif font-bold text-[#3A3A3A] text-sm flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#6E856C] shrink-0" />
+                <span>{sec.title}</span>
+              </h3>
+              <ol className="space-y-1.5 pl-4 list-decimal text-xs text-stone-700 font-sans leading-relaxed">
+                {(sec.items || []).map((itemText: string, iIdx: number) => (
+                  <li key={iIdx}>{itemText}</li>
+                ))}
+              </ol>
+            </div>
+          ))}
+        </div>
       </div>
 
     </section>

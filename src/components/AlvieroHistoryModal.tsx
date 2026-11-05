@@ -43,12 +43,12 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
   onClose,
   onExploreStudios
 }) => {
+  const studioConfig = useStudioConfig();
   // Dukungan tombol Back fisik / Swipe Back HP (Native PWA Experience)
   useMobileBackButton(isOpen, onClose, 'alviero-history');
 
   if (!isOpen) return null;
 
-  const studioConfig = useStudioConfig();
   const history = (studioConfig as any).history || {};
 
   const header = history.header || {

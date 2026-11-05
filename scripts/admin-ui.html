@@ -1786,6 +1786,29 @@
           </button>
         </div>
 
+        <!-- Running Announcement Ticker Customizer (Tahap 2E) -->
+        <div class="preset-box" style="margin-bottom: 1.25rem; background: #FFFBEB; border-color: #FDE68A;">
+          <div style="flex: 1;">
+            <div style="font-size: 0.86rem; font-weight: 800; color: #92400E; display: flex; align-items: center; gap: 0.45rem;">
+              <span>📢</span> <span>Running Announcement Ticker (Pita Pengumuman Atas Web)</span>
+            </div>
+            <div style="font-size: 0.75rem; color: #B45309; margin-top: 0.15rem;">
+              Teks pengumuman penting yang tampil mencolok di bagian paling atas situs web (Desktop & HP).
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex: 1.8; flex-wrap: wrap;">
+            <label class="toggle-label-wrap" style="background: #FFFFFF; padding: 0.35rem 0.65rem; border-radius: 8px; border: 1px solid #FDE68A;">
+              <div class="switch">
+                <input type="checkbox" id="announcementActiveToggle" onchange="saveAnnouncementConfig()">
+                <span class="slider"></span>
+              </div>
+              <span class="toggle-text" id="announcementActiveLabel">Aktif</span>
+            </label>
+            <input type="text" id="announcementTextInput" class="form-control" style="flex: 1; min-width: 240px;" placeholder="Contoh: 🎉 Promo Spesial Wisuda Bulan Ini — Diskon 10% All Package!">
+            <button class="btn btn-save-local" onclick="saveAnnouncementConfig()">💾 Simpan Pengumuman</button>
+          </div>
+        </div>
+
         <!-- Section Title & Subtitle Customizer -->
         <div class="preset-box" style="margin-bottom: 1.25rem;">
           <div style="flex: 1; max-width: 480px;">
@@ -1821,6 +1844,27 @@
         <div class="bg-grid" id="promosGrid">
           <!-- Rendered dynamically -->
         </div>
+
+        <!-- MANAJEMEN ULASAN & TESTIMONI KLIEN GOOGLE MAPS (Tahap 2C) -->
+        <div style="margin-top: 2.25rem; padding-top: 1.75rem; border-top: 2px dashed var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.15rem;">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.45rem;">
+                <span>⭐</span> <span>Manajemen Ulasan & Testimoni Klien (Google Review Carousel)</span>
+              </h3>
+              <p style="font-size: 0.78rem; color: #71717A; margin: 0.2rem 0 0 0;">
+                Tambah, edit, atau sembunyikan ulasan bintang 5 pelanggan Studio 1 (Junrejo) & Studio 2 (Dinoyo) yang tampil di halaman depan.
+              </p>
+            </div>
+            <button class="btn btn-add" onclick="openAddClientReviewModal()">
+              + Tambah Ulasan Klien Baru
+            </button>
+          </div>
+
+          <div class="bg-grid" id="clientReviewsGrid" style="grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));">
+            <!-- Rendered dynamically by renderClientReviews() -->
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1845,6 +1889,23 @@
           </div>
         </div>
 
+        <!-- Sub-Menu Switcher for Tab 4 (Tahap 2A, 2B, 2F) -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--border);">
+          <button type="button" class="pill-btn active" id="indoorSubBtnPackages" onclick="switchIndoorSubView('packages', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
+            📦 Daftar Paket & Harga Studio
+          </button>
+          <button type="button" class="pill-btn" id="indoorSubBtnCategories" onclick="switchIndoorSubView('categories', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
+            🗂️ 16 Kategori Menu Paket (Thumbnail & Badge)
+          </button>
+          <button type="button" class="pill-btn" id="indoorSubBtnLabFrame" onclick="switchIndoorSubView('labframe', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
+            🖼️ Harga Cetak Lab & Bingkai Foto
+          </button>
+          <button type="button" class="pill-btn" id="indoorSubBtnPhotoStrip" onclick="switchIndoorSubView('photostrip', this)" style="font-weight: 800; padding: 0.5rem 1rem;">
+            🎞️ Photo Strip Customizer
+          </button>
+        </div>
+
+        <div id="indoorSubPanelPackages">
         <!-- Category Filter & Search Bar -->
         <div class="filter-panel" style="margin-bottom: 1.25rem;">
           <div class="filter-group">
@@ -1874,6 +1935,95 @@
         <!-- Interactive Package Cards Grid -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;" id="indoorPackagesGrid">
           <!-- Rendered dynamically -->
+        </div>
+        </div>
+
+        <!-- SUB-PANEL 2A: 16 KATEGORI MENU PAKET -->
+        <div id="indoorSubPanelCategories" style="display: none;">
+          <div class="preset-box" style="margin-bottom: 1.25rem;">
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 800; color: var(--charcoal);">🗂️ Pengaturan 16 Kartu Kategori Menu Paket</div>
+              <div style="font-size: 0.76rem; color: #71717A;">Atur nama kategori, judul pricelist, sub-judul, teks badge, foto thumbnail kategori, dan status aktif/sembunyi pada menu katalog web.</div>
+            </div>
+            <button class="btn btn-save-local" onclick="saveConfigLocally()">💾 Simpan Kategori Menu</button>
+          </div>
+          <div class="bg-grid" id="categoriesMenuGrid" style="grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));">
+            <!-- Rendered dynamically by renderCategoriesMenu() -->
+          </div>
+        </div>
+
+        <!-- SUB-PANEL 2B: HARGA CETAK LAB & BINGKAI FOTO -->
+        <div id="indoorSubPanelLabFrame" style="display: none;">
+          <div style="display: grid; grid-template-columns: 1fr; gap: 1.75rem;">
+            <!-- Tabel Cetak Foto Lab -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                <div>
+                  <h3 style="font-size: 1rem; font-weight: 800; color: var(--charcoal); margin: 0;">🖨️ Daftar Harga Cetak Foto Lab (4R s.d. 24Rs & Pass Foto)</h3>
+                  <p style="font-size: 0.76rem; color: #71717A; margin: 0.15rem 0 0 0;">Perubahan pada tabel ini langsung mengubah tabel Pricelist Cetak Foto Lab di situs web.</p>
+                </div>
+                <button class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="openAddLabPrintModal()">+ Tambah Ukuran Cetak</button>
+              </div>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width: 70px; text-align: center;">Aktif</th>
+                      <th style="width: 110px;">Kode Ukuran</th>
+                      <th>Dimensi / Ukuran (cm)</th>
+                      <th>Catatan Fungsi</th>
+                      <th style="width: 130px;">Harga Cetak</th>
+                      <th style="width: 130px; text-align: right;">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="labPrintTableBody">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Grid Bingkai Foto -->
+            <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+                <div>
+                  <h3 style="font-size: 1rem; font-weight: 800; color: var(--charcoal); margin: 0;">🖼️ Daftar Harga Bingkai Foto (Photo Frames)</h3>
+                  <p style="font-size: 0.76rem; color: #71717A; margin: 0.15rem 0 0 0;">Kelola kartu ukuran bingkai foto, harga, tipe bingkai, deskripsi, dan foto preview bingkai.</p>
+                </div>
+                <button class="btn btn-add" style="font-size: 0.8rem; padding: 0.45rem 0.9rem;" onclick="openAddFramePriceModal()">+ Tambah Bingkai Baru</button>
+              </div>
+              <div class="bg-grid" id="framePricesGrid" style="grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUB-PANEL 2F: PHOTO STRIP CUSTOMIZER -->
+        <div id="indoorSubPanelPhotoStrip" style="display: none;">
+          <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.35rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+              <div>
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin: 0;">🎞️ Pengaturan Halaman Photo Strip Customizer</h3>
+                <p style="font-size: 0.76rem; color: #71717A; margin: 0.15rem 0 0 0;">Atur judul, sub-judul, dan 6 foto contoh default pada fitur Photo Strip Customizer di situs web.</p>
+              </div>
+              <button class="btn btn-save-local" onclick="savePhotoStripConfig()">💾 Simpan Photo Strip</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Judul Halaman Photo Strip</label>
+                <input type="text" id="stripTitleInput" class="form-control" placeholder="Kustomisasi Grid & Bingkai Alviero">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sub-Judul / Deskripsi Panduan</label>
+                <input type="text" id="stripSubtitleInput" class="form-control" placeholder="Pilih tata letak format 3R/4R...">
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Daftar 6 URL Foto Contoh Default (1 URL per baris)</label>
+              <textarea id="stripSamplePhotosInput" class="form-control" rows="6" placeholder="https://..."></textarea>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2341,6 +2491,38 @@
                 <div style="font-size: 0.72rem; color: #71717A; margin-top: 0.5rem;">Pratinjau barcode QRIS yang dilihat klien saat checkout</div>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- CARD PENGATURAN DISCLAIMER & ATURAN STUDIO (Tahap 2D) -->
+        <div style="margin-top: 2rem; background: #FAF8F5; border: 1.5px solid #E8E1D9; border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow-sm);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+            <div>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+                <span>📖</span> <span>Pengaturan Disclaimer, Tata Tertib & Kebijakan Reschedule Studio</span>
+              </h3>
+              <p style="font-size: 0.78rem; color: #71717A; margin: 0.25rem 0 0 0;">
+                Atur isi pasal ketentuan operasional, pengambilan cetak, keterlambatan/reschedule, pembayaran DP, dan properti yang tampil di halaman Disclaimer & Lokasi.
+              </p>
+            </div>
+            <button class="btn btn-save-local" onclick="saveDisclaimerConfig()">
+              💾 Simpan Aturan & Disclaimer
+            </button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Judul Utama Disclaimer</label>
+              <input type="text" id="disclaimerTitleInput" class="form-control" placeholder="DISCLAIMER">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sub-Judul Disclaimer</label>
+              <input type="text" id="disclaimerSubtitleInput" class="form-control" placeholder="Kebijakan Operasional, Ketentuan Booking & Prosedur Layanan Alviero Studio">
+            </div>
+          </div>
+
+          <div id="disclaimerSectionsContainer" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem;">
+            <!-- Rendered dynamically by renderDisclaimerConfig() -->
           </div>
         </div>
 
@@ -6151,9 +6333,15 @@
       renderSlots();
       
       renderPromos();
+      renderAnnouncementConfig();
+      renderClientReviews();
       renderHistory();
       renderIndoorPackages();
+      renderCategoriesMenu();
+      renderLabAndFramePrices();
+      renderPhotoStripConfig();
       renderBranches();
+      renderDisclaimerConfig();
       renderGalleryGrid();
       renderMuaSection();
       renderAddOns();
@@ -10711,6 +10899,433 @@
       renderBackgroundConflictMatrix();
       saveConfigLocally();
       showToast(`Aturan bentrok "${nameA} ⇄ ${nameB}" berhasil dihapus.`, '🗑️');
+    }
+
+    // =========================================================================
+    // TAHAP 2 — MODUL ANNOUNCEMENT TICKER, REVIEWS, KATEGORI MENU, CETAK LAB,
+    // BINGKAI FOTO, PHOTO STRIP BUILDER & DISCLAIMER STUDIO
+    // =========================================================================
+
+    // 1. Running Text / Announcement Ticker (Header Web)
+    function renderAnnouncementConfig() {
+      if (!appConfig) return;
+      const input = document.getElementById('announcementTextInput');
+      const toggle = document.getElementById('announcementActiveToggle');
+      const txt = typeof appConfig.announcement === 'string' ? appConfig.announcement : '';
+      if (input) input.value = txt;
+      if (toggle) toggle.checked = txt.trim().length > 0;
+    }
+
+    function saveAnnouncementConfig() {
+      if (!appConfig) return;
+      const input = document.getElementById('announcementTextInput');
+      const toggle = document.getElementById('announcementActiveToggle');
+      const isEnabled = toggle ? toggle.checked : true;
+      const rawTxt = input ? input.value.trim() : '';
+      appConfig.announcement = isEnabled ? rawTxt : '';
+      saveConfigLocally();
+      showToast(appConfig.announcement ? '✅ Teks pengumuman header berhasil diaktifkan!' : '⚪ Pengumuman header disembunyikan.', '📢');
+    }
+
+    // 2. Ulasan Klien Google Maps (Client Reviews Carousel)
+    function renderClientReviews() {
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.clientReviews)) appConfig.clientReviews = [];
+      const container = document.getElementById('clientReviewsGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (appConfig.clientReviews.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color:#71717A; background:#FAF9F6; border:1px dashed var(--border); border-radius:12px;">Belum ada ulasan klien. Klik "+ Tambah Ulasan Baru" untuk menambahkan.</div>';
+        return;
+      }
+
+      appConfig.clientReviews.forEach((rev, idx) => {
+        const isActive = rev.active !== false;
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:1rem; display:flex; flex-direction:column; gap:0.5rem;' + (isActive ? '' : 'opacity:0.55;');
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
+            <div>
+              <div style="font-weight:800; font-size:0.9rem; color:var(--charcoal);">${escapeHtml(rev.name || 'Klien')}</div>
+              <div style="font-size:0.73rem; color:#5C725A; font-weight:700;">${escapeHtml(rev.role || 'Klien Alviero')} • ${escapeHtml(rev.branch || 'Studio 1')}</div>
+            </div>
+            <span style="font-size:0.72rem; background:#FEF3C7; color:#92400E; padding:2px 7px; border-radius:999px; font-weight:700;">⭐ ${rev.rating || 5}.0</span>
+          </div>
+          <p style="font-size:0.78rem; color:#52525B; line-height:1.45; margin:0.2rem 0; flex:1;">"${escapeHtml(rev.review || '')}"</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:0.5rem; border-top:1px solid var(--border); font-size:0.72rem; color:#71717A;">
+            <label style="display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
+              <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleClientReviewActive(${idx}, this.checked)">
+              <span>${isActive ? 'Tampil' : 'Sembunyi'}</span>
+            </label>
+            <div style="display:flex; gap:0.35rem;">
+              <button type="button" class="btn-action" onclick="editClientReviewPrompt(${idx})">✏️ Edit</button>
+              <button type="button" class="btn-action delete" onclick="deleteClientReview(${idx})">🗑️</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleClientReviewActive(idx, checked) {
+      if (!appConfig?.clientReviews?.[idx]) return;
+      appConfig.clientReviews[idx].active = checked;
+      renderClientReviews();
+      saveConfigLocally();
+    }
+
+    function openAddClientReviewModal() {
+      const name = prompt('Nama Klien (contoh: Nabila Putri A.):');
+      if (!name || !name.trim()) return;
+      const role = prompt('Kategori / Paket Klien (contoh: Wisuda Universitas Brawijaya):', 'Klien Studio Foto') || 'Klien Studio Foto';
+      const branch = prompt('Cabang Studio (contoh: Studio 2 — Dinoyo atau Studio 1 — Junrejo):', 'Studio 1 — Junrejo') || 'Studio 1 — Junrejo';
+      const date = prompt('Keterangan Waktu (contoh: Minggu lalu):', 'Baru saja') || 'Baru saja';
+      const review = prompt('Isi Testimoni / Ulasan Klien:');
+      if (!review || !review.trim()) return;
+
+      const trimmedName = name.trim();
+      const parts = trimmedName.split(/\s+/);
+      const avatarInitials = (parts[0]?.[0] || 'A') + (parts[1]?.[0] || '');
+
+      if (!Array.isArray(appConfig.clientReviews)) appConfig.clientReviews = [];
+      appConfig.clientReviews.push({
+        id: 'rev-' + Date.now(),
+        name: trimmedName,
+        role: role.trim(),
+        branch: branch.trim(),
+        rating: 5,
+        date: date.trim(),
+        review: review.trim(),
+        avatarInitials: avatarInitials.toUpperCase(),
+        verified: true,
+        active: true
+      });
+      renderClientReviews();
+      saveConfigLocally();
+      showToast('✅ Ulasan klien baru berhasil ditambahkan!', '⭐');
+    }
+
+    function editClientReviewPrompt(idx) {
+      const rev = appConfig?.clientReviews?.[idx];
+      if (!rev) return;
+      const name = prompt('Edit Nama Klien:', rev.name || '');
+      if (name === null) return;
+      const role = prompt('Edit Kategori / Paket Klien:', rev.role || '');
+      if (role === null) return;
+      const branch = prompt('Edit Cabang Studio:', rev.branch || '');
+      if (branch === null) return;
+      const review = prompt('Edit Isi Ulasan Klien:', rev.review || '');
+      if (review === null) return;
+
+      rev.name = name.trim() || rev.name;
+      rev.role = role.trim() || rev.role;
+      rev.branch = branch.trim() || rev.branch;
+      rev.review = review.trim() || rev.review;
+      renderClientReviews();
+      saveConfigLocally();
+      showToast('✅ Ulasan klien berhasil diperbarui!', '⭐');
+    }
+
+    function deleteClientReview(idx) {
+      const rev = appConfig?.clientReviews?.[idx];
+      if (!rev) return;
+      if (!confirm(`Hapus ulasan dari "${rev.name}"?`)) return;
+      appConfig.clientReviews.splice(idx, 1);
+      renderClientReviews();
+      saveConfigLocally();
+      showToast('Ulasan klien dihapus.', '🗑️');
+    }
+
+    // 3. Sub-Menu Switcher pada Tab Paket & Katalog Harga (Indoor)
+    function switchIndoorSubView(subView, btn) {
+      const panels = {
+        packages: document.getElementById('indoorSubPanelPackages'),
+        categories: document.getElementById('indoorSubPanelCategories'),
+        labframe: document.getElementById('indoorSubPanelLabFrame'),
+        photostrip: document.getElementById('indoorSubPanelPhotoStrip')
+      };
+      Object.keys(panels).forEach(k => {
+        if (panels[k]) panels[k].style.display = (k === subView) ? 'block' : 'none';
+      });
+      ['indoorSubBtnPackages', 'indoorSubBtnCategories', 'indoorSubBtnLabFrame', 'indoorSubBtnPhotoStrip'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+      if (btn) btn.classList.add('active');
+
+      if (subView === 'categories') renderCategoriesMenu();
+      else if (subView === 'labframe') renderLabAndFramePrices();
+      else if (subView === 'photostrip') renderPhotoStripConfig();
+    }
+
+    // 4. Kategori Menu & Thumbnail Katalog (16 Kategori)
+    function renderCategoriesMenu() {
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.categories)) appConfig.categories = [];
+      const container = document.getElementById('categoriesMenuGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      appConfig.categories.forEach((cat, idx) => {
+        const isActive = cat.active !== false;
+        const card = document.createElement('div');
+        card.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:0.9rem; display:flex; gap:0.85rem; align-items:center;' + (isActive ? '' : 'opacity:0.55;');
+        card.innerHTML = `
+          <div style="width:60px; height:60px; border-radius:10px; overflow:hidden; background:#E5E7EB; flex-shrink:0; border:1px solid var(--border); display:flex; align-items:center; justify-content:center;">
+            ${cat.image ? `<img src="${cat.image}" alt="${escapeHtml(cat.label)}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.3rem;">📷</span>`}
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
+              <span style="font-weight:800; font-size:0.9rem; color:var(--charcoal);">${escapeHtml(cat.label || cat.id)}</span>
+              ${cat.badge ? `<span style="font-size:0.65rem; background:#FEF3C7; color:#92400E; padding:1px 6px; border-radius:999px; font-weight:700;">${escapeHtml(cat.badge)}</span>` : ''}
+            </div>
+            <div style="font-size:0.75rem; color:#71717A; margin-bottom:6px;">${escapeHtml(cat.tagline || '')}</div>
+            <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+              <label style="font-size:0.72rem; display:inline-flex; align-items:center; gap:4px; cursor:pointer;">
+                <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleCategoryMenuActive(${idx}, this.checked)">
+                <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
+              </label>
+              <button type="button" class="btn-action" style="padding:2px 8px; font-size:0.72rem;" onclick="editCategoryMenuPrompt(${idx})">✏️ Edit Label & Foto</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleCategoryMenuActive(idx, checked) {
+      if (!appConfig?.categories?.[idx]) return;
+      appConfig.categories[idx].active = checked;
+      renderCategoriesMenu();
+      saveConfigLocally();
+      showToast(`Kategori "${appConfig.categories[idx].label}" ${checked ? 'diaktifkan' : 'disembunyikan'}.`, '🗂️');
+    }
+
+    function editCategoryMenuPrompt(idx) {
+      const cat = appConfig?.categories?.[idx];
+      if (!cat) return;
+      const label = prompt('Nama Kategori Menu:', cat.label || '');
+      if (label === null) return;
+      const tagline = prompt('Sub-judul / Tagline Kategori:', cat.tagline || '');
+      if (tagline === null) return;
+      const badge = prompt('Badge Kategori (kosongkan jika tidak ada, contoh: Populer):', cat.badge || '');
+      if (badge === null) return;
+      const image = prompt('URL Thumbnail Foto Kategori (contoh: /images/categories/graduation.jpg):', cat.image || '');
+      if (image === null) return;
+
+      cat.label = label.trim() || cat.label;
+      cat.tagline = tagline.trim();
+      cat.badge = badge.trim();
+      cat.image = image.trim();
+      renderCategoriesMenu();
+      saveConfigLocally();
+      showToast(`✅ Kategori "${cat.label}" berhasil diperbarui!`, '🗂️');
+    }
+
+    function saveCategoriesMenu() {
+      saveConfigLocally();
+      showToast('✅ Seluruh konfigurasi Kategori Menu berhasil disimpan!', '🗂️');
+    }
+
+    // 5. Harga Cetak Foto Lab & Pricelist Bingkai Foto
+    function renderLabAndFramePrices() {
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.labPrintPrices)) appConfig.labPrintPrices = [];
+      if (!Array.isArray(appConfig.framePrices)) appConfig.framePrices = [];
+
+      const labBody = document.getElementById('labPrintTableBody');
+      if (labBody) {
+        labBody.innerHTML = '';
+        appConfig.labPrintPrices.forEach((item, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.code || '')}" onchange="updateLabItemField(${idx}, 'code', this.value)"></td>
+            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.cm || '')}" onchange="updateLabItemField(${idx}, 'cm', this.value)"></td>
+            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.price || '')}" onchange="updateLabItemField(${idx}, 'price', this.value)"></td>
+            <td><input type="text" class="form-control" style="padding:0.35rem 0.5rem; font-size:0.8rem;" value="${escapeHtml(item.note || '')}" onchange="updateLabItemField(${idx}, 'note', this.value)"></td>
+            <td style="text-align:center;">
+              <input type="checkbox" ${item.highlight ? 'checked' : ''} onchange="updateLabItemField(${idx}, 'highlight', this.checked)">
+            </td>
+            <td style="text-align:right;">
+              <button type="button" class="btn-action delete" onclick="deleteLabPrintItem(${idx})">🗑️</button>
+            </td>
+          `;
+          labBody.appendChild(tr);
+        });
+      }
+
+      const frameGrid = document.getElementById('framePricesGrid');
+      if (frameGrid) {
+        frameGrid.innerHTML = '';
+        appConfig.framePrices.forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:0.9rem; display:flex; flex-direction:column; gap:0.45rem;';
+          card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <input type="text" class="form-control" style="font-weight:800; font-size:0.85rem; padding:0.3rem 0.5rem;" value="${escapeHtml(item.size || '')}" onchange="updateFrameItemField(${idx}, 'size', this.value)" placeholder="Ukuran Bingkai">
+              <button type="button" class="btn-action delete" style="margin-left:6px;" onclick="deleteFramePriceItem(${idx})">🗑️</button>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.4rem;">
+              <input type="text" class="form-control" style="font-size:0.78rem; padding:0.3rem 0.5rem;" value="${escapeHtml(item.dim || '')}" onchange="updateFrameItemField(${idx}, 'dim', this.value)" placeholder="Dimensi (20x25 cm)">
+              <input type="text" class="form-control" style="font-size:0.78rem; padding:0.3rem 0.5rem; font-weight:700; color:#5C725A;" value="${escapeHtml(item.price || '')}" onchange="updateFrameItemField(${idx}, 'price', this.value)" placeholder="Harga (45k)">
+            </div>
+            <input type="text" class="form-control" style="font-size:0.75rem; padding:0.3rem 0.5rem;" value="${escapeHtml(item.desc || '')}" onchange="updateFrameItemField(${idx}, 'desc', this.value)" placeholder="Deskripsi bingkai">
+          `;
+          frameGrid.appendChild(card);
+        });
+      }
+    }
+
+    function updateLabItemField(idx, field, val) {
+      if (!appConfig?.labPrintPrices?.[idx]) return;
+      appConfig.labPrintPrices[idx][field] = val;
+    }
+
+    function addLabPrintRow() {
+      if (!Array.isArray(appConfig.labPrintPrices)) appConfig.labPrintPrices = [];
+      appConfig.labPrintPrices.push({ code: 'Ukuran Baru', cm: '00 x 00 cm', price: '00k', note: 'Laminasi Doff', highlight: false, active: true });
+      renderLabAndFramePrices();
+    }
+
+    function deleteLabPrintItem(idx) {
+      if (!appConfig?.labPrintPrices?.[idx]) return;
+      appConfig.labPrintPrices.splice(idx, 1);
+      renderLabAndFramePrices();
+      saveConfigLocally();
+    }
+
+    function saveLabPrintPrices() {
+      saveConfigLocally();
+      showToast('✅ Tabel harga Cetak Foto Lab berhasil disimpan!', '🖨️');
+    }
+
+    function updateFrameItemField(idx, field, val) {
+      if (!appConfig?.framePrices?.[idx]) return;
+      appConfig.framePrices[idx][field] = val;
+    }
+
+    function addFramePriceRow() {
+      if (!Array.isArray(appConfig.framePrices)) appConfig.framePrices = [];
+      appConfig.framePrices.push({ size: 'Ukuran Baru', dim: '00 x 00 cm', price: '00k', desc: 'Minimalis + Kaca', popular: false, active: true });
+      renderLabAndFramePrices();
+    }
+
+    function deleteFramePriceItem(idx) {
+      if (!appConfig?.framePrices?.[idx]) return;
+      appConfig.framePrices.splice(idx, 1);
+      renderLabAndFramePrices();
+      saveConfigLocally();
+    }
+
+    function saveFramePrices() {
+      saveConfigLocally();
+      showToast('✅ Pricelist Bingkai Foto berhasil disimpan!', '🖼️');
+    }
+
+    // 6. Kustomisasi Photo Strip Self Studio
+    function renderPhotoStripConfig() {
+      if (!appConfig) return;
+      const cfg = appConfig.photoStripConfig || {
+        title: 'Kustomisasi Photo Strip',
+        subtitle: 'Simulasikan hasil cetak photo strip instan Anda sebelum sesi dimulai.',
+        samplePhotos: []
+      };
+      const titleEl = document.getElementById('stripTitleInput');
+      const subEl = document.getElementById('stripSubtitleInput');
+      const samplesEl = document.getElementById('stripSamplePhotosInput');
+      if (titleEl) titleEl.value = cfg.title || '';
+      if (subEl) subEl.value = cfg.subtitle || '';
+      if (samplesEl) samplesEl.value = (cfg.samplePhotos || []).join('\n');
+    }
+
+    function savePhotoStripConfig() {
+      if (!appConfig) return;
+      const title = (document.getElementById('stripTitleInput')?.value || '').trim();
+      const subtitle = (document.getElementById('stripSubtitleInput')?.value || '').trim();
+      const samplesRaw = (document.getElementById('stripSamplePhotosInput')?.value || '').split('\n').map(s => s.trim()).filter(Boolean);
+      appConfig.photoStripConfig = {
+        title: title || 'Kustomisasi Photo Strip',
+        subtitle: subtitle || 'Simulasikan hasil cetak photo strip instan Anda sebelum sesi dimulai.',
+        samplePhotos: samplesRaw
+      };
+      saveConfigLocally();
+      showToast('✅ Konfigurasi Photo Strip Builder berhasil disimpan!', '🎞️');
+    }
+
+    // 7. Disclaimer, Ketentuan & Aturan Operasional Studio
+    function renderDisclaimerConfig() {
+      if (!appConfig) return;
+      if (!appConfig.disclaimer) {
+        appConfig.disclaimer = {
+          title: 'Ketentuan & Prosedur Layanan',
+          subtitle: 'Mohon dibaca dengan seksama demi kelancaran dan kenyamanan sesi pemotretan Anda di Alviero Studio.',
+          sections: []
+        };
+      }
+      const d = appConfig.disclaimer;
+      const titleEl = document.getElementById('disclaimerTitleInput');
+      const subEl = document.getElementById('disclaimerSubtitleInput');
+      if (titleEl) titleEl.value = d.title || '';
+      if (subEl) subEl.value = d.subtitle || '';
+
+      const container = document.getElementById('disclaimerSectionsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      (d.sections || []).forEach((sec, idx) => {
+        const box = document.createElement('div');
+        box.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:1rem;';
+        box.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+            <input type="text" class="form-control" style="font-weight:800; font-size:0.88rem;" value="${escapeHtml(sec.title || '')}" onchange="updateDisclaimerSectionTitle(${idx}, this.value)" placeholder="Judul Bagian Ketentuan">
+            <button type="button" class="btn-action delete" onclick="deleteDisclaimerSection(${idx})">🗑️ Hapus</button>
+          </div>
+          <label class="form-label" style="font-size:0.73rem;">Daftar Poin Aturan (1 baris = 1 poin nomor):</label>
+          <textarea class="form-control" rows="4" style="font-size:0.8rem;" onchange="updateDisclaimerSectionItems(${idx}, this.value)">${escapeHtml((sec.items || []).join('\n'))}</textarea>
+        `;
+        container.appendChild(box);
+      });
+    }
+
+    function updateDisclaimerSectionTitle(idx, val) {
+      if (!appConfig?.disclaimer?.sections?.[idx]) return;
+      appConfig.disclaimer.sections[idx].title = val;
+    }
+
+    function updateDisclaimerSectionItems(idx, val) {
+      if (!appConfig?.disclaimer?.sections?.[idx]) return;
+      appConfig.disclaimer.sections[idx].items = val.split('\n').map(s => s.trim()).filter(Boolean);
+    }
+
+    function addDisclaimerSection() {
+      if (!appConfig.disclaimer) appConfig.disclaimer = { title: 'Ketentuan & Prosedur Layanan', subtitle: '', sections: [] };
+      if (!Array.isArray(appConfig.disclaimer.sections)) appConfig.disclaimer.sections = [];
+      appConfig.disclaimer.sections.push({
+        id: 'sec-' + Date.now(),
+        title: 'Ketentuan Baru',
+        items: ['Tulis poin ketentuan di sini.']
+      });
+      renderDisclaimerConfig();
+    }
+
+    function deleteDisclaimerSection(idx) {
+      if (!appConfig?.disclaimer?.sections?.[idx]) return;
+      if (!confirm('Hapus bagian ketentuan ini?')) return;
+      appConfig.disclaimer.sections.splice(idx, 1);
+      renderDisclaimerConfig();
+      saveConfigLocally();
+    }
+
+    function saveDisclaimerConfig() {
+      if (!appConfig) return;
+      const title = (document.getElementById('disclaimerTitleInput')?.value || '').trim();
+      const subtitle = (document.getElementById('disclaimerSubtitleInput')?.value || '').trim();
+      if (!appConfig.disclaimer) appConfig.disclaimer = { sections: [] };
+      appConfig.disclaimer.title = title || 'Ketentuan & Prosedur Layanan';
+      appConfig.disclaimer.subtitle = subtitle;
+      saveConfigLocally();
+      showToast('✅ Ketentuan & Tata Tertib Studio berhasil disimpan!', '📜');
     }
 
 </script>

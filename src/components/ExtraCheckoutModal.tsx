@@ -22,6 +22,7 @@ import {
   User,
   X,
 } from 'lucide-react';
+import { useStudioConfig, getPaymentConfig } from '../utils/studioConfigManager';
 
 export type ExtraCartCategory = 'MUA' | 'CETAK' | 'BINGKAI';
 
@@ -102,6 +103,8 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
   onSelectStudio,
   onSubmit,
 }) => {
+  const studioConfig = useStudioConfig();
+  const paymentConfig = useMemo(() => getPaymentConfig(studioConfig), [studioConfig]);
   const savedData = useMemo(() => getSavedFormData(), [isOpen]);
 
   const [step, setStep] = useState<1 | 2 | 3>(() => savedData.step || 1);
@@ -209,7 +212,7 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
     () => items.reduce((sum, item) => sum + item.price * item.qty, 0),
     [items]
   );
-  const qrisFee = subtotal * 0.01;
+  const qrisFee = subtotal * ((paymentConfig.qrisFeePercent ?? 1) / 100);
   const totalWithFee = subtotal + (paymentMethod === 'qris' ? qrisFee : 0);
   const paymentAmount = Math.round(paymentType === 'dp' ? totalWithFee / 2 : totalWithFee);
 
@@ -355,7 +358,7 @@ export const ExtraCheckoutModal: React.FC<ExtraCheckoutModalProps> = ({
 
   const handleCopyBankAccount = async () => {
     try {
-      await navigator.clipboard.writeText('0113324021');
+      await navigator.clipboard.writeText(paymentConfig.accountNumber || '0113324021');
       setCopiedAccount(true);
       setTimeout(() => setCopiedAccount(false), 1500);
     } catch {
@@ -848,7 +851,7 @@ Apakah slot dan layanan di atas tersedia?`
                       </div>
                       <div className="min-w-0">
                         <span className="block font-serif text-[10.5px] font-bold text-[#2E2E2E]">QRIS Resmi</span>
-                        <span className="text-[8.5px] font-mono text-stone-500">+1% Biaya</span>
+                        <span className="text-[8.5px] font-mono text-stone-500">+{paymentConfig.qrisFeePercent ?? 1}% Biaya</span>
                       </div>
                     </button>
 
@@ -862,11 +865,11 @@ Apakah slot dan layanan di atas tersedia?`
                       }`}
                     >
                       <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#005EAA] text-[10px] font-black text-white shrink-0">
-                        BCA
+                        {paymentConfig.bankName || 'BCA'}
                       </div>
                       <div className="min-w-0">
-                        <span className="block font-serif text-[10.5px] font-bold text-[#2E2E2E]">Transfer BCA</span>
-                        <span className="text-[8.5px] font-mono text-stone-500">0113324021</span>
+                        <span className="block font-serif text-[10.5px] font-bold text-[#2E2E2E]">Transfer {paymentConfig.bankName || 'BCA'}</span>
+                        <span className="text-[8.5px] font-mono text-stone-500">{paymentConfig.accountNumber || '0113324021'}</span>
                       </div>
                     </button>
                   </div>
@@ -887,7 +890,7 @@ Apakah slot dan layanan di atas tersedia?`
                   {paymentMethod === 'qris' ? (
                     <div className="flex items-center gap-3 bg-white/5 p-2 rounded-lg">
                       <div className="h-16 w-16 bg-white rounded-md p-1 shrink-0 flex items-center justify-center">
-                        <img src="/images/qris-alviero.png" alt="QRIS Alviero" className="h-full w-full object-contain" />
+                        <img src={paymentConfig.qrisImageUrl || '/images/qris-alviero.png'} alt="QRIS Alviero" className="h-full w-full object-contain" />
                       </div>
                       <div className="text-[10px] text-stone-300">
                         <span className="font-bold text-white block">QRIS Nasional Alviero</span>
@@ -897,8 +900,8 @@ Apakah slot dan layanan di atas tersedia?`
                   ) : (
                     <div className="flex items-center justify-between bg-white/5 p-2 rounded-lg text-xs">
                       <div>
-                        <span className="text-[9px] text-stone-400 block uppercase font-mono">BCA a.n Muhammad Azzam Fakhri</span>
-                        <span className="font-mono font-bold text-white tracking-wider">0113324021</span>
+                        <span className="text-[9px] text-stone-400 block uppercase font-mono">{paymentConfig.bankName || 'BCA'} a.n {paymentConfig.accountHolder || 'Muhammad Azzam Fakhri'}</span>
+                        <span className="font-mono font-bold text-white tracking-wider">{paymentConfig.accountNumber || '0113324021'}</span>
                       </div>
                       <button
                         type="button"

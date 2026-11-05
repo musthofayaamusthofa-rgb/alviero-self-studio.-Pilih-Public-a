@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Camera, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
@@ -70,6 +70,13 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   return (
+    <>
+    {announcementInfo.active && announcementInfo.text && (
+      <div className="lg:hidden bg-[#2A2A2A] text-amber-200 border-b border-amber-400/30 py-1.5 px-3 text-[10.5px] font-bold flex items-center justify-center gap-1.5 text-center sticky top-0 z-40">
+        <Sparkles className="w-3 h-3 text-amber-300 shrink-0 animate-pulse" />
+        <span className="truncate">{announcementInfo.text}</span>
+      </div>
+    )}
     <header className={`hidden lg:block sticky top-0 z-40 transition-all duration-300 ${
       isScrolled 
         ? 'bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#E8DDD6] shadow-xs' 
@@ -205,5 +212,6 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
     </header>
+    </>
   );
 };

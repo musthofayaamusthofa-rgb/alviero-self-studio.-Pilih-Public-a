@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { 
   Sparkles, Download, Upload, Image as ImageIcon, Palette, 
   RefreshCw, Heart, Layers, Wand2, Volume2, Crop, RotateCw, 
@@ -10,6 +10,7 @@ import {
   getFrameOverlayUrl, downloadPhotoStripAsImage, loadSafeImage 
 } from '../utils/downloadPhotoStrip';
 import { playShutterSound } from '../utils/shutterSound';
+import { useStudioConfig, getActivePhotoStripConfig } from '../utils/studioConfigManager';
 
 const revokeBlobUrl = (url: string | null | undefined) => {
   if (url?.startsWith('blob:')) {
@@ -18,6 +19,8 @@ const revokeBlobUrl = (url: string | null | undefined) => {
 };
 
 export const PhotoStripCustomizer: React.FC = () => {
+  const studioConfig = useStudioConfig();
+  const stripConfig = useMemo(() => getActivePhotoStripConfig(studioConfig), [studioConfig]);
   const [selectedGrid, setSelectedGrid] = useState<GridTypeId>('grid-4-3r');
   const [selectedTheme, setSelectedTheme] = useState<FrameThemeId>('A');
   const [activeFilter, setActiveFilter] = useState<string>('none');
@@ -26,14 +29,18 @@ export const PhotoStripCustomizer: React.FC = () => {
   const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
   const [downloadedImageUrl, setDownloadedImageUrl] = useState<string | null>(null);
 
-  const defaultSamplePhotos = [
-    'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80'
-  ];
+  const defaultSamplePhotos = useMemo(() => (
+    Array.isArray((stripConfig as any)?.samplePhotos) && (stripConfig as any).samplePhotos.length > 0
+      ? (stripConfig as any).samplePhotos
+      : [
+          'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+          'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80'
+        ]
+  ), [stripConfig]);
 
   const [userPhotos, setUserPhotos] = useState<string[]>(defaultSamplePhotos);
   const userPhotosRef = useRef(userPhotos);
@@ -249,10 +256,10 @@ export const PhotoStripCustomizer: React.FC = () => {
           <span>Interactive Photo Grid Customizer & Live Frame Generator</span>
         </div>
         <h2 className="text-xl sm:text-3xl font-black text-[#3A3A3A] tracking-tight">
-          Kustomisasi Grid & Bingkai Alviero
+          {stripConfig.title || 'Kustomisasi Grid & Bingkai Alviero'}
         </h2>
         <p className="text-xs sm:text-sm text-stone-600 leading-relaxed px-2">
-          Pilih tata letak format 3R/4R, tentukan tema warna bingkai resmi Alviero Studio, posisikan foto secara utuh, dan unduh hasil PNG siap cetak!
+          {stripConfig.subtitle || 'Pilih tata letak format 3R/4R, tentukan tema warna bingkai resmi Alviero Studio, posisikan foto secara utuh, dan unduh hasil PNG siap cetak!'}
         </p>
       </div>
 

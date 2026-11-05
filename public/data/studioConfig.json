@@ -5648,5 +5648,419 @@
       "feePercent": 1,
       "active": true
     }
+  },
+  "categories": [
+    {
+      "id": "grad-indoor",
+      "name": "Graduation",
+      "title": "PRICELIST GRADUATION",
+      "subtitle": "Elegant Scholar, Supreme Scholar, Bundling & Outdoor",
+      "badgeText": "Favorit Wisuda",
+      "icon": "🎓",
+      "thumbnailImage": "/images/categories/graduation.jpg",
+      "active": true
+    },
+    {
+      "id": "grad-outdoor",
+      "name": "Grad Outdoor",
+      "title": "PRICELIST WISUDA OUTDOOR",
+      "subtitle": "Smart Outdoor 30M/60M, Cumlaude Video & Group",
+      "badgeText": "Outdoor Kampus",
+      "icon": "🌳",
+      "thumbnailImage": "/images/categories/grad-outdoor.jpg",
+      "active": true
+    },
+    {
+      "id": "group-paket",
+      "name": "Group",
+      "title": "PRICELIST GROUP",
+      "subtitle": "Friendly Frame, Signature Squad, Royal & Imperial",
+      "badgeText": "3 - 75 Orang",
+      "icon": "👥",
+      "thumbnailImage": "/images/categories/group.jpg",
+      "active": true
+    },
+    {
+      "id": "family-paket",
+      "name": "Family",
+      "title": "PRICELIST FAMILY",
+      "subtitle": "Sweet Together (1 BG) & Happy Nest (2 BG)",
+      "badgeText": "Keluarga Hangat",
+      "icon": "👨‍👩‍👧‍👦",
+      "thumbnailImage": "/images/categories/family.jpg",
+      "active": true
+    },
+    {
+      "id": "maternity-paket",
+      "name": "Maternity",
+      "title": "PRICELIST MATERNITY",
+      "subtitle": "Warm Embrace (1 BG) & Golden Glow (2 BG)",
+      "badgeText": "Momen Kehamilan",
+      "icon": "🤰",
+      "thumbnailImage": "/images/categories/maternity.jpg",
+      "active": true
+    },
+    {
+      "id": "personal-paket",
+      "name": "Personal",
+      "title": "PRICELIST PERSONAL",
+      "subtitle": "Bold Statement (1 BG) & Opulent Shot (2 BG)",
+      "badgeText": "Portrait & Branding",
+      "icon": "👩‍💼",
+      "thumbnailImage": "/images/categories/personal.jpg",
+      "active": true
+    },
+    {
+      "id": "couple-paket",
+      "name": "Couple",
+      "title": "PRICELIST COUPLE",
+      "subtitle": "Eternal Love (1 BG) & Timeless Romance (2 BG)",
+      "badgeText": "Pasangan Serasi",
+      "icon": "💑",
+      "thumbnailImage": "/images/categories/couple.jpg",
+      "active": true
+    },
+    {
+      "id": "event",
+      "name": "Birthday",
+      "title": "PRICELIST BIRTHDAY",
+      "subtitle": "Sweet Celebration, Glow Sweet & Spotlight",
+      "badgeText": "Ulang Tahun",
+      "icon": "🎂",
+      "thumbnailImage": "/images/categories/birthday.jpg",
+      "active": true
+    },
+    {
+      "id": "undangan-paket",
+      "name": "Undangan",
+      "title": "PRICELIST UNDANGAN",
+      "subtitle": "Paket Undangan 1 (95K) & Paket Undangan 2 (155K)",
+      "badgeText": "Hemat & Praktis",
+      "icon": "💌",
+      "thumbnailImage": "",
+      "active": true
+    },
+    {
+      "id": "prewed-paket",
+      "name": "Prewedding",
+      "title": "PRICELIST PREWEDD",
+      "subtitle": "Sweet Promise, Velvet Romance & Bundling 1-2",
+      "badgeText": "Prewed Hot",
+      "icon": "💍",
+      "thumbnailImage": "/images/categories/prewedding.jpg",
+      "active": true
+    },
+    {
+      "id": "pass-foto",
+      "name": "Pass photo",
+      "title": "PRICELIST PASS FOTO",
+      "subtitle": "Paket 1, Paket 2 & Paket Nikah 2 Orang",
+      "badgeText": "Kilat & Resmi",
+      "icon": "🪪",
+      "thumbnailImage": "",
+      "active": true
+    },
+    {
+      "id": "sewa-studio",
+      "name": "Sewa Studio",
+      "title": "PRICELIST SEWA STUDIO",
+      "subtitle": "2 Background, Maks 60 Menit, 2 Lighting & Trigger",
+      "badgeText": "Rental 175K",
+      "icon": "🏛️",
+      "thumbnailImage": "/images/categories/sewa-studio.jpg",
+      "active": true
+    },
+    {
+      "id": "selfstudio",
+      "name": "SelfStudio",
+      "title": "PRICELIST SELFSTUDIO",
+      "subtitle": "Special Narsis, Normal Narsis & Spotlight (Studio 1 & 2)",
+      "badgeText": "Best Seller",
+      "icon": "✨",
+      "thumbnailImage": "/images/categories/selfphoto.jpg",
+      "active": true
+    },
+    {
+      "id": "kebayak-gaun",
+      "name": "Kebaya & Gaun",
+      "title": "PRICELIST KEBAYAK DAN GAUN",
+      "subtitle": "Sewa Wardrobe Wisuda, Kebaya Modern & Gaun Foto",
+      "badgeText": "Wardrobe",
+      "icon": "👗",
+      "thumbnailImage": "",
+      "active": true
+    },
+    {
+      "id": "wedding-package",
+      "name": "Wedding",
+      "title": "PRICELIST WEDDING",
+      "subtitle": "Prewedding, Akad, Resepsi & Engagement",
+      "badgeText": "Exclusive",
+      "icon": "💍",
+      "thumbnailImage": "/images/categories/wedding.jpg",
+      "active": true
+    },
+    {
+      "id": "bingkai-album",
+      "name": "Cetak Lab",
+      "title": "PRICELIST CETAK",
+      "subtitle": "Cetak Lab, Bingkai Minimalis & Album Eksklusif",
+      "badgeText": "Cetak Lab",
+      "icon": "🖼️",
+      "thumbnailImage": "",
+      "active": true
+    }
+  ],
+  "labPrintPrices": [
+    {
+      "code": "4R",
+      "size": "10.2 cm x 15.2 cm",
+      "price": 5000,
+      "priceDisplay": "5K",
+      "note": "Standar Foto Album",
+      "active": true
+    },
+    {
+      "code": "5R",
+      "size": "12.7 cm x 17.8 cm",
+      "price": 8000,
+      "priceDisplay": "8K",
+      "note": "Sedang Meja",
+      "active": true
+    },
+    {
+      "code": "6R",
+      "size": "15.2 cm x 20.3 cm",
+      "price": 9000,
+      "priceDisplay": "9K",
+      "note": "Meja Kantor",
+      "active": true
+    },
+    {
+      "code": "10Rs",
+      "size": "20.3 cm x 30.5 cm",
+      "price": 16000,
+      "priceDisplay": "16K",
+      "note": "Favorit Pigura Meja/Dinding",
+      "active": true
+    },
+    {
+      "code": "12Rs",
+      "size": "30.5 cm x 45 cm",
+      "price": 52000,
+      "priceDisplay": "52K",
+      "note": "Dinding Kamar",
+      "active": true
+    },
+    {
+      "code": "16Rs",
+      "size": "40 cm x 60 cm",
+      "price": 102000,
+      "priceDisplay": "102K",
+      "note": "Dinding Ruang Tamu",
+      "active": true
+    },
+    {
+      "code": "20Rs",
+      "size": "50 cm x 75 cm",
+      "price": 137000,
+      "priceDisplay": "137K",
+      "note": "Wisuda & Prewed Besar",
+      "active": true
+    },
+    {
+      "code": "24Rs",
+      "size": "60 cm x 90 cm",
+      "price": 172000,
+      "priceDisplay": "172K",
+      "note": "Jumbo Pigura Utama",
+      "active": true
+    },
+    {
+      "code": "Pass 2x3",
+      "size": "Paket 6 foto",
+      "price": 8000,
+      "priceDisplay": "8K",
+      "note": "Dokumen / Ijazah",
+      "active": true
+    },
+    {
+      "code": "Pass 3x3",
+      "size": "Paket 6 foto",
+      "price": 8000,
+      "priceDisplay": "8K",
+      "note": "Dokumen",
+      "active": true
+    },
+    {
+      "code": "Pass 3x4",
+      "size": "Paket 6 foto",
+      "price": 8000,
+      "priceDisplay": "8K",
+      "note": "Buku Nikah / Ijazah",
+      "active": true
+    },
+    {
+      "code": "Pass 4x6",
+      "size": "Paket 4 foto",
+      "price": 8000,
+      "priceDisplay": "8K",
+      "note": "Paspor / Lamaran Kerja",
+      "active": true
+    }
+  ],
+  "framePrices": [
+    {
+      "code": "4R",
+      "size": "15 X 20 CM",
+      "price": 17000,
+      "priceDisplay": "17K",
+      "type": "Bingkai Meja / Minimalis",
+      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+      "desc": "Cocok untuk meja belajar, nakas kamar tidur, dan kado wisuda",
+      "active": true
+    },
+    {
+      "code": "10Rs",
+      "size": "40 X 50 CM",
+      "price": 35000,
+      "priceDisplay": "35K",
+      "type": "Bingkai Dinding Sedang",
+      "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80",
+      "desc": "Ukuran paling diminati untuk foto wisuda keluarga & portrait",
+      "active": true
+    },
+    {
+      "code": "12Rs",
+      "size": "50 X 60 CM",
+      "price": 50000,
+      "priceDisplay": "50K",
+      "type": "Bingkai Dinding Populer",
+      "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=600&q=80",
+      "desc": "Sangat pas untuk foto wisuda sarjana & foto couple ruang tamu",
+      "active": true
+    },
+    {
+      "code": "16Rs",
+      "size": "60 X 70 CM",
+      "price": 145000,
+      "priceDisplay": "145K",
+      "type": "Bingkai Dinding Eksklusif",
+      "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
+      "desc": "Tampilan megah dengan list linen ganda untuk foto keluarga",
+      "active": true
+    },
+    {
+      "code": "20Rs",
+      "size": "70 X 90 CM",
+      "price": 175000,
+      "priceDisplay": "175K",
+      "type": "Bingkai Dinding Jumbo",
+      "image": "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80",
+      "desc": "Sempurna untuk foto prewedding utama & foto keluarga besar",
+      "active": true
+    },
+    {
+      "code": "24Rs",
+      "size": "90 X 120 CM",
+      "price": 230000,
+      "priceDisplay": "230K",
+      "type": "Bingkai Dinding Masterpiece",
+      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+      "desc": "Ukuran kanvas/pigura terbesar untuk background ruang utama",
+      "active": true
+    }
+  ],
+  "clientReviews": [
+    {
+      "id": "rev-1",
+      "name": "Nadia Putri",
+      "avatar": "/images/reviews/nadia-putri.jpg",
+      "reviewerMeta": "Local Guide · 24 ulasan",
+      "date": "2 bulan lalu",
+      "package": "Paket Wisuda Studio",
+      "stars": 5,
+      "text": "Hasil foto wisuda di Alviero Studio bagus banget! Fotografernya ramah, sabar ngarahin gaya buat keluarga besar, dan ruangannya dingin ber-AC. Sangat recommended!",
+      "branch": "cabang-1",
+      "studioBadge": "Studio 1 (Junrejo)",
+      "active": true
+    },
+    {
+      "id": "rev-2",
+      "name": "Rizky Pratama",
+      "avatar": "/images/reviews/rizky-pratama.jpg",
+      "reviewerMeta": "8 ulasan · 3 foto",
+      "date": "3 bulan lalu",
+      "package": "Self Photo Studio",
+      "stars": 5,
+      "text": "Self photo studio paling worth it di Malang! Pilihan background banyak, properti lucu-lucu, hasil fotonya jernih dan langsung dikirim Google Drive hari itu juga.",
+      "branch": "cabang-1",
+      "studioBadge": "Studio 1 (Junrejo)",
+      "active": true
+    },
+    {
+      "id": "rev-3",
+      "name": "Salshabilla HMP",
+      "avatar": "/images/reviews/salshabilla-hmp.jpg",
+      "reviewerMeta": "6 ulasan · 5 foto",
+      "date": "5 bulan lalu",
+      "package": "Paket Studio & Self Photo",
+      "stars": 5,
+      "text": "Tempat studio nya nyaman, segala request foto semua diturutin dan pelayanan nya top pokoknyaa! Fotografernya asik dan sabar ngarahin pose. Hasil foto dan cetakannya jernih mantap 😍🥰🥰",
+      "branch": "cabang-1",
+      "studioBadge": "Studio 1 (Junrejo)",
+      "active": true
+    },
+    {
+      "id": "rev-4",
+      "name": "Citra Hudaya",
+      "avatar": "/images/reviews/citra-hudaya.jpg",
+      "reviewerMeta": "Local Guide · 34 ulasan",
+      "date": "6 bulan lalu",
+      "package": "Paket Wisuda & Family",
+      "stars": 5,
+      "text": "Salah satu rekomendasi studio foto di area Junrejo. Tempatnya luas dan nyaman. Harganya standar dan ramah di kantong, fasilitasnya lengkap!",
+      "branch": "cabang-1",
+      "studioBadge": "Studio 1 (Junrejo)",
+      "active": true
+    },
+    {
+      "id": "rev-5",
+      "name": "Rania Maharani",
+      "avatar": "/images/reviews/rania-maharani.jpg",
+      "reviewerMeta": "Local Guide · 18 ulasan",
+      "date": "1 bulan lalu",
+      "package": "Self Studio Dinoyo",
+      "stars": 5,
+      "text": "Alviero Studio 2 di Dinoyo tempatnya super nyaman dan strategis di Ruko Gajayana! Konsep self photo studionya asik banget, lightingnya clean & estetik, properti lengkap.",
+      "branch": "cabang-2",
+      "studioBadge": "Studio 2 (Dinoyo)",
+      "active": true
+    },
+    {
+      "id": "rev-6",
+      "name": "Dimas Prasetyo",
+      "avatar": "/images/reviews/dimas-prasetyo.jpg",
+      "reviewerMeta": "5 ulasan · 3 foto",
+      "date": "2 bulan lalu",
+      "package": "Paket Wisuda & Group",
+      "stars": 5,
+      "text": "Pelayanan di Alviero Studio 2 Dinoyo mantap pol! Fotografernya komunikatif dan pro ngarahin gaya buat yang kaku di depan kamera. Hasil file dan cetakan fotonya tajam, tempatnya sejuk ber-AC.",
+      "branch": "cabang-2",
+      "studioBadge": "Studio 2 (Dinoyo)",
+      "active": true
+    }
+  ],
+  "photoStripConfig": {
+    "title": "Kustomisasi Grid & Bingkai Alviero",
+    "subtitle": "Pilih tata letak format 3R/4R, tentukan tema warna bingkai resmi Alviero Studio, posisikan foto secara utuh, dan unduh hasil PNG siap cetak!",
+    "samplePhotos": [
+      "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80"
+    ]
   }
 }

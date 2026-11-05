@@ -11,12 +11,14 @@ import { ExtraCheckoutModal, type ExtraCartItem } from './components/ExtraChecko
 import { StudioBranch } from './types';
 import { useAutoHideScrollbar } from './hooks/useAutoHideScrollbar';
 import { useMobileBackButton } from './hooks/useMobileBackButton';
+import { useStudioConfig } from './utils/studioConfigManager';
 
 // Nomor WhatsApp Admin Studio 1 dalam format internasional tanpa tanda plus.
 const ADMIN_STUDIO_1_WA = '6287777538164';
 const ADMIN_STUDIO_2_WA = '6285168879214';
 
 export default function App() {
+  const studioConfig = useStudioConfig();
   // Shortcut keyboard untuk membuka Dashboard Admin secara instan: Ctrl + Shift + A
   useEffect(() => {
     const handleAdminShortcut = (e: KeyboardEvent) => {
@@ -159,7 +161,10 @@ export default function App() {
       .join('\n');
     const paymentOption = payload.paymentType === 'dp' ? 'DP 50%' : 'Lunas/Full';
     const paymentMethod = payload.paymentMethod.toUpperCase();
-    const targetWaNumber = targetStudio === 'Studio 2' ? ADMIN_STUDIO_2_WA : ADMIN_STUDIO_1_WA;
+    const branches = Array.isArray((studioConfig as any)?.branches) ? (studioConfig as any).branches : [];
+    const studio1Wa = branches.find((b: any) => b.id === 'cabang-1')?.whatsappNumber || ADMIN_STUDIO_1_WA;
+    const studio2Wa = branches.find((b: any) => b.id === 'cabang-2')?.whatsappNumber || ADMIN_STUDIO_2_WA;
+    const targetWaNumber = targetStudio === 'Studio 2' ? studio2Wa : studio1Wa;
 
     const lines: string[] = [];
     lines.push(`Halo Admin ${targetStudio} Alviero, saya ingin memproses pesanan layanan ekstra (Non-Studio Booking).`);

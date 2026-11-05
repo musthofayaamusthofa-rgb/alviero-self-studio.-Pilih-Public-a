@@ -4207,7 +4207,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {(() => {
                         const groupOrder = ['frame', 'file', 'background', 'prop', 'person', 'selfstudio', 'pass-foto'];
-                        return Object.entries(groupedAddOns)
+                        return (Object.entries(groupedAddOns) as [string, typeof relevantAddOns][])
                           .sort(([a], [b]) => {
                             const idxA = groupOrder.indexOf(a);
                             const idxB = groupOrder.indexOf(b);

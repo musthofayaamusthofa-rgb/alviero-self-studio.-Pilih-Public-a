@@ -1987,9 +1987,9 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
 
           const kebayaImages: string[] = (vendorKebaya?.images && vendorKebaya.images.length > 0)
             ? vendorKebaya.images
-            : (colorInfo.images && colorInfo.images.length > 0)
-              ? colorInfo.images
-              : (colorInfo.image ? [colorInfo.image] : []);
+            : (((colorInfo as any).images && (colorInfo as any).images.length > 0)
+              ? (colorInfo as any).images
+              : (colorInfo.image ? [colorInfo.image] : []));
 
           const activePhotoUrl = kebayaImages[previewKebayaPhotoIdx] || kebayaImages[0] || colorInfo.image;
 
