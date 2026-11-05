@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T10:33:33.683Z",
+  "lastUpdated": "2026-11-05T10:56:11.229Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1400,21 +1400,20 @@
   "indoorPackages": [
     {
       "id": "grad-indoor-elegant-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 1",
       "badge": "Favorit",
       "name": "Elegant Scholar",
       "originalPrice": "Rp 350.000",
       "price": "295K",
       "priceUnit": "per sesi • all-in",
-      "duration": "20 Menit Unlimited Foto",
+      "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
-      "people": "1 wisudawan + Family (Maks 10 Org)",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Editing 6 Foto",
       "print": "free 2 Cetak 10Rs",
       "fileDelivery": "All fille G drive",
-      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
       "facilities": [
         {
           "icon": "👥",
@@ -1457,6 +1456,9 @@
           "text": "1 Background Studio"
         }
       ],
+      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 0
     },
     {
@@ -1501,21 +1503,20 @@
   "studioPackages": [
     {
       "id": "grad-indoor-elegant-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 1",
       "badge": "Favorit",
       "name": "Elegant Scholar",
       "originalPrice": "Rp 350.000",
       "price": "295K",
       "priceUnit": "per sesi • all-in",
-      "duration": "20 Menit Unlimited Foto",
+      "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
-      "people": "1 wisudawan + Family (Maks 10 Org)",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Editing 6 Foto",
       "print": "free 2 Cetak 10Rs",
       "fileDelivery": "All fille G drive",
-      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
       "facilities": [
         {
           "icon": "👥",
@@ -1558,6 +1559,9 @@
           "text": "1 Background Studio"
         }
       ],
+      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 0
     },
     {
