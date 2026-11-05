@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T09:11:06.174Z",
+  "lastUpdated": "2026-11-05T11:24:39.985Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1400,35 +1400,71 @@
   "indoorPackages": [
     {
       "id": "grad-indoor-elegant-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 1",
       "badge": "Favorit",
       "name": "Elegant Scholar",
       "originalPrice": "Rp 350.000",
       "price": "295K",
       "priceUnit": "per sesi • all-in",
-      "duration": "20 Menit Unlimited Foto",
+      "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
-      "people": "1 wisudawan + Family (Maks 10 Org)",
-      "edit": "Editing 6 Foto",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
+      "edit": "Editing 6 Foto High-Res",
       "print": "free 2 Cetak 10Rs",
       "fileDelivery": "All fille G drive",
-      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
       "facilities": [
-        { "icon": "👥", "label": "Kapasitas", "text": "1 wisudawan + Family" },
-        { "icon": "👥", "label": "Batas Orang", "text": "Maximal 10 Orang/Frame (additional orang 15K/org)" },
-        { "icon": "⏰", "label": "Durasi Foto", "text": "unlimited foto 20 Menit" },
-        { "icon": "🖼️", "label": "Jatah Cetak", "text": "free 2 Cetak 10Rs" },
-        { "icon": "📁", "label": "Pengiriman File", "text": "All fille G drive" },
-        { "icon": "✏️", "label": "Editing Foto", "text": "Editing 6 Foto" },
-        { "icon": "👗", "label": "Kostum & Toga", "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)" },
-        { "icon": "✨", "label": "Background", "text": "1 Background Studio" }
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 wisudawan + Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "unlimited foto 20 Menit"
+        },
+        {
+          "icon": "✨",
+          "label": "Background",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "free 2 Cetak 10Rs"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All fille G drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Editing Foto",
+          "text": "Editing 6 Foto High-Res"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+        }
       ],
+      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 0
     },
     {
       "id": "grad-indoor-supreme-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 2",
       "badge": "2 Background",
       "name": "Supreme Scholar",
@@ -1437,13 +1473,55 @@
       "priceUnit": "per sesi • all-in",
       "duration": "40 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "1 Wisudawan + Maks 10 Org",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 8 Foto High-Res",
       "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "1 Wisudawan + Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "40 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+        }
+      ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 1
     },
     {
@@ -1469,35 +1547,71 @@
   "studioPackages": [
     {
       "id": "grad-indoor-elegant-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 1",
       "badge": "Favorit",
       "name": "Elegant Scholar",
       "originalPrice": "Rp 350.000",
       "price": "295K",
       "priceUnit": "per sesi • all-in",
-      "duration": "20 Menit Unlimited Foto",
+      "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
-      "people": "1 wisudawan + Family (Maks 10 Org)",
-      "edit": "Editing 6 Foto",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
+      "edit": "Editing 6 Foto High-Res",
       "print": "free 2 Cetak 10Rs",
       "fileDelivery": "All fille G drive",
-      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
       "facilities": [
-        { "icon": "👥", "label": "Kapasitas", "text": "1 wisudawan + Family" },
-        { "icon": "👥", "label": "Batas Orang", "text": "Maximal 10 Orang/Frame (additional orang 15K/org)" },
-        { "icon": "⏰", "label": "Durasi Foto", "text": "unlimited foto 20 Menit" },
-        { "icon": "🖼️", "label": "Jatah Cetak", "text": "free 2 Cetak 10Rs" },
-        { "icon": "📁", "label": "Pengiriman File", "text": "All fille G drive" },
-        { "icon": "✏️", "label": "Editing Foto", "text": "Editing 6 Foto" },
-        { "icon": "👗", "label": "Kostum & Toga", "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)" },
-        { "icon": "✨", "label": "Background", "text": "1 Background Studio" }
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 wisudawan + Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "unlimited foto 20 Menit"
+        },
+        {
+          "icon": "✨",
+          "label": "Background",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "free 2 Cetak 10Rs"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All fille G drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Editing Foto",
+          "text": "Editing 6 Foto High-Res"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+        }
       ],
+      "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 0
     },
     {
       "id": "grad-indoor-supreme-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 2",
       "badge": "2 Background",
       "name": "Supreme Scholar",
@@ -1506,13 +1620,55 @@
       "priceUnit": "per sesi • all-in",
       "duration": "40 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "1 Wisudawan + Maks 10 Org",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 8 Foto High-Res",
       "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "1 Wisudawan + Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "40 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+        }
+      ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 1
     },
     {
@@ -3561,349 +3717,6 @@
           "totalStock": 7,
           "images": [
             "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ananda",
-      "name": "By Ananda",
-      "tagline": "Korean Glowing Look & Modern Hijab Specialist",
-      "coverImage": "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80",
-      "portfolioImages": [
-        "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=700&q=85",
-        "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=700&q=85",
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=85"
-      ],
-      "categories": [
-        {
-          "id": "ananda-pass-foto",
-          "name": "Pass Foto",
-          "iconType": "camera",
-          "description": "Look segar alami khas Korea yang mencerahkan wajah di foto identitas.",
-          "subPackages": [
-            {
-              "id": "ananda-pf-1",
-              "name": "Paket 1 — Clean Girl Look",
-              "price": 80000,
-              "duration": "30 Menit",
-              "features": [
-                "Korean Clean & Minimalist Skin Look",
-                "Rapikan Alis & Natural Peach / Pink Blush On",
-                "Penataan Rambut / Hijab Minimalis Simpel",
-                "Free Lip Gloss Refresh & Hydration"
-              ]
-            },
-            {
-              "id": "ananda-pf-2",
-              "name": "Paket 2 — Signature Dewy Pass Foto",
-              "price": 130000,
-              "duration": "45 Menit",
-              "badge": "Best Seller",
-              "features": [
-                "Glass-Skin Finish Tahan Kilas Lampu Studio",
-                "Bulu Mata Korea Tipis Lembut Super Ringan",
-                "Hijabdo Clean Look / Hairdo Sleek Low Ponytail",
-                "Free Setting Mist Hydration Tahan Seharian"
-              ]
-            }
-          ],
-          "portfolioImage": "/images/mua/merah__1792248295008.jpg",
-          "portfolioImages": [
-            "/images/mua/merah__1792248295008.jpg"
-          ]
-        },
-        {
-          "id": "ananda-wedding",
-          "name": "Wedding",
-          "iconType": "wedding",
-          "description": "Korean Bride Look yang mempesona dengan riasan glass-skin bercahaya alami.",
-          "subPackages": [
-            {
-              "id": "ananda-wd-1",
-              "name": "Paket 1 — Korean Sweet Bride",
-              "price": 480000,
-              "duration": "90 Menit",
-              "features": [
-                "Signature Glass-Skin Makeup Tahan 16 Jam",
-                "Custom Eye Makeup & Glitter Detail Korea",
-                "Styling Rambut Korean Wave / Hijab Turban Glam",
-                "Free Ampoule Hydration Sheet Mask"
-              ]
-            },
-            {
-              "id": "ananda-wd-2",
-              "name": "Paket 2 — Royal Korean Goddess",
-              "price": 800000,
-              "duration": "120 Menit",
-              "badge": "Best Look",
-              "features": [
-                "Ultra Flawless Dewy Foundation Waterproof",
-                "Double Layer Eyelash Korea Super Ringan",
-                "Hairdo Korean Updo dengan Tiara Mutiara",
-                "Retouch Standby selama pemotretan studio"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "ananda-grad-indoor",
-          "name": "Graduation Indoor",
-          "iconType": "graduation",
-          "description": "Riasan wisuda manis cerah ala drakor dengan ketahanan studio ber-AC.",
-          "subPackages": [
-            {
-              "id": "ananda-gi-1",
-              "name": "Paket 1 — Wisuda Korean Glowing Fresh",
-              "price": 200000,
-              "duration": "50 Menit",
-              "features": [
-                "Korean Flawless Glow Complexion Sweatproof",
-                "Aegyo Sal & Soft Shimmer Eyelook Cantik",
-                "Hijabdo Simpel Modern / Hairdo Korean Wave",
-                "Free Bulu Mata Korea Super Nyaman Dipakai"
-              ]
-            },
-            {
-              "id": "ananda-gi-2",
-              "name": "Paket 2 — Wisuda Luxury Sparkle Look",
-              "price": 275000,
-              "duration": "65 Menit",
-              "badge": "Favorit",
-              "features": [
-                "High Coverage Glow Complexion Tahan 16 Jam",
-                "Eyelash Double 3D Fluffy Custom Korea Style",
-                "Hijabdo Silang / French Twist Hairdo Elegan",
-                "Termasuk Pemasangan Aksesoris & Touch-Up Kit Pribadi"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "ananda-grad-outdoor",
-          "name": "Graduation Outdoor",
-          "iconType": "outdoor",
-          "description": "Tampilan fresh dewy yang tahan terik sinar matahari di kampus atau taman.",
-          "subPackages": [
-            {
-              "id": "ananda-go-1",
-              "name": "Paket 1 — Outdoor Fresh Radiance",
-              "price": 210000,
-              "duration": "50 Menit",
-              "features": [
-                "Sunproof & Sweatproof Glow Base Foundation",
-                "Bulu Mata Korea Kuat Terpaan Angin",
-                "Hijabdo Rapi Anti-Kusut"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "ananda-prewed-indoor",
-          "name": "Prewedding Indoor",
-          "iconType": "prewedding",
-          "description": "Romantisme ala drama Korea untuk foto prewedding studio.",
-          "subPackages": [
-            {
-              "id": "ananda-pwi-1",
-              "name": "Paket 1 — Korean Studio Romance",
-              "price": 320000,
-              "duration": "60 Menit",
-              "features": [
-                "Riasan Soft Romantic Glowing Studio",
-                "Hairdo Wave / Hijabdo Berselendang Organza",
-                "Free Softlens & Lip Gloss Hydration"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "ananda-prewed-outdoor",
-          "name": "Prewedding Outdoor",
-          "iconType": "outdoor",
-          "description": "Riasan cerah natural untuk foto prewedding outdoor sunset dan alam.",
-          "subPackages": [
-            {
-              "id": "ananda-pwo-1",
-              "name": "Paket 1 — Sunset Glow Outdoor",
-              "price": 360000,
-              "duration": "70 Menit",
-              "features": [
-                "Glow Complexion Water-Resistant",
-                "Styling Rambut Curls / Hijab Modern",
-                "Free Setting Spray Khusus Outdoor"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "ananda-kebaya",
-          "name": "Kebaya",
-          "iconType": "kebaya",
-          "description": "Sewa busana kebaya pastel modern.",
-          "subPackages": [
-            {
-              "id": "ananda-kb-1",
-              "name": "Paket 1 — Kebaya Pastel Modern",
-              "price": 100000,
-              "colors": [
-                "Sage",
-                "Nude",
-                "Silver",
-                "Dusty Pink"
-              ],
-              "sizes": [
-                "S",
-                "M",
-                "L",
-                "XL"
-              ],
-              "features": [
-                "Pilihan Warna: Sage, Nude, Silver, Pink Pastel",
-                "Termasuk Jarik / Rok Batik Modern",
-                "Ukuran S, M, L, XL"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        },
-        {
-          "id": "ananda-hijabdo",
-          "name": "Hijabdo",
-          "iconType": "hairdo",
-          "description": "Layanan penataan jilbab clean look ala selebgram.",
-          "subPackages": [
-            {
-              "id": "ananda-hj-1",
-              "name": "Paket 1 — Clean Girl Hijab Styling",
-              "price": 50000,
-              "duration": "20 Menit",
-              "features": [
-                "Pashmina Silk / Segiempat Paris Rapi Tegak",
-                "Bentuk Wajah Tirus & Bersih di Kamera"
-              ]
-            },
-            {
-              "id": "ananda-hj-2",
-              "name": "Paket 2 — Creative Layering Hijab",
-              "price": 85000,
-              "duration": "35 Menit",
-              "features": [
-                "Kreasi Hijab Silang / Turban Wisuda Modern",
-                "Free Bobby Pins & Hairspray Strong Hold"
-              ]
-            }
-          ],
-          "portfolioImage": "",
-          "portfolioImages": []
-        }
-      ],
-      "kebayas": [
-        {
-          "id": "ananda-sage",
-          "name": "Sage",
-          "hex": "#8FA38D",
-          "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85",
-          "tag": "Pastel Soft Touch",
-          "desc": "Hijau sage pastel nuansa glowing Korea yang manis dan sangat anggun untuk foto studio.",
-          "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
-          ],
-          "stock": {
-            "S": 3,
-            "M": 5,
-            "L": 4,
-            "XL": 2
-          },
-          "totalStock": 14,
-          "images": [
-            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85"
-          ]
-        },
-        {
-          "id": "ananda-nude",
-          "name": "Nude",
-          "hex": "#D8B89E",
-          "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
-          "tag": "Korean Glowing Pastel",
-          "desc": "Krem nude cerah dengan detail payet modern minimalis yang menyatu sempurna dengan kulit.",
-          "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
-          ],
-          "stock": {
-            "S": 2,
-            "M": 4,
-            "L": 3,
-            "XL": 1
-          },
-          "totalStock": 10,
-          "images": [
-            "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"
-          ]
-        },
-        {
-          "id": "ananda-silver",
-          "name": "Silver",
-          "hex": "#B8BAC2",
-          "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
-          "tag": "Minimalist Modern",
-          "desc": "Perak modern bersih untuk konsep foto wisuda kontemporer dan modis.",
-          "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
-          ],
-          "stock": {
-            "S": 1,
-            "M": 3,
-            "L": 2,
-            "XL": 1
-          },
-          "totalStock": 7,
-          "images": [
-            "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85"
-          ]
-        },
-        {
-          "id": "ananda-dusty-pink",
-          "name": "Dusty Pink",
-          "hex": "#DDA7A5",
-          "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",
-          "tag": "Sweet Feminine",
-          "desc": "Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria.",
-          "sizes": [
-            "S",
-            "M",
-            "L",
-            "XL"
-          ],
-          "stock": {
-            "S": 2,
-            "M": 3,
-            "L": 3,
-            "XL": 1
-          },
-          "totalStock": 9,
-          "images": [
-            "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85"
           ]
         }
       ]
