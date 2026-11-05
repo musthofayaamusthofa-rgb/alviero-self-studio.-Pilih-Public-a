@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T11:24:39.985Z",
+  "lastUpdated": "2026-11-05T11:40:25.247Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1457,8 +1457,11 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+      "imageUrls": [
+        "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+        "/images/packages/elegant_scholar_foto2_1793878818946.jpg"
+      ],
       "_origIndex": 0
     },
     {
@@ -1604,8 +1607,11 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+      "imageUrls": [
+        "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+        "/images/packages/elegant_scholar_foto2_1793878818946.jpg"
+      ],
       "_origIndex": 0
     },
     {
