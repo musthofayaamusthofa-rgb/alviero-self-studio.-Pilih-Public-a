@@ -3778,41 +3778,61 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                               {/* Specification Badges */}
                               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
-                                {pkg.duration && (
-                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                                    <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                                    <span className="text-[#3A3A3A] font-medium">{pkg.duration}</span>
-                                  </div>
-                                )}
-                                {pkg.background && (
-                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                                    <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
-                                    <span className="text-[#3A3A3A] font-medium">{pkg.background}</span>
-                                  </div>
-                                )}
-                                {pkg.people && (
-                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                                    <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
-                                    <span className="text-[#3A3A3A] font-medium">{pkg.people}</span>
-                                  </div>
-                                )}
-                                {pkg.edit && (
-                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
-                                    <span className="text-[#3A3A3A] font-medium">{pkg.edit}</span>
-                                  </div>
-                                )}
-                                {pkg.print && (
-                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                                    <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
-                                    <span className="text-[#3A3A3A] font-medium">{pkg.print}</span>
-                                  </div>
-                                )}
-                                {pkg.fileDelivery && (
-                                  <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                                    <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                                    <span className="text-[#3A3A3A] font-medium">{pkg.fileDelivery}</span>
-                                  </div>
+                                {Array.isArray(pkg.facilities) && pkg.facilities.length > 0 ? (
+                                  pkg.facilities.map((fac: any, fIdx: number) => (
+                                    <div key={fIdx} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-start sm:items-center gap-2 hover:border-[#A9BCA7] transition-colors">
+                                      <span className="text-base shrink-0 leading-none">{fac.icon || '✨'}</span>
+                                      <div className="min-w-0 flex-1">
+                                        {fac.label && (
+                                          <span className="text-[10px] text-stone-500 font-bold block leading-tight uppercase tracking-wider">
+                                            {fac.label}
+                                          </span>
+                                        )}
+                                        <span className="text-[#3A3A3A] font-medium leading-snug block">
+                                          {fac.text}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ))
+                                ) : (
+                                  <>
+                                    {pkg.duration && (
+                                      <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">{pkg.duration}</span>
+                                      </div>
+                                    )}
+                                    {pkg.background && (
+                                      <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">{pkg.background}</span>
+                                      </div>
+                                    )}
+                                    {pkg.people && (
+                                      <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">{pkg.people}</span>
+                                      </div>
+                                    )}
+                                    {pkg.edit && (
+                                      <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                        <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">{pkg.edit}</span>
+                                      </div>
+                                    )}
+                                    {pkg.print && (
+                                      <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                        <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">{pkg.print}</span>
+                                      </div>
+                                    )}
+                                    {pkg.fileDelivery && (
+                                      <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">{pkg.fileDelivery}</span>
+                                      </div>
+                                    )}
+                                  </>
                                 )}
                               </div>
 

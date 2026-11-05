@@ -3447,43 +3447,57 @@
           </div>
         </div>
 
-        <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
-          <h4 style="font-size: 0.82rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">
-            Spesifikasi & Fasilitas Paket
-          </h4>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">⏰ Durasi Foto</label>
-              <input type="text" id="indoorDurationInput" class="form-control" placeholder="Contoh: 25 Menit Unlimited Foto">
+        <!-- DYNAMIC SPESIFIKASI & FASILITAS PAKET -->
+        <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.15rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem; border-bottom: 1px solid #EFE5DC; padding-bottom: 0.65rem;">
+            <div>
+              <h4 style="font-size: 0.88rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.4rem; letter-spacing: 0.02em;">
+                <span>📋 Spesifikasi &amp; Fasilitas Paket</span>
+                <span id="packageFacilityCountBadge" style="font-size: 0.7rem; font-weight: 800; background: #EBF2EA; color: #2D5A27; border: 1px solid #CDE0CB; padding: 0.15rem 0.5rem; border-radius: 9999px;">0 Poin</span>
+              </h4>
+              <p style="font-size: 0.74rem; color: #78716C; margin: 0.2rem 0 0 0;">
+                Tambah, kurangi, atau ubah urutan fasilitas &amp; ketentuan paket sesuai flyer / brosur foto.
+              </p>
             </div>
-            <div class="form-group">
-              <label class="form-label">✨ Background Studio / Lokasi</label>
-              <input type="text" id="indoorBackgroundInput" class="form-control" placeholder="Contoh: 1 Background Studio">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">👥 Kapasitas Orang</label>
-              <input type="text" id="indoorPeopleInput" class="form-control" placeholder="Contoh: 1 Wisudawan + Maks 10 Org">
-            </div>
-            <div class="form-group">
-              <label class="form-label">✏️ Jatah Edit Foto</label>
-              <input type="text" id="indoorEditInput" class="form-control" placeholder="Contoh: Edit 6 Foto High-Res">
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-preview" style="font-size: 0.74rem; padding: 0.35rem 0.75rem;" onclick="resetPackageFacilitiesPreset()" title="Reset ke 6 Poin Standar Alviero">
+                🔄 Preset 6 Poin
+              </button>
+              <button type="button" class="btn btn-add" style="font-size: 0.74rem; padding: 0.35rem 0.75rem;" onclick="addPackageFacility('✨', '', '')">
+                + Tambah Fasilitas Baru
+              </button>
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">🖼️ Jatah Cetak Foto</label>
-              <input type="text" id="indoorPrintInput" class="form-control" placeholder="Contoh: Cetak 2 Uk 10Rs / 3 Uk 4R">
-            </div>
-            <div class="form-group">
-              <label class="form-label">📁 Pengiriman Softfile</label>
-              <input type="text" id="indoorDeliveryInput" class="form-control" placeholder="Contoh: All File via Google Drive">
+          <!-- Quick Template Badges (One-click add) -->
+          <div style="margin-bottom: 0.75rem;">
+            <div style="font-size: 0.68rem; font-weight: 700; color: #8A7D71; margin-bottom: 0.35rem; text-transform: uppercase;">⚡ Tambah Cepat Template Pilihan:</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('⏰', 'Durasi Foto', '20 Menit Unlimited Foto')">+ ⏰ Durasi</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('✨', 'Background Studio', '1 Background Studio')">+ ✨ Background</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('👥', 'Kapasitas', '1 wisudawan + Family')">+ 👥 Kapasitas</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('👥', 'Batas Orang', 'Maximal 10 Orang/Frame (additional orang 15K/org)')">+ 👥 Ketentuan Orang</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('✏️', 'Jatah Edit Foto', 'Edit 6 Foto High-Res')">+ ✏️ Edit Foto</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('🖼️', 'Jatah Cetak Foto', 'Free 2 Cetak 10Rs / 3 Uk 4R')">+ 🖼️ Cetak Foto</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('📁', 'Pengiriman Softfile', 'All File via Google Drive')">+ 📁 File Drive</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('👗', 'Kostum & Toga', 'Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)')">+ 👗 Kostum/Toga</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('🌳', 'Lokasi Outdoor', 'Area Kampus Malang & Sekitarnya')">+ 🌳 Lokasi</button>
+              <button type="button" class="pill-btn" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;" onclick="addPackageFacility('🚗', 'Transportasi', 'Free Transport Fotografer')">+ 🚗 Transport</button>
             </div>
           </div>
+
+          <!-- Dynamic List of Facilities -->
+          <div id="packageFacilitiesList" style="display: flex; flex-direction: column; gap: 0.55rem;">
+            <!-- Rendered dynamically by renderPackageFacilitiesEditor() -->
+          </div>
+
+          <!-- Hidden inputs for fallback compatibility with legacy code if needed -->
+          <input type="hidden" id="indoorDurationInput">
+          <input type="hidden" id="indoorBackgroundInput">
+          <input type="hidden" id="indoorPeopleInput">
+          <input type="hidden" id="indoorEditInput">
+          <input type="hidden" id="indoorPrintInput">
+          <input type="hidden" id="indoorDeliveryInput">
         </div>
 
         <div class="form-group" style="margin-bottom: 0;">
@@ -5138,26 +5152,34 @@
               </div>
             </div>
 
-            <!-- Specification Badges -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.85rem; font-size: 0.75rem;">
-              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
-                ⏰ <strong>${escapeHtml(pkg.duration || '-')}</strong>
-              </div>
-              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
-                ✨ <strong>${escapeHtml(pkg.background || '-')}</strong>
-              </div>
-              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
-                👥 <strong>${escapeHtml(pkg.people || '-')}</strong>
-              </div>
-              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
-                ✏️ <strong>${escapeHtml(pkg.edit || '-')}</strong>
-              </div>
-              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
-                🖼️ <strong>${escapeHtml(pkg.print || '-')}</strong>
-              </div>
-              <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.4rem 0.6rem; border-radius: 8px;">
-                📁 <strong>${escapeHtml(pkg.fileDelivery || '-')}</strong>
-              </div>
+            <!-- Specification Badges (Dynamic Facilities) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 0.45rem; margin-bottom: 0.85rem;">
+              ${(() => {
+                const facItems = (Array.isArray(pkg.facilities) && pkg.facilities.length > 0)
+                  ? pkg.facilities
+                  : [
+                      pkg.duration ? { icon: '⏰', label: 'Durasi', text: pkg.duration } : null,
+                      pkg.background ? { icon: '✨', label: 'Background', text: pkg.background } : null,
+                      pkg.people ? { icon: '👥', label: 'Kapasitas', text: pkg.people } : null,
+                      pkg.edit ? { icon: '✏️', label: 'Edit Foto', text: pkg.edit } : null,
+                      pkg.print ? { icon: '🖼️', label: 'Cetak', text: pkg.print } : null,
+                      pkg.fileDelivery ? { icon: '📁', label: 'Softfile', text: pkg.fileDelivery } : null
+                    ].filter(Boolean);
+
+                if (facItems.length === 0) {
+                  return '<div style="color:#A1A1AA; font-size:0.72rem; grid-column:1/-1;">Belum ada fasilitas diatur</div>';
+                }
+
+                return facItems.map(f => `
+                  <div style="background: #FAF8F5; border: 1px solid #EFE5DC; padding: 0.35rem 0.55rem; border-radius: 8px; font-size: 0.72rem; display: flex; align-items: flex-start; gap: 0.4rem;">
+                    <span style="font-size: 0.85rem; line-height: 1.2;">${f.icon || '✨'}</span>
+                    <div style="min-width: 0; flex: 1;">
+                      ${f.label ? `<span style="color: #78716C; font-size: 0.65rem; font-weight: 700; display: block; line-height: 1.1; text-transform: uppercase;">${escapeHtml(f.label)}</span>` : ''}
+                      <span style="color: var(--charcoal); font-weight: 600; line-height: 1.2; word-break: break-word;">${escapeHtml(f.text || '')}</span>
+                    </div>
+                  </div>
+                `).join('');
+              })()}
             </div>
 
             ${pkg.note ? `
@@ -5307,6 +5329,18 @@
         if (!del.value) del.value = 'Link Website Undangan Online';
         if (!unit.value) unit.value = 'Web Undangan Siap Sebar';
       }
+
+      if (document.getElementById('indoorEditIndex')?.value === '-1') {
+        currentPackageFacilities = [
+          { icon: '⏰', label: 'Durasi Foto', text: dur.value },
+          { icon: '✨', label: 'Background / Lokasi', text: bg.value },
+          { icon: '👥', label: 'Kapasitas Orang', text: peop.value },
+          { icon: '✏️', label: 'Jatah Edit Foto', text: edit.value },
+          { icon: '🖼️', label: 'Jatah Cetak Foto', text: print.value },
+          { icon: '📁', label: 'Pengiriman Softfile', text: del.value }
+        ].filter(f => f.text);
+        renderPackageFacilitiesEditor();
+      }
     }
 
         function setPackageImagePreview(url, slot = 1) {
@@ -5400,6 +5434,115 @@
       }
     }
 
+    // DYNAMIC PACKAGE FACILITIES MANAGER
+    let currentPackageFacilities = [];
+
+    function renderPackageFacilitiesEditor() {
+      const container = document.getElementById('packageFacilitiesList');
+      const countBadge = document.getElementById('packageFacilityCountBadge');
+      if (countBadge) {
+        countBadge.textContent = `${(currentPackageFacilities || []).length} Poin`;
+      }
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!currentPackageFacilities || currentPackageFacilities.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 1.25rem 1rem; border: 1.5px dashed #D6D3D1; border-radius: 10px; color: #78716C; font-size: 0.78rem; background: #FAF9F6;">
+            Belum ada spesifikasi/fasilitas untuk paket ini.<br>
+            Klik <strong>"+ Tambah Fasilitas Baru"</strong> atau pilih tombol cepat template di atas.
+          </div>
+        `;
+        return;
+      }
+
+      currentPackageFacilities.forEach((item, fIdx) => {
+        const row = document.createElement('div');
+        row.className = 'facility-row';
+        row.style.cssText = 'background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem 0.65rem; display: flex; align-items: center; gap: 0.45rem; box-shadow: 0 1px 2px rgba(0,0,0,0.02); flex-wrap: wrap;';
+        
+        row.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 1px; flex-shrink: 0;">
+            <button type="button" class="btn-icon-subtle" onclick="movePackageFacility(${fIdx}, -1)" ${fIdx === 0 ? 'disabled style="opacity:0.25; cursor:not-allowed;"' : ''} title="Pindah ke Atas" style="padding: 1px 4px; font-size: 0.65rem; height: 16px; line-height: 1;">▲</button>
+            <button type="button" class="btn-icon-subtle" onclick="movePackageFacility(${fIdx}, 1)" ${fIdx === currentPackageFacilities.length - 1 ? 'disabled style="opacity:0.25; cursor:not-allowed;"' : ''} title="Pindah ke Bawah" style="padding: 1px 4px; font-size: 0.65rem; height: 16px; line-height: 1;">▼</button>
+          </div>
+
+          <div style="width: 44px; flex-shrink: 0;">
+            <input type="text" class="form-control text-center facility-icon" style="padding: 0.35rem 0.2rem; font-size: 1.15rem; text-align: center; height: 35px;" value="${escapeHtml(item.icon || '✨')}" title="Ikon / Emoji Fasilitas" oninput="updateFacilityItem(${fIdx}, 'icon', this.value)">
+          </div>
+
+          <div style="width: 140px; min-width: 110px; flex-shrink: 0;">
+            <input type="text" class="form-control facility-label" style="padding: 0.35rem 0.5rem; font-size: 0.78rem; font-weight: 700; height: 35px;" value="${escapeHtml(item.label || '')}" placeholder="Label (cth: Durasi)" oninput="updateFacilityItem(${fIdx}, 'label', this.value)">
+          </div>
+
+          <div style="flex: 1; min-width: 180px;">
+            <input type="text" class="form-control facility-text" style="padding: 0.35rem 0.6rem; font-size: 0.78rem; height: 35px;" value="${escapeHtml(item.text || '')}" placeholder="Rincian fasilitas (cth: 20 Menit Unlimited Foto)" oninput="updateFacilityItem(${fIdx}, 'text', this.value)">
+          </div>
+
+          <button type="button" class="btn-action delete" style="padding: 0.35rem 0.55rem; font-size: 0.85rem; height: 35px; flex-shrink: 0;" title="Hapus Fasilitas Ini" onclick="deletePackageFacility(${fIdx})">🗑️</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function updateFacilityItem(fIdx, key, val) {
+      if (currentPackageFacilities && currentPackageFacilities[fIdx]) {
+        currentPackageFacilities[fIdx][key] = val;
+      }
+    }
+
+    function addPackageFacility(icon = '✨', label = '', text = '') {
+      syncCurrentFacilitiesFromDOM();
+      currentPackageFacilities.push({ icon, label, text });
+      renderPackageFacilitiesEditor();
+    }
+
+    function deletePackageFacility(fIdx) {
+      syncCurrentFacilitiesFromDOM();
+      if (currentPackageFacilities && currentPackageFacilities[fIdx]) {
+        currentPackageFacilities.splice(fIdx, 1);
+        renderPackageFacilitiesEditor();
+      }
+    }
+
+    function movePackageFacility(fIdx, dir) {
+      syncCurrentFacilitiesFromDOM();
+      const targetIdx = fIdx + dir;
+      if (targetIdx < 0 || targetIdx >= currentPackageFacilities.length) return;
+      const temp = currentPackageFacilities[fIdx];
+      currentPackageFacilities[fIdx] = currentPackageFacilities[targetIdx];
+      currentPackageFacilities[targetIdx] = temp;
+      renderPackageFacilitiesEditor();
+    }
+
+    function syncCurrentFacilitiesFromDOM() {
+      const container = document.getElementById('packageFacilitiesList');
+      if (!container) return;
+      const rows = container.querySelectorAll('.facility-row');
+      if (rows.length === 0) return;
+      const updated = [];
+      rows.forEach(r => {
+        const icon = (r.querySelector('.facility-icon')?.value || '✨').trim();
+        const label = (r.querySelector('.facility-label')?.value || '').trim();
+        const text = (r.querySelector('.facility-text')?.value || '').trim();
+        updated.push({ icon, label, text });
+      });
+      currentPackageFacilities = updated;
+    }
+
+    function resetPackageFacilitiesPreset() {
+      currentPackageFacilities = [
+        { icon: '⏰', label: 'Durasi Foto', text: '25 Menit Unlimited Foto' },
+        { icon: '✨', label: 'Background Studio', text: '1 Background Studio' },
+        { icon: '👥', label: 'Kapasitas Orang', text: '1 Wisudawan + Maks 10 Org' },
+        { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 6 Foto High-Res' },
+        { icon: '🖼️', label: 'Jatah Cetak Foto', text: 'Cetak 2 Uk 10Rs / 3 Uk 4R' },
+        { icon: '📁', label: 'Pengiriman Softfile', text: 'All File via Google Drive' }
+      ];
+      renderPackageFacilitiesEditor();
+      showToast('Preset 6 fasilitas standar Alviero dimuat!', '📋');
+    }
+
     function openAddIndoorPackageModal() {
       document.getElementById('indoorEditIndex').value = '-1';
       document.getElementById('indoorModalTitle').textContent = 'Tambah Paket Studio Baru';
@@ -5413,15 +5556,19 @@
       document.getElementById('indoorOrigPriceInput').value = '';
       document.getElementById('indoorPriceInput').value = '';
       document.getElementById('indoorPriceUnitInput').value = '';
-      document.getElementById('indoorDurationInput').value = '';
-      document.getElementById('indoorBackgroundInput').value = '';
-      document.getElementById('indoorPeopleInput').value = '';
-      document.getElementById('indoorEditInput').value = '';
-      document.getElementById('indoorPrintInput').value = '';
-      document.getElementById('indoorDeliveryInput').value = '';
       document.getElementById('indoorNoteInput').value = '';
       setPackageImagePreview('', 1);
       setPackageImagePreview('', 2);
+
+      currentPackageFacilities = [
+        { icon: '⏰', label: 'Durasi Foto', text: '25 Menit Unlimited Foto' },
+        { icon: '✨', label: 'Background Studio', text: '1 Background Studio' },
+        { icon: '👥', label: 'Kapasitas Orang', text: '1 Wisudawan + Maks 10 Org' },
+        { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 6 Foto High-Res' },
+        { icon: '🖼️', label: 'Jatah Cetak Foto', text: 'Cetak 2 Uk 10Rs / 3 Uk 4R' },
+        { icon: '📁', label: 'Pengiriman Softfile', text: 'All File via Google Drive' }
+      ];
+      renderPackageFacilitiesEditor();
 
       handlePkgCategoryChange(targetCat);
       openModal('indoorPackageModal');
@@ -5441,16 +5588,33 @@
       document.getElementById('indoorOrigPriceInput').value = pkg.originalPrice || '';
       document.getElementById('indoorPriceInput').value = pkg.price || '';
       document.getElementById('indoorPriceUnitInput').value = pkg.priceUnit || 'per sesi';
-      document.getElementById('indoorDurationInput').value = pkg.duration || '';
-      document.getElementById('indoorBackgroundInput').value = pkg.background || '';
-      document.getElementById('indoorPeopleInput').value = pkg.people || '';
-      document.getElementById('indoorEditInput').value = pkg.edit || '';
-      document.getElementById('indoorPrintInput').value = pkg.print || '';
-      document.getElementById('indoorDeliveryInput').value = pkg.fileDelivery || '';
       document.getElementById('indoorNoteInput').value = pkg.note || '';
       const pImages = Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0 ? pkg.imageUrls : (pkg.imageUrl ? [pkg.imageUrl] : []);
       setPackageImagePreview(pImages[0] || '', 1);
       setPackageImagePreview(pImages[1] || '', 2);
+
+      if (Array.isArray(pkg.facilities) && pkg.facilities.length > 0) {
+        currentPackageFacilities = JSON.parse(JSON.stringify(pkg.facilities));
+      } else {
+        currentPackageFacilities = [];
+        if (pkg.duration) currentPackageFacilities.push({ icon: '⏰', label: 'Durasi Foto', text: pkg.duration });
+        if (pkg.background) currentPackageFacilities.push({ icon: '✨', label: 'Background Studio', text: pkg.background });
+        if (pkg.people) currentPackageFacilities.push({ icon: '👥', label: 'Kapasitas Orang', text: pkg.people });
+        if (pkg.edit) currentPackageFacilities.push({ icon: '✏️', label: 'Jatah Edit Foto', text: pkg.edit });
+        if (pkg.print) currentPackageFacilities.push({ icon: '🖼️', label: 'Jatah Cetak Foto', text: pkg.print });
+        if (pkg.fileDelivery) currentPackageFacilities.push({ icon: '📁', label: 'Pengiriman Softfile', text: pkg.fileDelivery });
+        if (currentPackageFacilities.length === 0) {
+          currentPackageFacilities = [
+            { icon: '⏰', label: 'Durasi Foto', text: '25 Menit Unlimited Foto' },
+            { icon: '✨', label: 'Background Studio', text: '1 Background Studio' },
+            { icon: '👥', label: 'Kapasitas Orang', text: '1 Wisudawan + Maks 10 Org' },
+            { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 6 Foto High-Res' },
+            { icon: '🖼️', label: 'Jatah Cetak Foto', text: 'Cetak 2 Uk 10Rs / 3 Uk 4R' },
+            { icon: '📁', label: 'Pengiriman Softfile', text: 'All File via Google Drive' }
+          ];
+        }
+      }
+      renderPackageFacilitiesEditor();
 
       openModal('indoorPackageModal');
     }
@@ -5474,6 +5638,9 @@
 
       if (!appConfig.studioPackages) appConfig.studioPackages = [];
 
+      syncCurrentFacilitiesFromDOM();
+      const validFacilities = (currentPackageFacilities || []).filter(f => (f.label && f.label.trim()) || (f.text && f.text.trim()));
+
       const meta = getCategoryBadgeMeta(cat);
       const itemData = {
         id: document.getElementById('indoorIdInput').value.trim() || (cat + '-' + Date.now()),
@@ -5485,12 +5652,13 @@
         originalPrice: document.getElementById('indoorOrigPriceInput').value.trim(),
         price: price,
         priceUnit: document.getElementById('indoorPriceUnitInput').value.trim() || 'per sesi',
-        duration: document.getElementById('indoorDurationInput').value.trim(),
-        background: document.getElementById('indoorBackgroundInput').value.trim(),
-        people: document.getElementById('indoorPeopleInput').value.trim(),
-        edit: document.getElementById('indoorEditInput').value.trim(),
-        print: document.getElementById('indoorPrintInput').value.trim(),
-        fileDelivery: document.getElementById('indoorDeliveryInput').value.trim(),
+        duration: '',
+        background: '',
+        people: '',
+        edit: '',
+        print: '',
+        fileDelivery: '',
+        facilities: validFacilities,
         note: document.getElementById('indoorNoteInput').value.trim(),
         imageUrl: (document.getElementById('indoorImageUrlInput1') ? document.getElementById('indoorImageUrlInput1').value.trim() : (document.getElementById('indoorImageUrlInput') ? document.getElementById('indoorImageUrlInput').value.trim() : '')),
         imageUrls: [
@@ -5498,6 +5666,20 @@
           (document.getElementById('indoorImageUrlInput2') ? document.getElementById('indoorImageUrlInput2').value.trim() : '')
         ].filter(Boolean)
       };
+
+      // Sync ke field legacy untuk kompatibilitas penuh sistem
+      validFacilities.forEach(f => {
+        const l = (f.label || '').toLowerCase();
+        if (l.includes('durasi') || f.icon === '⏰') itemData.duration = f.text;
+        else if (l.includes('background') || l.includes('lokasi') || f.icon === '✨') itemData.background = f.text;
+        else if (l.includes('kapasitas') || l.includes('orang') || f.icon === '👥') itemData.people = f.text;
+        else if (l.includes('edit') || f.icon === '✏️') itemData.edit = f.text;
+        else if (l.includes('cetak') || l.includes('print') || f.icon === '🖼️') itemData.print = f.text;
+        else if (l.includes('softfile') || l.includes('file') || l.includes('drive') || f.icon === '📁') itemData.fileDelivery = f.text;
+      });
+      if (!itemData.duration && validFacilities[0]) itemData.duration = validFacilities[0].text;
+      if (!itemData.background && validFacilities[1]) itemData.background = validFacilities[1].text;
+      if (!itemData.people && validFacilities[2]) itemData.people = validFacilities[2].text;
 
       if (idx >= 0 && idx < appConfig.studioPackages.length) {
         appConfig.studioPackages[idx] = itemData;

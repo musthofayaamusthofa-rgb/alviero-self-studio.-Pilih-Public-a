@@ -357,6 +357,7 @@ export function getActivePackages(cfg?: any, basePackages: any[] = []): any[] {
       description: cp.note || bp.description,
       image: (Array.isArray(cp.imageUrls) && cp.imageUrls[0]) || cp.imageUrl || bp.image,
       popular: cp.badge ? (cp.badge.toLowerCase().includes('favorit') || cp.badge.toLowerCase().includes('best')) : bp.popular,
+      facilities: cp.facilities || bp.facilities,
       rawConfig: cp
     };
   });
@@ -381,6 +382,7 @@ export function getActivePackages(cfg?: any, basePackages: any[] = []): any[] {
         highlights: [cp.duration, cp.background, cp.people, cp.edit, cp.print].filter(Boolean),
         image: (Array.isArray(cp.imageUrls) && cp.imageUrls[0]) || cp.imageUrl || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80',
         backdropCount: cp.background && (cp.background.includes('2') || cp.background.includes('dua')) ? 2 : 1,
+        facilities: cp.facilities || [],
         rawConfig: cp
       });
     }
