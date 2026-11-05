@@ -21,13 +21,80 @@ const revokeBlobUrl = (url: string | null | undefined) => {
 export const PhotoStripCustomizer: React.FC = () => {
   const studioConfig = useStudioConfig();
   const stripConfig = useMemo(() => getActivePhotoStripConfig(studioConfig), [studioConfig]);
-  const [selectedGrid, setSelectedGrid] = useState<GridTypeId>('grid-4-3r');
-  const [selectedTheme, setSelectedTheme] = useState<FrameThemeId>('A');
+
+  const availableGrids = useMemo(() => {
+    const baseKeys = Object.keys(GRID_DEFINITIONS) as GridTypeId[];
+    const merged = baseKeys.map((gKey) => {
+      const base = GRID_DEFINITIONS[gKey];
+      const custom = Array.isArray(stripConfig.grids) ? stripConfig.grids.find((g: any) => g.id === gKey) : null;
+      return {
+        ...base,
+        name: custom?.name || base.name,
+        shortLabel: custom?.shortLabel || base.shortLabel,
+        sizeLabel: custom?.sizeLabel || base.sizeLabel,
+        description: custom?.description || base.description,
+        active: custom ? custom.active !== false : true
+      };
+    });
+    const activeOnly = merged.filter((g) => g.active !== false);
+    return activeOnly.length > 0 ? activeOnly : [merged[2] || merged[0]];
+  }, [stripConfig.grids]);
+
+  const availableThemes = useMemo(() => {
+    const merged = FRAME_THEMES.map((base) => {
+      const custom = Array.isArray(stripConfig.themes) ? stripConfig.themes.find((t: any) => t.id === base.id) : null;
+      return {
+        ...base,
+        name: custom?.name || base.name,
+        badge: custom?.badge || base.badge,
+        previewBg: custom?.previewBg || base.previewBg,
+        previewTextColor: custom?.previewTextColor || base.previewTextColor,
+        borderColor: custom?.borderColor || base.borderColor,
+        description: custom?.description || base.description,
+        active: custom ? custom.active !== false : true,
+        customOverlays: custom?.customOverlays || {}
+      };
+    });
+    const activeOnly = merged.filter((t) => t.active !== false);
+    return activeOnly.length > 0 ? activeOnly : [merged[0]];
+  }, [stripConfig.themes]);
+
+  const [selectedGrid, setSelectedGrid] = useState<GridTypeId>(() => (stripConfig.defaultGrid as GridTypeId) || 'grid-4-3r');
+  const [selectedTheme, setSelectedTheme] = useState<FrameThemeId>(() => (stripConfig.defaultTheme as FrameThemeId) || 'A');
   const [activeFilter, setActiveFilter] = useState<string>('none');
   const [selectedSticker, setSelectedSticker] = useState<string>('');
   const [isDownloading, setIsDownloading] = useState<boolean>(false);
   const [downloadSuccess, setDownloadSuccess] = useState<boolean>(false);
   const [downloadedImageUrl, setDownloadedImageUrl] = useState<string | null>(null);
+
+  const triggerShutter = () => {
+    if (stripConfig.enableShutterSound !== false) {
+      playShutterSound();
+    }
+  };
+
+  useEffect(() => {
+    if (!availableGrids.some((g) => g.id === selectedGrid)) {
+      const fallbackGrid = availableGrids.find((g) => g.id === stripConfig.defaultGrid) || availableGrids[0];
+      if (fallbackGrid) setSelectedGrid(fallbackGrid.id);
+    }
+  }, [availableGrids, selectedGrid, stripConfig.defaultGrid]);
+
+  useEffect(() => {
+    if (!availableThemes.some((t) => t.id === selectedTheme)) {
+      const fallbackTheme = availableThemes.find((t) => t.id === stripConfig.defaultTheme) || availableThemes[0];
+      if (fallbackTheme) setSelectedTheme(fallbackTheme.id);
+    }
+  }, [availableThemes, selectedTheme, stripConfig.defaultTheme]);
+
+  useEffect(() => {
+    if (stripConfig.enableFilters === false && activeFilter !== 'none') {
+      setActiveFilter('none');
+    }
+    if (stripConfig.enableStickers === false && selectedSticker !== '') {
+      setSelectedSticker('');
+    }
+  }, [stripConfig.enableFilters, stripConfig.enableStickers, activeFilter, selectedSticker]);
 
   const defaultSamplePhotos = useMemo(() => (
     Array.isArray((stripConfig as any)?.samplePhotos) && (stripConfig as any).samplePhotos.length > 0
@@ -45,6 +112,15 @@ export const PhotoStripCustomizer: React.FC = () => {
   const [userPhotos, setUserPhotos] = useState<string[]>(defaultSamplePhotos);
   const userPhotosRef = useRef(userPhotos);
   userPhotosRef.current = userPhotos;
+
+  // Sinkronkan foto contoh saat diubah dari Dashboard (kecuali pengguna sedang memakai foto upload lokal blob:)
+  useEffect(() => {
+    const hasLocalBlob = userPhotosRef.current.some((u) => u && u.startsWith('blob:'));
+    if (!hasLocalBlob) {
+      setUserPhotos(defaultSamplePhotos);
+    }
+  }, [defaultSamplePhotos]);
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const singleReplaceInputRef = useRef<HTMLInputElement | null>(null);
   const [replaceTargetIndex, setReplaceTargetIndex] = useState<number | null>(null);
@@ -71,14 +147,14 @@ export const PhotoStripCustomizer: React.FC = () => {
     return () => revokeBlobUrl(downloadedImageUrl);
   }, [downloadedImageUrl]);
 
-  const currentGridDef = GRID_DEFINITIONS[selectedGrid] || GRID_DEFINITIONS['grid-4-3r'];
-  const currentThemeDef = FRAME_THEMES.find(t => t.id === selectedTheme) || FRAME_THEMES[0];
-  const overlayImageUrl = getFrameOverlayUrl(selectedGrid, selectedTheme);
+  const currentGridDef = availableGrids.find((g) => g.id === selectedGrid) || availableGrids[0] || GRID_DEFINITIONS['grid-4-3r'];
+  const currentThemeDef = availableThemes.find((t) => t.id === selectedTheme) || availableThemes[0] || FRAME_THEMES[0];
+  const overlayImageUrl = (currentThemeDef as any).customOverlays?.[selectedGrid] || getFrameOverlayUrl(selectedGrid, selectedTheme);
 
   // File Upload Handlers
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      playShutterSound();
+      triggerShutter();
       const files = Array.from(e.target.files);
       const newUrls = files.map(file => URL.createObjectURL(file as File));
       setUserPhotos(prev => {
@@ -91,7 +167,7 @@ export const PhotoStripCustomizer: React.FC = () => {
 
   const handleSingleReplace = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (replaceTargetIndex !== null && e.target.files && e.target.files.length > 0) {
-      playShutterSound();
+      triggerShutter();
       const file = e.target.files[0];
       const newUrl = URL.createObjectURL(file);
       setUserPhotos(prev => {
@@ -110,13 +186,13 @@ export const PhotoStripCustomizer: React.FC = () => {
   };
 
   const handleResetPhotos = () => {
-    playShutterSound();
+    triggerShutter();
     userPhotosRef.current.forEach(revokeBlobUrl);
     setUserPhotos(defaultSamplePhotos);
   };
 
   const handleOpenCropModal = (index: number) => {
-    playShutterSound();
+    triggerShutter();
     setCropIndex(index);
     setCropZoom(1);
     setCropPanX(0);
@@ -171,7 +247,7 @@ export const PhotoStripCustomizer: React.FC = () => {
   const handleSaveCrop = () => {
     const canvas = cropCanvasRef.current;
     if (!canvas || cropIndex === null) return;
-    playShutterSound();
+    triggerShutter();
 
     try {
       const croppedDataUrl = canvas.toDataURL('image/png');
@@ -221,7 +297,7 @@ export const PhotoStripCustomizer: React.FC = () => {
 
   // Download Handler
   const handleDownloadPNG = async () => {
-    playShutterSound();
+    triggerShutter();
     setIsDownloading(true);
     setDownloadSuccess(false);
     try {
@@ -230,7 +306,8 @@ export const PhotoStripCustomizer: React.FC = () => {
         frameTheme: selectedTheme,
         photos: userPhotos,
         filterStyle: activeFilter,
-        sticker: selectedSticker
+        sticker: selectedSticker,
+        customOverlayUrl: overlayImageUrl
       });
       setIsDownloading(false);
       if (result.success) {
@@ -247,13 +324,31 @@ export const PhotoStripCustomizer: React.FC = () => {
     }
   };
 
+  if (stripConfig.active === false) {
+    return (
+      <section className="py-12 px-4 max-w-3xl mx-auto text-center space-y-4">
+        <div className="bg-white p-8 rounded-3xl border border-[#E8DDD6] shadow-sm space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-[#EBF2EA] text-[#6E856C] flex items-center justify-center mx-auto">
+            <Sparkles className="w-6 h-6" />
+          </div>
+          <h2 className="text-xl font-serif font-bold text-[#3A3A3A]">
+            Fitur Kustomisasi Photo Strip Sedang Dinonaktifkan
+          </h2>
+          <p className="text-xs sm:text-sm text-stone-600 max-w-md mx-auto">
+            Silakan hubungi Admin Alviero Studio atau lihat katalog paket foto kami.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-4 sm:py-8 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8 animate-in fade-in duration-300">
       {/* Header Banner */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
         <div className="inline-flex items-center gap-1.5 bg-[#EBF2EA] text-[#6E856C] text-[11px] sm:text-xs font-extrabold px-3 py-1 rounded-full border border-[#A9BCA7]">
           <Sparkles className="w-3.5 h-3.5 text-[#6E856C]" />
-          <span>Interactive Photo Grid Customizer & Live Frame Generator</span>
+          <span>{stripConfig.badgeText || 'Interactive Photo Grid Customizer & Live Frame Generator'}</span>
         </div>
         <h2 className="text-xl sm:text-3xl font-black text-[#3A3A3A] tracking-tight">
           {stripConfig.title || 'Kustomisasi Grid & Bingkai Alviero'}
@@ -309,9 +404,11 @@ export const PhotoStripCustomizer: React.FC = () => {
             </button>
 
             {/* Instruction Tip */}
-            <div className="bg-[#FDFBF7] border border-[#E8DDD6] p-3 rounded-2xl text-[11px] text-[#3A3A3A] font-medium leading-relaxed">
-              💡 <strong>Petunjuk Posisi:</strong> Klik <strong>"Crop Utuh & Posisi"</strong> pada foto untuk zoom, geser wajah, atau putar sudut foto agar pas dengan bingkai.
-            </div>
+            {stripConfig.instructionText && (
+              <div className="bg-[#FDFBF7] border border-[#E8DDD6] p-3 rounded-2xl text-[11px] text-[#3A3A3A] font-medium leading-relaxed">
+                💡 <strong>Petunjuk Posisi:</strong> {stripConfig.instructionText}
+              </div>
+            )}
 
             {/* Photo Thumbnails List */}
             <div className="space-y-2 pt-1">
@@ -329,13 +426,15 @@ export const PhotoStripCustomizer: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                      <button
-                        onClick={() => handleOpenCropModal(idx)}
-                        className="w-full min-h-[34px] py-1 px-2 bg-[#6E856C] hover:bg-[#5C725A] text-white font-extrabold text-[10.5px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95"
-                      >
-                        <Crop className="w-3.5 h-3.5 text-[#EBF2EA]" />
-                        <span>Crop Utuh & Posisi</span>
-                      </button>
+                      {stripConfig.enableCrop !== false && (
+                        <button
+                          onClick={() => handleOpenCropModal(idx)}
+                          className="w-full min-h-[34px] py-1 px-2 bg-[#6E856C] hover:bg-[#5C725A] text-white font-extrabold text-[10.5px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer shadow-2xs active:scale-95"
+                        >
+                          <Crop className="w-3.5 h-3.5 text-[#EBF2EA]" />
+                          <span>Crop Utuh & Posisi</span>
+                        </button>
+                      )}
                       <button
                         onClick={() => triggerSingleReplace(idx)}
                         className="w-full min-h-[30px] py-0.5 px-2 bg-white hover:bg-stone-100 border border-[#E8DDD6] text-[#3A3A3A] font-bold text-[10px] rounded-xl transition-all flex items-center justify-center gap-1 cursor-pointer"
@@ -363,16 +462,15 @@ export const PhotoStripCustomizer: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-              {(Object.keys(GRID_DEFINITIONS) as GridTypeId[]).map((gKey) => {
-                const g = GRID_DEFINITIONS[gKey];
-                const isSelected = selectedGrid === gKey;
+              {availableGrids.map((g) => {
+                const isSelected = selectedGrid === g.id;
 
                 return (
                   <button
-                    key={gKey}
+                    key={g.id}
                     onClick={() => {
-                      playShutterSound();
-                      setSelectedGrid(gKey);
+                      triggerShutter();
+                      setSelectedGrid(g.id);
                     }}
                     className={`min-h-[58px] p-2.5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between active:scale-98 ${
                       isSelected
@@ -410,14 +508,14 @@ export const PhotoStripCustomizer: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {FRAME_THEMES.map((theme) => {
+              {availableThemes.map((theme) => {
                 const isSelected = selectedTheme === theme.id;
 
                 return (
                   <button
                     key={theme.id}
                     onClick={() => {
-                      playShutterSound();
+                      triggerShutter();
                       setSelectedTheme(theme.id);
                     }}
                     className={`min-h-[46px] p-2.5 rounded-2xl border text-left flex items-center gap-2.5 cursor-pointer transition-all active:scale-98 ${
@@ -445,56 +543,64 @@ export const PhotoStripCustomizer: React.FC = () => {
           </div>
 
           {/* 4. EFEK WARNA FOTO & STIKER */}
-          <div className="space-y-3 pt-3 border-t border-[#E8DDD6]">
-            <label className="text-xs font-extrabold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
-              <Wand2 className="w-4 h-4 text-[#6E856C]" />
-              4. Efek Warna Foto & Stiker:
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <select
-                value={activeFilter}
-                onChange={(e) => {
-                  playShutterSound();
-                  setActiveFilter(e.target.value);
-                }}
-                className="w-full min-h-[42px] px-3 py-2 bg-[#FDFBF7] border border-[#E8DDD6] rounded-xl text-xs font-extrabold text-[#3A3A3A] focus:outline-none focus:ring-2 focus:ring-[#A9BCA7] cursor-pointer"
-              >
-                <option value="none">Normal Color (Natural)</option>
-                <option value="vivid">Vivid Contrast (Tajam)</option>
-                <option value="sepia">Warm Sepia (Klasik Hangat)</option>
-                <option value="vintage">Vintage Film (Retro Mood)</option>
-                <option value="grayscale">B&W Dramatic (Hitam Putih)</option>
-              </select>
-
-              <div className="flex items-center gap-1 bg-[#FDFBF7] border border-[#E8DDD6] p-1.5 rounded-xl justify-around text-lg min-h-[42px]">
-                {['', '💖', '⭐', '✨', '🎀', '🌸', '🍀', '🔥'].map((s) => (
-                  <button
-                    key={s || 'none'}
-                    onClick={() => {
-                      playShutterSound();
-                      setSelectedSticker(s);
+          {(stripConfig.enableFilters !== false || stripConfig.enableStickers !== false) && (
+            <div className="space-y-3 pt-3 border-t border-[#E8DDD6]">
+              <label className="text-xs font-extrabold uppercase tracking-wider text-[#3A3A3A] flex items-center gap-1.5">
+                <Wand2 className="w-4 h-4 text-[#6E856C]" />
+                4. Efek Warna Foto & Stiker:
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {stripConfig.enableFilters !== false && (
+                  <select
+                    value={activeFilter}
+                    onChange={(e) => {
+                      triggerShutter();
+                      setActiveFilter(e.target.value);
                     }}
-                    className={`min-w-[30px] min-h-[30px] p-0.5 rounded-lg transition-all cursor-pointer flex items-center justify-center text-sm sm:text-base ${
-                      selectedSticker === s ? 'bg-[#3A3A3A] text-white scale-110 shadow-xs' : 'hover:scale-105'
-                    }`}
+                    className="w-full min-h-[42px] px-3 py-2 bg-[#FDFBF7] border border-[#E8DDD6] rounded-xl text-xs font-extrabold text-[#3A3A3A] focus:outline-none focus:ring-2 focus:ring-[#A9BCA7] cursor-pointer"
                   >
-                    {s || '🚫'}
-                  </button>
-                ))}
+                    <option value="none">Normal Color (Natural)</option>
+                    <option value="vivid">Vivid Contrast (Tajam)</option>
+                    <option value="sepia">Warm Sepia (Klasik Hangat)</option>
+                    <option value="vintage">Vintage Film (Retro Mood)</option>
+                    <option value="grayscale">B&W Dramatic (Hitam Putih)</option>
+                  </select>
+                )}
+
+                {stripConfig.enableStickers !== false && (
+                  <div className="flex items-center gap-1 bg-[#FDFBF7] border border-[#E8DDD6] p-1.5 rounded-xl justify-around text-lg min-h-[42px] flex-wrap">
+                    {(stripConfig.stickers || ['', '💖', '⭐', '✨', '🎀', '🌸', '🍀', '🔥']).map((s: string, idx: number) => (
+                      <button
+                        key={(s || 'none') + idx}
+                        onClick={() => {
+                          triggerShutter();
+                          setSelectedSticker(s);
+                        }}
+                        className={`min-w-[30px] min-h-[30px] p-0.5 rounded-lg transition-all cursor-pointer flex items-center justify-center text-sm sm:text-base ${
+                          selectedSticker === s ? 'bg-[#3A3A3A] text-white scale-110 shadow-xs' : 'hover:scale-105'
+                        }`}
+                      >
+                        {s || '🚫'}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-          </div>
+          )}
 
           {/* Tester Efek Suara Shutter & Quick Download */}
-          <div className="flex items-center justify-between text-xs text-stone-500 pt-1">
-            <button
-              onClick={() => playShutterSound()}
-              className="flex items-center gap-1.5 text-xs text-[#6E856C] hover:text-[#3A3A3A] font-bold cursor-pointer py-1"
-            >
-              <Volume2 className="w-4 h-4" />
-              <span>Tes Efek Suara Shutter Kamera</span>
-            </button>
-          </div>
+          {stripConfig.enableShutterSound !== false && (
+            <div className="flex items-center justify-between text-xs text-stone-500 pt-1">
+              <button
+                onClick={() => triggerShutter()}
+                className="flex items-center gap-1.5 text-xs text-[#6E856C] hover:text-[#3A3A3A] font-bold cursor-pointer py-1"
+              >
+                <Volume2 className="w-4 h-4" />
+                <span>Tes Efek Suara Shutter Kamera</span>
+              </button>
+            </div>
+          )}
 
           {/* Export PNG Action Button */}
           <div className="pt-2">
@@ -559,13 +665,15 @@ export const PhotoStripCustomizer: React.FC = () => {
                   />
 
                   {/* Quick crop hover button */}
-                  <button
-                    onClick={() => handleOpenCropModal(photoIdx)}
-                    className="absolute bottom-1.5 right-1.5 bg-stone-950/85 hover:bg-stone-950 text-white font-extrabold text-[9px] px-2 py-1 rounded-md shadow-md opacity-0 group-hover/slot:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer z-20"
-                  >
-                    <Crop className="w-2.5 h-2.5 text-amber-300" />
-                    <span>Crop</span>
-                  </button>
+                  {stripConfig.enableCrop !== false && (
+                    <button
+                      onClick={() => handleOpenCropModal(photoIdx)}
+                      className="absolute bottom-1.5 right-1.5 bg-stone-950/85 hover:bg-stone-950 text-white font-extrabold text-[9px] px-2 py-1 rounded-md shadow-md opacity-0 group-hover/slot:opacity-100 transition-opacity flex items-center gap-1 cursor-pointer z-20"
+                    >
+                      <Crop className="w-2.5 h-2.5 text-amber-300" />
+                      <span>Crop</span>
+                    </button>
+                  )}
 
                   {/* Optional Sticker Overlay */}
                   {selectedSticker && (
@@ -617,9 +725,11 @@ export const PhotoStripCustomizer: React.FC = () => {
             </button>
           </div>
 
-          <p className="text-xs text-stone-400 mt-3 text-center max-w-sm leading-relaxed px-2">
-            ✦ Dicetak dengan kualitas lab studio beresolusi tinggi di Alviero Studio Foto!
-          </p>
+          {stripConfig.footerNote && (
+            <p className="text-xs text-stone-400 mt-3 text-center max-w-sm leading-relaxed px-2">
+              {stripConfig.footerNote}
+            </p>
+          )}
         </div>
       </div>
 

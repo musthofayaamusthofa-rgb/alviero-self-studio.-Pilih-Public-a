@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Camera, Sparkles, MapPin, MessageCircle, Home } from 'lucide-react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
-import { useStudioConfig, getActiveAnnouncement } from '../utils/studioConfigManager';
+import { useStudioConfig, getActiveAnnouncement, getActivePhotoStripConfig } from '../utils/studioConfigManager';
 
 interface HeaderProps {
   activeTab: string;
@@ -28,6 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
   const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
   const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
   const announcementInfo = useMemo(() => getActiveAnnouncement(studioConfig), [studioConfig]);
+  const stripConfig = useMemo(() => getActivePhotoStripConfig(studioConfig), [studioConfig]);
 
   // Check studio open status dynamically (08:00 - 21:00 WIB)
   const checkIsOpen = (): boolean => {
@@ -171,17 +172,19 @@ export const Header: React.FC<HeaderProps> = ({
             Pricelist
           </button>
 
-          <button
-            onClick={() => setActiveTab('strip-builder')}
-            className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
-              activeTab === 'strip-builder'
-                ? 'bg-[#3A3A3A] text-white shadow-xs font-bold'
-                : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4] font-semibold'
-            }`}
-          >
-            <Sparkles className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
-            Photo Strip
-          </button>
+          {stripConfig.active !== false && (
+            <button
+              onClick={() => setActiveTab('strip-builder')}
+              className={`px-4 py-1.5 text-xs transition-all flex items-center gap-1.5 cursor-pointer font-serif uppercase tracking-wider ${
+                activeTab === 'strip-builder'
+                  ? 'bg-[#3A3A3A] text-white shadow-xs font-bold'
+                  : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4] font-semibold'
+              }`}
+            >
+              <Sparkles className={`w-3.5 h-3.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+              {stripConfig.navLabel || 'Photo Strip'}
+            </button>
+          )}
 
           <button
             onClick={() => setActiveTab('rules')}

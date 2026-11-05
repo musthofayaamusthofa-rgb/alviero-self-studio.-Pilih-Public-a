@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Camera, Sparkles, MapPin, X } from 'lucide-react';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
 import { useMobileBackButton } from '../hooks/useMobileBackButton';
-import { useStudioConfig } from '../utils/studioConfigManager';
+import { useStudioConfig, getActivePhotoStripConfig } from '../utils/studioConfigManager';
 
 interface MobileBottomNavProps {
   activeTab: string;
@@ -35,7 +35,11 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 }) => {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const studioConfig = useStudioConfig();
+  const stripConfig = getActivePhotoStripConfig(studioConfig);
+  const isStripEnabled = stripConfig.active !== false;
   const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
+  const totalNavCols = 3 + (isStripEnabled ? 1 : 0) + (extraCartCount > 0 ? 1 : 0);
+  const gridColClass = totalNavCols === 5 ? 'grid-cols-5' : totalNavCols === 4 ? 'grid-cols-4' : 'grid-cols-3';
 
   // Integrasi tombol Back fisik / Swipe Back HP untuk popup Info Bantuan
   useMobileBackButton(isHelpOpen, () => setIsHelpOpen(false), 'bottom-nav-help');
@@ -88,7 +92,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         </div>
       )}
 
-      <div className={`grid ${extraCartCount > 0 ? 'grid-cols-5' : 'grid-cols-4'} gap-0.5 text-center max-w-md mx-auto`}>
+      <div className={`grid ${gridColClass} gap-0.5 text-center max-w-md mx-auto`}>
         <button
           onClick={() => {
             if (onNavigateToPricelist) {
@@ -110,20 +114,22 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
           <span className="text-[8px] uppercase tracking-wide leading-none font-bold">Pricelist</span>
         </button>
 
-        <button
-          onClick={() => {
-            setActiveTab('strip-builder');
-            scrollToTop();
-          }}
-          className={`min-h-[42px] flex flex-col items-center justify-center py-1 transition-all duration-200 cursor-pointer ${
-            activeTab === 'strip-builder'
-              ? 'text-white bg-[#3A3A3A] font-bold shadow-xs'
-              : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4]/60 font-medium'
-          }`}
-        >
-          <Sparkles className={`w-4 h-4 mb-0.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
-          <span className="text-[8px] uppercase tracking-wide leading-none font-bold">Strip</span>
-        </button>
+        {isStripEnabled && (
+          <button
+            onClick={() => {
+              setActiveTab('strip-builder');
+              scrollToTop();
+            }}
+            className={`min-h-[42px] flex flex-col items-center justify-center py-1 transition-all duration-200 cursor-pointer ${
+              activeTab === 'strip-builder'
+                ? 'text-white bg-[#3A3A3A] font-bold shadow-xs'
+                : 'text-[#5A5A5A] hover:text-[#3A3A3A] hover:bg-[#F2E9E4]/60 font-medium'
+            }`}
+          >
+            <Sparkles className={`w-4 h-4 mb-0.5 stroke-[1.8] ${activeTab === 'strip-builder' ? 'text-[#A9BCA7]' : 'text-[#6E856C]'}`} />
+            <span className="text-[8px] uppercase tracking-wide leading-none font-bold">{stripConfig.mobileNavLabel || 'Strip'}</span>
+          </button>
+        )}
 
         {extraCartCount > 0 && (
           <button

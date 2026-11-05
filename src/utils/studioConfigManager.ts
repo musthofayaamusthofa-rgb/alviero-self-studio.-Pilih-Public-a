@@ -501,15 +501,168 @@ export function getActiveDisclaimer(cfg?: any, fallback: any = null): any {
   return fallback;
 }
 
+export const DEFAULT_PHOTO_STRIP_CONFIG = {
+  active: true,
+  navLabel: 'Photo Strip',
+  mobileNavLabel: 'Strip',
+  badgeText: 'Interactive Photo Grid Customizer & Live Frame Generator',
+  title: 'Kustomisasi Grid & Bingkai Alviero',
+  subtitle: 'Pilih tata letak format 3R/4R, tentukan tema warna bingkai resmi Alviero Studio, posisikan foto secara utuh, dan unduh hasil PNG siap cetak!',
+  instructionText: 'Klik "Crop Utuh & Posisi" pada foto untuk zoom, geser wajah, atau putar sudut foto agar pas dengan bingkai.',
+  footerNote: '✦ Dicetak dengan kualitas lab studio beresolusi tinggi di Alviero Studio Foto!',
+  defaultGrid: 'grid-4-3r',
+  defaultTheme: 'A',
+  enableFilters: true,
+  enableStickers: true,
+  enableShutterSound: true,
+  enableCrop: true,
+  stickers: ['', '💖', '⭐', '✨', '🎀', '🌸', '🍀', '🔥'],
+  samplePhotos: [
+    'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=80'
+  ],
+  grids: [
+    {
+      id: 'grid-1-3r',
+      name: 'Grid 1 (3R)',
+      shortLabel: '1 Foto (3R)',
+      sizeLabel: '3R (8.9 x 12.7 cm)',
+      description: '1 Foto Utuh Portrait Minimalis dengan Logo Alviero',
+      active: true
+    },
+    {
+      id: 'grid-3-4r',
+      name: 'Grid 3 (4R)',
+      shortLabel: '3 Foto (4R Strip)',
+      sizeLabel: '4R (10.2 x 15.2 cm)',
+      description: 'Photo Strip 4R Twin 3-Cut (2 Kolom Strip Berdampingan)',
+      active: true
+    },
+    {
+      id: 'grid-4-3r',
+      name: 'Grid 4 (3R)',
+      shortLabel: '4 Foto 2x2 (3R)',
+      sizeLabel: '3R (8.9 x 12.7 cm)',
+      description: '2x2 Grid Klasik 4 Foto dengan Logo Alviero',
+      active: true
+    },
+    {
+      id: 'grid-6-4r',
+      name: 'Grid 6 (4R)',
+      shortLabel: '6 Foto 2x3 (4R)',
+      sizeLabel: '4R (10.2 x 15.2 cm)',
+      description: '2x3 Grid 6 Foto Memanjang Eksklusif',
+      active: true
+    }
+  ],
+  themes: [
+    {
+      id: 'A',
+      name: 'Putih Classic',
+      badge: 'A',
+      previewBg: '#FFFFFF',
+      previewTextColor: '#1E293B',
+      borderColor: '#E2E8F0',
+      description: 'Bingkai putih bersih minimalis elegan dengan logo Alviero',
+      active: true,
+      customOverlays: {}
+    },
+    {
+      id: 'B',
+      name: 'Cute Doodles & Paper',
+      badge: 'B',
+      previewBg: '#F8FAFC',
+      previewTextColor: '#334155',
+      borderColor: '#CBD5E1',
+      description: 'Tekstur kertas grid buku dengan stiker & ornamen pastel lucu',
+      active: true,
+      customOverlays: {}
+    },
+    {
+      id: 'C',
+      name: 'Retro Terracotta',
+      badge: 'C',
+      previewBg: '#EA580C',
+      previewTextColor: '#FFFFFF',
+      borderColor: '#C2410C',
+      description: 'Nuansa warna hangat retro terracotta dengan frame polaroid',
+      active: true,
+      customOverlays: {}
+    },
+    {
+      id: 'D',
+      name: 'Noir Best Moment',
+      badge: 'D',
+      previewBg: '#0F172A',
+      previewTextColor: '#FFFFFF',
+      borderColor: '#334155',
+      description: 'Bingkai hitam pekat Y2K modern beraksen Best Moment',
+      active: true,
+      customOverlays: {}
+    },
+    {
+      id: 'E',
+      name: '35mm Vintage Film',
+      badge: 'E',
+      previewBg: '#18181B',
+      previewTextColor: '#FACC15',
+      borderColor: '#3F3F46',
+      description: 'Klise strip film 35mm berlubang perforasi vintage aesthetic',
+      active: true,
+      customOverlays: {}
+    }
+  ]
+};
+
 /**
- * Mengambil konfigurasi Photo Strip Customizer
+ * Mengambil konfigurasi Photo Strip Customizer secara lengkap & ternormalisasi
  */
-export function getActivePhotoStripConfig(cfg?: any): any {
+export function getActivePhotoStripConfig(cfg?: any): typeof DEFAULT_PHOTO_STRIP_CONFIG {
   const activeCfg = cfg || currentConfig;
-  return activeCfg?.photoStripConfig || {
-    footerText: 'ALVIERO SELF STUDIO',
-    watermarkEnabled: true,
-    themes: []
+  const raw = activeCfg?.photoStripConfig || {};
+
+  const mergedGrids = DEFAULT_PHOTO_STRIP_CONFIG.grids.map((defGrid) => {
+    const found = Array.isArray(raw.grids) ? raw.grids.find((g: any) => g && g.id === defGrid.id) : null;
+    return found ? { ...defGrid, ...found } : defGrid;
+  });
+
+  const mergedThemes = DEFAULT_PHOTO_STRIP_CONFIG.themes.map((defTheme) => {
+    const found = Array.isArray(raw.themes) ? raw.themes.find((t: any) => t && t.id === defTheme.id) : null;
+    return found
+      ? {
+          ...defTheme,
+          ...found,
+          customOverlays: { ...(defTheme.customOverlays || {}), ...(found.customOverlays || {}) }
+        }
+      : defTheme;
+  });
+
+  const samplePhotos =
+    Array.isArray(raw.samplePhotos) && raw.samplePhotos.filter(Boolean).length > 0
+      ? raw.samplePhotos.filter(Boolean)
+      : DEFAULT_PHOTO_STRIP_CONFIG.samplePhotos;
+
+  const stickers =
+    Array.isArray(raw.stickers) && raw.stickers.length > 0
+      ? raw.stickers
+      : DEFAULT_PHOTO_STRIP_CONFIG.stickers;
+
+  return {
+    ...DEFAULT_PHOTO_STRIP_CONFIG,
+    ...raw,
+    active: raw.active !== false,
+    enableFilters: raw.enableFilters !== false,
+    enableStickers: raw.enableStickers !== false,
+    enableShutterSound: raw.enableShutterSound !== false,
+    enableCrop: raw.enableCrop !== false,
+    samplePhotos,
+    stickers,
+    grids: mergedGrids,
+    themes: mergedThemes
   };
 }
 

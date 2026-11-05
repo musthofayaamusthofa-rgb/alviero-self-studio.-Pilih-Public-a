@@ -162,6 +162,7 @@ export interface ExportGridOptions {
   photos: string[];
   filterStyle?: string;
   sticker?: string;
+  customOverlayUrl?: string;
 }
 
 // Helper to draw image using object-fit: cover logic
@@ -239,7 +240,7 @@ export const getFrameOverlayUrl = (gridType: GridTypeId, frameTheme: FrameThemeI
 };
 
 export const downloadPhotoStripAsImage = async (options: ExportGridOptions): Promise<{ success: boolean; dataUrl?: string; blobUrl?: string }> => {
-  const { gridType, frameTheme, photos, filterStyle = 'none', sticker } = options;
+  const { gridType, frameTheme, photos, filterStyle = 'none', sticker, customOverlayUrl } = options;
   const gridDef = GRID_DEFINITIONS[gridType] || GRID_DEFINITIONS['grid-4-3r'];
 
   const canvas = document.createElement('canvas');
@@ -293,7 +294,7 @@ export const downloadPhotoStripAsImage = async (options: ExportGridOptions): Pro
     });
 
     // 3. Draw the official Alviero Studio PNG frame overlay on top
-    const frameOverlaySrc = getFrameOverlayUrl(gridType, frameTheme);
+    const frameOverlaySrc = customOverlayUrl || getFrameOverlayUrl(gridType, frameTheme);
     const frameOverlayImg = await loadSafeImage(frameOverlaySrc);
     ctx.drawImage(frameOverlayImg, 0, 0, canvas.width, canvas.height);
 

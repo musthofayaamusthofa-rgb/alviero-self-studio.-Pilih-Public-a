@@ -1525,8 +1525,11 @@
       <button class="tab-btn" onclick="switchTab('tab-promos', this)">
         🎁 Promo & Informasi Studio <span class="tab-badge" id="promoCountBadge">0</span>
       </button>
-      <button class="tab-btn" onclick="switchTab('tab-indoor', this)">
+      <button class="tab-btn" id="topTabIndoorBtn" onclick="switchTab('tab-indoor', this); switchIndoorSubView('packages', document.getElementById('indoorSubBtnPackages'))">
         📸 Seluruh Paket Studio <span class="tab-badge" id="indoorCountBadge">0</span>
+      </button>
+      <button class="tab-btn" id="topTabPhotoStripBtn" onclick="openPhotoStripManagerTab(this)">
+        🎞️ Photo Strip <span class="tab-badge" id="stripStatusTopBadge" style="background:#DCFCE7; color:#166534;">AKTIF</span>
       </button>
       <button class="tab-btn" onclick="switchTab('tab-gallery-sections', this)">
         🖼️ Foto & Galeri Web <span class="tab-badge" id="galleryCountBadge">0</span>
@@ -1999,30 +2002,230 @@
           </div>
         </div>
 
-        <!-- SUB-PANEL 2F: PHOTO STRIP CUSTOMIZER -->
+        <!-- SUB-PANEL 2F: PHOTO STRIP CUSTOMIZER (COMPREHENSIVE MANAGER) -->
         <div id="indoorSubPanelPhotoStrip" style="display: none;">
-          <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.35rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+          <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <!-- Header & Action Buttons -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
               <div>
-                <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin: 0;">🎞️ Pengaturan Halaman Photo Strip Customizer</h3>
-                <p style="font-size: 0.76rem; color: #71717A; margin: 0.15rem 0 0 0;">Atur judul, sub-judul, dan 6 foto contoh default pada fitur Photo Strip Customizer di situs web.</p>
+                <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                  <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--charcoal); margin: 0;">🎞️ Manajemen Menyeluruh Photo Strip Customizer</h3>
+                  <span id="stripStatusBadge" style="font-size: 0.72rem; font-weight: 800; padding: 0.25rem 0.7rem; border-radius: 999px; background: #DCFCE7; color: #166534; border: 1px solid #86EFAC;">
+                    🟢 AKTIF DI WEBSITE
+                  </span>
+                </div>
+                <p style="font-size: 0.8rem; color: #71717A; margin: 0.3rem 0 0 0;">
+                  Kelola status aktif/nonaktif fitur Photo Strip di website, label navigasi, 4 tata letak grid (3R &amp; 4R), 5 tema warna bingkai resmi, fitur interaktif (crop, filter, stiker), hingga 6 foto contoh default.
+                </p>
               </div>
-              <button class="btn btn-save-local" onclick="savePhotoStripConfig()">💾 Simpan Photo Strip</button>
+              <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-preview" onclick="resetPhotoStripToDefault()" title="Kembalikan seluruh pengaturan Photo Strip ke standar pabrik Alviero Studio">
+                  🔄 Reset Standar
+                </button>
+                <button type="button" class="btn btn-save-local" onclick="savePhotoStripConfig()">
+                  💾 Simpan Pengaturan Photo Strip
+                </button>
+              </div>
             </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Judul Halaman Photo Strip</label>
-                <input type="text" id="stripTitleInput" class="form-control" placeholder="Kustomisasi Grid & Bingkai Alviero">
+
+            <!-- 1. MASTER SWITCH: AKTIFKAN / NONAKTIFKAN FITUR PHOTO STRIP & LABEL NAVIGASI -->
+            <div id="stripActiveBanner" style="background: #ECFDF5; border: 1.5px solid #10B981; border-radius: 14px; padding: 1.25rem; transition: all 0.2s;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+                  <div id="stripActiveIconBox" style="width: 44px; height: 44px; border-radius: 12px; background: #10B981; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
+                    🎞️
+                  </div>
+                  <div>
+                    <div style="font-size: 0.98rem; font-weight: 800; color: var(--charcoal);" id="stripActiveHeading">
+                      Status Fitur Photo Strip di Situs Web: AKTIF (Ditampilkan)
+                    </div>
+                    <div style="font-size: 0.78rem; color: #4B5563; margin-top: 0.2rem; line-height: 1.45;" id="stripActiveSubtext">
+                      Saat aktif, tombol <strong>"Photo Strip"</strong> muncul di navigasi atas (Desktop) &amp; navigasi bawah (HP), dan pengunjung dapat mencoba simulasi cetak Photo Strip secara interaktif.Jika dinonaktifkan, menu &amp; halaman Photo Strip otomatis disembunyikan dari website.
+                    </div>
+                  </div>
+                </div>
+                <label style="display: inline-flex; align-items: center; gap: 0.6rem; background: #FFFFFF; padding: 0.6rem 1.1rem; border-radius: 999px; border: 1.5px solid var(--border); cursor: pointer; font-weight: 800; font-size: 0.85rem; color: var(--charcoal); box-shadow: 0 2px 6px rgba(0,0,0,0.05); user-select: none;">
+                  <input type="checkbox" id="stripActiveToggle" checked onchange="togglePhotoStripMasterActive(this.checked)" style="width: 18px; height: 18px; accent-color: #10B981; cursor: pointer;">
+                  <span id="stripActiveToggleLabel">Tampilkan Fitur Photo Strip</span>
+                </label>
               </div>
+
+              <div class="form-row" style="margin-bottom: 0; background: rgba(255,255,255,0.75); padding: 0.9rem; border-radius: 10px; border: 1px solid rgba(0,0,0,0.06);">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" style="font-size: 0.76rem; font-weight: 800;">🖥️ Label Tombol Navigasi Atas (Header Desktop)</label>
+                  <input type="text" id="stripNavLabelInput" class="form-control" placeholder="Photo Strip" value="Photo Strip">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label" style="font-size: 0.76rem; font-weight: 800;">📱 Label Tombol Navigasi Bawah (Mobile Bar HP)</label>
+                  <input type="text" id="stripMobileNavLabelInput" class="form-control" placeholder="Strip" value="Strip">
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. HEADER, JUDUL & TEKS PANDUAN HALAMAN PHOTO STRIP -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="margin-bottom: 1rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 0.65rem;">
+                <h4 style="font-size: 0.98rem; font-weight: 800; color: var(--charcoal); margin: 0;">📝 Teks Judul, Panduan &amp; Catatan Halaman Photo Strip</h4>
+                <p style="font-size: 0.75rem; color: #71717A; margin: 0.2rem 0 0 0;">Sesuaikan teks editorial yang tampil di bagian atas dan bawah kanvas Photo Strip Customizer.</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Badge Kecil di Atas Judul</label>
+                  <input type="text" id="stripBadgeTextInput" class="form-control" placeholder="Photo Strip Builder • Self Studio & Photobooth">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Judul Utama Halaman Photo Strip</label>
+                  <input type="text" id="stripTitleInput" class="form-control" placeholder="Kustomisasi Grid & Bingkai Alviero">
+                </div>
+              </div>
+
               <div class="form-group">
                 <label class="form-label">Sub-Judul / Deskripsi Panduan</label>
-                <input type="text" id="stripSubtitleInput" class="form-control" placeholder="Pilih tata letak format 3R/4R...">
+                <textarea id="stripSubtitleInput" class="form-control" rows="2" placeholder="Pilih tata letak format 3R/4R (1, 3, 4, atau 6 foto), sesuaikan warna latar kertas eksklusif Alviero..."></textarea>
+              </div>
+
+              <div class="form-row" style="margin-bottom: 0;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Teks Panduan Interaktif di Atas Kanvas Preview</label>
+                  <input type="text" id="stripInstructionInput" class="form-control" placeholder="💡 Klik kotak foto untuk mengganti gambar, atau tarik (drag) foto untuk menggeser posisi wajah.">
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Catatan Kaki di Bawah Kanvas Preview</label>
+                  <input type="text" id="stripFooterNoteInput" class="form-control" placeholder="Format Cetak Standar Lab Alviero Studio • 300 DPI High Resolution">
+                </div>
               </div>
             </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label class="form-label">Daftar 6 URL Foto Contoh Default (1 URL per baris)</label>
-              <textarea id="stripSamplePhotosInput" class="form-control" rows="6" placeholder="https://..."></textarea>
+
+            <!-- 3. PENGATURAN DEFAULT & FITUR INTERAKTIF (CROP, FILTER, STIKER, SUARA) -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="margin-bottom: 1rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 0.65rem;">
+                <h4 style="font-size: 0.98rem; font-weight: 800; color: var(--charcoal); margin: 0;">⚙️ Pengaturan Default &amp; Fitur Interaktif Klien</h4>
+                <p style="font-size: 0.75rem; color: #71717A; margin: 0.2rem 0 0 0;">Pilih grid &amp; tema bingkai yang otomatis terpilih saat halaman dibuka, serta aktifkan/nonaktifkan fitur editor tambahan.</p>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Tata Letak Grid Default (Saat Pertama Dibuka)</label>
+                  <select id="stripDefaultGridSelect" class="form-control">
+                    <option value="grid-1-3r">Grid 1 — Portrait 3R (1 Foto)</option>
+                    <option value="grid-3-4r">Grid 3 — Strip 4R (3 Foto)</option>
+                    <option value="grid-4-3r">Grid 4 — Collage 3R (4 Foto)</option>
+                    <option value="grid-6-4r">Grid 6 — Twin Strip 4R (6 Foto)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Tema Warna Bingkai Default (Saat Pertama Dibuka)</label>
+                  <select id="stripDefaultThemeSelect" class="form-control">
+                    <option value="A">Tema A — Putih Polos (Klasik)</option>
+                    <option value="B">Tema B — Hitam Elegan (Favorit)</option>
+                    <option value="C">Tema C — Sage Green Signature (Signature)</option>
+                    <option value="D">Tema D — Champagne Cream (Warm)</option>
+                    <option value="E">Tema E — Charcoal Editorial (Modern)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+                <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #FAF8F5; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; cursor: pointer;">
+                  <input type="checkbox" id="stripEnableCropToggle" checked style="margin-top: 3px; width: 16px; height: 16px; accent-color: var(--sage-primary);">
+                  <div>
+                    <div style="font-size: 0.8rem; font-weight: 800; color: var(--charcoal);">✂️ Fitur Potong, Zoom &amp; Putar Foto</div>
+                    <div style="font-size: 0.71rem; color: #71717A; margin-top: 2px;">Izinkan klien mengatur zoom, geser, dan rotasi per kotak foto.</div>
+                  </div>
+                </label>
+
+                <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #FAF8F5; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; cursor: pointer;">
+                  <input type="checkbox" id="stripEnableFiltersToggle" checked style="margin-top: 3px; width: 16px; height: 16px; accent-color: var(--sage-primary);">
+                  <div>
+                    <div style="font-size: 0.8rem; font-weight: 800; color: var(--charcoal);">🎨 Fitur Filter Warna Foto</div>
+                    <div style="font-size: 0.71rem; color: #71717A; margin-top: 2px;">Tampilkan pilihan filter Normal, B&amp;W, Warm, Vintage &amp; Soft.</div>
+                  </div>
+                </label>
+
+                <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #FAF8F5; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; cursor: pointer;">
+                  <input type="checkbox" id="stripEnableStickersToggle" checked style="margin-top: 3px; width: 16px; height: 16px; accent-color: var(--sage-primary);">
+                  <div>
+                    <div style="font-size: 0.8rem; font-weight: 800; color: var(--charcoal);">✨ Fitur Stiker Dekorasi</div>
+                    <div style="font-size: 0.71rem; color: #71717A; margin-top: 2px;">Izinkan klien menempel &amp; menggeser stiker emoji di atas frame.</div>
+                  </div>
+                </label>
+
+                <label style="display: flex; align-items: flex-start; gap: 0.6rem; background: #FAF8F5; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; cursor: pointer;">
+                  <input type="checkbox" id="stripEnableShutterToggle" checked style="margin-top: 3px; width: 16px; height: 16px; accent-color: var(--sage-primary);">
+                  <div>
+                    <div style="font-size: 0.8rem; font-weight: 800; color: var(--charcoal);">🔊 Efek Suara Rana Kamera</div>
+                    <div style="font-size: 0.71rem; color: #71717A; margin-top: 2px;">Bunyikan suara shutter kamera saat klien mengunggah foto baru.</div>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                  <label class="form-label" style="margin: 0;">Daftar Pilihan Stiker Emoji (Pisahkan dengan koma)</label>
+                  <button type="button" class="btn-action" style="font-size: 0.72rem; padding: 2px 8px;" onclick="resetPhotoStripStickers()">🔄 Reset Stiker Default</button>
+                </div>
+                <input type="text" id="stripStickersInput" class="form-control" placeholder="🎓, ✨, 🤍, 🌸, 🎀, 👑, ⭐, 🎉, 💐, 📸, 🏆, 💖">
+              </div>
             </div>
+
+            <!-- 4. MANAJEMEN 4 TATA LETAK GRID (3R & 4R) -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 0.65rem;">
+                <div>
+                  <h4 style="font-size: 0.98rem; font-weight: 800; color: var(--charcoal); margin: 0;">📐 Manajemen 4 Tata Letak Grid Cetak (3R &amp; 4R)</h4>
+                  <p style="font-size: 0.75rem; color: #71717A; margin: 0.2rem 0 0 0;">Aktifkan/nonaktifkan pilihan ukuran grid yang tersedia untuk klien, serta sesuaikan nama dan deskripsi masing-masing grid.</p>
+                </div>
+              </div>
+              <div id="stripGridsContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1rem;">
+                <!-- Rendered dynamically by renderPhotoStripGridsEditor() -->
+              </div>
+            </div>
+
+            <!-- 5. MANAJEMEN 5 TEMA / WARNA BINGKAI RESMI & CUSTOM OVERLAY -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 0.65rem;">
+                <div>
+                  <h4 style="font-size: 0.98rem; font-weight: 800; color: var(--charcoal); margin: 0;">🎨 Manajemen 5 Tema Warna Bingkai Resmi &amp; Custom Overlay PNG</h4>
+                  <p style="font-size: 0.75rem; color: #71717A; margin: 0.2rem 0 0 0;">Atur status aktif, nama tema, badge, warna kertas (HEX), warna teks/logo, hingga upload gambar bingkai PNG transparan kustom per grid.</p>
+                </div>
+              </div>
+              <div id="stripThemesContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem;">
+                <!-- Rendered dynamically by renderPhotoStripThemesEditor() -->
+              </div>
+            </div>
+
+            <!-- 6. MANAJEMEN 6 FOTO CONTOH DEFAULT (SAMPLE PHOTOS) -->
+            <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; border-bottom: 1px solid #F1F5F9; padding-bottom: 0.65rem;">
+                <div>
+                  <h4 style="font-size: 0.98rem; font-weight: 800; color: var(--charcoal); margin: 0;">📸 6 Foto Contoh Default (Sample Photos Kanvas Awal)</h4>
+                  <p style="font-size: 0.75rem; color: #71717A; margin: 0.2rem 0 0 0;">Foto-foto yang otomatis tampil di dalam slot Photo Strip sebelum klien mengunggah foto mereka sendiri. Klik <strong>Upload Foto</strong> untuk mengganti dari perangkat Anda.</p>
+                </div>
+                <button type="button" class="btn btn-preview" style="font-size: 0.76rem; padding: 0.35rem 0.75rem;" onclick="resetAllPhotoStripSamplePhotos()">
+                  🔄 Reset 6 Foto Default
+                </button>
+              </div>
+
+              <div id="stripSamplePhotosGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem;">
+                <!-- Rendered dynamically by renderPhotoStripSamplePhotosEditor() -->
+              </div>
+
+              <!-- Hidden textarea for legacy compatibility -->
+              <textarea id="stripSamplePhotosInput" class="form-control" rows="3" style="display: none;"></textarea>
+            </div>
+
+            <!-- Bottom Sticky Save Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem;">
+              <div style="font-size: 0.8rem; color: #52525B;">
+                💡 <strong>Tips:</strong> Setelah menyimpan pengaturan Photo Strip, klik tombol <strong>🚀 Publikasikan ke Web Internet</strong> di kanan atas agar perubahan langsung aktif di Vercel.
+              </div>
+              <button type="button" class="btn btn-save-local" onclick="savePhotoStripConfig()">
+                💾 Simpan Seluruh Pengaturan Photo Strip
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -11223,34 +11426,764 @@
       showToast('✅ Pricelist Bingkai Foto berhasil disimpan!', '🖼️');
     }
 
-    // 6. Kustomisasi Photo Strip Self Studio
-    function renderPhotoStripConfig() {
-      if (!appConfig) return;
-      const cfg = appConfig.photoStripConfig || {
-        title: 'Kustomisasi Photo Strip',
-        subtitle: 'Simulasikan hasil cetak photo strip instan Anda sebelum sesi dimulai.',
-        samplePhotos: []
-      };
-      const titleEl = document.getElementById('stripTitleInput');
-      const subEl = document.getElementById('stripSubtitleInput');
-      const samplesEl = document.getElementById('stripSamplePhotosInput');
-      if (titleEl) titleEl.value = cfg.title || '';
-      if (subEl) subEl.value = cfg.subtitle || '';
-      if (samplesEl) samplesEl.value = (cfg.samplePhotos || []).join('\n');
+    // 6. Kustomisasi Photo Strip Self Studio (Comprehensive Manager)
+    const DEFAULT_PHOTO_STRIP_DATA = {
+      active: true,
+      navLabel: 'Photo Strip',
+      mobileNavLabel: 'Strip',
+      badgeText: 'Photo Strip Builder • Self Studio & Photobooth',
+      title: 'Kustomisasi Grid & Bingkai Alviero',
+      subtitle: 'Pilih tata letak format 3R/4R (1, 3, 4, atau 6 foto), sesuaikan warna latar kertas eksklusif Alviero, masukkan foto Anda, lalu unduh hasilnya dalam resolusi tinggi siap cetak.',
+      instructionText: '💡 Klik kotak foto untuk mengganti gambar, atau tarik (drag) foto untuk menggeser posisi wajah.',
+      footerNote: 'Format Cetak Standar Lab Alviero Studio • 300 DPI High Resolution',
+      defaultGrid: 'grid-3-4r',
+      defaultTheme: 'A',
+      enableFilters: true,
+      enableStickers: true,
+      enableShutterSound: true,
+      enableCrop: true,
+      stickers: ['🎓', '✨', '🤍', '🌸', '🎀', '👑', '⭐', '🎉', '💐', '📸', '🏆', '💖'],
+      samplePhotos: [
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85',
+        'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=85',
+        'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=900&q=85',
+        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=85',
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=85',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85'
+      ],
+      grids: [
+        {
+          id: 'grid-1-3r',
+          name: 'Grid 1 — Portrait 3R',
+          shortLabel: '1 Foto',
+          sizeLabel: 'Ukuran 3R (3.5 × 5 in)',
+          description: 'Single Portrait Frame dengan ruang tanda tangan eksklusif',
+          photoCount: 1,
+          active: true
+        },
+        {
+          id: 'grid-3-4r',
+          name: 'Grid 3 — Strip 4R',
+          shortLabel: '3 Foto',
+          sizeLabel: 'Ukuran 4R (4 × 6 in)',
+          description: '3 Pose Landscape bertumpuk vertikal dengan footer logo Alviero',
+          photoCount: 3,
+          active: true
+        },
+        {
+          id: 'grid-4-3r',
+          name: 'Grid 4 — Collage 3R',
+          shortLabel: '4 Foto',
+          sizeLabel: 'Ukuran 3R (3.5 × 5 in)',
+          description: 'Kolase 2×2 simetris modern untuk 4 momen terbaik',
+          photoCount: 4,
+          active: true
+        },
+        {
+          id: 'grid-6-4r',
+          name: 'Grid 6 — Twin Strip 4R',
+          shortLabel: '6 Foto',
+          sizeLabel: 'Ukuran 4R (4 × 6 in)',
+          description: 'Format photobooth klasik 2 kolom × 3 baris (6 pose lengkap)',
+          photoCount: 6,
+          active: true
+        }
+      ],
+      themes: [
+        {
+          id: 'A',
+          name: 'Putih Polos',
+          badge: 'Klasik',
+          previewBg: '#FFFFFF',
+          previewTextColor: '#1E1E1E',
+          borderColor: '#E5E0D8',
+          description: 'Latar kertas putih bersih klasik dengan logo Alviero Studio.',
+          active: true,
+          customOverlays: {}
+        },
+        {
+          id: 'B',
+          name: 'Hitam Elegan',
+          badge: 'Favorit',
+          previewBg: '#141413',
+          previewTextColor: '#F5F2EB',
+          borderColor: '#2E2E2C',
+          description: 'Latar hitam pekat eksklusif memberikan kontras film analog mewah.',
+          active: true,
+          customOverlays: {}
+        },
+        {
+          id: 'C',
+          name: 'Sage Green Signature',
+          badge: 'Signature',
+          previewBg: '#A9BCA7',
+          previewTextColor: '#1E261D',
+          borderColor: '#8FA68D',
+          description: 'Warna khas Alviero Studio yang lembut, segar, dan estetik.',
+          active: true,
+          customOverlays: {}
+        },
+        {
+          id: 'D',
+          name: 'Champagne Cream',
+          badge: 'Warm',
+          previewBg: '#F2E9E4',
+          previewTextColor: '#3A3A3A',
+          borderColor: '#E2D5CE',
+          description: 'Nuansa krem hangat ala editorial majalah klasik.',
+          active: true,
+          customOverlays: {}
+        },
+        {
+          id: 'E',
+          name: 'Charcoal Editorial',
+          badge: 'Modern',
+          previewBg: '#2E2E2E',
+          previewTextColor: '#FDFBF7',
+          borderColor: '#424242',
+          description: 'Abu-abu tua monokrom dengan kesan modern dan tegas.',
+          active: true,
+          customOverlays: {}
+        }
+      ]
+    };
+
+    function openPhotoStripManagerTab(btn) {
+      const indoorTabPane = document.getElementById('tab-indoor');
+      if (indoorTabPane) {
+        document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+        indoorTabPane.classList.add('active');
+        if (btn) btn.classList.add('active');
+      }
+      const subBtn = document.getElementById('indoorSubBtnPhotoStrip');
+      switchIndoorSubView('photostrip', subBtn);
     }
 
-    function savePhotoStripConfig() {
-      if (!appConfig) return;
-      const title = (document.getElementById('stripTitleInput')?.value || '').trim();
-      const subtitle = (document.getElementById('stripSubtitleInput')?.value || '').trim();
-      const samplesRaw = (document.getElementById('stripSamplePhotosInput')?.value || '').split('\n').map(s => s.trim()).filter(Boolean);
-      appConfig.photoStripConfig = {
-        title: title || 'Kustomisasi Photo Strip',
-        subtitle: subtitle || 'Simulasikan hasil cetak photo strip instan Anda sebelum sesi dimulai.',
-        samplePhotos: samplesRaw
+    function ensurePhotoStripConfig() {
+      if (!appConfig) return DEFAULT_PHOTO_STRIP_DATA;
+      if (!appConfig.photoStripConfig || typeof appConfig.photoStripConfig !== 'object') {
+        appConfig.photoStripConfig = JSON.parse(JSON.stringify(DEFAULT_PHOTO_STRIP_DATA));
+      }
+      const cfg = appConfig.photoStripConfig;
+      if (cfg.active === undefined) cfg.active = true;
+      if (!cfg.navLabel) cfg.navLabel = DEFAULT_PHOTO_STRIP_DATA.navLabel;
+      if (!cfg.mobileNavLabel) cfg.mobileNavLabel = DEFAULT_PHOTO_STRIP_DATA.mobileNavLabel;
+      if (!cfg.badgeText) cfg.badgeText = DEFAULT_PHOTO_STRIP_DATA.badgeText;
+      if (!cfg.title) cfg.title = DEFAULT_PHOTO_STRIP_DATA.title;
+      if (!cfg.subtitle) cfg.subtitle = DEFAULT_PHOTO_STRIP_DATA.subtitle;
+      if (!cfg.instructionText) cfg.instructionText = DEFAULT_PHOTO_STRIP_DATA.instructionText;
+      if (!cfg.footerNote) cfg.footerNote = DEFAULT_PHOTO_STRIP_DATA.footerNote;
+      if (!cfg.defaultGrid) cfg.defaultGrid = DEFAULT_PHOTO_STRIP_DATA.defaultGrid;
+      if (!cfg.defaultTheme) cfg.defaultTheme = DEFAULT_PHOTO_STRIP_DATA.defaultTheme;
+      if (cfg.enableCrop === undefined) cfg.enableCrop = true;
+      if (cfg.enableFilters === undefined) cfg.enableFilters = true;
+      if (cfg.enableStickers === undefined) cfg.enableStickers = true;
+      if (cfg.enableShutterSound === undefined) cfg.enableShutterSound = true;
+
+      if (!Array.isArray(cfg.stickers) || cfg.stickers.length === 0) {
+        cfg.stickers = [...DEFAULT_PHOTO_STRIP_DATA.stickers];
+      }
+      if (!Array.isArray(cfg.samplePhotos) || cfg.samplePhotos.length === 0) {
+        cfg.samplePhotos = [...DEFAULT_PHOTO_STRIP_DATA.samplePhotos];
+      } else {
+        while (cfg.samplePhotos.length < 6) {
+          cfg.samplePhotos.push(DEFAULT_PHOTO_STRIP_DATA.samplePhotos[cfg.samplePhotos.length % 6]);
+        }
+      }
+
+      if (!Array.isArray(cfg.grids) || cfg.grids.length === 0) {
+        cfg.grids = JSON.parse(JSON.stringify(DEFAULT_PHOTO_STRIP_DATA.grids));
+      } else {
+        cfg.grids = DEFAULT_PHOTO_STRIP_DATA.grids.map(defG => {
+          const found = cfg.grids.find(g => g && g.id === defG.id) || {};
+          return {
+            id: defG.id,
+            name: found.name || defG.name,
+            shortLabel: found.shortLabel || defG.shortLabel,
+            sizeLabel: found.sizeLabel || defG.sizeLabel,
+            description: found.description || defG.description,
+            photoCount: defG.photoCount,
+            active: found.active !== false
+          };
+        });
+      }
+
+      if (!Array.isArray(cfg.themes) || cfg.themes.length === 0) {
+        cfg.themes = JSON.parse(JSON.stringify(DEFAULT_PHOTO_STRIP_DATA.themes));
+      } else {
+        cfg.themes = DEFAULT_PHOTO_STRIP_DATA.themes.map(defT => {
+          const found = cfg.themes.find(t => t && t.id === defT.id) || {};
+          return {
+            id: defT.id,
+            name: found.name || defT.name,
+            badge: found.badge !== undefined ? found.badge : defT.badge,
+            previewBg: found.previewBg || defT.previewBg,
+            previewTextColor: found.previewTextColor || defT.previewTextColor,
+            borderColor: found.borderColor || defT.borderColor,
+            description: found.description || defT.description,
+            active: found.active !== false,
+            customOverlays: (found.customOverlays && typeof found.customOverlays === 'object') ? found.customOverlays : {}
+          };
+        });
+      }
+
+      return cfg;
+    }
+
+    function updatePhotoStripActiveUI(isActive) {
+      const toggle = document.getElementById('stripActiveToggle');
+      const banner = document.getElementById('stripActiveBanner');
+      const iconBox = document.getElementById('stripActiveIconBox');
+      const heading = document.getElementById('stripActiveHeading');
+      const toggleLabel = document.getElementById('stripActiveToggleLabel');
+      const badge = document.getElementById('stripStatusBadge');
+      const topBadge = document.getElementById('stripStatusTopBadge');
+
+      if (toggle) toggle.checked = Boolean(isActive);
+
+      if (isActive) {
+        if (banner) {
+          banner.style.background = '#ECFDF5';
+          banner.style.borderColor = '#10B981';
+        }
+        if (iconBox) {
+          iconBox.style.background = '#10B981';
+          iconBox.textContent = '🎞️';
+        }
+        if (heading) {
+          heading.textContent = 'Status Fitur Photo Strip di Situs Web: AKTIF (Ditampilkan)';
+          heading.style.color = '#065F46';
+        }
+        if (toggleLabel) toggleLabel.textContent = 'Fitur Aktif (Klik untuk Nonaktifkan)';
+        if (badge) {
+          badge.textContent = '🟢 AKTIF DI WEBSITE';
+          badge.style.background = '#DCFCE7';
+          badge.style.color = '#166534';
+          badge.style.borderColor = '#86EFAC';
+        }
+        if (topBadge) {
+          topBadge.textContent = 'AKTIF';
+          topBadge.style.background = '#DCFCE7';
+          topBadge.style.color = '#166534';
+        }
+      } else {
+        if (banner) {
+          banner.style.background = '#FEF2F2';
+          banner.style.borderColor = '#F87171';
+        }
+        if (iconBox) {
+          iconBox.style.background = '#EF4444';
+          iconBox.textContent = '🚫';
+        }
+        if (heading) {
+          heading.textContent = 'Status Fitur Photo Strip di Situs Web: NONAKTIF (Disembunyikan)';
+          heading.style.color = '#991B1B';
+        }
+        if (toggleLabel) toggleLabel.textContent = 'Fitur Nonaktif (Klik untuk Aktifkan)';
+        if (badge) {
+          badge.textContent = '🔴 NONAKTIF / DISEMBUNYIKAN';
+          badge.style.background = '#FEE2E2';
+          badge.style.color = '#991B1B';
+          badge.style.borderColor = '#FCA5A5';
+        }
+        if (topBadge) {
+          topBadge.textContent = 'NONAKTIF';
+          topBadge.style.background = '#FEE2E2';
+          topBadge.style.color = '#991B1B';
+        }
+      }
+    }
+
+    function togglePhotoStripMasterActive(checked) {
+      const cfg = ensurePhotoStripConfig();
+      cfg.active = Boolean(checked);
+      updatePhotoStripActiveUI(cfg.active);
+      savePhotoStripConfig(true);
+      showToast(
+        cfg.active
+          ? '🟢 Fitur Photo Strip DIAKTIFKAN dan tampil di seluruh navigasi website!'
+          : '🔴 Fitur Photo Strip DINONAKTIFKAN dan disembunyikan dari website.',
+        cfg.active ? '🎞️' : '🚫'
+      );
+    }
+
+    function renderPhotoStripGridsEditor() {
+      const cfg = ensurePhotoStripConfig();
+      const container = document.getElementById('stripGridsContainer');
+      const defaultSelect = document.getElementById('stripDefaultGridSelect');
+      if (!container) return;
+
+      if (defaultSelect) {
+        defaultSelect.innerHTML = cfg.grids.map(g => `
+          <option value="${escapeHtml(g.id)}" ${cfg.defaultGrid === g.id ? 'selected' : ''}>
+            ${escapeHtml(g.name)} (${escapeHtml(g.shortLabel)}) ${g.active === false ? '— [NONAKTIF]' : ''}
+          </option>
+        `).join('');
+      }
+
+      container.innerHTML = '';
+      cfg.grids.forEach((grid, idx) => {
+        const isActive = grid.active !== false;
+        const card = document.createElement('div');
+        card.style.cssText = `background: ${isActive ? '#FAF8F5' : '#F4F4F5'}; border: 1.5px solid ${isActive ? 'var(--sage-subtle)' : '#D4D4D8'}; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.55rem; transition: all 0.2s; ${isActive ? '' : 'opacity: 0.65;'}`;
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding-bottom: 0.45rem; border-bottom: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; gap: 0.4rem;">
+              <span style="font-size: 0.7rem; font-family: monospace; font-weight: 800; background: #2E2E2E; color: #FFFFFF; padding: 2px 7px; border-radius: 6px;">
+                ${escapeHtml(grid.photoCount + ' FOTO')}
+              </span>
+              <span style="font-size: 0.78rem; font-weight: 800; color: var(--charcoal);">
+                ${escapeHtml(grid.id)}
+              </span>
+            </div>
+            <label style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 800; color: ${isActive ? '#166534' : '#71717A'}; cursor: pointer;">
+              <input type="checkbox" ${isActive ? 'checked' : ''} onchange="togglePhotoStripGridActive(${idx}, this.checked)">
+              <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
+            </label>
+          </div>
+
+          <div>
+            <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Nama Tampilan Grid</label>
+            <input type="text" class="form-control" style="font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.55rem;" value="${escapeHtml(grid.name || '')}" oninput="updatePhotoStripGridField(${idx}, 'name', this.value)">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 0.45rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Label Singkat</label>
+              <input type="text" class="form-control" style="font-size: 0.78rem; padding: 0.35rem 0.55rem;" value="${escapeHtml(grid.shortLabel || '')}" oninput="updatePhotoStripGridField(${idx}, 'shortLabel', this.value)">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Label Ukuran Kertas</label>
+              <input type="text" class="form-control" style="font-size: 0.78rem; padding: 0.35rem 0.55rem;" value="${escapeHtml(grid.sizeLabel || '')}" oninput="updatePhotoStripGridField(${idx}, 'sizeLabel', this.value)">
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Deskripsi Singkat Grid</label>
+            <input type="text" class="form-control" style="font-size: 0.76rem; padding: 0.35rem 0.55rem;" value="${escapeHtml(grid.description || '')}" oninput="updatePhotoStripGridField(${idx}, 'description', this.value)">
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function togglePhotoStripGridActive(idx, checked) {
+      const cfg = ensurePhotoStripConfig();
+      if (!cfg.grids[idx]) return;
+      if (!checked) {
+        const activeCount = cfg.grids.filter(g => g.active !== false).length;
+        if (activeCount <= 1) {
+          alert('Minimal harus ada 1 tata letak Grid yang aktif di halaman Photo Strip!');
+          renderPhotoStripGridsEditor();
+          return;
+        }
+      }
+      cfg.grids[idx].active = Boolean(checked);
+      if (!checked && cfg.defaultGrid === cfg.grids[idx].id) {
+        const firstActive = cfg.grids.find(g => g.active !== false);
+        if (firstActive) cfg.defaultGrid = firstActive.id;
+      }
+      renderPhotoStripGridsEditor();
+    }
+
+    function updatePhotoStripGridField(idx, field, val) {
+      const cfg = ensurePhotoStripConfig();
+      if (!cfg.grids[idx]) return;
+      cfg.grids[idx][field] = val;
+    }
+
+    function renderPhotoStripThemesEditor() {
+      const cfg = ensurePhotoStripConfig();
+      const container = document.getElementById('stripThemesContainer');
+      const defaultSelect = document.getElementById('stripDefaultThemeSelect');
+      if (!container) return;
+
+      if (defaultSelect) {
+        defaultSelect.innerHTML = cfg.themes.map(t => `
+          <option value="${escapeHtml(t.id)}" ${cfg.defaultTheme === t.id ? 'selected' : ''}>
+            Tema ${escapeHtml(t.id)} — ${escapeHtml(t.name)} ${t.active === false ? '[NONAKTIF]' : ''}
+          </option>
+        `).join('');
+      }
+
+      container.innerHTML = '';
+      cfg.themes.forEach((theme, idx) => {
+        const isActive = theme.active !== false;
+        const overlays = theme.customOverlays || {};
+        const hasOverlayCount = Object.values(overlays).filter(u => typeof u === 'string' && u.trim().length > 0).length;
+
+        const card = document.createElement('div');
+        card.style.cssText = `background: ${isActive ? '#FAF8F5' : '#F4F4F5'}; border: 1.5px solid ${isActive ? 'var(--sage-subtle)' : '#D4D4D8'}; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; transition: all 0.2s; ${isActive ? '' : 'opacity: 0.65;'}`;
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding-bottom: 0.45rem; border-bottom: 1px solid var(--border);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <div id="stripThemeSwatch_${idx}" style="width: 32px; height: 32px; border-radius: 8px; background: ${escapeHtml(theme.previewBg || '#FFFFFF')}; color: ${escapeHtml(theme.previewTextColor || '#1E1E1E')}; border: 2px solid ${escapeHtml(theme.borderColor || '#E5E0D8')}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.78rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                ${escapeHtml(theme.id)}
+              </div>
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 800; color: var(--charcoal);">Tema ${escapeHtml(theme.id)}</div>
+                <div style="font-size: 0.68rem; color: #71717A;">${hasOverlayCount > 0 ? `🖼️ ${hasOverlayCount} Custom PNG Overlay` : 'Warna Solid & Logo Resmi'}</div>
+              </div>
+            </div>
+            <label style="display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 800; color: ${isActive ? '#166534' : '#71717A'}; cursor: pointer;">
+              <input type="checkbox" ${isActive ? 'checked' : ''} onchange="togglePhotoStripThemeActive(${idx}, this.checked)">
+              <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
+            </label>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.45rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Nama Tema Bingkai</label>
+              <input type="text" class="form-control" style="font-size: 0.8rem; font-weight: 700; padding: 0.35rem 0.55rem;" value="${escapeHtml(theme.name || '')}" oninput="updatePhotoStripThemeField(${idx}, 'name', this.value)">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Badge Kecil</label>
+              <input type="text" class="form-control" style="font-size: 0.78rem; padding: 0.35rem 0.55rem;" value="${escapeHtml(theme.badge || '')}" placeholder="Favorit / Signature" oninput="updatePhotoStripThemeField(${idx}, 'badge', this.value)">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.68rem; margin-bottom: 2px;">Warna Kertas</label>
+              <div style="display: flex; gap: 3px; align-items: center;">
+                <input type="color" value="${escapeHtml(theme.previewBg || '#FFFFFF')}" style="width: 28px; height: 28px; padding: 1px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer;" onchange="updatePhotoStripThemeColor(${idx}, 'previewBg', this.value)">
+                <input type="text" id="stripThemeBgHex_${idx}" class="form-control" style="font-size: 0.72rem; font-family: monospace; padding: 0.25rem 0.4rem;" value="${escapeHtml(theme.previewBg || '#FFFFFF')}" oninput="updatePhotoStripThemeColor(${idx}, 'previewBg', this.value)">
+              </div>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.68rem; margin-bottom: 2px;">Warna Teks/Logo</label>
+              <div style="display: flex; gap: 3px; align-items: center;">
+                <input type="color" value="${escapeHtml(theme.previewTextColor || '#1E1E1E')}" style="width: 28px; height: 28px; padding: 1px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer;" onchange="updatePhotoStripThemeColor(${idx}, 'previewTextColor', this.value)">
+                <input type="text" id="stripThemeTextHex_${idx}" class="form-control" style="font-size: 0.72rem; font-family: monospace; padding: 0.25rem 0.4rem;" value="${escapeHtml(theme.previewTextColor || '#1E1E1E')}" oninput="updatePhotoStripThemeColor(${idx}, 'previewTextColor', this.value)">
+              </div>
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.68rem; margin-bottom: 2px;">Garis Tepi</label>
+              <div style="display: flex; gap: 3px; align-items: center;">
+                <input type="color" value="${escapeHtml(theme.borderColor || '#E5E0D8')}" style="width: 28px; height: 28px; padding: 1px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer;" onchange="updatePhotoStripThemeColor(${idx}, 'borderColor', this.value)">
+                <input type="text" id="stripThemeBorderHex_${idx}" class="form-control" style="font-size: 0.72rem; font-family: monospace; padding: 0.25rem 0.4rem;" value="${escapeHtml(theme.borderColor || '#E5E0D8')}" oninput="updatePhotoStripThemeColor(${idx}, 'borderColor', this.value)">
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" style="font-size: 0.71rem; margin-bottom: 2px;">Deskripsi Tema</label>
+            <input type="text" class="form-control" style="font-size: 0.75rem; padding: 0.35rem 0.55rem;" value="${escapeHtml(theme.description || '')}" oninput="updatePhotoStripThemeField(${idx}, 'description', this.value)">
+          </div>
+
+          <details style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px; padding: 0.45rem 0.65rem; font-size: 0.74rem;">
+            <summary style="cursor: pointer; font-weight: 700; color: #5C725A; user-select: none;">
+              🖼️ Custom PNG Frame Overlay per Grid (Opsional ${hasOverlayCount > 0 ? `• ${hasOverlayCount} Terpasang` : ''})
+            </summary>
+            <div style="margin-top: 0.55rem; display: flex; flex-direction: column; gap: 0.45rem;">
+              <div style="font-size: 0.68rem; color: #71717A; line-height: 1.35;">
+                Jika diisi URL / upload PNG transparan, kanvas akan menimpakan desain bingkai PNG tersebut di atas foto pada grid terkait. Kosongkan untuk memakai bingkai bawaan.
+              </div>
+              ${['grid-1-3r', 'grid-3-4r', 'grid-4-3r', 'grid-6-4r'].map(gId => `
+                <div style="display: flex; gap: 0.35rem; align-items: center;">
+                  <span style="font-size: 0.68rem; font-family: monospace; font-weight: 700; width: 68px; flex-shrink: 0; color: var(--charcoal);">${gId}:</span>
+                  <input type="text" id="stripOverlayInput_${idx}_${gId}" class="form-control" style="font-size: 0.72rem; padding: 0.25rem 0.45rem;" placeholder="Kosong (Standar) atau /images/frames/..." value="${escapeHtml(overlays[gId] || '')}" oninput="updatePhotoStripThemeOverlay(${idx}, '${gId}', this.value)">
+                  <input type="file" id="stripOverlayFile_${idx}_${gId}" accept="image/png,image/webp,image/*" style="display: none;" onchange="handlePhotoStripOverlayUpload(${idx}, '${gId}', this)">
+                  <button type="button" class="btn btn-preview" style="font-size: 0.68rem; padding: 0.25rem 0.5rem; white-space: nowrap;" onclick="document.getElementById('stripOverlayFile_${idx}_${gId}').click()">📁 PNG</button>
+                </div>
+              `).join('')}
+            </div>
+          </details>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function togglePhotoStripThemeActive(idx, checked) {
+      const cfg = ensurePhotoStripConfig();
+      if (!cfg.themes[idx]) return;
+      if (!checked) {
+        const activeCount = cfg.themes.filter(t => t.active !== false).length;
+        if (activeCount <= 1) {
+          alert('Minimal harus ada 1 Tema Warna Bingkai yang aktif di halaman Photo Strip!');
+          renderPhotoStripThemesEditor();
+          return;
+        }
+      }
+      cfg.themes[idx].active = Boolean(checked);
+      if (!checked && cfg.defaultTheme === cfg.themes[idx].id) {
+        const firstActive = cfg.themes.find(t => t.active !== false);
+        if (firstActive) cfg.defaultTheme = firstActive.id;
+      }
+      renderPhotoStripThemesEditor();
+    }
+
+    function updatePhotoStripThemeField(idx, field, val) {
+      const cfg = ensurePhotoStripConfig();
+      if (!cfg.themes[idx]) return;
+      cfg.themes[idx][field] = val;
+    }
+
+    function updatePhotoStripThemeColor(idx, field, val) {
+      const cfg = ensurePhotoStripConfig();
+      if (!cfg.themes[idx]) return;
+      cfg.themes[idx][field] = val;
+      const swatch = document.getElementById('stripThemeSwatch_' + idx);
+      if (swatch) {
+        if (field === 'previewBg') swatch.style.background = val;
+        if (field === 'previewTextColor') swatch.style.color = val;
+        if (field === 'borderColor') swatch.style.borderColor = val;
+      }
+      const hexInputMap = {
+        previewBg: 'stripThemeBgHex_' + idx,
+        previewTextColor: 'stripThemeTextHex_' + idx,
+        borderColor: 'stripThemeBorderHex_' + idx
       };
+      const targetHexInput = document.getElementById(hexInputMap[field]);
+      if (targetHexInput && targetHexInput.value !== val) {
+        targetHexInput.value = val;
+      }
+    }
+
+    function updatePhotoStripThemeOverlay(idx, gridId, val) {
+      const cfg = ensurePhotoStripConfig();
+      if (!cfg.themes[idx]) return;
+      if (!cfg.themes[idx].customOverlays) cfg.themes[idx].customOverlays = {};
+      const clean = (val || '').trim();
+      if (clean) {
+        cfg.themes[idx].customOverlays[gridId] = clean;
+      } else {
+        delete cfg.themes[idx].customOverlays[gridId];
+      }
+    }
+
+    async function handlePhotoStripOverlayUpload(themeIdx, gridId, input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      try {
+        showToast(`Mengunggah PNG Overlay (${gridId})...`, '⏳');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.png';
+        const data = await uploadImageToServer({
+          file,
+          fileName: `frame_theme_${themeIdx}_${gridId}${ext}`,
+          folder: 'frames',
+          maxWidth: 2400,
+          maxHeight: 2400,
+          quality: 0.92
+        });
+        if (data && data.success && data.url) {
+          updatePhotoStripThemeOverlay(themeIdx, gridId, data.url);
+          renderPhotoStripThemesEditor();
+          showToast(`✅ Overlay PNG ${gridId} berhasil diunggah!`, '🖼️');
+        }
+      } catch (err) {
+        alert('Gagal mengunggah overlay PNG: ' + (err.message || 'Error'));
+      } finally {
+        input.value = '';
+      }
+    }
+
+    function renderPhotoStripSamplePhotosEditor() {
+      const cfg = ensurePhotoStripConfig();
+      const container = document.getElementById('stripSamplePhotosGrid');
+      const legacyTextarea = document.getElementById('stripSamplePhotosInput');
+      if (legacyTextarea) {
+        legacyTextarea.value = (cfg.samplePhotos || []).slice(0, 6).join('\n');
+      }
+      if (!container) return;
+
+      container.innerHTML = '';
+      for (let i = 0; i < 6; i++) {
+        const url = cfg.samplePhotos[i] || DEFAULT_PHOTO_STRIP_DATA.samplePhotos[i];
+        const card = document.createElement('div');
+        card.style.cssText = 'background: #FAF8F5; border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;';
+        card.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.75rem; font-weight: 800; color: var(--charcoal);">📷 Slot Foto #${i + 1}</span>
+            <button type="button" class="btn-action" style="font-size: 0.68rem; padding: 2px 6px;" onclick="resetSinglePhotoStripSamplePhoto(${i})" title="Kembalikan ke foto default slot #${i + 1}">
+              🔄 Default
+            </button>
+          </div>
+          <div style="height: 125px; border-radius: 8px; overflow: hidden; background: #1C1917; border: 1px solid var(--border); position: relative;">
+            <img id="stripSamplePreview_${i}" src="${escapeHtml(url)}" alt="Sample ${i + 1}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.opacity='0.3'">
+            <input type="file" id="stripSampleFile_${i}" accept="image/*" style="display: none;" onchange="handlePhotoStripSampleUpload(${i}, this)">
+            <button type="button" onclick="document.getElementById('stripSampleFile_${i}').click()" style="position: absolute; bottom: 6px; right: 6px; background: rgba(255,255,255,0.94); color: #1C1917; border: 1px solid rgba(0,0,0,0.12); border-radius: 6px; padding: 4px 9px; font-size: 0.7rem; font-weight: 800; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+              📁 Upload Foto
+            </button>
+          </div>
+          <input type="text" id="stripSampleUrlInput_${i}" class="form-control" style="font-size: 0.72rem; padding: 0.3rem 0.5rem;" value="${escapeHtml(url)}" placeholder="URL Foto Slot #${i + 1}" oninput="updatePhotoStripSamplePhotoUrl(${i}, this.value)">
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    function updatePhotoStripSamplePhotoUrl(idx, val) {
+      const cfg = ensurePhotoStripConfig();
+      cfg.samplePhotos[idx] = (val || '').trim();
+      const img = document.getElementById('stripSamplePreview_' + idx);
+      if (img) {
+        img.src = cfg.samplePhotos[idx] || DEFAULT_PHOTO_STRIP_DATA.samplePhotos[idx];
+        img.style.opacity = '1';
+      }
+      const legacyTextarea = document.getElementById('stripSamplePhotosInput');
+      if (legacyTextarea) {
+        legacyTextarea.value = cfg.samplePhotos.slice(0, 6).join('\n');
+      }
+    }
+
+    async function handlePhotoStripSampleUpload(idx, input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        alert('Mohon pilih file gambar yang valid (JPG, PNG, WebP).');
+        input.value = '';
+        return;
+      }
+      try {
+        showToast(`Mengunggah Foto Contoh Slot #${idx + 1}...`, '⏳');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const data = await uploadImageToServer({
+          file,
+          fileName: `photostrip_sample_${idx + 1}${ext}`,
+          folder: 'packages',
+          maxWidth: 1400,
+          maxHeight: 1400,
+          quality: 0.85
+        });
+        if (data && data.success && data.url) {
+          updatePhotoStripSamplePhotoUrl(idx, data.url);
+          const urlInput = document.getElementById('stripSampleUrlInput_' + idx);
+          if (urlInput) urlInput.value = data.url;
+          showToast(`✅ Foto Contoh Slot #${idx + 1} berhasil diunggah!`, '📸');
+        }
+      } catch (err) {
+        alert('Gagal mengunggah foto contoh: ' + (err.message || 'Error'));
+      } finally {
+        input.value = '';
+      }
+    }
+
+    function resetSinglePhotoStripSamplePhoto(idx) {
+      const defUrl = DEFAULT_PHOTO_STRIP_DATA.samplePhotos[idx];
+      updatePhotoStripSamplePhotoUrl(idx, defUrl);
+      const urlInput = document.getElementById('stripSampleUrlInput_' + idx);
+      if (urlInput) urlInput.value = defUrl;
+      showToast(`Foto Contoh Slot #${idx + 1} dikembalikan ke default.`, '🔄');
+    }
+
+    function resetAllPhotoStripSamplePhotos() {
+      if (!confirm('Kembalikan ke-6 foto contoh Photo Strip ke gambar standar awal?')) return;
+      const cfg = ensurePhotoStripConfig();
+      cfg.samplePhotos = [...DEFAULT_PHOTO_STRIP_DATA.samplePhotos];
+      renderPhotoStripSamplePhotosEditor();
+      showToast('Ke-6 foto contoh berhasil dikembalikan ke standar awal!', '🔄');
+    }
+
+    function resetPhotoStripStickers() {
+      const cfg = ensurePhotoStripConfig();
+      cfg.stickers = [...DEFAULT_PHOTO_STRIP_DATA.stickers];
+      const stickersEl = document.getElementById('stripStickersInput');
+      if (stickersEl) stickersEl.value = cfg.stickers.join(', ');
+      showToast('Daftar stiker emoji dikembalikan ke default!', '✨');
+    }
+
+    function resetPhotoStripToDefault() {
+      if (!confirm('Kembalikan seluruh pengaturan Photo Strip (Grid, Tema Warna, Judul, dan Foto Contoh) ke pengaturan standar pabrik Alviero Studio?')) return;
+      appConfig.photoStripConfig = JSON.parse(JSON.stringify(DEFAULT_PHOTO_STRIP_DATA));
+      renderPhotoStripConfig();
       saveConfigLocally();
-      showToast('✅ Konfigurasi Photo Strip Builder berhasil disimpan!', '🎞️');
+      showToast('✅ Pengaturan Photo Strip berhasil di-reset ke standar pabrik!', '🎞️');
+    }
+
+    function renderPhotoStripConfig() {
+      if (!appConfig) return;
+      const cfg = ensurePhotoStripConfig();
+
+      updatePhotoStripActiveUI(cfg.active !== false);
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val || '';
+      };
+      const setCheck = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = Boolean(val);
+      };
+
+      setVal('stripNavLabelInput', cfg.navLabel || 'Photo Strip');
+      setVal('stripMobileNavLabelInput', cfg.mobileNavLabel || 'Strip');
+      setVal('stripBadgeTextInput', cfg.badgeText || DEFAULT_PHOTO_STRIP_DATA.badgeText);
+      setVal('stripTitleInput', cfg.title || DEFAULT_PHOTO_STRIP_DATA.title);
+      setVal('stripSubtitleInput', cfg.subtitle || DEFAULT_PHOTO_STRIP_DATA.subtitle);
+      setVal('stripInstructionInput', cfg.instructionText || DEFAULT_PHOTO_STRIP_DATA.instructionText);
+      setVal('stripFooterNoteInput', cfg.footerNote || DEFAULT_PHOTO_STRIP_DATA.footerNote);
+
+      setCheck('stripEnableCropToggle', cfg.enableCrop !== false);
+      setCheck('stripEnableFiltersToggle', cfg.enableFilters !== false);
+      setCheck('stripEnableStickersToggle', cfg.enableStickers !== false);
+      setCheck('stripEnableShutterToggle', cfg.enableShutterSound !== false);
+
+      setVal('stripStickersInput', (cfg.stickers || []).join(', '));
+
+      renderPhotoStripGridsEditor();
+      renderPhotoStripThemesEditor();
+      renderPhotoStripSamplePhotosEditor();
+
+      setVal('stripDefaultGridSelect', cfg.defaultGrid || 'grid-3-4r');
+      setVal('stripDefaultThemeSelect', cfg.defaultTheme || 'A');
+    }
+
+    function savePhotoStripConfig(silent = false) {
+      if (!appConfig) return;
+      const cfg = ensurePhotoStripConfig();
+
+      const activeToggle = document.getElementById('stripActiveToggle');
+      if (activeToggle) cfg.active = Boolean(activeToggle.checked);
+
+      const getVal = (id, fallback) => {
+        const v = (document.getElementById(id)?.value || '').trim();
+        return v || fallback;
+      };
+
+      cfg.navLabel = getVal('stripNavLabelInput', 'Photo Strip');
+      cfg.mobileNavLabel = getVal('stripMobileNavLabelInput', 'Strip');
+      cfg.badgeText = getVal('stripBadgeTextInput', DEFAULT_PHOTO_STRIP_DATA.badgeText);
+      cfg.title = getVal('stripTitleInput', DEFAULT_PHOTO_STRIP_DATA.title);
+      cfg.subtitle = getVal('stripSubtitleInput', DEFAULT_PHOTO_STRIP_DATA.subtitle);
+      cfg.instructionText = getVal('stripInstructionInput', DEFAULT_PHOTO_STRIP_DATA.instructionText);
+      cfg.footerNote = getVal('stripFooterNoteInput', DEFAULT_PHOTO_STRIP_DATA.footerNote);
+
+      cfg.defaultGrid = getVal('stripDefaultGridSelect', 'grid-3-4r');
+      cfg.defaultTheme = getVal('stripDefaultThemeSelect', 'A');
+
+      const cropEl = document.getElementById('stripEnableCropToggle');
+      const filterEl = document.getElementById('stripEnableFiltersToggle');
+      const stickerEl = document.getElementById('stripEnableStickersToggle');
+      const shutterEl = document.getElementById('stripEnableShutterToggle');
+
+      if (cropEl) cfg.enableCrop = Boolean(cropEl.checked);
+      if (filterEl) cfg.enableFilters = Boolean(filterEl.checked);
+      if (stickerEl) cfg.enableStickers = Boolean(stickerEl.checked);
+      if (shutterEl) cfg.enableShutterSound = Boolean(shutterEl.checked);
+
+      const rawStickers = (document.getElementById('stripStickersInput')?.value || '')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+      cfg.stickers = rawStickers.length > 0 ? rawStickers : [...DEFAULT_PHOTO_STRIP_DATA.stickers];
+
+      // Ensure samplePhotos has 6 valid URLs
+      cfg.samplePhotos = [0, 1, 2, 3, 4, 5].map(i => {
+        const inputVal = (document.getElementById('stripSampleUrlInput_' + i)?.value || cfg.samplePhotos[i] || '').trim();
+        return inputVal || DEFAULT_PHOTO_STRIP_DATA.samplePhotos[i];
+      });
+
+      const legacyTextarea = document.getElementById('stripSamplePhotosInput');
+      if (legacyTextarea) legacyTextarea.value = cfg.samplePhotos.join('\n');
+
+      updatePhotoStripActiveUI(cfg.active);
+      saveConfigLocally(silent);
+      if (!silent) {
+        showToast('✅ Seluruh konfigurasi Photo Strip Customizer berhasil disimpan!', '🎞️');
+      }
     }
 
     // 7. Disclaimer, Ketentuan & Aturan Operasional Studio

@@ -11,7 +11,7 @@ import { ExtraCheckoutModal, type ExtraCartItem } from './components/ExtraChecko
 import { StudioBranch } from './types';
 import { useAutoHideScrollbar } from './hooks/useAutoHideScrollbar';
 import { useMobileBackButton } from './hooks/useMobileBackButton';
-import { useStudioConfig } from './utils/studioConfigManager';
+import { useStudioConfig, getActivePhotoStripConfig } from './utils/studioConfigManager';
 
 // Nomor WhatsApp Admin Studio 1 dalam format internasional tanpa tanda plus.
 const ADMIN_STUDIO_1_WA = '6287777538164';
@@ -33,7 +33,14 @@ export default function App() {
 
   useAutoHideScrollbar();
 
+  const stripConfig = useMemo(() => getActivePhotoStripConfig(studioConfig), [studioConfig]);
   const [activeTab, setActiveTab] = useState<string>('katalog');
+
+  useEffect(() => {
+    if (activeTab === 'strip-builder' && stripConfig.active === false) {
+      setActiveTab('katalog');
+    }
+  }, [activeTab, stripConfig.active]);
   const [isBookingOpen, setIsBookingOpen] = useState<boolean>(false);
   const [preselectedPackageId, setPreselectedPackageId] = useState<string | undefined>();
   const [preselectedBackdropId, setPreselectedBackdropId] = useState<string | undefined>();
