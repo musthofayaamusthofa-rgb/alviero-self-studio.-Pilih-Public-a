@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T11:24:12.769Z",
+  "lastUpdated": "2026-11-05T11:24:31.380Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1512,6 +1512,11 @@
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
           "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
@@ -1654,6 +1659,11 @@
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
           "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
