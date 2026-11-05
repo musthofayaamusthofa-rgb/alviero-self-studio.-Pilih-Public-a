@@ -298,18 +298,18 @@ export const AlvieroHistoryModal: React.FC<AlvieroHistoryModalProps> = ({
 
           {/* 3. Visi, Misi & Nilai Luhur Pelayanan (Dynamic Values / C.R.E.A.T.E.) */}
           {(() => {
-            const visiItem = values.find(v => v.title.toLowerCase().includes('visi')) || (values.length >= 2 ? values[0] : null);
-            const misiItem = values.find(v => v.title.toLowerCase().includes('misi')) || (values.length >= 2 ? values[1] : null);
+            const visiItem = values.find(v => (v.title || '').toLowerCase().includes('visi')) || (values.length >= 2 ? values[0] : null);
+            const misiItem = values.find(v => (v.title || '').toLowerCase().includes('misi')) || (values.length >= 2 ? values[1] : null);
             const createItem = values.find(v => 
               v.id === 'value-3' || 
-              v.title.toLowerCase().includes('create') || 
-              v.title.toLowerCase().includes('nilai luhur') || 
-              v.description.toLowerCase().includes('create')
+              (v.title || '').toLowerCase().includes('create') || 
+              (v.title || '').toLowerCase().includes('nilai luhur') || 
+              (v.description || '').toLowerCase().includes('create')
             ) || (values.length >= 3 ? values[2] : null);
 
             const isSpecialVisiMisiCreate = !!(
               visiItem && misiItem && createItem && 
-              (createItem.description.toLowerCase().includes('create') || createItem.description.includes('*C -') || createItem.description.includes('C - '))
+              ((createItem.description || '').toLowerCase().includes('create') || (createItem.description || '').includes('*C -') || (createItem.description || '').includes('C - '))
             );
 
             const parseCreatePoints = (text?: string) => {

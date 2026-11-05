@@ -1042,7 +1042,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const activeMenuInfo = allCategoryButtons.find(m => m.id === activeMenuCategory) || studioFotoSubButtons[0] || mainMenuButtons[0];
   const allDynamicPackages = useMemo(() => getActivePackages(studioConfig, PACKAGES), [studioConfig]);
   const activeMenuPackages = useMemo(() => {
-    return allDynamicPackages.filter(p => activeMenuInfo.targetPackageIds.includes(p.id));
+    const targetIds = Array.isArray(activeMenuInfo?.targetPackageIds) ? activeMenuInfo.targetPackageIds : [];
+    return allDynamicPackages.filter(p => targetIds.includes(p.id));
   }, [activeMenuInfo, allDynamicPackages]);
 
   const previewCategoryByMenu: Record<string, string> = {
@@ -4880,7 +4881,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                       <button
                         onClick={() => {
-                          const matchedSheet = PRICELIST_SHEETS.find(s => s.category.toLowerCase().includes(activeMenuInfo.sheetCategory.toLowerCase())) || PRICELIST_SHEETS[0];
+                          const sheetCat = (activeMenuInfo?.sheetCategory || '').toLowerCase();
+                          const matchedSheet = PRICELIST_SHEETS.find(s => (s.category || '').toLowerCase().includes(sheetCat)) || PRICELIST_SHEETS[0];
                           setActiveModalSheet(matchedSheet);
                         }}
                         className="min-h-[40px] px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs active:scale-95 shrink-0"

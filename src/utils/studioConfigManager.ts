@@ -667,12 +667,52 @@ export function getActivePhotoStripConfig(cfg?: any): typeof DEFAULT_PHOTO_STRIP
 }
 
 /**
- * Mengambil daftar 16 kategori menu paket foto
+ * Mengambil daftar 16 kategori menu paket foto dengan menggabungkan (merge)
+ * konfigurasi aktif dari dashboard ke atas struktur fallback komponen UI.
  */
 export function getActiveCategories(cfg?: any, fallback: any[] = []): any[] {
   const activeCfg = cfg || currentConfig;
-  if (activeCfg?.categories && Array.isArray(activeCfg.categories) && activeCfg.categories.length > 0) {
-    return activeCfg.categories.filter((c: any) => c.active !== false);
+  const configuredList: any[] = Array.isArray(activeCfg?.categories) ? activeCfg.categories : [];
+
+  if (configuredList.length === 0) {
+    return fallback;
   }
-  return fallback;
+
+  // Jika pemanggil memberikan array fallback (seperti mainMenuButtons / studioFotoSubButtons / defaultPhotoStudioGridItems),
+  // pertahankan seluruh properti penting UI (targetPackageIds, specialView, sheetCategory, cardBg, dll.)
+  // sambil menimpa nama, judul, subjudul, badge, ikon, foto thumbnail, dan status aktif dari dashboard.
+  if (fallback && fallback.length > 0) {
+    const catMap = new Map<string, any>();
+    configuredList.forEach((c: any) => {
+      if (c && c.id) {
+        catMap.set(c.id, c);
+      }
+    });
+
+    return fallback
+      .filter((fbItem: any) => {
+        const matched = catMap.get(fbItem.id);
+        return matched ? matched.active !== false : true;
+      })
+      .map((fbItem: any) => {
+        const matched = catMap.get(fbItem.id);
+        if (!matched) return fbItem;
+        const customImg = matched.image || matched.thumbnailImage || fbItem.img || fbItem.image;
+        return {
+          ...fbItem,
+          name: matched.label || matched.name || fbItem.name,
+          label: matched.label || matched.name || fbItem.label || fbItem.name,
+          title: matched.title || fbItem.title,
+          subtitle: matched.tagline || matched.subtitle || fbItem.subtitle,
+          badge: matched.badge !== undefined ? matched.badge : (matched.badgeText !== undefined ? matched.badgeText : fbItem.badge),
+          icon: matched.icon || fbItem.icon,
+          img: customImg,
+          image: customImg,
+          targetPackageIds: Array.isArray(matched.targetPackageIds) ? matched.targetPackageIds : (fbItem.targetPackageIds || []),
+          sheetCategory: matched.sheetCategory || fbItem.sheetCategory || ''
+        };
+      });
+  }
+
+  return configuredList.filter((c: any) => c && c.active !== false);
 }

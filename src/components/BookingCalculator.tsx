@@ -1659,22 +1659,22 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   );
   const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
   const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
-  const isSelfStudio = (currentPackage.category === 'self-studio' || currentPackage.id.toLowerCase().includes('self'));
+  const isSelfStudio = (currentPackage.category === 'self-studio' || (currentPackage.id || '').toLowerCase().includes('self'));
   const isGraduationPackage = (
     currentPackage.category === 'graduation-indoor' ||
     currentPackage.category === 'graduation-outdoor' ||
-    currentPackage.category.includes('grad') ||
-    currentPackage.id.toLowerCase().includes('grad') ||
-    currentPackage.name.toLowerCase().includes('scholar') ||
-    currentPackage.name.toLowerCase().includes('cumlaude') ||
-    currentPackage.name.toLowerCase().includes('wisuda')
+    (currentPackage.category || '').includes('grad') ||
+    (currentPackage.id || '').toLowerCase().includes('grad') ||
+    (currentPackage.name || '').toLowerCase().includes('scholar') ||
+    (currentPackage.name || '').toLowerCase().includes('cumlaude') ||
+    (currentPackage.name || '').toLowerCase().includes('wisuda')
   );
   const hasOutdoorSession = Boolean(
     currentPackage.hasOutdoorSession ||
     currentPackage.category === 'graduation-outdoor' ||
-    currentPackage.name.toLowerCase().includes('outdoor') ||
-    currentPackage.name.toLowerCase().includes('bundling') ||
-    currentPackage.description.toLowerCase().includes('outdoor')
+    (currentPackage.name || '').toLowerCase().includes('outdoor') ||
+    (currentPackage.name || '').toLowerCase().includes('bundling') ||
+    (currentPackage.description || '').toLowerCase().includes('outdoor')
   );
   const isOutdoorOnly = hasOutdoorSession && currentPackage.category === 'graduation-outdoor';
   const outdoorTimeSlots = useMemo(() => generateOutdoorTimeSlots(), []);

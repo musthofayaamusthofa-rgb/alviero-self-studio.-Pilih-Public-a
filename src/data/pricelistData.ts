@@ -2285,12 +2285,12 @@ export function getSelfStudioTimeSlots(branch: string = 'cabang-1'): string[] {
 
 // Slot Jadwal untuk Studio Foto Profesional (Dikelola via studioConfig.json / Alviero Studio Manager)
 export const PRO_STUDIO_TIME_SLOTS = studioConfig.timeSlots
-  .filter(s => s.active !== false && s.allowedServices.includes('indoor'))
+  .filter(s => s.active !== false && s.allowedServices?.includes('indoor'))
   .map(s => s.time);
 
 // Slot Jadwal untuk Ruang Bilik Self Studio
 export const SELF_STUDIO_TIME_SLOTS = studioConfig.timeSlots
-  .filter(s => s.active !== false && s.allowedServices.includes('indoor') && s.time >= '08:00')
+  .filter(s => s.active !== false && s.allowedServices?.includes('indoor') && s.time >= '08:00')
   .map(s => s.time);
 
 export const TIME_SLOTS = PRO_STUDIO_TIME_SLOTS;
