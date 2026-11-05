@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T11:40:37.900Z",
+  "lastUpdated": "2026-11-05T11:53:42.040Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1529,21 +1529,60 @@
     },
     {
       "id": "grad-indoor-infinity-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 3",
       "badge": "2 Wisudawan",
       "name": "Infinity Scholar",
       "originalPrice": "Rp 680.000",
-      "price": "595K",
+      "price": "580K",
       "priceUnit": "per sesi • all-in",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "2 Wisudawan + Maks 10 Org",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 12 Foto High-Res",
-      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "2 Wisudawan + 2 Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 4 Uk 10Rs"
+        }
+      ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 2
     }
   ],
@@ -1679,21 +1718,60 @@
     },
     {
       "id": "grad-indoor-infinity-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 3",
       "badge": "2 Wisudawan",
       "name": "Infinity Scholar",
       "originalPrice": "Rp 680.000",
-      "price": "595K",
+      "price": "580K",
       "priceUnit": "per sesi • all-in",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "2 Wisudawan + Maks 10 Org",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 12 Foto High-Res",
-      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "2 Wisudawan + 2 Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 4 Uk 10Rs"
+        }
+      ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 2
     },
     {
