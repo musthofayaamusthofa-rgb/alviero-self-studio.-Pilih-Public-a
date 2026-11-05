@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T11:54:17.740Z",
+  "lastUpdated": "2026-11-05T15:13:32.138Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1881,8 +1881,8 @@
     },
     {
       "id": "grad-outdoor-group-2",
-      "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "category": "group",
+      "categoryLabel": "Group",
       "subtitle": "Graduation Outdoor 3",
       "badge": "Geng Wisuda",
       "name": "Group Wisuda Outdoor",
@@ -1896,6 +1896,8 @@
       "print": "Softfile Google Drive",
       "fileDelivery": "All File via Google Drive",
       "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 8
     },
     {
@@ -2617,25 +2619,6 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
       "_origIndex": 7
-    },
-    {
-      "id": "grad-outdoor-group-2",
-      "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
-      "subtitle": "Graduation Outdoor 3",
-      "badge": "Geng Wisuda",
-      "name": "Group Wisuda Outdoor",
-      "originalPrice": "",
-      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
-      "priceUnit": "Berdasarkan Jumlah Wisudawan",
-      "duration": "60 - 90 Menit Unlimited",
-      "background": "Area Kampus Malang & Sekitarnya",
-      "people": "Group Wisudawan + Keluarga",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Google Drive",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
-      "_origIndex": 8
     }
   ],
   "operationalHoursByBranch": {
