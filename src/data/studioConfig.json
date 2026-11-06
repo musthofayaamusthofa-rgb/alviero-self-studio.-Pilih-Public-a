@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T08:56:54.179Z",
+  "lastUpdated": "2026-11-06T09:45:57.861Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2382,9 +2382,9 @@
           "text": "1 Background Studio"
         },
         {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 6 Foto High-Res"
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -2392,9 +2392,9 @@
           "text": "All File via Google Drive"
         },
         {
-          "icon": "🖼️",
-          "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs"
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
         },
         {
           "icon": "👗",
@@ -2405,38 +2405,37 @@
       "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga",
       "imageUrl": "/images/packages/sweet_together_foto1_1793946699919.jpg",
       "imageUrls": [
-        "/images/packages/sweet_together_foto1_1793946699919.jpg"
+        "/images/packages/sweet_together_foto1_1793946699919.jpg",
+        "/images/packages/sweet_together_foto2_1793957382427.jpg"
       ],
       "_origIndex": 18
     },
     {
       "id": "family-happy-nest",
       "category": "family",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Family",
       "subtitle": "Family 2",
       "badge": "Keluarga Besar",
       "name": "Happy Nest",
       "originalPrice": "Rp 600.000",
-      "price": "500K",
+      "price": "415K",
       "priceUnit": "per sesi",
-      "duration": "45 Menit Sesi Foto",
+      "duration": "40 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "Maksimal 12 Orang",
-      "edit": "Edit 8 Foto Pilihan",
-      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "people": "Minimal 10 Orang (Keluarga Besar)",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
-      "_origIndex": 19,
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "Maksimal 12 Orang (Keluarga Besar)"
+          "text": "Minimal 10 Orang (Keluarga Besar)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "45 Menit Unlimited Foto"
+          "text": "40 Menit Unlimited Foto"
         },
         {
           "icon": "✨",
@@ -2444,14 +2443,9 @@
           "text": "2 Background Studio"
         },
         {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 8 Foto Pilihan"
-        },
-        {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs + 2 Uk 4R"
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -2459,11 +2453,20 @@
           "text": "All File via Google Drive"
         },
         {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto High-Res"
+        },
+        {
           "icon": "👗",
           "label": "Ganti Kostum",
-          "text": "Maksimal 2 Kostum"
+          "text": "Maksimal 1 Kostum"
         }
-      ]
+      ],
+      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 19
     },
     {
       "id": "group-friendly-frame",
@@ -3637,6 +3640,112 @@
           "text": "Live Wishes & Doa Tamu Undangan"
         }
       ]
+    },
+    {
+      "id": "family-1793957045916",
+      "category": "family",
+      "categoryLabel": "Family",
+      "subtitle": "FamilyGroup1",
+      "badge": "Keluarga Besar",
+      "name": "Family Group 1",
+      "originalPrice": "700K",
+      "price": "675K",
+      "priceUnit": "per sesi foto",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Maksimal 6-8 Orang Keluarga",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak Foto 10R + Frame",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "30 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background / Lokasi",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 6-8 Orang Keluarga"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak Foto 10R + Frame"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 41
+    },
+    {
+      "id": "family-1793957134052",
+      "category": "family",
+      "categoryLabel": "Family",
+      "subtitle": "FamilyGroup2",
+      "badge": "Keluarga Besar",
+      "name": "Family Group 2",
+      "originalPrice": "975K",
+      "price": "875K",
+      "priceUnit": "per sesi foto",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Maksimal 6-8 Orang Keluarga",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak Foto 10R + Frame",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "30 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background / Lokasi",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 6-8 Orang Keluarga"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak Foto 10R + Frame"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 42
     }
   ],
   "bundlingPackages": [
