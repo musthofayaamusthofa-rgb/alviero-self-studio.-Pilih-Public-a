@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:34:31.385Z",
+  "lastUpdated": "2026-11-06T09:36:13.576Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2382,9 +2382,9 @@
           "text": "1 Background Studio"
         },
         {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 6 Foto High-Res"
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -2392,9 +2392,9 @@
           "text": "All File via Google Drive"
         },
         {
-          "icon": "🖼️",
-          "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs"
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
         },
         {
           "icon": "👗",
