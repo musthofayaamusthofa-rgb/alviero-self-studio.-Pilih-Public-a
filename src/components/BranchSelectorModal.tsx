@@ -960,21 +960,32 @@ export const StudioTourAndEducationShowcase: React.FC<{
         >
           <img
             key={currentSlideIdx}
-            src={activeSlide.src}
-            alt={activeSlide.caption}
+            src={activeSlide.src || (activeSlide as any).imageUrl || (activeSlide as any).image}
+            alt={activeSlide.caption || (activeSlide as any).title}
             className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 group-hover:scale-102"
           />
 
           {/* Subtle Ambient Shadow */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25 pointer-events-none" />
 
           {/* Top Floating Glassmorphism Tag */}
           <div className="relative top-4 left-4 z-10 pointer-events-none flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 text-[9.5px] sm:text-[10.5px] font-mono font-bold tracking-widest text-[#2A2A2A] uppercase bg-[#FDFBF7]/95 px-3.5 py-1.5 rounded-full border border-[#E8DDD6] backdrop-blur-md shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-[#6E856C]" />
-              {activeSlide.tag}
+              {activeSlide.tag || (activeSlide as any).badge || 'STUDIO SHOWCASE'}
             </span>
           </div>
+
+          {/* Bottom Floating Luxury Editorial Caption & Subtitle */}
+          {(activeSlide.caption || (activeSlide as any).title) && (
+            <div className="absolute bottom-11 sm:bottom-12 inset-x-4 sm:inset-x-8 z-10 pointer-events-none text-center">
+              <div className="inline-block bg-black/60 backdrop-blur-md px-4 sm:px-6 py-2 rounded-2xl border border-white/20 shadow-lg max-w-xl mx-auto">
+                <h4 className="text-white font-serif font-bold text-sm sm:text-base md:text-lg tracking-tight leading-snug drop-shadow-sm">
+                  {activeSlide.caption || (activeSlide as any).title}
+                </h4>
+              </div>
+            </div>
+          )}
 
           {/* Minimalist Bottom Pagination Dots */}
           <div className="absolute bottom-4 inset-x-0 z-20 flex items-center justify-center gap-2 pointer-events-auto">

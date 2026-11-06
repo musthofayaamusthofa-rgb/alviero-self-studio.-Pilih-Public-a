@@ -172,7 +172,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
             {/* Background Image with Smooth Key Transition */}
             <img
               key={activeItem.id}
-              src={activeItem.imageUrl}
+              src={activeItem.imageUrl || (activeItem as any).src || (activeItem as any).image}
               alt={activeItem.title}
               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 animate-in fade-in zoom-in-95 duration-300"
               loading="lazy"
@@ -830,6 +830,7 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
   const handlePhotoZoomWrapper = (item: GalleryItem) => {
     if (!onPhotoZoom) return;
     // Map GalleryItem to StudioGalleryPhoto so the parent zoom modal renders 100% correctly
+    const img = item.imageUrl || (item as any).src || (item as any).image;
     const mappedModalPhoto = {
       id: item.id,
       title: item.title,
@@ -837,8 +838,8 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
       packageName: item.packageName,
       icon: item.icon,
       targetPackageId: 'sewa-studio-hourly',
-      imageUrl: item.imageUrl,
-      images: item.images && item.images.length > 0 ? item.images : [item.imageUrl],
+      imageUrl: img,
+      images: item.images && item.images.length > 0 ? item.images : [img],
       description: item.description,
       conceptNote: item.conceptNote,
       tags: item.tags

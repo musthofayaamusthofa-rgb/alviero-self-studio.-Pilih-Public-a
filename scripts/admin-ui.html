@@ -8331,8 +8331,19 @@
       secSelect.value = sec;
       secSelect.disabled = true;
 
-      document.getElementById('galleryItemTitleInput').value = item.title || item.caption || '';
-      document.getElementById('galleryItemSubtitleInput').value = item.theme || item.subtitle || '';
+      let rawTitle = item.title || '';
+      let rawSubtitle = item.subtitle || item.theme || '';
+      if (!rawTitle && item.caption) {
+        if (item.caption.includes(' — ')) {
+          const parts = item.caption.split(' — ');
+          rawTitle = parts[0].trim();
+          rawSubtitle = rawSubtitle || parts.slice(1).join(' — ').trim();
+        } else {
+          rawTitle = item.caption;
+        }
+      }
+      document.getElementById('galleryItemTitleInput').value = rawTitle;
+      document.getElementById('galleryItemSubtitleInput').value = rawSubtitle;
       document.getElementById('galleryItemBadgeInput').value = item.tag || item.badge || '';
       document.getElementById('galleryItemBranchSelect').value = item.branchId || 'all';
 
@@ -8422,12 +8433,18 @@
         if (origIdx === -1) list.push(newItem);
         else list[origIdx] = newItem;
       } else if (sec === 'showcase') {
+        const fullCaption = title + (subtitle ? ' — ' + subtitle : '');
         const newItem = {
           id: origIdx === -1 ? 'showcase-' + Date.now() : list[origIdx].id,
           branchId: branchId,
           src: imageUrl,
-          caption: title + (subtitle ? ' — ' + subtitle : ''),
+          imageUrl: imageUrl,
+          image: imageUrl,
+          title: title,
+          subtitle: subtitle,
+          caption: fullCaption,
           tag: badge || 'STUDIO SHOWCASE',
+          badge: badge || 'STUDIO SHOWCASE',
           active: origIdx === -1 ? true : (list[origIdx].active !== false)
         };
         if (origIdx === -1) list.push(newItem);
@@ -8449,6 +8466,8 @@
           icon: sec === 'facility' ? '🛋️' : '💡',
           badge: badge || (sec === 'facility' ? (branchId === 'cabang-1' ? 'Studio 1 Junrejo' : branchId === 'cabang-2' ? 'Studio 2 Dinoyo' : 'Kenyamanan Studio') : (branchId === 'cabang-1' ? 'Peralatan Studio 1' : branchId === 'cabang-2' ? 'Peralatan Studio 2' : 'Peralatan Pro')),
           imageUrl: imageUrl,
+          src: imageUrl,
+          image: imageUrl,
           description: desc || title,
           conceptNote: concept || '',
           highlights: hl.length > 0 ? hl : [title],
@@ -8461,6 +8480,7 @@
 
       closeModal('galleryItemModal');
       renderGalleryGrid();
+      saveConfigLocally();
       showToast(`Foto '${title}' berhasil disimpan!`);
     }
 
@@ -8469,6 +8489,7 @@
       if (list[idx]) {
         list[idx].active = activeState;
         renderGalleryGrid();
+        saveConfigLocally();
         showToast(`Item foto telah di-${activeState ? 'aktifkan' : 'nonaktifkan'}.`);
       }
     }
@@ -8482,6 +8503,7 @@
       if (confirm(`Yakin ingin menghapus '${name}'?`)) {
         list.splice(idx, 1);
         renderGalleryGrid();
+        saveConfigLocally();
         showToast(`'${name}' telah dihapus.`);
       }
     }
