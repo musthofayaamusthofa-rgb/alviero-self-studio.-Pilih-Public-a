@@ -800,114 +800,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       description: 'Potret wisudawan lengkap dengan jubah toga resmi universitas, map ijazah, serta sesi foto hangat bersama orang tua di studio (13 pilihan foto preview).',
       conceptNote: 'Pengarahan pose resmi dan anggun untuk foto kelulusan pribadi maupun keluarga.',
       tags: ['#WisudaIndoor', '#TogaWisuda', '#StudioWisuda']
-    },
-    {
-      id: 'photo-3-grad-outdoor',
-      title: 'Sesi Wisuda Outdoor & Lempar Toga di Kampus',
-      category: 'grad-outdoor',
-      packageName: 'Paket Wisuda Outdoor',
-      icon: '🌳',
-      targetPackageId: 'grad-outdoor-smart-30',
-      imageUrl: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1000&q=85',
-      description: 'Foto wisuda outdoor di spot-spot ikonik seputar gedung universitas dan taman kampus bersama teman seangkatan.',
-      conceptNote: 'Fotografer mendampingi langsung di lokasi kampus favorit Anda.',
-      tags: ['#WisudaOutdoor', '#AreaKampus', '#FotoWisuda']
-    },
-    {
-      id: 'photo-5-couple',
-      title: 'Foto Pasangan Romantis, Hangat & Natural',
-      category: 'couple',
-      packageName: 'Paket Couple',
-      icon: '💑',
-      targetPackageId: 'couple-eternal-love',
-      imageUrl: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1000&q=85',
-      description: 'Abadikan momen kebersamaan berdua dengan outfit senada, senyum bahagia, dan suasana studio yang santai.',
-      conceptNote: 'Pose santai dan penuh kehangatan bersama pasangan tercinta.',
-      tags: ['#CoupleFoto', '#PasanganSerasi', '#Romantis']
-    },
-    {
-      id: 'photo-6-personal',
-      title: 'Portofolio Personal & Foto Profil Profesional',
-      category: 'personal',
-      packageName: 'Paket Personal',
-      icon: '👤',
-      targetPackageId: 'personal-bold-statement',
-      imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85',
-      description: 'Foto portrait pribadi untuk kebutuhan branding profil LinkedIn, media sosial, CV karier, maupun portofolio modeling.',
-      conceptNote: 'Pencahayaan portrait profesional dengan hasil jernih dan berkarakter.',
-      tags: ['#FotoPersonal', '#Branding', '#Portofolio']
-    },
-    {
-      id: 'photo-7-maternity',
-      title: 'Keanggunan Momen Kehamilan Ibu (Maternity)',
-      category: 'maternity',
-      packageName: 'Paket Maternity',
-      icon: '🤰',
-      targetPackageId: 'maternity-warm-embrace',
-      imageUrl: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1000&q=85',
-      description: 'Foto manis menyambut kehadiran buah hati dengan pencahayaan lembut yang menonjolkan keindahan masa kehamilan.',
-      conceptNote: 'Dapat membawa properti foto USG atau perlengkapan kecil calon bayi.',
-      tags: ['#MaternityFoto', '#IbuHamil', '#MenyambutBayi']
-    },
-    {
-      id: 'photo-8-birthday',
-      title: 'Perayaan Ulang Tahun Ceria Bersama Properti Pesta',
-      category: 'birthday',
-      packageName: 'Paket Birthday',
-      icon: '🎉',
-      targetPackageId: 'birthday-sweet-celebration',
-      imageUrl: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=85',
-      description: 'Sesi perayaan ulang tahun penuh warna dengan balon pesta, kue tart, topi ulang tahun, dan ekspresi bahagia.',
-      conceptNote: 'Bebas membawa kue ulang tahun dan pernak-pernik dekorasi sendiri.',
-      tags: ['#UlangTahun', '#BirthdayParty', '#FotoPesta']
-    },
-    {
-      id: 'photo-10-group',
-      title: 'Kekompakan Rombongan Sahabat & Komunitas',
-      category: 'group',
-      packageName: 'Paket Group',
-      icon: '👥',
-      targetPackageId: 'group-friendly-frame',
-      imageUrl: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=85',
-      description: 'Foto grup teman sekolah, rekan kerja kantor, maupun rombongan komunitas dengan pose seru bersama.',
-      conceptNote: 'Penerangan merata untuk rombongan banyak orang dalam satu frame.',
-      tags: ['#FotoGrup', '#RombonganSahabat', '#Kompak']
-    },
-    {
-      id: 'photo-11-pass-foto',
-      title: 'Pass Foto Buku Nikah Resmi & Dokumen Formal',
-      category: 'pass-foto',
-      packageName: 'Paket Pass Foto',
-      icon: '👤',
-      targetPackageId: 'passfoto-1',
-      imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1000&q=85',
-      description: 'Foto formal standar buku nikah KUA latar biru/merah, paspor, ijazah, dan dokumen kedinasan dengan retouch rapi.',
-      conceptNote: 'Standar warna background resmi dan kerapian pakaian.',
-      tags: ['#PassFoto', '#BukuNikah', '#FotoFormal']
-    },
-    {
-      id: 'photo-12-undangan',
-      title: 'Foto Materi Undangan Pernikahan Fisik & Digital',
-      category: 'undangan',
-      packageName: 'Paket Undangan',
-      icon: '💌',
-      targetPackageId: 'undangan-paket-1',
-      imageUrl: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1000&q=85',
-      description: 'Foto pasangan yang dirancang khusus untuk layout kartu undangan cetak maupun website undangan pernikahan.',
-      conceptNote: 'Komposisi ruang khusus penempatan teks kartu undangan.',
-      tags: ['#UndanganNikah', '#UndanganDigital', '#FotoPasangan']
-    },
-    {
-      id: 'photo-13-sewa-studio',
-      title: 'Ruang Studio Lengkap dengan Lighting Profesional',
-      category: 'sewa-studio',
-      packageName: 'Paket Sewa Studio',
-      icon: '🏢',
-      targetPackageId: 'sewa-studio-hourly',
-      imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=85',
-      description: 'Fasilitas sewa ruang studio foto ber-AC lengkap dengan lighting profesional, trigger, dan aneka pilihan background.',
-      conceptNote: 'Siap pakai untuk sesi pemotretan mandiri fotografer dan klien.',
-      tags: ['#SewaStudio', '#RentalStudio', '#LightingStudio']
     }
   ];
 
@@ -1206,24 +1098,16 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         title: photo.title,
         packageName: photo.packageName
       })));
-    } else if (customPkgPhotos.length === 0) {
-      defaultGalleryPhotos = activeMenuPackages
-        .filter(pkg => Boolean(pkg.image) && !pkg.image?.includes('unsplash.com'))
-        .map(pkg => ({
-          id: pkg.id,
-          imageUrl: pkg.image,
-          title: pkg.name,
-          packageName: activeMenuInfo.title
-        }));
     }
 
-    // Jika admin telah mengupload foto untuk paket di kategori ini, tampilkan foto tersebut di urutan terdepan carousel!
-    if (customPkgPhotos.length > 0) {
+    // Jika ada foto yang diupload dari admin dashboard atau foto galeri studio asli
+    if (customPkgPhotos.length > 0 || defaultGalleryPhotos.length > 0) {
       return [...customPkgPhotos, ...defaultGalleryPhotos];
     }
 
-    return defaultGalleryPhotos;
-  }, [activeMenuCategory, activeMenuInfo.title, activeMenuPackages]);
+    // Jika belum ada foto asli yang diupload untuk kategori ini, jangan tampilkan carousel dummy/broken
+    return [];
+  }, [activeMenuCategory, activeMenuInfo.title]);
 
   const birthdayDecorPreview: StudioGalleryPhoto = {
     id: 'birthday-decor-preview',
@@ -1234,9 +1118,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     targetPackageId: 'birthday-sweet-light',
     imageUrl: '/images/categories/birthday.jpg',
     images: [
-      '/images/categories/birthday.jpg',
-      'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=85',
-      'https://images.unsplash.com/photo-1513159446162-54eb8bdaa79b?auto=format&fit=crop&w=1200&q=85'
+      '/images/categories/birthday.jpg'
     ],
     description: 'Referensi dekorasi birthday dengan tulisan birthday, balon latex, dan balon angka sesuai pilihan warna.',
     conceptNote: 'Contoh visual dekorasi. Detail properti mengikuti ketersediaan studio dan konsep yang dipilih.',
