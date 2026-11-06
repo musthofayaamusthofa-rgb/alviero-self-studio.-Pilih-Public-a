@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T14:59:02.668Z",
+  "lastUpdated": "2026-11-06T14:59:12.116Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1789,21 +1789,19 @@
     {
       "id": "grad-bundling-ultimate-1",
       "category": "grad-bundling",
-      "categoryLabel": "Foto Studio - Bundling",
+      "categoryLabel": "Bundling",
       "subtitle": "Bundling 1 • Best Seller",
       "badge": "Rekomendasi",
       "name": "Bundling Smart 1",
       "originalPrice": "Rp 700.000",
       "price": "625K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "Total 60M Indoor & Outdoor",
-      "background": "1 Background + Area Kampus",
-      "people": "1 Wisudawan + Maks 10 Org",
-      "edit": "Edit Foto High-Res",
-      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "duration": "30 Menit Studio Indoor (1 Background)",
+      "background": "30 Menit Sesi Kampus Malang",
+      "people": "1 Wisudawan + Keluarga / Sahabat",
+      "edit": "Edit 10 Foto High-Res Pilihan",
+      "print": "Cetak 2 Uk 10Rs + 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "_origIndex": 3,
       "facilities": [
         {
           "icon": "🏛️",
@@ -1836,11 +1834,10 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 3
     },
     {
       "id": "grad-bundling-ultimate-2",
@@ -3916,21 +3913,19 @@
     {
       "id": "grad-bundling-ultimate-1",
       "category": "grad-bundling",
-      "categoryLabel": "Foto Studio - Bundling",
+      "categoryLabel": "Bundling",
       "subtitle": "Bundling 1 • Best Seller",
       "badge": "Rekomendasi",
       "name": "Bundling Smart 1",
       "originalPrice": "Rp 700.000",
       "price": "625K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "Total 60M Indoor & Outdoor",
-      "background": "1 Background + Area Kampus",
-      "people": "1 Wisudawan + Maks 10 Org",
-      "edit": "Edit Foto High-Res",
-      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
+      "duration": "30 Menit Studio Indoor (1 Background)",
+      "background": "30 Menit Sesi Kampus Malang",
+      "people": "1 Wisudawan + Keluarga / Sahabat",
+      "edit": "Edit 10 Foto High-Res Pilihan",
+      "print": "Cetak 2 Uk 10Rs + 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "_origIndex": 3,
       "facilities": [
         {
           "icon": "🏛️",
@@ -3963,11 +3958,10 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 3
     },
     {
       "id": "grad-bundling-ultimate-2",
