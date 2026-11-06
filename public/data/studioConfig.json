@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:17:34.142Z",
+  "lastUpdated": "2026-11-06T09:25:18.041Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -3637,6 +3637,59 @@
           "text": "Live Wishes & Doa Tamu Undangan"
         }
       ]
+    },
+    {
+      "id": "family-1793957045916",
+      "category": "family",
+      "categoryLabel": "Family",
+      "subtitle": "FamilyGroup1",
+      "badge": "",
+      "name": "Family Group 1",
+      "originalPrice": "700K",
+      "price": "675K",
+      "priceUnit": "per sesi foto",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Maksimal 6-8 Orang Keluarga",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak Foto 10R + Frame",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "30 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background / Lokasi",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 6-8 Orang Keluarga"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak Foto 10R + Frame"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 41
     }
   ],
   "bundlingPackages": [
