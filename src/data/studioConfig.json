@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:28:02.882Z",
+  "lastUpdated": "2026-11-06T09:28:08.156Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -3698,7 +3698,7 @@
       "category": "family",
       "categoryLabel": "Family",
       "subtitle": "FamilyGroup2",
-      "badge": "",
+      "badge": "Keluarga Besar",
       "name": "Family Group 2",
       "originalPrice": "975K",
       "price": "875K",
