@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:15:35.564Z",
+  "lastUpdated": "2026-11-06T09:17:04.465Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -6986,22 +6986,6 @@
       "icon": "🖼️",
       "thumbnailImage": "",
       "active": true
-    },
-    {
-      "id": "ikan-paket",
-      "name": "ikan",
-      "label": "ikan",
-      "icon": "📸",
-      "badge": "",
-      "badgeText": "",
-      "title": "PRICELIST IKAN",
-      "subtitle": "",
-      "tagline": "",
-      "thumbnailImage": "",
-      "image": "",
-      "active": true,
-      "targetPackageIds": [],
-      "sheetCategory": "ikan"
     }
   ],
   "labPrintPrices": [
