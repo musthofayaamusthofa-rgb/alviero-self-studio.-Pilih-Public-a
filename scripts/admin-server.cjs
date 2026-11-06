@@ -109,7 +109,7 @@ app.post('/api/upload-image', (req, res) => {
   }
 });
 
-// 2. API: Save Config Locally & Auto-Sync to GitHub/Vercel
+// 2. API: Save Config Locally (HANYA SIMPAN LOKAL - TIDAK PUSH KE GITHUB)
 app.post('/api/config', async (req, res) => {
   try {
     const newConfig = req.body;
@@ -132,30 +132,11 @@ app.post('/api/config', async (req, res) => {
       fs.writeFileSync(publicDataPath, JSON.stringify(newConfig, null, 2), 'utf-8');
     } catch(e) {}
 
-    // Auto-commit & push to GitHub so Vercel updates automatically
-    let gitSynced = false;
-    try {
-      await runCmd('git add .');
-      const st = await runCmd('git status --porcelain');
-      if (st.stdout) {
-        const msg = `Update studio config via Alviero Manager [${new Date().toLocaleTimeString('id-ID')}]`;
-        await runCmd(`git commit -m "${msg}"`);
-        await runCmd('git pull origin main --no-rebase -X ours --no-edit');
-        const pushRes = await runCmd('git push origin main');
-        gitSynced = pushRes.success;
-      } else {
-        gitSynced = true;
-      }
-    } catch (gErr) {
-      console.warn('[Admin Server] Auto git push warning:', gErr.message);
-    }
-
+    // RESPON: Tersimpan ke lokal saja, TIDAK push ke GitHub
     res.json({
       success: true,
-      message: gitSynced
-        ? 'Konfigurasi studio berhasil disimpan ke lokal & otomatis disinkronkan ke Vercel!'
-        : 'Konfigurasi studio berhasil disimpan ke file lokal!',
-      gitSynced,
+      message: 'Konfigurasi studio berhasil disimpan ke file lokal!',
+      gitSynced: false,
       lastUpdated: newConfig.lastUpdated
     });
   } catch (err) {
@@ -206,8 +187,8 @@ app.post('/api/sync-github', async (req, res) => {
       }
     }
 
-    // Step 3: git pull --rebase & push
-    const pullRes = await runCmd('git pull origin main --rebase --autostash');
+    // Step 3: git pull & push
+    await runCmd('git pull origin main --no-rebase -X ours --no-edit');
     const pushRes = await runCmd('git push origin main');
 
     if (!pushRes.success) {
