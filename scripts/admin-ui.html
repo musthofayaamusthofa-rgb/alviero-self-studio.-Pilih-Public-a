@@ -1938,14 +1938,22 @@
         </div>
         </div>
 
-        <!-- SUB-PANEL 2A: 16 KATEGORI MENU PAKET -->
+        <!-- SUB-PANEL 2A: KATEGORI MENU PAKET -->
         <div id="indoorSubPanelCategories" style="display: none;">
-          <div class="preset-box" style="margin-bottom: 1.25rem;">
+          <div class="preset-box" style="margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem;">
             <div>
-              <div style="font-size: 0.9rem; font-weight: 800; color: var(--charcoal);">🗂️ Pengaturan 16 Kartu Kategori Menu Paket</div>
-              <div style="font-size: 0.76rem; color: #71717A;">Atur nama kategori, judul pricelist, sub-judul, teks badge, foto thumbnail kategori, dan status aktif/sembunyi pada menu katalog web.</div>
+              <div style="font-size: 0.95rem; font-weight: 800; color: var(--charcoal); display: flex; align-items: center; gap: 0.5rem;">
+                <span id="categoriesMenuTitleText">🗂️ Pengaturan Kartu Kategori Menu Paket</span>
+                <span id="categoriesMenuCountBadge" style="font-size: 0.72rem; background: #E8DDD6; color: #3A3A3A; padding: 2px 8px; border-radius: 999px; font-weight: 700;">16 Kategori</span>
+              </div>
+              <div style="font-size: 0.76rem; color: #71717A; margin-top: 2px;">Atur nama kategori, foto thumbnail lingkaran, teks badge, judul pricelist, serta tambah atau hapus kartu kategori menu di katalog web.</div>
             </div>
-            <button class="btn btn-save-local" onclick="saveConfigLocally()">💾 Simpan Kategori Menu</button>
+            <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+              <button type="button" class="btn" style="background: #6E856C; color: #FFFFFF; font-weight: 800; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; display: flex; align-items: center; gap: 0.4rem; cursor: pointer; border: none; box-shadow: 0 2px 6px rgba(110,133,108,0.25);" onclick="openAddCategoryMenuModal()">
+                <span>➕ Tambah Kategori Baru</span>
+              </button>
+              <button type="button" class="btn btn-save-local" onclick="saveCategoriesMenu()">💾 Simpan Kategori Menu</button>
+            </div>
           </div>
           <div class="bg-grid" id="categoriesMenuGrid" style="grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));">
             <!-- Rendered dynamically by renderCategoriesMenu() -->
@@ -3613,13 +3621,13 @@
     </div>
   </div>
 
-  <!-- MODAL: EDIT KATEGORI MENU PAKET (FOTO THUMBNAIL, LABEL & BADGE) -->
+  <!-- MODAL: TAMBAH & EDIT KATEGORI MENU PAKET (FOTO THUMBNAIL, LABEL & BADGE) -->
   <div class="modal-overlay" id="categoryMenuModal">
-    <div class="modal-card" style="max-width: 620px;">
+    <div class="modal-card" style="max-width: 640px;">
       <div class="modal-header">
         <div>
-          <h3 class="modal-title">✏️ Edit Kategori Menu Paket</h3>
-          <span style="font-size: 0.75rem; color: #71717A;">Atur foto thumbnail lingkaran, nama label, badge, dan judul halaman untuk menu web</span>
+          <h3 class="modal-title" id="catMenuModalTitle">✏️ Edit Kategori Menu Paket</h3>
+          <span style="font-size: 0.75rem; color: #71717A;" id="catMenuModalSubtitle">Atur foto thumbnail lingkaran, nama label, badge, dan judul halaman untuk menu web</span>
         </div>
         <button class="btn-close" onclick="closeModal('categoryMenuModal')">&times;</button>
       </div>
@@ -3665,20 +3673,32 @@
         </div>
 
         <!-- Category Details Form -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.85rem;">
           <div class="form-group">
             <label class="form-label">Nama Kategori Menu *</label>
-            <input type="text" id="catMenuNameInput" class="form-control" placeholder="Contoh: Graduation, Group, Couple">
+            <input type="text" id="catMenuNameInput" class="form-control" placeholder="Contoh: Graduation, Group, Baby Born" oninput="onCatMenuNameInput(this.value)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Emoji / Ikon *</label>
+            <input type="text" id="catMenuIconInput" class="form-control" placeholder="Contoh: 🎓, 📸, 👶, 💍" value="📸">
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div class="form-group">
+            <label class="form-label">ID / Slug Kategori (Unik) *</label>
+            <input type="text" id="catMenuIdInput" class="form-control" placeholder="contoh: baby-born, group-paket" oninput="this.dataset.manualEdited = 'true'">
+            <span style="font-size: 0.68rem; color: #71717A;">Huruf kecil &amp; strip (-). Digunakan sistem untuk filter paket.</span>
           </div>
           <div class="form-group">
             <label class="form-label">Teks Badge Sorotan (Opsional)</label>
-            <input type="text" id="catMenuBadgeInput" class="form-control" placeholder="Contoh: Favorit Wisuda, Populer">
+            <input type="text" id="catMenuBadgeInput" class="form-control" placeholder="Contoh: Favorit, Populer, Baru">
           </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Judul Halaman Pricelist</label>
-          <input type="text" id="catMenuTitleInput" class="form-control" placeholder="Contoh: PRICELIST GRADUATION">
+          <input type="text" id="catMenuTitleInput" class="form-control" placeholder="Contoh: PRICELIST GRADUATION" oninput="this.dataset.manualEdited = 'true'">
         </div>
 
         <div class="form-group">
@@ -3693,9 +3713,12 @@
           </label>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-preview" onclick="closeModal('categoryMenuModal')">Batal</button>
-        <button type="button" class="btn btn-save-local" onclick="saveCategoryMenuModal()">💾 Simpan Kategori</button>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn" id="catMenuDeleteBtn" style="background: #FEE2E2; color: #DC2626; border: 1px solid #FECACA; font-weight: 700; display: none;" onclick="deleteCategoryFromModal()">🗑️ Hapus Kategori</button>
+        <div style="display: flex; gap: 0.5rem; margin-left: auto;">
+          <button type="button" class="btn btn-preview" onclick="closeModal('categoryMenuModal')">Batal</button>
+          <button type="button" class="btn btn-save-local" id="catMenuSubmitBtn" onclick="saveCategoryMenuModal()">💾 Simpan Kategori</button>
+        </div>
       </div>
     </div>
   </div>
@@ -11643,7 +11666,7 @@
       else if (subView === 'labframe') renderLabAndFramePrices();
     }
 
-    // 4. Kategori Menu & Thumbnail Katalog (16 Kategori)
+    // 4. Kategori Menu & Thumbnail Katalog (Dinamis: Tambah, Edit, Hapus, Urutkan)
     function renderCategoriesMenu() {
       if (!appConfig) return;
       if (!Array.isArray(appConfig.categories)) appConfig.categories = [];
@@ -11651,18 +11674,27 @@
       if (!container) return;
       container.innerHTML = '';
 
+      // Update counter badge & heading title
+      const countBadge = document.getElementById('categoriesMenuCountBadge');
+      if (countBadge) countBadge.textContent = `${appConfig.categories.length} Kategori`;
+      const titleText = document.getElementById('categoriesMenuTitleText');
+      if (titleText) titleText.textContent = `🗂️ Pengaturan ${appConfig.categories.length} Kartu Kategori Menu Paket`;
+
+      const total = appConfig.categories.length;
+
       appConfig.categories.forEach((cat, idx) => {
         const isActive = cat.active !== false;
         const catImg = cat.thumbnailImage || cat.image || '';
         const catName = cat.name || cat.label || cat.id;
         const catBadge = cat.badgeText || cat.badge || '';
         const catTagline = cat.subtitle || cat.tagline || '';
+        const catIcon = cat.icon || '📷';
 
         const card = document.createElement('div');
-        card.style.cssText = 'background:#FFF; border:1px solid var(--border); border-radius:14px; padding:1rem; display:flex; gap:0.95rem; align-items:center; box-shadow:0 2px 8px rgba(0,0,0,0.03);' + (isActive ? '' : 'opacity:0.55;');
+        card.style.cssText = 'background:#FFF; border:1px solid var(--border); border-radius:14px; padding:1rem; display:flex; gap:0.95rem; align-items:center; box-shadow:0 2px 8px rgba(0,0,0,0.03); position:relative;' + (isActive ? '' : 'opacity:0.6;');
         card.innerHTML = `
           <div style="width:68px; height:68px; border-radius:50%; overflow:hidden; background:#F4F4F5; flex-shrink:0; border:2.5px solid #6E856C; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(0,0,0,0.06);">
-            ${catImg ? `<img src="${catImg}" alt="${escapeHtml(catName)}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.6rem;">${escapeHtml(cat.icon || '📷')}</span>`}
+            ${catImg ? `<img src="${catImg}" alt="${escapeHtml(catName)}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.6rem;">${escapeHtml(catIcon)}</span>`}
           </div>
           <div style="flex:1; min-width:0;">
             <div style="display:flex; align-items:center; gap:6px; margin-bottom:3px; flex-wrap:wrap;">
@@ -11670,17 +11702,33 @@
               ${catBadge ? `<span style="font-size:0.65rem; background:#FEF3C7; color:#92400E; padding:1px 6px; border-radius:999px; font-weight:700;">${escapeHtml(catBadge)}</span>` : ''}
             </div>
             <div style="font-size:0.75rem; color:#71717A; margin-bottom:8px; line-height:1.25;" class="truncate">${escapeHtml(catTagline || cat.title || '')}</div>
-            <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+            <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
               <label style="font-size:0.75rem; font-weight:600; display:inline-flex; align-items:center; gap:4px; cursor:pointer;">
                 <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleCategoryMenuActive(${idx}, this.checked)">
                 <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
               </label>
-              <button type="button" class="btn-action" style="padding:4px 10px; font-size:0.75rem; background:#F4F4F5; border-radius:6px; font-weight:700; cursor:pointer;" onclick="openCategoryMenuModal(${idx})">✏️ Edit Foto & Label</button>
+              <button type="button" class="btn-action" style="padding:4px 9px; font-size:0.74rem; background:#F4F4F5; border-radius:6px; font-weight:700; cursor:pointer;" onclick="openCategoryMenuModal(${idx})">✏️ Edit</button>
+              <button type="button" class="btn-action" style="padding:4px 7px; font-size:0.74rem; background:#F4F4F5; border-radius:6px; cursor:pointer;" title="Geser ke atas" ${idx === 0 ? 'disabled style="opacity:0.3;"' : `onclick="moveCategoryMenu(${idx}, -1)"`}>⬆️</button>
+              <button type="button" class="btn-action" style="padding:4px 7px; font-size:0.74rem; background:#F4F4F5; border-radius:6px; cursor:pointer;" title="Geser ke bawah" ${idx === total - 1 ? 'disabled style="opacity:0.3;"' : `onclick="moveCategoryMenu(${idx}, 1)"`}>⬇️</button>
+              <button type="button" class="btn-action" style="padding:4px 7px; font-size:0.74rem; background:#FEE2E2; color:#DC2626; border-radius:6px; cursor:pointer;" title="Hapus kategori menu ini" onclick="deleteCategoryMenu(${idx})">🗑️</button>
             </div>
           </div>
         `;
         container.appendChild(card);
       });
+
+      // Kartu Dashed: Tambah Kategori Baru di ujung grid
+      const addCard = document.createElement('div');
+      addCard.style.cssText = 'border:2px dashed #CBD5E1; border-radius:14px; padding:1.2rem 1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:110px; cursor:pointer; background:#FAF9F7; text-align:center; transition:all 0.2s; box-shadow:0 1px 3px rgba(0,0,0,0.02);';
+      addCard.onmouseover = () => { addCard.style.borderColor = '#6E856C'; addCard.style.background = '#F3F7F2'; };
+      addCard.onmouseout = () => { addCard.style.borderColor = '#CBD5E1'; addCard.style.background = '#FAF9F7'; };
+      addCard.onclick = () => openAddCategoryMenuModal();
+      addCard.innerHTML = `
+        <div style="width:42px; height:42px; border-radius:50%; background:#EBF2EA; color:#5C725A; display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:0.45rem; font-weight:800;">➕</div>
+        <div style="font-weight:800; font-size:0.88rem; color:#3A3A3A;">Tambah Kategori Menu Baru</div>
+        <div style="font-size:0.72rem; color:#71717A; margin-top:2px;">Klik untuk menambahkan kartu menu katalog baru</div>
+      `;
+      container.appendChild(addCard);
     }
 
     function toggleCategoryMenuActive(idx, checked) {
@@ -11691,18 +11739,109 @@
       showToast(`Kategori "${appConfig.categories[idx].name || appConfig.categories[idx].label}" ${checked ? 'diaktifkan' : 'disembunyikan'}.`, '🗂️');
     }
 
+    function moveCategoryMenu(idx, direction) {
+      if (!appConfig?.categories) return;
+      const targetIdx = idx + direction;
+      if (targetIdx < 0 || targetIdx >= appConfig.categories.length) return;
+      const temp = appConfig.categories[idx];
+      appConfig.categories[idx] = appConfig.categories[targetIdx];
+      appConfig.categories[targetIdx] = temp;
+      renderCategoriesMenu();
+      saveConfigLocally();
+      showToast('Urutan kategori berhasil dipindahkan!', '↕️');
+    }
+
+    function openAddCategoryMenuModal() {
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.categories)) appConfig.categories = [];
+
+      document.getElementById('catMenuEditIndex').value = -1;
+      document.getElementById('catMenuModalTitle').textContent = '➕ Tambah Kartu Kategori Menu Paket Baru';
+      document.getElementById('catMenuModalSubtitle').textContent = 'Buat kategori menu baru untuk katalog web (contoh: Baby Born, Corporate, Wisuda Akbar, dll)';
+
+      const idInput = document.getElementById('catMenuIdInput');
+      idInput.value = '';
+      idInput.disabled = false;
+      delete idInput.dataset.manualEdited;
+
+      const iconInput = document.getElementById('catMenuIconInput');
+      if (iconInput) iconInput.value = '📸';
+
+      const nameInput = document.getElementById('catMenuNameInput');
+      nameInput.value = '';
+
+      const titleInput = document.getElementById('catMenuTitleInput');
+      titleInput.value = '';
+      delete titleInput.dataset.manualEdited;
+
+      document.getElementById('catMenuBadgeInput').value = '';
+      document.getElementById('catMenuTaglineInput').value = '';
+      document.getElementById('catMenuImageUrlInput').value = '';
+      document.getElementById('catMenuActiveCheckbox').checked = true;
+
+      const delBtn = document.getElementById('catMenuDeleteBtn');
+      if (delBtn) delBtn.style.display = 'none';
+
+      const submitBtn = document.getElementById('catMenuSubmitBtn');
+      if (submitBtn) submitBtn.textContent = '➕ Tambahkan Kategori';
+
+      updateCatMenuModalPreview('');
+      openModal('categoryMenuModal');
+    }
+
+    function onCatMenuNameInput(nameVal) {
+      const idx = parseInt(document.getElementById('catMenuEditIndex').value, 10);
+      if (idx === -1) {
+        const slug = nameVal.toLowerCase()
+          .replace(/[^a-z0-9\s-]/g, '')
+          .trim()
+          .replace(/\s+/g, '-');
+        const idInput = document.getElementById('catMenuIdInput');
+        if (idInput && (!idInput.dataset.manualEdited || !idInput.value)) {
+          idInput.value = slug ? (slug.endsWith('-paket') ? slug : `${slug}-paket`) : '';
+        }
+        const titleInput = document.getElementById('catMenuTitleInput');
+        if (titleInput && (!titleInput.dataset.manualEdited || !titleInput.value)) {
+          titleInput.value = nameVal.trim() ? `PRICELIST ${nameVal.trim().toUpperCase()}` : '';
+        }
+      }
+    }
+
     function openCategoryMenuModal(idx) {
       const cat = appConfig?.categories?.[idx];
       if (!cat) return;
 
       document.getElementById('catMenuEditIndex').value = idx;
+      document.getElementById('catMenuModalTitle').textContent = `✏️ Edit Kategori Menu: ${cat.name || cat.label || cat.id}`;
+      document.getElementById('catMenuModalSubtitle').textContent = 'Atur foto thumbnail lingkaran, nama label, badge, dan judul halaman untuk menu web';
+
+      const idInput = document.getElementById('catMenuIdInput');
+      if (idInput) {
+        idInput.value = cat.id || '';
+        idInput.disabled = false;
+        delete idInput.dataset.manualEdited;
+      }
+
+      const iconInput = document.getElementById('catMenuIconInput');
+      if (iconInput) iconInput.value = cat.icon || '📸';
+
       document.getElementById('catMenuNameInput').value = cat.name || cat.label || '';
       document.getElementById('catMenuBadgeInput').value = cat.badgeText || cat.badge || '';
-      document.getElementById('catMenuTitleInput').value = cat.title || '';
+      
+      const titleInput = document.getElementById('catMenuTitleInput');
+      titleInput.value = cat.title || '';
+      delete titleInput.dataset.manualEdited;
+
       document.getElementById('catMenuTaglineInput').value = cat.subtitle || cat.tagline || '';
       const imgUrl = cat.thumbnailImage || cat.image || '';
       document.getElementById('catMenuImageUrlInput').value = imgUrl;
       document.getElementById('catMenuActiveCheckbox').checked = cat.active !== false;
+
+      const delBtn = document.getElementById('catMenuDeleteBtn');
+      if (delBtn) delBtn.style.display = 'inline-block';
+
+      const submitBtn = document.getElementById('catMenuSubmitBtn');
+      if (submitBtn) submitBtn.textContent = '💾 Simpan Perubahan';
 
       updateCatMenuModalPreview(imgUrl);
       openModal('categoryMenuModal');
@@ -11764,34 +11903,103 @@
     }
 
     function saveCategoryMenuModal() {
-      const idx = parseInt(document.getElementById('catMenuEditIndex').value, 10);
-      if (isNaN(idx) || !appConfig?.categories?.[idx]) return;
-      const cat = appConfig.categories[idx];
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.categories)) appConfig.categories = [];
 
+      const idx = parseInt(document.getElementById('catMenuEditIndex').value, 10);
       const nameVal = document.getElementById('catMenuNameInput').value.trim();
       const badgeVal = document.getElementById('catMenuBadgeInput').value.trim();
       const titleVal = document.getElementById('catMenuTitleInput').value.trim();
       const taglineVal = document.getElementById('catMenuTaglineInput').value.trim();
       const imgUrlVal = document.getElementById('catMenuImageUrlInput').value.trim();
+      const iconVal = document.getElementById('catMenuIconInput')?.value.trim() || '📸';
       const isActive = document.getElementById('catMenuActiveCheckbox').checked;
+      let idVal = document.getElementById('catMenuIdInput')?.value.trim();
 
-      if (nameVal) {
+      if (!nameVal) {
+        alert('Nama kategori tidak boleh kosong!');
+        document.getElementById('catMenuNameInput').focus();
+        return;
+      }
+
+      if (!idVal) {
+        idVal = nameVal.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-paket';
+      } else {
+        idVal = idVal.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      }
+
+      if (idx === -1) {
+        // Cek ID duplikat
+        const exists = appConfig.categories.some(c => c.id === idVal);
+        if (exists) {
+          idVal = idVal + '-' + Date.now().toString().slice(-4);
+        }
+
+        const newCategory = {
+          id: idVal,
+          name: nameVal,
+          label: nameVal,
+          icon: iconVal,
+          badge: badgeVal,
+          badgeText: badgeVal,
+          title: titleVal || `PRICELIST ${nameVal.toUpperCase()}`,
+          subtitle: taglineVal,
+          tagline: taglineVal,
+          thumbnailImage: imgUrlVal,
+          image: imgUrlVal,
+          active: isActive,
+          targetPackageIds: [],
+          sheetCategory: nameVal
+        };
+
+        appConfig.categories.push(newCategory);
+        renderCategoriesMenu();
+        saveConfigLocally();
+        closeModal('categoryMenuModal');
+        showToast(`✅ Kartu Kategori "${nameVal}" berhasil ditambahkan!`, '🎉');
+      } else {
+        const cat = appConfig.categories[idx];
+        if (!cat) return;
+
+        cat.id = idVal || cat.id;
         cat.name = nameVal;
         cat.label = nameVal;
-      }
-      cat.badge = badgeVal;
-      cat.badgeText = badgeVal;
-      if (titleVal) cat.title = titleVal;
-      cat.subtitle = taglineVal;
-      cat.tagline = taglineVal;
-      cat.thumbnailImage = imgUrlVal;
-      cat.image = imgUrlVal;
-      cat.active = isActive;
+        cat.icon = iconVal;
+        cat.badge = badgeVal;
+        cat.badgeText = badgeVal;
+        cat.title = titleVal || cat.title || `PRICELIST ${nameVal.toUpperCase()}`;
+        cat.subtitle = taglineVal;
+        cat.tagline = taglineVal;
+        cat.thumbnailImage = imgUrlVal;
+        cat.image = imgUrlVal;
+        cat.active = isActive;
 
+        renderCategoriesMenu();
+        saveConfigLocally();
+        closeModal('categoryMenuModal');
+        showToast(`✅ Kategori "${cat.name || cat.label}" berhasil diperbarui!`, '🗂️');
+      }
+    }
+
+    function deleteCategoryMenu(idx) {
+      if (!appConfig?.categories?.[idx]) return;
+      const cat = appConfig.categories[idx];
+      const catName = cat.name || cat.label || cat.id;
+
+      if (!confirm(`Apakah Anda yakin ingin menghapus kartu kategori "${catName}" dari daftar menu web?`)) return;
+
+      appConfig.categories.splice(idx, 1);
       renderCategoriesMenu();
       saveConfigLocally();
-      closeModal('categoryMenuModal');
-      showToast(`✅ Kategori "${cat.name || cat.label}" berhasil diperbarui!`, '🗂️');
+      showToast(`🗑️ Kategori "${catName}" berhasil dihapus!`, '🗂️');
+    }
+
+    function deleteCategoryFromModal() {
+      const idx = parseInt(document.getElementById('catMenuEditIndex').value, 10);
+      if (idx >= 0) {
+        closeModal('categoryMenuModal');
+        deleteCategoryMenu(idx);
+      }
     }
 
     function saveCategoriesMenu() {

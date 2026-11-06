@@ -710,7 +710,7 @@ export function getActiveCategories(cfg?: any, fallback: any[] = []): any[] {
       }
     });
 
-    return fallback
+    const mergedFallback = fallback
       .filter((fbItem: any) => {
         const matched = catMap.get(fbItem.id);
         return matched ? matched.active !== false : true;
@@ -733,6 +733,32 @@ export function getActiveCategories(cfg?: any, fallback: any[] = []): any[] {
           sheetCategory: matched.sheetCategory || fbItem.sheetCategory || ''
         };
       });
+
+    // Sertakan kartu kategori baru yang ditambahkan mandiri via dashboard (yang belum ada di fallback bawaan)
+    const fallbackIds = new Set(fallback.map((fb: any) => fb.id));
+    const extraCategories = configuredList
+      .filter((c: any) => c && c.id && !fallbackIds.has(c.id) && c.active !== false)
+      .map((c: any) => {
+        const customImg = c.image || c.thumbnailImage || '';
+        return {
+          id: c.id,
+          name: c.name || c.label || c.id,
+          label: c.label || c.name || c.id,
+          title: c.title || `PRICELIST ${(c.name || c.label || c.id).toUpperCase()}`,
+          subtitle: c.tagline || c.subtitle || '',
+          badge: c.badge !== undefined ? c.badge : (c.badgeText !== undefined ? c.badgeText : ''),
+          icon: c.icon || '📸',
+          img: customImg,
+          image: customImg,
+          targetPackageIds: Array.isArray(c.targetPackageIds) ? c.targetPackageIds : [],
+          sheetCategory: c.sheetCategory || '',
+          colorBg: 'bg-[#faf8f5]',
+          colorBorder: 'border-[#e8ddd6]',
+          colorText: 'text-[#3A3A3A]'
+        };
+      });
+
+    return [...mergedFallback, ...extraCategories];
   }
 
   return configuredList.filter((c: any) => c && c.active !== false);
