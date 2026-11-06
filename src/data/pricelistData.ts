@@ -560,7 +560,7 @@ export const PACKAGES: PackageItem[] = [
       "Potongan 50K khusus yang hanya ada 3 anggota keluarga"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/categories/family.jpg"
   },
   {
     "id": "family-happy-nest",
@@ -2164,7 +2164,7 @@ export const PRICELIST_SHEETS: PricelistSheet[] = [
     title: 'Pricelist Family Package',
     subtitle: 'Katalog Paket Keluarga (Sweet Together & Happy Nest)',
     category: 'Paket Family',
-    imageUrl: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80',
+    imageUrl: '/images/categories/family.jpg',
     aspectRatio: '3:4',
     description: 'Rincian paket Family 1 Sweet Together (325K) & Family 2 Happy Nest (375K) untuk hingga 10 anggota keluarga.',
     relatedPackageIds: ['family-sweet-together', 'family-happy-nest']

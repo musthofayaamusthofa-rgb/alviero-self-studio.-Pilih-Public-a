@@ -874,18 +874,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       tags: ['#UlangTahun', '#BirthdayParty', '#FotoPesta']
     },
     {
-      id: 'photo-9-family',
-      title: 'Kehangatan Foto Keluarga Besar & Kecil',
-      category: 'family',
-      packageName: 'Paket Family',
-      icon: '👨‍👩‍👧‍👦',
-      targetPackageId: 'family-sweet-together',
-      imageUrl: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=1000&q=85',
-      description: 'Potret kebersamaan keluarga yang rapi dan penuh senyuman untuk dipajang di ruang tamu rumah.',
-      conceptNote: 'Komposisi tertata nyaman untuk seluruh anggota keluarga.',
-      tags: ['#FotoKeluarga', '#KeluargaHarmonis', '#AlbumKeluarga']
-    },
-    {
       id: 'photo-10-group',
       title: 'Kekompakan Rombongan Sahabat & Komunitas',
       category: 'group',
