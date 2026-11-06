@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T13:08:32.213Z",
+  "lastUpdated": "2026-11-06T13:08:35.525Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -7064,16 +7064,6 @@
       "badgeText": "Best Seller",
       "icon": "✨",
       "thumbnailImage": "/images/categories/selfphoto.jpg",
-      "active": true
-    },
-    {
-      "id": "wedding-package",
-      "name": "Wedding",
-      "title": "PRICELIST WEDDING",
-      "subtitle": "Prewedding, Akad, Resepsi & Engagement",
-      "badgeText": "Exclusive",
-      "icon": "💍",
-      "thumbnailImage": "/images/categories/wedding.jpg",
       "active": true
     }
   ],
