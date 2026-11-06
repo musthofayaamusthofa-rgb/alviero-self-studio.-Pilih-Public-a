@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:36:34.687Z",
+  "lastUpdated": "2026-11-06T09:37:25.559Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2415,7 +2415,7 @@
       "category": "family",
       "categoryLabel": "Family",
       "subtitle": "Family 2",
-      "badge": "Keluarga Kecil",
+      "badge": "Keluarga Besar",
       "name": "Happy Nest",
       "originalPrice": "Rp 600.000",
       "price": "415K",
