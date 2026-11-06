@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T11:24:39.985Z",
+  "lastUpdated": "2026-11-05T15:13:41.343Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1457,8 +1457,11 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+      "imageUrls": [
+        "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+        "/images/packages/elegant_scholar_foto2_1793878818946.jpg"
+      ],
       "_origIndex": 0
     },
     {
@@ -1526,21 +1529,65 @@
     },
     {
       "id": "grad-indoor-infinity-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 3",
       "badge": "2 Wisudawan",
       "name": "Infinity Scholar",
       "originalPrice": "Rp 680.000",
-      "price": "595K",
+      "price": "580K",
       "priceUnit": "per sesi • all-in",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "2 Wisudawan + Maks 10 Org",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 12 Foto High-Res",
-      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "2 Wisudawan + 2 Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 4 Uk 10Rs"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+        }
+      ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 2
     }
   ],
@@ -1604,8 +1651,11 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (boleh lepas pasang toga)",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+      "imageUrls": [
+        "/images/packages/elegant_scholar_foto1_1793878813028.jpg",
+        "/images/packages/elegant_scholar_foto2_1793878818946.jpg"
+      ],
       "_origIndex": 0
     },
     {
@@ -1673,18 +1723,62 @@
     },
     {
       "id": "grad-indoor-infinity-scholar",
+      "category": "grad-indoor",
+      "categoryLabel": "Studio Indoor",
       "subtitle": "Graduation Indoor 3",
       "badge": "2 Wisudawan",
       "name": "Infinity Scholar",
       "originalPrice": "Rp 680.000",
-      "price": "595K",
+      "price": "580K",
       "priceUnit": "per sesi • all-in",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "2 Wisudawan + Maks 10 Org",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 12 Foto High-Res",
-      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "2 Wisudawan + 2 Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 4 Uk 10Rs"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+        }
+      ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
       "categoryLabel": "Foto Studio - Indoor",
@@ -1974,8 +2068,8 @@
     },
     {
       "id": "grad-outdoor-group-2",
-      "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "category": "group",
+      "categoryLabel": "Group",
       "subtitle": "Graduation Outdoor 3",
       "badge": "Geng Wisuda",
       "name": "Group Wisuda Outdoor",
@@ -3689,25 +3783,6 @@
       "fileDelivery": "All File via Google Drive",
       "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
       "_origIndex": 7
-    },
-    {
-      "id": "grad-outdoor-group-2",
-      "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
-      "subtitle": "Graduation Outdoor 3",
-      "badge": "Geng Wisuda",
-      "name": "Group Wisuda Outdoor",
-      "originalPrice": "",
-      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
-      "priceUnit": "Berdasarkan Jumlah Wisudawan",
-      "duration": "60 - 90 Menit Unlimited",
-      "background": "Area Kampus Malang & Sekitarnya",
-      "people": "Group Wisudawan + Keluarga",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Google Drive",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
-      "_origIndex": 8
     }
   ],
   "operationalHoursByBranch": {
