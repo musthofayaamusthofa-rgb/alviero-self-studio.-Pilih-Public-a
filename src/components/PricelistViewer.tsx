@@ -772,36 +772,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   ];
 
-  // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA
-  const STUDIO_GALLERY_PHOTOS: StudioGalleryPhoto[] = [
-    {
-      id: 'photo-2-grad-indoor',
-      title: 'Foto Wisuda Toga Resmi & Foto Bersama Keluarga',
-      category: 'grad-indoor',
-      packageName: 'Paket Graduation Indoor',
-      icon: '🎓',
-      targetPackageId: 'grad-indoor-elegant-scholar',
-      imageUrl: '/images/gallery/graduation-indoor/grad-indoor-1.jpg',
-      images: [
-        '/images/gallery/graduation-indoor/grad-indoor-1.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-2.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-3.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-4.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-5.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-6.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-7.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-8.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-9.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-10.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-11.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-12.jpg',
-        '/images/gallery/graduation-indoor/grad-indoor-13.jpg'
-      ],
-      description: 'Potret wisudawan lengkap dengan jubah toga resmi universitas, map ijazah, serta sesi foto hangat bersama orang tua di studio (13 pilihan foto preview).',
-      conceptNote: 'Pengarahan pose resmi dan anggun untuk foto kelulusan pribadi maupun keluarga.',
-      tags: ['#WisudaIndoor', '#TogaWisuda', '#StudioWisuda']
-    }
-  ];
+  // 3. DAFTAR CONTOH HASIL FOTO STUDIO SESUAI URUTAN UTAMA (Wajib berasal dari Dashboard)
+  const STUDIO_GALLERY_PHOTOS: StudioGalleryPhoto[] = [];
 
   const FACILITY_PHOTOS: StudioGalleryPhoto[] = [
     {

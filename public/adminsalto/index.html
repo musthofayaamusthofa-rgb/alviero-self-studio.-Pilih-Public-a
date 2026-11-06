@@ -3613,6 +3613,93 @@
     </div>
   </div>
 
+  <!-- MODAL: EDIT KATEGORI MENU PAKET (FOTO THUMBNAIL, LABEL & BADGE) -->
+  <div class="modal-overlay" id="categoryMenuModal">
+    <div class="modal-card" style="max-width: 620px;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title">✏️ Edit Kategori Menu Paket</h3>
+          <span style="font-size: 0.75rem; color: #71717A;">Atur foto thumbnail lingkaran, nama label, badge, dan judul halaman untuk menu web</span>
+        </div>
+        <button class="btn-close" onclick="closeModal('categoryMenuModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="catMenuEditIndex" value="-1">
+
+        <!-- Circular Preview & Photo Upload -->
+        <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 14px; padding: 1.15rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <label class="form-label" style="margin: 0; font-weight: 800; font-size: 0.88rem; color: var(--charcoal);">
+              📸 Foto Thumbnail Menu (Lingkaran)
+            </label>
+            <span style="font-size: 0.72rem; color: #71717A;">Maks. 50MB (Format PNG/JPG/WEBP)</span>
+          </div>
+
+          <div style="display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;">
+            <!-- Circular Web Simulation -->
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem;">
+              <div id="catMenuImageCirclePreview" style="width: 82px; height: 82px; border-radius: 50%; overflow: hidden; border: 3px solid #6E856C; background: #F4F4F5; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0,0,0,0.08); flex-shrink: 0;">
+                <img id="catMenuPreviewImg" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                <span id="catMenuPreviewPlaceholder" style="font-size: 2rem;">📷</span>
+              </div>
+              <span style="font-size: 0.68rem; color: #71717A; font-weight: 600;">Simulasi di Web</span>
+            </div>
+
+            <!-- Upload Controls -->
+            <div style="flex: 1; min-width: 200px;">
+              <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <input type="text" id="catMenuImageUrlInput" class="form-control" placeholder="URL foto atau /images/categories/..." oninput="updateCatMenuModalPreview(this.value)" style="font-size: 0.8rem;">
+                <input type="file" id="catMenuFileInput" accept="image/*" style="display:none;" onchange="handleCatMenuUpload(event)">
+                <button type="button" class="btn btn-preview" style="white-space:nowrap; padding: 0.5rem 0.85rem; font-size: 0.8rem; font-weight: 700;" onclick="document.getElementById('catMenuFileInput').click()">
+                  📁 Upload Foto
+                </button>
+              </div>
+              <div id="catMenuUploadStatus" style="display:none; font-size: 0.76rem; color: #5C725A; font-weight: 700; margin-bottom: 0.4rem;">
+                ⏳ Mengunggah foto kategori...
+              </div>
+              <div style="font-size: 0.72rem; color: #71717A; line-height: 1.35;">
+                Foto akan otomatis diformat bulat lingkaran pada menu katalog utama website.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Details Form -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div class="form-group">
+            <label class="form-label">Nama Kategori Menu *</label>
+            <input type="text" id="catMenuNameInput" class="form-control" placeholder="Contoh: Graduation, Group, Couple">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teks Badge Sorotan (Opsional)</label>
+            <input type="text" id="catMenuBadgeInput" class="form-control" placeholder="Contoh: Favorit Wisuda, Populer">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Judul Halaman Pricelist</label>
+          <input type="text" id="catMenuTitleInput" class="form-control" placeholder="Contoh: PRICELIST GRADUATION">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Sub-judul / Tagline Menu</label>
+          <input type="text" id="catMenuTaglineInput" class="form-control" placeholder="Contoh: Elegant Scholar, Supreme Scholar, Bundling &amp; Outdoor">
+        </div>
+
+        <div class="form-group" style="margin-top: 0.85rem; padding-top: 0.65rem; border-top: 1px solid #F1F5F9;">
+          <label class="checkbox-item" style="font-weight: 700; color: var(--charcoal); font-size: 0.88rem;">
+            <input type="checkbox" id="catMenuActiveCheckbox" checked>
+            <span>Aktifkan Kategori ini di Menu Web Pelanggan (jika dinonaktifkan, ikon menu akan disembunyikan)</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-preview" onclick="closeModal('categoryMenuModal')">Batal</button>
+        <button type="button" class="btn btn-save-local" onclick="saveCategoryMenuModal()">💾 Simpan Kategori</button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: ATUR URUTAN FOTO & ITEM GALERI -->
   <div class="modal-overlay" id="galleryReorderModal">
     <div class="modal-card" style="max-width: 620px;">
@@ -11566,24 +11653,29 @@
 
       appConfig.categories.forEach((cat, idx) => {
         const isActive = cat.active !== false;
+        const catImg = cat.thumbnailImage || cat.image || '';
+        const catName = cat.name || cat.label || cat.id;
+        const catBadge = cat.badgeText || cat.badge || '';
+        const catTagline = cat.subtitle || cat.tagline || '';
+
         const card = document.createElement('div');
-        card.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:0.9rem; display:flex; gap:0.85rem; align-items:center;' + (isActive ? '' : 'opacity:0.55;');
+        card.style.cssText = 'background:#FFF; border:1px solid var(--border); border-radius:14px; padding:1rem; display:flex; gap:0.95rem; align-items:center; box-shadow:0 2px 8px rgba(0,0,0,0.03);' + (isActive ? '' : 'opacity:0.55;');
         card.innerHTML = `
-          <div style="width:60px; height:60px; border-radius:10px; overflow:hidden; background:#E5E7EB; flex-shrink:0; border:1px solid var(--border); display:flex; align-items:center; justify-content:center;">
-            ${cat.image ? `<img src="${cat.image}" alt="${escapeHtml(cat.label)}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.3rem;">📷</span>`}
+          <div style="width:68px; height:68px; border-radius:50%; overflow:hidden; background:#F4F4F5; flex-shrink:0; border:2.5px solid #6E856C; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(0,0,0,0.06);">
+            ${catImg ? `<img src="${catImg}" alt="${escapeHtml(catName)}" style="width:100%; height:100%; object-fit:cover;">` : `<span style="font-size:1.6rem;">${escapeHtml(cat.icon || '📷')}</span>`}
           </div>
           <div style="flex:1; min-width:0;">
-            <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
-              <span style="font-weight:800; font-size:0.9rem; color:var(--charcoal);">${escapeHtml(cat.label || cat.id)}</span>
-              ${cat.badge ? `<span style="font-size:0.65rem; background:#FEF3C7; color:#92400E; padding:1px 6px; border-radius:999px; font-weight:700;">${escapeHtml(cat.badge)}</span>` : ''}
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:3px; flex-wrap:wrap;">
+              <span style="font-weight:800; font-size:0.92rem; color:var(--charcoal);">${escapeHtml(catName)}</span>
+              ${catBadge ? `<span style="font-size:0.65rem; background:#FEF3C7; color:#92400E; padding:1px 6px; border-radius:999px; font-weight:700;">${escapeHtml(catBadge)}</span>` : ''}
             </div>
-            <div style="font-size:0.75rem; color:#71717A; margin-bottom:6px;">${escapeHtml(cat.tagline || '')}</div>
-            <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
-              <label style="font-size:0.72rem; display:inline-flex; align-items:center; gap:4px; cursor:pointer;">
+            <div style="font-size:0.75rem; color:#71717A; margin-bottom:8px; line-height:1.25;" class="truncate">${escapeHtml(catTagline || cat.title || '')}</div>
+            <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+              <label style="font-size:0.75rem; font-weight:600; display:inline-flex; align-items:center; gap:4px; cursor:pointer;">
                 <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleCategoryMenuActive(${idx}, this.checked)">
                 <span>${isActive ? 'Aktif' : 'Nonaktif'}</span>
               </label>
-              <button type="button" class="btn-action" style="padding:2px 8px; font-size:0.72rem;" onclick="editCategoryMenuPrompt(${idx})">✏️ Edit Label & Foto</button>
+              <button type="button" class="btn-action" style="padding:4px 10px; font-size:0.75rem; background:#F4F4F5; border-radius:6px; font-weight:700; cursor:pointer;" onclick="openCategoryMenuModal(${idx})">✏️ Edit Foto & Label</button>
             </div>
           </div>
         `;
@@ -11596,28 +11688,110 @@
       appConfig.categories[idx].active = checked;
       renderCategoriesMenu();
       saveConfigLocally();
-      showToast(`Kategori "${appConfig.categories[idx].label}" ${checked ? 'diaktifkan' : 'disembunyikan'}.`, '🗂️');
+      showToast(`Kategori "${appConfig.categories[idx].name || appConfig.categories[idx].label}" ${checked ? 'diaktifkan' : 'disembunyikan'}.`, '🗂️');
     }
 
-    function editCategoryMenuPrompt(idx) {
+    function openCategoryMenuModal(idx) {
       const cat = appConfig?.categories?.[idx];
       if (!cat) return;
-      const label = prompt('Nama Kategori Menu:', cat.label || '');
-      if (label === null) return;
-      const tagline = prompt('Sub-judul / Tagline Kategori:', cat.tagline || '');
-      if (tagline === null) return;
-      const badge = prompt('Badge Kategori (kosongkan jika tidak ada, contoh: Populer):', cat.badge || '');
-      if (badge === null) return;
-      const image = prompt('URL Thumbnail Foto Kategori (contoh: /images/categories/graduation.jpg):', cat.image || '');
-      if (image === null) return;
 
-      cat.label = label.trim() || cat.label;
-      cat.tagline = tagline.trim();
-      cat.badge = badge.trim();
-      cat.image = image.trim();
+      document.getElementById('catMenuEditIndex').value = idx;
+      document.getElementById('catMenuNameInput').value = cat.name || cat.label || '';
+      document.getElementById('catMenuBadgeInput').value = cat.badgeText || cat.badge || '';
+      document.getElementById('catMenuTitleInput').value = cat.title || '';
+      document.getElementById('catMenuTaglineInput').value = cat.subtitle || cat.tagline || '';
+      const imgUrl = cat.thumbnailImage || cat.image || '';
+      document.getElementById('catMenuImageUrlInput').value = imgUrl;
+      document.getElementById('catMenuActiveCheckbox').checked = cat.active !== false;
+
+      updateCatMenuModalPreview(imgUrl);
+      openModal('categoryMenuModal');
+    }
+
+    function updateCatMenuModalPreview(url) {
+      const imgEl = document.getElementById('catMenuPreviewImg');
+      const phEl = document.getElementById('catMenuPreviewPlaceholder');
+      if (!imgEl || !phEl) return;
+      if (url && url.trim()) {
+        imgEl.src = url.trim();
+        imgEl.style.display = 'block';
+        phEl.style.display = 'none';
+      } else {
+        imgEl.style.display = 'none';
+        phEl.style.display = 'block';
+      }
+    }
+
+    async function handleCatMenuUpload(event) {
+      const input = event.target;
+      const file = input?.files?.[0];
+      if (!file) return;
+
+      const statusEl = document.getElementById('catMenuUploadStatus');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.textContent = '⏳ Mengompresi dan mengunggah foto kategori...';
+      }
+
+      try {
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0] : '.jpg';
+        const fileName = `cat_${Date.now()}${ext}`;
+
+        const res = await uploadImageToServer({
+          file,
+          fileName,
+          folder: 'categories',
+          maxWidth: 800,
+          maxHeight: 800,
+          quality: 0.85
+        });
+
+        if (res && res.success && res.url) {
+          document.getElementById('catMenuImageUrlInput').value = res.url;
+          updateCatMenuModalPreview(res.url);
+          showToast('✅ Foto kategori berhasil diunggah!', '📸');
+        } else {
+          throw new Error(res?.message || 'Gagal mengunggah foto.');
+        }
+      } catch (err) {
+        console.error('Error uploading category photo:', err);
+        alert('Gagal mengunggah foto: ' + err.message);
+      } finally {
+        if (statusEl) statusEl.style.display = 'none';
+        input.value = '';
+      }
+    }
+
+    function saveCategoryMenuModal() {
+      const idx = parseInt(document.getElementById('catMenuEditIndex').value, 10);
+      if (isNaN(idx) || !appConfig?.categories?.[idx]) return;
+      const cat = appConfig.categories[idx];
+
+      const nameVal = document.getElementById('catMenuNameInput').value.trim();
+      const badgeVal = document.getElementById('catMenuBadgeInput').value.trim();
+      const titleVal = document.getElementById('catMenuTitleInput').value.trim();
+      const taglineVal = document.getElementById('catMenuTaglineInput').value.trim();
+      const imgUrlVal = document.getElementById('catMenuImageUrlInput').value.trim();
+      const isActive = document.getElementById('catMenuActiveCheckbox').checked;
+
+      if (nameVal) {
+        cat.name = nameVal;
+        cat.label = nameVal;
+      }
+      cat.badge = badgeVal;
+      cat.badgeText = badgeVal;
+      if (titleVal) cat.title = titleVal;
+      cat.subtitle = taglineVal;
+      cat.tagline = taglineVal;
+      cat.thumbnailImage = imgUrlVal;
+      cat.image = imgUrlVal;
+      cat.active = isActive;
+
       renderCategoriesMenu();
       saveConfigLocally();
-      showToast(`✅ Kategori "${cat.label}" berhasil diperbarui!`, '🗂️');
+      closeModal('categoryMenuModal');
+      showToast(`✅ Kategori "${cat.name || cat.label}" berhasil diperbarui!`, '🗂️');
     }
 
     function saveCategoriesMenu() {
