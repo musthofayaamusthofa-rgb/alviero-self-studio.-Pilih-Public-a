@@ -814,18 +814,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       tags: ['#WisudaOutdoor', '#AreaKampus', '#FotoWisuda']
     },
     {
-      id: 'photo-4-prewed',
-      title: 'Konsep Prewedding Gaun Putih & Jas Mewah Elegan',
-      category: 'prewed',
-      packageName: 'Paket Prewedding',
-      icon: '💍',
-      targetPackageId: 'prewed-sweet-promise',
-      imageUrl: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=85',
-      description: 'Sesi foto prewedding romantis dengan gaun pengantin modern, setelan jas, riasan make-up, dan pencahayaan studio elegan.',
-      conceptNote: 'Arahan pose natural dan elegan khusus calon pengantin.',
-      tags: ['#Prewedding', '#GaunPengantin', '#FotoNikah']
-    },
-    {
       id: 'photo-5-couple',
       title: 'Foto Pasangan Romantis, Hangat & Natural',
       category: 'couple',
@@ -1146,7 +1134,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const pricelistPreviewPhotos = useMemo(() => {
     const previewCategory = previewCategoryByMenu[activeMenuCategory || ''] || activeMenuCategory;
-    const matchingGallery = STUDIO_GALLERY_PHOTOS.filter(photo => photo.category === previewCategory);
+    // Hanya gunakan foto galeri studio asli (bukan stock photo unsplash)
+    const matchingGallery = STUDIO_GALLERY_PHOTOS.filter(photo => photo.category === previewCategory && !photo.imageUrl?.includes('unsplash.com'));
 
     // 1. Ambil foto yang diupload dari Admin Panel (Foto 1 & Foto 2) untuk kategori yang sedang aktif
     const allStudioPkgs = (((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[]);
@@ -1219,7 +1208,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       })));
     } else if (customPkgPhotos.length === 0) {
       defaultGalleryPhotos = activeMenuPackages
-        .filter(pkg => Boolean(pkg.image))
+        .filter(pkg => Boolean(pkg.image) && !pkg.image?.includes('unsplash.com'))
         .map(pkg => ({
           id: pkg.id,
           imageUrl: pkg.image,
@@ -1228,7 +1217,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         }));
     }
 
-    // Jika admin telah mengupload foto untuk paket di kategori ini, tampilkan foto tersebut di urutan terdepan carousel Foto 2!
+    // Jika admin telah mengupload foto untuk paket di kategori ini, tampilkan foto tersebut di urutan terdepan carousel!
     if (customPkgPhotos.length > 0) {
       return [...customPkgPhotos, ...defaultGalleryPhotos];
     }

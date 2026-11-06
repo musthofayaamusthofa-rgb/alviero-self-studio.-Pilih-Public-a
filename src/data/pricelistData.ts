@@ -891,7 +891,7 @@ export const PACKAGES: PackageItem[] = [
       "Cetak 12Rs + Bingkai"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80"
+    "image": "/images/categories/prewedding.jpg"
   },
   {
     "id": "prewed-velvet-romance",
