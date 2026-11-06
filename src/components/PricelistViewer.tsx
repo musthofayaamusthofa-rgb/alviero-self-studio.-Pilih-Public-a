@@ -129,9 +129,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const getAddOnPriceDisplay = (keywordOrId: string, fallback = ''): string => {
     const addOns = ((studioConfig as any)?.addOns as any[]) || [];
     const found = addOns.find((a: any) => 
-      a.id === keywordOrId || 
-      a.id.includes(keywordOrId) || 
-      (a.name && a.name.toLowerCase().includes(keywordOrId.toLowerCase()))
+      a && (
+        a.id === keywordOrId || 
+        (typeof a.id === 'string' && a.id.includes(keywordOrId)) || 
+        (typeof a.name === 'string' && a.name.toLowerCase().includes(keywordOrId.toLowerCase()))
+      )
     );
     if (found && found.price) {
       return formatPriceDisplay(found.price, fallback);
@@ -339,6 +341,9 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const [selectedBingkaiSubTab, setSelectedBingkaiSubTab] = useState<'all' | 'cetak' | 'bingkai' | 'album'>('all');
   const [selectedGradSubTab, setSelectedGradSubTab] = useState<'all' | 'indoor' | 'bundling' | 'outdoor' | 'additional'>('all');
+  const [selectedPrewedSubTab, setSelectedPrewedSubTab] = useState<'all' | 'studio' | 'bundling'>('all');
+  const [selectedGroupSubTab, setSelectedGroupSubTab] = useState<'all' | 'small' | 'large'>('all');
+  const [selectedBirthdaySubTab, setSelectedBirthdaySubTab] = useState<'all' | 'sweet' | 'spotlight'>('all');
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(!!initialCategory);
 
   const handleClosePopup = () => {
@@ -1299,6 +1304,146 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
     touchPreviewStartX.current = null;
     touchPreviewEndX.current = null;
+  };
+
+  // Helper untuk mengambil paket secara dinamis dari studioConfig / fallback
+  const getPackagesForCategory = (categoryKeys: string[]) => {
+    const allStudio = (((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[]);
+    const fromStudio = allStudio.filter((p: any) => categoryKeys.includes(p.category) && p.active !== false);
+    if (fromStudio.length > 0) return fromStudio;
+
+    return allDynamicPackages.filter((p: any) => {
+      const pCat = (p.rawConfig?.category || p.category || '').toLowerCase();
+      const pId = (p.id || '').toLowerCase();
+      return categoryKeys.some(k => pCat === k.toLowerCase() || pId.includes(k.toLowerCase()));
+    });
+  };
+
+  // Helper render kartu paket mewah standar Alviero (Sesuai Desain Acuan Foto 1)
+  const renderLuxuryPackageCard = (pkg: any, idx: number, defaultNote = '*Harap konfirmasi jadwal terlebih dahulu') => {
+    const badgeColorClass =
+      idx === 0
+        ? 'bg-[#EBF2EA] text-[#3D6345] border-[#CDE0CB]'
+        : idx === 1
+        ? 'bg-[#FAF0E6] text-[#8A5A36] border-[#EAD5C3]'
+        : 'bg-[#F0F4F8] text-[#2C4A6F] border-[#D5E1ED]';
+
+    return (
+      <div
+        key={pkg.id || idx}
+        className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                {pkg.subtitle || pkg.tag || `Paket ${idx + 1}`}
+              </span>
+              {pkg.badge && (
+                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeColorClass}`}>
+                  {idx === 0 ? <Star className="w-3 h-3 fill-current" /> : idx === 1 ? <Sparkles className="w-3 h-3" /> : <Users className="w-3 h-3" />}
+                  {pkg.badge}
+                </span>
+              )}
+            </div>
+            <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+              {pkg.name}
+            </h4>
+          </div>
+          <div className="sm:text-right">
+            {pkg.originalPrice && (
+              <span className="text-[11px] text-slate-400 line-through font-century block">
+                {pkg.originalPrice}
+              </span>
+            )}
+            <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+              {pkg.price}
+            </div>
+            <span className="text-[10px] text-slate-500 font-century">
+              {pkg.priceUnit || 'per sesi • all-in'}
+            </span>
+          </div>
+        </div>
+
+        {/* Dynamic Specification Badges Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
+          {Array.isArray(pkg.facilities) && pkg.facilities.length > 0 ? (
+            pkg.facilities.map((fac: any, fIdx: number) => (
+              <div key={fIdx} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-start sm:items-center gap-2 hover:border-[#A9BCA7] transition-colors">
+                <span className="text-base shrink-0 leading-none">{fac.icon || '✨'}</span>
+                <div className="min-w-0 flex-1">
+                  {fac.label && (
+                    <span className="text-[10px] text-stone-500 font-bold block leading-tight uppercase tracking-wider">
+                      {fac.label}
+                    </span>
+                  )}
+                  <span className="text-[#3A3A3A] font-medium leading-snug block">
+                    {fac.text}
+                  </span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <>
+              {pkg.people && (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">{pkg.people}</span>
+                </div>
+              )}
+              {pkg.duration && (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">{pkg.duration}</span>
+                </div>
+              )}
+              {pkg.background && (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">{pkg.background}</span>
+                </div>
+              )}
+              {pkg.edit && (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">{pkg.edit}</span>
+                </div>
+              )}
+              {pkg.print && (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">{pkg.print}</span>
+                </div>
+              )}
+              {pkg.fileDelivery ? (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">{pkg.fileDelivery}</span>
+                </div>
+              ) : (
+                <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                  <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                  <span className="text-[#3A3A3A] font-medium">All File via Google Drive</span>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+          <span className="text-[11px] text-slate-500 font-century italic">
+            {pkg.note || defaultNote}
+          </span>
+          <button
+            onClick={() => onSelectPackageForBooking(pkg.id)}
+            className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] active:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm hover:shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+          >
+            <span>Pilih Paket Ini</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -2721,900 +2866,774 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </div>
                 )}
 
-                {/* 2. SPECIAL FIGMA VIEW FOR UNDANGAN PACKAGES */}
+                                {/* ========================================================================= */}
+                {/* UNIFIED LUXURY CATEGORY VIEWS (SESUAI ACUAN FOTO 1 GRADUATION)           */}
+                {/* 100% TERHUBUNG DINAMIS DENGAN DASHBOARD / studioConfig.studioPackages   */}
+                {/* ========================================================================= */}
+
+                {/* 1. UNDANGAN DIGITAL */}
                 {activeMenuCategory === 'undangan-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET UNDANGAN
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                       </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Undangan Digital Website
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Bagikan kabar bahagia pernikahan Anda melalui website undangan interaktif modern, responsif di semua perangkat, dengan fitur RSVP & amplop digital.
+                      </p>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      {/* Paket Undangan 1 */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Paket Undangan 1</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Undangan 1</span>
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Undangan Digital Packages
+                          </h4>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>maks 2 Orang</p>
-                          <p>maks 5 gaya</p>
-                          <p>Allfile Via Googledrive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("undangan-paket-1", "95K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('undangan-paket-1')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['undangan', 'undangan-paket']).length} Pilihan Paket
+                        </span>
                       </div>
 
-                      {/* Paket Undangan 2 */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Undangan 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Paket Undangan 2</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>maks 4 Orang</p>
-                          <p>maks 5 gaya</p>
-                          <p>Allfile Via Googledrive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("undangan-paket-2", "155K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('undangan-paket-2')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
+                      {getPackagesForCategory(['undangan', 'undangan-paket']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Masa aktif terhitung sejak tanggal aktivasi website undangan')
+                      )}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Fitur Website Undangan Digital</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>📱</span><span>Tampilan Elegan Mobile & Desktop</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>🎵</span><span>Musik Latar Bebas Request</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>🗺️</span><span>Navigasi Google Maps</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>💌</span><span>Nama Tamu Tak Terbatas</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>🎁</span><span>Amplop Digital (QRIS / Rekening)</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>💬</span><span>Live Wishes & Ucapan Doa</span></div>
                       </div>
                     </div>
 
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 3. SPECIAL FIGMA VIEW FOR SEWA STUDIO */}
+                {/* 2. SEWA STUDIO */}
                 {activeMenuCategory === 'sewa-studio' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET SEWA STUDIO
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Sewa Studio Hourly
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Sewa studio foto berpendingin udara lengkap dengan flash studio Godox, softbox, trigger, beragam pilihan background, dan ruang rias privat.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Studio Rental Packages
+                          </h4>
+                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['sewa-studio', 'sewa']).length} Pilihan Paket
+                        </span>
+                      </div>
+
+                      {getPackagesForCategory(['sewa-studio', 'sewa']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Harga sewa berlaku per jam, fotografer & kamera disediakan sendiri oleh klien')
+                      )}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Fasilitas Sewa Termasuk</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>💡</span><span>2-3 Studio Flash Godox + Trigger</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>✨</span><span>Bebas Pakai Semua Background</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>❄️</span><span>Ruangan Full AC & Audio Musik</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>👗</span><span>Ruang Ganti & Cermin Rias</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>📶</span><span>Koneksi WiFi Berkecepatan Tinggi</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>👥</span><span>Kapasitas Tim Maksimal 8 Orang</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      <div className="border-b border-slate-100 pb-5 space-y-3">
-                        <div className="text-sm sm:text-base text-slate-600 font-serif space-y-1 leading-relaxed">
-                          <p className="font-semibold text-slate-800">2 Background</p>
-                          <p>maks 60 Menit</p>
-                          <p className="text-slate-700 font-medium">2 Lighting | 1 Trigger | 2 Stand light</p>
-                        </div>
-
-                        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                          <div className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-serif">{getPkgPrice("sewa-studio-hourly", "175K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('sewa-studio-hourly')}
-                            className="px-7 py-3 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95 self-start sm:self-center"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 4. SPECIAL FIGMA VIEW FOR PREWEDD PACKAGES */}
+                {/* 3. PREWEDDING STUDIO & BUNDLING */}
                 {activeMenuCategory === 'prewed-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET PREWEDD
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Prewedding Studio & Bundling
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Rangkaian sesi prewedding impian dengan konsep studio megah, gaun eksklusif, sentuhan riasan MUA profesional, dan cetak bingkai premium.
+                      </p>
+                    </div>
+
+                    {/* Sub-Kategori Navigation Pills */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
+                      {[
+                        { id: 'all', label: '💍 Semua Paket Prewed' },
+                        { id: 'studio', label: '🏛️ Prewedding Studio' },
+                        { id: 'bundling', label: '💄 Bundling Prewed + MUA' }
+                      ].map((tab) => {
+                        const isSelected = selectedPrewedSubTab === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setSelectedPrewedSubTab(tab.id as any)}
+                            className={`min-h-[36px] px-3.5 py-1.5 rounded-full text-xs font-bold font-century transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${
+                              isSelected
+                                ? 'bg-[#2A2A2A] text-white shadow-sm'
+                                : 'bg-[#F2E9E4] text-[#3A3A3A] hover:bg-[#E8DDD6]'
+                            }`}
+                          >
+                            <span>{tab.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="space-y-4">
+                      {(() => {
+                        const allPrewed = getPackagesForCategory(['prewed', 'prewedding', 'prewed-paket']);
+                        const filtered = allPrewed.filter((pkg: any) => {
+                          if (selectedPrewedSubTab === 'studio') {
+                            return !pkg.id.includes('bundling') && !pkg.name.toLowerCase().includes('mua');
+                          }
+                          if (selectedPrewedSubTab === 'bundling') {
+                            return pkg.id.includes('bundling') || pkg.name.toLowerCase().includes('mua');
+                          }
+                          return true;
+                        });
+
+                        return (
+                          <>
+                            <div className="flex items-center justify-between pt-1">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                                <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                                  {selectedPrewedSubTab === 'bundling' ? 'Prewedding + MUA Bundling' : 'Prewedding Studio Packages'}
+                                </h4>
+                              </div>
+                              <span className="text-[11px] font-medium text-slate-500 font-century">
+                                {filtered.length} Pilihan Paket
+                              </span>
+                            </div>
+
+                            {filtered.map((pkg: any, idx: number) =>
+                              renderLuxuryPackageCard(pkg, idx, '*Termasuk pengarahan pose cinematic langsung dari fotografer profesional')
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Additional & Layanan Tambahan Prewedding</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Background</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Hairdo</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("hairdo", "150K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Make Up</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("makeup", "350K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Edit Foto</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("edit", "10K")}</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      {/* Sweet Promise */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Sweet Promise</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Prewedd 1</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Maks 50 Menit | <span className="text-rose-600 font-bold">1 background</span></p>
-                          <p>Edit 10 foto | <span className="text-rose-600 font-bold">allfile google drive</span></p>
-                          <p>Maks 2 kostum | <span className="text-rose-600 font-bold">Cetak 12Rs + Bingkai</span></p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("prewed-sweet-promise", "550K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('prewed-sweet-promise')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Velvet Romance */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Prewedd 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Velvet Romance</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Maks 60 Menit | <span className="text-rose-600 font-bold">2 bakcground</span></p>
-                          <p>Edit 13 foto | <span className="text-rose-600 font-bold">allfile via google drive</span></p>
-                          <p>Maks 2 kostum | <span className="text-rose-600 font-bold">Cetak 12 + Bingkai</span></p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("prewed-velvet-romance", "600K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('prewed-velvet-romance')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Bundling 1, Bundling 2 & Additional */}
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start border-b border-slate-100 pb-5">
-                        <div className="md:col-span-4 bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5 order-3 md:order-1">
-                          <h4 className="text-center font-serif font-black text-base text-slate-900">Additional</h4>
-                          <div className="space-y-1.5 text-xs text-slate-800">
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Hairdo</span><span className="font-bold">{getAddOnPriceDisplay("hairdo", "150K")}</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Make UP</span><span className="font-bold">{getAddOnPriceDisplay("makeup", "350K")}</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit</span><span className="font-bold">{getAddOnPriceDisplay("edit", "10K")}</span></div>
-                          </div>
-                          <div className="text-center pt-1.5">
-                            <span className="inline-block bg-rose-600 text-white font-black text-xs px-3 py-1 rounded-full shadow-xs tracking-wider uppercase animate-pulse">
-                              FREE PAS FOTO
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-8 space-y-5 order-1 md:order-2">
-                          {/* Bundling 1 */}
-                          <div className="space-y-2 text-left">
-                            <div className="flex items-center gap-2">
-                              <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bundling 1</h4>
-                              <span className="text-xs text-slate-400 font-medium font-serif">—— Prewedd 3</span>
-                            </div>
-                            <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                              <p><span className="text-rose-600 font-bold">Paket Sweet Promise</span> + Make Up</p>
-                              <p>Hijab Do, Softlens</p>
-                              <p>Sepasang Kostum (bisa memilih)</p>
-                            </div>
-                            <div className="pt-1 flex items-center justify-between gap-3">
-                              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('prewed-bundling-1', '1.400K')}</div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('prewed-bundling-1')}
-                                className="px-6 py-2 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                              >
-                                KLIK UNTUK PESAN
-                              </button>
-                            </div>
-                          </div>
-
-                          {/* Bundling 2 */}
-                          <div className="space-y-2 text-right border-t border-slate-100 pt-4">
-                            <div className="flex items-center justify-end gap-2">
-                              <span className="text-xs text-slate-400 font-medium font-serif">Prewedd 4 ——</span>
-                              <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bundling 2</h4>
-                            </div>
-                            <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                              <p><span className="text-rose-600 font-bold">Paket Velvet Romance</span> + Make Up</p>
-                              <p>Hijab Do, Softlens</p>
-                              <p>Sepasang Kostum (bisa memilih)</p>
-                            </div>
-                            <div className="pt-1 flex items-center justify-end gap-3">
-                              <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('prewed-bundling-2', '1.500K')}</div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('prewed-bundling-2')}
-                                className="px-6 py-2 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                              >
-                                KLIK UNTUK PESAN
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 5. SPECIAL FIGMA VIEW FOR COUPLE PACKAGES */}
+                {/* 4. COUPLE ROMANCE */}
                 {activeMenuCategory === 'couple-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET COUPLE
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Couple Romance Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Ekspresikan kisah cinta romantis dan kehangatan hubungan Anda bersama pasangan dalam potret artistik berkelas.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Couple Studio Packages
+                          </h4>
+                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['couple', 'couple-paket']).length} Pilihan Paket
+                        </span>
+                      </div>
+
+                      {getPackagesForCategory(['couple', 'couple-paket']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Pose romantis & intim diarahkan langsung oleh fotografer profesional')
+                      )}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Additional & Add-Ons Couple</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Background</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Ganti Outfit</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("costume", "50K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Edit Foto</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("edit", "10K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Make Up Pasangan</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("makeup", "250K")}</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start border-b border-slate-100 pb-5">
-                        <div className="md:col-span-7 space-y-2">
-                          <div className="flex items-center gap-2">
-                            <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Eternal Love</h4>
-                            <span className="text-xs text-slate-400 font-medium font-serif">—— Couple 1</span>
-                          </div>
-                          <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                            <p>Unlimited foto Maks 30 menit | 1 background</p>
-                            <p>6 Edit foto | all file google drive | Maks 1 outfit</p>
-                            <p>Cetak Uk 4r 4 foto / 10Rs 1 Foto</p>
-                          </div>
-                          <div className="pt-2 flex items-center justify-between gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("couple-eternal-love", "255K")}</div>
-                            <button
-                              onClick={() => onSelectPackageForBooking('couple-eternal-love')}
-                              className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                            >
-                              KLIK UNTUK PESAN
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-5 bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5">
-                          <h4 className="text-center font-serif font-black text-base text-slate-900">Additional</h4>
-                          <div className="space-y-1.5 text-xs text-slate-800">
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">75K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Outfit</span><span className="font-bold">50K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit</span><span className="font-bold">10K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5 text-rose-600 font-bold"><span>+ Make Up</span><span>250K</span></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Sweet Memories</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">Couple 2 ——</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Unlimited foto Maks 40 menit | 2 background</p>
-                          <p>8 Edit foto | all file google drive | Maks 1 outfit</p>
-                          <p>Cetak Uk 4r 4 foto / 10Rs 1 Foto</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("couple-sweet-memories", "305K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('couple-sweet-memories')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 6. SPECIAL FIGMA VIEW FOR PERSONAL PACKAGES */}
+                {/* 5. PERSONAL PORTRAIT */}
                 {activeMenuCategory === 'personal-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET PERSONAL
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                       </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Personal Portrait Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Tampilkan citra diri terbaik Anda untuk CV profesional, branding karier, profil LinkedIn, maupun portofolio sosial media.
+                      </p>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Bold Statement</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— personal 1</span>
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Personal Portrait Packages
+                          </h4>
                         </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Unlimited Foto Maks 20 menit | 1 background</p>
-                          <p>edit 5 foto | Allfile Via Google Drive | maks 1 Outfit</p>
-                          <p>Cetak Uk 4R Foto <span className="text-rose-600 font-bold">Atau</span> 10Rs 1 foto</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("personal-bold-statement", "155K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('personal-bold-statement')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['personal', 'personal-paket']).length} Pilihan Paket
+                        </span>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start border-b border-slate-100 pb-5">
-                        <div className="md:col-span-5 bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5 order-2 md:order-1">
-                          <h4 className="text-center font-serif font-black text-base text-slate-900">Additional</h4>
-                          <div className="space-y-1.5 text-xs text-slate-800">
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">50K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Kostum</span><span className="font-bold">50K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Make Up</span><span className="font-bold">250K</span></div>
-                          </div>
-                        </div>
+                      {getPackagesForCategory(['personal', 'personal-paket']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Cocok untuk foto profile, CV profesional, dan konten media sosial')
+                      )}
+                    </div>
 
-                        <div className="md:col-span-7 space-y-2 text-right order-1 md:order-2">
-                          <div className="flex items-center justify-end gap-2">
-                            <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Opulent Shot</h4>
-                            <span className="text-xs text-slate-400 font-medium font-serif">personal 2 ——</span>
-                          </div>
-                          <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                            <p>Unlimited Foto Maks 25 Menit | 2 Background</p>
-                            <p>Edit 6 Foto | Allfile Via google Drive | Maks 2 Outfit</p>
-                            <p>Cetak Uk 4R 4 Foto <span className="text-rose-600 font-bold">Atau</span> 10Rs 1 Foto</p>
-                          </div>
-                          <div className="pt-2 flex items-center justify-end gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("personal-opulent-shot", "255K")}</div>
-                            <button
-                              onClick={() => onSelectPackageForBooking('personal-opulent-shot')}
-                              className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                            >
-                              KLIK UNTUK PESAN
-                            </button>
-                          </div>
-                        </div>
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Additional & Add-Ons Personal</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Background</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("backdrop", "50K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Ganti Kostum</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("costume", "50K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Make Up & Hairdo</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("makeup", "250K")}</span></div>
                       </div>
                     </div>
 
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 7. SPECIAL FIGMA VIEW FOR MATERNITY PACKAGES */}
+                {/* 6. MATERNITY */}
                 {activeMenuCategory === 'maternity-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET MATERNITY
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Maternity Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Momen penuh cinta menyambut buah hati tercinta dengan pencahayaan lembut dan suasana studio yang privat nan nyaman.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Maternity Studio Packages
+                          </h4>
+                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['maternity', 'maternity-paket']).length} Pilihan Paket
+                        </span>
+                      </div>
+
+                      {getPackagesForCategory(['maternity', 'maternity-paket']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Mengabadikan momen kehamilan yang hangat & penuh rasa syukur')
+                      )}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Additional & Add-Ons Maternity</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Background</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Ganti Kostum</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("costume", "50K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Edit Foto</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("edit", "10K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Make Up Bumil</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("makeup", "250K")}</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start border-b border-slate-100 pb-5">
-                        <div className="md:col-span-7 space-y-2">
-                          <div className="flex items-center gap-2">
-                            <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Warm Embrace</h4>
-                            <span className="text-xs text-slate-400 font-medium font-serif">—— Maternity 1</span>
-                          </div>
-                          <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                            <p>Unlimited foto Maks 30 Menit | 1 Background</p>
-                            <p>Edit 6 Foto | Cetak Uk 10Rs 2 Foto | Maks 1 kostum</p>
-                            <p>Allfile via GoogleDrive</p>
-                          </div>
-                          <div className="pt-2 flex items-center justify-between gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("maternity-warm-embrace", "255K")}</div>
-                            <button
-                              onClick={() => onSelectPackageForBooking('maternity-warm-embrace')}
-                              className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                            >
-                              KLIK UNTUK PESAN
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-5 bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5">
-                          <h4 className="text-center font-serif font-black text-base text-slate-900">Additional</h4>
-                          <div className="space-y-1.5 text-xs text-slate-800">
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">75K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Kostum</span><span className="font-bold">50K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Edit</span><span className="font-bold">10K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5 text-rose-600 font-bold"><span>+ Make up</span><span>250K</span></div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Golden Motherhood</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">maternity 2 ——</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Unlimited Foto Maks 40 Menit | 2 background</p>
-                          <p>8 Edit foto | Allfile via google drive | Cetak Uk 10Rs 2 Foto</p>
-                          <p>Maks 2 kostum</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("maternity-golden-motherhood", "305K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('maternity-golden-motherhood')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 8. SPECIAL FIGMA VIEW FOR BIRTHDAY PACKAGES */}
+                {/* 7. BIRTHDAY CELEBRATION */}
                 {activeMenuCategory === 'event' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET BIRTHDAY
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                       </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Birthday Celebration Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Rayakan pertambahan usia penuh suka cita, dekorasi balon, kue ulang tahun, dan pencahayaan spotlight studio yang memukau.
+                      </p>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      {/* Birthday 1: Sweet Celebration */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Sweet Celebration</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Birthday 1</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Foto 25 Menit | 1 background foto | <span className="text-rose-600 font-bold">1 Person</span></p>
-                          <p>All file via Google Drive | 6 foto Edit | 2 Foto Cetak Uk 10Rs</p>
-                          <p><span className="text-rose-600 font-bold">Properti birthday Dari Klien</span></p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-sweet-celebration", "199K")}</div>
+                    {/* Sub-Kategori Navigation Pills */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
+                      {[
+                        { id: 'all', label: '🎂 Semua Paket Birthday' },
+                        { id: 'sweet', label: '🎈 Sweet Celebration (1-3 Org)' },
+                        { id: 'spotlight', label: '💡 Spotlight Party (4-12 Org)' }
+                      ].map((tab) => {
+                        const isSelected = selectedBirthdaySubTab === tab.id;
+                        return (
                           <button
-                            onClick={() => onSelectPackageForBooking('birthday-sweet-celebration')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
+                            key={tab.id}
+                            onClick={() => setSelectedBirthdaySubTab(tab.id as any)}
+                            className={`min-h-[36px] px-3.5 py-1.5 rounded-full text-xs font-bold font-century transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${
+                              isSelected
+                                ? 'bg-[#2A2A2A] text-white shadow-sm'
+                                : 'bg-[#F2E9E4] text-[#3A3A3A] hover:bg-[#E8DDD6]'
+                            }`}
                           >
-                            KLIK UNTUK PESAN
+                            <span>{tab.label}</span>
                           </button>
-                        </div>
-                      </div>
-
-                      {/* Birthday 2: Glow Sweet Celebration */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Birthday 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Glow Sweet Celebration</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Foto 30 Menit | 1 Background Foto | <span className="text-rose-600 font-bold">2 - 3 Person</span></p>
-                          <p>All file Google Drive | <span className="text-rose-600 font-bold">6 Foto Edit</span> | 2 Foto cetak Uk 10Rs</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-glow-sweet", "275K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('birthday-glow-sweet')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Birthday 3: Sweet Light */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Sweet Light</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Birthday 3</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Foto 30 Menit | 1 Background foto | <span className="text-rose-600 font-bold">1 Person</span> | All file via Google Drive</p>
-                          <p>8 Foto edit | 2 Foto cetak Uk 10Rs</p>
-                          <p><span className="text-rose-600 font-bold">Include Properti:</span> tulisan birthday, 12 Balon Latex, 1 Balon Angka 80cm</p>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setActiveModalPhoto(birthdayDecorPreview);
-                              setModalImageIndex(0);
-                            }}
-                            className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
-                          >
-                            <ImageIcon className="w-3.5 h-3.5" />
-                            <span>Contoh Hasil Dekor</span>
-                          </button>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-sweet-light", "250K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('birthday-sweet-light')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Birthday 4: Ultimate Sweet Light */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Birthday 4 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Ultimate Sweet Light</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Foto 30 Menit | 1 Background | <span className="text-rose-600 font-bold">2 - 3 Person</span> | All file via Google Drive</p>
-                          <p>8 Edit foto | 2 Cetak foto Uk 10Rs</p>
-                          <p><span className="text-rose-600 font-bold">Include Properti:</span> tulisan birthday, balon 12 pas, balon angka bebas pilihan warna</p>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setActiveModalPhoto(birthdayDecorPreview);
-                              setModalImageIndex(0);
-                            }}
-                            className="inline-flex items-center gap-1.5 mt-1.5 px-3 py-1.5 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
-                          >
-                            <ImageIcon className="w-3.5 h-3.5" />
-                            <span>Contoh Hasil Dekor</span>
-                          </button>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("birthday-ultimate-sweet-light", "325K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('birthday-ultimate-sweet-light')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
+                        );
+                      })}
                     </div>
 
-                    <div className="text-center pt-2">
+                    <div className="space-y-4">
+                      {(() => {
+                        const allBday = getPackagesForCategory(['birthday', 'event']);
+                        const filtered = allBday.filter((pkg: any) => {
+                          if (selectedBirthdaySubTab === 'sweet') {
+                            return pkg.id.includes('celebration') || pkg.id.includes('glow');
+                          }
+                          if (selectedBirthdaySubTab === 'spotlight') {
+                            return pkg.id.includes('light') || pkg.id.includes('ultimate');
+                          }
+                          return true;
+                        });
+
+                        return (
+                          <>
+                            <div className="flex items-center justify-between pt-1">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                                <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                                  Birthday Studio Packages
+                                </h4>
+                              </div>
+                              <span className="text-[11px] font-medium text-slate-500 font-century">
+                                {filtered.length} Pilihan Paket
+                              </span>
+                            </div>
+
+                            {filtered.map((pkg: any, idx: number) =>
+                              renderLuxuryPackageCard(pkg, idx, '*Bebas membawa kue tart, balon, dan dekorasi ulang tahun sendiri')
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Informasi Properti Ulang Tahun</h5>
+                      </div>
+                      <p className="text-xs font-century text-[#3A3A3A] leading-relaxed">
+                        Klien dipersilakan membawa kue ulang tahun, balon angka/huruf, dan properti perayaan sendiri tanpa biaya tambahan. Tersedia add-on edit foto ekstra seharga Rp 10.000/foto.
+                      </p>
+                    </div>
+
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 9. SPECIAL FIGMA VIEW FOR FAMILY PACKAGES */}
+                {/* 8. FAMILY PHOTO */}
                 {activeMenuCategory === 'family-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET FAMILY
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Family Photo Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Abadikan kehangatan generasi keluarga Anda dalam potret studio mewah yang elegan, abadi, dan penuh kenangan berharga.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Family Studio Packages
+                          </h4>
+                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['family', 'family-paket']).length} Pilihan Paket
+                        </span>
+                      </div>
+
+                      {getPackagesForCategory(['family', 'family-paket']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Fotografer profesional mengarahkan pose seluruh anggota keluarga dengan penuh kesabaran')
+                      )}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                          <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Diskon Spesial & Additional Family</h5>
+                        </div>
+                        <span className="inline-flex items-center gap-1 bg-[#EBF2EA] text-[#3D6345] border border-[#CDE0CB] px-2.5 py-0.5 rounded-full text-[10px] font-bold font-century">
+                          Hemat 50K
+                        </span>
+                      </div>
+                      <p className="text-xs font-century text-[#5C725A] font-bold bg-[#EBF2EA]/60 p-2.5 rounded-xl border border-[#D0E2CE]">
+                        🎉 Potongan Diskon Rp 50.000 khusus untuk keluarga yang hanya terdiri dari 3 anggota keluarga.
+                      </p>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Bingkai 10Rs</span><span className="font-bold text-[#5C725A]">35K</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Background</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Ganti Kostum</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("costume", "50K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Tambah Orang</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("person", "10K")}</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start border-b border-slate-100 pb-5">
-                        <div className="md:col-span-7 space-y-2">
-                          <div className="flex items-center gap-2">
-                            <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Sweet Together</h4>
-                            <span className="text-xs text-slate-400 font-medium font-serif">—— Family 1</span>
-                          </div>
-                          <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                            <p>Unlimited foto Maks 30 menit | 1 background</p>
-                            <p>Edit 6 foto | all file via Googledrive | Cetak Uk 10Rs 2 Foto</p>
-                            <p>Maks 10 orang dalam 1 Frame | Maks 1 Kostum</p>
-                          </div>
-                          <div className="pt-2 flex items-center justify-between gap-3">
-                            <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('family-sweet-together', '330K')}</div>
-                            <button
-                              onClick={() => onSelectPackageForBooking('family-sweet-together')}
-                              className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                            >
-                              KLIK UNTUK PESAN
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-5 bg-slate-100 rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-2xs space-y-2.5">
-                          <h4 className="text-center font-serif font-black text-base text-slate-900">Additional</h4>
-                          <div className="space-y-1.5 text-xs text-slate-800">
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Bingkai Uk 10rs</span><span className="font-bold">35K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Background</span><span className="font-bold">75K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Kostum</span><span className="font-bold">50K</span></div>
-                            <div className="flex justify-between items-center border-b border-slate-200 pb-0.5"><span>+ Orang</span><span className="font-bold">10K</span></div>
-                          </div>
-                          <p className="text-[10px] text-rose-600 font-bold text-center leading-tight pt-1">
-                            Potongan 50K khusus yang hanya ada 3 anggota keluarga
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Happy Nest</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Family 2</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p>Unlimited foto maks 40 menit | 2 background | Edit 8 foto</p>
-                          <p>all file via google drive | Cetak Uk 10Rs 2 Foto</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('family-happy-nest', '380K')}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('family-happy-nest')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 10. SPECIAL FIGMA VIEW FOR GROUP PACKAGES */}
+                {/* 9. GROUP SQUAD */}
                 {activeMenuCategory === 'group-paket' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET GROUP
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Group Photo Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Rayakan kebersamaan tak terlupakan bersama geng, teman sekelas, sahabat, dan rekan kerja dengan sesi studio eksklusif.
+                      </p>
+                    </div>
+
+                    {/* Sub-Kategori Navigation Pills */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
+                      {[
+                        { id: 'all', label: '👥 Semua Paket Group' },
+                        { id: 'small', label: '👭 3 - 20 Orang (Friendly & Squad)' },
+                        { id: 'large', label: '👑 21 - 35 Orang (Royal & Imperial)' }
+                      ].map((tab) => {
+                        const isSelected = selectedGroupSubTab === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setSelectedGroupSubTab(tab.id as any)}
+                            className={`min-h-[36px] px-3.5 py-1.5 rounded-full text-xs font-bold font-century transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${
+                              isSelected
+                                ? 'bg-[#2A2A2A] text-white shadow-sm'
+                                : 'bg-[#F2E9E4] text-[#3A3A3A] hover:bg-[#E8DDD6]'
+                            }`}
+                          >
+                            <span>{tab.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="space-y-4">
+                      {(() => {
+                        const allGroup = getPackagesForCategory(['group', 'group-paket']);
+                        const filtered = allGroup.filter((pkg: any) => {
+                          if (selectedGroupSubTab === 'small') {
+                            return pkg.id.includes('friendly') || pkg.id.includes('signature');
+                          }
+                          if (selectedGroupSubTab === 'large') {
+                            return pkg.id.includes('royal') || pkg.id.includes('imperial');
+                          }
+                          return true;
+                        });
+
+                        return (
+                          <>
+                            <div className="flex items-center justify-between pt-1">
+                              <div className="flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                                <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                                  Group Studio Packages
+                                </h4>
+                              </div>
+                              <span className="text-[11px] font-medium text-slate-500 font-century">
+                                {filtered.length} Pilihan Paket
+                              </span>
+                            </div>
+
+                            {filtered.map((pkg: any, idx: number) =>
+                              renderLuxuryPackageCard(pkg, idx, '*Bebas berganti pose, arahan fotografer profesional, dan properti studio')
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Additional & Add-Ons Group</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Tambah Orang</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("person", "15K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Background</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("backdrop", "75K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Ganti Kostum</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("costume", "50K")}</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Edit Foto</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("edit", "10K")}</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      {/* Group 1: Friendly Frame */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Friendly Frame</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Group 1</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Jumlah 3-10 Orang</span> | Maks 30 Menit</p>
-                          <p>1 background | Edit 6 foto | maks 2 kostum | Allfile via google drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-friendly-frame', '330K')}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('group-friendly-frame')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Group 2: Signature Squad */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Group 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Signature Squad</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Jumlah 11 - 20 Orang</span> | Maks 45 Menit</p>
-                          <p>1 Background | edit 6 foto | maks 2 kostum | Allfile via google drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-signature-squad', '430K')}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('group-signature-squad')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Group 3: Royal Ensemble */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Royal Ensemble</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Group 3</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Jumlah 21 - 30 Orang</span> | Maks 50 Menit</p>
-                          <p>1 background | Edit 6 foto | maks 2 kostum | Allfile via google drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-royal-ensemble', '510K')}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('group-royal-ensemble')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Group 4: Imperial Union */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Group 4 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Imperial Union</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Jumlah 31 - 40 Orang</span> (diatas 40 +10K/Org Maks 75 Org)</p>
-                          <p>Maks 55 menit | 1 background | Edit 6 foto | Maks 2 kostum | Allfile via google drive</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice('group-imperial-union', '630K')}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('group-imperial-union')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
 
-                {/* 11. SPECIAL FIGMA VIEW FOR PASS FOTO */}
+                {/* 10. PASS FOTO STUDIO */}
                 {activeMenuCategory === 'pass-foto' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="space-y-1">
-                      <span className="text-[11px] font-bold text-slate-400 tracking-widest uppercase">STUDIO SESSIONS</span>
-                      <div className="bg-slate-200/80 text-slate-900 font-extrabold text-sm sm:text-base px-4 py-2 rounded-xl inline-block shadow-2xs">
-                        HARGA PAKET PASS FOTO
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          COLLECTION 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Pass Foto Studio
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Layanan pas foto kilat beresolusi tinggi dengan standar resmi instansi, buku nikah, ijazah, visa, paspor, dan berkas kedutaan.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between pt-1">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                            Pass Foto Packages
+                          </h4>
+                        </div>
+                        <span className="text-[11px] font-medium text-slate-500 font-century">
+                          {getPackagesForCategory(['pass-foto', 'passfoto']).length} Pilihan Paket
+                        </span>
+                      </div>
+
+                      {getPackagesForCategory(['pass-foto', 'passfoto']).map((pkg: any, idx: number) =>
+                        renderLuxuryPackageCard(pkg, idx, '*Standar regulasi resmi buku nikah, ijazah, paspor, dan kedutaan besar')
+                      )}
+                    </div>
+
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                        <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Informasi Layanan Pass Foto</h5>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-century text-[#3A3A3A]">
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>🎨</span><span>Latar Merah / Biru / Putih</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>📲</span><span>File Dikirim via WA Dokumen</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>👔</span><span>Opsi Edit Jas & Dasi Digital</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>🖨️</span><span>Kualitas Kertas Foto Lab Doff</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>📐</span><span>Ukuran 2x3, 3x4, 4x6 & Visa</span></div>
+                        <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex items-center gap-2"><span>⚡</span><span>Proses Cepat & Siap Pakai</span></div>
                       </div>
                     </div>
 
-                    <div className="space-y-6 pt-1">
-                      {/* Pass foto 1 */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Pass foto 1</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Paket 1</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">3 Warna</span> Background Edit | Maks 1 Outfit | 1 Edit foto</p>
-                          <p>File Edit via WA Dokumen | Cetak 1 Ukuran Pass Foto</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-1", "50K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('passfoto-1')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Pass foto 2 */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className="text-xs text-slate-400 font-medium font-serif">Paket 2 ——</span>
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Pass foto 2</h4>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">3 Background Edit</span> Setengah Badan | Edit 1 Full Badan</p>
-                          <p>Setengah Badan & Full Badan | File Edit via WA Dokumen | Maks 1 Outfit | Cetak 1 Ukuran Pass Foto</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-end gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-2", "90K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('passfoto-2')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Pass foto 3 */}
-                      <div className="border-b border-slate-100 pb-5 space-y-2">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-xl sm:text-2xl font-serif font-black text-slate-900 tracking-tight">Pass foto 3</h4>
-                          <span className="text-xs text-slate-400 font-medium font-serif">—— Paket 3</span>
-                        </div>
-                        <div className="text-xs text-slate-700 space-y-0.5 leading-relaxed">
-                          <p><span className="text-rose-600 font-bold">Paket Nikah Untuk 2 Orang</span> | 3 Warna Background</p>
-                          <p>Masing-masing 1 Edit Foto | File edit via WA Dokumen | Cetak Pass Foto</p>
-                        </div>
-                        <div className="pt-2 flex items-center justify-between gap-3">
-                          <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{getPkgPrice("passfoto-3", "98K")}</div>
-                          <button
-                            onClick={() => onSelectPackageForBooking('passfoto-3')}
-                            className="px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 active:bg-rose-700 text-white font-black text-xs tracking-wider uppercase shadow-lg shadow-rose-500/30 transition-all cursor-pointer active:scale-95"
-                          >
-                            KLIK UNTUK PESAN
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-center pt-2">
+                    <div className="text-center pt-1">
                       <button
                         type="button"
                         onClick={handleGoToDisclaimer}
-                        className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-rose-50 hover:bg-rose-100/80 px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                       >
-                        <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                        <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
                 )}
-
-                {/* 12. UNIFIED LUXURY GRADUATION VIEW (INDOOR, BUNDLING, OUTDOOR & ADDITIONAL) */}
+{/* 12. UNIFIED LUXURY GRADUATION VIEW (INDOOR, BUNDLING, OUTDOOR & ADDITIONAL) */}
                 {activeMenuCategory === 'grad-indoor' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
                     

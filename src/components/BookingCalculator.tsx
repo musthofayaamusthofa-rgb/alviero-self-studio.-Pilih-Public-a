@@ -127,9 +127,9 @@ const compressImage = (file: File, maxWidth = 1200, quality = 0.75): Promise<str
 /**
  * Mendapatkan info kategori paket untuk filtering add-on & catatan khusus
  */
-export const getPackageCategoryInfo = (pkg: { id: string; category: string; name: string }) => {
-  const id = pkg.id.toLowerCase();
-  const cat = pkg.category.toLowerCase();
+export const getPackageCategoryInfo = (pkg: { id?: string; category?: string; name?: string } | any) => {
+  const id = (pkg?.id || '').toLowerCase();
+  const cat = (pkg?.category || '').toLowerCase();
 
   if (id.includes('outdoor') || cat.includes('outdoor')) {
     return { key: 'grad-outdoor', label: 'Wisuda Outdoor', badge: 'Wisuda Outdoor', note: '' };
@@ -471,9 +471,9 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
     return fullPkg.backdropCount;
   }
 
-  const id = pkg.id.toLowerCase();
-  const cat = pkg.category.toLowerCase();
-  const name = (pkg.name || '').toLowerCase();
+  const id = (pkg?.id || '').toLowerCase();
+  const cat = (pkg?.category || '').toLowerCase();
+  const name = (pkg?.name || '').toLowerCase();
 
   if (
     id === 'grad-bundling-ultimate-1' ||
@@ -488,8 +488,8 @@ export const getPackageMaxBackdrops = (pkg: { id: string; category: string; name
     return 1;
   }
 
-  const desc = (pkg.description || '').toLowerCase();
-  const highlights = (pkg.highlights || []).map(h => h.toLowerCase()).join(' ');
+  const desc = (pkg?.description || '').toLowerCase();
+  const highlights = (pkg?.highlights || []).map((h: any) => String(h || '').toLowerCase()).join(' ');
   if (desc.includes('2 background') || highlights.includes('2 background') || desc.includes('2 latar') || highlights.includes('2 latar')) {
     return 2;
   }
@@ -1649,9 +1649,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
   const currentPackage = activePackages.find(p => p.id === selectedPackageId) || PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
   const isPassFoto = (
-    currentPackage.category === 'pass-foto' ||
-    currentPackage.id.toLowerCase().includes('passfoto') ||
-    currentPackage.name.toLowerCase().includes('pass foto')
+    currentPackage?.category === 'pass-foto' ||
+    (currentPackage?.id || '').toLowerCase().includes('passfoto') ||
+    (currentPackage?.name || '').toLowerCase().includes('pass foto')
   );
   const passFotoColor = passFotoBgOption === 'custom' ? passFotoCustomColor.trim() : passFotoBgOption;
   const isPassFotoValid = !isPassFoto || (
@@ -1659,20 +1659,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   );
   const branches: any[] = (studioConfig?.branches && Array.isArray(studioConfig.branches)) ? studioConfig.branches : STUDIO_BRANCHES;
   const currentBranchInfo = branches.find((b: any) => b.id === selectedBranch) || branches[0];
-  const isSelfStudio = (currentPackage.category === 'self-studio' || (currentPackage.id || '').toLowerCase().includes('self'));
+  const isSelfStudio = (currentPackage?.category === 'self-studio' || (currentPackage?.id || '').toLowerCase().includes('self'));
   const isGraduationPackage = (
-    currentPackage.category === 'graduation-indoor' ||
-    currentPackage.category === 'graduation-outdoor' ||
-    (currentPackage.category || '').includes('grad') ||
-    (currentPackage.id || '').toLowerCase().includes('grad') ||
-    (currentPackage.name || '').toLowerCase().includes('scholar') ||
-    (currentPackage.name || '').toLowerCase().includes('cumlaude') ||
-    (currentPackage.name || '').toLowerCase().includes('wisuda')
+    currentPackage?.category === 'graduation-indoor' ||
+    currentPackage?.category === 'graduation-outdoor' ||
+    (currentPackage?.category || '').includes('grad') ||
+    (currentPackage?.id || '').toLowerCase().includes('grad') ||
+    (currentPackage?.name || '').toLowerCase().includes('scholar') ||
+    (currentPackage?.name || '').toLowerCase().includes('cumlaude') ||
+    (currentPackage?.name || '').toLowerCase().includes('wisuda')
   );
   const hasOutdoorSession = Boolean(
-    currentPackage.hasOutdoorSession ||
-    currentPackage.category === 'graduation-outdoor' ||
-    (currentPackage.name || '').toLowerCase().includes('outdoor') ||
+    currentPackage?.hasOutdoorSession ||
+    currentPackage?.category === 'graduation-outdoor' ||
+    (currentPackage?.name || '').toLowerCase().includes('outdoor') ||
     (currentPackage.name || '').toLowerCase().includes('bundling') ||
     (currentPackage.description || '').toLowerCase().includes('outdoor')
   );
@@ -1705,7 +1705,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   // Filter paket berdasarkan tipe ruangan yang aktif (SelfStudio vs Studio Foto)
   const filteredPackages = useMemo(() => {
     return activePackages.filter(pkg => {
-      const isPkgSelf = pkg.category === 'self-studio' || pkg.id.toLowerCase().includes('self');
+      const isPkgSelf = (pkg?.category === 'self-studio' || String(pkg?.id || '').toLowerCase().includes('self'));
       return isSelfStudio ? isPkgSelf : !isPkgSelf;
     });
   }, [isSelfStudio, activePackages]);
@@ -2111,7 +2111,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       } else {
         // Studio Foto Studio 2: Kuota Dinamis Ganda (Hitam+Coklat <= 3, Putih+Abu <= 2, Cream <= 1)
         const dynamicResult = checkDualDynamicAvailability(bookedForSlot);
-        if (!dynamicResult.availableIds.includes(backdropId)) {
+        if (!dynamicResult?.availableIds || !dynamicResult.availableIds.includes(backdropId)) {
           return {
             isAvailable: false,
             reason: dynamicResult.lockedReasons[backdropId] || `Kuota background sudah habis di jam ${normTime} WIB`

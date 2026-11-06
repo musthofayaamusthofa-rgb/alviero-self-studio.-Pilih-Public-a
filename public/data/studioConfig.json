@@ -1688,7 +1688,44 @@
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
       "category": "grad-indoor",
       "categoryLabel": "Foto Studio - Indoor",
-      "_origIndex": 2
+      "_origIndex": 2,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "2 Wisudawan + Family (Maks 10 Org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 4 Uk 10Rs / 6 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 2 Kostum Wisudawan"
+        }
+      ]
     },
     {
       "id": "grad-bundling-ultimate-1",
@@ -1707,7 +1744,39 @@
       "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "_origIndex": 3
+      "_origIndex": 3,
+      "facilities": [
+        {
+          "icon": "🏛️",
+          "label": "Sesi Indoor",
+          "text": "30 Menit Studio Indoor (1 Background)"
+        },
+        {
+          "icon": "🌳",
+          "label": "Sesi Outdoor",
+          "text": "30 Menit Sesi Kampus Malang"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Sahabat"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 2 Uk 10Rs + 3 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-bundling-ultimate-2",
@@ -1726,7 +1795,39 @@
       "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "_origIndex": 4
+      "_origIndex": 4,
+      "facilities": [
+        {
+          "icon": "🏛️",
+          "label": "Sesi Indoor",
+          "text": "30 Menit Studio Indoor (2 Background)"
+        },
+        {
+          "icon": "🌳",
+          "label": "Sesi Outdoor",
+          "text": "30 Menit Sesi Kampus Malang"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Sahabat"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 14 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 2 Uk 10Rs + 6 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-outdoor-smart-30",
@@ -1745,7 +1846,34 @@
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
       "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 5
+      "_origIndex": 5,
+      "facilities": [
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "30 Menit Unlimited Shoots"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 5 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-outdoor-smart-60",
@@ -1764,7 +1892,34 @@
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
       "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 6
+      "_origIndex": 6,
+      "facilities": [
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "60 Menit Unlimited Shoots"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-outdoor-cumlaude",
@@ -1783,7 +1938,39 @@
       "print": "Softfile & Video 9:16",
       "fileDelivery": "All File via Google Drive",
       "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "_origIndex": 7
+      "_origIndex": 7,
+      "facilities": [
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "🎬",
+          "label": "Video Sinematik",
+          "text": "Include Video Reels Cinematic 9:16"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "75 Menit Sesi Foto & Video"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Pendamping"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res + Video HD"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File Foto & Video via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-outdoor-group-2",
@@ -1802,7 +1989,34 @@
       "print": "Softfile Google Drive",
       "fileDelivery": "All File via Google Drive",
       "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
-      "_origIndex": 8
+      "_origIndex": 8,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Group",
+          "text": "Group Wisudawan (2-5 Wisudawan)"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "60-90 Menit Unlimited Shoots"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10-15 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "self-normal-narsis",
@@ -1941,7 +2155,44 @@
       "print": "Cetak 4 Lembar (3x4 atau 4x6)",
       "fileDelivery": "File Master via WA / Email",
       "note": "*Cocok untuk berkas lamaran kerja, buku nikah, dan ijazah",
-      "_origIndex": 15
+      "_origIndex": 15,
+      "facilities": [
+        {
+          "icon": "🪪",
+          "label": "Kapasitas Orang",
+          "text": "1 Orang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "10 - 15 Menit Sesi Cepat"
+        },
+        {
+          "icon": "✨",
+          "label": "Pilihan Warna",
+          "text": "Merah / Biru / Putih (3 Warna)"
+        },
+        {
+          "icon": "✏️",
+          "label": "Edit & Retouch",
+          "text": "1 Edit Foto (Basic Retouch Wajah)"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 1 Ukuran (Pilihan 3x4 / 4x6 / 2x3)"
+        },
+        {
+          "icon": "📱",
+          "label": "Pengiriman File",
+          "text": "Kirim File Edit via WhatsApp Dokumen"
+        },
+        {
+          "icon": "👔",
+          "label": "Ketentuan Outfit",
+          "text": "Maksimal 1 Outfit Formal / Bebas"
+        }
+      ]
     },
     {
       "id": "passfoto-2",
@@ -1960,7 +2211,44 @@
       "print": "Cetak 8 Lembar (Pilihan Ukuran)",
       "fileDelivery": "File Master High-Res",
       "note": "*Hasil foto halus natural berstandar kedutaan & visa",
-      "_origIndex": 16
+      "_origIndex": 16,
+      "facilities": [
+        {
+          "icon": "🪪",
+          "label": "Kapasitas Orang",
+          "text": "1 Orang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "15 Menit Sesi Studio"
+        },
+        {
+          "icon": "✨",
+          "label": "Konsep Foto",
+          "text": "Setengah Badan & Full Badan"
+        },
+        {
+          "icon": "✏️",
+          "label": "Edit & Retouch",
+          "text": "Advanced Skin Retouch & Beauty Light"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 2 Ukuran Pas Foto Lengkap"
+        },
+        {
+          "icon": "📱",
+          "label": "Pengiriman File",
+          "text": "Kirim File Edit via WhatsApp Dokumen"
+        },
+        {
+          "icon": "👔",
+          "label": "Ketentuan Outfit",
+          "text": "Maksimal 1 Outfit"
+        }
+      ]
     },
     {
       "id": "passfoto-3",
@@ -1979,7 +2267,44 @@
       "print": "Cetak 12 Lembar Lengkap",
       "fileDelivery": "File Master High-Res",
       "note": "*Termasuk opsi edit pakaian formal digital jika diperlukan",
-      "_origIndex": 17
+      "_origIndex": 17,
+      "facilities": [
+        {
+          "icon": "🪪",
+          "label": "Kapasitas Orang",
+          "text": "1 Orang (Lengkap Paspor & Visa)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "20 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Standar Internasional",
+          "text": "Sesuai Regulasi Paspor / Kedutaan / Visa"
+        },
+        {
+          "icon": "✏️",
+          "label": "Edit & Retouch",
+          "text": "Full Retouch + Opsi Ganti Jas/Dasi Digital"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 12 Lembar Multi Ukuran"
+        },
+        {
+          "icon": "📱",
+          "label": "Pengiriman File",
+          "text": "Kirim File Resolusi Tinggi via WA & Email"
+        },
+        {
+          "icon": "👔",
+          "label": "Ketentuan Outfit",
+          "text": "Disediakan Jas Digital jika diperlukan"
+        }
+      ]
     },
     {
       "id": "family-sweet-together",
@@ -1998,7 +2323,44 @@
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga",
-      "_origIndex": 18
+      "_origIndex": 18,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 10 Orang (Potongan 50K jika 3 org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "30 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs / 3 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 1 Kostum"
+        }
+      ]
     },
     {
       "id": "family-happy-nest",
@@ -2017,7 +2379,44 @@
       "print": "Cetak 2 Uk 10R / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
-      "_origIndex": 19
+      "_origIndex": 19,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 12 Orang (Keluarga Besar)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs + 2 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "group-friendly-frame",
@@ -2036,7 +2435,44 @@
       "print": "Cetak 1 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Bebas berganti gaya & properti foto studio",
-      "_origIndex": 20
+      "_origIndex": 20,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "3 - 10 Orang (Additional 15K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "25 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 10R / 2 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 1 Kostum"
+        }
+      ]
     },
     {
       "id": "group-signature-squad",
@@ -2055,7 +2491,44 @@
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat",
-      "_origIndex": 21
+      "_origIndex": 21,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "11 - 20 Orang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "35 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "group-royal-ensemble",
@@ -2074,7 +2547,44 @@
       "print": "Cetak 3 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok",
-      "_origIndex": 22
+      "_origIndex": 22,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "21 - 30 Orang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 3 Uk 10R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "group-imperial-union",
@@ -2093,7 +2603,44 @@
       "print": "Cetak 4 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Kapasitas besar dengan arahan fotografer profesional",
-      "_origIndex": 23
+      "_origIndex": 23,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "25 - 35 Orang (Full Angkatan)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "60 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 15 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 4 Uk 10R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "couple-eternal-love",
@@ -2114,7 +2661,44 @@
       "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 24
+      "_origIndex": 24,
+      "facilities": [
+        {
+          "icon": "💑",
+          "label": "Kapasitas Orang",
+          "text": "2 Orang (Pasangan Romantis)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "25 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 10Rs / 2 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 1 Kostum"
+        }
+      ]
     },
     {
       "id": "couple-sweet-memories",
@@ -2133,7 +2717,44 @@
       "print": "Cetak 2 Uk 10R / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi",
-      "_origIndex": 25
+      "_origIndex": 25,
+      "facilities": [
+        {
+          "icon": "💑",
+          "label": "Kapasitas Orang",
+          "text": "2 Orang (Pasangan Romantis)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "40 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs / 4 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "prewed-sweet-promise",
@@ -2157,7 +2778,44 @@
         "/images/packages/sweet_promise_foto1_1791967530403.jpg",
         "/images/packages/sweet_promise_foto2_1791967534228.jpg"
       ],
-      "_origIndex": 26
+      "_origIndex": 26,
+      "facilities": [
+        {
+          "icon": "💍",
+          "label": "Kapasitas Orang",
+          "text": "Pasangan (2 Orang Pengantin)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "60 Menit Sesi Studio"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio Bebas Pilih"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10 Foto High-Res Cinematic"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 12R + Frame Minimalis"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum (Dari Klien)"
+        }
+      ]
     },
     {
       "id": "prewed-velvet-romance",
@@ -2176,7 +2834,44 @@
       "print": "Cetak 2 Uk 12R + Frame Minimalis",
       "fileDelivery": "All File via Google Drive",
       "note": "*Bebas ganti 3 konsep baju dengan hasil cinematic",
-      "_origIndex": 27
+      "_origIndex": 27,
+      "facilities": [
+        {
+          "icon": "💍",
+          "label": "Kapasitas Orang",
+          "text": "Pasangan (2 Orang Pengantin)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "90 Menit Sesi Studio"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "3 Background Studio Bebas Pilih"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 15 Foto High-Res Cinematic"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 12R + Frame Minimalis"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 3 Kostum Berbeda"
+        }
+      ]
     },
     {
       "id": "prewed-bundling-1",
@@ -2195,7 +2890,44 @@
       "print": "Cetak 1 Uk 12R + Frame",
       "fileDelivery": "All File via Google Drive",
       "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum",
-      "_origIndex": 28
+      "_origIndex": 28,
+      "facilities": [
+        {
+          "icon": "💍",
+          "label": "Kapasitas Orang",
+          "text": "Pasangan (2 Orang Pengantin)"
+        },
+        {
+          "icon": "💄",
+          "label": "MUA & Hairdo",
+          "text": "Make Up Prewedding Profesional Sepasang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "60 Menit Sesi Studio"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10 Foto High-Res Cinematic"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 12R + Frame Minimalis"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum Prewed",
+          "text": "Free Peminjaman 1 Pasang Gaun / Jas"
+        }
+      ]
     },
     {
       "id": "prewed-bundling-2",
@@ -2214,7 +2946,44 @@
       "print": "Cetak 2 Uk 12R + Frame",
       "fileDelivery": "All File via Google Drive",
       "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar",
-      "_origIndex": 29
+      "_origIndex": 29,
+      "facilities": [
+        {
+          "icon": "💍",
+          "label": "Kapasitas Orang",
+          "text": "Pasangan (2 Orang Pengantin)"
+        },
+        {
+          "icon": "💄",
+          "label": "MUA & Hairdo",
+          "text": "Make Up Eksklusif Touch-up Sepasang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "90 Menit Sesi Studio"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "3 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 15 Foto High-Res Cinematic"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 12R + Frame Minimalis Eksklusif"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum Prewed",
+          "text": "Free Peminjaman 2 Pasang Kostum Lengkap"
+        }
+      ]
     },
     {
       "id": "personal-bold-statement",
@@ -2233,7 +3002,44 @@
       "print": "Cetak 1 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos",
-      "_origIndex": 30
+      "_origIndex": 30,
+      "facilities": [
+        {
+          "icon": "👤",
+          "label": "Kapasitas Orang",
+          "text": "1 Orang (Personal Portrait)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "20 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 5 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 10Rs / 2 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 1 Kostum"
+        }
+      ]
     },
     {
       "id": "personal-opulent-shot",
@@ -2252,7 +3058,44 @@
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional",
-      "_origIndex": 31
+      "_origIndex": 31,
+      "facilities": [
+        {
+          "icon": "👤",
+          "label": "Kapasitas Orang",
+          "text": "1 Orang (Personal Studio)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "35 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs / 4 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "maternity-warm-embrace",
@@ -2271,7 +3114,44 @@
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
-      "_origIndex": 32
+      "_origIndex": 32,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Bumil + Suami (2 Orang)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "30 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs / 4 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 1 Kostum"
+        }
+      ]
     },
     {
       "id": "maternity-golden-motherhood",
@@ -2290,7 +3170,44 @@
       "print": "Cetak 2 Uk 10R / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum",
-      "_origIndex": 33
+      "_origIndex": 33,
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Orang",
+          "text": "Bumil + Suami + Anak"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "45 Menit Unlimited Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs + 2 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 2 Kostum"
+        }
+      ]
     },
     {
       "id": "birthday-sweet-celebration",
@@ -2309,7 +3226,44 @@
       "print": "Cetak 1 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
-      "_origIndex": 34
+      "_origIndex": 34,
+      "facilities": [
+        {
+          "icon": "🎂",
+          "label": "Kapasitas Orang",
+          "text": "1 Person (Properti Birthday dari Klien)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "25 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "🎈",
+          "label": "Properti Ulang Tahun",
+          "text": "Boleh bawa kue tart & balon sendiri"
+        }
+      ]
     },
     {
       "id": "birthday-glow-sweet",
@@ -2328,7 +3282,44 @@
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman",
-      "_origIndex": 35
+      "_origIndex": 35,
+      "facilities": [
+        {
+          "icon": "🎂",
+          "label": "Kapasitas Orang",
+          "text": "2 - 3 Person"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "30 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "🎈",
+          "label": "Properti Ulang Tahun",
+          "text": "Bebas bawa properti dekorasi"
+        }
+      ]
     },
     {
       "id": "birthday-sweet-light",
@@ -2347,7 +3338,44 @@
       "print": "Cetak 3 Uk 10R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik",
-      "_origIndex": 36
+      "_origIndex": 36,
+      "facilities": [
+        {
+          "icon": "🎂",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 6 Orang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "40 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background Studio"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 8 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs + 2 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "💡",
+          "label": "Lighting Estetik",
+          "text": "Pencahayaan Spotlight / Artistic"
+        }
+      ]
     },
     {
       "id": "birthday-ultimate-sweet-light",
@@ -2366,7 +3394,44 @@
       "print": "Cetak 4 Uk 10R + Frame",
       "fileDelivery": "All File via Google Drive",
       "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar",
-      "_origIndex": 37
+      "_origIndex": 37,
+      "facilities": [
+        {
+          "icon": "🎂",
+          "label": "Kapasitas Orang",
+          "text": "Maksimal 12 Orang"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "50 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "2 Background + Spotlight Art"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 3 Uk 10Rs + Bingkai Minimalis"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "🎉",
+          "label": "Perayaan Lengkap",
+          "text": "Konsep Penuh & Bebas Properti"
+        }
+      ]
     },
     {
       "id": "sewa-studio-hourly",
@@ -2385,7 +3450,44 @@
       "print": "Tanpa Cetak",
       "fileDelivery": "Hasil foto di memori sendiri",
       "note": "*Termasuk penggunaan lighting studio Godox, trigger, dan ruang ganti",
-      "_origIndex": 38
+      "_origIndex": 38,
+      "facilities": [
+        {
+          "icon": "⏰",
+          "label": "Durasi Sewa",
+          "text": "60 Menit per Jam Sewa"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas Tim",
+          "text": "Maksimal 8 Orang Tim / Model"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "Bebas Pakai Seluruh Pilihan Background"
+        },
+        {
+          "icon": "💡",
+          "label": "Fasilitas Lighting",
+          "text": "2-3 Studio Flash Godox + Softbox + Trigger"
+        },
+        {
+          "icon": "🏠",
+          "label": "Ruangan Studio",
+          "text": "Full AC, Cermin Rias, Fitting Room & WiFi"
+        },
+        {
+          "icon": "📷",
+          "label": "Fotografer",
+          "text": "Self Equipment (Membawa Kamera Sendiri)"
+        },
+        {
+          "icon": "📁",
+          "label": "Hasil Foto",
+          "text": "Langsung masuk memori kamera fotografer"
+        }
+      ]
     },
     {
       "id": "undangan-paket-1",
@@ -2404,7 +3506,39 @@
       "print": "Digital Link Website",
       "fileDelivery": "Link Website Undangan Online",
       "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas",
-      "_origIndex": 39
+      "_origIndex": 39,
+      "facilities": [
+        {
+          "icon": "📱",
+          "label": "Tampilan Web",
+          "text": "Desain Elegan Responsif Mobile & Desktop"
+        },
+        {
+          "icon": "⏳",
+          "label": "Masa Aktif",
+          "text": "Aktif Hingga Hari H Pernikahan"
+        },
+        {
+          "icon": "🎵",
+          "label": "Musik Latar",
+          "text": "Background Music Bebas Pilih Lagu"
+        },
+        {
+          "icon": "🗺️",
+          "label": "Navigasi Lokasi",
+          "text": "Google Maps Terintegrasi"
+        },
+        {
+          "icon": "💌",
+          "label": "Kuota Tamu",
+          "text": "Nama Tamu Tak Terbatas (Unlimited Guest)"
+        },
+        {
+          "icon": "📝",
+          "label": "Fitur Interaktif",
+          "text": "RSVP Konfirmasi Kehadiran & Countdown"
+        }
+      ]
     },
     {
       "id": "undangan-paket-2",
@@ -2423,7 +3557,39 @@
       "print": "Digital Link + QR Code",
       "fileDelivery": "Link Website Undangan Online",
       "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift",
-      "_origIndex": 40
+      "_origIndex": 40,
+      "facilities": [
+        {
+          "icon": "📱",
+          "label": "Tampilan Web",
+          "text": "Desain Eksklusif Custom Premium"
+        },
+        {
+          "icon": "⏳",
+          "label": "Masa Aktif",
+          "text": "Aktif Selamanya (Masa Aktif Abadi)"
+        },
+        {
+          "icon": "🎬",
+          "label": "Galeri Multimedia",
+          "text": "Galeri Foto & Video Sinematik Prewed"
+        },
+        {
+          "icon": "🎁",
+          "label": "Hadiah Digital",
+          "text": "Amplop Digital (Rekening Bank / QRIS)"
+        },
+        {
+          "icon": "💌",
+          "label": "Kuota Tamu",
+          "text": "Nama Tamu Tak Terbatas + QR Code Check-in"
+        },
+        {
+          "icon": "💬",
+          "label": "Ucapan Interaktif",
+          "text": "Live Wishes & Doa Tamu Undangan"
+        }
+      ]
     }
   ],
   "bundlingPackages": [
