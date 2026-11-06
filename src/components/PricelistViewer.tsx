@@ -1566,13 +1566,6 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                           ) : (
                             <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
                           )}
-
-                          {/* Badge Kategori dari Dashboard (misal: Prewed Hot, Outdoor Kampus, Favorit Wisuda) */}
-                          {Boolean(item.badge) && (
-                            <span className="absolute -top-1 -right-1 z-10 px-1.5 py-0.5 rounded-full text-[7.5px] sm:text-[8px] font-sans font-black bg-amber-400 text-stone-900 border border-white shadow-xs whitespace-nowrap uppercase tracking-tight scale-85 sm:scale-95 pointer-events-none">
-                              {item.badge}
-                            </span>
-                          )}
                         </div>
                         <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
                           isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'

@@ -1,15 +1,15 @@
 import studioConfig from '../data/studioConfig.json';
 import { useStudioConfig } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { 
-  ChevronLeft, 
-  ChevronRight, 
-  ZoomIn, 
-  Sparkles, 
-  CheckCircle2, 
-  Camera, 
-  Lightbulb, 
-  Layers, 
+import {
+  ChevronLeft,
+  ChevronRight,
+  ZoomIn,
+  Sparkles,
+  CheckCircle2,
+  Camera,
+  Lightbulb,
+  Layers,
   Maximize2,
   Compass
 } from 'lucide-react';
@@ -102,8 +102,8 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
   if (!activeItem || items.length === 0) return null;
 
   return (
-    <section 
-      id={sectionId} 
+    <section
+      id={sectionId}
       className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-sm p-3.5 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 scroll-mt-20 sm:scroll-mt-24 transition-all duration-300"
     >
       {/* Section Header */}
@@ -159,7 +159,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
 
       {/* Main Interactive Showcase (Grid Desktop: Image Left, Reactive Content Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
-        
+
         {/* LEFT COLUMN: Main Featured Image with Touch/Swipe */}
         <div className="lg:col-span-7 flex flex-col justify-center">
           <div
@@ -231,7 +231,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
               <span className="bg-black/60 backdrop-blur-sm px-2 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-mono text-stone-200">
                 Geser (swipe) foto
               </span>
-              
+
               <div className="flex items-center gap-1 pointer-events-auto">
                 {items.map((_, i) => (
                   <button
@@ -241,11 +241,10 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
                       setActiveIndex(i);
                     }}
                     aria-label={`Ke slide ${i + 1}`}
-                    className={`h-1.5 transition-all rounded-full cursor-pointer ${
-                      i === safeIndex 
-                        ? 'w-4 sm:w-5 bg-[#A9BCA7]' 
+                    className={`h-1.5 transition-all rounded-full cursor-pointer ${i === safeIndex
+                        ? 'w-4 sm:w-5 bg-[#A9BCA7]'
                         : 'w-1.5 bg-white/50 hover:bg-white/80'
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
@@ -255,7 +254,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
 
         {/* RIGHT COLUMN: Synchronized Text & Specification Details */}
         <div className="lg:col-span-5 flex flex-col justify-between bg-[#FAF8F5] rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 lg:p-6 border border-[#E8DDD6] space-y-3 sm:space-y-4">
-          
+
           <div className="space-y-2.5 sm:space-y-3.5">
             {/* Badge & Item Counter */}
             <div className="flex items-center justify-between gap-2">
@@ -270,7 +269,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
 
             {/* Synchronized Reactive Title */}
             <div className="space-y-0.5 sm:space-y-1">
-              <h4 
+              <h4
                 key={`title-${activeItem.id}`}
                 className="font-serif font-bold text-lg sm:text-xl md:text-2xl text-[#3A3A3A] tracking-tight leading-snug animate-in fade-in slide-in-from-bottom-2 duration-300"
               >
@@ -283,11 +282,10 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
 
             {/* Synchronized Reactive Description with Line-clamp & Read more */}
             <div className="pt-0.5">
-              <p 
+              <p
                 key={`desc-${activeItem.id}`}
-                className={`text-xs sm:text-sm text-stone-700 font-sans leading-relaxed transition-all animate-in fade-in duration-300 ${
-                  isDescExpanded ? '' : 'line-clamp-2 sm:line-clamp-3'
-                }`}
+                className={`text-xs sm:text-sm text-stone-700 font-sans leading-relaxed transition-all animate-in fade-in duration-300 ${isDescExpanded ? '' : 'line-clamp-2 sm:line-clamp-3'
+                  }`}
               >
                 {activeItem.description}
               </p>
@@ -310,8 +308,8 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {activeItem.highlights.map((h, i) => (
-                    <div 
-                      key={i} 
+                    <div
+                      key={i}
                       className="inline-flex items-center gap-1.5 bg-white px-2.5 py-1 sm:py-1.5 rounded-xl border border-[#E8DDD6] text-stone-700 text-[11px] sm:text-xs shadow-2xs"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#5C725A] shrink-0" />
@@ -339,7 +337,7 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
           <div className="pt-2 border-t border-[#E8DDD6]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
             <div className="flex flex-wrap gap-1 sm:gap-1.5">
               {activeItem.tags.map((tag, idx) => (
-                <span 
+                <span
                   key={idx}
                   className="text-[9.5px] sm:text-[10px] font-mono font-medium text-stone-600 bg-white px-2 py-0.5 rounded-md border border-[#E8DDD6]"
                 >
@@ -378,11 +376,10 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
               <button
                 key={item.id}
                 onClick={() => setActiveIndex(index)}
-                className={`group relative shrink-0 w-24 sm:w-28 rounded-xl overflow-hidden border transition-all cursor-pointer text-left ${
-                  isSelected
+                className={`group relative shrink-0 w-24 sm:w-28 rounded-xl overflow-hidden border transition-all cursor-pointer text-left ${isSelected
                     ? 'border-[#5C725A] ring-2 ring-[#5C725A]/40 shadow-sm scale-102'
                     : 'border-[#E8DDD6] opacity-70 hover:opacity-100 hover:border-stone-400'
-                }`}
+                  }`}
               >
                 <div className="aspect-[4/3] bg-stone-900 relative overflow-hidden">
                   <img
@@ -391,11 +388,11 @@ export const SynchronizedGalleryCarousel: React.FC<SynchronizedGalleryCarouselPr
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors" />
-                  
+
                   {isSelected && (
                     <div className="absolute top-1 left-1 w-2 h-2 rounded-full bg-[#5C725A] ring-2 ring-white" />
                   )}
-                  
+
                   <span className="absolute bottom-1 right-1 text-[9px] font-mono font-bold text-white bg-black/75 px-1 rounded">
                     {String(index + 1).padStart(2, '0')}
                   </span>
@@ -811,7 +808,7 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
             ? b.previewImages.filter((u: string) => Boolean(u) && !u.includes('unsplash.com'))
             : [cleanImg];
           const imgs = rawImgs.length > 0 ? rawImgs : [cleanImg];
-          
+
           return {
             id: b.id,
             title: b.name,
@@ -822,8 +819,8 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
             badge: b.applicableTo?.includes('self-studio') && b.applicableTo?.includes('pro-studio')
               ? 'Pro & Self Studio'
               : b.applicableTo?.includes('self-studio')
-              ? 'Self Studio'
-              : 'Pro Studio',
+                ? 'Self Studio'
+                : 'Pro Studio',
             imageUrl: imgs[0],
             images: imgs,
             description: b.description || `Latar resmi pilihan ${b.name} untuk sesi foto Anda.`,
@@ -840,13 +837,13 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
       }
     }
 
-    return selectedBranch === 'cabang-2' 
-      ? STUDIO_2_BACKGROUNDS_DATA 
+    return selectedBranch === 'cabang-2'
+      ? STUDIO_2_BACKGROUNDS_DATA
       : STUDIO_1_BACKGROUNDS_DATA;
   }, [selectedBranch, studioConfig]);
 
-  const branchBadgeLabel = selectedBranch === 'cabang-2' 
-    ? 'Studio 2 (Dinoyo)' 
+  const branchBadgeLabel = selectedBranch === 'cabang-2'
+    ? 'Studio 2 (Dinoyo)'
     : 'Studio 1 (Junrejo)';
 
   const handlePhotoZoomWrapper = (item: GalleryItem) => {
@@ -878,7 +875,7 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
 
   return (
     <div className="space-y-7 sm:space-y-10 animate-in fade-in duration-300">
-      
+
       {/* Top Banner / Hero Overview Card */}
       <div className="bg-white p-3.5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl border border-[#E8DDD6] shadow-xs space-y-3.5 sm:space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 sm:gap-4">
