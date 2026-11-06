@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T14:59:17.109Z",
+  "lastUpdated": "2026-11-06T14:59:22.369Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1993,7 +1993,7 @@
     {
       "id": "grad-outdoor-cumlaude",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 2",
       "badge": "Include Video",
       "name": "Cumlaude (Foto + Video)",
@@ -2001,13 +2001,11 @@
       "price": "710K",
       "priceUnit": "75 Menit • Full Package",
       "duration": "75 Menit Sesi Foto & Video",
-      "background": "Unlimited Shoots Kampus",
-      "people": "Wisudawan + Pendamping",
-      "edit": "Edit 10 Foto High-Res + Video Cinematic",
-      "print": "Softfile & Video 9:16",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "_origIndex": 7,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "1 Wisudawan + Keluarga / Pendamping",
+      "edit": "Edit 12 Foto High-Res + Video HD",
+      "print": "",
+      "fileDelivery": "All File Foto & Video via Google Drive",
       "facilities": [
         {
           "icon": "🌳",
@@ -2040,11 +2038,10 @@
           "text": "All File Foto & Video via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 7
     },
     {
       "id": "grad-outdoor-group-2",
@@ -4116,7 +4113,7 @@
     {
       "id": "grad-outdoor-cumlaude",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 2",
       "badge": "Include Video",
       "name": "Cumlaude (Foto + Video)",
@@ -4124,13 +4121,11 @@
       "price": "710K",
       "priceUnit": "75 Menit • Full Package",
       "duration": "75 Menit Sesi Foto & Video",
-      "background": "Unlimited Shoots Kampus",
-      "people": "Wisudawan + Pendamping",
-      "edit": "Edit 10 Foto High-Res + Video Cinematic",
-      "print": "Softfile & Video 9:16",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "_origIndex": 7,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "1 Wisudawan + Keluarga / Pendamping",
+      "edit": "Edit 12 Foto High-Res + Video HD",
+      "print": "",
+      "fileDelivery": "All File Foto & Video via Google Drive",
       "facilities": [
         {
           "icon": "🌳",
@@ -4163,11 +4158,10 @@
           "text": "All File Foto & Video via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 7
     }
   ],
   "operationalHoursByBranch": {
