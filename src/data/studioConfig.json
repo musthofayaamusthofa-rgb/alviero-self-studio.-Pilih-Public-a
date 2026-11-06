@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T15:24:04.013Z",
+  "lastUpdated": "2026-11-06T15:24:09.755Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1523,10 +1523,10 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
+      "imageUrl": "/images/categories/graduation.jpg",
       "imageUrls": [
-        "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
-        "/images/packages/supreme_scholar_foto2_1793977238742.jpg"
+        "/images/categories/graduation.jpg",
+        "/images/categories/graduation.jpg"
       ],
       "_origIndex": 1
     },
@@ -1584,12 +1584,12 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
+      "_origIndex": 2,
+      "imageUrl": "/images/categories/graduation.jpg",
       "imageUrls": [
-        "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
-        "/images/packages/infinity_scholar_foto2_1793977284555.jpg"
-      ],
-      "_origIndex": 2
+        "/images/categories/graduation.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     }
   ],
   "studioPackages": [
@@ -1718,10 +1718,10 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
+      "imageUrl": "/images/categories/graduation.jpg",
       "imageUrls": [
-        "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
-        "/images/packages/supreme_scholar_foto2_1793977238742.jpg"
+        "/images/categories/graduation.jpg",
+        "/images/categories/graduation.jpg"
       ],
       "_origIndex": 1
     },
@@ -1779,29 +1779,31 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
+      "_origIndex": 2,
+      "imageUrl": "/images/categories/graduation.jpg",
       "imageUrls": [
-        "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
-        "/images/packages/infinity_scholar_foto2_1793977284555.jpg"
-      ],
-      "_origIndex": 2
+        "/images/categories/graduation.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     },
     {
       "id": "grad-bundling-ultimate-1",
       "category": "grad-bundling",
-      "categoryLabel": "Bundling",
+      "categoryLabel": "Foto Studio - Bundling",
       "subtitle": "Bundling 1 • Best Seller",
       "badge": "Rekomendasi",
       "name": "Bundling Smart 1",
       "originalPrice": "Rp 700.000",
       "price": "625K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "30 Menit Studio Indoor (1 Background)",
-      "background": "30 Menit Sesi Kampus Malang",
-      "people": "1 Wisudawan + Keluarga / Sahabat",
-      "edit": "Edit 10 Foto High-Res Pilihan",
-      "print": "Cetak 2 Uk 10Rs + 3 Uk 4R",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "1 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 3,
       "facilities": [
         {
           "icon": "🏛️",
@@ -1834,27 +1836,30 @@
           "text": "All File via Google Drive"
         }
       ],
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 3
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
+      ]
     },
     {
       "id": "grad-bundling-ultimate-2",
       "category": "grad-bundling",
-      "categoryLabel": "Bundling",
+      "categoryLabel": "Foto Studio - Bundling",
       "subtitle": "Bundling 2 • Supreme",
       "badge": "Paling Lengkap",
       "name": "Bundling Smart 2",
       "originalPrice": "Rp 820.000",
       "price": "745K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "30 Menit Studio Indoor (2 Background)",
-      "background": "30 Menit Sesi Kampus Malang",
-      "people": "1 Wisudawan + Keluarga / Sahabat",
-      "edit": "Edit 14 Foto High-Res Pilihan",
-      "print": "Cetak 2 Uk 10Rs + 6 Uk 4R",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "2 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 4,
       "facilities": [
         {
           "icon": "🏛️",
@@ -1887,10 +1892,11 @@
           "text": "All File via Google Drive"
         }
       ],
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 4
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
+      ]
     },
     {
       "id": "grad-outdoor-smart-30",
@@ -1945,19 +1951,21 @@
     {
       "id": "grad-outdoor-smart-60",
       "category": "grad-outdoor",
-      "categoryLabel": "Outdoor Kampus",
+      "categoryLabel": "Foto Studio - Outdoor",
       "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Populer",
       "name": "Smart Outdoor 60 Menit",
       "originalPrice": "",
       "price": "355K",
       "priceUnit": "60 Menit Sesi Foto",
-      "duration": "60 Menit Unlimited Shoots",
-      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "duration": "60 Menit Sesi",
+      "background": "Unlimited Around Campus",
       "people": "1 Wisudawan + Keluarga / Teman",
-      "edit": "Edit 10 Foto High-Res Pilihan",
-      "print": "",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 6,
       "facilities": [
         {
           "icon": "🌳",
@@ -1985,15 +1993,16 @@
           "text": "All File via Google Drive"
         }
       ],
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 6
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     },
     {
       "id": "grad-outdoor-cumlaude",
       "category": "grad-outdoor",
-      "categoryLabel": "Outdoor Kampus",
+      "categoryLabel": "Foto Studio - Outdoor",
       "subtitle": "Graduation Outdoor 2",
       "badge": "Include Video",
       "name": "Cumlaude (Foto + Video)",
@@ -2001,11 +2010,13 @@
       "price": "710K",
       "priceUnit": "75 Menit • Full Package",
       "duration": "75 Menit Sesi Foto & Video",
-      "background": "Area Kampus Universitas (Spot Ikonik)",
-      "people": "1 Wisudawan + Keluarga / Pendamping",
-      "edit": "Edit 12 Foto High-Res + Video HD",
-      "print": "",
-      "fileDelivery": "All File Foto & Video via Google Drive",
+      "background": "Unlimited Shoots Kampus",
+      "people": "Wisudawan + Pendamping",
+      "edit": "Edit 10 Foto High-Res + Video Cinematic",
+      "print": "Softfile & Video 9:16",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "_origIndex": 7,
       "facilities": [
         {
           "icon": "🌳",
@@ -2038,10 +2049,11 @@
           "text": "All File Foto & Video via Google Drive"
         }
       ],
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 7
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     },
     {
       "id": "grad-outdoor-group-2",
@@ -3907,19 +3919,21 @@
     {
       "id": "grad-bundling-ultimate-1",
       "category": "grad-bundling",
-      "categoryLabel": "Bundling",
+      "categoryLabel": "Foto Studio - Bundling",
       "subtitle": "Bundling 1 • Best Seller",
       "badge": "Rekomendasi",
       "name": "Bundling Smart 1",
       "originalPrice": "Rp 700.000",
       "price": "625K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "30 Menit Studio Indoor (1 Background)",
-      "background": "30 Menit Sesi Kampus Malang",
-      "people": "1 Wisudawan + Keluarga / Sahabat",
-      "edit": "Edit 10 Foto High-Res Pilihan",
-      "print": "Cetak 2 Uk 10Rs + 3 Uk 4R",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "1 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 3,
       "facilities": [
         {
           "icon": "🏛️",
@@ -3952,27 +3966,30 @@
           "text": "All File via Google Drive"
         }
       ],
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 3
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
+      ]
     },
     {
       "id": "grad-bundling-ultimate-2",
       "category": "grad-bundling",
-      "categoryLabel": "Bundling",
+      "categoryLabel": "Foto Studio - Bundling",
       "subtitle": "Bundling 2 • Supreme",
       "badge": "Paling Lengkap",
       "name": "Bundling Smart 2",
       "originalPrice": "Rp 820.000",
       "price": "745K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "30 Menit Studio Indoor (2 Background)",
-      "background": "30 Menit Sesi Kampus Malang",
-      "people": "1 Wisudawan + Keluarga / Sahabat",
-      "edit": "Edit 14 Foto High-Res Pilihan",
-      "print": "Cetak 2 Uk 10Rs + 6 Uk 4R",
+      "duration": "Total 60M Indoor & Outdoor",
+      "background": "2 Background + Area Kampus",
+      "people": "1 Wisudawan + Maks 10 Org",
+      "edit": "Edit Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
+      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
+      "_origIndex": 4,
       "facilities": [
         {
           "icon": "🏛️",
@@ -4005,10 +4022,11 @@
           "text": "All File via Google Drive"
         }
       ],
-      "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 4
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
+      ]
     }
   ],
   "outdoorPackages": [
@@ -4065,19 +4083,21 @@
     {
       "id": "grad-outdoor-smart-60",
       "category": "grad-outdoor",
-      "categoryLabel": "Outdoor Kampus",
+      "categoryLabel": "Foto Studio - Outdoor",
       "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Populer",
       "name": "Smart Outdoor 60 Menit",
       "originalPrice": "",
       "price": "355K",
       "priceUnit": "60 Menit Sesi Foto",
-      "duration": "60 Menit Unlimited Shoots",
-      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "duration": "60 Menit Sesi",
+      "background": "Unlimited Around Campus",
       "people": "1 Wisudawan + Keluarga / Teman",
-      "edit": "Edit 10 Foto High-Res Pilihan",
-      "print": "",
+      "edit": "Edit Foto High-Res",
+      "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "_origIndex": 6,
       "facilities": [
         {
           "icon": "🌳",
@@ -4105,15 +4125,16 @@
           "text": "All File via Google Drive"
         }
       ],
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 6
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     },
     {
       "id": "grad-outdoor-cumlaude",
       "category": "grad-outdoor",
-      "categoryLabel": "Outdoor Kampus",
+      "categoryLabel": "Foto Studio - Outdoor",
       "subtitle": "Graduation Outdoor 2",
       "badge": "Include Video",
       "name": "Cumlaude (Foto + Video)",
@@ -4121,11 +4142,13 @@
       "price": "710K",
       "priceUnit": "75 Menit • Full Package",
       "duration": "75 Menit Sesi Foto & Video",
-      "background": "Area Kampus Universitas (Spot Ikonik)",
-      "people": "1 Wisudawan + Keluarga / Pendamping",
-      "edit": "Edit 12 Foto High-Res + Video HD",
-      "print": "",
-      "fileDelivery": "All File Foto & Video via Google Drive",
+      "background": "Unlimited Shoots Kampus",
+      "people": "Wisudawan + Pendamping",
+      "edit": "Edit 10 Foto High-Res + Video Cinematic",
+      "print": "Softfile & Video 9:16",
+      "fileDelivery": "All File via Google Drive",
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "_origIndex": 7,
       "facilities": [
         {
           "icon": "🌳",
@@ -4158,10 +4181,11 @@
           "text": "All File Foto & Video via Google Drive"
         }
       ],
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "imageUrl": "",
-      "imageUrls": [],
-      "_origIndex": 7
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     }
   ],
   "operationalHoursByBranch": {
