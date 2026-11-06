@@ -62,7 +62,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     if (c === 'bingkai-album' || c === 'cetak' || c === 'bingkai') {
       return 'bingkai-album';
     }
-    if (c === 'graduation-indoor' || c === 'graduation-outdoor' || c === 'grad-indoor' || c === 'grad-outdoor' || c === 'graduation' || c === 'wisuda' || c === 'wisuda-indoor' || c === 'wisuda-outdoor' || c === 'wisuda-wisudawan') {
+    if (c === 'graduation-outdoor' || c === 'grad-outdoor' || c === 'wisuda-outdoor') {
+      return 'grad-outdoor';
+    }
+    if (c === 'graduation-indoor' || c === 'grad-indoor' || c === 'graduation' || c === 'wisuda' || c === 'wisuda-indoor' || c === 'wisuda-wisudawan') {
       return 'grad-indoor';
     }
     if (c === 'kebaya-gaun' || c === 'kebayak-gaun') {
@@ -360,6 +363,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     }
   }, [initialCategory]);
 
+  // Auto-select tab Outdoor saat menu Grad Outdoor dibuka
+  React.useEffect(() => {
+    if (activeMenuCategory === 'grad-outdoor') {
+      setSelectedGradSubTab('outdoor');
+    }
+  }, [activeMenuCategory]);
+
   // Gallery Tab State & Modal Swipe
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('all');
   const [activeModalPhoto, setActiveModalPhoto] = useState<StudioGalleryPhoto | null>(null);
@@ -465,6 +475,27 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       targetPackageIds: [
         'grad-indoor-elegant-scholar', 'grad-indoor-supreme-scholar', 'grad-indoor-infinity-scholar',
         'grad-bundling-ultimate-1', 'grad-bundling-ultimate-2',
+        'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude',
+        'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'
+      ]
+    },
+    {
+      id: 'grad-outdoor',
+      title: 'PRICELIST WISUDA OUTDOOR',
+      subtitle: 'Smart Outdoor 30M/60M, Cumlaude Video & Group Outdoor',
+      icon: '🌳',
+      sheetCategory: 'Wisuda Outdoor',
+      badge: 'Outdoor Kampus',
+      specialView: 'grad-outdoor',
+      cardBg: 'bg-[#f0f7f1]',
+      cardBorder: 'border-[#cde4d1]',
+      hoverBorder: 'hover:border-[#527d56]',
+      iconBg: 'bg-[#e4f1e6]',
+      iconText: 'text-[#2d5a32]',
+      badgeBg: 'bg-[#e4f1e6]',
+      badgeText: 'text-[#2d5a32]',
+      badgeBorder: 'border-[#c1ddc6]',
+      targetPackageIds: [
         'grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude',
         'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'
       ]
@@ -719,6 +750,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   // Grid Category Arrays (Sesuai Urutan 12 Paket Utama Photo Studio)
   const defaultPhotoStudioGridItems = [
     { id: 'grad-indoor', name: 'Graduation', icon: '🎓', img: '/images/categories/graduation.jpg', colorBg: 'bg-[#f3f3fd]', colorBorder: 'border-[#d6d6f9]', colorText: 'text-[#36369c]' },
+    { id: 'grad-outdoor', name: 'Grad Outdoor', icon: '🌳', img: '/images/categories/grad-outdoor.jpg', colorBg: 'bg-[#f0f7f1]', colorBorder: 'border-[#cde4d1]', colorText: 'text-[#2d5a32]' },
     { id: 'group-paket', name: 'Group', icon: '👥', img: '/images/categories/group.jpg', colorBg: 'bg-[#f0f4fc]', colorBorder: 'border-[#d0ddf7]', colorText: 'text-[#244983]' },
     { id: 'family-paket', name: 'Family', icon: '👨‍👩‍👧‍👦', img: '/images/categories/family.jpg', colorBg: 'bg-[#f5f8ee]', colorBorder: 'border-[#dae6c6]', colorText: 'text-[#435722]' },
     { id: 'maternity-paket', name: 'Maternity', icon: '🤰', img: '/images/categories/maternity.jpg', colorBg: 'bg-[#fdf5ee]', colorBorder: 'border-[#f8dac3]', colorText: 'text-[#82471d]' },
@@ -3465,7 +3497,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </div>
                 )}
 {/* 12. UNIFIED LUXURY GRADUATION VIEW (INDOOR, BUNDLING, OUTDOOR & ADDITIONAL) */}
-                {activeMenuCategory === 'grad-indoor' && (
+                {(activeMenuCategory === 'grad-indoor' || activeMenuCategory === 'grad-outdoor') && (
                   <div className="space-y-6 animate-in fade-in duration-300">
                     
                     {/* Editorial Header */}
@@ -3478,22 +3510,28 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                       </div>
                       <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
-                        Pricelist Graduation Studio & Outdoor
+                        {activeMenuCategory === 'grad-outdoor' ? 'Pricelist Wisuda Outdoor Kampus' : 'Pricelist Graduation Studio & Outdoor'}
                       </h3>
                       <p className="text-xs text-slate-600 font-century leading-relaxed">
-                        Abadikan momen kelulusan bersejarah Anda bersama keluarga & sahabat dengan pencahayaan studio mewah dan sesi kampus profesional.
+                        {activeMenuCategory === 'grad-outdoor'
+                          ? 'Abadikan momen kelulusan bersejarah Anda bersama sahabat & keluarga di area kampus dengan fotografer profesional Alviero Studio.'
+                          : 'Abadikan momen kelulusan bersejarah Anda bersama keluarga & sahabat dengan pencahayaan studio mewah dan sesi kampus profesional.'}
                       </p>
                     </div>
 
                     {/* Sub-Kategori Navigation Pills */}
                     <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
-                      {[
+                      {(activeMenuCategory === 'grad-outdoor' ? [
+                        { id: 'outdoor', label: '🌳 Outdoor Kampus' },
+                        { id: 'additional', label: '➕ Additional Outdoor' },
+                        { id: 'all', label: '🎓 Semua Paket Wisuda' }
+                      ] : [
                         { id: 'all', label: '🎓 Semua Paket' },
                         { id: 'indoor', label: '🏛️ Studio Indoor' },
                         { id: 'bundling', label: '👑 Bundling Hemat ⭐' },
                         { id: 'outdoor', label: '🌳 Outdoor Kampus' },
                         { id: 'additional', label: '➕ Additional' },
-                      ].map((tab) => {
+                      ]).map((tab) => {
                         const isSelected = selectedGradSubTab === tab.id;
                         return (
                           <button
@@ -3512,7 +3550,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     </div>
 
                     {/* SECTION: STUDIO INDOOR */}
-                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'indoor') && (
+                    {(selectedGradSubTab === 'indoor' || (selectedGradSubTab === 'all' && activeMenuCategory !== 'grad-outdoor')) && (
                       <div className="space-y-4">
                         <div className="flex items-center justify-between pt-1">
                           <div className="flex items-center gap-2">
@@ -3705,7 +3743,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     )}
 
                     {/* SECTION: BUNDLING INDOOR + OUTDOOR */}
-                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'bundling') && (
+                    {(selectedGradSubTab === 'bundling' || (selectedGradSubTab === 'all' && activeMenuCategory !== 'grad-outdoor')) && (
                       <div className="space-y-4 pt-2">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
@@ -3879,7 +3917,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     )}
 
                     {/* SECTION: OUTDOOR SESSIONS */}
-                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'outdoor') && (
+                    {(selectedGradSubTab === 'all' || selectedGradSubTab === 'outdoor' || activeMenuCategory === 'grad-outdoor') && (
                       <div className="space-y-4 pt-2">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
@@ -4112,6 +4150,46 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               </div>
                             </div>
                           </div>
+
+                          {/* Paket Outdoor Tambahan dari Dashboard Studio */}
+                          {(() => {
+                            const customOutdoor = (((studioConfig as any)?.studioPackages || []) as any[])
+                              .filter((p: any) => (p.category === 'grad-outdoor' || p.category === 'graduation-outdoor') && !['grad-outdoor-smart-30', 'grad-outdoor-smart-60', 'grad-outdoor-cumlaude', 'grad-outdoor-group-2', 'grad-outdoor-group-3', 'grad-outdoor-group-4-5'].includes(p.id) && p.active !== false);
+                            if (customOutdoor.length === 0) return null;
+                            return (
+                              <div className="space-y-3 pt-3">
+                                <div className="flex items-center gap-2">
+                                  <span className="w-2 h-2 rounded-full bg-[#3D6345]"></span>
+                                  <h5 className="font-serif font-bold text-xs sm:text-sm text-[#2A2A2A] uppercase tracking-wider">
+                                    Paket Outdoor Kustom Studio ({customOutdoor.length} Paket Tambahan)
+                                  </h5>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                  {customOutdoor.map((pkg: any) => (
+                                    <div key={pkg.id} className="bg-white rounded-2xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-4 sm:p-5 shadow-2xs hover:shadow-xs transition-all space-y-2.5">
+                                      <div className="flex items-start justify-between gap-2">
+                                        <div>
+                                          <span className="text-[10px] font-bold text-[#8A7D71] uppercase font-century">{pkg.subtitle || 'Outdoor Kampus'}</span>
+                                          <h5 className="text-base sm:text-lg font-serif font-bold text-[#2A2A2A]">{pkg.name}</h5>
+                                        </div>
+                                        <div className="text-right">
+                                          <span className="text-base sm:text-lg font-serif font-black text-[#2A2A2A]">{formatPriceDisplay(pkg.price)}</span>
+                                          <span className="text-[9.5px] text-slate-500 font-century block">{pkg.priceUnit || 'per sesi'}</span>
+                                        </div>
+                                      </div>
+                                      {pkg.description && <p className="text-xs text-slate-600 font-century line-clamp-2">{pkg.description}</p>}
+                                      <button
+                                        onClick={() => onSelectPackageForBooking(pkg.id)}
+                                        className="w-full py-2 rounded-xl bg-[#2A2A2A] hover:bg-black text-white font-bold text-xs font-century cursor-pointer active:scale-95 transition-all text-center"
+                                      >
+                                        Pesan Paket
+                                      </button>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            );
+                          })()}
                         </div>
                       </div>
                     )}
@@ -4132,7 +4210,15 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-[#2A2A2A] font-century">
-                          {[
+                          {(activeMenuCategory === 'grad-outdoor' ? [
+                            { name: 'Tambahan Waktu Foto (per 10 Menit)', price: getAddOnPriceDisplay('grad-outdoor-extra-time', '50K'), icon: '⏱️' },
+                            { name: 'Make Up Wisuda Outdoor', price: getAddOnPriceDisplay('grad-outdoor-makeup', '280K'), icon: '💄' },
+                            { name: 'Hairdo Wisuda Outdoor', price: getAddOnPriceDisplay('grad-outdoor-hairdo', '150K'), icon: '💇' },
+                            { name: 'Edit Foto Tambahan High-Res', price: '10K', icon: '✨' },
+                            { name: 'Softfile Cetak Full Resolution', price: '15K', icon: '💾' },
+                            { name: 'Bingkai 10Rs Minimalis Kayu', price: '55K', icon: '🖼️' },
+                            { name: 'Cetak Foto Lab Ukuran 10Rs', price: '25K', icon: '🖨️' },
+                          ] : [
                             { name: 'Background Studio Tambahan', price: '75K', icon: '🎨' },
                             { name: 'Anggota / Orang Tambahan', price: '40K', icon: '👥' },
                             { name: 'Edit Foto Tambahan', price: '10K', icon: '✨' },
@@ -4140,7 +4226,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             { name: 'Softfile Cetak Full Resolution', price: '15K', icon: '💾' },
                             { name: 'Bingkai 10Rs Minimalis', price: '55K', icon: '🖼️' },
                             { name: 'Cetak Foto Lab Ukuran 10Rs', price: '25K', icon: '🖨️' },
-                          ].map((item, idx) => (
+                          ]).map((item, idx) => (
                             <div
                               key={idx}
                               className="bg-white/90 border border-[#E8DDD6] rounded-xl px-3.5 py-2.5 flex items-center justify-between shadow-2xs hover:bg-white transition-colors"
@@ -4793,24 +4879,44 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                     </div>
 
                     {/* Pemberitahuan Tahapan Pengembangan KHUSUS WEDDING */}
-                    {activeMenuCategory === 'wedding' && (
-                      <div className="bg-amber-50 border-2 border-amber-300/80 rounded-2xl p-4 sm:p-5 text-amber-900 flex items-start gap-3.5 shadow-xs animate-in fade-in">
+                    {(activeMenuCategory === 'wedding' || activeMenuCategory === 'wedding-package') && (
+                      <div className="bg-amber-50 border-2 border-amber-300/80 rounded-2xl p-4 sm:p-5 text-amber-900 flex flex-col sm:flex-row items-start gap-3.5 shadow-xs animate-in fade-in">
                         <div className="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg shrink-0 shadow-xs">
                           ⚠️
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-2 flex-1">
                           <div className="font-extrabold text-sm sm:text-base text-amber-950">
                             Mohon maaf pricelist masih dalam tahapan pengembangan
                           </div>
                           <p className="text-xs text-amber-800 leading-relaxed">
-                            Katalog dan rincian harga untuk kategori <strong className="font-bold text-amber-950">PRICELIST WEDDING</strong> saat ini sedang dalam proses penyusunan & perancangan poster resmi. Untuk konsultasi harga paket pernikahan terbaru (Akad, Resepsi, Engagement, Prewedding) atau reservasi custom, silakan langsung menghubungi Admin WhatsApp kami.
+                            Katalog dan rincian harga untuk kategori <strong className="font-bold text-amber-950">PRICELIST WEDDING</strong> saat ini sedang dalam proses penyusunan &amp; perancangan poster resmi. Untuk konsultasi harga paket pernikahan terbaru (Akad, Resepsi, Engagement, Prewedding) atau reservasi custom, silakan langsung menghubungi WhatsApp Admin Studio kami:
                           </p>
+                          <div className="flex flex-wrap gap-2 pt-1">
+                            <a
+                              href="https://wa.me/6287777538164?text=Halo%20Admin%20Alviero%20Studio%201%20Junrejo%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Wedding."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold inline-flex items-center gap-1.5 shadow-xs"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                              <span>WA Studio 1 Junrejo (087777538164)</span>
+                            </a>
+                            <a
+                              href="https://wa.me/6285168879214?text=Halo%20Admin%20Alviero%20Studio%202%20Dinoyo%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20Wedding."
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-bold inline-flex items-center gap-1.5 shadow-xs"
+                            >
+                              <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                              <span>WA Studio 2 Dinoyo (085168879214)</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {/* Daftar Sub-Paket Tersedia (Disembunyikan pada Pricelist Wedding) */}
-                    {activeMenuCategory !== 'wedding' && (
+                    {activeMenuCategory !== 'wedding' && activeMenuCategory !== 'wedding-package' && (
                       <div className="space-y-3">
                         <div className="text-xs font-extrabold text-slate-400 uppercase tracking-wider">
                           Daftar Sub-Paket Tersedia ({activeMenuPackages.length} Paket):

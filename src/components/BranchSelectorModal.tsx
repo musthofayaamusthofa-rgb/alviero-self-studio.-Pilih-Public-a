@@ -2221,6 +2221,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
   const [isCetakCardExpanded, setIsCetakCardExpanded] = useState<boolean>(false);
   const [isEventCardExpanded, setIsEventCardExpanded] = useState<boolean>(false);
   const [isWeddingCardExpanded, setIsWeddingCardExpanded] = useState<boolean>(false);
+  const [devNoticeModal, setDevNoticeModal] = useState<{
+    isOpen: boolean;
+    serviceName: string;
+    branchName: string;
+    phoneDisplay: string;
+    phoneRaw: string;
+    address: string;
+    waUrl: string;
+  } | null>(null);
 
   const toggleStudioFoto = () => {
     setIsStudioFotoExpanded((prev) => {
@@ -2863,12 +2872,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                localStorage.setItem('alviero_expanded_service', 'wedding');
-                                if (onSelectCategory) {
-                                  onSelectCategory('wedding-package', 'cabang-1');
-                                } else {
-                                  onSelectBranch('cabang-1');
-                                }
+                                setDevNoticeModal({
+                                  isOpen: true,
+                                  serviceName: 'Wedding & Prewedding',
+                                  branchName: 'Studio 1 (Junrejo)',
+                                  phoneDisplay: '0877-7753-8164',
+                                  phoneRaw: '6287777538164',
+                                  address: studio1Branch.address || 'Ruko Hijau, Jl. Ir. Soekarno No.2, Dadaprejo, Kec. Junrejo, Kota Batu',
+                                  waUrl: 'https://wa.me/6287777538164?text=' + encodeURIComponent('Halo Admin Alviero Studio 1 (Junrejo), saya ingin konsultasi mengenai pricelist & reservasi layanan Wedding & Prewedding.')
+                                });
                               }}
                               className="p-2 sm:p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#1E1E1E] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/w1 cursor-pointer active:scale-98 text-left"
                             >
@@ -2884,7 +2896,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/w1:text-[#A9BCA7] shrink-0">
-                                <span>Buka</span>
+                                <span>Hubungi WA</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/w1:translate-x-0.5 group-hover/w1:-translate-y-0.5 transition-transform" />
                               </div>
                             </button>
@@ -2894,12 +2906,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                localStorage.setItem('alviero_expanded_service', 'wedding');
-                                if (onSelectCategory) {
-                                  onSelectCategory('wedding-package', 'cabang-2');
-                                } else {
-                                  onSelectBranch('cabang-2');
-                                }
+                                setDevNoticeModal({
+                                  isOpen: true,
+                                  serviceName: 'Wedding & Prewedding',
+                                  branchName: 'Studio 2 (Dinoyo)',
+                                  phoneDisplay: '0851-6887-9214',
+                                  phoneRaw: '6285168879214',
+                                  address: studio2Branch.address || 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang',
+                                  waUrl: 'https://wa.me/6285168879214?text=' + encodeURIComponent('Halo Admin Alviero Studio 2 (Dinoyo), saya ingin konsultasi mengenai pricelist & reservasi layanan Wedding & Prewedding.')
+                                });
                               }}
                               className="p-2 sm:p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#1E1E1E] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/w2 cursor-pointer active:scale-98 text-left"
                             >
@@ -2915,7 +2930,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/w2:text-[#A9BCA7] shrink-0">
-                                <span>Buka</span>
+                                <span>Hubungi WA</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/w2:translate-x-0.5 group-hover/w2:-translate-y-0.5 transition-transform" />
                               </div>
                             </button>
@@ -2983,12 +2998,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                localStorage.setItem('alviero_expanded_service', 'event');
-                                if (onSelectCategory) {
-                                  onSelectCategory('event', 'cabang-1');
-                                } else {
-                                  onSelectBranch('cabang-1');
-                                }
+                                setDevNoticeModal({
+                                  isOpen: true,
+                                  serviceName: 'Event Dokumentasi',
+                                  branchName: 'Studio 1 (Junrejo)',
+                                  phoneDisplay: '0877-7753-8164',
+                                  phoneRaw: '6287777538164',
+                                  address: studio1Branch.address || 'Ruko Hijau, Jl. Ir. Soekarno No.2, Dadaprejo, Kec. Junrejo, Kota Batu',
+                                  waUrl: 'https://wa.me/6287777538164?text=' + encodeURIComponent('Halo Admin Alviero Studio 1 (Junrejo), saya ingin konsultasi mengenai pricelist & reservasi layanan Event Dokumentasi.')
+                                });
                               }}
                               className="p-2 sm:p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#1E1E1E] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/e1 cursor-pointer active:scale-98 text-left"
                             >
@@ -3004,7 +3022,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/e1:text-[#A9BCA7] shrink-0">
-                                <span>Buka</span>
+                                <span>Hubungi WA</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/e1:translate-x-0.5 group-hover/e1:-translate-y-0.5 transition-transform" />
                               </div>
                             </button>
@@ -3014,12 +3032,15 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                localStorage.setItem('alviero_expanded_service', 'event');
-                                if (onSelectCategory) {
-                                  onSelectCategory('event', 'cabang-2');
-                                } else {
-                                  onSelectBranch('cabang-2');
-                                }
+                                setDevNoticeModal({
+                                  isOpen: true,
+                                  serviceName: 'Event Dokumentasi',
+                                  branchName: 'Studio 2 (Dinoyo)',
+                                  phoneDisplay: '0851-6887-9214',
+                                  phoneRaw: '6285168879214',
+                                  address: studio2Branch.address || 'Ruko Gajayana, Jl. Simpang Gajayana No.Kav.P, Dinoyo, Kec. Lowokwaru, Kota Malang',
+                                  waUrl: 'https://wa.me/6285168879214?text=' + encodeURIComponent('Halo Admin Alviero Studio 2 (Dinoyo), saya ingin konsultasi mengenai pricelist & reservasi layanan Event Dokumentasi.')
+                                });
                               }}
                               className="p-2 sm:p-2.5 rounded-xl bg-[#FDFBF7] hover:bg-[#1E1E1E] text-[#3A3A3A] hover:text-white border border-[#E8DDD6] hover:border-[#1E1E1E] transition-all flex items-center justify-between gap-2 shadow-xs group/e2 cursor-pointer active:scale-98 text-left"
                             >
@@ -3035,7 +3056,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                                 </p>
                               </div>
                               <div className="flex items-center gap-1 text-[10.5px] font-serif font-bold text-[#6E856C] group-hover/e2:text-[#A9BCA7] shrink-0">
-                                <span>Buka</span>
+                                <span>Hubungi WA</span>
                                 <ArrowUpRight className="w-3.5 h-3.5 stroke-[2] group-hover/e2:translate-x-0.5 group-hover/e2:-translate-y-0.5 transition-transform" />
                               </div>
                             </button>
@@ -3308,6 +3329,82 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           onSelectBranch(selectedBranch);
         }}
       />
+
+      {/* Modal Notifikasi Layanan Masih Dalam Tahap Pengembangan */}
+      {devNoticeModal && devNoticeModal.isOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+          onClick={() => setDevNoticeModal(null)}
+        >
+          <div
+            className="w-full max-w-md bg-[#FDFBF7] rounded-3xl border border-[#E8DDD6] shadow-2xl p-6 sm:p-7 text-center relative overflow-hidden animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setDevNoticeModal(null)}
+              className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/80 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer border border-[#E8DDD6]"
+              aria-label="Tutup"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            {/* Icon Medallion */}
+            <div className="w-16 h-16 rounded-2xl bg-[#EBF2EA] border border-[#CDE0CB] text-[#3D6345] flex items-center justify-center mx-auto mb-4 shadow-xs">
+              <Sparkles className="w-8 h-8 stroke-[1.8]" />
+            </div>
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10.5px] font-bold font-mono tracking-widest uppercase bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3] mb-3">
+              <span>⚠️ TAHAP PENGEMBANGAN</span>
+            </div>
+
+            {/* Heading */}
+            <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight leading-snug">
+              {devNoticeModal.serviceName}
+            </h3>
+            <p className="text-xs font-serif font-semibold text-[#6E856C] mt-0.5">
+              Alviero Studio — {devNoticeModal.branchName}
+            </p>
+
+            {/* Message Card */}
+            <div className="bg-white rounded-2xl p-4 border border-[#EFE5DC] text-left text-xs font-century space-y-2 mt-4 text-[#3A3A3A] leading-relaxed shadow-2xs">
+              <p>
+                Mohon maaf, halaman katalog &amp; rincian paket untuk <strong>{devNoticeModal.serviceName}</strong> di <strong>{devNoticeModal.branchName}</strong> saat ini <strong>masih dalam tahap pengembangan</strong>.
+              </p>
+              <p className="text-[#666666]">
+                Untuk konsultasi konsep foto, penawaran harga khusus, dan reservasi jadwal pemotretan, silakan langsung menghubungi nomor WhatsApp resmi Studio kami di bawah ini:
+              </p>
+              <div className="pt-2 border-t border-[#F2E9E4] flex items-center gap-2 text-[11px] text-[#2A2A2A]">
+                <MapPin className="w-3.5 h-3.5 text-[#6E856C] shrink-0" />
+                <span className="truncate">{devNoticeModal.address}</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="mt-5 space-y-2.5">
+              <a
+                href={devNoticeModal.waUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] active:bg-[#1da850] text-white font-serif font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-98"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>Hubungi WA {devNoticeModal.branchName} ({devNoticeModal.phoneDisplay})</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setDevNoticeModal(null)}
+                className="w-full py-2.5 px-4 rounded-xl bg-transparent hover:bg-stone-100 text-stone-600 font-serif font-semibold text-xs tracking-wider uppercase transition-colors cursor-pointer"
+              >
+                Kembali ke Beranda
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
