@@ -2395,13 +2395,10 @@
           <div class="filter-group">
             <span class="filter-label">Bagian:</span>
             <button class="pill-btn active" id="muaSubTabVendorsBtn" onclick="switchMuaSubTab('vendors', this)">
-              💄 Vendor MUA & Styling (<span id="muaVendorsTabCount">4</span>)
+              💄 Vendor MUA &amp; Sub-Paket (<span id="muaVendorsTabCount">3</span>)
             </button>
             <button class="pill-btn" id="muaSubTabKebayaBtn" onclick="switchMuaSubTab('kebaya', this)">
-              👗 Koleksi Foto Kebaya & Stok (<span id="muaKebayaTabCount">0</span>)
-            </button>
-            <button class="pill-btn" id="muaSubTabWardrobeBtn" onclick="switchMuaSubTab('wardrobe', this)">
-              🏷️ Tarif Sewa & Size Chart Wardrobe
+              👗 Koleksi Foto Kebaya &amp; Stok (<span id="muaKebayaTabCount">0</span>)
             </button>
           </div>
 
@@ -2448,170 +2445,6 @@
 
           <div class="bg-grid" id="muaKebayaGrid" style="grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));">
             <!-- Rendered dynamically -->
-          </div>
-        </div>
-
-        <!-- Panel 3: Wardrobe Rental Rates & Size Chart -->
-        <div id="muaWardrobePanel" style="display: none;">
-          <!-- Section 1: Header & Deskripsi Katalog Kebaya & Gaun -->
-          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.65rem;">
-              <div>
-                <div style="font-size: 0.85rem; font-weight: 800; color: #2A2A2A; display: flex; align-items: center; gap: 0.4rem;">
-                  <span>✨</span> HEADER &amp; DESKRIPSI KATALOG WARDROBE
-                </div>
-                <div style="font-size: 0.75rem; color: #78716C;">
-                  Teks judul, badge, dan keterangan yang tampil di bagian atas menu "Kebaya &amp; Gaun" di situs web.
-                </div>
-              </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; margin-bottom: 0.85rem;">
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.3rem;">Badge / Tagline Atas</label>
-                <input type="text" id="wardrobeHeaderTagInput" class="form-control" placeholder="Contoh: ✨ COLLECTION 2026 • WARDROBE STUDIO" style="font-size: 0.82rem;">
-              </div>
-              <div>
-                <label style="font-size: 0.75rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.3rem;">Judul Utama Katalog</label>
-                <input type="text" id="wardrobeHeaderTitleInput" class="form-control" placeholder="Contoh: Koleksi Kebaya Modern &amp; Gaun Foto" style="font-size: 0.82rem;">
-              </div>
-            </div>
-            <div>
-              <label style="font-size: 0.75rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.3rem;">Deskripsi / Subjudul</label>
-              <textarea id="wardrobeHeaderSubtitleInput" class="form-control" rows="2" placeholder="Deskripsi ringkas layanan sewa busana..." style="font-size: 0.82rem; resize: vertical;"></textarea>
-            </div>
-          </div>
-
-          <!-- Section 2: Tarif Sewa Wardrobe (Personal & Couple) -->
-          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
-            <div style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.65rem;">
-              <div style="font-size: 0.85rem; font-weight: 800; color: #2A2A2A; display: flex; align-items: center; gap: 0.4rem;">
-                <span>🏷️</span> TARIF SEWA WARDROBE (KARTU PERSONAL &amp; COUPLE)
-              </div>
-              <div style="font-size: 0.75rem; color: #78716C;">
-                Atur nominal harga sewa, nama paket, serta rincian fasilitas include yang didapatkan klien.
-              </div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-              <!-- Kartu 1: Sewa Personal -->
-              <div style="background: #FAF8F5; border: 1.5px solid #D0E2CE; border-radius: 12px; padding: 1.1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                  <span style="font-size: 0.75rem; font-weight: 800; background: #EBF2EA; color: #5C725A; padding: 3px 10px; border-radius: 999px;">
-                    KARTU 1: PERSONAL
-                  </span>
-                  <span style="font-size: 0.72rem; color: #6E856C; font-weight: 700;">1 Orang</span>
-                </div>
-                <div style="margin-bottom: 0.65rem;">
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Label Badge Kartu</label>
-                  <input type="text" id="wardrobeRateBadge0" class="form-control" placeholder="Sewa Personal (1 Orang)" style="font-size: 0.8rem;">
-                </div>
-                <div style="margin-bottom: 0.65rem;">
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Judul Paket Sewa</label>
-                  <input type="text" id="wardrobeRateTitle0" class="form-control" placeholder="1 Set Kebaya / Gaun Wisuda Personal" style="font-size: 0.8rem;">
-                </div>
-                <div style="margin-bottom: 0.65rem;">
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Tarif Harga (Format Teks/Nominal)</label>
-                  <input type="text" id="wardrobeRatePrice0" class="form-control" placeholder="Rp 115.000" style="font-size: 0.85rem; font-weight: 800; color: #2A2A2A;">
-                </div>
-                <div>
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">
-                    Fasilitas / Keunggulan Include (1 baris per poin)
-                  </label>
-                  <textarea id="wardrobeRateFeatures0" class="form-control" rows="4" placeholder="Include 1 Baju Kebaya / Gaun Modern Pilihan&#10;Include Kain Jarik / Rok Lilit Senada&#10;Include Aksesoris Bros Dada / Manset" style="font-size: 0.78rem; line-height: 1.5;"></textarea>
-                </div>
-              </div>
-
-              <!-- Kartu 2: Sewa Couple -->
-              <div style="background: #FAF8F5; border: 1.5px solid #EAD5C3; border-radius: 12px; padding: 1.1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                  <span style="font-size: 0.75rem; font-weight: 800; background: #FAF0E6; color: #8A5A36; padding: 3px 10px; border-radius: 999px;">
-                    KARTU 2: COUPLE
-                  </span>
-                  <span style="font-size: 0.72rem; color: #8A5A36; font-weight: 700;">2 Orang</span>
-                </div>
-                <div style="margin-bottom: 0.65rem;">
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Label Badge Kartu</label>
-                  <input type="text" id="wardrobeRateBadge1" class="form-control" placeholder="Sewa Couple (2 Orang)" style="font-size: 0.8rem;">
-                </div>
-                <div style="margin-bottom: 0.65rem;">
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Judul Paket Sewa</label>
-                  <input type="text" id="wardrobeRateTitle1" class="form-control" placeholder="Setelan Couple (Wanita &amp; Pria)" style="font-size: 0.8rem;">
-                </div>
-                <div style="margin-bottom: 0.65rem;">
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Tarif Harga (Format Teks/Nominal)</label>
-                  <input type="text" id="wardrobeRatePrice1" class="form-control" placeholder="Rp 215.000" style="font-size: 0.85rem; font-weight: 800; color: #2A2A2A;">
-                </div>
-                <div>
-                  <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">
-                    Fasilitas / Keunggulan Include (1 baris per poin)
-                  </label>
-                  <textarea id="wardrobeRateFeatures1" class="form-control" rows="4" placeholder="1 Baju Kebaya Wanita + Kain Jarik / Rok&#10;1 Kemeja Batik / Beskap Pria Senada&#10;Include Blangkon &amp; Aksesoris Lengkap" style="font-size: 0.78rem; line-height: 1.5;"></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 3: Panduan Ukuran Busana (Kebaya Size Chart) -->
-          <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
-              <div>
-                <div style="font-size: 0.85rem; font-weight: 800; color: #2A2A2A; display: flex; align-items: center; gap: 0.4rem;">
-                  <span>📏</span> PANDUAN UKURAN BUSANA (SIZE CHART)
-                </div>
-                <div style="font-size: 0.75rem; color: #78716C;">
-                  Atur tabel ukuran fisik kebaya: Lingkar Dada (LD), Lingkar Pinggang, Panjang Baju, dan Estimasi Berat Badan.
-                </div>
-              </div>
-              <button type="button" class="btn btn-add" onclick="addWardrobeSizeRow()" style="font-size: 0.75rem; padding: 0.35rem 0.8rem;">
-                + Tambah Ukuran Baru
-              </button>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; margin-bottom: 0.85rem;">
-              <div>
-                <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Judul Accordion Size Chart</label>
-                <input type="text" id="wardrobeSizeTitleInput" class="form-control" placeholder="Panduan Ukuran Busana (Kebaya Size Chart)" style="font-size: 0.8rem;">
-              </div>
-              <div>
-                <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Sub-judul Keterangan</label>
-                <input type="text" id="wardrobeSizeSubtitleInput" class="form-control" placeholder="Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio" style="font-size: 0.8rem;">
-              </div>
-            </div>
-
-            <!-- Tabel Input Interaktif Size Chart -->
-            <div style="overflow-x: auto; margin-bottom: 0.85rem; border: 1px solid var(--border); border-radius: 8px;">
-              <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left;">
-                <thead>
-                  <tr style="background: #EBF2EA; color: #2A2A2A; font-weight: 750; border-bottom: 1px solid #D0E2CE;">
-                    <th style="padding: 0.6rem 0.75rem; width: 85px;">Ukuran</th>
-                    <th style="padding: 0.6rem 0.75rem;">Lingkar Dada (LD)</th>
-                    <th style="padding: 0.6rem 0.75rem;">Lingkar Pinggang</th>
-                    <th style="padding: 0.6rem 0.75rem;">Panjang Baju</th>
-                    <th style="padding: 0.6rem 0.75rem;">Estimasi Berat Badan</th>
-                    <th style="padding: 0.6rem 0.75rem; width: 60px; text-align: center;">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody id="wardrobeSizeTableBody">
-                  <!-- Rendered dynamically -->
-                </tbody>
-              </table>
-            </div>
-
-            <div>
-              <label style="font-size: 0.73rem; font-weight: 700; color: #3A3A3A; display: block; margin-bottom: 0.25rem;">Catatan Kaki (Footnote)</label>
-              <input type="text" id="wardrobeSizeNoteInput" class="form-control" placeholder="*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh..." style="font-size: 0.78rem; font-style: italic;">
-            </div>
-          </div>
-
-          <!-- Action Bar Bawah -->
-          <div style="display: flex; justify-content: flex-end; gap: 0.75rem; align-items: center; padding: 1rem 0; border-top: 1px solid var(--border);">
-            <button type="button" class="btn btn-preview" onclick="resetWardrobeConfigToDefault()" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
-              🔄 Reset ke Standar Alviero
-            </button>
-            <button type="button" class="btn btn-save-local" onclick="saveWardrobeConfig()" style="font-size: 0.82rem; padding: 0.5rem 1.25rem; font-weight: 800;">
-              💾 Simpan Pengaturan Wardrobe &amp; Size Chart
-            </button>
           </div>
         </div>
       </div>
@@ -9074,17 +8907,13 @@
       currentMuaSubTab = tab;
       const vBtn = document.getElementById('muaSubTabVendorsBtn');
       const kBtn = document.getElementById('muaSubTabKebayaBtn');
-      const wBtn = document.getElementById('muaSubTabWardrobeBtn');
       if (vBtn) vBtn.classList.toggle('active', tab === 'vendors');
       if (kBtn) kBtn.classList.toggle('active', tab === 'kebaya');
-      if (wBtn) wBtn.classList.toggle('active', tab === 'wardrobe');
 
       const vPanel = document.getElementById('muaVendorsPanel');
       const kPanel = document.getElementById('muaKebayaPanel');
-      const wPanel = document.getElementById('muaWardrobePanel');
       if (vPanel) vPanel.style.display = tab === 'vendors' ? 'block' : 'none';
       if (kPanel) kPanel.style.display = tab === 'kebaya' ? 'block' : 'none';
-      if (wPanel) wPanel.style.display = tab === 'wardrobe' ? 'block' : 'none';
 
       renderMuaSection();
     }
@@ -9108,8 +8937,6 @@
         renderMuaVendors();
       } else if (currentMuaSubTab === 'kebaya') {
         renderKebayaColors();
-      } else if (currentMuaSubTab === 'wardrobe') {
-        renderWardrobeConfig();
       }
     }
 
@@ -9202,14 +9029,17 @@
 
             <div class="bg-card-bottom" style="margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 0.45rem;">
               <div class="vendor-actions-swipeable" onwheel="event.preventDefault(); this.scrollLeft += event.deltaY * 0.8;" onmousedown="initSwipeDrag(this, event)">
+                <button class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; background: #5C725A; border-color: #4A5D48; color: #FFFFFF; font-weight: 700; flex-shrink: 0; white-space: nowrap;" onclick="openKebayaSubPackagesManager(${origIdx})" title="Atur Sub-Paket Kebaya, Harga, Badge, Fitur, Warna & Ukuran (Tampilan Foto 2 Web)">
+                  👗 Sub-Paket Kebaya (Foto 2)
+                </button>
+                <button class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; flex-shrink: 0; white-space: nowrap;" onclick="openMuaPackagesManagerModal(${origIdx})">
+                  📋 Kelola Semua Paket
+                </button>
                 <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; flex-shrink: 0; white-space: nowrap;" onclick="openEditMuaVendorModal(${origIdx})">
                   ✏️ Edit Profil &amp; Foto
                 </button>
-                <button class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; flex-shrink: 0; white-space: nowrap;" onclick="openMuaPackagesManagerModal(${origIdx})">
-                  📋 Kelola Paket &amp; Harga
-                </button>
                 <button class="btn btn-preview" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; background: #FAF5F0; border-color: #E2D8CF; color: #8A5A36; font-weight: 700; flex-shrink: 0; white-space: nowrap;" onclick="switchMuaSubTab('kebaya', document.getElementById('muaSubTabKebayaBtn')); selectKebayaVendor('${v.id}');" title="Kelola Contoh Kebaya &amp; Stok Ukuran Vendor Ini">
-                  👗 Koleksi Kebaya (${(v.kebayas || []).length})
+                  👗 Lemari Kebaya &amp; Stok (${(v.kebayas || []).length})
                 </button>
               </div>
               <button class="btn-action delete" style="padding: 0.35rem 0.6rem; flex-shrink: 0;" onclick="deleteMuaVendor(${origIdx})" title="Hapus Vendor">
@@ -9220,6 +9050,77 @@
         `;
         container.appendChild(card);
       });
+    }
+
+    function openKebayaSubPackagesManager(vendorIdx) {
+      if (!appConfig || !appConfig.muaVendors || !appConfig.muaVendors[vendorIdx]) return;
+      const vendor = appConfig.muaVendors[vendorIdx];
+      if (!vendor.categories) vendor.categories = [];
+
+      // Cari kategori Kebaya
+      let kebIdx = vendor.categories.findIndex(c => 
+        (c.iconType && c.iconType.toLowerCase() === 'kebaya') || 
+        (c.name && c.name.toLowerCase().includes('kebaya')) ||
+        (c.id && c.id.toLowerCase().includes('kebaya'))
+      );
+
+      // Jika belum ada kategori Kebaya, buatkan otomatis dengan format Foto 2 standar Alviero
+      if (kebIdx === -1) {
+        const newCat = {
+          id: (vendor.id || 'vendor') + '-kebaya',
+          name: 'Kebaya',
+          iconType: 'kebaya',
+          description: 'Koleksi kebaya modern dan brokat anggun siap pakai untuk sesi foto.',
+          portfolioImages: [],
+          subPackages: [
+            {
+              id: (vendor.id || 'vendor') + '-kb-1',
+              name: 'Paket 1 — Kebaya Modern Standard',
+              price: 100000,
+              duration: '60 Menit',
+              badge: 'Ready to Wear',
+              colors: ['Sage', 'Nude', 'Black', 'Maroon'],
+              sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+              features: [
+                'Pilihan Warna Elegan: Sage, Nude, Black, Maroon',
+                'Termasuk Jarik Batik Span / Rok Lilit Premium',
+                'Tersedia Ukuran Lengkap: S, M, L, XL, XXL',
+                'Fitting Langsung di Ruang Ganti Studio Alviero'
+              ]
+            },
+            {
+              id: (vendor.id || 'vendor') + '-kb-2',
+              name: 'Paket 2 — Kebaya Brokat Premium + Selendang',
+              price: 150000,
+              duration: '60 Menit',
+              badge: 'Best Choice',
+              colors: ['Navy', 'Gold', 'Silver', 'Sage', 'Nude'],
+              sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+              features: [
+                'Kebaya Brokat Payet Halus & Mewah Timbul',
+                'Pilihan Warna Eksklusif (Navy, Gold, Silver, Sage, Nude)',
+                'Termasuk Selendang Organza, Manset & Jarik Eksklusif',
+                'Free Inner Hijab / Kemben Warna Senada'
+              ]
+            }
+          ]
+        };
+        vendor.categories.push(newCat);
+        kebIdx = vendor.categories.length - 1;
+        saveConfigLocally(true);
+      }
+
+      // Buka modal editor paket vendor langsung di kategori Kebaya
+      editingVendorPackagesOrigIdx = vendorIdx;
+      editingVendorPackagesClone = JSON.parse(JSON.stringify(vendor));
+      activePkgEditorCatIdx = kebIdx;
+
+      document.getElementById('muaPkgEditorVendorIndex').value = vendorIdx;
+      document.getElementById('muaPkgEditorTitle').textContent = 'Kelola Sub-Paket Kebaya (Foto 2) — ' + (editingVendorPackagesClone.name || '');
+
+      renderMuaPkgEditorCategories();
+      renderMuaPkgEditorPackages();
+      openModal('muaPackageEditorModal');
     }
 
     function selectKebayaVendor(vendorId) {
@@ -10007,9 +9908,35 @@
       const activeCat = cats[activePkgEditorCatIdx];
       if (!activeCat) return;
 
+      const isKebayaCategory = (activeCat.iconType && activeCat.iconType.toLowerCase() === 'kebaya') || 
+                               (activeCat.name && activeCat.name.toLowerCase().includes('kebaya')) ||
+                               (activeCat.id && activeCat.id.toLowerCase().includes('kebaya'));
+
+      if (isKebayaCategory) {
+        const notice = document.createElement('div');
+        notice.style.cssText = 'background: #FAF8F5; border: 1.5px solid #D0E2CE; border-left: 4px solid #5C725A; border-radius: 10px; padding: 0.85rem 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.02);';
+        notice.innerHTML = `
+          <div style="flex: 1; min-width: 250px;">
+            <div style="font-size: 0.84rem; font-weight: 800; color: #2D5A27; display: flex; align-items: center; gap: 0.4rem;">
+              <span>👗</span> PENGATURAN SUB-PAKET KEBAYA (TAMPILAN FOTO 2 DI WEB)
+            </div>
+            <div style="font-size: 0.74rem; color: #4B5563; margin-top: 0.25rem; line-height: 1.45;">
+              Setiap sub-paket di bawah ini (contoh: <b>Paket 1 — Kebaya Modern Standard</b>, <b>Paket 2 — Kebaya Brokat Premium</b>) mengatur nama paket, harga sewa, label badge (Ready to Wear, Best Choice), rincian fitur include, pilihan varian warna dengan thumbnail &amp; stok fisik, serta varian ukuran (S, M, L, XL, XXL) yang langsung tampil di modal Kebaya website.
+            </div>
+          </div>
+          <button type="button" class="btn btn-save-local" style="font-size: 0.75rem; padding: 0.35rem 0.85rem; background: #5C725A; font-weight: 700; white-space: nowrap;" onclick="addMuaPackageToActiveCategory()">
+            + Tambah Sub-Paket Kebaya
+          </button>
+        `;
+        container.appendChild(notice);
+      }
+
       const pkgs = activeCat.subPackages || [];
       if (pkgs.length === 0) {
-        container.innerHTML = '<div style="text-align: center; padding: 1.5rem; color: #71717A; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 12px; font-size: 0.82rem;">Belum ada paket dalam kategori ini. Klik tombol "+ Tambah Sub-Paket" di atas.</div>';
+        const emptyDiv = document.createElement('div');
+        emptyDiv.style.cssText = 'text-align: center; padding: 1.5rem; color: #71717A; background: #FAF9F7; border: 1px dashed var(--border); border-radius: 12px; font-size: 0.82rem;';
+        emptyDiv.textContent = 'Belum ada paket dalam kategori ini. Klik tombol "+ Tambah Sub-Paket" di atas.';
+        container.appendChild(emptyDiv);
         return;
       }
 
@@ -10844,266 +10771,8 @@
     let currentAddonSearchQuery = '';
 
     // =========================================================================
-    // PENGATURAN TARIF SEWA & SIZE CHART WARDROBE (KEBAYA & GAUN)
+    // MANAJEMEN ADD-ONS & LAYANAN TAMBAHAN
     // =========================================================================
-    let editingWardrobeRows = [];
-
-    function renderWardrobeConfig() {
-      if (!appConfig) return;
-      if (!appConfig.wardrobeConfig) {
-        appConfig.wardrobeConfig = {
-          header: {
-            tag: 'COLLECTION 2026 • WARDROBE STUDIO',
-            title: 'Koleksi Kebaya Modern & Gaun Foto',
-            subtitle: 'Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo).'
-          },
-          rentalRates: [
-            {
-              id: 'rate-personal',
-              badge: 'Sewa Personal (1 Orang)',
-              badgeColor: 'green',
-              title: '1 Set Kebaya / Gaun Wisuda Personal',
-              price: 'Rp 115.000',
-              features: [
-                'Include 1 Baju Kebaya / Gaun Modern Pilihan',
-                'Include Kain Jarik / Rok Lilit Senada',
-                'Include Aksesoris Bros Dada / Manset'
-              ]
-            },
-            {
-              id: 'rate-couple',
-              badge: 'Sewa Couple (2 Orang)',
-              badgeColor: 'brown',
-              title: 'Setelan Couple (Wanita & Pria)',
-              price: 'Rp 215.000',
-              features: [
-                '1 Baju Kebaya Wanita + Kain Jarik / Rok',
-                '1 Kemeja Batik / Beskap Pria Senada',
-                'Include Blangkon & Aksesoris Lengkap'
-              ]
-            }
-          ],
-          sizeChart: {
-            title: 'Panduan Ukuran Busana (Kebaya Size Chart)',
-            subtitle: 'Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio',
-            note: '*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.',
-            rows: [
-              { size: 'S', bust: '86 – 88 cm', waist: '68 – 72 cm', length: '65 cm', weight: '40 – 48 kg' },
-              { size: 'M', bust: '90 – 94 cm', waist: '74 – 78 cm', length: '68 cm', weight: '48 – 55 kg' },
-              { size: 'L', bust: '96 – 100 cm', waist: '80 – 84 cm', length: '70 cm', weight: '55 – 63 kg' },
-              { size: 'XL', bust: '102 – 106 cm', waist: '86 – 90 cm', length: '72 cm', weight: '63 – 72 kg' },
-              { size: 'XXL', bust: '108 – 114 cm', waist: '92 – 98 cm', length: '75 cm', weight: '72 – 82 kg' }
-            ]
-          }
-        };
-      }
-
-      const wCfg = appConfig.wardrobeConfig;
-      const header = wCfg.header || {};
-      const rates = Array.isArray(wCfg.rentalRates) ? wCfg.rentalRates : [];
-      const sizeChart = wCfg.sizeChart || {};
-
-      // 1. Header
-      const tagEl = document.getElementById('wardrobeHeaderTagInput');
-      const titleEl = document.getElementById('wardrobeHeaderTitleInput');
-      const subEl = document.getElementById('wardrobeHeaderSubtitleInput');
-      if (tagEl) tagEl.value = header.tag || 'COLLECTION 2026 • WARDROBE STUDIO';
-      if (titleEl) titleEl.value = header.title || 'Koleksi Kebaya Modern & Gaun Foto';
-      if (subEl) subEl.value = header.subtitle || 'Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo).';
-
-      // 2. Rates Personal
-      const rate0 = rates[0] || {};
-      const b0 = document.getElementById('wardrobeRateBadge0');
-      const t0 = document.getElementById('wardrobeRateTitle0');
-      const p0 = document.getElementById('wardrobeRatePrice0');
-      const f0 = document.getElementById('wardrobeRateFeatures0');
-      if (b0) b0.value = rate0.badge || 'Sewa Personal (1 Orang)';
-      if (t0) t0.value = rate0.title || '1 Set Kebaya / Gaun Wisuda Personal';
-      if (p0) p0.value = rate0.price || 'Rp 115.000';
-      if (f0) f0.value = (Array.isArray(rate0.features) ? rate0.features : []).join('\n');
-
-      // Rates Couple
-      const rate1 = rates[1] || {};
-      const b1 = document.getElementById('wardrobeRateBadge1');
-      const t1 = document.getElementById('wardrobeRateTitle1');
-      const p1 = document.getElementById('wardrobeRatePrice1');
-      const f1 = document.getElementById('wardrobeRateFeatures1');
-      if (b1) b1.value = rate1.badge || 'Sewa Couple (2 Orang)';
-      if (t1) t1.value = rate1.title || 'Setelan Couple (Wanita & Pria)';
-      if (p1) p1.value = rate1.price || 'Rp 215.000';
-      if (f1) f1.value = (Array.isArray(rate1.features) ? rate1.features : []).join('\n');
-
-      // 3. Size Chart
-      const stEl = document.getElementById('wardrobeSizeTitleInput');
-      const sSubEl = document.getElementById('wardrobeSizeSubtitleInput');
-      const sNoteEl = document.getElementById('wardrobeSizeNoteInput');
-      if (stEl) stEl.value = sizeChart.title || 'Panduan Ukuran Busana (Kebaya Size Chart)';
-      if (sSubEl) sSubEl.value = sizeChart.subtitle || 'Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio';
-      if (sNoteEl) sNoteEl.value = sizeChart.note || '*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.';
-
-      editingWardrobeRows = Array.isArray(sizeChart.rows) ? JSON.parse(JSON.stringify(sizeChart.rows)) : [];
-      renderWardrobeSizeRows();
-    }
-
-    function renderWardrobeSizeRows() {
-      const tbody = document.getElementById('wardrobeSizeTableBody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      editingWardrobeRows.forEach((row, idx) => {
-        const tr = document.createElement('tr');
-        tr.style.cssText = 'border-bottom: 1px solid var(--border); background: ' + (idx % 2 === 0 ? '#FFFFFF' : '#FAF8F5') + ';';
-        tr.innerHTML = `
-          <td style="padding: 0.5rem 0.6rem;">
-            <input type="text" class="form-control" value="${escapeHtml(row.size || '')}" oninput="editingWardrobeRows[${idx}].size = this.value" style="font-size: 0.78rem; font-weight: 800; text-align: center; padding: 3px 6px;">
-          </td>
-          <td style="padding: 0.5rem 0.6rem;">
-            <input type="text" class="form-control" value="${escapeHtml(row.bust || '')}" oninput="editingWardrobeRows[${idx}].bust = this.value" placeholder="misal: 86 – 88 cm" style="font-size: 0.78rem; padding: 3px 6px;">
-          </td>
-          <td style="padding: 0.5rem 0.6rem;">
-            <input type="text" class="form-control" value="${escapeHtml(row.waist || '')}" oninput="editingWardrobeRows[${idx}].waist = this.value" placeholder="misal: 68 – 72 cm" style="font-size: 0.78rem; padding: 3px 6px;">
-          </td>
-          <td style="padding: 0.5rem 0.6rem;">
-            <input type="text" class="form-control" value="${escapeHtml(row.length || '')}" oninput="editingWardrobeRows[${idx}].length = this.value" placeholder="misal: 65 cm" style="font-size: 0.78rem; padding: 3px 6px;">
-          </td>
-          <td style="padding: 0.5rem 0.6rem;">
-            <input type="text" class="form-control" value="${escapeHtml(row.weight || '')}" oninput="editingWardrobeRows[${idx}].weight = this.value" placeholder="misal: 40 – 48 kg" style="font-size: 0.78rem; padding: 3px 6px;">
-          </td>
-          <td style="padding: 0.5rem 0.6rem; text-align: center;">
-            <button type="button" class="btn-action delete" onclick="deleteWardrobeSizeRow(${idx})" title="Hapus Ukuran Ini" style="padding: 3px 6px; font-size: 0.75rem;">
-              🗑️
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function addWardrobeSizeRow() {
-      editingWardrobeRows.push({
-        size: 'Custom',
-        bust: '',
-        waist: '',
-        length: '',
-        weight: ''
-      });
-      renderWardrobeSizeRows();
-    }
-
-    function deleteWardrobeSizeRow(idx) {
-      if (confirm('Hapus baris ukuran ini?')) {
-        editingWardrobeRows.splice(idx, 1);
-        renderWardrobeSizeRows();
-      }
-    }
-
-    function saveWardrobeConfig() {
-      if (!appConfig) return;
-      const tagEl = document.getElementById('wardrobeHeaderTagInput');
-      const titleEl = document.getElementById('wardrobeHeaderTitleInput');
-      const subEl = document.getElementById('wardrobeHeaderSubtitleInput');
-
-      const b0 = document.getElementById('wardrobeRateBadge0');
-      const t0 = document.getElementById('wardrobeRateTitle0');
-      const p0 = document.getElementById('wardrobeRatePrice0');
-      const f0 = document.getElementById('wardrobeRateFeatures0');
-
-      const b1 = document.getElementById('wardrobeRateBadge1');
-      const t1 = document.getElementById('wardrobeRateTitle1');
-      const p1 = document.getElementById('wardrobeRatePrice1');
-      const f1 = document.getElementById('wardrobeRateFeatures1');
-
-      const stEl = document.getElementById('wardrobeSizeTitleInput');
-      const sSubEl = document.getElementById('wardrobeSizeSubtitleInput');
-      const sNoteEl = document.getElementById('wardrobeSizeNoteInput');
-
-      appConfig.wardrobeConfig = {
-        header: {
-          tag: (tagEl ? tagEl.value : '').trim() || 'COLLECTION 2026 • WARDROBE STUDIO',
-          title: (titleEl ? titleEl.value : '').trim() || 'Koleksi Kebaya Modern & Gaun Foto',
-          subtitle: (subEl ? subEl.value : '').trim() || 'Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo).'
-        },
-        rentalRates: [
-          {
-            id: 'rate-personal',
-            badge: (b0 ? b0.value : '').trim() || 'Sewa Personal (1 Orang)',
-            badgeColor: 'green',
-            title: (t0 ? t0.value : '').trim() || '1 Set Kebaya / Gaun Wisuda Personal',
-            price: (p0 ? p0.value : '').trim() || 'Rp 115.000',
-            features: (f0 ? f0.value : '').split('\n').map(s => s.trim()).filter(Boolean)
-          },
-          {
-            id: 'rate-couple',
-            badge: (b1 ? b1.value : '').trim() || 'Sewa Couple (2 Orang)',
-            badgeColor: 'brown',
-            title: (t1 ? t1.value : '').trim() || 'Setelan Couple (Wanita & Pria)',
-            price: (p1 ? p1.value : '').trim() || 'Rp 215.000',
-            features: (f1 ? f1.value : '').split('\n').map(s => s.trim()).filter(Boolean)
-          }
-        ],
-        sizeChart: {
-          title: (stEl ? stEl.value : '').trim() || 'Panduan Ukuran Busana (Kebaya Size Chart)',
-          subtitle: (sSubEl ? sSubEl.value : '').trim() || 'Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio',
-          note: (sNoteEl ? sNoteEl.value : '').trim() || '*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.',
-          rows: editingWardrobeRows.filter(r => r && r.size)
-        }
-      };
-
-      saveConfigLocally();
-      showToast('✅ Pengaturan Tarif Sewa & Size Chart Wardrobe berhasil disimpan!', '👗');
-    }
-
-    function resetWardrobeConfigToDefault() {
-      if (!confirm('Kembalikan tarif sewa wardrobe dan size chart ke standar Alviero Studio?')) return;
-      appConfig.wardrobeConfig = {
-        header: {
-          tag: 'COLLECTION 2026 • WARDROBE STUDIO',
-          title: 'Koleksi Kebaya Modern & Gaun Foto',
-          subtitle: 'Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo).'
-        },
-        rentalRates: [
-          {
-            id: 'rate-personal',
-            badge: 'Sewa Personal (1 Orang)',
-            badgeColor: 'green',
-            title: '1 Set Kebaya / Gaun Wisuda Personal',
-            price: 'Rp 115.000',
-            features: [
-              'Include 1 Baju Kebaya / Gaun Modern Pilihan',
-              'Include Kain Jarik / Rok Lilit Senada',
-              'Include Aksesoris Bros Dada / Manset'
-            ]
-          },
-          {
-            id: 'rate-couple',
-            badge: 'Sewa Couple (2 Orang)',
-            badgeColor: 'brown',
-            title: 'Setelan Couple (Wanita & Pria)',
-            price: 'Rp 215.000',
-            features: [
-              '1 Baju Kebaya Wanita + Kain Jarik / Rok',
-              '1 Kemeja Batik / Beskap Pria Senada',
-              'Include Blangkon & Aksesoris Lengkap'
-            ]
-          }
-        ],
-        sizeChart: {
-          title: 'Panduan Ukuran Busana (Kebaya Size Chart)',
-          subtitle: 'Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio',
-          note: '*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.',
-          rows: [
-            { size: 'S', bust: '86 – 88 cm', waist: '68 – 72 cm', length: '65 cm', weight: '40 – 48 kg' },
-            { size: 'M', bust: '90 – 94 cm', waist: '74 – 78 cm', length: '68 cm', weight: '48 – 55 kg' },
-            { size: 'L', bust: '96 – 100 cm', waist: '80 – 84 cm', length: '70 cm', weight: '55 – 63 kg' },
-            { size: 'XL', bust: '102 – 106 cm', waist: '86 – 90 cm', length: '72 cm', weight: '63 – 72 kg' },
-            { size: 'XXL', bust: '108 – 114 cm', waist: '92 – 98 cm', length: '75 cm', weight: '72 – 82 kg' }
-          ]
-        }
-      };
-      renderWardrobeConfig();
-      saveConfigLocally();
-      showToast('Pengaturan Wardrobe dikembalikan ke standar!', '🔄');
-    }
 
     const ADDON_CAT_META = {
       person: { label: 'Orang & Kostum', icon: '👥', pillClass: 'cat-pill-person' },

@@ -5509,6 +5509,69 @@
           ],
           "portfolioImage": "",
           "portfolioImages": []
+        },
+        {
+          "id": "tiwi-kebaya",
+          "name": "Kebaya",
+          "iconType": "kebaya",
+          "description": "Koleksi kebaya modern dan brokat anggun siap pakai untuk sesi foto wisuda & formal.",
+          "subPackages": [
+            {
+              "id": "tiwi-kb-1",
+              "name": "Paket 1 — Kebaya Modern Standard",
+              "price": 100000,
+              "duration": "60 Menit",
+              "badge": "Ready to Wear",
+              "colors": [
+                "Sage",
+                "Nude",
+                "Black",
+                "Maroon"
+              ],
+              "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ],
+              "features": [
+                "Pilihan Warna Elegan: Sage, Nude, Black, Maroon",
+                "Termasuk Jarik Batik Span / Rok Lilit Premium",
+                "Tersedia Ukuran Lengkap: S, M, L, XL, XXL",
+                "Fitting Langsung di Ruang Ganti Studio Alviero"
+              ]
+            },
+            {
+              "id": "tiwi-kb-2",
+              "name": "Paket 2 — Kebaya Brokat Premium + Selendang",
+              "price": 150000,
+              "duration": "60 Menit",
+              "badge": "Best Choice",
+              "colors": [
+                "Navy",
+                "Gold",
+                "Silver",
+                "Sage",
+                "Nude"
+              ],
+              "sizes": [
+                "S",
+                "M",
+                "L",
+                "XL",
+                "XXL"
+              ],
+              "features": [
+                "Kebaya Brokat Payet Halus & Mewah Timbul",
+                "Pilihan Warna Eksklusif (Navy, Gold, Silver, Sage, Nude)",
+                "Termasuk Selendang Organza, Manset & Jarik Eksklusif",
+                "Free Inner Hijab / Kemben Warna Senada"
+              ]
+            }
+          ],
+          "portfolioImage": "",
+          "portfolioImages": []
         }
       ],
       "kebayas": []
