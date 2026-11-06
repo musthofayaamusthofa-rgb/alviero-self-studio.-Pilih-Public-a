@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T13:08:30.633Z",
+  "lastUpdated": "2026-11-06T13:08:32.213Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -7074,16 +7074,6 @@
       "badgeText": "Exclusive",
       "icon": "💍",
       "thumbnailImage": "/images/categories/wedding.jpg",
-      "active": true
-    },
-    {
-      "id": "bingkai-album",
-      "name": "Cetak Lab",
-      "title": "PRICELIST CETAK",
-      "subtitle": "Cetak Lab, Bingkai Minimalis & Album Eksklusif",
-      "badgeText": "Cetak Lab",
-      "icon": "🖼️",
-      "thumbnailImage": "",
       "active": true
     }
   ],
