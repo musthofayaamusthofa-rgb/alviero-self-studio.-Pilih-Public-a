@@ -1279,6 +1279,61 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
           </div>
         </div>
 
+        {/* Dynamic Package Photos (Foto 1 & Foto 2 dari Dashboard Studio) */}
+        {(() => {
+          const rawPhotos = (Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0)
+            ? pkg.imageUrls
+            : (pkg.imageUrl ? [pkg.imageUrl] : []);
+          const pImages = rawPhotos.filter((u: any) => typeof u === 'string' && u.trim().length > 0);
+
+          if (pImages.length === 0) return null;
+
+          return (
+            <div className={`grid ${pImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-2.5 pt-0.5`}>
+              {pImages.slice(0, 2).map((imgUrl: string, pIdx: number) => (
+                <div
+                  key={pIdx}
+                  onClick={() => {
+                    setActiveModalPhoto({
+                      id: `${pkg.id || 'pkg'}-photo-${pIdx}`,
+                      category: pkg.category || 'studio',
+                      title: `${pkg.name} — Foto ${pIdx + 1}`,
+                      packageName: pkg.name,
+                      imageUrl: imgUrl,
+                      images: pImages,
+                      description: pkg.description || pkg.subtitle || ''
+                    });
+                    setModalImageIndex(pIdx);
+                  }}
+                  className="group/photo relative h-36 sm:h-44 rounded-xl overflow-hidden border border-[#E8DDD6] hover:border-[#A9BCA7] bg-[#1C1917] cursor-pointer shadow-xs transition-all"
+                  title="Klik untuk melihat foto resolusi penuh"
+                >
+                  <img
+                    src={imgUrl}
+                    alt={`${pkg.name} ${pIdx + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-end justify-between p-2.5">
+                    <span className="text-[10px] font-bold text-white bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                      📷 Foto {pIdx + 1}
+                    </span>
+                    <span className="text-[10px] font-bold text-white bg-[#5C725A] px-2 py-0.5 rounded-full flex items-center gap-1 font-century shadow-xs">
+                      <ZoomIn className="w-3 h-3" /> Perbesar HD
+                    </span>
+                  </div>
+                  <span className="absolute bottom-2 left-2 group-hover/photo:opacity-0 transition-opacity text-[10px] font-bold text-white/90 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                    📷 Foto {pIdx + 1}
+                  </span>
+                </div>
+              ))}
+            </div>
+          );
+        })()}
+
         {/* Dynamic Specification Badges Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
           {Array.isArray(pkg.facilities) && pkg.facilities.length > 0 ? (
@@ -3722,6 +3777,61 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                 </div>
                               </div>
 
+                              {/* Package Photos (Foto 1 & Foto 2 dari Dashboard Studio) */}
+                              {(() => {
+                                const rawPhotos = (Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0)
+                                  ? pkg.imageUrls
+                                  : (pkg.imageUrl ? [pkg.imageUrl] : []);
+                                const pImages = rawPhotos.filter((u: any) => typeof u === 'string' && u.trim().length > 0);
+
+                                if (pImages.length === 0) return null;
+
+                                return (
+                                  <div className={`grid ${pImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-2.5 pt-0.5`}>
+                                    {pImages.slice(0, 2).map((imgUrl: string, pIdx: number) => (
+                                      <div
+                                        key={pIdx}
+                                        onClick={() => {
+                                          setActiveModalPhoto({
+                                            id: `${pkg.id || 'pkg'}-photo-${pIdx}`,
+                                            category: pkg.category || 'grad-indoor',
+                                            title: `${pkg.name} — Foto ${pIdx + 1}`,
+                                            packageName: pkg.name,
+                                            imageUrl: imgUrl,
+                                            images: pImages,
+                                            description: pkg.description || pkg.subtitle || ''
+                                          });
+                                          setModalImageIndex(pIdx);
+                                        }}
+                                        className="group/photo relative h-36 sm:h-44 rounded-xl overflow-hidden border border-[#E8DDD6] hover:border-[#A9BCA7] bg-[#1C1917] cursor-pointer shadow-xs transition-all"
+                                        title="Klik untuk melihat foto resolusi penuh"
+                                      >
+                                        <img
+                                          src={imgUrl}
+                                          alt={`${pkg.name} ${pIdx + 1}`}
+                                          className="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+                                          loading="lazy"
+                                          onError={(e) => {
+                                            (e.target as HTMLElement).style.display = 'none';
+                                          }}
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-end justify-between p-2.5">
+                                          <span className="text-[10px] font-bold text-white bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                            📷 Foto {pIdx + 1}
+                                          </span>
+                                          <span className="text-[10px] font-bold text-white bg-[#5C725A] px-2 py-0.5 rounded-full flex items-center gap-1 font-century shadow-xs">
+                                            <ZoomIn className="w-3 h-3" /> Perbesar HD
+                                          </span>
+                                        </div>
+                                        <span className="absolute bottom-2 left-2 group-hover/photo:opacity-0 transition-opacity text-[10px] font-bold text-white/90 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                          📷 Foto {pIdx + 1}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                );
+                              })()}
+
                               {/* Specification Badges */}
                               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-century text-xs">
                                 {Array.isArray(pkg.facilities) && pkg.facilities.length > 0 ? (
@@ -4008,6 +4118,63 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </div>
                           </div>
 
+                          {/* Package Photos Smart Outdoor */}
+                          {(() => {
+                            const p30 = getPkg('grad-outdoor-smart-30');
+                            const p60 = getPkg('grad-outdoor-smart-60');
+                            const photos = [
+                              ...(Array.isArray(p30?.imageUrls) ? p30.imageUrls : (p30?.imageUrl ? [p30.imageUrl] : [])),
+                              ...(Array.isArray(p60?.imageUrls) ? p60.imageUrls : (p60?.imageUrl ? [p60.imageUrl] : []))
+                            ].filter((u: any) => typeof u === 'string' && u.trim().length > 0);
+
+                            const displayPhotos = photos.length > 0 ? photos.slice(0, 2) : ['/images/categories/grad-outdoor.jpg', '/images/categories/graduation.jpg'];
+
+                            return (
+                              <div className={`grid ${displayPhotos.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-2.5 pt-0.5`}>
+                                {displayPhotos.map((imgUrl: string, pIdx: number) => (
+                                  <div
+                                    key={pIdx}
+                                    onClick={() => {
+                                      setActiveModalPhoto({
+                                        id: `grad-outdoor-smart-photo-${pIdx}`,
+                                        category: 'grad-outdoor',
+                                        title: `Smart Outdoor — Foto ${pIdx + 1}`,
+                                        packageName: 'Smart Outdoor Kampus',
+                                        imageUrl: imgUrl,
+                                        images: displayPhotos,
+                                        description: 'Sesi wisuda outdoor di area kampus Universitas Malang bersama fotografer profesional.'
+                                      });
+                                      setModalImageIndex(pIdx);
+                                    }}
+                                    className="group/photo relative h-36 sm:h-44 rounded-xl overflow-hidden border border-[#E8DDD6] hover:border-[#A9BCA7] bg-[#1C1917] cursor-pointer shadow-xs transition-all"
+                                    title="Klik untuk melihat foto resolusi penuh"
+                                  >
+                                    <img
+                                      src={imgUrl}
+                                      alt={`Smart Outdoor Foto ${pIdx + 1}`}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+                                      loading="lazy"
+                                      onError={(e) => {
+                                        (e.target as HTMLElement).style.display = 'none';
+                                      }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-end justify-between p-2.5">
+                                      <span className="text-[10px] font-bold text-white bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                        📷 Foto {pIdx + 1}
+                                      </span>
+                                      <span className="text-[10px] font-bold text-white bg-[#5C725A] px-2 py-0.5 rounded-full flex items-center gap-1 font-century shadow-xs">
+                                        <ZoomIn className="w-3 h-3" /> Perbesar HD
+                                      </span>
+                                    </div>
+                                    <span className="absolute bottom-2 left-2 group-hover/photo:opacity-0 transition-opacity text-[10px] font-bold text-white/90 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                      📷 Foto {pIdx + 1}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                          })()}
+
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
                             <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
                               <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
@@ -4078,6 +4245,61 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </div>
                           </div>
 
+                          {/* Package Photos Cumlaude */}
+                          {(() => {
+                            const pCumlaude = getPkg('grad-outdoor-cumlaude');
+                            const photos = [
+                              ...(Array.isArray(pCumlaude?.imageUrls) ? pCumlaude.imageUrls : (pCumlaude?.imageUrl ? [pCumlaude.imageUrl] : []))
+                            ].filter((u: any) => typeof u === 'string' && u.trim().length > 0);
+
+                            const displayPhotos = photos.length > 0 ? photos.slice(0, 2) : ['/images/categories/grad-outdoor.jpg', '/images/categories/graduation.jpg'];
+
+                            return (
+                              <div className={`grid ${displayPhotos.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-2.5 pt-0.5`}>
+                                {displayPhotos.map((imgUrl: string, pIdx: number) => (
+                                  <div
+                                    key={pIdx}
+                                    onClick={() => {
+                                      setActiveModalPhoto({
+                                        id: `grad-outdoor-cumlaude-photo-${pIdx}`,
+                                        category: 'grad-outdoor',
+                                        title: `Cumlaude Foto + Video — Foto ${pIdx + 1}`,
+                                        packageName: 'Cumlaude Foto + Video',
+                                        imageUrl: imgUrl,
+                                        images: displayPhotos,
+                                        description: 'Sesi wisuda outdoor lengkap foto & video sinematik vertikal siap reels/tiktok.'
+                                      });
+                                      setModalImageIndex(pIdx);
+                                    }}
+                                    className="group/photo relative h-36 sm:h-44 rounded-xl overflow-hidden border border-[#E8DDD6] hover:border-[#A9BCA7] bg-[#1C1917] cursor-pointer shadow-xs transition-all"
+                                    title="Klik untuk melihat foto resolusi penuh"
+                                  >
+                                    <img
+                                      src={imgUrl}
+                                      alt={`Cumlaude Foto ${pIdx + 1}`}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+                                      loading="lazy"
+                                      onError={(e) => {
+                                        (e.target as HTMLElement).style.display = 'none';
+                                      }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-end justify-between p-2.5">
+                                      <span className="text-[10px] font-bold text-white bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                        📷 Foto {pIdx + 1}
+                                      </span>
+                                      <span className="text-[10px] font-bold text-white bg-[#5C725A] px-2 py-0.5 rounded-full flex items-center gap-1 font-century shadow-xs">
+                                        <ZoomIn className="w-3 h-3" /> Perbesar HD
+                                      </span>
+                                    </div>
+                                    <span className="absolute bottom-2 left-2 group-hover/photo:opacity-0 transition-opacity text-[10px] font-bold text-white/90 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                      📷 Foto {pIdx + 1}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                          })()}
+
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
                             <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
                               <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
@@ -4134,6 +4356,61 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               </p>
                             </div>
                           </div>
+
+                          {/* Package Photos Group Wisuda Outdoor */}
+                          {(() => {
+                            const pGroup = getPkg('grad-outdoor-group-2');
+                            const photos = [
+                              ...(Array.isArray(pGroup?.imageUrls) ? pGroup.imageUrls : (pGroup?.imageUrl ? [pGroup.imageUrl] : []))
+                            ].filter((u: any) => typeof u === 'string' && u.trim().length > 0);
+
+                            const displayPhotos = photos.length > 0 ? photos.slice(0, 2) : ['/images/categories/grad-outdoor.jpg', '/images/categories/group.jpg'];
+
+                            return (
+                              <div className={`grid ${displayPhotos.length > 1 ? 'grid-cols-2' : 'grid-cols-1'} gap-2.5 pt-0.5`}>
+                                {displayPhotos.map((imgUrl: string, pIdx: number) => (
+                                  <div
+                                    key={pIdx}
+                                    onClick={() => {
+                                      setActiveModalPhoto({
+                                        id: `grad-outdoor-group-photo-${pIdx}`,
+                                        category: 'grad-outdoor',
+                                        title: `Group Wisuda Outdoor — Foto ${pIdx + 1}`,
+                                        packageName: 'Group Wisuda Outdoor',
+                                        imageUrl: imgUrl,
+                                        images: displayPhotos,
+                                        description: 'Sesi wisuda rombongan outdoor bersama sahabat dan keluarga di area kampus.'
+                                      });
+                                      setModalImageIndex(pIdx);
+                                    }}
+                                    className="group/photo relative h-36 sm:h-44 rounded-xl overflow-hidden border border-[#E8DDD6] hover:border-[#A9BCA7] bg-[#1C1917] cursor-pointer shadow-xs transition-all"
+                                    title="Klik untuk melihat foto resolusi penuh"
+                                  >
+                                    <img
+                                      src={imgUrl}
+                                      alt={`Group Wisuda Outdoor Foto ${pIdx + 1}`}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105"
+                                      loading="lazy"
+                                      onError={(e) => {
+                                        (e.target as HTMLElement).style.display = 'none';
+                                      }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-end justify-between p-2.5">
+                                      <span className="text-[10px] font-bold text-white bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                        📷 Foto {pIdx + 1}
+                                      </span>
+                                      <span className="text-[10px] font-bold text-white bg-[#5C725A] px-2 py-0.5 rounded-full flex items-center gap-1 font-century shadow-xs">
+                                        <ZoomIn className="w-3 h-3" /> Perbesar HD
+                                      </span>
+                                    </div>
+                                    <span className="absolute bottom-2 left-2 group-hover/photo:opacity-0 transition-opacity text-[10px] font-bold text-white/90 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full font-century">
+                                      📷 Foto {pIdx + 1}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            );
+                          })()}
 
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
                             {/* Group 2 */}

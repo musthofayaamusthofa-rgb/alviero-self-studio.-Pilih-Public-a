@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T13:08:41.190Z",
+  "lastUpdated": "2026-11-06T14:53:13.198Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1710,8 +1710,11 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/graduation.jpg"
+      ],
       "_origIndex": 1
     },
     {
@@ -1768,7 +1771,12 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "_origIndex": 2
+      "_origIndex": 2,
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/graduation.jpg"
+      ]
     },
     {
       "id": "grad-bundling-ultimate-1",
@@ -1819,6 +1827,11 @@
           "label": "Pengiriman Softfile",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -1870,6 +1883,11 @@
           "label": "Pengiriman Softfile",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -1916,6 +1934,11 @@
           "label": "Pengiriman File",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
       ]
     },
     {
@@ -1962,6 +1985,11 @@
           "label": "Pengiriman File",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
       ]
     },
     {
@@ -2013,6 +2041,11 @@
           "label": "Pengiriman File",
           "text": "All File Foto & Video via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
       ]
     },
     {
@@ -2059,6 +2092,11 @@
           "label": "Pengiriman File",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/group.jpg",
+      "imageUrls": [
+        "/images/categories/group.jpg",
+        "/images/categories/group.jpg"
       ]
     },
     {
@@ -2235,6 +2273,11 @@
           "label": "Ketentuan Outfit",
           "text": "Maksimal 1 Outfit Formal / Bebas"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -2291,6 +2334,11 @@
           "label": "Ketentuan Outfit",
           "text": "Maksimal 1 Outfit"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -2347,6 +2395,11 @@
           "label": "Ketentuan Outfit",
           "text": "Disediakan Jas Digital jika diperlukan"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -2464,8 +2517,11 @@
         }
       ],
       "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/categories/family.jpg",
+      "imageUrls": [
+        "/images/categories/family.jpg",
+        "/images/categories/family.jpg"
+      ],
       "_origIndex": 19
     },
     {
@@ -2522,6 +2578,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 1 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/group.jpg",
+      "imageUrls": [
+        "/images/categories/group.jpg",
+        "/images/categories/group.jpg"
       ]
     },
     {
@@ -2578,6 +2639,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/group.jpg",
+      "imageUrls": [
+        "/images/categories/group.jpg",
+        "/images/categories/group.jpg"
       ]
     },
     {
@@ -2634,6 +2700,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/group.jpg",
+      "imageUrls": [
+        "/images/categories/group.jpg",
+        "/images/categories/group.jpg"
       ]
     },
     {
@@ -2690,6 +2761,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/group.jpg",
+      "imageUrls": [
+        "/images/categories/group.jpg",
+        "/images/categories/group.jpg"
       ]
     },
     {
@@ -2709,8 +2785,11 @@
       "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/categories/couple.jpg",
+      "imageUrls": [
+        "/images/categories/couple.jpg",
+        "/images/categories/couple.jpg"
+      ],
       "_origIndex": 24,
       "facilities": [
         {
@@ -2804,6 +2883,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/couple.jpg",
+      "imageUrls": [
+        "/images/categories/couple.jpg",
+        "/images/categories/couple.jpg"
       ]
     },
     {
@@ -2921,6 +3005,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 3 Kostum Berbeda"
         }
+      ],
+      "imageUrl": "/images/categories/prewedding.jpg",
+      "imageUrls": [
+        "/images/categories/prewedding.jpg",
+        "/images/categories/couple.jpg"
       ]
     },
     {
@@ -2977,6 +3066,11 @@
           "label": "Kostum Prewed",
           "text": "Free Peminjaman 1 Pasang Gaun / Jas"
         }
+      ],
+      "imageUrl": "/images/categories/prewedding.jpg",
+      "imageUrls": [
+        "/images/categories/prewedding.jpg",
+        "/images/categories/couple.jpg"
       ]
     },
     {
@@ -3033,6 +3127,11 @@
           "label": "Kostum Prewed",
           "text": "Free Peminjaman 2 Pasang Kostum Lengkap"
         }
+      ],
+      "imageUrl": "/images/categories/prewedding.jpg",
+      "imageUrls": [
+        "/images/categories/prewedding.jpg",
+        "/images/categories/couple.jpg"
       ]
     },
     {
@@ -3089,6 +3188,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 1 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/personal.jpg",
+      "imageUrls": [
+        "/images/categories/personal.jpg",
+        "/images/categories/personal.jpg"
       ]
     },
     {
@@ -3145,6 +3249,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/personal.jpg",
+      "imageUrls": [
+        "/images/categories/personal.jpg",
+        "/images/categories/personal.jpg"
       ]
     },
     {
@@ -3201,6 +3310,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 1 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/maternity.jpg",
+      "imageUrls": [
+        "/images/categories/maternity.jpg",
+        "/images/categories/maternity.jpg"
       ]
     },
     {
@@ -3257,6 +3371,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
+      ],
+      "imageUrl": "/images/categories/maternity.jpg",
+      "imageUrls": [
+        "/images/categories/maternity.jpg",
+        "/images/categories/maternity.jpg"
       ]
     },
     {
@@ -3313,6 +3432,11 @@
           "label": "Properti Ulang Tahun",
           "text": "Boleh bawa kue tart & balon sendiri"
         }
+      ],
+      "imageUrl": "/images/categories/birthday.jpg",
+      "imageUrls": [
+        "/images/categories/birthday.jpg",
+        "/images/categories/birthday.jpg"
       ]
     },
     {
@@ -3369,6 +3493,11 @@
           "label": "Properti Ulang Tahun",
           "text": "Bebas bawa properti dekorasi"
         }
+      ],
+      "imageUrl": "/images/categories/birthday.jpg",
+      "imageUrls": [
+        "/images/categories/birthday.jpg",
+        "/images/categories/birthday.jpg"
       ]
     },
     {
@@ -3425,6 +3554,11 @@
           "label": "Lighting Estetik",
           "text": "Pencahayaan Spotlight / Artistic"
         }
+      ],
+      "imageUrl": "/images/categories/birthday.jpg",
+      "imageUrls": [
+        "/images/categories/birthday.jpg",
+        "/images/categories/birthday.jpg"
       ]
     },
     {
@@ -3481,6 +3615,11 @@
           "label": "Perayaan Lengkap",
           "text": "Konsep Penuh & Bebas Properti"
         }
+      ],
+      "imageUrl": "/images/categories/birthday.jpg",
+      "imageUrls": [
+        "/images/categories/birthday.jpg",
+        "/images/categories/birthday.jpg"
       ]
     },
     {
@@ -3537,6 +3676,11 @@
           "label": "Hasil Foto",
           "text": "Langsung masuk memori kamera fotografer"
         }
+      ],
+      "imageUrl": "/images/categories/sewa-studio.jpg",
+      "imageUrls": [
+        "/images/categories/sewa-studio.jpg",
+        "/images/categories/sewa-studio.jpg"
       ]
     },
     {
@@ -3588,6 +3732,11 @@
           "label": "Fitur Interaktif",
           "text": "RSVP Konfirmasi Kehadiran & Countdown"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -3639,6 +3788,11 @@
           "label": "Ucapan Interaktif",
           "text": "Live Wishes & Doa Tamu Undangan"
         }
+      ],
+      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrls": [
+        "/images/categories/graduation.jpg",
+        "/images/categories/grad-outdoor.jpg"
       ]
     },
     {
@@ -3690,8 +3844,11 @@
         }
       ],
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/categories/family.jpg",
+      "imageUrls": [
+        "/images/categories/family.jpg",
+        "/images/categories/family.jpg"
+      ],
       "_origIndex": 41
     },
     {
@@ -3743,8 +3900,11 @@
         }
       ],
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/categories/family.jpg",
+      "imageUrls": [
+        "/images/categories/family.jpg",
+        "/images/categories/family.jpg"
+      ],
       "_origIndex": 42
     }
   ],
@@ -3897,6 +4057,11 @@
           "label": "Pengiriman File",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
       ]
     },
     {
@@ -3943,6 +4108,11 @@
           "label": "Pengiriman File",
           "text": "All File via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
       ]
     },
     {
@@ -3994,6 +4164,11 @@
           "label": "Pengiriman File",
           "text": "All File Foto & Video via Google Drive"
         }
+      ],
+      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "imageUrls": [
+        "/images/categories/grad-outdoor.jpg",
+        "/images/categories/graduation.jpg"
       ]
     }
   ],

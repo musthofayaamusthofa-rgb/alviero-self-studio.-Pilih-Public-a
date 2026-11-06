@@ -4627,9 +4627,16 @@
           console.warn('Gagal menghubungi backend lokal, menggunakan dataUrl:', err);
         }
 
+        let safeLocalUrl = finalDataUrl;
+        if (finalDataUrl && typeof finalDataUrl === 'string' && finalDataUrl.startsWith('data:image/') && finalDataUrl.length > 250 * 1024) {
+          try {
+            safeLocalUrl = await compressImageClientSide(file || finalDataUrl, 800, 800, 0.68) || finalDataUrl;
+          } catch(e) {}
+        }
+
         return {
           success: true,
-          url: finalDataUrl,
+          url: safeLocalUrl,
           fileName: fileName || `local_${Date.now()}.jpg`,
           isLocalPreview: true
         };
@@ -4671,10 +4678,17 @@
       }
 
       // Langkah C: GRACEFUL FALLBACK (Foto TETAP DITERIMA & LANGSUNG DIPAKAI di iPad/HP!)
+      let safeCloudUrl = finalDataUrl;
+      if (finalDataUrl && typeof finalDataUrl === 'string' && finalDataUrl.startsWith('data:image/') && finalDataUrl.length > 250 * 1024) {
+        try {
+          safeCloudUrl = await compressImageClientSide(file || finalDataUrl, 800, 800, 0.68) || finalDataUrl;
+        } catch(e) {}
+      }
+
       showToast('✅ Foto berhasil dimuat ke pratinjau studio!', '🖼️');
       return {
         success: true,
-        url: finalDataUrl,
+        url: safeCloudUrl,
         fileName: fileName || `bg_${Date.now()}.jpg`,
         isLocalPreview: true,
         message: 'Foto siap dipratinjau & disimpan ke konfigurasi studio.'
@@ -5321,22 +5335,25 @@
         if (photos.length >= 2) {
           photoHtml = `
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.85rem;">
-              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1C1917;">
-                <img src="${escapeHtml(photos[0])}" alt="${escapeHtml(pkg.name)} 1" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #FAF9F6;">
+                <img src="${escapeHtml(photos[0])}" alt="${escapeHtml(pkg.name)} 1" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#FAF8F5; color:#8A7D71; cursor:pointer;\\\' onclick=\\\'openEditIndoorPackageModal(${idx})\\\'><span>📸</span><span style=\\\'font-size:0.62rem; font-weight:700;\\\'>Ganti Foto 1</span></div>';">
                 <span style="position: absolute; bottom: 5px; left: 6px; background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.62rem; font-weight: 750; padding: 2px 6px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto 1</span>
+                <button type="button" onclick="openEditIndoorPackageModal(${idx})" style="position: absolute; top: 5px; right: 5px; background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.62rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15);">🔄 Ganti</button>
               </div>
-              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1C1917;">
-                <img src="${escapeHtml(photos[1])}" alt="${escapeHtml(pkg.name)} 2" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #FAF9F6;">
+                <img src="${escapeHtml(photos[1])}" alt="${escapeHtml(pkg.name)} 2" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#FAF8F5; color:#8A7D71; cursor:pointer;\\\' onclick=\\\'openEditIndoorPackageModal(${idx})\\\'><span>📸</span><span style=\\\'font-size:0.62rem; font-weight:700;\\\'>Ganti Foto 2</span></div>';">
                 <span style="position: absolute; bottom: 5px; left: 6px; background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.62rem; font-weight: 750; padding: 2px 6px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto 2</span>
+                <button type="button" onclick="openEditIndoorPackageModal(${idx})" style="position: absolute; top: 5px; right: 5px; background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.62rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15);">🔄 Ganti</button>
               </div>
             </div>
           `;
         } else if (photos.length === 1) {
           photoHtml = `
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-bottom: 0.85rem;">
-              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #1C1917;">
-                <img src="${escapeHtml(photos[0])}" alt="${escapeHtml(pkg.name)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src=''; this.parentElement.style.display='none';">
+              <div style="position: relative; height: 115px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #FAF9F6;">
+                <img src="${escapeHtml(photos[0])}" alt="${escapeHtml(pkg.name)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\\'width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#FAF8F5; color:#8A7D71; cursor:pointer;\\\' onclick=\\\'openEditIndoorPackageModal(${idx})\\\'><span>📸</span><span style=\\\'font-size:0.62rem; font-weight:700;\\\'>Ganti Foto 1</span></div>';">
                 <span style="position: absolute; bottom: 5px; left: 6px; background: rgba(0,0,0,0.72); color: #FFF; font-size: 0.62rem; font-weight: 750; padding: 2px 6px; border-radius: 9999px; backdrop-filter: blur(4px);">📷 Foto 1</span>
+                <button type="button" onclick="openEditIndoorPackageModal(${idx})" style="position: absolute; top: 5px; right: 5px; background: rgba(255,255,255,0.92); color: #1C1917; font-size: 0.62rem; font-weight: 700; border: none; border-radius: 5px; padding: 2px 6px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.15);">🔄 Ganti</button>
               </div>
               <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; height: 115px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
                 <span style="font-size: 1.15rem;">📸</span>
@@ -5346,9 +5363,10 @@
           `;
         } else {
           photoHtml = `
-            <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; width: 100%; height: 75px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 0.85rem; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
-              <span style="font-size: 1.25rem;">📸</span>
-              <span style="font-size: 0.72rem; color: #78716C; font-weight: 700; margin-top: 2px;">+ Upload Foto Paket (Min. 2 Foto)</span>
+            <div onclick="openEditIndoorPackageModal(${idx})" style="cursor: pointer; width: 100%; height: 80px; border-radius: 12px; border: 1.5px dashed #D6D3D1; background: #FAF9F6; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 0.85rem; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--charcoal)'; this.style.background='#F5EFEB';" onmouseout="this.style.borderColor='#D6D3D1'; this.style.background='#FAF9F6';">
+              <span style="font-size: 1.35rem;">📸</span>
+              <span style="font-size: 0.75rem; color: var(--charcoal); font-weight: 750; margin-top: 2px;">+ Upload Foto Paket (Foto 1 & 2)</span>
+              <span style="font-size: 0.65rem; color: #78716C;">Klik di sini untuk menambah foto</span>
             </div>
           `;
         }
@@ -8083,6 +8101,9 @@
         }
       } catch (e) {
         console.warn('LocalStorage draft save error:', e);
+        if (e && (e.name === 'QuotaExceededError' || e.code === 22)) {
+          showToast('Penyimpanan lokal browser penuh. Hubungkan token GitHub di menu atas untuk menyimpan foto permanen di cloud!', '⚠️');
+        }
       }
 
       // 1. JIKA DI CLOUD VERCEL: Simpan ke GitHub Cloud (membuat commit & auto-deploy Vercel)
