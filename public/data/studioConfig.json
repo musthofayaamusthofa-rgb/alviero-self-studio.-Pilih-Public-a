@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T13:03:44.867Z",
+  "lastUpdated": "2026-11-06T13:04:04.014Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -5512,34 +5512,6 @@
         }
       ],
       "kebayas": []
-    },
-    {
-      "id": "egegage",
-      "name": "egegage",
-      "tagline": "Spesialis Rias & Styling Studio",
-      "coverImage": "/images/mua/foto_jpg_1793970213702.jpg",
-      "portfolioImages": [],
-      "categories": [
-        {
-          "id": "egegage-pass-foto",
-          "name": "Pass Foto",
-          "iconType": "camera",
-          "description": "Riasan wajah natural khusus sesi foto formal.",
-          "subPackages": [
-            {
-              "id": "egegage-pf-1",
-              "name": "Paket 1 — Basic Touch Look",
-              "price": 75000,
-              "duration": "30 Menit",
-              "features": [
-                "Complexion Natural Flawless",
-                "Rapikan Alis & Natural Blush On",
-                "Penataan Rambut Simple"
-              ]
-            }
-          ]
-        }
-      ]
     }
   ],
   "kebayaColorCatalog": {
