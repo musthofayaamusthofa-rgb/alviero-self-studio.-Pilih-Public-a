@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T14:59:12.116Z",
+  "lastUpdated": "2026-11-06T14:59:17.109Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1945,21 +1945,19 @@
     {
       "id": "grad-outdoor-smart-60",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Populer",
       "name": "Smart Outdoor 60 Menit",
       "originalPrice": "",
       "price": "355K",
       "priceUnit": "60 Menit Sesi Foto",
-      "duration": "60 Menit Sesi",
-      "background": "Unlimited Around Campus",
+      "duration": "60 Menit Unlimited Shoots",
+      "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "1 Wisudawan + Keluarga / Teman",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Only",
+      "edit": "Edit 10 Foto High-Res Pilihan",
+      "print": "",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 6,
       "facilities": [
         {
           "icon": "🌳",
@@ -1987,11 +1985,10 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 6
     },
     {
       "id": "grad-outdoor-cumlaude",
@@ -4071,21 +4068,19 @@
     {
       "id": "grad-outdoor-smart-60",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Populer",
       "name": "Smart Outdoor 60 Menit",
       "originalPrice": "",
       "price": "355K",
       "priceUnit": "60 Menit Sesi Foto",
-      "duration": "60 Menit Sesi",
-      "background": "Unlimited Around Campus",
+      "duration": "60 Menit Unlimited Shoots",
+      "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "1 Wisudawan + Keluarga / Teman",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Only",
+      "edit": "Edit 10 Foto High-Res Pilihan",
+      "print": "",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 6,
       "facilities": [
         {
           "icon": "🌳",
@@ -4113,11 +4108,10 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 6
     },
     {
       "id": "grad-outdoor-cumlaude",
