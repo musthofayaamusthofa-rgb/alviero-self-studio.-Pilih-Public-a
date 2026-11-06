@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T15:00:42.280Z",
+  "lastUpdated": "2026-11-06T15:01:27.274Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1584,12 +1584,12 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "_origIndex": 2,
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+        "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
+        "/images/packages/infinity_scholar_foto2_1793977284555.jpg"
+      ],
+      "_origIndex": 2
     }
   ],
   "studioPackages": [
@@ -1779,12 +1779,12 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "_origIndex": 2,
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+        "/images/packages/infinity_scholar_foto1_1793977258233.jpg",
+        "/images/packages/infinity_scholar_foto2_1793977284555.jpg"
+      ],
+      "_origIndex": 2
     },
     {
       "id": "grad-bundling-ultimate-1",
