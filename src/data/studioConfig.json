@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T14:59:22.369Z",
+  "lastUpdated": "2026-11-06T15:00:42.280Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1523,10 +1523,10 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
+        "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
+        "/images/packages/supreme_scholar_foto2_1793977238742.jpg"
       ],
       "_origIndex": 1
     },
@@ -1718,10 +1718,10 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
+        "/images/packages/supreme_scholar_foto1_1793977226321.jpg",
+        "/images/packages/supreme_scholar_foto2_1793977238742.jpg"
       ],
       "_origIndex": 1
     },
