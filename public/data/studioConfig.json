@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T13:04:06.897Z",
+  "lastUpdated": "2026-11-06T13:08:30.633Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -7064,16 +7064,6 @@
       "badgeText": "Best Seller",
       "icon": "✨",
       "thumbnailImage": "/images/categories/selfphoto.jpg",
-      "active": true
-    },
-    {
-      "id": "kebayak-gaun",
-      "name": "Kebaya & Gaun",
-      "title": "PRICELIST KEBAYAK DAN GAUN",
-      "subtitle": "Sewa Wardrobe Wisuda, Kebaya Modern & Gaun Foto",
-      "badgeText": "Wardrobe",
-      "icon": "👗",
-      "thumbnailImage": "",
       "active": true
     },
     {
