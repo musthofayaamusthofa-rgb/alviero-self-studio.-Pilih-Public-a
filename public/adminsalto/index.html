@@ -2428,9 +2428,14 @@
                   Setiap vendor memiliki lemari busana kebaya, varian ukuran (S, M, L, XL, XXL), dan jumlah stok fisik masing-masing.
                 </div>
               </div>
-              <button class="btn btn-save-local" id="vendorSpecificAddKebayaBtn" onclick="openAddKebayaModalForActiveVendor()" style="font-size: 0.82rem; padding: 0.45rem 1rem;">
-                + Tambah Kebaya Vendor
-              </button>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <button class="btn btn-preview" onclick="openKebayaSizeChartModal()" style="font-size: 0.82rem; padding: 0.45rem 0.95rem; background: #FAF7F2; border-color: #DCD3CB; color: #5C725A; font-weight: 700;">
+                  📏 Tabel Panduan Ukuran (Size Chart)
+                </button>
+                <button class="btn btn-save-local" id="vendorSpecificAddKebayaBtn" onclick="openAddKebayaModalForActiveVendor()" style="font-size: 0.82rem; padding: 0.45rem 1rem;">
+                  + Tambah Kebaya Vendor
+                </button>
+              </div>
             </div>
             <!-- Vendor Selector Pills -->
             <div id="kebayaVendorSelectorPills" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -4129,6 +4134,111 @@
       <div class="modal-footer">
         <button class="btn btn-preview" onclick="closeModal('kebayaColorModal')">Batal</button>
         <button class="btn btn-save-local" onclick="saveKebayaColor()">Simpan Kebaya &amp; Stok</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PANDUAN UKURAN KEBAYA (SIZE CHART) SESUAI FOTO POPUP -->
+  <div class="modal-overlay" id="kebayaSizeChartModal">
+    <div class="modal-card" style="max-width: 720px; max-height: 90vh;">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" style="display: flex; align-items: center; gap: 0.4rem;">
+            <span>📏</span> Tabel Panduan Ukuran Kebaya (Size Chart)
+          </h3>
+          <span style="font-size: 0.74rem; color: #71717A;">
+            Atur teks tabel ukuran fisik busana &amp; catatan fitting yang tampil saat klien menekan tombol <b>"Tabel Ukuran &gt;"</b> di website.
+          </span>
+        </div>
+        <button class="btn-close" onclick="closeModal('kebayaSizeChartModal')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 1.25rem;">
+        <!-- Header Pop-up -->
+        <div style="background: #FAF8F5; border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 1rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div>
+              <label class="form-label" style="font-size: 0.74rem; margin-bottom: 0.25rem;">Judul Modal Pop-up</label>
+              <input type="text" id="kebayaSizeChartTitleInput" class="form-control" placeholder="TABEL PANDUAN UKURAN KEBAYA" style="font-size: 0.82rem; font-weight: 700;">
+            </div>
+            <div>
+              <label class="form-label" style="font-size: 0.74rem; margin-bottom: 0.25rem;">Sub-judul Keterangan</label>
+              <input type="text" id="kebayaSizeChartSubtitleInput" class="form-control" placeholder="STANDAR FITTING ALVIERO STUDIO MALANG" style="font-size: 0.82rem;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Ukuran Dinamis -->
+        <div style="margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" style="font-size: 0.78rem; font-weight: 800; color: #2A2A2A; margin: 0;">
+              📊 Rincian Baris Tabel Ukuran (S, M, L, XL, XXL)
+            </label>
+            <button type="button" class="btn btn-save-local" style="font-size: 0.72rem; padding: 0.25rem 0.65rem;" onclick="addSizeChartRow()">
+              + Tambah Baris Ukuran
+            </button>
+          </div>
+          
+          <div style="overflow-x: auto; border: 1px solid var(--border); border-radius: 8px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: left;">
+              <thead>
+                <tr style="background: #FAF7F2; color: #5C725A; font-weight: 800; border-bottom: 1px solid #E8DDD6;">
+                  <th style="padding: 0.5rem 0.6rem; width: 80px;">Size</th>
+                  <th style="padding: 0.5rem 0.6rem;">Lingkar Dada (LD)</th>
+                  <th style="padding: 0.5rem 0.6rem;">Pinggang</th>
+                  <th style="padding: 0.5rem 0.6rem;">Panjang</th>
+                  <th style="padding: 0.5rem 0.6rem;">Est. Berat Badan</th>
+                  <th style="padding: 0.5rem 0.6rem; width: 45px; text-align: center;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="kebayaSizeChartTableBody">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3 Poin Catatan Informasi Fitting di Bawah Tabel -->
+        <div style="background: #FAF8F5; border: 1px solid #E8DDD6; border-radius: 10px; padding: 1rem;">
+          <div style="font-size: 0.78rem; font-weight: 800; color: #2A2A2A; margin-bottom: 0.65rem;">
+            📝 3 Poin Catatan Fitting &amp; Kelengkapan (Box Informasi Bawah)
+          </div>
+
+          <!-- Poin 1: Free Fitting -->
+          <div style="margin-bottom: 0.65rem;">
+            <div style="display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.25rem;">
+              <span>👗</span>
+              <input type="text" id="kebayaInfoTitle0" class="form-control" style="font-size: 0.76rem; font-weight: 700; max-width: 260px;" placeholder="Free Fitting Langsung di Ruang Ganti:">
+            </div>
+            <textarea id="kebayaInfoText0" class="form-control" rows="2" style="font-size: 0.76rem; line-height: 1.4;" placeholder="Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai..."></textarea>
+          </div>
+
+          <!-- Poin 2: Karet Pinggang -->
+          <div style="margin-bottom: 0.65rem;">
+            <div style="display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.25rem;">
+              <span>✨</span>
+              <input type="text" id="kebayaInfoTitle1" class="form-control" style="font-size: 0.76rem; font-weight: 700; max-width: 260px;" placeholder="Karet Pinggang Fleksibel:">
+            </div>
+            <textarea id="kebayaInfoText1" class="form-control" rows="2" style="font-size: 0.76rem; line-height: 1.4;" placeholder="Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel..."></textarea>
+          </div>
+
+          <!-- Poin 3: Kelengkapan Paket -->
+          <div>
+            <div style="display: flex; gap: 0.4rem; align-items: center; margin-bottom: 0.25rem;">
+              <span>🧕</span>
+              <input type="text" id="kebayaInfoTitle2" class="form-control" style="font-size: 0.76rem; font-weight: 700; max-width: 260px;" placeholder="Kelengkapan Paket:">
+            </div>
+            <textarea id="kebayaInfoText2" class="form-control" rows="2" style="font-size: 0.76rem; line-height: 1.4;" placeholder="Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-preview" onclick="resetKebayaSizeChartToDefault()" style="font-size: 0.78rem;">
+          🔄 Reset ke Standar Alviero
+        </button>
+        <div style="display: flex; gap: 0.5rem;">
+          <button type="button" class="btn btn-preview" onclick="closeModal('kebayaSizeChartModal')">Batal</button>
+          <button type="button" class="btn btn-save-local" onclick="saveKebayaSizeChart()">💾 Simpan Panduan Ukuran</button>
+        </div>
       </div>
     </div>
   </div>
@@ -9924,9 +10034,14 @@
               Setiap sub-paket di bawah ini (contoh: <b>Paket 1 — Kebaya Modern Standard</b>, <b>Paket 2 — Kebaya Brokat Premium</b>) mengatur nama paket, harga sewa, label badge (Ready to Wear, Best Choice), rincian fitur include, pilihan varian warna dengan thumbnail &amp; stok fisik, serta varian ukuran (S, M, L, XL, XXL) yang langsung tampil di modal Kebaya website.
             </div>
           </div>
-          <button type="button" class="btn btn-save-local" style="font-size: 0.75rem; padding: 0.35rem 0.85rem; background: #5C725A; font-weight: 700; white-space: nowrap;" onclick="addMuaPackageToActiveCategory()">
-            + Tambah Sub-Paket Kebaya
-          </button>
+          <div style="display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-preview" style="font-size: 0.74rem; padding: 0.35rem 0.75rem; background: #FFFFFF; border-color: #C5D8C3; color: #2D5A27; font-weight: 700; white-space: nowrap;" onclick="openKebayaSizeChartModal()" title="Atur Tabel Panduan Ukuran Kebaya yang muncul saat klien klik 'Tabel Ukuran >'">
+              📏 Atur Panduan Ukuran (Size Chart)
+            </button>
+            <button type="button" class="btn btn-save-local" style="font-size: 0.75rem; padding: 0.35rem 0.85rem; background: #5C725A; font-weight: 700; white-space: nowrap;" onclick="addMuaPackageToActiveCategory()">
+              + Tambah Sub-Paket Kebaya
+            </button>
+          </div>
         `;
         container.appendChild(notice);
       }
@@ -10653,7 +10768,197 @@
       }
     }
 
+    // =========================================================================
+    // KEBAYA SIZE CHART (TABEL PANDUAN UKURAN) MANAGEMENT
+    // =========================================================================
+    let editingSizeChartRows = [];
 
+    function openKebayaSizeChartModal() {
+      if (!appConfig) return;
+      if (!appConfig.kebayaSizeChart) {
+        appConfig.kebayaSizeChart = {
+          title: 'Tabel Panduan Ukuran Kebaya',
+          subtitle: 'Standar Fitting Alviero Studio Malang',
+          rows: [
+            { size: 'S', ld: '86 – 88 cm', waist: '68 – 72 cm', length: '65 cm', weight: '40 – 48 kg' },
+            { size: 'M', ld: '90 – 94 cm', waist: '74 – 78 cm', length: '68 cm', weight: '48 – 55 kg' },
+            { size: 'L', ld: '96 – 100 cm', waist: '80 – 84 cm', length: '70 cm', weight: '55 – 63 kg' },
+            { size: 'XL', ld: '102 – 106 cm', waist: '86 – 90 cm', length: '72 cm', weight: '63 – 72 kg' },
+            { size: 'XXL', ld: '108 – 114 cm', waist: '92 – 98 cm', length: '75 cm', weight: '72 – 82 kg' }
+          ],
+          infoItems: [
+            {
+              icon: '👗',
+              title: 'Free Fitting Langsung di Ruang Ganti:',
+              text: 'Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.'
+            },
+            {
+              icon: '✨',
+              title: 'Karet Pinggang Fleksibel:',
+              text: 'Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.'
+            },
+            {
+              icon: '🧕',
+              title: 'Kelengkapan Paket:',
+              text: 'Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.'
+            }
+          ]
+        };
+      }
+
+      const cfg = appConfig.kebayaSizeChart;
+      const tEl = document.getElementById('kebayaSizeChartTitleInput');
+      const sEl = document.getElementById('kebayaSizeChartSubtitleInput');
+      if (tEl) tEl.value = cfg.title || 'Tabel Panduan Ukuran Kebaya';
+      if (sEl) sEl.value = cfg.subtitle || 'Standar Fitting Alviero Studio Malang';
+
+      editingSizeChartRows = Array.isArray(cfg.rows) ? JSON.parse(JSON.stringify(cfg.rows)) : [];
+      renderSizeChartRows();
+
+      const items = Array.isArray(cfg.infoItems) ? cfg.infoItems : [];
+      const item0 = items[0] || {};
+      const item1 = items[1] || {};
+      const item2 = items[2] || {};
+
+      const it0 = document.getElementById('kebayaInfoTitle0');
+      const ix0 = document.getElementById('kebayaInfoText0');
+      const it1 = document.getElementById('kebayaInfoTitle1');
+      const ix1 = document.getElementById('kebayaInfoText1');
+      const it2 = document.getElementById('kebayaInfoTitle2');
+      const ix2 = document.getElementById('kebayaInfoText2');
+
+      if (it0) it0.value = item0.title || 'Free Fitting Langsung di Ruang Ganti:';
+      if (ix0) ix0.value = item0.text || 'Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.';
+      if (it1) it1.value = item1.title || 'Karet Pinggang Fleksibel:';
+      if (ix1) ix1.value = item1.text || 'Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.';
+      if (it2) it2.value = item2.title || 'Kelengkapan Paket:';
+      if (ix2) ix2.value = item2.text || 'Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.';
+
+      openModal('kebayaSizeChartModal');
+    }
+
+    function renderSizeChartRows() {
+      const tbody = document.getElementById('kebayaSizeChartTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      editingSizeChartRows.forEach((row, idx) => {
+        const tr = document.createElement('tr');
+        tr.style.cssText = 'border-bottom: 1px solid var(--border); background: ' + (idx % 2 === 0 ? '#FFFFFF' : '#FAF8F5') + ';';
+        tr.innerHTML = `
+          <td style="padding: 0.4rem 0.5rem;">
+            <input type="text" class="form-control" value="${escapeHtml(row.size || '')}" oninput="editingSizeChartRows[${idx}].size = this.value" style="font-size: 0.78rem; font-weight: 800; text-align: center; padding: 3px 6px;">
+          </td>
+          <td style="padding: 0.4rem 0.5rem;">
+            <input type="text" class="form-control" value="${escapeHtml(row.ld || row.bust || '')}" oninput="editingSizeChartRows[${idx}].ld = this.value" placeholder="misal: 86 – 88 cm" style="font-size: 0.78rem; padding: 3px 6px;">
+          </td>
+          <td style="padding: 0.4rem 0.5rem;">
+            <input type="text" class="form-control" value="${escapeHtml(row.waist || '')}" oninput="editingSizeChartRows[${idx}].waist = this.value" placeholder="misal: 68 – 72 cm" style="font-size: 0.78rem; padding: 3px 6px;">
+          </td>
+          <td style="padding: 0.4rem 0.5rem;">
+            <input type="text" class="form-control" value="${escapeHtml(row.length || '')}" oninput="editingSizeChartRows[${idx}].length = this.value" placeholder="misal: 65 cm" style="font-size: 0.78rem; padding: 3px 6px;">
+          </td>
+          <td style="padding: 0.4rem 0.5rem;">
+            <input type="text" class="form-control" value="${escapeHtml(row.weight || '')}" oninput="editingSizeChartRows[${idx}].weight = this.value" placeholder="misal: 40 – 48 kg" style="font-size: 0.78rem; padding: 3px 6px;">
+          </td>
+          <td style="padding: 0.4rem 0.5rem; text-align: center;">
+            <button type="button" class="btn-action delete" onclick="deleteSizeChartRow(${idx})" title="Hapus Ukuran Ini" style="padding: 2px 5px; font-size: 0.75rem;">
+              🗑️
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function addSizeChartRow() {
+      editingSizeChartRows.push({
+        size: 'Custom',
+        ld: '',
+        waist: '',
+        length: '',
+        weight: ''
+      });
+      renderSizeChartRows();
+    }
+
+    function deleteSizeChartRow(idx) {
+      editingSizeChartRows.splice(idx, 1);
+      renderSizeChartRows();
+    }
+
+    function saveKebayaSizeChart() {
+      if (!appConfig) return;
+      const tEl = document.getElementById('kebayaSizeChartTitleInput');
+      const sEl = document.getElementById('kebayaSizeChartSubtitleInput');
+
+      const it0 = document.getElementById('kebayaInfoTitle0');
+      const ix0 = document.getElementById('kebayaInfoText0');
+      const it1 = document.getElementById('kebayaInfoTitle1');
+      const ix1 = document.getElementById('kebayaInfoText1');
+      const it2 = document.getElementById('kebayaInfoTitle2');
+      const ix2 = document.getElementById('kebayaInfoText2');
+
+      appConfig.kebayaSizeChart = {
+        title: (tEl ? tEl.value : '').trim() || 'Tabel Panduan Ukuran Kebaya',
+        subtitle: (sEl ? sEl.value : '').trim() || 'Standar Fitting Alviero Studio Malang',
+        rows: editingSizeChartRows.filter(r => r && r.size),
+        infoItems: [
+          {
+            icon: '👗',
+            title: (it0 ? it0.value : '').trim() || 'Free Fitting Langsung di Ruang Ganti:',
+            text: (ix0 ? ix0.value : '').trim() || 'Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.'
+          },
+          {
+            icon: '✨',
+            title: (it1 ? it1.value : '').trim() || 'Karet Pinggang Fleksibel:',
+            text: (ix1 ? ix1.value : '').trim() || 'Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.'
+          },
+          {
+            icon: '🧕',
+            title: (it2 ? it2.value : '').trim() || 'Kelengkapan Paket:',
+            text: (ix2 ? ix2.value : '').trim() || 'Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.'
+          }
+        ]
+      };
+
+      closeModal('kebayaSizeChartModal');
+      saveConfigLocally();
+      showToast('✅ Tabel Panduan Ukuran Kebaya berhasil disimpan!', '📏');
+    }
+
+    function resetKebayaSizeChartToDefault() {
+      if (!confirm('Kembalikan tabel panduan ukuran kebaya ke standar Alviero Studio?')) return;
+      appConfig.kebayaSizeChart = {
+        title: 'Tabel Panduan Ukuran Kebaya',
+        subtitle: 'Standar Fitting Alviero Studio Malang',
+        rows: [
+          { size: 'S', ld: '86 – 88 cm', waist: '68 – 72 cm', length: '65 cm', weight: '40 – 48 kg' },
+          { size: 'M', ld: '90 – 94 cm', waist: '74 – 78 cm', length: '68 cm', weight: '48 – 55 kg' },
+          { size: 'L', ld: '96 – 100 cm', waist: '80 – 84 cm', length: '70 cm', weight: '55 – 63 kg' },
+          { size: 'XL', ld: '102 – 106 cm', waist: '86 – 90 cm', length: '72 cm', weight: '63 – 72 kg' },
+          { size: 'XXL', ld: '108 – 114 cm', waist: '92 – 98 cm', length: '75 cm', weight: '72 – 82 kg' }
+        ],
+        infoItems: [
+          {
+            icon: '👗',
+            title: 'Free Fitting Langsung di Ruang Ganti:',
+            text: 'Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.'
+          },
+          {
+            icon: '✨',
+            title: 'Karet Pinggang Fleksibel:',
+            text: 'Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.'
+          },
+          {
+            icon: '🧕',
+            title: 'Kelengkapan Paket:',
+            text: 'Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.'
+          }
+        ]
+      };
+      openKebayaSizeChartModal();
+    }
     
     // --- AUTHENTICATION GATE LOGIC ---
     function checkAuthOnLoad() {

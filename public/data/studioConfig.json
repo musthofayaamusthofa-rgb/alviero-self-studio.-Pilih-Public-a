@@ -7655,5 +7655,63 @@
         }
       ]
     }
+  },
+  "kebayaSizeChart": {
+    "title": "Tabel Panduan Ukuran Kebaya",
+    "subtitle": "Standar Fitting Alviero Studio Malang",
+    "rows": [
+      {
+        "size": "S",
+        "ld": "86 – 88 cm",
+        "waist": "68 – 72 cm",
+        "length": "65 cm",
+        "weight": "40 – 48 kg"
+      },
+      {
+        "size": "M",
+        "ld": "90 – 94 cm",
+        "waist": "74 – 78 cm",
+        "length": "68 cm",
+        "weight": "48 – 55 kg"
+      },
+      {
+        "size": "L",
+        "ld": "96 – 100 cm",
+        "waist": "80 – 84 cm",
+        "length": "70 cm",
+        "weight": "55 – 63 kg"
+      },
+      {
+        "size": "XL",
+        "ld": "102 – 106 cm",
+        "waist": "86 – 90 cm",
+        "length": "72 cm",
+        "weight": "63 – 72 kg"
+      },
+      {
+        "size": "XXL",
+        "ld": "108 – 114 cm",
+        "waist": "92 – 98 cm",
+        "length": "75 cm",
+        "weight": "72 – 82 kg"
+      }
+    ],
+    "infoItems": [
+      {
+        "icon": "👗",
+        "title": "Free Fitting Langsung di Ruang Ganti:",
+        "text": "Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas."
+      },
+      {
+        "icon": "✨",
+        "title": "Karet Pinggang Fleksibel:",
+        "text": "Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh."
+      },
+      {
+        "icon": "🧕",
+        "title": "Kelengkapan Paket:",
+        "text": "Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada."
+      }
+    ]
   }
 }

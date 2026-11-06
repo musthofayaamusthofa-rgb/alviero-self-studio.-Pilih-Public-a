@@ -2205,109 +2205,128 @@ export const MUAPricelistModal: React.FC<MUAPricelistModalProps> = ({
         {/* ========================================================================= */}
         {/* MODAL TABEL PANDUAN UKURAN KEBAYA (SIZE CHART) */}
         {/* ========================================================================= */}
-        {isSizeChartOpen && (
-          <div
-            className="fixed inset-0 z-[95] flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-sm animate-in fade-in duration-200"
-            onClick={() => setIsSizeChartOpen(false)}
-            role="presentation"
-          >
+        {isSizeChartOpen && (() => {
+          const sizeChartCfg = (studioConfig as any)?.kebayaSizeChart;
+          const chartTitle = sizeChartCfg?.title || 'Tabel Panduan Ukuran Kebaya';
+          const chartSubtitle = sizeChartCfg?.subtitle || 'Standar Fitting Alviero Studio Malang';
+          const chartRows = Array.isArray(sizeChartCfg?.rows) && sizeChartCfg.rows.length > 0
+            ? sizeChartCfg.rows
+            : KEBAYA_SIZE_CHART;
+          const infoItems = Array.isArray(sizeChartCfg?.infoItems) && sizeChartCfg.infoItems.length > 0
+            ? sizeChartCfg.infoItems
+            : [
+                {
+                  icon: '👗',
+                  title: 'Free Fitting Langsung di Ruang Ganti:',
+                  text: 'Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.'
+                },
+                {
+                  icon: '✨',
+                  title: 'Karet Pinggang Fleksibel:',
+                  text: 'Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.'
+                },
+                {
+                  icon: '🧕',
+                  title: 'Kelengkapan Paket:',
+                  text: 'Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.'
+                }
+              ];
+
+          return (
             <div
-              className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-[#E8DDD6] bg-[#FDFBF7] shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-[95] flex items-center justify-center bg-black/80 p-3 sm:p-4 backdrop-blur-sm animate-in fade-in duration-200"
+              onClick={() => setIsSizeChartOpen(false)}
+              role="presentation"
             >
-              {/* Header Modal */}
-              <div className="flex items-center justify-between border-b border-[#E8DDD6] bg-[#FAF7F2] px-4 py-3 sm:px-5 sm:py-3.5">
-                <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#E8DDD6] bg-[#F2E9E4] text-[#5C725A]">
-                    <Ruler className="w-4 h-4" />
+              <div
+                className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-[#E8DDD6] bg-[#FDFBF7] shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header Modal */}
+                <div className="flex items-center justify-between border-b border-[#E8DDD6] bg-[#FAF7F2] px-4 py-3 sm:px-5 sm:py-3.5">
+                  <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#E8DDD6] bg-[#F2E9E4] text-[#5C725A]">
+                      <Ruler className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h5 className="font-serif text-base font-black uppercase text-[#2E2E2E]">
+                        {chartTitle}
+                      </h5>
+                      <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#6E856C]">
+                        {chartSubtitle}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <h5 className="font-serif text-base font-black uppercase text-[#2E2E2E]">
-                      Tabel Panduan Ukuran Kebaya
-                    </h5>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#6E856C]">
-                      Standar Fitting Alviero Studio Malang
-                    </span>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsSizeChartOpen(false)}
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EAE1DA] text-[#2E2E2E] hover:bg-[#DBD0C7] transition-colors cursor-pointer"
+                    aria-label="Tutup tabel ukuran"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIsSizeChartOpen(false)}
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EAE1DA] text-[#2E2E2E] hover:bg-[#DBD0C7] transition-colors cursor-pointer"
-                  aria-label="Tutup tabel ukuran"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
 
-              {/* Body Modal */}
-              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
-                {/* Tabel Ukuran */}
-                <div className="overflow-x-auto rounded-xl border border-[#E8DDD6] bg-white shadow-2xs">
-                  <table className="w-full text-left border-collapse text-xs">
-                    <thead>
-                      <tr className="border-b border-[#E8DDD6] bg-[#FAF7F2] text-[10px] font-mono font-bold uppercase text-[#5C725A]">
-                        <th className="py-2.5 px-3">Size</th>
-                        <th className="py-2.5 px-3">Lingkar Dada (LD)</th>
-                        <th className="py-2.5 px-3">Pinggang</th>
-                        <th className="py-2.5 px-3">Panjang</th>
-                        <th className="py-2.5 px-3">Est. Berat Badan</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#F2ECE7] font-sans">
-                      {KEBAYA_SIZE_CHART.map((row) => (
-                        <tr key={row.size} className="hover:bg-[#FAF8F5] transition-colors">
-                          <td className="py-2.5 px-3 font-mono font-black text-[#2E2E2E]">
-                            <span className="inline-block rounded-md bg-[#2E2E2E] px-2 py-0.5 text-white text-[11px]">
-                              {row.size}
-                            </span>
-                          </td>
-                          <td className="py-2.5 px-3 font-medium text-stone-700">{row.ld}</td>
-                          <td className="py-2.5 px-3 text-stone-600">{row.waist}</td>
-                          <td className="py-2.5 px-3 text-stone-600">{row.length}</td>
-                          <td className="py-2.5 px-3 font-mono font-bold text-[#5C725A]">{row.weight}</td>
+                {/* Body Modal */}
+                <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
+                  {/* Tabel Ukuran */}
+                  <div className="overflow-x-auto rounded-xl border border-[#E8DDD6] bg-white shadow-2xs">
+                    <table className="w-full text-left border-collapse text-xs">
+                      <thead>
+                        <tr className="border-b border-[#E8DDD6] bg-[#FAF7F2] text-[10px] font-mono font-bold uppercase text-[#5C725A]">
+                          <th className="py-2.5 px-3">Size</th>
+                          <th className="py-2.5 px-3">Lingkar Dada (LD)</th>
+                          <th className="py-2.5 px-3">Pinggang</th>
+                          <th className="py-2.5 px-3">Panjang</th>
+                          <th className="py-2.5 px-3">Est. Berat Badan</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-[#F2ECE7] font-sans">
+                        {chartRows.map((row: any) => (
+                          <tr key={row.size} className="hover:bg-[#FAF8F5] transition-colors">
+                            <td className="py-2.5 px-3 font-mono font-black text-[#2E2E2E]">
+                              <span className="inline-block rounded-md bg-[#2E2E2E] px-2 py-0.5 text-white text-[11px]">
+                                {row.size}
+                              </span>
+                            </td>
+                            <td className="py-2.5 px-3 font-medium text-stone-700">{row.ld || row.bust}</td>
+                            <td className="py-2.5 px-3 text-stone-600">{row.waist}</td>
+                            <td className="py-2.5 px-3 text-stone-600">{row.length}</td>
+                            <td className="py-2.5 px-3 font-mono font-bold text-[#5C725A]">{row.weight}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Informasi Tambahan & Layanan Fitting Ruang Ganti */}
+                  <div className="space-y-2 rounded-xl border border-[#E8DDD6] bg-[#FAF7F2] p-3.5 text-xs text-stone-700">
+                    {infoItems.map((item: any, idx: number) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <span className="text-base shrink-0">{item.icon || '✨'}</span>
+                        <p>
+                          <strong className="text-[#2E2E2E]">{item.title} </strong>
+                          {item.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Informasi Tambahan & Layanan Fitting Ruang Ganti */}
-                <div className="space-y-2 rounded-xl border border-[#E8DDD6] bg-[#FAF7F2] p-3.5 text-xs text-stone-700">
-                  <div className="flex items-start gap-2">
-                    <span className="text-base shrink-0">👗</span>
-                    <p>
-                      <strong className="text-[#2E2E2E]">Free Fitting Langsung di Ruang Ganti:</strong> Anda dapat mencoba dan fitting kebaya terlebih dahulu di studio Alviero sebelum sesi foto dimulai untuk memastikan ukuran yang paling pas.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-base shrink-0">✨</span>
-                    <p>
-                      <strong className="text-[#2E2E2E]">Karet Pinggang Fleksibel:</strong> Rok jarik batik menggunakan karet pinggang dan model span lilit modern sehingga fleksibel menyesuaikan bentuk tubuh.
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-base shrink-0">🧕</span>
-                    <p>
-                      <strong className="text-[#2E2E2E]">Kelengkapan Paket:</strong> Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada.
-                    </p>
-                  </div>
+                {/* Footer Modal */}
+                <div className="border-t border-[#E8DDD6] bg-[#FAF7F2] p-3 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setIsSizeChartOpen(false)}
+                    className="rounded-full bg-[#2E2E2E] px-5 py-2 text-xs font-serif font-black uppercase tracking-wider text-white hover:bg-black transition-colors cursor-pointer"
+                  >
+                    Tutup Panduan Ukuran
+                  </button>
                 </div>
-              </div>
-
-              {/* Footer Modal */}
-              <div className="border-t border-[#E8DDD6] bg-[#FAF7F2] p-3 flex justify-end">
-                <button
-                  type="button"
-                  onClick={() => setIsSizeChartOpen(false)}
-                  className="rounded-full bg-[#2E2E2E] px-5 py-2 text-xs font-serif font-black uppercase tracking-wider text-white hover:bg-black transition-colors cursor-pointer"
-                >
-                  Tutup Panduan Ukuran
-                </button>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Lightbox Preview Foto Portofolio Vendor & Kategori */}
         {previewPortfolioImg && (
