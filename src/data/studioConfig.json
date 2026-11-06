@@ -7519,5 +7519,80 @@
       "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=400&q=80",
       "active": true
     }
-  ]
+  ],
+  "wardrobeConfig": {
+    "header": {
+      "tag": "COLLECTION 2026 • WARDROBE STUDIO",
+      "title": "Koleksi Kebaya Modern & Gaun Foto",
+      "subtitle": "Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo)."
+    },
+    "rentalRates": [
+      {
+        "id": "rate-personal",
+        "badge": "Sewa Personal (1 Orang)",
+        "badgeColor": "green",
+        "title": "1 Set Kebaya / Gaun Wisuda Personal",
+        "price": "Rp 115.000",
+        "features": [
+          "Include 1 Baju Kebaya / Gaun Modern Pilihan",
+          "Include Kain Jarik / Rok Lilit Senada",
+          "Include Aksesoris Bros Dada / Manset"
+        ]
+      },
+      {
+        "id": "rate-couple",
+        "badge": "Sewa Couple (2 Orang)",
+        "badgeColor": "brown",
+        "title": "Setelan Couple (Wanita & Pria)",
+        "price": "Rp 215.000",
+        "features": [
+          "1 Baju Kebaya Wanita + Kain Jarik / Rok",
+          "1 Kemeja Batik / Beskap Pria Senada",
+          "Include Blangkon & Aksesoris Lengkap"
+        ]
+      }
+    ],
+    "sizeChart": {
+      "title": "Panduan Ukuran Busana (Kebaya Size Chart)",
+      "subtitle": "Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio",
+      "note": "*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.",
+      "rows": [
+        {
+          "size": "S",
+          "bust": "86 – 88 cm",
+          "waist": "68 – 72 cm",
+          "length": "65 cm",
+          "weight": "40 – 48 kg"
+        },
+        {
+          "size": "M",
+          "bust": "90 – 94 cm",
+          "waist": "74 – 78 cm",
+          "length": "68 cm",
+          "weight": "48 – 55 kg"
+        },
+        {
+          "size": "L",
+          "bust": "96 – 100 cm",
+          "waist": "80 – 84 cm",
+          "length": "70 cm",
+          "weight": "55 – 63 kg"
+        },
+        {
+          "size": "XL",
+          "bust": "102 – 106 cm",
+          "waist": "86 – 90 cm",
+          "length": "72 cm",
+          "weight": "63 – 72 kg"
+        },
+        {
+          "size": "XXL",
+          "bust": "108 – 114 cm",
+          "waist": "92 – 98 cm",
+          "length": "75 cm",
+          "weight": "72 – 82 kg"
+        }
+      ]
+    }
+  }
 }

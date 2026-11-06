@@ -4588,162 +4588,182 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 {activeMenuCategory === 'kebayak-gaun' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
 
-                    {/* Header Editorial Luxury */}
-                    <div className="space-y-2.5 border-b border-[#E8DDD6] pb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#EAD5C3]">
-                          <Sparkles className="w-3 h-3 text-[#8A5A36]" />
-                          COLLECTION 2026 • WARDROBE STUDIO
-                        </span>
-                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
-                      </div>
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div>
-                          <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
-                            Koleksi Kebaya Modern &amp; Gaun Foto
-                          </h3>
-                          <p className="text-xs text-slate-600 font-century leading-relaxed mt-0.5">
-                            Pilihan busana kebaya wisuda, gaun modern &amp; pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) &amp; Studio 2 (Dinoyo).
-                          </p>
-                        </div>
-                        {onOpenBeautyModal && (
-                          <button
-                            type="button"
-                            onClick={onOpenBeautyModal}
-                            className="min-h-[38px] px-4 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-serif font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer shrink-0"
-                          >
-                            <span>💄 Buka Paket MUA Lengkap</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        )}
-                      </div>
-                    </div>
+                    {/* Header Editorial Luxury Dinamis dari Dashboard */}
+                    {(() => {
+                      const wardrobeCfg = (studioConfig as any)?.wardrobeConfig;
+                      const wHeader = wardrobeCfg?.header || {
+                        tag: 'COLLECTION 2026 • WARDROBE STUDIO',
+                        title: 'Koleksi Kebaya Modern & Gaun Foto',
+                        subtitle: 'Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo).'
+                      };
+                      const wRates = (Array.isArray(wardrobeCfg?.rentalRates) && wardrobeCfg.rentalRates.length > 0)
+                        ? wardrobeCfg.rentalRates
+                        : [
+                            {
+                              id: 'rate-personal',
+                              badge: 'Sewa Personal (1 Orang)',
+                              badgeColor: 'green',
+                              title: '1 Set Kebaya / Gaun Wisuda Personal',
+                              price: 'Rp 115.000',
+                              features: [
+                                'Include 1 Baju Kebaya / Gaun Modern Pilihan',
+                                'Include Kain Jarik / Rok Lilit Senada',
+                                'Include Aksesoris Bros Dada / Manset'
+                              ]
+                            },
+                            {
+                              id: 'rate-couple',
+                              badge: 'Sewa Couple (2 Orang)',
+                              badgeColor: 'brown',
+                              title: 'Setelan Couple (Wanita & Pria)',
+                              price: 'Rp 215.000',
+                              features: [
+                                '1 Baju Kebaya Wanita + Kain Jarik / Rok',
+                                '1 Kemeja Batik / Beskap Pria Senada',
+                                'Include Blangkon & Aksesoris Lengkap'
+                              ]
+                            }
+                          ];
+                      const wSizeChart = wardrobeCfg?.sizeChart || {
+                        title: 'Panduan Ukuran Busana (Kebaya Size Chart)',
+                        subtitle: 'Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio',
+                        note: '*Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.',
+                        rows: [
+                          { size: 'S', bust: '86 – 88 cm', waist: '68 – 72 cm', length: '65 cm', weight: '40 – 48 kg' },
+                          { size: 'M', bust: '90 – 94 cm', waist: '74 – 78 cm', length: '68 cm', weight: '48 – 55 kg' },
+                          { size: 'L', bust: '96 – 100 cm', waist: '80 – 84 cm', length: '70 cm', weight: '55 – 63 kg' },
+                          { size: 'XL', bust: '102 – 106 cm', waist: '86 – 90 cm', length: '72 cm', weight: '63 – 72 kg' },
+                          { size: 'XXL', bust: '108 – 114 cm', waist: '92 – 98 cm', length: '75 cm', weight: '72 – 82 kg' }
+                        ]
+                      };
 
-                    {/* Banner Tarif Sewa Wardrobe */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {/* Kartu Sewa Personal */}
-                      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#E8DDD6] shadow-xs space-y-2 hover:border-[#A9BCA7] transition-all">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full font-century">
-                            Sewa Personal (1 Orang)
-                          </span>
-                          <span className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A]">
-                            Rp 115.000
-                          </span>
-                        </div>
-                        <h4 className="text-sm font-serif font-bold text-[#2A2A2A]">
-                          1 Set Kebaya / Gaun Wisuda Personal
-                        </h4>
-                        <div className="space-y-1 text-xs text-stone-600 font-century pt-1 border-t border-[#F2E9E4]">
-                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include 1 Baju Kebaya / Gaun Modern Pilihan</p>
-                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include Kain Jarik / Rok Lilit Senada</p>
-                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include Aksesoris Bros Dada / Manset</p>
-                        </div>
-                      </div>
-
-                      {/* Kartu Sewa Couple */}
-                      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#E8DDD6] shadow-xs space-y-2 hover:border-[#A9BCA7] transition-all">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full font-century">
-                            Sewa Couple (2 Orang)
-                          </span>
-                          <span className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A]">
-                            Rp 215.000
-                          </span>
-                        </div>
-                        <h4 className="text-sm font-serif font-bold text-[#2A2A2A]">
-                          Setelan Couple (Wanita &amp; Pria)
-                        </h4>
-                        <div className="space-y-1 text-xs text-stone-600 font-century pt-1 border-t border-[#F2E9E4]">
-                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> 1 Baju Kebaya Wanita + Kain Jarik / Rok</p>
-                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> 1 Kemeja Batik / Beskap Pria Senada</p>
-                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include Blangkon &amp; Aksesoris Lengkap</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Panduan Ukuran Size Chart Accordion */}
-                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl overflow-hidden shadow-2xs">
-                      <button
-                        type="button"
-                        onClick={() => setIsSizeChartOpen(!isSizeChartOpen)}
-                        className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F2E9E4]/60 transition-colors cursor-pointer"
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">📏</span>
-                          <div>
-                            <div className="text-xs sm:text-sm font-serif font-bold text-[#2A2A2A]">
-                              Panduan Ukuran Busana (Kebaya Size Chart)
+                      return (
+                        <>
+                          <div className="space-y-2.5 border-b border-[#E8DDD6] pb-4">
+                            <div className="flex items-center gap-2">
+                              <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#EAD5C3]">
+                                <Sparkles className="w-3 h-3 text-[#8A5A36]" />
+                                {wHeader.tag || 'COLLECTION 2026 • WARDROBE STUDIO'}
+                              </span>
+                              <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                             </div>
-                            <p className="text-[10.5px] text-stone-500 font-century">
-                              Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio
-                            </p>
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                              <div>
+                                <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                                  {wHeader.title || 'Koleksi Kebaya Modern & Gaun Foto'}
+                                </h3>
+                                <p className="text-xs text-slate-600 font-century leading-relaxed mt-0.5">
+                                  {wHeader.subtitle || 'Pilihan busana kebaya wisuda, gaun modern & pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) & Studio 2 (Dinoyo).'}
+                                </p>
+                              </div>
+                              {onOpenBeautyModal && (
+                                <button
+                                  type="button"
+                                  onClick={onOpenBeautyModal}
+                                  className="min-h-[38px] px-4 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-serif font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer shrink-0"
+                                >
+                                  <span>💄 Buka Paket MUA Lengkap</span>
+                                  <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-1 text-xs font-bold text-[#5C725A] font-century">
-                          <span>{isSizeChartOpen ? 'Tutup Tabel' : 'Lihat Ukuran'}</span>
-                          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isSizeChartOpen ? 'rotate-180' : ''}`} />
-                        </div>
-                      </button>
 
-                      {isSizeChartOpen && (
-                        <div className="p-4 pt-0 border-t border-[#E8DDD6] animate-in fade-in duration-200">
-                          <div className="overflow-x-auto no-scrollbar pt-3">
-                            <table className="w-full text-xs font-century text-left border-collapse">
-                              <thead>
-                                <tr className="bg-[#EBF2EA] text-[#2A2A2A] font-bold text-[11px] uppercase tracking-wider border-b border-[#D0E2CE]">
-                                  <th className="py-2.5 px-3 rounded-l-lg">Ukuran</th>
-                                  <th className="py-2.5 px-3">Lingkar Dada (LD)</th>
-                                  <th className="py-2.5 px-3">Lingkar Pinggang</th>
-                                  <th className="py-2.5 px-3">Panjang Baju</th>
-                                  <th className="py-2.5 px-3 rounded-r-lg">Estimasi Berat Badan</th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-[#EFE5DC] text-stone-700">
-                                <tr>
-                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-white">S</td>
-                                  <td className="py-2.5 px-3 bg-white">86 – 88 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">68 – 72 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">65 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">40 – 48 kg</td>
-                                </tr>
-                                <tr>
-                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-[#FAF8F5]">M</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">90 – 94 cm</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">74 – 78 cm</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">68 cm</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">48 – 55 kg</td>
-                                </tr>
-                                <tr>
-                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-white">L</td>
-                                  <td className="py-2.5 px-3 bg-white">96 – 100 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">80 – 84 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">70 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">55 – 63 kg</td>
-                                </tr>
-                                <tr>
-                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-[#FAF8F5]">XL</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">102 – 106 cm</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">86 – 90 cm</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">72 cm</td>
-                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">63 – 72 kg</td>
-                                </tr>
-                                <tr>
-                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-white">XXL</td>
-                                  <td className="py-2.5 px-3 bg-white">108 – 114 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">92 – 98 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">75 cm</td>
-                                  <td className="py-2.5 px-3 bg-white">72 – 82 kg</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                          {/* Banner Tarif Sewa Wardrobe Dinamis */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {wRates.map((rate: any, rIdx: number) => {
+                              const isGreen = rate.badgeColor === 'green' || rIdx === 0;
+                              return (
+                                <div key={rate.id || rIdx} className="bg-white rounded-2xl p-4 sm:p-5 border border-[#E8DDD6] shadow-xs space-y-2 hover:border-[#A9BCA7] transition-all">
+                                  <div className="flex items-center justify-between">
+                                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full font-century ${
+                                      isGreen ? 'text-[#5C725A] bg-[#EBF2EA]' : 'text-[#8A5A36] bg-[#FAF0E6]'
+                                    }`}>
+                                      {rate.badge || (isGreen ? 'Sewa Personal (1 Orang)' : 'Sewa Couple (2 Orang)')}
+                                    </span>
+                                    <span className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A]">
+                                      {rate.price || (isGreen ? 'Rp 115.000' : 'Rp 215.000')}
+                                    </span>
+                                  </div>
+                                  <h4 className="text-sm font-serif font-bold text-[#2A2A2A]">
+                                    {rate.title || (isGreen ? '1 Set Kebaya / Gaun Wisuda Personal' : 'Setelan Couple (Wanita & Pria)')}
+                                  </h4>
+                                  {Array.isArray(rate.features) && rate.features.length > 0 && (
+                                    <div className="space-y-1 text-xs text-stone-600 font-century pt-1 border-t border-[#F2E9E4]">
+                                      {rate.features.map((feat: string, fIdx: number) => (
+                                        <p key={fIdx} className="flex items-center gap-1.5">
+                                          <Check className={`w-3.5 h-3.5 shrink-0 ${isGreen ? 'text-[#5C725A]' : 'text-[#8A5A36]'}`} />
+                                          <span>{feat}</span>
+                                        </p>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
-                          <p className="text-[11px] text-stone-500 font-century italic mt-2.5">
-                            *Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.
-                          </p>
-                        </div>
-                      )}
-                    </div>
+
+                          {/* Panduan Ukuran Size Chart Accordion Dinamis */}
+                          <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl overflow-hidden shadow-2xs">
+                            <button
+                              type="button"
+                              onClick={() => setIsSizeChartOpen(!isSizeChartOpen)}
+                              className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F2E9E4]/60 transition-colors cursor-pointer"
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="text-base">📏</span>
+                                <div>
+                                  <div className="text-xs sm:text-sm font-serif font-bold text-[#2A2A2A]">
+                                    {wSizeChart.title || 'Panduan Ukuran Busana (Kebaya Size Chart)'}
+                                  </div>
+                                  <p className="text-[10.5px] text-stone-500 font-century">
+                                    {wSizeChart.subtitle || 'Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio'}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1 text-xs font-bold text-[#5C725A] font-century">
+                                <span>{isSizeChartOpen ? 'Tutup Tabel' : 'Lihat Ukuran'}</span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isSizeChartOpen ? 'rotate-180' : ''}`} />
+                              </div>
+                            </button>
+
+                            {isSizeChartOpen && (
+                              <div className="p-4 pt-0 border-t border-[#E8DDD6] animate-in fade-in duration-200">
+                                <div className="overflow-x-auto no-scrollbar pt-3">
+                                  <table className="w-full text-xs font-century text-left border-collapse">
+                                    <thead>
+                                      <tr className="bg-[#EBF2EA] text-[#2A2A2A] font-bold text-[11px] uppercase tracking-wider border-b border-[#D0E2CE]">
+                                        <th className="py-2.5 px-3 rounded-l-lg">Ukuran</th>
+                                        <th className="py-2.5 px-3">Lingkar Dada (LD)</th>
+                                        <th className="py-2.5 px-3">Lingkar Pinggang</th>
+                                        <th className="py-2.5 px-3">Panjang Baju</th>
+                                        <th className="py-2.5 px-3 rounded-r-lg">Estimasi Berat Badan</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-[#EFE5DC] text-stone-700">
+                                      {Array.isArray(wSizeChart.rows) && wSizeChart.rows.map((row: any, rIdx: number) => (
+                                        <tr key={row.size || rIdx}>
+                                          <td className={`py-2.5 px-3 font-bold text-[#2A2A2A] ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#FAF8F5]'}`}>{row.size}</td>
+                                          <td className={`py-2.5 px-3 ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#FAF8F5]'}`}>{row.bust}</td>
+                                          <td className={`py-2.5 px-3 ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#FAF8F5]'}`}>{row.waist}</td>
+                                          <td className={`py-2.5 px-3 ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#FAF8F5]'}`}>{row.length}</td>
+                                          <td className={`py-2.5 px-3 ${rIdx % 2 === 0 ? 'bg-white' : 'bg-[#FAF8F5]'}`}>{row.weight}</td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                                {wSizeChart.note && (
+                                  <div className="mt-3 text-[11px] text-stone-500 font-century italic">
+                                    {wSizeChart.note}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      );
+                    })()}
 
                     {/* Heading Koleksi Busana */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2">
