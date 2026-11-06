@@ -22,6 +22,7 @@ interface PricelistViewerProps {
   onNavigateToTab?: (tab: string) => void;
   onOpenBooking?: () => void;
   onBackToLanding?: (targetSectionId?: string) => void;
+  onOpenBeautyModal?: () => void;
 }
 
 interface StudioGalleryPhoto {
@@ -47,7 +48,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   onNavigateToRules,
   onNavigateToTab,
   onOpenBooking,
-  onBackToLanding
+  onBackToLanding,
+  onOpenBeautyModal
 }) => {
   // Helper to normalize category keys
   const normalizeMenuCategory = (cat: string | null | undefined): string => {
@@ -170,6 +172,32 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [selfStudioSubTab, setSelfStudioSubTab] = useState<'special' | 'normal' | 'spotlight' | 'grid'>('special');
   const [selectedGridFilter, setSelectedGridFilter] = useState<'all' | 'grid-1' | 'grid-3' | 'grid-4' | 'grid-6'>('all');
   const [selectedKebayaFilter, setSelectedKebayaFilter] = useState<'all' | 'adat' | 'modern' | 'gaun'>('all');
+  const [isSizeChartOpen, setIsSizeChartOpen] = useState<boolean>(false);
+
+  // Koleksi Kebaya & Gaun Dinamis dari Dashboard MUA Vendors
+  const dynamicKebayas = useMemo(() => {
+    const vendors = ((studioConfig as any)?.muaVendors || []) as any[];
+    const extracted = vendors.flatMap((v: any) =>
+      (v.kebayas || []).map((k: any) => ({
+        ...k,
+        vendorName: v.name || 'Alviero Studio',
+        vendorId: v.id || 'novita'
+      }))
+    );
+    if (extracted.length > 0) return extracted;
+
+    // Fallback warna resmi studio jika data vendor belum diisi
+    return [
+      { id: 'kebaya-sage', name: 'Sage Green', hex: '#8FA38D', tag: 'Best Seller Wisuda', desc: 'Hijau sage pastel redup berpadu brokat payet halus timbul. Sangat fotogenik di studio foto dan menjadi warna terfavorit para wisudawati.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 12, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-nude', name: 'Nude Cream', hex: '#D8B89E', tag: 'Warm Natural', desc: 'Nuansa krem nude hangat yang menyatu lembut dengan warna kulit alami. Memberi kesan anggun, bersih, dan memancarkan aura natural.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 10, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-maroon', name: 'Maroon Bold', hex: '#7A1C29', tag: 'Bold Elegance', desc: 'Merah maroon anggun berkarakter mewah. Pilihan sempurna untuk sesi foto wisuda resmi, lamaran, maupun foto keluarga.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 8, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-navy', name: 'Navy Blue', hex: '#1D2A44', tag: 'Exclusive Modern', desc: 'Biru navy tua berkilau payet kristal mewah. Kontras sangat tajam dan memukau di bawah pencahayaan softbox studio.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 8, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-black', name: 'Black Royal', hex: '#242424', tag: 'Royal Classic', desc: 'Hitam elegan mewah klasik dengan aksen payet berkilau. Memberikan efek siluet tubuh yang ramping, tegas, dan berwibawa.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 6, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-gold', name: 'Champagne Gold', hex: '#C8A34A', tag: 'Glamour Luxury', desc: 'Kuning keemasan berpayet timbul premium. Memancarkan aura megah, cerah, dan berkelas khas pesta formal.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 6, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-silver', name: 'Silver Lilac', hex: '#B8BAC2', tag: 'Chic Futuristic', desc: 'Abu-abu perak berkilau dingin yang modern dan bersih. Tampil sangat modis dan kekinian untuk konsep wisuda minimalis.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 8, vendorName: 'Alviero Wardrobe' },
+      { id: 'kebaya-dusty-pink', name: 'Dusty Pink', hex: '#DDA7A5', tag: 'Sweet Feminine', desc: 'Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria.', sizes: ['S', 'M', 'L', 'XL', 'XXL'], totalStock: 7, vendorName: 'Alviero Wardrobe' }
+    ];
+  }, [studioConfig]);
 
   const defaultLabPrintItems = [
     { code: '4R', size: '10.2 cm x 15.2 cm', price: '5K', note: 'Standar Foto Album' },
@@ -968,10 +996,32 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
       return safeA - safeB;
     });
 
+    const STUDIO_BG_DEFAULTS: Record<string, string> = {
+      'hitam': '/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg',
+      'hitam list': '/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg',
+      'putih': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih tematik': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih list': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'limbo': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih tengah': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih jendela': '/images/backdrops/backdrop-7.jpg',
+      'abu-abu': '/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg',
+      'hijau pastel': '/images/backdrops/backdrop-1.jpg',
+      'cream': '/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg',
+      'tematik cream': '/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg',
+      'coklat': '/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg',
+      'coklat jendela': '/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg',
+      'biru': '/images/backgrounds/bg_biru_foto1_1793236920387_1793236921945.jpg',
+    };
+
     return orderedBackgrounds.map(bg => {
-      const bgImages = (Array.isArray(bg.previewImages) && bg.previewImages.length > 0)
-        ? bg.previewImages
-        : [bg.previewImage || 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=85'];
+      const bgNameLower = (bg.name || '').trim().toLowerCase();
+      const localDefault = STUDIO_BG_DEFAULTS[bgNameLower] || '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg';
+      const cleanImg = (bg.previewImage && !bg.previewImage.includes('unsplash.com')) ? bg.previewImage : localDefault;
+      const rawBgImages = (Array.isArray(bg.previewImages) && bg.previewImages.length > 0)
+        ? bg.previewImages.filter((u: string) => Boolean(u) && !u.includes('unsplash.com'))
+        : [cleanImg];
+      const bgImages = rawBgImages.length > 0 ? rawBgImages : [cleanImg];
       return {
         id: `background-${bg.id}`,
         title: bg.name,
@@ -1081,9 +1131,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         return pkg.category === previewCategory;
       })
       .flatMap((pkg, pkgIdx) => {
-        const urls: string[] = (Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0)
+        const rawUrls: string[] = (Array.isArray(pkg.imageUrls) && pkg.imageUrls.length > 0)
           ? pkg.imageUrls
           : (pkg.imageUrl ? [pkg.imageUrl] : []);
+        const urls = rawUrls.filter(u => typeof u === 'string' && u.trim().length > 0 && !u.includes('unsplash.com'));
         return urls.map((url, imgIdx) => ({
           id: `custom-pkg-photo-${pkg.id || pkgIdx}-${imgIdx}`,
           imageUrl: url,
@@ -1508,9 +1559,19 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               alt={item.name}
                               className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
                               loading="lazy"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = 'none';
+                              }}
                             />
                           ) : (
                             <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                          )}
+
+                          {/* Badge Kategori dari Dashboard (misal: Prewed Hot, Outdoor Kampus, Favorit Wisuda) */}
+                          {Boolean(item.badge) && (
+                            <span className="absolute -top-1 -right-1 z-10 px-1.5 py-0.5 rounded-full text-[7.5px] sm:text-[8px] font-sans font-black bg-amber-400 text-stone-900 border border-white shadow-xs whitespace-nowrap uppercase tracking-tight scale-85 sm:scale-95 pointer-events-none">
+                              {item.badge}
+                            </span>
                           )}
                         </div>
                         <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
@@ -1660,6 +1721,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             src={photo.imageUrl}
                             alt={`${photo.title} - ${photo.packageName}`}
                             loading="lazy"
+                            onError={(e) => {
+                              const parent = (e.target as HTMLElement).closest('[role="button"]');
+                              if (parent) (parent as HTMLElement).style.display = 'none';
+                            }}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108"
                           />
 
@@ -4526,321 +4591,329 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </div>
                 )}
 
-                {/* 15. SPECIAL FIGMA VIEW FOR KEBAYAK DAN GAUN */}
+                {/* 15. MODERN LUXURY KEBAYA & GAUN WARDROBE VIEW (100% DINAMIS DARI DASHBOARD) */}
                 {activeMenuCategory === 'kebayak-gaun' && (
                   <div className="space-y-6 animate-in fade-in duration-300">
 
-                    {/* Header Banner Melengkung Emas (Sesuai Mockup) */}
-                    <div className="bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 p-4 sm:p-5 rounded-full border border-stone-400/60 shadow-sm text-center">
-                      <div className="flex items-center justify-center gap-3 text-xs sm:text-sm font-serif font-black tracking-[0.25em] text-amber-900 uppercase">
-                        <span>G A U N</span>
-                        <span className="text-stone-400">•</span>
-                        <span>K E B A Y A</span>
+                    {/* Header Editorial Luxury */}
+                    <div className="space-y-2.5 border-b border-[#E8DDD6] pb-4">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#EAD5C3]">
+                          <Sparkles className="w-3 h-3 text-[#8A5A36]" />
+                          COLLECTION 2026 • WARDROBE STUDIO
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Alviero Studio</span>
                       </div>
-                      <p className="text-[10px] sm:text-xs text-stone-700 font-serif italic mt-0.5">
-                        Pricelist Wardrobe Kebayak & Gaun Alviero Studio
-                      </p>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                          <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                            Koleksi Kebaya Modern &amp; Gaun Foto
+                          </h3>
+                          <p className="text-xs text-slate-600 font-century leading-relaxed mt-0.5">
+                            Pilihan busana kebaya wisuda, gaun modern &amp; pakaian adat siap pakai untuk sesi pemotretan Anda di Studio 1 (Junrejo) &amp; Studio 2 (Dinoyo).
+                          </p>
+                        </div>
+                        {onOpenBeautyModal && (
+                          <button
+                            type="button"
+                            onClick={onOpenBeautyModal}
+                            className="min-h-[38px] px-4 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-serif font-bold tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer shrink-0"
+                          >
+                            <span>💄 Buka Paket MUA Lengkap</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Filter Kategori Kebaya & Gaun */}
-                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
-                      {[
-                        { id: 'all', label: 'Semua Koleksi (9 Model)', icon: '👗' },
-                        { id: 'adat', label: '👑 Kebaya Adat & Klasik', icon: '👑' },
-                        { id: 'modern', label: '✨ Kebaya Modern & Wisuda', icon: '✨' },
-                        { id: 'gaun', label: '👰 Gaun Pengantin / Bridal', icon: '👰' },
-                      ].map((filter) => {
-                        const isSelected = selectedKebayaFilter === filter.id;
+                    {/* Banner Tarif Sewa Wardrobe */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {/* Kartu Sewa Personal */}
+                      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#E8DDD6] shadow-xs space-y-2 hover:border-[#A9BCA7] transition-all">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full font-century">
+                            Sewa Personal (1 Orang)
+                          </span>
+                          <span className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A]">
+                            Rp 115.000
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-serif font-bold text-[#2A2A2A]">
+                          1 Set Kebaya / Gaun Wisuda Personal
+                        </h4>
+                        <div className="space-y-1 text-xs text-stone-600 font-century pt-1 border-t border-[#F2E9E4]">
+                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include 1 Baju Kebaya / Gaun Modern Pilihan</p>
+                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include Kain Jarik / Rok Lilit Senada</p>
+                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include Aksesoris Bros Dada / Manset</p>
+                        </div>
+                      </div>
+
+                      {/* Kartu Sewa Couple */}
+                      <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#E8DDD6] shadow-xs space-y-2 hover:border-[#A9BCA7] transition-all">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full font-century">
+                            Sewa Couple (2 Orang)
+                          </span>
+                          <span className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A]">
+                            Rp 215.000
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-serif font-bold text-[#2A2A2A]">
+                          Setelan Couple (Wanita &amp; Pria)
+                        </h4>
+                        <div className="space-y-1 text-xs text-stone-600 font-century pt-1 border-t border-[#F2E9E4]">
+                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> 1 Baju Kebaya Wanita + Kain Jarik / Rok</p>
+                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> 1 Kemeja Batik / Beskap Pria Senada</p>
+                          <p className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-[#5C725A] shrink-0" /> Include Blangkon &amp; Aksesoris Lengkap</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Panduan Ukuran Size Chart Accordion */}
+                    <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl overflow-hidden shadow-2xs">
+                      <button
+                        type="button"
+                        onClick={() => setIsSizeChartOpen(!isSizeChartOpen)}
+                        className="w-full p-4 flex items-center justify-between text-left hover:bg-[#F2E9E4]/60 transition-colors cursor-pointer"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">📏</span>
+                          <div>
+                            <div className="text-xs sm:text-sm font-serif font-bold text-[#2A2A2A]">
+                              Panduan Ukuran Busana (Kebaya Size Chart)
+                            </div>
+                            <p className="text-[10.5px] text-stone-500 font-century">
+                              Tersedia ukuran S, M, L, XL, hingga XXL dengan fitting room privat di studio
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 text-xs font-bold text-[#5C725A] font-century">
+                          <span>{isSizeChartOpen ? 'Tutup Tabel' : 'Lihat Ukuran'}</span>
+                          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isSizeChartOpen ? 'rotate-180' : ''}`} />
+                        </div>
+                      </button>
+
+                      {isSizeChartOpen && (
+                        <div className="p-4 pt-0 border-t border-[#E8DDD6] animate-in fade-in duration-200">
+                          <div className="overflow-x-auto no-scrollbar pt-3">
+                            <table className="w-full text-xs font-century text-left border-collapse">
+                              <thead>
+                                <tr className="bg-[#EBF2EA] text-[#2A2A2A] font-bold text-[11px] uppercase tracking-wider border-b border-[#D0E2CE]">
+                                  <th className="py-2.5 px-3 rounded-l-lg">Ukuran</th>
+                                  <th className="py-2.5 px-3">Lingkar Dada (LD)</th>
+                                  <th className="py-2.5 px-3">Lingkar Pinggang</th>
+                                  <th className="py-2.5 px-3">Panjang Baju</th>
+                                  <th className="py-2.5 px-3 rounded-r-lg">Estimasi Berat Badan</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-[#EFE5DC] text-stone-700">
+                                <tr>
+                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-white">S</td>
+                                  <td className="py-2.5 px-3 bg-white">86 – 88 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">68 – 72 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">65 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">40 – 48 kg</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-[#FAF8F5]">M</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">90 – 94 cm</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">74 – 78 cm</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">68 cm</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">48 – 55 kg</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-white">L</td>
+                                  <td className="py-2.5 px-3 bg-white">96 – 100 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">80 – 84 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">70 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">55 – 63 kg</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-[#FAF8F5]">XL</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">102 – 106 cm</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">86 – 90 cm</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">72 cm</td>
+                                  <td className="py-2.5 px-3 bg-[#FAF8F5]">63 – 72 kg</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2.5 px-3 font-bold text-[#2A2A2A] bg-white">XXL</td>
+                                  <td className="py-2.5 px-3 bg-white">108 – 114 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">92 – 98 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">75 cm</td>
+                                  <td className="py-2.5 px-3 bg-white">72 – 82 kg</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <p className="text-[11px] text-stone-500 font-century italic mt-2.5">
+                            *Setiap kebaya dilengkapi tali atau kancing penyesuai agar pas di tubuh. Tersedia kamar ganti ber-AC privat di studio.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Heading Koleksi Busana */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                          Katalog Busana Kebaya &amp; Gaun ({dynamicKebayas.length} Pilihan Warna)
+                        </h4>
+                      </div>
+                      <span className="text-[11px] font-medium text-slate-500 font-century">
+                        Tersedia di Lemari Wardrobe Studio
+                      </span>
+                    </div>
+
+                    {/* Grid Koleksi Kebaya Dinamis (100% Dari Dashboard & Zero Unsplash) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {dynamicKebayas.map((item: any, idx: number) => {
+                        const hasRealPhoto = Boolean(item.image && !item.image.includes('unsplash.com'));
+                        const sizesList: string[] = Array.isArray(item.sizes) && item.sizes.length > 0 ? item.sizes : ['S', 'M', 'L', 'XL', 'XXL'];
+                        const hexColor = item.hex || '#8FA38D';
+                        const waText = encodeURIComponent(
+                          `Halo Admin Alviero Studio (${currentBranchInfo.name}), saya ingin menanyakan ketersediaan dan sewa busana Kebaya warna ${item.name} untuk sesi foto.`
+                        );
+                        const waUrl = `https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=${waText}`;
+
                         return (
-                          <button
-                            key={filter.id}
-                            onClick={() => setSelectedKebayaFilter(filter.id as any)}
-                            className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${isSelected
-                              ? 'bg-slate-900 text-white shadow-md'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                              }`}
+                          <div
+                            key={item.id || idx}
+                            className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4 text-left"
                           >
-                            <span>{filter.icon}</span>
-                            <span>{filter.label}</span>
-                          </button>
+                            {/* Visual Preview: Foto Asli Studio atau Luxury Swatch Card (Zero Unsplash) */}
+                            {hasRealPhoto ? (
+                              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-stone-100 border border-[#EFE5DC] group">
+                                <img
+                                  src={item.image}
+                                  alt={item.name}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                <div className="absolute top-2.5 left-2.5 bg-black/70 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: hexColor }}></span>
+                                  <span>{item.name}</span>
+                                </div>
+                                {item.tag && (
+                                  <div className="absolute top-2.5 right-2.5 bg-[#FAF0E6] text-[#8A5A36] text-[10px] font-bold px-2.5 py-1 rounded-full border border-[#EAD5C3] shadow-xs">
+                                    {item.tag}
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <div
+                                className="relative aspect-[16/9] rounded-2xl p-4 flex flex-col justify-between overflow-hidden shadow-inner border border-black/10 text-white"
+                                style={{
+                                  background: `linear-gradient(135deg, ${hexColor}DD, ${hexColor})`
+                                }}
+                              >
+                                <div className="flex items-center justify-between relative z-10">
+                                  <span className="text-[10px] font-bold font-mono uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-xs border border-white/30 text-white">
+                                    {item.tag || 'Koleksi Studio'}
+                                  </span>
+                                  <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full bg-black/25 text-white/90">
+                                    {hexColor}
+                                  </span>
+                                </div>
+
+                                <div className="relative z-10 my-auto text-center py-2">
+                                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-xs border border-white/40 flex items-center justify-center mx-auto mb-1.5 shadow-sm text-2xl">
+                                    👗
+                                  </div>
+                                  <h4 className="font-serif font-black text-xl text-white drop-shadow-sm">
+                                    Kebaya {item.name}
+                                  </h4>
+                                  <span className="text-[10.5px] text-white/80 font-century">
+                                    Tersedia di Lemari Wardrobe Studio
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center justify-between text-[10px] text-white/90 relative z-10 pt-1 border-t border-white/20">
+                                  <span>✨ Siap Fitting di Studio</span>
+                                  <span className="font-bold">Ukuran S - XXL</span>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Deskripsi & Informasi Busana */}
+                            <div className="space-y-2 flex-1">
+                              <div className="flex items-center justify-between gap-2">
+                                <h4 className="text-lg font-serif font-black text-[#2A2A2A]">
+                                  Kebaya {item.name}
+                                </h4>
+                                <span className="text-xs font-mono font-bold text-stone-500 bg-[#FAF8F5] px-2 py-0.5 rounded border border-[#E8DDD6]">
+                                  {item.vendorName || 'Studio'}
+                                </span>
+                              </div>
+                              <p className="text-xs text-stone-600 font-century leading-relaxed line-clamp-2">
+                                {item.desc || `Koleksi busana kebaya warna ${item.name} anggun dengan aksen brokat halus berpayet mewah.`}
+                              </p>
+
+                              {/* Ukuran Tersedia */}
+                              <div className="pt-2">
+                                <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block mb-1">
+                                  Pilihan Ukuran Siap Pakai:
+                                </span>
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  {sizesList.map((sz) => (
+                                    <span
+                                      key={sz}
+                                      className="px-2 py-0.5 rounded-md text-[10.5px] font-mono font-bold bg-[#FAF8F5] text-[#2A2A2A] border border-[#E8DDD6]"
+                                    >
+                                      {sz}
+                                    </span>
+                                  ))}
+                                  <span className="text-[10px] text-[#5C725A] font-medium ml-1">
+                                    ✓ Fitting Room Tersedia
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Tombol Action Chat WA */}
+                            <div className="pt-3 border-t border-[#F2E9E4] flex flex-col sm:flex-row items-center gap-2">
+                              <a
+                                href={waUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full py-2.5 px-4 rounded-full bg-[#25D366] hover:bg-[#20ba59] active:bg-[#1da850] text-white font-serif font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer active:scale-95"
+                              >
+                                <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                                <span>Tanya Stok &amp; Fitting via WA</span>
+                              </a>
+                            </div>
+                          </div>
                         );
                       })}
                     </div>
 
-                    {/* Daftar 9 Model Kebayak dan Gaun (Sesuai Gambar Asli) */}
-                    <div className="space-y-6">
-                      {[
-                        {
-                          id: 'kebaya-01',
-                          number: '01',
-                          name: 'Kebaya Adat Jawa Maroon & Beskap Tradisional',
-                          subtitle: 'Adat Jawa Modern • Sunset Background',
-                          type: 'adat',
-                          badge: 'Adat Tradisional',
-                          leftImage: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '225K',
-                          personalPackageId: 'couple-sweet',
-                          couplePackageId: 'couple-romantic-deluxe',
-                          descPersonal: 'Include 1 Kebaya Adat Jawa + Kain Jarik',
-                          descCouple: 'Include 2 Kebaya + Beskap & Blangkon Lengkap'
-                        },
-                        {
-                          id: 'kebaya-02',
-                          number: '02',
-                          name: 'Kebaya Brokat Gold Mustard Mewah',
-                          subtitle: 'Wisuda, Lamaran & Sesi Formal',
-                          type: 'modern',
-                          badge: 'Wisuda & Lamaran',
-                          leftImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '215K',
-                          personalPackageId: 'personal-bold-statement',
-                          couplePackageId: 'couple-sweet',
-                          descPersonal: 'Include 1 Kebaya Brokat Gold Mewah',
-                          descCouple: 'Include 1 Kebaya Gold + 1 Kemeja/Beskap'
-                        },
-                        {
-                          id: 'kebaya-03',
-                          number: '03',
-                          name: 'Kebaya Bludru Hitam Keraton & Gunungan Wayang Emas',
-                          subtitle: 'Nuansa Keraton Jawa Klasik Elegan',
-                          type: 'adat',
-                          badge: 'Klasik Keraton',
-                          leftImage: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '225K',
-                          personalPackageId: 'couple-sweet',
-                          couplePackageId: 'couple-romantic-deluxe',
-                          descPersonal: 'Include 1 Kebaya Bludru Hitam Sulam Emas',
-                          descCouple: 'Include Kebaya Bludru + Beskap Hitam Klasik'
-                        },
-                        {
-                          id: 'kebaya-04',
-                          number: '04',
-                          name: 'Kebaya Modern Baby Blue Brokat',
-                          subtitle: 'Warna Soft Chic Pastel Kekinian',
-                          type: 'modern',
-                          badge: 'Modern Chic',
-                          leftImage: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '215K',
-                          personalPackageId: 'personal-bold-statement',
-                          couplePackageId: 'couple-sweet',
-                          descPersonal: 'Include 1 Kebaya Baby Blue Brokat',
-                          descCouple: 'Include Kebaya Baby Blue + Kemeja Pasangan'
-                        },
-                        {
-                          id: 'kebaya-05',
-                          number: '05',
-                          name: 'Kebaya Encim / Kutubaru Emas Coklat Tradisional',
-                          subtitle: 'Aksen Vintage Klasik Elegan',
-                          type: 'adat',
-                          badge: 'Kutubaru Klasik',
-                          leftImage: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '215K',
-                          personalPackageId: 'personal-bold-statement',
-                          couplePackageId: 'couple-sweet',
-                          descPersonal: 'Include 1 Kebaya Kutubaru Champagne Gold',
-                          descCouple: 'Include Kebaya Kutubaru + Kemeja Batik'
-                        },
-                        {
-                          id: 'kebaya-06',
-                          number: '06',
-                          name: 'Kebaya & Kemeja Batik Couple Maroon Senada',
-                          subtitle: 'Serasi Harmonis untuk Pasangan',
-                          type: 'adat',
-                          badge: 'Couple Batik',
-                          leftImage: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '225K',
-                          personalPackageId: 'couple-sweet',
-                          couplePackageId: 'couple-romantic-deluxe',
-                          descPersonal: 'Include 1 Kebaya Motif Batik Maroon',
-                          descCouple: 'Include Set Couple Batik Maroon Senada'
-                        },
-                        {
-                          id: 'kebaya-07',
-                          number: '07',
-                          name: 'Kebaya Abu-Abu Lilac Elegan & Cunduk Mentul',
-                          subtitle: 'Sentuhan Anggun Budaya Nusantara',
-                          type: 'adat',
-                          badge: 'Adat Jawa Lilac',
-                          leftImage: 'https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '225K',
-                          personalPackageId: 'couple-sweet',
-                          couplePackageId: 'couple-romantic-deluxe',
-                          descPersonal: 'Include 1 Kebaya Silver Lilac + Aksesoris',
-                          descCouple: 'Include Kebaya Lilac + Beskap Pasangan'
-                        },
-                        {
-                          id: 'kebaya-08',
-                          number: '08',
-                          name: 'Kebaya Dusty Pink / Peach Soft Cantik',
-                          subtitle: 'Nuansa Romantis Manis & Segar',
-                          type: 'modern',
-                          badge: 'Pastel Sweet',
-                          leftImage: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '115K',
-                          couplePrice: '215K',
-                          personalPackageId: 'personal-bold-statement',
-                          couplePackageId: 'couple-sweet',
-                          descPersonal: 'Include 1 Kebaya Dusty Pink Brokat',
-                          descCouple: 'Include Kebaya Dusty Pink + Kemeja Batik'
-                        },
-                        {
-                          id: 'kebaya-09',
-                          number: '09',
-                          name: 'Gaun Bridal Putih Mewah & Setelan Jas Pria',
-                          subtitle: 'Sesi Foto Wedding & Prewedding Gaun Pengantin',
-                          type: 'gaun',
-                          badge: 'Bridal & Prewedding',
-                          leftImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=85',
-                          rightImage: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=85',
-                          personalPrice: '300K',
-                          couplePrice: '500K',
-                          personalPackageId: 'personal-opulent-shot',
-                          couplePackageId: 'couple-romantic-deluxe',
-                          descPersonal: 'Include 1 Gaun Pengantin Putih Mewah + Tiara',
-                          descCouple: 'Include Gaun Bridal Mewah + Setelan Jas Pria'
-                        }
-                      ]
-                        .filter((item) => selectedKebayaFilter === 'all' || item.type === selectedKebayaFilter)
-                        .map((item) => (
-                          <div
-                            key={item.id}
-                            className="bg-[#e4e4e4] hover:bg-[#dedede] transition-colors rounded-3xl p-4 sm:p-6 border border-stone-300 shadow-sm space-y-4"
-                          >
-                            {/* Header Kartu */}
-                            <div className="flex items-center justify-between gap-2 border-b border-stone-300/80 pb-2">
-                              <div className="flex items-center gap-2">
-                                <span className="w-7 h-7 rounded-full bg-stone-800 text-amber-300 font-serif font-black text-xs flex items-center justify-center shrink-0">
-                                  {item.number}
-                                </span>
-                                <div>
-                                  <h4 className="font-serif font-black text-sm sm:text-base text-stone-900 leading-tight">
-                                    {item.name}
-                                  </h4>
-                                  <p className="text-[10.5px] text-stone-600 font-serif italic">
-                                    {item.subtitle}
-                                  </p>
-                                </div>
-                              </div>
-                              <span className="text-[9.5px] font-bold uppercase tracking-wider bg-stone-300 text-stone-800 px-2.5 py-0.5 rounded-full shrink-0">
-                                {item.badge}
-                              </span>
-                            </div>
-
-                            {/* 2 Foto Berdampingan (Sesuai Mockup Asli) */}
-                            <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                              <div className="relative aspect-[3/4] bg-stone-900 rounded-2xl overflow-hidden shadow-md group">
-                                <img
-                                  src={item.leftImage}
-                                  alt={`${item.name} - Pose 1`}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-md">
-                                  Pose 1
-                                </div>
-                              </div>
-
-                              <div className="relative aspect-[3/4] bg-stone-900 rounded-2xl overflow-hidden shadow-md group">
-                                <img
-                                  src={item.rightImage}
-                                  alt={`${item.name} - Pose 2`}
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                />
-                                <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-md">
-                                  Pose 2
-                                </div>
-                              </div>
-                            </div>
-
-                            {/* Pilihan Paket Personal & Couple di Bawah Foto */}
-                            <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-1">
-                              {/* Kolom Kiri: Personal */}
-                              <div className="flex flex-col justify-between space-y-2 p-3 bg-white/70 rounded-2xl border border-stone-300/70 shadow-2xs">
-                                <div className="space-y-0.5">
-                                  <div className="font-serif font-black text-sm sm:text-base text-stone-900">
-                                    Personal
-                                  </div>
-                                  <p className="text-[10px] text-stone-600 line-clamp-1">
-                                    {item.descPersonal}
-                                  </p>
-                                  <div className="font-serif font-black text-lg sm:text-xl text-stone-900 pt-0.5">
-                                    {item.personalPrice}
-                                  </div>
-                                </div>
-
-                                <button
-                                  onClick={() => onSelectPackageForBooking(item.personalPackageId)}
-                                  className="w-full min-h-[36px] bg-[#e04f43] hover:bg-[#cb3e32] active:bg-[#b53429] text-white font-extrabold text-[11px] py-1.5 rounded-full transition-all cursor-pointer shadow-sm active:scale-95 flex items-center justify-center gap-1 uppercase tracking-wider"
-                                >
-                                  <span>PILIH PAKET INI</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </button>
-                              </div>
-
-                              {/* Kolom Kanan: Couple */}
-                              <div className="flex flex-col justify-between space-y-2 p-3 bg-white/70 rounded-2xl border border-stone-300/70 shadow-2xs">
-                                <div className="space-y-0.5">
-                                  <div className="font-serif font-black text-sm sm:text-base text-stone-900">
-                                    Couple
-                                  </div>
-                                  <p className="text-[10px] text-stone-600 line-clamp-1">
-                                    {item.descCouple}
-                                  </p>
-                                  <div className="font-serif font-black text-lg sm:text-xl text-stone-900 pt-0.5">
-                                    {item.couplePrice}
-                                  </div>
-                                </div>
-
-                                <button
-                                  onClick={() => onSelectPackageForBooking(item.couplePackageId)}
-                                  className="w-full min-h-[36px] bg-[#e04f43] hover:bg-[#cb3e32] active:bg-[#b53429] text-white font-extrabold text-[11px] py-1.5 rounded-full transition-all cursor-pointer shadow-sm active:scale-95 flex items-center justify-center gap-1 uppercase tracking-wider"
-                                >
-                                  <span>PILIH PAKET INI</span>
-                                  <ArrowRight className="w-3 h-3" />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-
                     {/* Disclaimer & Konsultasi WhatsApp */}
-                    <div className="bg-stone-100 p-4 sm:p-5 rounded-3xl border border-stone-300 text-center space-y-3">
-                      <p className="text-xs text-stone-700 font-medium">
-                        Ingin fitting ukuran kebaya/gaun atau konsultasi ketersediaan tanggal pemotretan?
-                      </p>
-                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <div className="bg-[#FAF8F5] p-5 rounded-3xl border border-[#E8DDD6] text-center space-y-3 shadow-2xs">
+                      <div className="max-w-xl mx-auto space-y-1">
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A]">
+                          Ingin Konsultasi Konsep Gaun &amp; Fitting di Studio?
+                        </h4>
+                        <p className="text-xs text-stone-600 font-century">
+                          Tim Alviero Studio siap membantu Anda memilih perpaduan warna kebaya, gaun wisuda, kain jarik, hingga riasan MUA yang paling cocok dengan warna kulit dan tema pemotretan Anda.
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
                         <a
-                          href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20${encodeURIComponent(currentBranchInfo.name)},%20saya%20ingin%20tanya%20pricelist%20dan%20fitting%20Kebaya%20/%20Gaun`}
+                          href={`https://wa.me/${currentBranchInfo.whatsappNumber || (selectedBranch === 'cabang-2' ? '6285168879214' : '6287777538164')}?text=Halo%20Admin%20Alviero%20Studio%20(${encodeURIComponent(currentBranchInfo.name)}),%20saya%20ingin%20konsultasi%20mengenai%20sewa%20Kebaya%20dan%20Gaun.`}
                           target="_blank"
                           rel="noreferrer"
-                          className="min-h-[40px] px-5 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95"
+                          className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white font-serif font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer active:scale-95"
                         >
-                          <MessageCircle className="w-4 h-4" />
-                          <span>Chat Admin via WhatsApp</span>
+                          <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                          <span>Chat WhatsApp Studio ({currentBranchInfo.name})</span>
                         </a>
 
                         <button
                           type="button"
                           onClick={handleGoToDisclaimer}
-                          className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white px-4 py-2 rounded-full border border-rose-200 shadow-2xs"
+                          className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-white hover:bg-stone-50 text-stone-700 font-serif font-bold text-xs tracking-wider uppercase border border-[#E8DDD6] shadow-2xs transition-all cursor-pointer"
                         >
-                          <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
+                          <span>📖 Baca Ketentuan &amp; Disclaimer</span>
                         </button>
                       </div>
                     </div>

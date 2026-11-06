@@ -3700,6 +3700,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                 <img
                                   src={backdrop.previewImage}
                                   alt={backdrop.name}
+                                  onError={(e) => {
+                                    (e.target as HTMLElement).style.display = 'none';
+                                  }}
                                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover/thumb:scale-110"
                                 />
                               )}

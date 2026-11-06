@@ -359,6 +359,7 @@ export default function App() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               onOpenBooking={() => setIsBookingOpen(true)}
+              onOpenBeautyModal={() => setIsBeautyModalOpen(true)}
             />
           )
         )}

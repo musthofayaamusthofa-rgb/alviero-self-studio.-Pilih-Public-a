@@ -4154,7 +4154,7 @@
       "branchId": "cabang-1",
       "icon": "⚪",
       "badge": "Ikonik Studio 1 (Infinity)",
-      "imageUrl": "/images/gallery/graduation-indoor/grad-indoor-1.jpg",
+      "imageUrl": "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg",
       "description": "Panggung Limbo Putih lengkung tanpa batas sudut antara lantai dan dinding, memberikan kesan visual luas tanpa garis batas untuk wisuda dan rombongan keluarga besar.",
       "conceptNote": "Didesain khusus untuk wisuda rombongan besar dan keluarga, mampu menampung pose formasi dinamis tanpa terganggu sudut lantai.",
       "highlights": [
@@ -4994,7 +4994,7 @@
           "id": "novita-sage",
           "name": "Sage",
           "hex": "#8FA38D",
-          "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Best Seller Wisuda",
           "desc": "Hijau sage pastel redup berpadu brokat payet halus timbul. Sangat fotogenik di studio foto dan menjadi warna terfavorit para wisudawati.",
           "sizes": [
@@ -5012,15 +5012,13 @@
             "XXL": 1
           },
           "totalStock": 12,
-          "images": [
-            "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "novita-nude",
           "name": "Nude",
           "hex": "#D8B89E",
-          "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Warm Natural",
           "desc": "Nuansa krem nude hangat yang menyatu lembut dengan warna kulit alami. Memberi kesan anggun, bersih, dan memancarkan aura natural.",
           "sizes": [
@@ -5038,15 +5036,13 @@
             "XXL": 1
           },
           "totalStock": 9,
-          "images": [
-            "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "novita-black",
           "name": "Black",
           "hex": "#242424",
-          "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Royal Classic",
           "desc": "Hitam elegan mewah klasik dengan aksen payet berkilau. Memberikan efek siluet tubuh yang ramping, tegas, dan berwibawa.",
           "sizes": [
@@ -5064,15 +5060,13 @@
             "XXL": 1
           },
           "totalStock": 9,
-          "images": [
-            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "novita-maroon",
           "name": "Maroon",
           "hex": "#7A1C29",
-          "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Bold Elegance",
           "desc": "Merah maroon anggun berkarakter mewah. Pilihan sempurna untuk sesi foto wisuda resmi, lamaran, maupun foto keluarga.",
           "sizes": [
@@ -5090,15 +5084,13 @@
             "XXL": 1
           },
           "totalStock": 11,
-          "images": [
-            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "novita-navy",
           "name": "Navy",
           "hex": "#1D2A44",
-          "image": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Exclusive Modern",
           "desc": "Biru navy tua berkilau payet kristal mewah. Kontras sangat tajam dan memukau di bawah pencahayaan softbox studio Alviero.",
           "sizes": [
@@ -5116,15 +5108,13 @@
             "XXL": 1
           },
           "totalStock": 7,
-          "images": [
-            "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "novita-gold",
           "name": "Gold",
           "hex": "#C8A34A",
-          "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Glamour Luxury",
           "desc": "Kuning keemasan berpayet timbul premium. Memancarkan aura megah, cerah, dan berkelas khas pesta formal.",
           "sizes": [
@@ -5142,15 +5132,13 @@
             "XXL": 0
           },
           "totalStock": 5,
-          "images": [
-            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "novita-silver",
           "name": "Silver",
           "hex": "#B8BAC2",
-          "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Chic Futuristic",
           "desc": "Abu-abu perak berkilau dingin yang modern dan bersih. Tampil sangat modis dan kekinian untuk konsep wisuda minimalis.",
           "sizes": [
@@ -5168,9 +5156,7 @@
             "XXL": 1
           },
           "totalStock": 7,
-          "images": [
-            "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         }
       ]
     },
@@ -5325,7 +5311,7 @@
           "id": "masaya-maroon",
           "name": "Maroon",
           "hex": "#7A1C29",
-          "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Bold Glamour Couture",
           "desc": "Merah maroon pekat tegas dengan bordir couture mewah berkarakter kuat.",
           "sizes": [
@@ -5343,17 +5329,13 @@
             "XXL": 1
           },
           "totalStock": 11,
-          "images": [
-            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
-            "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=900&q=85",
-            "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "masaya-black",
           "name": "Black",
           "hex": "#242424",
-          "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "High Fashion Velvet",
           "desc": "Hitam beludru mewah kontras tinggi dramatis dan sangat memukau.",
           "sizes": [
@@ -5371,16 +5353,13 @@
             "XXL": 1
           },
           "totalStock": 9,
-          "images": [
-            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
-            "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "masaya-gold",
           "name": "Gold",
           "hex": "#C8A34A",
-          "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Luxury Royal Gold",
           "desc": "Emas kilau spektakuler untuk konsep foto wisuda atau keluarga mewah formal.",
           "sizes": [
@@ -5398,17 +5377,13 @@
             "XXL": 1
           },
           "totalStock": 9,
-          "images": [
-            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
-            "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=900&q=85",
-            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         },
         {
           "id": "masaya-navy",
           "name": "Navy",
           "hex": "#1D2A44",
-          "image": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+          "image": "",
           "tag": "Dramatic Night Glamour",
           "desc": "Biru malam gelap tegas dengan aksen mutiara kristal berkilauan.",
           "sizes": [
@@ -5426,10 +5401,7 @@
             "XXL": 1
           },
           "totalStock": 8,
-          "images": [
-            "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
-            "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=85"
-          ]
+          "images": []
         }
       ]
     },
@@ -5517,56 +5489,56 @@
   "kebayaColorCatalog": {
     "Sage": {
       "name": "Sage",
-      "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#8FA38D",
       "tag": "Best Seller Wisuda",
       "desc": "Hijau sage pastel redup berpadu brokat payet halus timbul. Sangat fotogenik di studio foto dan menjadi warna terfavorit para wisudawati."
     },
     "Nude": {
       "name": "Nude",
-      "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#D8B89E",
       "tag": "Warm Natural",
       "desc": "Nuansa krem nude hangat yang menyatu lembut dengan warna kulit alami. Memberi kesan anggun, bersih, dan memancarkan aura natural."
     },
     "Black": {
       "name": "Black",
-      "image": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#242424",
       "tag": "Royal Classic",
       "desc": "Hitam elegan mewah klasik dengan aksen payet berkilau. Memberikan efek siluet tubuh yang ramping, tegas, dan berwibawa."
     },
     "Maroon": {
       "name": "Maroon",
-      "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#7A1C29",
       "tag": "Bold Elegance",
       "desc": "Merah maroon anggun berkarakter mewah. Pilihan sempurna untuk sesi foto wisuda resmi, lamaran, maupun foto keluarga."
     },
     "Navy": {
       "name": "Navy",
-      "image": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#1D2A44",
       "tag": "Exclusive Modern",
       "desc": "Biru navy tua berkilau payet kristal mewah. Kontras sangat tajam dan memukau di bawah pencahayaan softbox studio Alviero."
     },
     "Gold": {
       "name": "Gold",
-      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#C8A34A",
       "tag": "Glamour Luxury",
       "desc": "Kuning keemasan berpayet timbul premium. Memancarkan aura megah, cerah, dan berkelas khas pesta formal."
     },
     "Silver": {
       "name": "Silver",
-      "image": "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#B8BAC2",
       "tag": "Chic Futuristic",
       "desc": "Abu-abu perak berkilau dingin yang modern dan bersih. Tampil sangat modis dan kekinian untuk konsep wisuda minimalis."
     },
     "Dusty Pink": {
       "name": "Dusty Pink",
-      "image": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",
+      "image": "",
       "hex": "#DDA7A5",
       "tag": "Sweet Feminine",
       "desc": "Merah muda dusty lembut feminin yang memancarkan pesona manis, muda, dan ceria."

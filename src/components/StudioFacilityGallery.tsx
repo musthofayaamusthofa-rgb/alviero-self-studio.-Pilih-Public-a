@@ -777,6 +777,24 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
   // Section 3: Background dinamis yang terhubung langsung dengan studioConfig.backgrounds
   const dynamicBackgrounds = useMemo(() => {
     const rawBgs = (studioConfig as any)?.backgrounds;
+    const STUDIO_BG_DEFAULTS: Record<string, string> = {
+      'hitam': '/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg',
+      'hitam list': '/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg',
+      'putih': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih tematik': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih list': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'limbo': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih tengah': '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg',
+      'putih jendela': '/images/backdrops/backdrop-7.jpg',
+      'abu-abu': '/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg',
+      'hijau pastel': '/images/backdrops/backdrop-1.jpg',
+      'cream': '/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg',
+      'tematik cream': '/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg',
+      'coklat': '/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg',
+      'coklat jendela': '/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg',
+      'biru': '/images/backgrounds/bg_biru_foto1_1793236920387_1793236921945.jpg',
+    };
+
     if (Array.isArray(rawBgs) && rawBgs.length > 0) {
       const branchBgs = rawBgs.filter((b: any) => {
         if (b.active === false) return false;
@@ -786,9 +804,13 @@ export const StudioFacilityGallery: React.FC<StudioFacilityGalleryProps> = ({
 
       if (branchBgs.length > 0) {
         return branchBgs.map((b: any) => {
-          const imgs = (Array.isArray(b.previewImages) && b.previewImages.length > 0)
-            ? b.previewImages
-            : [b.previewImage || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85'];
+          const bgNameLower = (b.name || '').trim().toLowerCase();
+          const localDefault = STUDIO_BG_DEFAULTS[bgNameLower] || '/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg';
+          const cleanImg = (b.previewImage && !b.previewImage.includes('unsplash.com')) ? b.previewImage : localDefault;
+          const rawImgs = (Array.isArray(b.previewImages) && b.previewImages.length > 0)
+            ? b.previewImages.filter((u: string) => Boolean(u) && !u.includes('unsplash.com'))
+            : [cleanImg];
+          const imgs = rawImgs.length > 0 ? rawImgs : [cleanImg];
           
           return {
             id: b.id,
