@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-05T15:13:41.343Z",
+  "lastUpdated": "2026-11-06T06:33:34.654Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1530,7 +1530,7 @@
     {
       "id": "grad-indoor-infinity-scholar",
       "category": "grad-indoor",
-      "categoryLabel": "Studio Indoor",
+      "categoryLabel": "Foto Studio - Indoor",
       "subtitle": "Graduation Indoor 3",
       "badge": "2 Wisudawan",
       "name": "Infinity Scholar",
@@ -1547,12 +1547,7 @@
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "2 Wisudawan + 2 Family"
-        },
-        {
-          "icon": "👥",
-          "label": "Batas Orang",
-          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
+          "text": "2 Wisudawan + Family (Maks 10 Org)"
         },
         {
           "icon": "⏰",
@@ -1565,11 +1560,6 @@
           "text": "2 Background Studio"
         },
         {
-          "icon": "📁",
-          "label": "Pengiriman Softfile",
-          "text": "All File via Google Drive"
-        },
-        {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
           "text": "Edit 12 Foto High-Res"
@@ -1577,17 +1567,20 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 4 Uk 10Rs"
+          "text": "Cetak 4 Uk 10Rs / 6 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
         },
         {
           "icon": "👗",
           "label": "Kostum & Toga",
-          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
+          "text": "Maksimal 2 Kostum Wisudawan"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "",
-      "imageUrls": [],
       "_origIndex": 2
     }
   ],
@@ -1724,7 +1717,7 @@
     {
       "id": "grad-indoor-infinity-scholar",
       "category": "grad-indoor",
-      "categoryLabel": "Studio Indoor",
+      "categoryLabel": "Foto Studio - Indoor",
       "subtitle": "Graduation Indoor 3",
       "badge": "2 Wisudawan",
       "name": "Infinity Scholar",
@@ -1737,52 +1730,6 @@
       "edit": "Edit 12 Foto High-Res",
       "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
-      "facilities": [
-        {
-          "icon": "👥",
-          "label": "Kapasitas Orang",
-          "text": "2 Wisudawan + 2 Family"
-        },
-        {
-          "icon": "👥",
-          "label": "Batas Orang",
-          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
-        },
-        {
-          "icon": "⏰",
-          "label": "Durasi Foto",
-          "text": "45 Menit Unlimited Foto"
-        },
-        {
-          "icon": "✨",
-          "label": "Background Studio",
-          "text": "2 Background Studio"
-        },
-        {
-          "icon": "📁",
-          "label": "Pengiriman Softfile",
-          "text": "All File via Google Drive"
-        },
-        {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 12 Foto High-Res"
-        },
-        {
-          "icon": "🖼️",
-          "label": "Jatah Cetak Foto",
-          "text": "Cetak 4 Uk 10Rs"
-        },
-        {
-          "icon": "👗",
-          "label": "Kostum & Toga",
-          "text": "Maksimal 1 kostum (Wisudawan boleh Lepas Pasang Toga)"
-        }
-      ],
-      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "category": "grad-indoor",
-      "categoryLabel": "Foto Studio - Indoor",
-      "_origIndex": 2,
       "facilities": [
         {
           "icon": "👥",
@@ -1819,7 +1766,9 @@
           "label": "Kostum & Toga",
           "text": "Maksimal 2 Kostum Wisudawan"
         }
-      ]
+      ],
+      "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
+      "_origIndex": 2
     },
     {
       "id": "grad-bundling-ultimate-1",
@@ -2403,31 +2352,29 @@
     {
       "id": "family-sweet-together",
       "category": "family",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Family",
       "subtitle": "Family 1",
       "badge": "Keluarga Kecil",
       "name": "Sweet Together",
       "originalPrice": "Rp 400.000",
-      "price": "350K",
+      "price": "295K",
       "priceUnit": "per sesi",
-      "duration": "30 Menit Sesi Foto",
+      "duration": "20 Menit Unlimited Foto",
       "background": "1 Background Studio",
-      "people": "Maksimal 6 Orang",
-      "edit": "Edit 5 Foto Pilihan",
-      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga",
-      "_origIndex": 18,
       "facilities": [
         {
           "icon": "👥",
-          "label": "Kapasitas Orang",
-          "text": "Maksimal 10 Orang (Potongan 50K jika 3 org)"
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "30 Menit Unlimited Foto"
+          "text": "20 Menit Unlimited Foto"
         },
         {
           "icon": "✨",
@@ -2437,12 +2384,7 @@
         {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
-          "text": "Edit 6 Foto Pilihan"
-        },
-        {
-          "icon": "🖼️",
-          "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs / 3 Uk 4R"
+          "text": "Edit 6 Foto High-Res"
         },
         {
           "icon": "📁",
@@ -2450,11 +2392,22 @@
           "text": "All File via Google Drive"
         },
         {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 2 Uk 10Rs"
+        },
+        {
           "icon": "👗",
           "label": "Ganti Kostum",
           "text": "Maksimal 1 Kostum"
         }
-      ]
+      ],
+      "note": "*Fotografer profesional mengarahkan pose seluruh anggota keluarga",
+      "imageUrl": "/images/packages/sweet_together_foto1_1793946699919.jpg",
+      "imageUrls": [
+        "/images/packages/sweet_together_foto1_1793946699919.jpg"
+      ],
+      "_origIndex": 18
     },
     {
       "id": "family-happy-nest",
@@ -3704,7 +3657,39 @@
       "print": "Cetak 2 Uk 10Rs / 3 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "_origIndex": 3
+      "_origIndex": 3,
+      "facilities": [
+        {
+          "icon": "🏛️",
+          "label": "Sesi Indoor",
+          "text": "30 Menit Studio Indoor (1 Background)"
+        },
+        {
+          "icon": "🌳",
+          "label": "Sesi Outdoor",
+          "text": "30 Menit Sesi Kampus Malang"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Sahabat"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 2 Uk 10Rs + 3 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-bundling-ultimate-2",
@@ -3723,7 +3708,39 @@
       "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
-      "_origIndex": 4
+      "_origIndex": 4,
+      "facilities": [
+        {
+          "icon": "🏛️",
+          "label": "Sesi Indoor",
+          "text": "30 Menit Studio Indoor (2 Background)"
+        },
+        {
+          "icon": "🌳",
+          "label": "Sesi Outdoor",
+          "text": "30 Menit Sesi Kampus Malang"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Sahabat"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 14 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak",
+          "text": "Cetak 2 Uk 10Rs + 6 Uk 4R"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        }
+      ]
     }
   ],
   "outdoorPackages": [
@@ -3744,7 +3761,34 @@
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
       "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 5
+      "_origIndex": 5,
+      "facilities": [
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "30 Menit Unlimited Shoots"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 5 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-outdoor-smart-60",
@@ -3763,7 +3807,34 @@
       "print": "Softfile Only",
       "fileDelivery": "All File via Google Drive",
       "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 6
+      "_origIndex": 6,
+      "facilities": [
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "60 Menit Unlimited Shoots"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ]
     },
     {
       "id": "grad-outdoor-cumlaude",
@@ -3782,7 +3853,39 @@
       "print": "Softfile & Video 9:16",
       "fileDelivery": "All File via Google Drive",
       "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "_origIndex": 7
+      "_origIndex": 7,
+      "facilities": [
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "🎬",
+          "label": "Video Sinematik",
+          "text": "Include Video Reels Cinematic 9:16"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "75 Menit Sesi Foto & Video"
+        },
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "1 Wisudawan + Keluarga / Pendamping"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 12 Foto High-Res + Video HD"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File Foto & Video via Google Drive"
+        }
+      ]
     }
   ],
   "operationalHoursByBranch": {
