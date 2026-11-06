@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:33:21.918Z",
+  "lastUpdated": "2026-11-06T09:34:31.385Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2420,22 +2420,22 @@
       "originalPrice": "Rp 600.000",
       "price": "415K",
       "priceUnit": "per sesi",
-      "duration": "45 Menit Unlimited Foto",
+      "duration": "40 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "Maksimal 12 Orang (Keluarga Besar)",
-      "edit": "Edit 8 Foto Pilihan",
-      "print": "Cetak 2 Uk 10Rs + 2 Uk 4R",
+      "people": "Minimal 10 Orang (Keluarga Besar)",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "Maksimal 12 Orang (Keluarga Besar)"
+          "text": "Minimal 10 Orang (Keluarga Besar)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "45 Menit Unlimited Foto"
+          "text": "40 Menit Unlimited Foto"
         },
         {
           "icon": "✨",
@@ -2445,12 +2445,12 @@
         {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
-          "text": "Edit 8 Foto Pilihan"
+          "text": "Edit 8 Foto High-Res"
         },
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs + 2 Uk 4R"
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -2460,7 +2460,7 @@
         {
           "icon": "👗",
           "label": "Ganti Kostum",
-          "text": "Maksimal 2 Kostum"
+          "text": "Maksimal 1 Kostum"
         }
       ],
       "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
