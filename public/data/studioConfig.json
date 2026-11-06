@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T09:26:10.588Z",
+  "lastUpdated": "2026-11-06T09:26:41.639Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -2412,21 +2412,19 @@
     {
       "id": "family-happy-nest",
       "category": "family",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Family",
       "subtitle": "Family 2",
-      "badge": "Keluarga Besar",
+      "badge": "Keluarga Kecil",
       "name": "Happy Nest",
       "originalPrice": "Rp 600.000",
       "price": "500K",
       "priceUnit": "per sesi",
-      "duration": "45 Menit Sesi Foto",
+      "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "Maksimal 12 Orang",
+      "people": "Maksimal 12 Orang (Keluarga Besar)",
       "edit": "Edit 8 Foto Pilihan",
-      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "print": "Cetak 2 Uk 10Rs + 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
-      "_origIndex": 19,
       "facilities": [
         {
           "icon": "👥",
@@ -2463,7 +2461,11 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 2 Kostum"
         }
-      ]
+      ],
+      "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 19
     },
     {
       "id": "group-friendly-frame",
