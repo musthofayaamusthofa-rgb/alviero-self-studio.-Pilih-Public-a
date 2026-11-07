@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-06T15:24:09.755Z",
+  "lastUpdated": "2026-11-07T06:18:32.560Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -1523,10 +1523,10 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/supreme_scholar_foto1_1794032091262.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
+        "/images/packages/supreme_scholar_foto1_1794032091262.jpg",
+        "/images/packages/supreme_scholar_foto2_1794032105097.jpg"
       ],
       "_origIndex": 1
     },
@@ -1584,12 +1584,12 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "_origIndex": 2,
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/infinity_scholar_foto1_1794032119978.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+        "/images/packages/infinity_scholar_foto1_1794032119978.jpg",
+        "/images/packages/infinity_scholar_foto2_1794032147681.jpg"
+      ],
+      "_origIndex": 2
     }
   ],
   "studioPackages": [
@@ -1718,10 +1718,10 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/supreme_scholar_foto1_1794032091262.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
+        "/images/packages/supreme_scholar_foto1_1794032091262.jpg",
+        "/images/packages/supreme_scholar_foto2_1794032105097.jpg"
       ],
       "_origIndex": 1
     },
@@ -1779,12 +1779,12 @@
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
-      "_origIndex": 2,
-      "imageUrl": "/images/categories/graduation.jpg",
+      "imageUrl": "/images/packages/infinity_scholar_foto1_1794032119978.jpg",
       "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+        "/images/packages/infinity_scholar_foto1_1794032119978.jpg",
+        "/images/packages/infinity_scholar_foto2_1794032147681.jpg"
+      ],
+      "_origIndex": 2
     },
     {
       "id": "grad-bundling-ultimate-1",
