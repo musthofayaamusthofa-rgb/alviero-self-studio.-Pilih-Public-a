@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T06:38:22.914Z",
+  "lastUpdated": "2026-11-07T06:40:35.072Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -7187,6 +7187,42 @@
       "id": "rule-cabang-2-1794033445689",
       "branch": "cabang-2",
       "backgroundIdA": "c2-self-putih",
+      "backgroundIdB": "c2-self-tematik-cream",
+      "scope": "slot",
+      "reason": "Bentrok area panggung yang sama",
+      "active": true
+    },
+    {
+      "id": "rule-cabang-2-1794033588074",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-tematik-cream",
+      "backgroundIdB": "c2-self-abu",
+      "scope": "slot",
+      "reason": "Bentrok area panggung yang sama",
+      "active": true
+    },
+    {
+      "id": "rule-cabang-2-1794033594248",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-tematik-cream",
+      "backgroundIdB": "c2-self-biru",
+      "scope": "slot",
+      "reason": "Bentrok area panggung yang sama",
+      "active": true
+    },
+    {
+      "id": "rule-cabang-2-1794033598918",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-tematik-cream",
+      "backgroundIdB": "c2-self-putih",
+      "scope": "slot",
+      "reason": "Bentrok area panggung yang sama",
+      "active": true
+    },
+    {
+      "id": "rule-cabang-2-1794033605388",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-tematik-cream",
       "backgroundIdB": "c2-self-tematik-cream",
       "scope": "slot",
       "reason": "Bentrok area panggung yang sama",
