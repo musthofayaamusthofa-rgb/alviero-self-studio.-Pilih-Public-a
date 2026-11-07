@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T06:18:32.560Z",
+  "lastUpdated": "2026-11-07T06:33:18.120Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -302,7 +302,7 @@
     },
     {
       "id": "c2-self-abu",
-      "name": "Coklat",
+      "name": "Abu-abu",
       "category": "solid-color",
       "hex": "#a38068",
       "description": "Latar coklat netral aesthetic untuk foto mandiri kekinian.",
