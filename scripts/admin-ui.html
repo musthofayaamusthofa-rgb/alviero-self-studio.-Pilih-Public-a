@@ -7191,6 +7191,111 @@
       renderAddOns();
     }
 
+    
+    function syncShowcaseWithBackgrounds() {
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.backgrounds)) appConfig.backgrounds = [];
+      if (!Array.isArray(appConfig.showcaseImages)) appConfig.showcaseImages = [];
+
+      const bgs = appConfig.backgrounds;
+      const showcase = appConfig.showcaseImages;
+
+      // A. SINKRONISASI DARI SHOWCASE KE BACKGROUNDS (update foto baru jika diubah di Showcase):
+      showcase.forEach(sItem => {
+        const sName = (sItem.title || sItem.caption || '').trim().toLowerCase();
+        const sBranch = sItem.branchId || 'cabang-2';
+        const sImg = sItem.imageUrl || sItem.src || sItem.image;
+
+        if (!sName || !sImg) return;
+
+        const matchingBg = bgs.find(b => {
+          const bName = (b.name || '').trim().toLowerCase();
+          const bBranches = b.applicableBranches || ['all'];
+          const branchMatches = bBranches.includes('all') || bBranches.includes(sBranch);
+          return (sItem.bgId && b.id === sItem.bgId) || (branchMatches && bName === sName);
+        });
+
+        if (matchingBg) {
+          sItem.bgId = matchingBg.id;
+          if (sImg && !sImg.includes('backdrop-')) {
+            matchingBg.previewImage = sImg;
+            if (!Array.isArray(matchingBg.previewImages) || matchingBg.previewImages.length === 0) {
+              matchingBg.previewImages = [sImg];
+            } else if (!matchingBg.previewImages.includes(sImg)) {
+              matchingBg.previewImages = [sImg, ...matchingBg.previewImages.filter(x => x !== sImg)];
+            }
+          }
+        }
+      });
+
+      // B. SINKRONISASI DARI BACKGROUNDS KE SHOWCASE (masukkan semua background resmi ke showcase):
+      bgs.forEach(bg => {
+        const bName = (bg.name || '').trim();
+        const bBranches = bg.applicableBranches && bg.applicableBranches.length > 0 ? bg.applicableBranches : ['cabang-1'];
+        const bImg = bg.previewImage || (Array.isArray(bg.previewImages) && bg.previewImages[0]) || '';
+
+        bBranches.forEach(branchId => {
+          const targetBranch = branchId === 'all' ? 'cabang-2' : branchId;
+
+          let existing = showcase.find(s => {
+            if (s.bgId && s.bgId === bg.id && (s.branchId === targetBranch || s.branchId === branchId)) return true;
+            const sName = (s.title || s.caption || '').trim().toLowerCase();
+            return sName === bName.toLowerCase() && (s.branchId === targetBranch || s.branchId === branchId);
+          });
+
+          if (existing) {
+            existing.bgId = bg.id;
+            existing.title = bName;
+            existing.caption = bName;
+            existing.branchId = targetBranch;
+            if (bImg && (!existing.src || existing.src.includes('backdrop-') || !existing.imageUrl)) {
+              existing.src = bImg;
+              existing.imageUrl = bImg;
+              existing.image = bImg;
+            }
+            if (bg.active !== undefined) {
+              existing.active = bg.active !== false;
+            }
+            if (bg.description && !existing.subtitle) {
+              existing.subtitle = bg.description;
+            }
+          } else {
+            if (bImg) {
+              showcase.push({
+                id: `showcase-bg-${bg.id}-${targetBranch}`,
+                bgId: bg.id,
+                branchId: targetBranch,
+                src: bImg,
+                imageUrl: bImg,
+                image: bImg,
+                title: bName,
+                subtitle: bg.description || '',
+                caption: bName,
+                tag: bg.applicableTo && bg.applicableTo.includes('self-studio') ? 'SELF STUDIO' : 'STUDIO SHOWCASE',
+                badge: bg.applicableTo && bg.applicableTo.includes('self-studio') ? 'SELF STUDIO' : 'STUDIO SHOWCASE',
+                active: bg.active !== false
+              });
+            }
+          }
+        });
+      });
+
+      // Pastikan semua showcase item memiliki title terisi
+      showcase.forEach(s => {
+        if (!s.title && s.caption) {
+          s.title = s.caption.split('—')[0].trim();
+        }
+      });
+    }
+
+    function manualSyncShowcaseBackgrounds() {
+      syncShowcaseWithBackgrounds();
+      renderBackgrounds();
+      renderGalleryGrid();
+      saveConfigLocally(false);
+      showToast('✅ Showcase Background dan Background Studio berhasil disinkronkan!', '🔄');
+    }
+
     function renderBackgrounds() {
       const container = document.getElementById('backgroundsGrid');
       const searchQuery = (document.getElementById('bgSearchInput').value || '').toLowerCase().trim();

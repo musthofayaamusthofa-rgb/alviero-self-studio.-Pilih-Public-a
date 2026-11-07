@@ -219,7 +219,7 @@
       "category": "solid-color",
       "hex": "#111827",
       "description": "Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.",
-      "previewImage": "/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg",
+      "previewImage": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -229,6 +229,7 @@
       "active": true,
       "_origIndex": 9,
       "previewImages": [
+        "/images/gallery/dscf0842_jpg_1794064261854.jpg",
         "/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg"
       ]
     },
@@ -238,7 +239,7 @@
       "category": "solid-color",
       "hex": "#F8FAFC",
       "description": "Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.",
-      "previewImage": "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg",
+      "previewImage": "/images/gallery/dscf0829_jpg_1794064920919.jpg",
       "applicableTo": [
         "pro-studio"
       ],
@@ -248,6 +249,7 @@
       "active": true,
       "_origIndex": 10,
       "previewImages": [
+        "/images/gallery/dscf0829_jpg_1794064920919.jpg",
         "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg"
       ]
     },
@@ -4252,7 +4254,8 @@
       "src": "/images/backdrops/backdrop-5.jpg",
       "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
       "tag": "ROYAL FIREPLACE",
-      "active": true
+      "active": true,
+      "title": "European Royal Fireplace & Frame"
     },
     {
       "id": "showcase-1-2",
@@ -4260,7 +4263,8 @@
       "src": "/images/backdrops/backdrop-1.jpg",
       "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
       "tag": "MINT AESTHETIC",
-      "active": true
+      "active": true,
+      "title": "Mint Modern Aesthetic Sofa Theme"
     },
     {
       "id": "showcase-1-3",
@@ -4268,7 +4272,8 @@
       "src": "/images/backdrops/backdrop-4.jpg",
       "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
       "tag": "TIMELESS CLASSIC",
-      "active": true
+      "active": true,
+      "title": "Charcoal Deep Classic Sofa"
     },
     {
       "id": "showcase-1-4",
@@ -4276,7 +4281,8 @@
       "src": "/images/backdrops/backdrop-6.jpg",
       "caption": "Warm Beige Classic Armchair — Cozy Editorial Tone",
       "tag": "COZY EDITORIAL",
-      "active": true
+      "active": true,
+      "title": "Warm Beige Classic Armchair"
     },
     {
       "id": "showcase-1-5",
@@ -4284,7 +4290,8 @@
       "src": "/images/backdrops/backdrop-2.jpg",
       "caption": "Bohemian Rustic Texture Wall — Natural & Warm",
       "tag": "BOHEMIAN RUSTIC",
-      "active": true
+      "active": true,
+      "title": "Bohemian Rustic Texture Wall"
     },
     {
       "id": "showcase-1-6",
@@ -4292,7 +4299,8 @@
       "src": "/images/backdrops/backdrop-3.jpg",
       "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
       "tag": "ARCH WINDOW",
-      "active": true
+      "active": true,
+      "title": "Black Arch Window Bar Stool Theme"
     },
     {
       "id": "showcase-1-7",
@@ -4300,7 +4308,8 @@
       "src": "/images/backdrops/backdrop-7.jpg",
       "caption": "White Arch Windows & Grey Minimalist Set",
       "tag": "MINIMALIST BRIGHT",
-      "active": true
+      "active": true,
+      "title": "White Arch Windows & Grey Minimalist Set"
     },
     {
       "id": "showcase-1794064263854",
@@ -4309,11 +4318,12 @@
       "imageUrl": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
       "image": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
       "title": "Hitam",
-      "subtitle": "",
+      "subtitle": "Latar hitam pekat elegan untuk kesan foto profesional, formal & tegas.",
       "caption": "Hitam",
       "tag": "STUDIO SHOWCASE",
       "badge": "STUDIO SHOWCASE",
-      "active": true
+      "active": true,
+      "bgId": "c2-hitam"
     },
     {
       "id": "showcase-1794064924185",
@@ -4322,10 +4332,249 @@
       "imageUrl": "/images/gallery/dscf0829_jpg_1794064920919.jpg",
       "image": "/images/gallery/dscf0829_jpg_1794064920919.jpg",
       "title": "Putih",
-      "subtitle": "",
+      "subtitle": "Latar putih bersih minimalis untuk foto wisuda, keluarga & grup.",
       "caption": "Putih",
       "tag": "STUDIO SHOWCASE",
       "badge": "STUDIO SHOWCASE",
+      "active": true,
+      "bgId": "c2-putih"
+    },
+    {
+      "id": "showcase-bg-hitam-list-cabang-1",
+      "bgId": "hitam-list",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
+      "title": "Hitam List",
+      "subtitle": "Latar hitam dengan aksen list untuk tampilan elegan dan tegas.",
+      "caption": "Hitam List",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-putih-tematik-cabang-1",
+      "bgId": "putih-tematik",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "title": "Putih Tematik",
+      "subtitle": "Latar putih dengan sentuhan tematik untuk foto yang bersih dan cerah.",
+      "caption": "Putih Tematik",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-putih-list-cabang-1",
+      "bgId": "putih-list",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "title": "Putih List",
+      "subtitle": "Latar putih dengan aksen list untuk hasil foto minimalis dan rapi.",
+      "caption": "Putih List",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-coklat-tematik-cabang-1",
+      "bgId": "coklat-tematik",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "title": "Coklat Tematik",
+      "subtitle": "Latar coklat bernuansa tematik untuk hasil foto hangat dan berkarakter.",
+      "caption": "Coklat Tematik",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-limbo-cabang-1",
+      "bgId": "limbo",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "title": "Limbo",
+      "subtitle": "Latar mulus tanpa sudut untuk efek ruang foto yang luas dan bersih.",
+      "caption": "Limbo",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-ivory-mediterania-cabang-1",
+      "bgId": "ivory-mediterania",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "title": "Ivory Mediterania",
+      "subtitle": "Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.",
+      "caption": "Ivory Mediterania",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c1-self-polos-putih-cabang-1",
+      "bgId": "c1-self-polos-putih",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "title": "Putih Self",
+      "subtitle": "Latar putih polos yang bersih untuk foto mandiri yang cerah.",
+      "caption": "Putih Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c1-self-polos-abu-cabang-1",
+      "bgId": "c1-self-polos-abu",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80",
+      "title": "Abu Self",
+      "subtitle": "Latar abu polos bernuansa netral untuk gaya foto yang modern.",
+      "caption": "Abu Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c1-self-polos-coklat-cabang-1",
+      "bgId": "c1-self-polos-coklat",
+      "branchId": "cabang-1",
+      "src": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "imageUrl": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
+      "title": "Coklat Self",
+      "subtitle": "Latar coklat polos untuk hasil foto mandiri yang hangat.",
+      "caption": "Coklat Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-abu-cabang-2",
+      "bgId": "c2-abu",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg",
+      "imageUrl": "/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg",
+      "image": "/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg",
+      "title": "Abu-abu",
+      "subtitle": "Latar abu-abu netral elegan untuk kesan modern & aesthetic.",
+      "caption": "Abu-abu",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-coklat-jendela-cabang-2",
+      "bgId": "c2-coklat-jendela",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg",
+      "imageUrl": "/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg",
+      "image": "/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg",
+      "title": "Coklat Jendela",
+      "subtitle": "Latar coklat klasik dengan ornamen jendela mewah berkarakter.",
+      "caption": "Coklat Jendela",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-tematik-cream-cabang-2",
+      "bgId": "c2-tematik-cream",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg",
+      "imageUrl": "/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg",
+      "image": "/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg",
+      "title": "Tematik Cream",
+      "subtitle": "Latar tematik cream hangat untuk tone pastel lembut (Maksimal 5 Orang).",
+      "caption": "Tematik Cream",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-self-abu-cabang-2",
+      "bgId": "c2-self-abu",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_coklat_foto1_1793236954499_1793236956127.jpg",
+      "imageUrl": "/images/backgrounds/bg_coklat_foto1_1793236954499_1793236956127.jpg",
+      "image": "/images/backgrounds/bg_coklat_foto1_1793236954499_1793236956127.jpg",
+      "title": "Abu-abu Self",
+      "subtitle": "Latar coklat netral aesthetic untuk foto mandiri kekinian.",
+      "caption": "Abu-abu Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-self-biru-cabang-2",
+      "bgId": "c2-self-biru",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_biru_foto1_1793236920387_1793236921945.jpg",
+      "imageUrl": "/images/backgrounds/bg_biru_foto1_1793236920387_1793236921945.jpg",
+      "image": "/images/backgrounds/bg_biru_foto1_1793236920387_1793236921945.jpg",
+      "title": "Biru Self",
+      "subtitle": "Latar biru aesthetic & fresh khas bilik foto mandiri Alviero.",
+      "caption": "Biru Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-self-putih-cabang-2",
+      "bgId": "c2-self-putih",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_putih_foto1_1793236907380_1793236909409.jpg",
+      "imageUrl": "/images/backgrounds/bg_putih_foto1_1793236907380_1793236909409.jpg",
+      "image": "/images/backgrounds/bg_putih_foto1_1793236907380_1793236909409.jpg",
+      "title": "Putih Self",
+      "subtitle": "Latar putih bersih minimalis untuk ekspresi gaya bebas.",
+      "caption": "Putih Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-c2-self-tematik-cream-cabang-2",
+      "bgId": "c2-self-tematik-cream",
+      "branchId": "cabang-2",
+      "src": "/images/backgrounds/bg_tematik_cream_foto1_1793236980282_1793236982003.jpg",
+      "imageUrl": "/images/backgrounds/bg_tematik_cream_foto1_1793236980282_1793236982003.jpg",
+      "image": "/images/backgrounds/bg_tematik_cream_foto1_1793236980282_1793236982003.jpg",
+      "title": "Tematik Cream Self",
+      "subtitle": "Latar tematik cream hangat untuk nuansa pastel aesthetic (Maksimal 5 Orang).",
+      "caption": "Tematik Cream Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
+      "active": true
+    },
+    {
+      "id": "showcase-bg-bg-1794034559631-cabang-1",
+      "bgId": "bg-1794034559631",
+      "branchId": "cabang-1",
+      "src": "/images/backgrounds/bg_ivory_mediterania_foto1_1794034559062_1794034559087.jpg",
+      "imageUrl": "/images/backgrounds/bg_ivory_mediterania_foto1_1794034559062_1794034559087.jpg",
+      "image": "/images/backgrounds/bg_ivory_mediterania_foto1_1794034559062_1794034559087.jpg",
+      "title": "Ivory Mediterania Self",
+      "subtitle": "Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.",
+      "caption": "Ivory Mediterania Self",
+      "tag": "SELF STUDIO",
+      "badge": "SELF STUDIO",
       "active": true
     }
   ],
