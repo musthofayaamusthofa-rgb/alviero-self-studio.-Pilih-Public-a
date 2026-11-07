@@ -792,8 +792,25 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   ];
 
   const photoStudioGridItems = useMemo(() => {
-    return getActiveCategories(studioConfig, defaultPhotoStudioGridItems);
+    const raw = getActiveCategories(studioConfig, defaultPhotoStudioGridItems);
+    return raw.filter((c: any) => c && c.id !== 'selfstudio' && c.id !== 'self-studio' && c.id !== 'selfphoto');
   }, [studioConfig]);
+
+  const selfStudioGridItem = useMemo(() => {
+    const configuredList = Array.isArray((studioConfig as any)?.categories) ? (studioConfig as any).categories : [];
+    const matched = configuredList.find((c: any) => c && (c.id === 'selfstudio' || c.id === 'self-studio' || c.id === 'selfphoto'));
+    return {
+      id: 'selfstudio',
+      name: matched?.name || matched?.label || 'SelfStudio',
+      icon: matched?.icon || '✨',
+      img: matched?.thumbnailImage || matched?.image || '/images/categories/selfphoto.jpg',
+      colorBg: 'bg-[#f0f8f3]',
+      colorBorder: 'border-[#c5e4cf]',
+      colorText: 'text-[#204e2e]'
+    };
+  }, [studioConfig]);
+
+  const isSelfStudioOnlyMode = activeMenuCategory === 'selfstudio' || activeMenuCategory === 'self-studio';
 
   // Social Media Links (From Figma Footer)
   const socialLinks = [
@@ -1517,76 +1534,122 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               {/* Title Section (Matching Image 2: Studio Foto Jogja & Solo style) */}
               <div className="w-full pt-1 pb-2 text-center border-b border-stone-200/60">
                 <h2 className="font-editorial text-lg sm:text-xl font-bold text-stone-900 tracking-wide">
-                  Studio Foto {currentBranchInfo.name}
+                  {isSelfStudioOnlyMode ? `SelfStudio ${currentBranchInfo.name}` : `Studio Foto ${currentBranchInfo.name}`}
                 </h2>
                 <p className="text-[11px] font-sans text-stone-500 font-medium">
-                  Pilih kategori studio di bawah untuk melihat rincian paket & harga
+                  {isSelfStudioOnlyMode
+                    ? 'Foto Mandiri Wireless Shutter & Cetak Kolase'
+                    : 'Pilih kategori studio di bawah untuk melihat rincian paket & harga'}
                 </p>
               </div>
 
-              {/* 1. Photo Studio Package Grid (4 Columns, matching Image 2) */}
+              {/* 1. Photo Studio Package Grid or SelfStudio Dedicated Card */}
               <div className="w-full text-left space-y-2.5 pt-1">
                 <div className="flex items-center justify-between">
                   <h3 className="font-editorial text-xs sm:text-sm font-bold text-stone-900 uppercase tracking-wider">
-                    Photo Studio Package
+                    {isSelfStudioOnlyMode ? 'SelfStudio Package' : 'Photo Studio Package'}
                   </h3>
                   <span className="text-[10px] font-sans bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full border border-stone-200">
-                    {photoStudioGridItems.length} Kategori
+                    {isSelfStudioOnlyMode ? '1 Kategori' : `${photoStudioGridItems.length} Kategori`}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
-                  {photoStudioGridItems.map((item) => {
-                    const isSelected = activeMenuCategory === item.id;
+                {isSelfStudioOnlyMode ? (
+                  /* Tampilan Eksklusif SelfStudio (Foto 1) */
+                  <div className="flex flex-col items-center justify-center p-3.5 rounded-2xl bg-[#f0f8f3]/80 border border-[#c5e4cf] shadow-2xs text-center space-y-2.5 animate-in fade-in duration-300">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex items-center justify-center text-3xl transition-all shadow-md border-2 border-[#55735b] ring-4 ring-[#55735b]/30 bg-[#232d38] text-white">
+                      {selfStudioGridItem.img ? (
+                        <img
+                          src={selfStudioGridItem.img}
+                          alt={selfStudioGridItem.name}
+                          className="w-full h-full object-cover rounded-full"
+                          loading="lazy"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <span>✨</span>
+                      )}
+                    </div>
+                    <div>
+                      <h4 className="font-editorial font-bold text-sm sm:text-base text-[#1E1E1E]">
+                        {selfStudioGridItem.name}
+                      </h4>
+                      <p className="text-[11px] font-sans text-stone-600 max-w-xs mt-0.5">
+                        Private booth mandiri tanpa fotografer menggunakan remote wireless shutter &amp; cetak kolase strip.
+                      </p>
+                    </div>
 
-                    return (
-                      <button
-                        key={item.id + item.name}
-                        onClick={() => {
-                          setActiveMenuCategory(item.id);
-                          setIsMobilePopupOpen(true);
-                        }}
-                        className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
-                      >
-                        <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
-                          isSelected
-                            ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
-                            : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
-                        }`}>
-                          {item.img ? (
-                            <img
-                              src={item.img}
-                              alt={item.name}
-                              className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
-                              loading="lazy"
-                              onError={(e) => {
-                                (e.target as HTMLElement).style.display = 'none';
-                              }}
-                            />
-                          ) : (
-                            <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
-                          )}
-                        </div>
-                        <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
-                          isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
-                        }`}>
-                          {item.name}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                    {/* Tombol Switcher jika Klien ingin Buka Katalog Studio Foto Biasa */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveMenuCategory('grad-indoor');
+                        setIsMobilePopupOpen(false);
+                      }}
+                      className="w-full mt-1.5 py-2 px-3 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] text-xs font-serif font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer active:scale-95"
+                    >
+                      <span>📸 Buka Studio Foto (Wisuda, Group, Family...)</span>
+                      <ChevronRight className="w-3.5 h-3.5 text-stone-500" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-4 gap-y-3.5 gap-x-1 sm:gap-x-2 text-center">
+                    {photoStudioGridItems.map((item) => {
+                      const isSelected = activeMenuCategory === item.id;
+
+                      return (
+                        <button
+                          key={item.id + item.name}
+                          onClick={() => {
+                            setActiveMenuCategory(item.id);
+                            setIsMobilePopupOpen(true);
+                          }}
+                          className="group flex flex-col items-center text-center cursor-pointer active:scale-95 transition-all p-1"
+                        >
+                          <div className={`w-13 h-13 sm:w-15 sm:h-15 rounded-full overflow-hidden flex items-center justify-center text-xl sm:text-2xl mb-1.5 transition-all shadow-2xs border relative ${
+                            isSelected
+                              ? 'bg-[#232d38] text-white border-[#55735b] ring-3 ring-[#55735b]/35 scale-105 shadow-md'
+                              : `${item.colorBg} ${item.colorBorder} ${item.colorText} group-hover:scale-105 group-hover:shadow-xs`
+                          }`}>
+                            {item.img ? (
+                              <img
+                                src={item.img}
+                                alt={item.name}
+                                className="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover:scale-110"
+                                loading="lazy"
+                                onError={(e) => {
+                                  (e.target as HTMLElement).style.display = 'none';
+                                }}
+                              />
+                            ) : (
+                              <span className="group-hover:scale-110 transition-transform">{item.icon}</span>
+                            )}
+                          </div>
+                          <span className={`text-[10.5px] sm:text-xs leading-tight line-clamp-2 transition-colors ${
+                            isSelected ? 'text-[#232d38] font-black' : 'font-semibold text-stone-700 group-hover:text-stone-900'
+                          }`}>
+                            {item.name}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* Penjelasan Memilih Salah Satu Paket Foto (Simple & Minimalis) */}
-              <div className="w-full pt-3 pb-1 border-t border-stone-200/80 text-center">
-                <p className="text-xs sm:text-[13px] font-sans text-stone-600 text-center leading-relaxed">
-                  Ketuk salah satu kategori paket di atas untuk melihat rincian harga & booking.
-                </p>
-              </div>
+              {!isSelfStudioOnlyMode && (
+                <div className="w-full pt-3 pb-1 border-t border-stone-200/80 text-center">
+                  <p className="text-xs sm:text-[13px] font-sans text-stone-600 text-center leading-relaxed">
+                    Ketuk salah satu kategori paket di atas untuk melihat rincian harga & booking.
+                  </p>
+                </div>
+              )}
 
               {/* Social Media Links Grid (Minimalist & Clean) */}
-              <div className="w-full pt-3 border-t border-stone-200/80">
+              <div className={`w-full pt-3 border-t border-stone-200/80 ${isSelfStudioOnlyMode ? 'hidden md:block' : ''}`}>
                 <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-1.5 text-left">
                   {socialLinks.map((s, idx) => (
                     <a
@@ -1606,7 +1669,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
               </div>
 
               {/* Logo Utama & Tagline (Logo Resmi Alviero Studio) */}
-              <div className="w-full pt-4 mt-1 border-t border-slate-200/80 space-y-2 flex flex-col items-center justify-center">
+              <div className={`w-full pt-4 mt-1 border-t border-slate-200/80 space-y-2 flex flex-col items-center justify-center ${isSelfStudioOnlyMode ? 'hidden md:flex' : ''}`}>
                 <img
                   src="/images/alviero-logo-official.png"
                   alt="Alviero Studio"
@@ -1620,15 +1683,21 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
             </div>
           </div>
 
-          {/* Right Column: Dynamic Category Details (Responsive: Side-by-Side on Desktop, Popup Modal on Mobile/HP) */}
+          {/* Right Column: Dynamic Category Details (Responsive: Side-by-Side on Desktop, Inline / Popup Modal on Mobile/HP) */}
           <div
             className={
-              isMobilePopupOpen
+              isSelfStudioOnlyMode
+                ? 'w-full block md:col-span-7 lg:col-span-8 xl:col-span-8 animate-in fade-in duration-200'
+                : isMobilePopupOpen
                 ? 'fixed inset-0 z-50 md:static md:col-span-7 lg:col-span-8 xl:col-span-8 bg-slate-950/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none flex items-end md:block justify-center p-0 md:p-0 overflow-y-auto md:overflow-visible animate-in fade-in duration-200'
                 : 'hidden md:block md:col-span-7 lg:col-span-8 xl:col-span-8'
             }
           >
-            <div className="bg-white text-slate-900 w-full max-h-[92vh] md:max-h-none rounded-t-[32px] md:rounded-2xl shadow-2xl md:shadow-md flex flex-col md:block overflow-hidden md:overflow-visible border border-slate-200 relative my-auto md:my-0 animate-in slide-in-from-bottom md:animate-none duration-300">
+            <div className={`bg-white text-slate-900 w-full ${
+              isSelfStudioOnlyMode
+                ? 'rounded-2xl shadow-md border border-slate-200 overflow-hidden relative'
+                : 'max-h-[92vh] md:max-h-none rounded-t-[32px] md:rounded-2xl shadow-2xl md:shadow-md flex flex-col md:block overflow-hidden md:overflow-visible border border-slate-200 relative my-auto md:my-0 animate-in slide-in-from-bottom md:animate-none duration-300'
+            }`}>
 
               {/* Header Khusus Tampilan Desktop & Tablet (Selalu Tampil di PC) */}
               <div className="hidden md:flex bg-[#FAF8F5] px-6 py-4 border-b border-[#E0D9CE] items-center justify-between shadow-2xs">
@@ -1647,38 +1716,62 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   <span className="text-[10.5px] font-serif font-bold uppercase tracking-wider bg-white text-stone-700 px-3 py-1 border border-[#E0D9CE] rounded-full">
                     {currentBranchInfo.shortName}
                   </span>
+                  {!isSelfStudioOnlyMode && (
+                    <button
+                      onClick={handleClosePopup}
+                      className="p-1.5 rounded-full hover:bg-stone-200 text-stone-600 hover:text-stone-900 transition-colors cursor-pointer"
+                      title="Tutup & Kembali ke Beranda"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Header Khusus HP / Mobile untuk Mode SelfStudio (Clean, Tanpa Tombol Tutup [X]) */}
+              {isSelfStudioOnlyMode && (
+                <div className="md:hidden bg-[#FAF8F5] px-4 py-3 border-b border-[#E0D9CE] flex items-center justify-between shadow-2xs">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-base sm:text-lg shrink-0">{activeMenuInfo.icon || '✨'}</span>
+                    <div className="min-w-0">
+                      <h4 className="font-black text-xs sm:text-sm text-slate-900 truncate uppercase tracking-wide">
+                        {activeMenuInfo.title}
+                      </h4>
+                      <span className="text-[10px] text-slate-500 font-medium truncate block">
+                        {activeMenuInfo.subtitle}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-[9.5px] font-serif font-bold uppercase tracking-wider bg-white text-stone-700 px-2.5 py-0.5 border border-[#E0D9CE] rounded-full shrink-0">
+                    {currentBranchInfo.shortName}
+                  </span>
+                </div>
+              )}
+
+              {/* Sticky Header Khusus Penggunaan HP / Mobile (Untuk Studio Foto Biasa dengan Tombol Tutup [X]) */}
+              {!isSelfStudioOnlyMode && (
+                <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-200 flex md:hidden items-center justify-between shadow-2xs">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-base sm:text-lg">{activeMenuInfo.icon}</span>
+                    <div className="min-w-0">
+                      <h4 className="font-black text-xs sm:text-sm text-slate-900 truncate uppercase tracking-wide">
+                        {activeMenuInfo.title}
+                      </h4>
+                      <span className="text-[10px] text-slate-500 font-medium truncate block">
+                        {activeMenuInfo.subtitle}
+                      </span>
+                    </div>
+                  </div>
+
                   <button
                     onClick={handleClosePopup}
-                    className="p-1.5 rounded-full hover:bg-stone-200 text-stone-600 hover:text-stone-900 transition-colors cursor-pointer"
-                    title="Tutup & Kembali ke Beranda"
+                    className="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-4 h-4 text-amber-300" />
+                    <span>Tutup</span>
                   </button>
                 </div>
-              </div>
-
-              {/* Sticky Header Khusus Penggunaan HP / Mobile */}
-              <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-4 py-3 sm:px-6 sm:py-4 border-b border-slate-200 flex md:hidden items-center justify-between shadow-2xs">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span className="text-base sm:text-lg">{activeMenuInfo.icon}</span>
-                  <div className="min-w-0">
-                    <h4 className="font-black text-xs sm:text-sm text-slate-900 truncate uppercase tracking-wide">
-                      {activeMenuInfo.title}
-                    </h4>
-                    <span className="text-[10px] text-slate-500 font-medium truncate block">
-                      {activeMenuInfo.subtitle}
-                    </span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleClosePopup}
-                  className="px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
-                >
-                  <X className="w-4 h-4 text-amber-300" />
-                  <span>Tutup</span>
-                </button>
-              </div>
+              )}
 
               {/* Scrollable Container Body */}
               <div className="p-4 sm:p-6 lg:p-7 overflow-y-auto lg:overflow-visible space-y-6 flex-1 bg-white">
