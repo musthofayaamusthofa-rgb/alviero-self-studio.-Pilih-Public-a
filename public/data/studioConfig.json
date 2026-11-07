@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T06:54:29.457Z",
+  "lastUpdated": "2026-11-07T07:29:50.914Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -128,14 +128,16 @@
       "description": "Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.",
       "previewImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
       "applicableTo": [
-        "pro-studio",
-        "self-studio"
+        "pro-studio"
       ],
       "applicableBranches": [
         "cabang-1"
       ],
       "active": true,
-      "_origIndex": 5
+      "_origIndex": 5,
+      "previewImages": [
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+      ]
     },
     {
       "id": "c1-self-polos-putih",
@@ -367,6 +369,25 @@
       "previewImages": [
         "/images/backgrounds/bg_tematik_cream_foto1_1793236980282_1793236982003.jpg"
       ]
+    },
+    {
+      "id": "bg-1794034559631",
+      "name": "Ivory Mediterania Self",
+      "category": "solid-color",
+      "hex": "#FFFFF0",
+      "description": "Latar ivory hangat bernuansa Mediterania untuk hasil foto natural dan elegan.",
+      "previewImage": "/images/backgrounds/bg_ivory_mediterania_foto1_1794034559062_1794034559087.jpg",
+      "previewImages": [
+        "/images/backgrounds/bg_ivory_mediterania_foto1_1794034559062_1794034559087.jpg"
+      ],
+      "applicableBranches": [
+        "cabang-1"
+      ],
+      "applicableTo": [
+        "self-studio"
+      ],
+      "active": true,
+      "_origIndex": 18
     }
   ],
   "timeSlots": [
@@ -1144,7 +1165,7 @@
           "division": "Fotografi & Editor",
           "role": "Kepala Fotografer & Kepala Cabang 2",
           "name": "Ricky",
-          "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
+          "description": "",
           "badge": "Creative Lead",
           "photo": "/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg"
         },
@@ -1153,7 +1174,7 @@
           "division": "Pelayanan & Reservasi",
           "role": "Kepala Admin Reservasi & Front Office",
           "name": "Sheila",
-          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
+          "description": "",
           "badge": "Guest Care",
           "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
         },
@@ -1162,7 +1183,7 @@
           "division": "Editing & Post-Production",
           "role": "Lead Editor Visual & Print Lab",
           "name": "Dewa Hasan Musthofa",
-          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
+          "description": "",
           "badge": "Post-Prod",
           "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
         },
@@ -1171,7 +1192,7 @@
           "division": "Tata Cahaya & Kru Studio",
           "role": "Lighting Specialist & Studio Assistant",
           "name": "Dimas",
-          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
+          "description": "",
           "badge": "Studio Crew",
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
         }
