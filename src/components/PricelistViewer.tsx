@@ -169,7 +169,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [activeMenuCategory, setActiveMenuCategory] = useState<string | null>(normalizeMenuCategory(initialCategory));
   const [isStudioFotoSubmenuOpen, setIsStudioFotoSubmenuOpen] = useState<boolean>(false);
-  const [selfStudioSubTab, setSelfStudioSubTab] = useState<'special' | 'normal' | 'spotlight' | 'grid'>('special');
+  const [selfStudioSubTab, setSelfStudioSubTab] = useState<'all' | 'special' | 'normal' | 'spotlight' | 'grid'>('all');
   const [selectedGridFilter, setSelectedGridFilter] = useState<'all' | 'grid-1' | 'grid-3' | 'grid-4' | 'grid-6'>('all');
   const [selectedKebayaFilter, setSelectedKebayaFilter] = useState<'all' | 'adat' | 'modern' | 'gaun'>('all');
   const [isSizeChartOpen, setIsSizeChartOpen] = useState<boolean>(false);
@@ -812,6 +812,146 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const isSelfStudioOnlyMode = activeMenuCategory === 'selfstudio' || activeMenuCategory === 'self-studio';
 
+  // Paket SelfStudio Dinamis Terhubung Langsung ke Dashboard (studioConfig.studioPackages)
+  const selfStudioPackagesFromConfig = useMemo(() => {
+    const allStudioPkgs = (studioConfig as any)?.studioPackages;
+    if (Array.isArray(allStudioPkgs) && allStudioPkgs.length > 0) {
+      const filtered = allStudioPkgs.filter(
+        (p: any) => p && (p.category === 'self-studio' || p.category === 'selfstudio') && p.active !== false
+      );
+      if (filtered.length > 0) return filtered;
+    }
+    return [
+      {
+        id: 'self-special-narsis',
+        category: 'self-studio',
+        subtitle: 'Kategori Spesial Hemat',
+        badge: 'Hemat',
+        name: 'Spesial Narsis',
+        originalPrice: 'Rp 75.000',
+        price: '55K',
+        priceUnit: 'per sesi • 1-2 Orang',
+        duration: '15 Menit Sesi Foto',
+        background: 'Pilihan Background Studio',
+        people: '1-2 Orang',
+        edit: 'Template Kolase Siap Cetak',
+        print: 'Softfile Only (Cetak opsional)',
+        fileDelivery: 'All File via Google Drive',
+        note: '*Syarat mudah: follow IG @alviero.selfstudio & tag 3 teman di feed',
+        imageUrl: '/images/packages/spesial_narsis_1791787912728.jpg'
+      },
+      {
+        id: 'self-special-super-narsis',
+        category: 'self-studio',
+        subtitle: 'Kategori Spesial Hemat',
+        badge: 'Hemat',
+        name: 'Spesial Super Narsis',
+        originalPrice: 'Rp 90.000',
+        price: '70K',
+        priceUnit: 'per sesi • 1-2 Orang',
+        duration: '20 Menit Sesi Foto',
+        background: 'Pilihan Background Studio',
+        people: '1-2 Orang',
+        edit: 'Template Kolase Siap Cetak',
+        print: 'Softfile Only (Cetak opsional)',
+        fileDelivery: 'All File via Google Drive',
+        note: '*Waktu lebih puas untuk berekspresi bersama bestie / pasangan',
+        imageUrl: '/images/packages/spesial_super_narsis_1791787920000.jpg'
+      },
+      {
+        id: 'self-normal-narsis',
+        category: 'self-studio',
+        subtitle: 'Kategori Normal',
+        badge: 'Free Print',
+        name: 'Normal Narsis',
+        originalPrice: 'Rp 100.000',
+        price: '80K',
+        priceUnit: 'per sesi • 1-2 Orang',
+        duration: '15 Menit Sesi Foto',
+        background: 'Pilihan Background Studio',
+        people: '1-2 Orang (Bisa tambah orang)',
+        edit: 'Template Kolase Siap Cetak',
+        print: 'Free 1 Lembar Cetak 4R / Strip',
+        fileDelivery: 'All File via Google Drive',
+        note: '*Wireless remote shutter otomatis tanpa fotografer',
+        imageUrl: '/images/packages/normal_narsis_1791787834137.jpg'
+      },
+      {
+        id: 'self-normal-super-narsis',
+        category: 'self-studio',
+        subtitle: 'Kategori Normal',
+        badge: 'Free Print',
+        name: 'Normal Super Narsis',
+        originalPrice: 'Rp 120.000',
+        price: '95K',
+        priceUnit: 'per sesi • 1-2 Orang',
+        duration: '20 Menit Sesi Foto',
+        background: 'Pilihan Background Studio',
+        people: '1-2 Orang (Bisa tambah orang)',
+        edit: 'Template Kolase Siap Cetak',
+        print: 'Free 1 Lembar Cetak 4R / Strip',
+        fileDelivery: 'All File via Google Drive',
+        note: '*Waktu lebih puas untuk berekspresi bersama bestie / pasangan',
+        imageUrl: '/images/packages/normal_super_narsis_1791787879710.jpg'
+      },
+      {
+        id: 'self-special-spotlight',
+        category: 'self-studio',
+        subtitle: 'Colour Spotlight',
+        badge: 'Spotlight Lamp',
+        name: 'Special Colour Spotlight',
+        originalPrice: 'Rp 130.000',
+        price: '99K',
+        priceUnit: 'per sesi • 1-2 Orang',
+        duration: '20 Menit Sesi Foto',
+        background: 'Pencahayaan Warna Spotlight',
+        people: '1-2 Orang',
+        edit: 'Template Kolase Siap Cetak',
+        print: 'Free 1 Lembar Cetak 4R / Strip',
+        fileDelivery: 'All File via Google Drive',
+        note: '*Efek lampu proyektor warna artistik untuk nuansa sinematik',
+        imageUrl: '/images/packages/special_colour_spotlight_1791787890705.jpg'
+      },
+      {
+        id: 'self-normal-spotlight',
+        category: 'self-studio',
+        subtitle: 'Colour Spotlight',
+        badge: 'Spotlight Lamp',
+        name: 'Normal Colour Spotlight',
+        originalPrice: 'Rp 150.000',
+        price: '115K',
+        priceUnit: 'per sesi • 1-2 Orang',
+        duration: '20 Menit Sesi Foto',
+        background: 'Pencahayaan Spotlight + Background',
+        people: '1-2 Orang',
+        edit: 'Template Kolase Siap Cetak',
+        print: 'Free 1 Lembar Cetak 4R / Strip',
+        fileDelivery: 'All File via Google Drive',
+        note: '*Kombinasi lampu spotlight dan background pilihan',
+        imageUrl: '/images/packages/normal_colour_spotlight_1791787901644.jpg'
+      }
+    ];
+  }, [studioConfig]);
+
+  const activeFilteredSelfPackages = useMemo(() => {
+    if (selfStudioSubTab === 'special') {
+      return selfStudioPackagesFromConfig.filter(
+        (p: any) => (p.id?.includes('special') || p.subtitle?.toLowerCase().includes('spesial')) && !p.id?.includes('spotlight')
+      );
+    }
+    if (selfStudioSubTab === 'normal') {
+      return selfStudioPackagesFromConfig.filter(
+        (p: any) => (p.id?.includes('normal') || p.subtitle?.toLowerCase().includes('normal')) && !p.id?.includes('spotlight')
+      );
+    }
+    if (selfStudioSubTab === 'spotlight') {
+      return selfStudioPackagesFromConfig.filter(
+        (p: any) => p.id?.includes('spotlight') || p.subtitle?.toLowerCase().includes('spotlight') || p.name?.toLowerCase().includes('spotlight')
+      );
+    }
+    return selfStudioPackagesFromConfig;
+  }, [selfStudioPackagesFromConfig, selfStudioSubTab]);
+
   // Social Media Links (From Figma Footer)
   const socialLinks = [
     { label: '@alvierostudiofoto', icon: 'tiktok', url: 'https://tiktok.com/@alvierostudiofoto' },
@@ -1440,7 +1580,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5 lg:gap-8 items-start w-full">
 
           {/* Left Column: The Studio Menu Card (Minimalist & Elegant) */}
-          <div className="md:col-span-5 lg:col-span-4 xl:col-span-4 max-w-md w-full mx-auto md:sticky md:top-20 overflow-hidden shadow-md border border-[#E8DDD6] bg-white relative rounded-2xl">
+          <div className={`${isSelfStudioOnlyMode ? 'hidden md:block' : ''} md:col-span-5 lg:col-span-4 xl:col-span-4 max-w-md w-full mx-auto md:sticky md:top-20 overflow-hidden shadow-md border border-[#E8DDD6] bg-white relative rounded-2xl`}>
             {/* Subtle Studio Ambient Header Glow */}
             <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-[#FDFBF7] to-transparent pointer-events-none" />
 
@@ -1728,23 +1868,93 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                 </div>
               </div>
 
-              {/* Header Khusus HP / Mobile untuk Mode SelfStudio (Clean, Tanpa Tombol Tutup [X]) */}
+              {/* Header Khusus HP / Mobile untuk Mode SelfStudio (Clean, Ringkas, Satu Halaman Utuh - Mengatasi Foto 1) */}
               {isSelfStudioOnlyMode && (
-                <div className="md:hidden bg-[#FAF8F5] px-4 py-3 border-b border-[#E0D9CE] flex items-center justify-between shadow-2xs">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-base sm:text-lg shrink-0">{activeMenuInfo.icon || '✨'}</span>
-                    <div className="min-w-0">
-                      <h4 className="font-black text-xs sm:text-sm text-slate-900 truncate uppercase tracking-wide">
-                        {activeMenuInfo.title}
-                      </h4>
-                      <span className="text-[10px] text-slate-500 font-medium truncate block">
-                        {activeMenuInfo.subtitle}
-                      </span>
-                    </div>
+                <div className="md:hidden bg-[#FAF8F5] p-3 sm:p-4 border-b border-[#E0D9CE] space-y-2.5 shadow-2xs">
+                  {/* Bar Atas: Tombol Kembali & Lokasi Studio */}
+                  <div className="flex items-center justify-between gap-2">
+                    <button
+                      onClick={() => onBackToLanding && onBackToLanding()}
+                      className="px-3 py-1.5 bg-[#2A2A2A] hover:bg-black text-[#FDFBF7] font-serif text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer rounded-lg shadow-xs active:scale-95"
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5 stroke-[2]" />
+                      <span>Kembali ke Beranda</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={onOpenBranchModal}
+                      className="px-3 py-1.5 rounded-lg bg-white hover:bg-[#F2E9E4] text-[#3A3A3A] text-[10.5px] font-serif font-bold flex items-center gap-1.5 border border-[#E0D9CE] cursor-pointer shadow-2xs active:scale-95"
+                    >
+                      <span>{currentBranchInfo.shortName}</span>
+                      <span className="text-[#5C725A]">🔄</span>
+                    </button>
                   </div>
-                  <span className="text-[9.5px] font-serif font-bold uppercase tracking-wider bg-white text-stone-700 px-2.5 py-0.5 border border-[#E0D9CE] rounded-full shrink-0">
-                    {currentBranchInfo.shortName}
-                  </span>
+
+                  {/* Tab Switcher: Menu Paket vs Fasilitas vs Disclaimer */}
+                  <div className="w-full bg-white p-1 rounded-xl flex items-stretch gap-1 border border-[#E8DDD6] shadow-2xs">
+                    <button
+                      onClick={() => { setActiveTab('menu'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                      className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold font-century transition-all text-center ${
+                        isTabActive('menu')
+                          ? 'bg-[#3F613E] text-white shadow-xs'
+                          : 'text-[#3A3A3A] hover:bg-[#F2E9E4]'
+                      }`}
+                    >
+                      📱 Menu Paket
+                    </button>
+                    <button
+                      onClick={() => { setActiveTab('gallery'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                      className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold font-century transition-all text-center ${
+                        isTabActive('gallery')
+                          ? 'bg-[#2B5777] text-white shadow-xs'
+                          : 'text-[#3A3A3A] hover:bg-[#F2E9E4]'
+                      }`}
+                    >
+                      🏢 Fasilitas
+                    </button>
+                    <button
+                      onClick={() => { setActiveTab('guide'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                      className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold font-century transition-all text-center ${
+                        isTabActive('guide')
+                          ? 'bg-[#A33636] text-white shadow-xs'
+                          : 'text-[#3A3A3A] hover:bg-[#F2E9E4]'
+                      }`}
+                    >
+                      📖 Disclaimer
+                    </button>
+                  </div>
+
+                  {/* Header Editorial SelfStudio */}
+                  <div className="pt-1 text-center space-y-0.5">
+                    <div className="inline-flex items-center gap-1.5 text-[9.5px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                      <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                      PRIVATE BOOTH • WIRELESS SHUTTER
+                    </div>
+                    <h3 className="font-editorial text-lg font-bold text-stone-900 tracking-wide">
+                      SelfStudio {currentBranchInfo.name}
+                    </h3>
+                    <p className="text-[10.5px] font-sans text-stone-500 font-medium">
+                      Foto Mandiri Wireless Shutter Bebas Berekspresi &amp; Cetak Kolase Strip
+                    </p>
+                  </div>
+
+                  {/* Tombol Switcher ke Studio Foto */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveMenuCategory('grad-indoor');
+                      setIsMobilePopupOpen(false);
+                    }}
+                    className="w-full py-1.5 px-3 rounded-xl bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] text-[11px] font-serif font-bold flex items-center justify-between shadow-2xs cursor-pointer active:scale-95"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <span>📸</span>
+                      <span>Mau Foto dengan Fotografer Studio?</span>
+                    </span>
+                    <span className="text-[#6E856C] font-bold flex items-center gap-1 text-[10.5px]">
+                      Buka Studio Foto <ChevronRight className="w-3 h-3" />
+                    </span>
+                  </button>
                 </div>
               )}
 
@@ -1823,544 +2033,211 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </section>
                 )}
 
-                {/* 1. SPECIAL FIGMA VIEW FOR SELF STUDIO */}
+                {/* 1. UNIFIED LUXURY SELFSTUDIO VIEW (SESUAI ACUAN FOTO MODERN GRADUATION / PERSONAL) */}
+                {/* 100% TERHUBUNG DINAMIS DENGAN DASHBOARD / studioConfig.studioPackages KATEGORI self-studio */}
                 {(activeMenuCategory === 'selfstudio' || activeMenuCategory === 'self-studio') && (
-                  <div className="space-y-5 animate-in fade-in duration-300">
-                    {/* Sub-Switcher */}
-                    <div className="bg-slate-100 p-1 rounded-full flex items-center gap-1 border border-slate-200 shadow-2xs overflow-x-auto no-scrollbar">
-                      <button
-                        onClick={() => setSelfStudioSubTab('special')}
-                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'special'
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                      >
-                        <span>🏷️ Special ({getPkgPrice('self-special-narsis', '55K')})</span>
-                      </button>
-
-                      <button
-                        onClick={() => setSelfStudioSubTab('normal')}
-                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'normal'
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                      >
-                        <span>✨ Normal ({getPkgPrice('self-normal-narsis', '80K')})</span>
-                      </button>
-
-                      <button
-                        onClick={() => setSelfStudioSubTab('spotlight')}
-                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'spotlight'
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                      >
-                        <span>🌈 Spotlight ({getPkgPrice('self-special-spotlight', '99K')})</span>
-                      </button>
-
-                      <button
-                        onClick={() => setSelfStudioSubTab('grid')}
-                        className={`flex-1 min-h-[36px] px-3.5 py-1 rounded-full text-[11px] sm:text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1 active:scale-95 whitespace-nowrap ${selfStudioSubTab === 'grid'
-                          ? 'bg-slate-900 text-white shadow-xs'
-                          : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                      >
-                        <span>🎞️ Pilihan Grid Cetak</span>
-                      </button>
+                  <div className="space-y-6 animate-in fade-in duration-300">
+                    <div className="space-y-2 border-b border-[#E8DDD6] pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-[#5C725A] bg-[#EBF2EA] px-2.5 py-0.5 rounded-full border border-[#D0E2CE]">
+                          <Sparkles className="w-3 h-3 text-[#5C725A]" />
+                          SELF PHOTO STUDIO 2026
+                        </span>
+                        <span className="text-[11px] font-medium text-slate-400 font-serif">Studio 1 & 2 Alviero</span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                        Pricelist Self Studio Alviero
+                      </h3>
+                      <p className="text-xs text-slate-600 font-century leading-relaxed">
+                        Bebas berekspresi sepuasnya tanpa rasa canggung di private booth profesional dengan wireless remote shutter otomatis, pencahayaan studio estetik, dan cetakan kolase siap bawa pulang.
+                      </p>
                     </div>
 
-                    {/* Subtab 1: Special Price List */}
-                    {selfStudioSubTab === 'special' && (
-                      <div className="space-y-6 bg-[#ebe4da] rounded-3xl p-5 sm:p-7 border border-[#d8ccbe] shadow-md text-slate-800 animate-in fade-in duration-200">
-                        <div className="text-center space-y-1">
-                          <div className="flex items-center justify-center gap-2 mb-1">
-                            <svg className="w-6 h-6 text-slate-900" viewBox="0 0 48 48" fill="currentColor">
-                              <path d="M24 4L4 38H16L24 22L32 38H44L24 4Z" />
-                              <path d="M24 28L19 38H29L24 28Z" fill="white" />
-                            </svg>
-                            <div className="text-left leading-none">
-                              <span className="font-black text-xs text-slate-900 tracking-wider block">ALVIERO</span>
-                              <span className="font-bold text-[10px] text-slate-600 tracking-widest block">STUDIO</span>
-                            </div>
-                          </div>
+                    {/* Sub-Kategori Navigation Pills */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
+                      {[
+                        { id: 'all', label: '🌟 Semua Paket Self' },
+                        { id: 'special', label: `🏷️ Spesial Hemat (${getPkgPrice('self-special-narsis', '55K')} - ${getPkgPrice('self-special-super-narsis', '70K')})` },
+                        { id: 'normal', label: `✨ Normal (${getPkgPrice('self-normal-narsis', '80K')} - ${getPkgPrice('self-normal-super-narsis', '95K')})` },
+                        { id: 'spotlight', label: `🌈 Colour Spotlight (${getPkgPrice('self-special-spotlight', '99K')} - ${getPkgPrice('self-normal-spotlight', '115K')})` },
+                        { id: 'grid', label: '🎞️ Pilihan Grid Cetak' }
+                      ].map((tab) => {
+                        const isSelected = selfStudioSubTab === tab.id;
+                        return (
+                          <button
+                            key={tab.id}
+                            onClick={() => setSelfStudioSubTab(tab.id as any)}
+                            className={`min-h-[36px] px-3.5 py-1.5 rounded-full text-xs font-bold font-century transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${
+                              isSelected
+                                ? 'bg-[#2A2A2A] text-white shadow-sm'
+                                : 'bg-[#F2E9E4] text-[#3A3A3A] hover:bg-[#E8DDD6]'
+                            }`}
+                          >
+                            <span>{tab.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
 
-                          <h3 className="font-serif font-black text-2xl sm:text-3xl text-amber-900 tracking-wide uppercase">
-                            SELF STUDIO
-                          </h3>
-                          <div className="font-sans font-black text-xl sm:text-2xl tracking-wider text-slate-900">
-                            <span className="text-red-600">SPECIAL</span> PRICE LIST
-                          </div>
-                          <p className="text-[11px] font-bold text-slate-700 tracking-wide">
-                            (WAJIB MENGIKUTI SYARAT DAN KETENTUAN)
-                          </p>
-                        </div>
+                    {/* KONTEN KARTU PAKET SELF STUDIO (DINAMIS DARI DASHBOARD) */}
+                    {selfStudioSubTab !== 'grid' && (
+                      <div className="space-y-4">
+                        {(() => {
+                          const allSelf = getPackagesForCategory(['self-studio', 'selfstudio']);
+                          const filtered = allSelf.filter((pkg: any) => {
+                            const pid = (pkg.id || '').toLowerCase();
+                            const pname = (pkg.name || '').toLowerCase();
+                            const psub = (pkg.subtitle || '').toLowerCase();
+                            if (selfStudioSubTab === 'special') {
+                              return (
+                                pid.includes('special') ||
+                                pid.includes('spesial') ||
+                                pname.includes('spesial') ||
+                                psub.includes('spesial')
+                              );
+                            }
+                            if (selfStudioSubTab === 'normal') {
+                              return (
+                                (pid.includes('normal') || pname.includes('normal') || psub.includes('normal')) &&
+                                !pid.includes('spotlight') &&
+                                !pname.includes('spotlight')
+                              );
+                            }
+                            if (selfStudioSubTab === 'spotlight') {
+                              return pid.includes('spotlight') || pname.includes('spotlight') || psub.includes('spotlight');
+                            }
+                            return true;
+                          });
 
-                        {/* Special Narsis 55K */}
-                        <div className="relative pt-2">
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                            <div className="sm:col-span-5 flex flex-col items-center">
-                              <div className="w-40 sm:w-44 h-48 sm:h-52 rounded-t-full rounded-b-2xl overflow-hidden border-4 border-white shadow-lg bg-amber-100 relative group">
-                                <img
-                                  src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80"
-                                  alt="Special Narsis Alviero"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                              </div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('self-special-narsis')}
-                                className="-mt-3.5 z-10 px-6 py-1.5 rounded-full bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-900 font-extrabold text-xs tracking-wider uppercase shadow-md border border-slate-300 transition-all cursor-pointer active:scale-95"
-                              >
-                                PESAN
-                              </button>
-                            </div>
+                          const subCategoryTitle =
+                            selfStudioSubTab === 'special'
+                              ? 'Kategori Spesial Hemat (Wajib S&K Instagram)'
+                              : selfStudioSubTab === 'normal'
+                              ? 'Kategori Normal (Tanpa Syarat & Ketentuan)'
+                              : selfStudioSubTab === 'spotlight'
+                              ? 'Colour Spotlight Packages (Proyektor Sinematik)'
+                              : 'Semua Koleksi Paket Self Studio';
 
-                            <div className="sm:col-span-7 space-y-2">
-                              <div className="relative flex items-center justify-between">
-                                <div className="bg-[#a68c74] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-r-full shadow-xs tracking-wider uppercase">
-                                  {getPkg('self-special-narsis')?.name || 'SPECIAL NARSIS'}
+                          return (
+                            <>
+                              <div className="flex items-center justify-between pt-1">
+                                <div className="flex items-center gap-2">
+                                  <span className="w-2 h-2 rounded-full bg-[#5C725A]"></span>
+                                  <h4 className="font-serif font-bold text-sm sm:text-base text-[#2A2A2A] tracking-wide uppercase">
+                                    {subCategoryTitle}
+                                  </h4>
                                 </div>
-                                <div className="w-12 h-12 rounded-full bg-[#a68c74] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  {getPkgPrice('self-special-narsis', '55k')}
+                                <span className="text-[11px] font-medium text-slate-500 font-century">
+                                  {filtered.length} Pilihan Paket
+                                </span>
+                              </div>
+
+                              {filtered.length === 0 ? (
+                                <div className="p-8 text-center bg-[#FAF8F5] rounded-2xl border border-[#E8DDD6] space-y-2">
+                                  <p className="text-sm font-serif font-bold text-[#2A2A2A]">Tidak ada paket ditemukan pada kategori ini.</p>
+                                  <p className="text-xs text-slate-500 font-century">Silakan periksa pengaturan paket di Dashboard Admin.</p>
                                 </div>
-                              </div>
+                              ) : (
+                                filtered.map((pkg: any, idx: number) => {
+                                  const pid = (pkg.id || '').toLowerCase();
+                                  const isSpecial = pid.includes('special') || pid.includes('spesial');
+                                  const isSpotlight = pid.includes('spotlight');
+                                  const defaultNote = isSpecial
+                                    ? '*Wajib follow & tag salah satu akun IG Alviero Studio'
+                                    : isSpotlight
+                                    ? '*Dilengkapi lampu spotlight warna untuk nuansa sinematik artistik'
+                                    : '*Tanpa syarat & ketentuan, bebas berekspresi sepuasnya';
 
-                              <div className="bg-[#d2c3b2]/60 p-3 sm:p-4 rounded-2xl border border-[#c1af9c] text-slate-800 text-xs space-y-1 leading-relaxed">
-                                <p className="text-[11px] text-slate-700">{getPkg('self-special-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-special-narsis')?.duration || 'Durasi 15 menit/sesi foto'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-special-narsis')?.print || 'Belum termasuk cetak'}</p>
-                                <p>{getPkg('self-special-narsis')?.background || '1 Background'}</p>
-                                <p>Available fun props</p>
-                                <p>{getPkg('self-special-narsis')?.fileDelivery || 'All file Google Drive'}</p>
-                              </div>
+                                  return renderLuxuryPackageCard(pkg, idx, defaultNote);
+                                })
+                              )}
+                            </>
+                          );
+                        })()}
+
+                        {/* Banner Pintas ke Pilihan Grid Cetak */}
+                        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#FAF8F5] to-[#F2E9E4] border border-[#E8DDD6] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-1.5 text-xs font-bold font-serif text-[#2A2A2A]">
+                              <span>🎞️</span>
+                              <span>Ingin Melihat Pilihan Layout Cetak?</span>
                             </div>
+                            <p className="text-[11px] text-slate-600 font-century leading-relaxed">
+                              Tersedia aneka template Photo Strip 3, Polaroid Grid 1, Quad Cut Grid 4, hingga Six-Cut Grid 6.
+                            </p>
                           </div>
-                        </div>
-
-                        {/* Special Super Narsis 70K */}
-                        <div className="relative pt-3 border-t border-[#d8ccbe]">
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                            <div className="sm:col-span-7 space-y-2 order-2 sm:order-1">
-                              <div className="relative flex items-center justify-between">
-                                <div className="w-12 h-12 rounded-full bg-[#a68c74] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  {getPkgPrice('self-special-super-narsis', '70k')}
-                                </div>
-                                <div className="bg-[#a68c74] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-l-full shadow-xs tracking-wider uppercase">
-                                  {getPkg('self-special-super-narsis')?.name || 'SPECIAL SUPER NARSIS'}
-                                </div>
-                              </div>
-
-                              <div className="bg-[#d2c3b2]/60 p-3 sm:p-4 rounded-2xl border border-[#c1af9c] text-slate-800 text-xs space-y-1 leading-relaxed text-right">
-                                <p className="text-[11px] text-slate-700">{getPkg('self-special-super-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-special-super-narsis')?.duration || 'Durasi 20 menit/sesi foto'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-special-super-narsis')?.print || 'Free cetak 2 polaroid'}</p>
-                                <p>{getPkg('self-special-super-narsis')?.background || '1 Background'}</p>
-                                <p>Available fun props</p>
-                                <p>{getPkg('self-special-super-narsis')?.fileDelivery || 'All file Google Drive'}</p>
-                              </div>
-                            </div>
-
-                            <div className="sm:col-span-5 flex flex-col items-center order-1 sm:order-2">
-                              <div className="w-40 sm:w-44 h-48 sm:h-52 rounded-t-full rounded-b-2xl overflow-hidden border-4 border-white shadow-lg bg-amber-100 relative group">
-                                <img
-                                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80"
-                                  alt="Special Super Narsis Alviero"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                              </div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('self-special-super-narsis')}
-                                className="-mt-3.5 z-10 px-6 py-1.5 rounded-full bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-900 font-extrabold text-xs tracking-wider uppercase shadow-md border border-slate-300 transition-all cursor-pointer active:scale-95"
-                              >
-                                PESAN
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* S&K Box */}
-                        <div className="bg-[#a68c74] text-white p-4 sm:p-5 rounded-3xl shadow-md space-y-3 relative">
-                          <div className="inline-block bg-[#8c745f] text-white font-serif font-black text-xs px-3.5 py-1 rounded-xl shadow-2xs border border-white/20">
-                            Syarat & Ketentuan
-                          </div>
-
-                          <ul className="space-y-2 text-xs leading-relaxed pl-2 text-amber-50">
-                            <li className="flex items-start gap-1.5">
-                              <span className="text-amber-300 shrink-0">•</span>
-                              <span>Follow <strong className="text-red-300 font-bold">salah satu</strong> akun instagram kami (alviero.selfstudio / alvierostudiofoto / alviero.graduation / alvierowedding) <strong className="text-red-300 font-bold">1 akun untuk 1x booking</strong> ✨</span>
-                            </li>
-                            <li className="flex items-start gap-1.5">
-                              <span className="text-amber-300 shrink-0">•</span>
-                              <span><strong className="text-red-300 font-bold">Tag 3 temanmu</strong> di kolom komentar feed instagram alviero.selfstudio</span>
-                            </li>
-                            <li className="flex items-start gap-1.5">
-                              <span className="text-amber-300 shrink-0">•</span>
-                              <span>Share di instagram kamu (story/feed/reels) dan <strong className="text-red-300 font-bold">tag alviero.selfstudio</strong> (bentuknya bebas) , like 1 postingan di akun instagram kami</span>
-                            </li>
-                            <li className="flex items-start gap-1.5">
-                              <span className="text-amber-300 shrink-0">•</span>
-                              <span>Jika sudah memenuhi syarat dan ketentuan konfirmasi kembali ke admin untuk mendapatkan link all file</span>
-                            </li>
-                            <li className="flex items-start gap-1.5">
-                              <span className="text-amber-300 shrink-0">•</span>
-                              <span>Save Nomor WA Alvierostudio di Kontak</span>
-                            </li>
-                            <li className="flex items-start gap-1.5">
-                              <span className="text-amber-300 shrink-0">•</span>
-                              <span><strong className="text-red-300 font-bold">Free Cetak 1 Polaroid</strong> jika Memberi <strong className="text-red-300 font-bold">Bintang 5 dan Ulasan Di Google Maps</strong> Alviero Studio Foto</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div className="text-center pt-1">
-                          <p className="font-serif font-black text-sm tracking-widest text-[#8c745f] uppercase">
-                            FEEL FREE TO EXPRESS YOUR STYLE
-                          </p>
-                        </div>
-
-                        <div className="text-center pt-2">
                           <button
                             type="button"
-                            onClick={handleGoToDisclaimer}
-                            className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/80 hover:bg-white px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                            onClick={() => setSelfStudioSubTab('grid')}
+                            className="px-4 py-2 rounded-full bg-[#2A2A2A] hover:bg-[#1A1A1A] text-white font-bold text-xs font-century shrink-0 transition-all cursor-pointer shadow-2xs flex items-center justify-center gap-1.5 active:scale-95"
                           >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                            <span>Lihat Grid Cetak</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
-                      </div>
-                    )}
 
-                    {/* Subtab 2: Normal Price List */}
-                    {selfStudioSubTab === 'normal' && (
-                      <div className="space-y-6 bg-[#d8c8c3] rounded-3xl p-5 sm:p-7 border border-[#c5b1aa] shadow-md text-slate-800 animate-in fade-in duration-200">
-                        <div className="text-center space-y-1">
-                          <div className="flex items-center justify-center gap-2 mb-1">
-                            <svg className="w-6 h-6 text-slate-900" viewBox="0 0 48 48" fill="currentColor">
-                              <path d="M24 4L4 38H16L24 22L32 38H44L24 4Z" />
-                              <path d="M24 28L19 38H29L24 28Z" fill="white" />
-                            </svg>
-                            <div className="text-left leading-none">
-                              <span className="font-black text-xs text-slate-900 tracking-wider block">ALVIERO</span>
-                              <span className="font-bold text-[10px] text-slate-600 tracking-widest block">STUDIO</span>
+                        {/* Box Syarat & Ketentuan Khusus Paket Spesial */}
+                        {(selfStudioSubTab === 'special' || selfStudioSubTab === 'all') && (
+                          <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                            <div className="flex items-center gap-2">
+                              <span className="text-base">📋</span>
+                              <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Syarat & Ketentuan Paket Spesial Narsis</h5>
                             </div>
+                            <ul className="space-y-2 text-xs font-century text-slate-700 leading-relaxed">
+                              <li className="flex items-start gap-2">
+                                <span className="text-[#5C725A] font-bold shrink-0">•</span>
+                                <span>Follow salah satu akun Instagram kami (<strong>@alviero.selfstudio</strong>, <strong>@alvierostudiofoto</strong>, <strong>@alviero.graduation</strong>, atau <strong>@alvierowedding</strong>) — <em>1 akun untuk 1x booking</em>.</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                <span className="text-[#5C725A] font-bold shrink-0">•</span>
+                                <span><strong>Tag 3 temanmu</strong> di kolom komentar feed Instagram <strong>@alviero.selfstudio</strong>.</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                <span className="text-[#5C725A] font-bold shrink-0">•</span>
+                                <span>Share di Instagram kamu (story/feed/reels) & <strong>tag @alviero.selfstudio</strong>, lalu beri like pada minimal 1 postingan kami.</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                <span className="text-[#5C725A] font-bold shrink-0">•</span>
+                                <span>Simpan nomor WhatsApp Alviero Studio di kontak HP kamu.</span>
+                              </li>
+                              <li className="flex items-start gap-2">
+                                <span className="text-[#5C725A] font-bold shrink-0">•</span>
+                                <span className="text-[#3D6345] font-semibold">🎁 Bonus: <strong>Free Cetak 1 Polaroid Tambahan</strong> jika memberikan <strong>Rating Bintang 5 & Ulasan Positif di Google Maps</strong> Alviero Studio Foto!</span>
+                              </li>
+                            </ul>
                           </div>
+                        )}
 
-                          <h3 className="font-serif font-black text-2xl sm:text-3xl text-[#5a3e36] tracking-wide uppercase">
-                            SELF STUDIO
-                          </h3>
-                          <div className="font-sans font-black text-xl sm:text-2xl tracking-wider text-slate-900">
-                            <span className="text-red-600">NORMAL</span> PRICE LIST
+                        {/* Box Additional & Layanan Tambahan SelfStudio */}
+                        <div className="bg-[#FAF8F5] border border-[#E8DDD6] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                          <div className="flex items-center gap-2">
+                            <Sparkles className="w-4 h-4 text-[#5C725A]" />
+                            <h5 className="font-serif font-bold text-sm text-[#2A2A2A]">Additional & Layanan Tambahan SelfStudio</h5>
                           </div>
-                          <p className="text-[11px] font-bold text-slate-700 tracking-wide">
-                            (TANPA SYARAT DAN KETENTUAN)
-                          </p>
-                        </div>
-
-                        {/* Normal Narsis 80K */}
-                        <div className="relative pt-2">
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                            <div className="sm:col-span-5 flex flex-col items-center">
-                              <div className="w-40 sm:w-44 h-48 sm:h-52 rounded-t-full rounded-b-2xl overflow-hidden border-4 border-white shadow-lg bg-amber-100 relative group">
-                                <img
-                                  src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80"
-                                  alt="Normal Narsis Alviero"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                              </div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('self-normal-narsis')}
-                                className="-mt-3.5 z-10 px-6 py-1.5 rounded-full bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-900 font-extrabold text-xs tracking-wider uppercase shadow-md border border-slate-300 transition-all cursor-pointer active:scale-95"
-                              >
-                                PESAN
-                              </button>
-                            </div>
-
-                            <div className="sm:col-span-7 space-y-2">
-                              <div className="relative flex items-center justify-between">
-                                <div className="bg-[#8c6b65] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-r-full shadow-xs tracking-wider uppercase">
-                                  {getPkg('self-normal-narsis')?.name || 'NORMAL NARSIS'}
-                                </div>
-                                <div className="w-12 h-12 rounded-full bg-[#8c6b65] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  {getPkgPrice('self-normal-narsis', '80K')}
-                                </div>
-                              </div>
-
-                              <div className="bg-[#c2aca5]/60 p-3 sm:p-4 rounded-2xl border border-[#b29a92] text-slate-800 text-xs space-y-1 leading-relaxed">
-                                <p className="text-[11px] text-slate-700">{getPkg('self-normal-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-normal-narsis')?.duration || 'Durasi 15 menit/sesi foto'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-normal-narsis')?.print || 'Free cetak 2 polaroid'}</p>
-                                <p>{getPkg('self-normal-narsis')?.background || '1 Background'}</p>
-                                <p>Available fun props</p>
-                                <p>{getPkg('self-normal-narsis')?.fileDelivery || 'All file Google Drive'}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Normal Super Narsis 95K */}
-                        <div className="relative pt-3 border-t border-[#c5b1aa]">
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                            <div className="sm:col-span-7 space-y-2 order-2 sm:order-1">
-                              <div className="relative flex items-center justify-between">
-                                <div className="w-12 h-12 rounded-full bg-[#8c6b65] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white">
-                                  {getPkgPrice('self-normal-super-narsis', '95K')}
-                                </div>
-                                <div className="bg-[#8c6b65] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-l-full shadow-xs tracking-wider uppercase">
-                                  {getPkg('self-normal-super-narsis')?.name || 'NORMAL SUPER NARSIS'}
-                                </div>
-                              </div>
-
-                              <div className="bg-[#c2aca5]/60 p-3 sm:p-4 rounded-2xl border border-[#b29a92] text-slate-800 text-xs space-y-1 leading-relaxed text-right">
-                                <p className="text-[11px] text-slate-700">{getPkg('self-normal-super-narsis')?.people || 'Maksimal 5 orang Lebih dari 5 +15k/orang Unlimited shoots'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-normal-super-narsis')?.duration || 'Durasi 20 menit/sesi foto'}</p>
-                                <p className="text-red-600 font-bold">{getPkg('self-normal-super-narsis')?.print || 'Free cetak 2 polaroid'}</p>
-                                <p>{getPkg('self-normal-super-narsis')?.background || '1 Background'}</p>
-                                <p>Available fun props</p>
-                                <p>{getPkg('self-normal-super-narsis')?.fileDelivery || 'All file Google Drive'}</p>
-                              </div>
-                            </div>
-
-                            <div className="sm:col-span-5 flex flex-col items-center order-1 sm:order-2">
-                              <div className="w-40 sm:w-44 h-48 sm:h-52 rounded-t-full rounded-b-2xl overflow-hidden border-4 border-white shadow-lg bg-amber-100 relative group">
-                                <img
-                                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80"
-                                  alt="Normal Super Narsis Alviero"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                              </div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('self-normal-super-narsis')}
-                                className="-mt-3.5 z-10 px-6 py-1.5 rounded-full bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-900 font-extrabold text-xs tracking-wider uppercase shadow-md border border-slate-300 transition-all cursor-pointer active:scale-95"
-                              >
-                                PESAN
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Additional Box */}
-                        <div className="bg-[#bda69f] text-white p-4 sm:p-5 rounded-3xl shadow-md space-y-3 relative">
-                          <div className="text-center">
-                            <span className="inline-block bg-[#8c6b65] text-white font-serif font-black text-xs px-4 py-1.5 rounded-xl shadow-2xs border border-white/20 uppercase tracking-wider">
-                              ADDITIONAL
-                            </span>
-                          </div>
-
-                          <div className="space-y-1.5 text-xs text-amber-50 leading-relaxed max-w-lg mx-auto">
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Waktu 20K/5 menit</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Cetak 7.5K/1 lembar foto</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Cetak 8K/2 lembar (GRID 3)</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Hewan Peliharaan selain Anjing (dari client) 25K</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Orang 15K/orang</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Sewa Kostum Dino 15K/orang <strong className="text-amber-200">(Sepasang 25K)</strong></span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-white/20 pb-1">
-                              <span>+ Spotlight 25K (Khusus Background Tirai Coklat)</span>
-                            </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs font-century text-[#3A3A3A]">
+                            <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Tambah Waktu (5 Menit)</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("self-time", "20K")}</span></div>
+                            <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Cetak 1 Lembar 4R</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("self-print", "7.5K")}</span></div>
+                            <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Cetak Grid 3 (2 Lbr)</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("self-print-grid3", "8K")}</span></div>
+                            <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Tambah Orang</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("self-extra-person", "15K/org")}</span></div>
+                            <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Kostum Dino (1/Pasang)</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("self-costume-dino", "15K/25K")}</span></div>
+                            <div className="p-2.5 rounded-xl bg-white border border-[#EFE5DC] flex justify-between items-center"><span>+ Hewan Peliharaan</span><span className="font-bold text-[#5C725A]">{getAddOnPriceDisplay("self-pet", "25K")}</span></div>
                           </div>
                         </div>
 
                         <div className="text-center pt-1">
-                          <p className="font-serif font-black text-sm tracking-widest text-[#8c6b65] uppercase">
-                            FEEL FREE TO EXPRESS YOUR STYLE
-                          </p>
-                        </div>
-
-                        <div className="text-center pt-2">
                           <button
                             type="button"
                             onClick={handleGoToDisclaimer}
-                            className="inline-flex items-center gap-1.5 text-xs text-rose-600 hover:text-rose-700 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/80 hover:bg-white px-3.5 py-1.5 rounded-full border border-rose-200 shadow-2xs"
+                            className="inline-flex items-center gap-1.5 text-xs text-[#5C725A] hover:text-[#3D6345] font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-[#EBF2EA] hover:bg-[#DEE9DD] px-4 py-2 rounded-full border border-[#D0E2CE] shadow-2xs font-century"
                           >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
+                            <span>📖 Harap Membaca Ketentuan & Disclaimer Studio</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </div>
                     )}
 
-                    {/* Subtab 3: Self Colour Spotlight */}
-                    {selfStudioSubTab === 'spotlight' && (
-                      <div className="space-y-6 bg-gradient-to-b from-[#4954a1] via-[#7b5387] to-[#cd779f] rounded-3xl p-5 sm:p-7 border border-purple-400/50 shadow-xl text-white animate-in fade-in duration-200">
-                        <div className="text-center space-y-1">
-                          <div className="flex items-center justify-center gap-2 mb-1">
-                            <svg className="w-6 h-6 text-white drop-shadow-md" viewBox="0 0 48 48" fill="currentColor">
-                              <path d="M24 4L4 38H16L24 22L32 38H44L24 4Z" />
-                              <path d="M24 28L19 38H29L24 28Z" fill="white" />
-                            </svg>
-                            <div className="text-left leading-none">
-                              <span className="font-black text-xs text-white tracking-wider block">ALVIERO</span>
-                              <span className="font-bold text-[10px] text-pink-200 tracking-widest block">STUDIO</span>
-                            </div>
-                          </div>
-
-                          <h3 className="font-sans font-black text-2xl sm:text-3xl text-pink-300 tracking-wider uppercase drop-shadow-[0_0_12px_rgba(244,114,182,0.8)]">
-                            SELF
-                          </h3>
-                          <div className="font-sans font-black text-xl sm:text-2xl tracking-widest text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] uppercase border-2 border-pink-400/80 px-4 py-1 rounded-2xl inline-block bg-pink-500/20 backdrop-blur-sm">
-                            COLOUR SPOTLIGHT
-                          </div>
-                        </div>
-
-                        {/* Special Spotlight 99K */}
-                        <div className="relative pt-2">
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                            <div className="sm:col-span-5 flex flex-col items-center">
-                              <div className="w-40 sm:w-44 h-48 sm:h-52 rounded-t-full rounded-b-2xl overflow-hidden border-4 border-white shadow-xl bg-slate-900 relative group">
-                                <img
-                                  src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=600&q=80"
-                                  alt="Special Colour Spotlight Alviero"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                              </div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('self-special-spotlight')}
-                                className="-mt-3.5 z-10 px-6 py-1.5 rounded-full bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-900 font-extrabold text-xs tracking-wider uppercase shadow-md border border-slate-300 transition-all cursor-pointer active:scale-95"
-                              >
-                                PESAN
-                              </button>
-                            </div>
-
-                            <div className="sm:col-span-7 space-y-2">
-                              <div className="relative flex items-center justify-between">
-                                <div className="bg-[#78283d] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-r-full shadow-xs tracking-wider uppercase">
-                                  <div>SPECIAL COLOUR SPOTLIGHT</div>
-                                  <div className="text-[9px] text-pink-200 font-sans font-normal">(WAJIB MENGIKUTI SYARAT DAN KETENTUAN)</div>
-                                </div>
-                                <div className="w-12 h-12 rounded-full bg-[#78283d] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white shrink-0">
-                                  {getPkgPrice('self-special-spotlight', '99K')}
-                                </div>
-                              </div>
-
-                              <div className="bg-[#481525]/70 p-3 sm:p-4 rounded-2xl border border-pink-500/30 text-white text-xs space-y-1 leading-relaxed">
-                                <p className="text-[11px] text-pink-200">{getPkg('self-special-spotlight')?.people || 'Maksimal 5 orang, Lebih dari 5 +15k/orang Unlimited shoots'}</p>
-                                <p className="text-red-400 font-bold">{getPkg('self-special-spotlight')?.duration || 'Durasi 20 menit/sesi foto'}</p>
-                                <p className="text-red-400 font-bold">{getPkg('self-special-spotlight')?.print || 'Free cetak 2 polaroid'}</p>
-                                <p>{getPkg('self-special-spotlight')?.background || '1 Background'}</p>
-                                <p>Available fun props</p>
-                                <p>{getPkg('self-special-spotlight')?.fileDelivery || 'All file Google Drive'}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Normal Spotlight 115K */}
-                        <div className="relative pt-3 border-t border-purple-400/40">
-                          <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                            <div className="sm:col-span-7 space-y-2 order-2 sm:order-1">
-                              <div className="relative flex items-center justify-between">
-                                <div className="w-12 h-12 rounded-full bg-[#5b248a] text-white font-serif font-black text-sm flex items-center justify-center shadow-md border-2 border-white shrink-0">
-                                  {getPkgPrice('self-normal-spotlight', '115K')}
-                                </div>
-                                <div className="bg-[#5b248a] text-white font-serif font-bold text-xs sm:text-sm px-4 py-1.5 rounded-l-full shadow-xs tracking-wider uppercase">
-                                  NORMAL COLOUR SPOTLIGHT
-                                </div>
-                              </div>
-
-                              <div className="bg-[#381159]/70 p-3 sm:p-4 rounded-2xl border border-purple-400/30 text-white text-xs space-y-1 leading-relaxed text-right">
-                                <p className="text-[11px] text-purple-200">Maksimal 5 orang, Lebih dari 5 +15k/orang Unlimited shoots</p>
-                                <p className="text-red-400 font-bold">Durasi 20 menit/sesi foto</p>
-                                <p className="text-red-400 font-bold">Free cetak 2 polaroid</p>
-                                <p>1 Background</p>
-                                <p>Available fun props</p>
-                                <p>All file Google Drive</p>
-                              </div>
-                            </div>
-
-                            <div className="sm:col-span-5 flex flex-col items-center order-1 sm:order-2">
-                              <div className="w-40 sm:w-44 h-48 sm:h-52 rounded-t-full rounded-b-2xl overflow-hidden border-4 border-white shadow-xl bg-slate-900 relative group">
-                                <img
-                                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80"
-                                  alt="Normal Colour Spotlight Alviero"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                              </div>
-                              <button
-                                onClick={() => onSelectPackageForBooking('self-normal-spotlight')}
-                                className="-mt-3.5 z-10 px-6 py-1.5 rounded-full bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-900 font-extrabold text-xs tracking-wider uppercase shadow-md border border-slate-300 transition-all cursor-pointer active:scale-95"
-                              >
-                                PESAN
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* 4 Tilted Polaroids */}
-                        <div className="pt-3 pb-1">
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
-                            <div className="bg-white p-2 pb-5 rounded-sm shadow-xl transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                              <div className="aspect-square bg-slate-900 rounded-sm overflow-hidden">
-                                <img
-                                  src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80"
-                                  alt="Spotlight Dual Tone Blue"
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="bg-white p-2 pb-5 rounded-sm shadow-xl transform rotate-2 hover:rotate-0 transition-transform duration-300">
-                              <div className="aspect-square bg-slate-900 rounded-sm overflow-hidden">
-                                <img
-                                  src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=400&q=80"
-                                  alt="Spotlight Circle Warm"
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="bg-white p-2 pb-5 rounded-sm shadow-xl transform -rotate-2 hover:rotate-0 transition-transform duration-300">
-                              <div className="aspect-square bg-slate-900 rounded-sm overflow-hidden">
-                                <img
-                                  src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"
-                                  alt="Spotlight Cyber Pink"
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="bg-white p-2 pb-5 rounded-sm shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                              <div className="aspect-square bg-slate-900 rounded-sm overflow-hidden">
-                                <img
-                                  src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=400&q=80"
-                                  alt="Spotlight Dark Shadow"
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="text-center pt-2">
-                          <p className="font-sans font-black text-sm tracking-widest text-pink-200 uppercase drop-shadow-sm">
-                            FEEL FREE TO COLOURING YOUR STYLE
-                          </p>
-                        </div>
-
-                        <div className="text-center pt-2">
-                          <button
-                            type="button"
-                            onClick={handleGoToDisclaimer}
-                            className="inline-flex items-center gap-1.5 text-xs text-white hover:text-pink-200 font-bold underline cursor-pointer transition-all hover:scale-105 active:scale-95 bg-white/20 hover:bg-white/30 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/30 shadow-2xs"
-                          >
-                            <span>⚠️ Harap Membaca Disclaimer pada halaman Disclaimer</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Subtab 4: Pilihan Grid Cetak Self Studio */}
+{/* Subtab 4: Pilihan Grid Cetak Self Studio */}
                     {selfStudioSubTab === 'grid' && (
                       <div className="space-y-6 animate-in fade-in duration-300">
 
