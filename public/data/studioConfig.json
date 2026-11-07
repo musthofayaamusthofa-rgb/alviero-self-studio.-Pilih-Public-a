@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T06:33:18.120Z",
+  "lastUpdated": "2026-11-07T06:38:22.914Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -302,7 +302,7 @@
     },
     {
       "id": "c2-self-abu",
-      "name": "Abu-abu",
+      "name": "Abu-abu Self",
       "category": "solid-color",
       "hex": "#a38068",
       "description": "Latar coklat netral aesthetic untuk foto mandiri kekinian.",
@@ -321,7 +321,7 @@
     },
     {
       "id": "c2-self-biru",
-      "name": "Biru",
+      "name": "Biru Self",
       "category": "solid-color",
       "hex": "#2563EB",
       "description": "Latar biru aesthetic & fresh khas bilik foto mandiri Alviero.",
@@ -340,7 +340,7 @@
     },
     {
       "id": "c2-self-putih",
-      "name": "Putih",
+      "name": "Putih Self",
       "category": "solid-color",
       "hex": "#F8FAFC",
       "description": "Latar putih bersih minimalis untuk ekspresi gaya bebas.",
@@ -359,7 +359,7 @@
     },
     {
       "id": "c2-self-tematik-cream",
-      "name": "Tematik Cream",
+      "name": "Tematik Cream Self",
       "category": "solid-color",
       "hex": "#FEF3C7",
       "description": "Latar tematik cream hangat untuk nuansa pastel aesthetic (Maksimal 5 Orang).",
@@ -7172,6 +7172,24 @@
       "backgroundIdB": "c2-tematik-cream",
       "scope": "both",
       "reason": "Bentrok area panggung yang sama di Studio 2 (Dinoyo)",
+      "active": true
+    },
+    {
+      "id": "rule-cabang-2-1794033366542",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-self-abu",
+      "backgroundIdB": "c2-self-biru",
+      "scope": "slot",
+      "reason": "Bentrok area panggung yang sama",
+      "active": true
+    },
+    {
+      "id": "rule-cabang-2-1794033445689",
+      "branch": "cabang-2",
+      "backgroundIdA": "c2-self-putih",
+      "backgroundIdB": "c2-self-tematik-cream",
+      "scope": "slot",
+      "reason": "Bentrok area panggung yang sama",
       "active": true
     }
   ],
