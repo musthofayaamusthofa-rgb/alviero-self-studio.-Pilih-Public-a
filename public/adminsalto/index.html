@@ -2629,6 +2629,7 @@
               <button class="pill-btn" onclick="filterAddonCategory('time', this)">⏰ Waktu & Durasi</button>
               <button class="pill-btn" onclick="filterAddonCategory('frame', this)">🖼️ Cetak & Frame</button>
               <button class="pill-btn" onclick="filterAddonCategory('file', this)">💾 File & Storage</button>
+              <button class="pill-btn" onclick="filterAddonCategory('background', this)">🎨 Background</button>
               <button class="pill-btn" onclick="filterAddonCategory('prop', this)">✨ Properti & Balon</button>
               <button class="pill-btn" onclick="filterAddonCategory('selfstudio', this)">📸 Self Studio</button>
               <button class="pill-btn" onclick="filterAddonCategory('pass-foto', this)">👤 Pass Foto</button>
@@ -4380,6 +4381,7 @@
               <option value="time">⏰ Waktu & Durasi (time)</option>
               <option value="frame">🖼️ Cetak & Bingkai Frame (frame)</option>
               <option value="file">💾 File & Drive Storage (file)</option>
+              <option value="background">🎨 Background Studio (background)</option>
               <option value="prop">✨ Properti, Balon & Lighting (prop)</option>
               <option value="selfstudio">📸 Self Studio Khusus (selfstudio)</option>
               <option value="pass-foto">👤 Pass Foto (pass-foto)</option>
@@ -11257,6 +11259,7 @@
       time: { label: 'Waktu & Durasi', icon: '⏰', pillClass: 'cat-pill-time' },
       frame: { label: 'Cetak & Frame', icon: '🖼️', pillClass: 'cat-pill-frame' },
       file: { label: 'File & Storage', icon: '💾', pillClass: 'cat-pill-file' },
+      background: { label: 'Background Studio', icon: '🎨', pillClass: 'cat-pill-background' },
       prop: { label: 'Properti & Balon', icon: '✨', pillClass: 'cat-pill-prop' },
       selfstudio: { label: 'Self Studio', icon: '📸', pillClass: 'cat-pill-selfstudio' },
       'pass-foto': { label: 'Pass Foto', icon: '👤', pillClass: 'cat-pill-pass-foto' },
@@ -11296,6 +11299,7 @@
       const frameCount = addOns.filter(a => a.category === 'frame' || (a.name || '').toLowerCase().includes('cetak')).length;
       const timeCount = addOns.filter(a => a.category === 'time' || (a.unit || '').includes('menit') || (a.name || '').toLowerCase().includes('waktu')).length;
       const fileCount = addOns.filter(a => a.category === 'file' || (a.name || '').toLowerCase().includes('drive')).length;
+      const bgCount = addOns.filter(a => a.category === 'background' || (a.name || '').toLowerCase().includes('background')).length;
 
       const mTotal = document.getElementById('addonMetricTotal');
       const mActive = document.getElementById('addonMetricActive');
@@ -11303,6 +11307,7 @@
       const mFrame = document.getElementById('addonMetricFrame');
       const mTime = document.getElementById('addonMetricTime');
       const mFile = document.getElementById('addonMetricFile');
+      const mBg = document.getElementById('addonMetricBg');
 
       if (mTotal) mTotal.textContent = addOns.length;
       if (mActive) mActive.textContent = activeCount;
@@ -11310,6 +11315,7 @@
       if (mFrame) mFrame.textContent = frameCount;
       if (mTime) mTime.textContent = timeCount;
       if (mFile) mFile.textContent = fileCount;
+      if (mBg) mBg.textContent = bgCount;
 
       const container = document.getElementById('addonsGrid');
       if (!container) return;

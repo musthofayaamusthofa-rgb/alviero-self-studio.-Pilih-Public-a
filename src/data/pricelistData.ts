@@ -1530,7 +1530,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema indoor saat sesi foto.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['grad-indoor']
   },
   {
@@ -1539,7 +1539,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: 'kostum',
     description: 'Biaya ganti 1 stel kostum tambahan yang dibawa klien.',
-    category: 'prop',
+    category: 'person',
     applicableCategories: ['grad-indoor']
   },
   {
@@ -1586,7 +1586,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: '10 menit',
     description: 'Tambahan durasi pemotretan wisuda outdoor per 10 menit.',
-    category: 'file',
+    category: 'time',
     applicableCategories: ['grad-outdoor']
   },
 
@@ -1708,7 +1708,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema studio.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['group']
   },
   {
@@ -1717,7 +1717,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: 'kostum',
     description: 'Ganti 1 stel kostum tambahan per sesi group.',
-    category: 'prop',
+    category: 'person',
     applicableCategories: ['group']
   },
   {
@@ -1757,7 +1757,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema keluarga.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['family']
   },
   {
@@ -1766,7 +1766,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: 'kostum',
     description: 'Ganti 1 stel kostum keluarga saat sesi.',
-    category: 'prop',
+    category: 'person',
     applicableCategories: ['family']
   },
   {
@@ -1840,7 +1840,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Tambah 1 background include ekstra waktu 7 menit.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['birthday']
   },
   {
@@ -1849,7 +1849,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 25000,
     unit: 'sesi',
     description: 'Pencahayaan sorot fokus spotlight artistik.',
-    category: 'file',
+    category: 'prop',
     applicableCategories: ['birthday']
   },
   {
@@ -1858,7 +1858,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 25000,
     unit: 'sesi',
     description: 'Pencahayaan warna-warni RGB spotlight aesthetic.',
-    category: 'file',
+    category: 'prop',
     applicableCategories: ['birthday']
   },
   {
@@ -1878,7 +1878,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema maternity.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['maternity']
   },
   {
@@ -1887,7 +1887,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: 'kostum',
     description: 'Ganti 1 stel gaun / kostum maternity hamil.',
-    category: 'prop',
+    category: 'person',
     applicableCategories: ['maternity']
   },
   {
@@ -1916,7 +1916,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema personal.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['personal']
   },
   {
@@ -1925,7 +1925,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 35000,
     unit: 'kostum',
     description: 'Ganti 1 stel outfit / kostum saat sesi personal.',
-    category: 'prop',
+    category: 'person',
     applicableCategories: ['personal']
   },
   {
@@ -1954,7 +1954,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema pasangan.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['couple']
   },
   {
@@ -1963,7 +1963,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 50000,
     unit: 'kostum',
     description: 'Ganti 1 pasang pakaian couple saat sesi.',
-    category: 'prop',
+    category: 'person',
     applicableCategories: ['couple']
   },
   {
@@ -1992,7 +1992,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 75000,
     unit: 'background',
     description: 'Ganti / tambah 1 background tema prewedding.',
-    category: 'file',
+    category: 'background',
     applicableCategories: ['prewedding']
   },
   {

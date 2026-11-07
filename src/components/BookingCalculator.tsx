@@ -4143,23 +4143,26 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
               if (!addOn.applicableCategories || addOn.applicableCategories.length === 0 || addOn.applicableCategories.includes('all')) return true;
               return addOn.applicableCategories.includes(packageCatInfo.key);
             });
-            const addOnGroupMeta: Record<string, { label: string; description: string; className: string }> = {
-              frame: { label: 'Cetak & Bingkai', description: 'Cetak Lab foto & pigura bingkai minimalis', className: 'bg-amber-50/90 border-amber-200 text-amber-950' },
-              file: { label: 'File & Penyimpanan', description: 'Perpanjangan dan pengelolaan file', className: 'bg-sky-50 border-sky-200 text-sky-950' },
-              background: { label: 'Background', description: 'Tambahan pilihan latar foto', className: 'bg-cyan-50 border-cyan-200 text-cyan-950' },
-              prop: { label: 'Properti & Aksesori', description: 'Tambahan properti sesi foto', className: 'bg-orange-50 border-orange-200 text-orange-950' },
-              person: { label: 'Orang & Kostum', description: 'Tambahan peserta dan outfit', className: 'bg-fuchsia-50 border-fuchsia-200 text-fuchsia-950' },
-              time: { label: 'Waktu & Durasi', description: 'Ekstra durasi pemotretan sesi foto', className: 'bg-indigo-50 border-indigo-200 text-indigo-950' },
-              selfstudio: { label: 'Self Studio', description: 'Tambahan khusus sesi foto mandiri', className: 'bg-emerald-50 border-emerald-200 text-emerald-950' },
-              'pass-foto': { label: 'Pass Foto', description: 'Layanan tambahan pass foto', className: 'bg-lime-50 border-lime-200 text-lime-950' },
-              other: { label: 'Layanan Tambahan', description: 'Pilihan opsi ekstra studio lainnya', className: 'bg-rose-50 border-rose-200 text-rose-950' }
+            const addOnGroupMeta: Record<string, { label: string; icon: string; description: string; className: string }> = {
+              person: { label: 'Orang & Kostum', icon: '👥', description: 'Tambahan peserta, wisudawan, outfit & kostum', className: 'bg-fuchsia-50/90 border-fuchsia-200 text-fuchsia-950' },
+              time: { label: 'Waktu & Durasi', icon: '⏰', description: 'Ekstra durasi pemotretan sesi foto', className: 'bg-indigo-50/90 border-indigo-200 text-indigo-950' },
+              frame: { label: 'Cetak & Bingkai', icon: '🖼️', description: 'Cetak Lab foto & pigura bingkai minimalis', className: 'bg-amber-50/90 border-amber-200 text-amber-950' },
+              file: { label: 'File & Penyimpanan', icon: '💾', description: 'Perpanjangan Google Drive & media flashdisk', className: 'bg-sky-50/90 border-sky-200 text-sky-950' },
+              background: { label: 'Background Studio', icon: '🎨', description: 'Tambahan pilihan latar tema foto', className: 'bg-cyan-50/90 border-cyan-200 text-cyan-950' },
+              prop: { label: 'Properti & Aksesori', icon: '✨', description: 'Tambahan properti, balon, confetti & lighting', className: 'bg-orange-50/90 border-orange-200 text-orange-950' },
+              selfstudio: { label: 'Self Studio', icon: '📸', description: 'Tambahan khusus sesi foto mandiri', className: 'bg-emerald-50/90 border-emerald-200 text-emerald-950' },
+              'pass-foto': { label: 'Pass Foto', icon: '👤', description: 'Layanan cetak pas foto resmi', className: 'bg-lime-50/90 border-lime-200 text-lime-950' },
+              other: { label: 'Layanan Tambahan', icon: '📦', description: 'Pilihan opsi ekstra studio lainnya', className: 'bg-rose-50/90 border-rose-200 text-rose-950' }
             };
             const getAddOnGroupKey = (addOn: typeof relevantAddOns[number]): string => {
-              const normalizedName = addOn.name.toLowerCase();
+              if (addOn.category) return addOn.category;
+              const normalizedName = (addOn.name || '').toLowerCase();
               if (normalizedName.includes('background')) return 'background';
               if (normalizedName.includes('cetak') || normalizedName.includes('bingkai')) return 'frame';
               if (normalizedName.includes('waktu') || normalizedName.includes('durasi') || (addOn.unit && addOn.unit.includes('menit'))) return 'time';
-              return addOn.category || 'person';
+              if (normalizedName.includes('drive') || normalizedName.includes('flashdisk') || normalizedName.includes('edit')) return 'file';
+              if (normalizedName.includes('kostum') || normalizedName.includes('orang') || normalizedName.includes('wisudawan') || normalizedName.includes('makeup') || normalizedName.includes('hairdo')) return 'person';
+              return 'other';
             };
             const groupedAddOns = relevantAddOns.reduce<Record<string, typeof relevantAddOns>>((groups, addOn) => {
               const groupKey = getAddOnGroupKey(addOn);
@@ -4220,7 +4223,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {(() => {
-                        const groupOrder = ['frame', 'file', 'background', 'prop', 'person', 'selfstudio', 'pass-foto'];
+                        const groupOrder = ['person', 'time', 'frame', 'file', 'background', 'prop', 'selfstudio', 'pass-foto', 'other'];
                         return (Object.entries(groupedAddOns) as [string, typeof relevantAddOns][])
                           .sort(([a], [b]) => {
                             const idxA = groupOrder.indexOf(a);
@@ -4242,7 +4245,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               >
                                 <div className="flex items-start justify-between gap-2">
                                   <div>
-                                    <span className="block font-serif font-bold text-sm uppercase tracking-wide">{meta.label}</span>
+                                    <span className="block font-serif font-bold text-sm uppercase tracking-wide flex items-center gap-1.5">{meta.icon && <span>{meta.icon}</span>}<span>{meta.label}</span></span>
                                     <span className="mt-1 block text-[11px] opacity-75">{meta.description}</span>
                                   </div>
                                   <span className="rounded-full bg-white/70 px-2 py-0.5 text-[10px] font-bold">
@@ -4281,7 +4284,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                           <div className="mb-4 flex items-start justify-between gap-3 border-b border-[#E8DDD6] pb-3">
                             <div>
                               <h5 className="font-serif text-base font-bold uppercase tracking-wide text-[#3A3A3A]">
-                                {addOnGroupMeta[selectedAddOnGroup || '']?.label || selectedAddOnGroup}
+                                {addOnGroupMeta[selectedAddOnGroup || '']?.icon ? `${addOnGroupMeta[selectedAddOnGroup || '']?.icon} ` : ''}{addOnGroupMeta[selectedAddOnGroup || '']?.label || selectedAddOnGroup}
                               </h5>
                               <p className="mt-1 text-[11px] text-stone-500">Pilih jumlah layanan tambahan yang diperlukan.</p>
                             </div>

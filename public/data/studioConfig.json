@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T13:40:41.296Z",
+  "lastUpdated": "2026-11-07T13:41:28.867Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2551,7 +2551,6 @@
       "note": "*Ruangan studio lapang dan nyaman untuk keluarga besar",
       "imageUrl": "/images/categories/family.jpg",
       "imageUrls": [
-        "/images/categories/family.jpg",
         "/images/categories/family.jpg"
       ],
       "_origIndex": 19
@@ -3876,11 +3875,8 @@
         }
       ],
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
-      "imageUrl": "/images/categories/family.jpg",
-      "imageUrls": [
-        "/images/categories/family.jpg",
-        "/images/categories/family.jpg"
-      ],
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 41
     },
     {
@@ -3932,11 +3928,8 @@
         }
       ],
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
-      "imageUrl": "/images/categories/family.jpg",
-      "imageUrls": [
-        "/images/categories/family.jpg",
-        "/images/categories/family.jpg"
-      ],
+      "imageUrl": "",
+      "imageUrls": [],
       "_origIndex": 42
     }
   ],
@@ -6198,7 +6191,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema indoor saat sesi foto.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "grad-indoor"
@@ -6214,7 +6207,7 @@
       "price": 50000,
       "unit": "kostum",
       "description": "Biaya ganti 1 stel kostum tambahan yang dibawa klien.",
-      "category": "prop",
+      "category": "person",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "grad-indoor"
@@ -6294,7 +6287,7 @@
       "price": 50000,
       "unit": "10 menit",
       "description": "Tambahan durasi pemotretan wisuda outdoor per 10 menit.",
-      "category": "file",
+      "category": "time",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "grad-outdoor"
@@ -6502,7 +6495,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema studio.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "group"
@@ -6518,7 +6511,7 @@
       "price": 50000,
       "unit": "kostum",
       "description": "Ganti 1 stel kostum tambahan per sesi group.",
-      "category": "prop",
+      "category": "person",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "group"
@@ -6582,7 +6575,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema keluarga.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "family"
@@ -6598,7 +6591,7 @@
       "price": 50000,
       "unit": "kostum",
       "description": "Ganti 1 stel kostum keluarga saat sesi.",
-      "category": "prop",
+      "category": "person",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "family"
@@ -6726,7 +6719,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Tambah 1 background include ekstra waktu 7 menit.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "birthday"
@@ -6742,7 +6735,7 @@
       "price": 25000,
       "unit": "sesi",
       "description": "Pencahayaan sorot fokus spotlight artistik.",
-      "category": "file",
+      "category": "prop",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "birthday"
@@ -6758,7 +6751,7 @@
       "price": 25000,
       "unit": "sesi",
       "description": "Pencahayaan warna-warni RGB spotlight aesthetic.",
-      "category": "file",
+      "category": "prop",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "birthday"
@@ -6790,7 +6783,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema maternity.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "maternity"
@@ -6806,7 +6799,7 @@
       "price": 50000,
       "unit": "kostum",
       "description": "Ganti 1 stel gaun / kostum maternity hamil.",
-      "category": "prop",
+      "category": "person",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "maternity"
@@ -6854,7 +6847,7 @@
       "price": 50000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema personal.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "personal"
@@ -6870,7 +6863,7 @@
       "price": 35000,
       "unit": "kostum",
       "description": "Ganti 1 stel outfit / kostum saat sesi personal.",
-      "category": "prop",
+      "category": "person",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "personal"
@@ -6918,7 +6911,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema pasangan.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "couple"
@@ -6934,7 +6927,7 @@
       "price": 50000,
       "unit": "kostum",
       "description": "Ganti 1 pasang pakaian couple saat sesi.",
-      "category": "prop",
+      "category": "person",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "couple"
@@ -6982,7 +6975,7 @@
       "price": 75000,
       "unit": "background",
       "description": "Ganti / tambah 1 background tema prewedding.",
-      "category": "file",
+      "category": "background",
       "isSelfStudioOnly": false,
       "applicableCategories": [
         "prewedding"
@@ -7046,7 +7039,7 @@
       "price": 20000,
       "unit": "5 menit",
       "description": "Tambahan durasi sesi pemotretan selfstudio (+5 menit).",
-      "category": "selfstudio",
+      "category": "time",
       "isSelfStudioOnly": true,
       "applicableCategories": [
         "self-studio"
