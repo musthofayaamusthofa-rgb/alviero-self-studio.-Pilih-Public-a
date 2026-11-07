@@ -2363,6 +2363,45 @@
               <textarea id="stripSamplePhotosInput" class="form-control" rows="3" style="display: none;"></textarea>
             </div>
 
+            
+            <!-- 7. MANAJEMEN DESAIN GRID CETAK SELF STUDIO (KATALOG PRICELIST) -->
+            <div style="background: #FFFFFF; border: 1.5px solid #E4D8CD; border-radius: 16px; padding: 1.5rem; margin-top: 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; border-bottom: 1.5px solid #F1EAE2; padding-bottom: 1rem;">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                    <span style="font-size: 1.35rem;">🎨</span>
+                    <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); margin: 0;">
+                      Manajemen Pilihan Desain Grid Cetak Self Studio
+                    </h3>
+                    <span style="font-size: 0.72rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 999px; background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D;">
+                      Katalog Pricelist SelfStudio
+                    </span>
+                  </div>
+                  <p style="font-size: 0.8rem; color: #71717A; margin: 0.35rem 0 0 0; max-width: 780px; line-height: 1.45;">
+                    Atur seri format grid (Grid 3 Photo Strip, Grid 1 Polaroid, Grid 4 Quad Cut, Grid 6 Six Cut), warna background poster, serta <strong>upload gambar desain strip foto baru (mockup Canva/Photoshop)</strong> untuk mengganti tampilan desain strip foto kapan pun Anda inginkan!
+                  </p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-preview" style="font-size: 0.76rem; padding: 0.4rem 0.8rem;" onclick="resetSelfStudioPrintLayoutsDefault()">
+                    🔄 Reset Desain Default
+                  </button>
+                  <button type="button" class="btn btn-save-local" style="font-size: 0.78rem; padding: 0.45rem 1rem;" onclick="saveSelfStudioPrintLayoutsConfig()">
+                    💾 Simpan Desain Grid Cetak
+                  </button>
+                </div>
+              </div>
+
+              <!-- Filter Tab Seri Grid (Pill Buttons) -->
+              <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.75rem; margin-bottom: 1.25rem; border-bottom: 1px solid #F1F5F9;" id="printLayoutsSeriesPills">
+                <!-- Rendered dynamically -->
+              </div>
+
+              <!-- Container Seri Grid & Item Desain -->
+              <div id="printLayoutsContainer" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <!-- Rendered dynamically by renderSelfStudioPrintLayoutsEditor() -->
+              </div>
+            </div>
+
             <!-- Bottom Sticky Save Bar -->
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem;">
               <div style="font-size: 0.8rem; color: #52525B;">
@@ -10058,7 +10097,6 @@
       const activeCat = cats[activePkgEditorCatIdx];
       document.getElementById('muaActiveCategoryNameInput').value = activeCat.name || '';
       document.getElementById('muaActiveCategoryDescInput').value = activeCat.description || '';
-      
       if (!Array.isArray(activeCat.portfolioImages)) {
         activeCat.portfolioImages = (activeCat.portfolioImage && activeCat.portfolioImage.trim()) ? [activeCat.portfolioImage.trim()] : [];
       }
@@ -13676,6 +13714,7 @@
       const cfg = ensurePhotoStripConfig();
       cfg.samplePhotos = [...DEFAULT_PHOTO_STRIP_DATA.samplePhotos];
       renderPhotoStripSamplePhotosEditor();
+      renderSelfStudioPrintLayoutsEditor();
       showToast('Ke-6 foto contoh berhasil dikembalikan ke standar awal!', '🔄');
     }
 
@@ -13728,6 +13767,7 @@
       renderPhotoStripGridsEditor();
       renderPhotoStripThemesEditor();
       renderPhotoStripSamplePhotosEditor();
+      renderSelfStudioPrintLayoutsEditor();
 
       setVal('stripDefaultGridSelect', cfg.defaultGrid || 'grid-3-4r');
       setVal('stripDefaultThemeSelect', cfg.defaultTheme || 'A');
@@ -13782,6 +13822,7 @@
       if (legacyTextarea) legacyTextarea.value = cfg.samplePhotos.join('\n');
 
       updatePhotoStripActiveUI(cfg.active);
+      /* printLayouts Saved */
       saveConfigLocally(silent);
       if (!silent) {
         showToast('✅ Seluruh konfigurasi Photo Strip Customizer berhasil disimpan!', '🎞️');
@@ -13861,6 +13902,369 @@
       appConfig.disclaimer.subtitle = subtitle;
       saveConfigLocally();
       showToast('✅ Ketentuan & Tata Tertib Studio berhasil disimpan!', '📜');
+    }
+
+
+    // -------------------------------------------------------------
+    // MANAJEMEN DESAIN GRID CETAK SELF STUDIO (KATALOG PRICELIST)
+    // -------------------------------------------------------------
+    const DEFAULT_PRINT_LAYOUTS = [
+      {
+        id: "grid-3",
+        title: "PILIHAN GRID CETAK",
+        subtitle: "SELF STUDIO",
+        formatBadge: "Format Photo Strip 3 Baris Vertikal",
+        category: "grid-3",
+        categoryLabel: "Grid 3 (Photo Strip 3)",
+        categoryIcon: "🌸",
+        bgColor: "#eed1cb",
+        borderColor: "#e2beb7",
+        footerQuote: "“FEEL FREE TO EXPRESS YOUR STYLE”",
+        active: true,
+        items: [
+          { id: "g3-a", code: "Grid 3 A", title: "White Classic", previewImage: "", photos: ["https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80"], cardBg: "#FFFFFF", cardTextColor: "#0F172A", active: true },
+          { id: "g3-b", code: "Grid 3 B", title: "Pastel Pink Grid", previewImage: "", photos: ["https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"], cardBg: "#fdeef0", cardTextColor: "#0F172A", active: true },
+          { id: "g3-c", code: "Grid 3 C", title: "Peach Vintage Doodle", previewImage: "", photos: ["https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80"], cardBg: "#fce5cf", cardTextColor: "#0F172A", active: true },
+          { id: "g3-d", code: "Grid 3 D", title: "Minimal Black Frame", previewImage: "", photos: ["https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=300&q=80"], cardBg: "#18181b", cardTextColor: "#FFFFFF", active: true },
+          { id: "g3-e", code: "Grid 3 E", title: "35mm Cinema Film Roll", previewImage: "", photos: ["https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=300&q=80","https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=300&q=80"], cardBg: "#111113", cardTextColor: "#FFFFFF", active: true }
+        ]
+      },
+      {
+        id: "grid-1",
+        title: "PILIHAN GRID CETAK",
+        subtitle: "SELF STUDIO",
+        formatBadge: "Format Single Big Polaroid (1 Frame Utuh)",
+        category: "grid-1",
+        categoryLabel: "Grid 1 (Single Polaroid)",
+        categoryIcon: "💜",
+        bgColor: "#cdd0e5",
+        borderColor: "#b9bed9",
+        footerQuote: "“FEEL FREE TO EXPRESS YOUR STYLE”",
+        active: true,
+        items: [
+          { id: "g1-a", code: "Grid 1 A", title: "White Classic Polaroid", previewImage: "", photos: ["https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=80"], cardBg: "#FFFFFF", cardTextColor: "#0F172A", active: true },
+          { id: "g1-b", code: "Grid 1 B", title: "Lavender Tint Polaroid", previewImage: "", photos: ["https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=500&q=80"], cardBg: "#f3f4fa", cardTextColor: "#0F172A", active: true },
+          { id: "g1-c", code: "Grid 1 C", title: "Warm Peach Polaroid", previewImage: "", photos: ["https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=80"], cardBg: "#fae8d4", cardTextColor: "#0F172A", active: true },
+          { id: "g1-d", code: "Grid 1 D", title: "Dark Modern Polaroid", previewImage: "", photos: ["https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80"], cardBg: "#18181b", cardTextColor: "#FFFFFF", active: true },
+          { id: "g1-e", code: "Grid 1 E", title: "Film Border Polaroid", previewImage: "", photos: ["https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=500&q=80"], cardBg: "#111113", cardTextColor: "#FFFFFF", active: true }
+        ]
+      },
+      {
+        id: "grid-4",
+        title: "PILIHAN GRID CETAK",
+        subtitle: "SELF STUDIO",
+        formatBadge: "Format 2x2 (4 Foto Quad Cut Grid)",
+        category: "grid-4",
+        categoryLabel: "Grid 4 (2x2 Quad Cut)",
+        categoryIcon: "🌿",
+        bgColor: "#b9bcab",
+        borderColor: "#a6aa96",
+        footerQuote: "“FEEL FREE TO EXPRESS YOUR STYLE”",
+        active: true,
+        items: [
+          { id: "g4-a", code: "Grid 4 A", title: "Quad White Classic", previewImage: "", photos: ["https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"], cardBg: "#FFFFFF", cardTextColor: "#0F172A", active: true },
+          { id: "g4-b", code: "Grid 4 B", title: "Quad Mint Pastel", previewImage: "", photos: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80"], cardBg: "#f4f7ee", cardTextColor: "#0F172A", active: true },
+          { id: "g4-c", code: "Grid 4 C", title: "Quad Butter Soft", previewImage: "", photos: ["https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80"], cardBg: "#fdf8ee", cardTextColor: "#0F172A", active: true },
+          { id: "g4-d", code: "Grid 4 D", title: "Quad Minimal Dark", previewImage: "", photos: ["https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80"], cardBg: "#18181b", cardTextColor: "#FFFFFF", active: true },
+          { id: "g4-e", code: "Grid 4 E", title: "Quad Film Border", previewImage: "", photos: ["https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80"], cardBg: "#111113", cardTextColor: "#FFFFFF", active: true }
+        ]
+      },
+      {
+        id: "grid-6",
+        title: "PILIHAN GRID CETAK",
+        subtitle: "SELF STUDIO",
+        formatBadge: "Format 2x3 (6 Foto Six-Cut Grid)",
+        category: "grid-6",
+        categoryLabel: "Grid 6 (2x3 Six Cut)",
+        categoryIcon: "🌊",
+        bgColor: "#8893a7",
+        borderColor: "#768297",
+        footerQuote: "“FEEL FREE TO EXPRESS YOUR STYLE”",
+        active: true,
+        items: [
+          { id: "g6-a", code: "Grid 6 A", title: "Six-Cut White Classic", previewImage: "", photos: ["https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80"], cardBg: "#FFFFFF", cardTextColor: "#0F172A", active: true },
+          { id: "g6-b", code: "Grid 6 B", title: "Six-Cut Blue Frost", previewImage: "", photos: ["https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80"], cardBg: "#f3f4fa", cardTextColor: "#0F172A", active: true },
+          { id: "g6-c", code: "Grid 6 C", title: "Six-Cut Peach Warmth", previewImage: "", photos: ["https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80"], cardBg: "#fce5cf", cardTextColor: "#0F172A", active: true },
+          { id: "g6-d", code: "Grid 6 D", title: "Six-Cut 35mm Dual Roll", previewImage: "", photos: ["https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80"], cardBg: "#111113", cardTextColor: "#FFFFFF", active: true },
+          { id: "g6-e", code: "Grid 6 E", title: "Six-Cut Dark Elegance", previewImage: "", photos: ["https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80","https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"], cardBg: "#18181b", cardTextColor: "#FFFFFF", active: true }
+        ]
+      }
+    ];
+
+    let currentPrintLayoutFilter = 'all';
+
+    function ensureSelfStudioPrintLayouts() {
+      if (!appConfig) return [];
+      if (!Array.isArray(appConfig.selfStudioPrintLayouts) || appConfig.selfStudioPrintLayouts.length === 0) {
+        appConfig.selfStudioPrintLayouts = JSON.parse(JSON.stringify(DEFAULT_PRINT_LAYOUTS));
+      }
+      return appConfig.selfStudioPrintLayouts;
+    }
+
+    function renderSelfStudioPrintLayoutsEditor() {
+      const layouts = ensureSelfStudioPrintLayouts();
+      const pillsContainer = document.getElementById('printLayoutsSeriesPills');
+      const container = document.getElementById('printLayoutsContainer');
+      if (!container) return;
+
+      // Render Filter Pills
+      if (pillsContainer) {
+        const filterItems = [
+          { id: 'all', label: '🌟 Semua Seri (' + layouts.length + ' Seri)' },
+          ...layouts.map(l => ({ id: l.id, label: (l.categoryIcon || '🌸') + ' ' + (l.categoryLabel || l.title) }))
+        ];
+        pillsContainer.innerHTML = filterItems.map(f => `
+          <button type="button" class="pill-btn ${currentPrintLayoutFilter === f.id ? 'active' : ''}" style="padding: 0.35rem 0.85rem; font-size: 0.76rem; border-radius: 999px; white-space: nowrap; cursor: pointer;" onclick="setPrintLayoutSeriesFilter('${f.id}')">
+            ${f.label}
+          </button>
+        `).join('');
+      }
+
+      // Filter displayed layouts
+      const displayed = layouts.filter(l => currentPrintLayoutFilter === 'all' || l.id === currentPrintLayoutFilter);
+
+      container.innerHTML = displayed.map((l) => {
+        const actualIdx = layouts.findIndex(item => item.id === l.id);
+        const items = l.items || [];
+        return `
+          <div style="background: #FAF8F5; border: 1.5px solid ${l.borderColor || '#E2BEB7'}; border-radius: 14px; padding: 1.25rem; transition: all 0.2s;">
+            <!-- Header Seri Grid -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 0.85rem; margin-bottom: 1rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span style="font-size: 1.4rem;">${l.categoryIcon || '🌸'}</span>
+                <div>
+                  <h4 style="font-size: 1rem; font-weight: 800; color: var(--charcoal); margin: 0;">
+                    ${escapeHtml(l.categoryLabel || l.title || 'Seri Grid')}
+                  </h4>
+                  <span style="font-size: 0.72rem; color: #71717A;">
+                    ${escapeHtml(l.formatBadge || '')} • ${items.length} Desain Strip
+                  </span>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                <label style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.76rem; font-weight: 700; color: var(--charcoal); cursor: pointer; background: #fff; padding: 0.3rem 0.7rem; border-radius: 6px; border: 1px solid var(--border);">
+                  <input type="checkbox" ${l.active !== false ? 'checked' : ''} onchange="togglePrintLayoutSeriesActive(${actualIdx}, this.checked)">
+                  <span>Tampilkan di Web</span>
+                </label>
+                <button type="button" class="btn btn-add" style="font-size: 0.74rem; padding: 0.35rem 0.75rem;" onclick="addGridDesignCard(${actualIdx})">
+                  + Tambah Desain Strip
+                </button>
+              </div>
+            </div>
+
+            <!-- Form Edit Seri Banner -->
+            <details style="margin-bottom: 1rem; background: #FFFFFF; border: 1px solid var(--border); border-radius: 10px; padding: 0.65rem 0.9rem;">
+              <summary style="font-size: 0.78rem; font-weight: 800; color: var(--charcoal); cursor: pointer;">
+                ⚙️ Pengaturan Banner & Latar Poster Seri (${escapeHtml(l.categoryLabel || l.title)})
+              </summary>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px solid #F1F5F9;">
+                <div>
+                  <label class="form-label" style="font-size: 0.7rem;">Judul Atas Banner</label>
+                  <input type="text" class="form-control" style="font-size: 0.75rem; padding: 0.3rem 0.5rem;" value="${escapeHtml(l.title || '')}" oninput="updatePrintLayoutSeriesField(${actualIdx}, 'title', this.value)">
+                </div>
+                <div>
+                  <label class="form-label" style="font-size: 0.7rem;">Sub-Judul</label>
+                  <input type="text" class="form-control" style="font-size: 0.75rem; padding: 0.3rem 0.5rem;" value="${escapeHtml(l.subtitle || '')}" oninput="updatePrintLayoutSeriesField(${actualIdx}, 'subtitle', this.value)">
+                </div>
+                <div>
+                  <label class="form-label" style="font-size: 0.7rem;">Badge Format</label>
+                  <input type="text" class="form-control" style="font-size: 0.75rem; padding: 0.3rem 0.5rem;" value="${escapeHtml(l.formatBadge || '')}" oninput="updatePrintLayoutSeriesField(${actualIdx}, 'formatBadge', this.value)">
+                </div>
+                <div>
+                  <label class="form-label" style="font-size: 0.7rem;">Warna Background Poster (HEX)</label>
+                  <div style="display: flex; gap: 0.35rem; align-items: center;">
+                    <input type="color" value="${l.bgColor || '#eed1cb'}" style="width: 32px; height: 32px; border: none; border-radius: 6px; cursor: pointer;" onchange="updatePrintLayoutSeriesField(${actualIdx}, 'bgColor', this.value)">
+                    <input type="text" class="form-control" style="font-size: 0.75rem; padding: 0.3rem 0.5rem;" value="${escapeHtml(l.bgColor || '#eed1cb')}" oninput="updatePrintLayoutSeriesField(${actualIdx}, 'bgColor', this.value)">
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label" style="font-size: 0.7rem;">Quote Kaki Poster</label>
+                  <input type="text" class="form-control" style="font-size: 0.75rem; padding: 0.3rem 0.5rem;" value="${escapeHtml(l.footerQuote || '')}" oninput="updatePrintLayoutSeriesField(${actualIdx}, 'footerQuote', this.value)">
+                </div>
+              </div>
+            </details>
+
+            <!-- Kartu-Kartu Desain Grid di Seri ini -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;">
+              ${items.map((item, itIdx) => {
+                const previewImg = item.previewImage || '';
+                return `
+                  <div style="background: #FFFFFF; border: 1px solid var(--border); border-radius: 12px; padding: 0.85rem; display: flex; flex-direction: column; gap: 0.65rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03); position: relative;">
+                    <!-- Card Top Bar: Code & Active Toggle -->
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-size: 0.82rem; font-weight: 800; color: var(--charcoal); background: #F1F5F9; padding: 2px 8px; border-radius: 6px;">
+                        ${escapeHtml(item.code || `Desain ${itIdx + 1}`)}
+                      </span>
+                      <label style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 700; color: #71717A; cursor: pointer;">
+                        <input type="checkbox" ${item.active !== false ? 'checked' : ''} onchange="togglePrintLayoutItemActive(${actualIdx}, ${itIdx}, this.checked)">
+                        <span>Aktif</span>
+                      </label>
+                    </div>
+
+                    <!-- Visual Preview Container -->
+                    <div style="background: ${item.cardBg || '#FFFFFF'}; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 0.4rem;">
+                      ${previewImg ? `
+                        <img src="${escapeHtml(previewImg)}" alt="${escapeHtml(item.code || '')}" style="width: 100%; max-height: 160px; object-fit: contain; border-radius: 6px;">
+                      ` : `
+                        <div style="text-align: center; color: ${item.cardTextColor || '#64748B'}; padding: 0.5rem;">
+                          <div style="font-size: 1.5rem; margin-bottom: 0.2rem;">🖼️</div>
+                          <div style="font-size: 0.72rem; font-weight: 800;">Mockup Bawaan</div>
+                          <div style="font-size: 0.65rem; opacity: 0.8;">(${escapeHtml(item.title || item.code || '')})</div>
+                        </div>
+                      `}
+                    </div>
+
+                    <!-- Action: Upload Foto Desain Grid Baru -->
+                    <div>
+                      <input type="file" id="gridImgFile_${actualIdx}_${itIdx}" accept="image/*" style="display: none;" onchange="handleGridDesignUpload(${actualIdx}, ${itIdx}, this)">
+                      <button type="button" class="btn btn-preview" style="width: 100%; font-size: 0.72rem; padding: 0.35rem 0.5rem; justify-content: center; font-weight: 800; border-color: #38BDF8; color: #0369A1; background: #F0F9FF;" onclick="document.getElementById('gridImgFile_${actualIdx}_${itIdx}').click()">
+                        📁 Upload Foto Desain Grid Baru
+                      </button>
+                    </div>
+
+                    <!-- URL Input opsional -->
+                    <div>
+                      <input type="text" class="form-control" style="font-size: 0.7rem; padding: 0.25rem 0.45rem;" placeholder="Atau paste URL Foto Desain" value="${escapeHtml(previewImg)}" oninput="updatePrintLayoutItemField(${actualIdx}, ${itIdx}, 'previewImage', this.value)">
+                    </div>
+
+                    <!-- Text Fields -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;">
+                      <div>
+                        <label class="form-label" style="font-size: 0.68rem; margin-bottom: 2px;">Kode Grid</label>
+                        <input type="text" class="form-control" style="font-size: 0.72rem; padding: 0.25rem 0.45rem;" value="${escapeHtml(item.code || '')}" oninput="updatePrintLayoutItemField(${actualIdx}, ${itIdx}, 'code', this.value)">
+                      </div>
+                      <div>
+                        <label class="form-label" style="font-size: 0.68rem; margin-bottom: 2px;">Judul Variasi</label>
+                        <input type="text" class="form-control" style="font-size: 0.72rem; padding: 0.25rem 0.45rem;" value="${escapeHtml(item.title || '')}" oninput="updatePrintLayoutItemField(${actualIdx}, ${itIdx}, 'title', this.value)">
+                      </div>
+                    </div>
+
+                    <!-- Card Colors -->
+                    <div style="display: flex; gap: 0.4rem; align-items: center; justify-content: space-between;">
+                      <div style="display: flex; gap: 0.3rem; align-items: center;">
+                        <input type="color" value="${item.cardBg || '#FFFFFF'}" style="width: 24px; height: 24px; border: none; border-radius: 4px; cursor: pointer;" title="Warna Latar Kartu" onchange="updatePrintLayoutItemField(${actualIdx}, ${itIdx}, 'cardBg', this.value)">
+                        <span style="font-size: 0.68rem; color: #71717A;">Warna Kartu</span>
+                      </div>
+                      <button type="button" style="background: none; border: none; color: #EF4444; font-size: 0.7rem; font-weight: 700; cursor: pointer; padding: 2px 6px;" onclick="removeGridDesignCard(${actualIdx}, ${itIdx})">
+                        🗑️ Hapus
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setPrintLayoutSeriesFilter(seriesId) {
+      currentPrintLayoutFilter = seriesId;
+      renderSelfStudioPrintLayoutsEditor();
+    }
+
+    function updatePrintLayoutSeriesField(seriesIdx, field, val) {
+      const layouts = ensureSelfStudioPrintLayouts();
+      if (!layouts[seriesIdx]) return;
+      layouts[seriesIdx][field] = val;
+    }
+
+    function togglePrintLayoutSeriesActive(seriesIdx, checked) {
+      const layouts = ensureSelfStudioPrintLayouts();
+      if (!layouts[seriesIdx]) return;
+      layouts[seriesIdx].active = Boolean(checked);
+      renderSelfStudioPrintLayoutsEditor();
+    }
+
+    function updatePrintLayoutItemField(seriesIdx, itemIdx, field, val) {
+      const layouts = ensureSelfStudioPrintLayouts();
+      if (!layouts[seriesIdx] || !layouts[seriesIdx].items || !layouts[seriesIdx].items[itemIdx]) return;
+      layouts[seriesIdx].items[itemIdx][field] = val;
+    }
+
+    function togglePrintLayoutItemActive(seriesIdx, itemIdx, checked) {
+      const layouts = ensureSelfStudioPrintLayouts();
+      if (!layouts[seriesIdx] || !layouts[seriesIdx].items || !layouts[seriesIdx].items[itemIdx]) return;
+      layouts[seriesIdx].items[itemIdx].active = Boolean(checked);
+    }
+
+    function addGridDesignCard(seriesIdx) {
+      const layouts = ensureSelfStudioPrintLayouts();
+      if (!layouts[seriesIdx]) return;
+      if (!Array.isArray(layouts[seriesIdx].items)) layouts[seriesIdx].items = [];
+      const sId = layouts[seriesIdx].id || 'grid';
+      const count = layouts[seriesIdx].items.length + 1;
+      const letter = String.fromCharCode(64 + count);
+      const codeLabel = layouts[seriesIdx].categoryLabel ? layouts[seriesIdx].categoryLabel.split(' ')[0] + ' ' + letter : 'Grid ' + letter;
+
+      layouts[seriesIdx].items.push({
+        id: `${sId}-${Date.now()}`,
+        code: codeLabel,
+        title: `Desain Variasi ${letter}`,
+        previewImage: '',
+        photos: [],
+        cardBg: '#FFFFFF',
+        cardTextColor: '#0F172A',
+        tagText: 'ALVIERO STUDIO',
+        active: true
+      });
+      renderSelfStudioPrintLayoutsEditor();
+      showToast('Desain strip baru berhasil ditambahkan!', '✨');
+    }
+
+    function removeGridDesignCard(seriesIdx, itemIdx) {
+      const layouts = ensureSelfStudioPrintLayouts();
+      if (!layouts[seriesIdx] || !layouts[seriesIdx].items) return;
+      if (!confirm('Yakin ingin menghapus kartu desain ini?')) return;
+      layouts[seriesIdx].items.splice(itemIdx, 1);
+      renderSelfStudioPrintLayoutsEditor();
+      showToast('Desain strip telah dihapus.', '🗑️');
+    }
+
+    async function handleGridDesignUpload(seriesIdx, itemIdx, input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+      try {
+        showToast('Mengunggah foto desain grid baru...', '⏳');
+        const extMatch = file.name.match(/\.[^.]+$/);
+        const ext = extMatch ? extMatch[0].toLowerCase() : '.png';
+        const data = await uploadImageToServer({
+          file,
+          fileName: `grid_design_${seriesIdx}_${itemIdx}_${Date.now()}${ext}`,
+          folder: 'packages',
+          maxWidth: 1600,
+          maxHeight: 2400,
+          quality: 0.92
+        });
+        const finalUrl = data.url || data.path || data.imageUrl;
+        if (finalUrl) {
+          updatePrintLayoutItemField(seriesIdx, itemIdx, 'previewImage', finalUrl);
+          renderSelfStudioPrintLayoutsEditor();
+          showToast('✅ Foto desain grid berhasil diunggah!', '📸');
+        } else {
+          alert('Upload gagal: tidak ada URL yang dikembalikan server.');
+        }
+      } catch (err) {
+        console.error('Error upload grid design:', err);
+        alert('Gagal mengunggah gambar: ' + (err.message || err));
+      } finally {
+        input.value = '';
+      }
+    }
+
+    function saveSelfStudioPrintLayoutsConfig() {
+      if (!appConfig) return;
+      saveConfigLocally(false);
+      showToast('✅ Desain Grid Cetak Self Studio berhasil disimpan!', '💾');
+    }
+
+    function resetSelfStudioPrintLayoutsDefault() {
+      if (!confirm('Kembalikan seluruh pilihan desain grid cetak ke standar awal Alviero Studio?')) return;
+      appConfig.selfStudioPrintLayouts = JSON.parse(JSON.stringify(DEFAULT_PRINT_LAYOUTS));
+      renderSelfStudioPrintLayoutsEditor();
+      saveConfigLocally(false);
+      showToast('Seluruh desain grid cetak telah dikembalikan ke standar awal.', '🔄');
     }
 
 </script>

@@ -1390,6 +1390,109 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
     });
   };
 
+  // Helper render kartu mockup grid bawaan (Format Strip 3, Polaroid 1, Quad 4, Six 6)
+  const renderDefaultGridMockup = (layoutType: string, item: any) => {
+    const cardBg = item.cardBg || '#FFFFFF';
+    const isDark = cardBg === '#18181b' || cardBg === '#111113' || item.cardTextColor === '#FFFFFF';
+    const textColor = item.cardTextColor || (isDark ? '#FFFFFF' : '#0F172A');
+    const photos = Array.isArray(item.photos) && item.photos.length > 0 ? item.photos : [];
+
+    if (layoutType === 'grid-1' || item.layoutType === 'polaroid-1') {
+      return (
+        <div
+          style={{ backgroundColor: cardBg }}
+          className="w-full p-3 pb-5 rounded-sm shadow-md border border-slate-200/80 flex flex-col items-center space-y-2 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl"
+        >
+          <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-xs">
+            <img
+              src={photos[0] || 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=80'}
+              alt={item.title || item.code}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div className="pt-1 text-center">
+            <div style={{ color: textColor }} className="text-[8px] font-black tracking-widest leading-none">ALVIERO</div>
+            <div style={{ color: isDark ? '#94A3B8' : '#64748B' }} className="text-[6.5px] font-bold tracking-wider">STUDIO</div>
+          </div>
+        </div>
+      );
+    }
+
+    if (layoutType === 'grid-4' || item.layoutType === 'quad-4') {
+      return (
+        <div
+          style={{ backgroundColor: cardBg }}
+          className="w-full p-2.5 pb-4 rounded-sm shadow-md border border-slate-200/80 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl"
+        >
+          <div className="grid grid-cols-2 gap-1 w-full aspect-square">
+            {[0, 1, 2, 3].map((pIdx) => (
+              <img
+                key={pIdx}
+                src={photos[pIdx] || 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80'}
+                alt={`${item.code}-${pIdx}`}
+                className="w-full h-full object-cover rounded-2xs"
+                loading="lazy"
+              />
+            ))}
+          </div>
+          <div className="pt-1 text-center">
+            <div style={{ color: textColor }} className="text-[7.5px] font-black tracking-widest leading-none">ALVIERO</div>
+            <div style={{ color: isDark ? '#94A3B8' : '#64748B' }} className="text-[6.5px] font-bold tracking-wider">STUDIO</div>
+          </div>
+        </div>
+      );
+    }
+
+    if (layoutType === 'grid-6' || item.layoutType === 'six-6') {
+      return (
+        <div
+          style={{ backgroundColor: cardBg }}
+          className="w-full p-2 pb-4 rounded-sm shadow-md border border-slate-200/80 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl"
+        >
+          <div className="grid grid-cols-2 gap-1 w-full aspect-[2/3]">
+            {[0, 1, 2, 3, 4, 5].map((pIdx) => (
+              <img
+                key={pIdx}
+                src={photos[pIdx] || 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80'}
+                alt={`${item.code}-${pIdx}`}
+                className="w-full h-full object-cover rounded-2xs"
+                loading="lazy"
+              />
+            ))}
+          </div>
+          <div className="pt-1 text-center">
+            <div style={{ color: textColor }} className="text-[7.5px] font-black tracking-widest leading-none">ALVIERO</div>
+            <div style={{ color: isDark ? '#94A3B8' : '#64748B' }} className="text-[6.5px] font-bold tracking-wider">STUDIO</div>
+          </div>
+        </div>
+      );
+    }
+
+    // Default: Grid 3 (Strip 3 Vertikal)
+    return (
+      <div
+        style={{ backgroundColor: cardBg }}
+        className="w-full p-2.5 pb-4 rounded-sm shadow-md border border-slate-200/80 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl"
+      >
+        {[0, 1, 2].map((pIdx) => (
+          <div key={pIdx} className="w-full aspect-[4/3] bg-amber-100 overflow-hidden rounded-xs">
+            <img
+              src={photos[pIdx] || 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=300&q=80'}
+              alt={`${item.code}-${pIdx}`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+        <div className="pt-1 text-center">
+          <div style={{ color: textColor }} className="text-[7.5px] font-black tracking-widest leading-none">ALVIERO</div>
+          <div style={{ color: isDark ? '#94A3B8' : '#64748B' }} className="text-[6.5px] font-bold tracking-wider">STUDIO</div>
+        </div>
+      </div>
+    );
+  };
+
   // Helper render kartu paket mewah standar Alviero (Sesuai Desain Acuan Foto 1)
   const renderLuxuryPackageCard = (pkg: any, idx: number, defaultNote = '*Harap konfirmasi jadwal terlebih dahulu') => {
     const badgeColorClass =
@@ -2237,510 +2340,129 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       </div>
                     )}
 
-{/* Subtab 4: Pilihan Grid Cetak Self Studio */}
+{/* Subtab 4: Pilihan Grid Cetak Self Studio (100% Dinamis dari Dashboard studioConfig.selfStudioPrintLayouts) */}
                     {selfStudioSubTab === 'grid' && (
                       <div className="space-y-6 animate-in fade-in duration-300">
+                        {(() => {
+                          const configuredLayouts = (Array.isArray((studioConfig as any)?.selfStudioPrintLayouts) && (studioConfig as any).selfStudioPrintLayouts.length > 0)
+                            ? (studioConfig as any).selfStudioPrintLayouts
+                            : [];
 
-                        {/* Filter Jenis Grid */}
-                        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
-                          {[
+                          const activeFilterOptions = [
                             { id: 'all', label: 'Semua Grid (1, 3, 4, 6)', icon: '🎞️' },
-                            { id: 'grid-3', label: 'Grid 3 (Photo Strip 3)', icon: '🌸' },
-                            { id: 'grid-1', label: 'Grid 1 (Single Polaroid)', icon: '💜' },
-                            { id: 'grid-4', label: 'Grid 4 (2x2 Quad Cut)', icon: '🌿' },
-                            { id: 'grid-6', label: 'Grid 6 (2x3 Six Cut)', icon: '🌊' },
-                          ].map((gf) => {
-                            const isSelected = selectedGridFilter === gf.id;
-                            return (
-                              <button
-                                key={gf.id}
-                                onClick={() => setSelectedGridFilter(gf.id as any)}
-                                className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${isSelected
-                                  ? 'bg-slate-900 text-white shadow-md'
-                                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                                  }`}
-                              >
-                                <span>{gf.icon}</span>
-                                <span>{gf.label}</span>
-                              </button>
-                            );
-                          })}
-                        </div>
+                            ...configuredLayouts.filter((gl: any) => gl.active !== false).map((gl: any) => ({
+                              id: gl.id || gl.category,
+                              label: gl.categoryLabel || gl.title,
+                              icon: gl.categoryIcon || '🌸'
+                            }))
+                          ];
 
-                        {/* 1. POSTER SERI GRID 3 (PINK PASTEL THEME) */}
-                        {(selectedGridFilter === 'all' || selectedGridFilter === 'grid-3') && (
-                          <div className="bg-[#eed1cb] rounded-3xl p-5 sm:p-7 border border-[#e2beb7] shadow-lg text-slate-900 space-y-6 relative overflow-hidden">
-                            {/* Background Curved Lines */}
-                            <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-                            <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
+                          const displayedLayouts = configuredLayouts.filter((gl: any) => {
+                            if (gl.active === false) return false;
+                            if (selectedGridFilter === 'all') return true;
+                            return gl.id === selectedGridFilter || gl.category === selectedGridFilter;
+                          });
 
-                            <div className="text-center space-y-0.5 relative z-10">
-                              <h3 className="font-black text-xl sm:text-2xl text-slate-900 tracking-wider uppercase">
-                                PILIHAN GRID CETAK
-                              </h3>
-                              <h4 className="font-black text-lg sm:text-xl text-slate-900 tracking-widest uppercase">
-                                SELF STUDIO
-                              </h4>
-                              <span className="inline-block text-[11px] font-bold text-slate-700 bg-white/60 px-3 py-0.5 rounded-full mt-1">
-                                Format Photo Strip 3 Baris Vertikal
-                              </span>
-                            </div>
-
-                            {/* 5 Grid 3 Strips */}
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10 pt-1">
-
-                              {/* Grid 3 A: White Classic */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-white p-2.5 pb-4 rounded-sm shadow-md border border-slate-200 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="w-full aspect-[4/3] bg-amber-400 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=300&q=80" alt="3A-1" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-amber-400 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="3A-2" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-amber-400 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80" alt="3A-3" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 3 A</span>
+                          return (
+                            <>
+                              {/* Filter Jenis Grid */}
+                              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scroll-mask-x no-scrollbar">
+                                {activeFilterOptions.map((gf: any) => {
+                                  const isSelected = selectedGridFilter === gf.id;
+                                  return (
+                                    <button
+                                      key={gf.id}
+                                      onClick={() => setSelectedGridFilter(gf.id as any)}
+                                      className={`min-h-[36px] px-3.5 py-1.5 rounded-xl text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 whitespace-nowrap flex items-center gap-1.5 shadow-2xs ${isSelected
+                                        ? 'bg-slate-900 text-white shadow-md'
+                                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                                        }`}
+                                    >
+                                      <span>{gf.icon}</span>
+                                      <span>{gf.label}</span>
+                                    </button>
+                                  );
+                                })}
                               </div>
 
-                              {/* Grid 3 B: Pastel Pink Grid */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#fdeef0] p-2.5 pb-4 rounded-sm shadow-md border border-pink-200 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl relative">
-                                  <div className="w-full aspect-[4/3] bg-pink-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80" alt="3B-1" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-pink-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=300&q=80" alt="3B-2" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-pink-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="3B-3" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
+                              {displayedLayouts.length === 0 ? (
+                                <div className="p-8 text-center bg-[#FAF8F5] rounded-3xl border border-[#E8DDD6] space-y-2">
+                                  <p className="text-sm font-serif font-bold text-[#2A2A2A]">Tidak ada seri grid cetak ditemukan.</p>
+                                  <p className="text-xs text-slate-500 font-century">Silakan tambahkan atau aktifkan seri grid di Dashboard Admin.</p>
                                 </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 3 B</span>
-                              </div>
+                              ) : (
+                                displayedLayouts.map((gl: any) => (
+                                  <div
+                                    key={gl.id}
+                                    style={{
+                                      backgroundColor: gl.bgColor || '#eed1cb',
+                                      borderColor: gl.borderColor || '#e2beb7'
+                                    }}
+                                    className="rounded-3xl p-5 sm:p-7 border shadow-lg text-slate-900 space-y-6 relative overflow-hidden"
+                                  >
+                                    {/* Background Curved Lines */}
+                                    <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
+                                    <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
 
-                              {/* Grid 3 C: Peach Vintage Doodle */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#fce5cf] p-2.5 pb-4 rounded-sm shadow-md border border-amber-300 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="w-full aspect-[4/3] bg-amber-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=300&q=80" alt="3C-1" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-amber-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=300&q=80" alt="3C-2" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-amber-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80" alt="3C-3" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 3 C</span>
-                              </div>
+                                    <div className="text-center space-y-0.5 relative z-10">
+                                      <h3 className="font-black text-xl sm:text-2xl text-slate-900 tracking-wider uppercase">
+                                        {gl.title || 'PILIHAN GRID CETAK'}
+                                      </h3>
+                                      <h4 className="font-black text-lg sm:text-xl text-slate-900 tracking-widest uppercase">
+                                        {gl.subtitle || 'SELF STUDIO'}
+                                      </h4>
+                                      {gl.formatBadge && (
+                                        <span className="inline-block text-[11px] font-bold text-slate-700 bg-white/60 px-3 py-0.5 rounded-full mt-1">
+                                          {gl.formatBadge}
+                                        </span>
+                                      )}
+                                    </div>
 
-                              {/* Grid 3 D: Minimal Black Frame */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#18181b] p-2.5 pb-4 rounded-sm shadow-md border border-slate-800 text-white flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl relative">
-                                  <div className="text-[6px] tracking-widest font-mono text-slate-400">BEST MOMENT</div>
-                                  <div className="w-full aspect-[4/3] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=300&q=80" alt="3D-1" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=300&q=80" alt="3D-2" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=300&q=80" alt="3D-3" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 3 D</span>
-                              </div>
+                                    {/* 5 / N Grid Strips */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10 pt-1">
+                                      {(gl.items || []).filter((item: any) => item.active !== false).map((item: any, itIdx: number) => {
+                                        return (
+                                          <div key={item.id || itIdx} className="flex flex-col items-center space-y-1.5 group">
+                                            {item.previewImage ? (
+                                              /* KARTU FOTO DESAIN STRIP KUSTOM DARI ADMIN (FOTO UPLOAD / CANVA) */
+                                              <div
+                                                style={{ backgroundColor: item.cardBg || '#FFFFFF' }}
+                                                className="w-full p-2 pb-3 rounded-lg shadow-md border border-black/10 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl overflow-hidden cursor-pointer bg-white"
+                                              >
+                                                <div className="w-full rounded overflow-hidden bg-slate-100 flex items-center justify-center">
+                                                  <img
+                                                    src={item.previewImage}
+                                                    alt={item.title || item.code}
+                                                    className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                                    loading="lazy"
+                                                  />
+                                                </div>
+                                              </div>
+                                            ) : (
+                                              /* MOCKUP MULTI-PHOTO BAWAAN */
+                                              renderDefaultGridMockup(gl.id || gl.category, item)
+                                            )}
+                                            <span className="font-extrabold text-xs text-slate-800">
+                                              {item.code || `Grid ${itIdx + 1}`}
+                                            </span>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
 
-                              {/* Grid 3 E: 35mm Cinema Film Roll */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#111113] p-2 pb-4 rounded-sm shadow-md border-x-4 border-slate-700 text-white flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl relative">
-                                  <div className="w-full aspect-[4/3] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=300&q=80" alt="3E-1" className="w-full h-full object-cover" />
+                                    {gl.footerQuote && (
+                                      <div className="text-center pt-2 relative z-10">
+                                        <p className="font-serif font-black text-xs sm:text-sm tracking-widest text-slate-700 uppercase">
+                                          {gl.footerQuote}
+                                        </p>
+                                      </div>
+                                    )}
                                   </div>
-                                  <div className="w-full aspect-[4/3] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=300&q=80" alt="3E-2" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="w-full aspect-[4/3] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=300&q=80" alt="3E-3" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 3 E</span>
-                              </div>
-                            </div>
-
-                            <div className="text-center pt-2 relative z-10">
-                              <p className="font-serif font-black text-xs sm:text-sm tracking-widest text-slate-700 uppercase">
-                                FEEL FREE TO EXPRESS YOUR STYLE
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* 2. POSTER SERI GRID 1 (LILAC / LAVENDER THEME) */}
-                        {(selectedGridFilter === 'all' || selectedGridFilter === 'grid-1') && (
-                          <div className="bg-[#cdd0e5] rounded-3xl p-5 sm:p-7 border border-[#b9bed9] shadow-lg text-slate-900 space-y-6 relative overflow-hidden">
-                            <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-                            <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-
-                            <div className="text-center space-y-0.5 relative z-10">
-                              <h3 className="font-black text-xl sm:text-2xl text-slate-900 tracking-wider uppercase">
-                                PILIHAN GRID CETAK
-                              </h3>
-                              <h4 className="font-black text-lg sm:text-xl text-slate-900 tracking-widest uppercase">
-                                SELF STUDIO
-                              </h4>
-                              <span className="inline-block text-[11px] font-bold text-slate-700 bg-white/60 px-3 py-0.5 rounded-full mt-1">
-                                Format Single Big Polaroid (1 Frame Utuh)
-                              </span>
-                            </div>
-
-                            {/* 5 Grid 1 Polaroids */}
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10 pt-1">
-
-                              {/* Grid 1 A */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-white p-3 pb-6 rounded-sm shadow-md border border-slate-200 flex flex-col items-center space-y-2 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=80" alt="1A" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-2 text-center">
-                                    <div className="text-[8px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 1 A</span>
-                              </div>
-
-                              {/* Grid 1 B */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#f3f4fa] p-3 pb-6 rounded-sm shadow-md border border-indigo-200 flex flex-col items-center space-y-2 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=500&q=80" alt="1B" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-2 text-center">
-                                    <div className="text-[8px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 1 B</span>
-                              </div>
-
-                              {/* Grid 1 C */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#fae8d4] p-3 pb-6 rounded-sm shadow-md border border-amber-300 flex flex-col items-center space-y-2 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="w-full aspect-[3/4] bg-slate-100 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=80" alt="1C" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-2 text-center">
-                                    <div className="text-[8px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 1 C</span>
-                              </div>
-
-                              {/* Grid 1 D */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#18181b] p-3 pb-6 rounded-sm shadow-md border border-slate-800 text-white flex flex-col items-center space-y-2 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="text-[6px] tracking-widest font-mono text-slate-400">BEST MOMENT</div>
-                                  <div className="w-full aspect-[3/4] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" alt="1D" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-2 text-center">
-                                    <div className="text-[8px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 1 D</span>
-                              </div>
-
-                              {/* Grid 1 E */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#111113] p-2.5 pb-6 rounded-sm shadow-md border-x-4 border-slate-700 text-white flex flex-col items-center space-y-2 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="w-full aspect-[3/4] bg-slate-800 overflow-hidden rounded-xs">
-                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=500&q=80" alt="1E" className="w-full h-full object-cover" />
-                                  </div>
-                                  <div className="pt-2 text-center">
-                                    <div className="text-[8px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 1 E</span>
-                              </div>
-                            </div>
-
-                            <div className="text-center pt-2 relative z-10">
-                              <p className="font-serif font-black text-xs sm:text-sm tracking-widest text-slate-700 uppercase">
-                                FEEL FREE TO EXPRESS YOUR STYLE
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* 3. POSTER SERI GRID 4 (SAGE GREEN THEME) */}
-                        {(selectedGridFilter === 'all' || selectedGridFilter === 'grid-4') && (
-                          <div className="bg-[#b9bcab] rounded-3xl p-5 sm:p-7 border border-[#a6aa96] shadow-lg text-slate-900 space-y-6 relative overflow-hidden">
-                            <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-                            <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-
-                            <div className="text-center space-y-0.5 relative z-10">
-                              <h3 className="font-black text-xl sm:text-2xl text-slate-900 tracking-wider uppercase">
-                                PILIHAN GRID CETAK
-                              </h3>
-                              <h4 className="font-black text-lg sm:text-xl text-slate-900 tracking-widest uppercase">
-                                SELF STUDIO
-                              </h4>
-                              <span className="inline-block text-[11px] font-bold text-slate-700 bg-white/60 px-3 py-0.5 rounded-full mt-1">
-                                Format 2x2 (4 Foto Quad Cut Grid)
-                              </span>
-                            </div>
-
-                            {/* 5 Grid 4 Cards */}
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10 pt-1">
-
-                              {/* Grid 4 A */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-white p-2.5 pb-4 rounded-sm shadow-md border border-slate-200 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-square">
-                                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80" alt="4A-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80" alt="4A-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=200&q=80" alt="4A-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="4A-4" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 4 A</span>
-                              </div>
-
-                              {/* Grid 4 B */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#f4f7ee] p-2.5 pb-4 rounded-sm shadow-md border border-emerald-200 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-square">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="4B-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" alt="4B-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80" alt="4B-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80" alt="4B-4" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 4 B</span>
-                              </div>
-
-                              {/* Grid 4 C */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#fce5cf] p-2.5 pb-4 rounded-sm shadow-md border border-amber-300 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-square">
-                                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80" alt="4C-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80" alt="4C-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80" alt="4C-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80" alt="4C-4" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 4 C</span>
-                              </div>
-
-                              {/* Grid 4 D */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#18181b] p-2.5 pb-4 rounded-sm shadow-md border border-slate-800 text-white flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="text-[6px] tracking-widest font-mono text-slate-400">BEST MOMENT</div>
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-square">
-                                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80" alt="4D-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80" alt="4D-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80" alt="4D-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80" alt="4D-4" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 4 D</span>
-                              </div>
-
-                              {/* Grid 4 E */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#111113] p-2 pb-4 rounded-sm shadow-md border-x-4 border-slate-700 text-white flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-square">
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80" alt="4E-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="4E-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="4E-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80" alt="4E-4" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-800">Grid 4 E</span>
-                              </div>
-                            </div>
-
-                            <div className="text-center pt-2 relative z-10">
-                              <p className="font-serif font-black text-xs sm:text-sm tracking-widest text-slate-700 uppercase">
-                                “FEEL FREE TO EXPRESS YOUR STYLE”
-                              </p>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* 4. POSTER SERI GRID 6 (STEEL BLUE THEME) */}
-                        {(selectedGridFilter === 'all' || selectedGridFilter === 'grid-6') && (
-                          <div className="bg-[#8893a7] rounded-3xl p-5 sm:p-7 border border-[#768297] shadow-lg text-slate-900 space-y-6 relative overflow-hidden">
-                            <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-                            <div className="absolute -bottom-12 -left-12 w-64 h-64 rounded-full border-2 border-white/40 pointer-events-none" />
-
-                            <div className="text-center space-y-0.5 relative z-10">
-                              <h3 className="font-black text-xl sm:text-2xl text-slate-900 tracking-wider uppercase">
-                                PILIHAN GRID CETAK
-                              </h3>
-                              <h4 className="font-black text-lg sm:text-xl text-slate-900 tracking-widest uppercase">
-                                SELF STUDIO
-                              </h4>
-                              <span className="inline-block text-[11px] font-bold text-slate-800 bg-white/70 px-3 py-0.5 rounded-full mt-1">
-                                Format 2x3 (6 Foto Six-Cut Grid)
-                              </span>
-                            </div>
-
-                            {/* 5 Grid 6 Cards */}
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5 sm:gap-4 relative z-10 pt-1">
-
-                              {/* Grid 6 A */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-white p-2 pb-4 rounded-sm shadow-md border border-slate-200 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-[2/3]">
-                                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80" alt="6A-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80" alt="6A-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="6A-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" alt="6A-4" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80" alt="6A-5" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80" alt="6A-6" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-900">Grid 6 A</span>
-                              </div>
-
-                              {/* Grid 6 B */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#f3f4fa] p-2 pb-4 rounded-sm shadow-md border border-indigo-200 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-[2/3]">
-                                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80" alt="6B-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80" alt="6B-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80" alt="6B-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80" alt="6B-4" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80" alt="6B-5" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80" alt="6B-6" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-900">Grid 6 B</span>
-                              </div>
-
-                              {/* Grid 6 C */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#fce5cf] p-2 pb-4 rounded-sm shadow-md border border-amber-300 flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-[2/3]">
-                                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80" alt="6C-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80" alt="6C-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80" alt="6C-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="6C-4" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="6C-5" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" alt="6C-6" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-slate-900 leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-500 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-900">Grid 6 C</span>
-                              </div>
-
-                              {/* Grid 6 D: Dual 35mm Film Roll */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#111113] p-1.5 pb-4 rounded-sm shadow-md border-x-4 border-slate-700 text-white flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-[2/3]">
-                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80" alt="6D-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80" alt="6D-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80" alt="6D-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80" alt="6D-4" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80" alt="6D-5" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80" alt="6D-6" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-900">Grid 6 D</span>
-                              </div>
-
-                              {/* Grid 6 E */}
-                              <div className="flex flex-col items-center space-y-1.5 group">
-                                <div className="w-full bg-[#18181b] p-2 pb-4 rounded-sm shadow-md border border-slate-800 text-white flex flex-col items-center space-y-1.5 transition-transform duration-300 group-hover:scale-103 group-hover:shadow-xl">
-                                  <div className="text-[6px] tracking-widest font-mono text-slate-400">BEST MOMENT</div>
-                                  <div className="grid grid-cols-2 gap-1 w-full aspect-[2/3]">
-                                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80" alt="6E-1" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80" alt="6E-2" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80" alt="6E-3" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80" alt="6E-4" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80" alt="6E-5" className="w-full h-full object-cover rounded-2xs" />
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="6E-6" className="w-full h-full object-cover rounded-2xs" />
-                                  </div>
-                                  <div className="pt-1 text-center">
-                                    <div className="text-[7.5px] font-black tracking-widest text-white leading-none">ALVIERO</div>
-                                    <div className="text-[6.5px] font-bold text-slate-400 tracking-wider">STUDIO</div>
-                                  </div>
-                                </div>
-                                <span className="font-extrabold text-xs text-slate-900">Grid 6 E</span>
-                              </div>
-                            </div>
-
-                            <div className="text-center pt-2 relative z-10">
-                              <p className="font-serif font-black text-xs sm:text-sm tracking-widest text-slate-800 uppercase">
-                                “FEEL FREE TO EXPRESS YOUR STYLE”
-                              </p>
-                            </div>
-                          </div>
-                        )}
+                                ))
+                              )}
+                            </>
+                          );
+                        })()}
 
                         <div className="text-center pt-2">
                           <button
@@ -2757,7 +2479,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                   </div>
                 )}
 
-                                {/* ========================================================================= */}
+                    {/* ========================================================================= */}
                 {/* UNIFIED LUXURY CATEGORY VIEWS (SESUAI ACUAN FOTO 1 GRADUATION)           */}
                 {/* 100% TERHUBUNG DINAMIS DENGAN DASHBOARD / studioConfig.studioPackages   */}
                 {/* ========================================================================= */}

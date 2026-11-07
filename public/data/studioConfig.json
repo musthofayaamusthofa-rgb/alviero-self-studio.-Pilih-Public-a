@@ -7985,5 +7985,397 @@
         "text": "Sudah termasuk manset dalaman / kemben serta inner jilbab dengan warna yang senada."
       }
     ]
-  }
+  },
+  "selfStudioPrintLayouts": [
+    {
+      "id": "grid-3",
+      "title": "PILIHAN GRID CETAK",
+      "subtitle": "SELF STUDIO",
+      "formatBadge": "Format Photo Strip 3 Baris Vertikal",
+      "category": "grid-3",
+      "categoryLabel": "Grid 3 (Photo Strip 3)",
+      "categoryIcon": "🌸",
+      "bgColor": "#eed1cb",
+      "borderColor": "#e2beb7",
+      "footerQuote": "“FEEL FREE TO EXPRESS YOUR STYLE”",
+      "active": true,
+      "items": [
+        {
+          "id": "g3-a",
+          "code": "Grid 3 A",
+          "title": "White Classic",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=300&q=80"
+          ],
+          "cardBg": "#FFFFFF",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "strip-3",
+          "active": true
+        },
+        {
+          "id": "g3-b",
+          "code": "Grid 3 B",
+          "title": "Pastel Pink Grid",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80"
+          ],
+          "cardBg": "#fdeef0",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "strip-3",
+          "active": true
+        },
+        {
+          "id": "g3-c",
+          "code": "Grid 3 C",
+          "title": "Peach Vintage Doodle",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80"
+          ],
+          "cardBg": "#fce5cf",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "strip-3",
+          "active": true
+        },
+        {
+          "id": "g3-d",
+          "code": "Grid 3 D",
+          "title": "Minimal Black Frame",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=300&q=80"
+          ],
+          "cardBg": "#18181b",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "strip-3",
+          "active": true
+        },
+        {
+          "id": "g3-e",
+          "code": "Grid 3 E",
+          "title": "35mm Cinema Film Roll",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=300&q=80",
+            "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=300&q=80"
+          ],
+          "cardBg": "#111113",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "strip-3",
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "grid-1",
+      "title": "PILIHAN GRID CETAK",
+      "subtitle": "SELF STUDIO",
+      "formatBadge": "Format Single Big Polaroid (1 Frame Utuh)",
+      "category": "grid-1",
+      "categoryLabel": "Grid 1 (Single Polaroid)",
+      "categoryIcon": "💜",
+      "bgColor": "#cdd0e5",
+      "borderColor": "#b9bed9",
+      "footerQuote": "“FEEL FREE TO EXPRESS YOUR STYLE”",
+      "active": true,
+      "items": [
+        {
+          "id": "g1-a",
+          "code": "Grid 1 A",
+          "title": "White Classic Polaroid",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=500&q=80"
+          ],
+          "cardBg": "#FFFFFF",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "polaroid-1",
+          "active": true
+        },
+        {
+          "id": "g1-b",
+          "code": "Grid 1 B",
+          "title": "Lavender Tint Polaroid",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=500&q=80"
+          ],
+          "cardBg": "#f3f4fa",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "polaroid-1",
+          "active": true
+        },
+        {
+          "id": "g1-c",
+          "code": "Grid 1 C",
+          "title": "Warm Peach Polaroid",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=80"
+          ],
+          "cardBg": "#fae8d4",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "polaroid-1",
+          "active": true
+        },
+        {
+          "id": "g1-d",
+          "code": "Grid 1 D",
+          "title": "Dark Modern Polaroid",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80"
+          ],
+          "cardBg": "#18181b",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "polaroid-1",
+          "active": true
+        },
+        {
+          "id": "g1-e",
+          "code": "Grid 1 E",
+          "title": "Film Border Polaroid",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=500&q=80"
+          ],
+          "cardBg": "#111113",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "polaroid-1",
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "grid-4",
+      "title": "PILIHAN GRID CETAK",
+      "subtitle": "SELF STUDIO",
+      "formatBadge": "Format 2x2 (4 Foto Quad Cut Grid)",
+      "category": "grid-4",
+      "categoryLabel": "Grid 4 (2x2 Quad Cut)",
+      "categoryIcon": "🌿",
+      "bgColor": "#b9bcab",
+      "borderColor": "#a6aa96",
+      "footerQuote": "“FEEL FREE TO EXPRESS YOUR STYLE”",
+      "active": true,
+      "items": [
+        {
+          "id": "g4-a",
+          "code": "Grid 4 A",
+          "title": "Quad White Classic",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1494774157365-9e04c6720e47?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#FFFFFF",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "quad-4",
+          "active": true
+        },
+        {
+          "id": "g4-b",
+          "code": "Grid 4 B",
+          "title": "Quad Mint Pastel",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#f4f7ee",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "quad-4",
+          "active": true
+        },
+        {
+          "id": "g4-c",
+          "code": "Grid 4 C",
+          "title": "Quad Butter Soft",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#fdf8ee",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "quad-4",
+          "active": true
+        },
+        {
+          "id": "g4-d",
+          "code": "Grid 4 D",
+          "title": "Quad Minimal Dark",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#18181b",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "quad-4",
+          "active": true
+        },
+        {
+          "id": "g4-e",
+          "code": "Grid 4 E",
+          "title": "Quad Film Border",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#111113",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "quad-4",
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "grid-6",
+      "title": "PILIHAN GRID CETAK",
+      "subtitle": "SELF STUDIO",
+      "formatBadge": "Format 2x3 (6 Foto Six-Cut Grid)",
+      "category": "grid-6",
+      "categoryLabel": "Grid 6 (2x3 Six Cut)",
+      "categoryIcon": "🌊",
+      "bgColor": "#8893a7",
+      "borderColor": "#768297",
+      "footerQuote": "“FEEL FREE TO EXPRESS YOUR STYLE”",
+      "active": true,
+      "items": [
+        {
+          "id": "g6-a",
+          "code": "Grid 6 A",
+          "title": "Six-Cut White Classic",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#FFFFFF",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "six-6",
+          "active": true
+        },
+        {
+          "id": "g6-b",
+          "code": "Grid 6 B",
+          "title": "Six-Cut Blue Frost",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#f3f4fa",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "six-6",
+          "active": true
+        },
+        {
+          "id": "g6-c",
+          "code": "Grid 6 C",
+          "title": "Six-Cut Peach Warmth",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#fce5cf",
+          "cardTextColor": "#0F172A",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "six-6",
+          "active": true
+        },
+        {
+          "id": "g6-d",
+          "code": "Grid 6 D",
+          "title": "Six-Cut 35mm Dual Roll",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1627556704302-624286467c65?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#111113",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "six-6",
+          "active": true
+        },
+        {
+          "id": "g6-e",
+          "code": "Grid 6 E",
+          "title": "Six-Cut Dark Elegance",
+          "previewImage": "",
+          "photos": [
+            "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=200&q=80",
+            "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
+          ],
+          "cardBg": "#18181b",
+          "cardTextColor": "#FFFFFF",
+          "tagText": "ALVIERO STUDIO",
+          "layoutType": "six-6",
+          "active": true
+        }
+      ]
+    }
+  ]
 }
