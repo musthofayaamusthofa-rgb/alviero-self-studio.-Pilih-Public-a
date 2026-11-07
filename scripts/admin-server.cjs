@@ -9,6 +9,66 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT_DIR, 'src', 'data', 'studioConfig.json');
 const BACKUP_DIR = path.join(ROOT_DIR, 'scripts', 'backups');
 
+const PRICELIST_PATH = path.join(ROOT_DIR, 'src', 'data', 'pricelistData.ts');
+
+function parsePackagePrice(raw) {
+  if (typeof raw === 'number') {
+    return (raw > 0 && raw < 100000000) ? raw : null;
+  }
+  if (!raw || typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const firstOption = trimmed.split('/')[0].trim();
+  const kMatch = firstOption.match(/([0-9.,]+)\s*k/i);
+  if (kMatch) {
+    const cleanDigits = kMatch[1].replace(/[.,]/g, '');
+    const num = parseInt(cleanDigits, 10);
+    if (!isNaN(num) && num > 0) return num * 1000;
+  }
+  const cleanDigits = firstOption.replace(/[^\d]/g, '');
+  if (cleanDigits) {
+    const num = parseInt(cleanDigits, 10);
+    if (!isNaN(num) && num > 0 && num < 100000000) return num;
+  }
+  return null;
+}
+
+function syncPricelistDataCodeFile(newConfig) {
+  try {
+    if (!fs.existsSync(PRICELIST_PATH)) return;
+    let pData = fs.readFileSync(PRICELIST_PATH, 'utf-8');
+    const packages = newConfig.studioPackages || newConfig.indoorPackages || [];
+
+    packages.forEach(pkg => {
+      if (!pkg.id) return;
+      const numPrice = parsePackagePrice(pkg.price);
+      const numOrigPrice = parsePackagePrice(pkg.originalPrice);
+
+      const idSearch = '"id": "' + pkg.id + '"';
+      const pos = pData.indexOf(idSearch);
+      if (pos !== -1) {
+        const chunkEnd = pData.indexOf('}', pos);
+        if (chunkEnd !== -1) {
+          let chunk = pData.substring(pos, chunkEnd);
+          if (numPrice && numPrice > 0) {
+            chunk = chunk.replace(/"price":\s*\d+/, `"price": ${numPrice}`);
+          }
+          if (numOrigPrice && numOrigPrice > 0) {
+            chunk = chunk.replace(/"originalPrice":\s*\d+/, `"originalPrice": ${numOrigPrice}`);
+          }
+          pData = pData.substring(0, pos) + chunk + pData.substring(chunkEnd);
+        }
+      }
+    });
+
+    fs.writeFileSync(PRICELIST_PATH, pData, 'utf-8');
+    console.log('[Admin Server] ✅ pricelistData.ts berhasil disinkronkan dengan perubahan dashboard!');
+  } catch (err) {
+    console.warn('[Admin Server] Gagal menyinkronkan pricelistData.ts:', err.message);
+  }
+}
+
+
 if (!fs.existsSync(BACKUP_DIR)) {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
 }
@@ -127,6 +187,7 @@ app.post('/api/config', async (req, res) => {
 
     // Write new config to both local data paths
     fs.writeFileSync(CONFIG_PATH, JSON.stringify(newConfig, null, 2), 'utf-8');
+    syncPricelistDataCodeFile(newConfig);
     try {
       const publicDataPath = path.join(ROOT_DIR, 'public', 'data', 'studioConfig.json');
       fs.writeFileSync(publicDataPath, JSON.stringify(newConfig, null, 2), 'utf-8');

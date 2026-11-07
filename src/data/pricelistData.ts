@@ -148,7 +148,7 @@ export const CATEGORIES: CategoryInfo[] = [
   }
 ];
 
-export const PACKAGES: PackageItem[] = [
+const DEFAULT_PACKAGES: PackageItem[] = [
   {
     "id": "grad-indoor-elegant-scholar",
     "name": "Elegant Scholar (Graduation Indoor 1)",
@@ -159,8 +159,8 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 10,
     "includedPrints": "2 photo 10 Rs / 3 photo 4R",
     "softFilesIncluded": true,
-    "price": 295000,
-    "originalPrice": 350000,
+    "price": 310000,
+    "originalPrice": 400000,
     "backdropCount": 1,
     "description": "1 Wisudawan + Family Maks 10 Org/frame, Unlimited Foto 25 Menit, 1 Background Studio, Edit 6 Foto, 1 Kostum (dari client), Cetak 2 photo 10 Rs / 3 photo 4R, All file via Google Drive.",
     "highlights": [
@@ -211,7 +211,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 10,
     "includedPrints": "4 photo 10 Rs / 6 photo 4R",
     "softFilesIncluded": true,
-    "price": 595000,
+    "price": 580000,
     "originalPrice": 680000,
     "backdropCount": 2,
     "description": "2 Wisudawan + Family Maks 10 Org/frame, Unlimited foto 45 menit, 2 Background Studio, Edit 12 Foto, 1 Kostum (dari client), Cetak 4 photo 10 Rs / 6 photo 4R, All file via Google Drive.",
@@ -376,7 +376,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 255000,
+    "price": 550000,
     "originalPrice": 300000,
     "description": "Paket outdoor wisuda 2 wisudawan (Rp 255.000 / wisudawan). 75 menit sesi, edit 20 foto + bisa foto bareng keluarga, all file Google Drive.",
     "highlights": [
@@ -451,7 +451,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 10,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 330000,
+    "price": 250000,
     "originalPrice": 380000,
     "description": "Jumlah 3-10 Orang, Maks 30 Menit, 1 background, Edit 6 foto, maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
@@ -475,7 +475,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 20,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 430000,
+    "price": 350000,
     "originalPrice": 500000,
     "description": "Jumlah 11 - 20 Orang, Maks 45 Menit, 1 Background, edit 6 foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
@@ -499,7 +499,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 30,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 510000,
+    "price": 500000,
     "originalPrice": 580000,
     "description": "Jumlah 21-30 Orang, Maks 50 Menit, 1 background, edit 6 foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
@@ -523,7 +523,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 40,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 630000,
+    "price": 700000,
     "originalPrice": 720000,
     "description": "Jumlah 31-40 Orang (diatas 40 +10K/Org Maks 75 Org)*, Maks 55 menit, 1 background, edit 6 foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
@@ -547,8 +547,8 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 10,
     "includedPrints": "Cetak Uk 10Rs 2 Foto",
     "softFilesIncluded": true,
-    "price": 330000,
-    "originalPrice": 390000,
+    "price": 295000,
+    "originalPrice": 400000,
     "description": "Unlimited foto Maks 30 menit, 1 background, Edit 6 foto, all file via Googledrive, Cetak Uk 10Rs 2 Foto, Maks 10 orang dalam 1 Frame, Maks 1 Kostum (Potongan 50K khusus 3 anggota keluarga).",
     "highlights": [
       "Unlimited foto Maks 30 menit",
@@ -572,8 +572,8 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 10,
     "includedPrints": "Cetak Uk 10Rs 2 Foto",
     "softFilesIncluded": true,
-    "price": 380000,
-    "originalPrice": 450000,
+    "price": 415000,
+    "originalPrice": 600000,
     "description": "Unlimited foto maks 40 menit, 2 background, Edit 8 foto, all file via google drive, Cetak Uk 10Rs 2 Foto, Maks 1 Kostum, Maks 10 orang dalam 1 frame.",
     "highlights": [
       "Unlimited foto maks 40 menit",
@@ -595,7 +595,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak Uk 10Rs 2 Foto",
     "softFilesIncluded": true,
-    "price": 255000,
+    "price": 350000,
     "originalPrice": 310000,
     "description": "Unlimited foto Maks 30 Menit, 1 Background, Edit 6 Foto, Cetak Uk 10Rs 2 Foto, Maks 1 kostum, Allfile via GoogleDrive.",
     "highlights": [
@@ -619,7 +619,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak Uk 10Rs 2 Foto",
     "softFilesIncluded": true,
-    "price": 305000,
+    "price": 500000,
     "originalPrice": 370000,
     "description": "Unlimited Foto Maks 40 Menit, 2 background, 8 Edit foto, Allfile via google drive, Cetak Uk 10Rs 2 Foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum).",
     "highlights": [
@@ -643,7 +643,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "Cetak Uk 4R Foto ATAU 10Rs 1 Foto",
     "softFilesIncluded": true,
-    "price": 155000,
+    "price": 150000,
     "originalPrice": 190000,
     "description": "Unlimited Foto Maks 20 menit, 1 background, edit 5 foto, Allfile Via Google Drive, maks 1 Outfit, Cetak Uk 4R Foto Atau 10Rs 1 foto.",
     "highlights": [
@@ -667,7 +667,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "Cetak Uk 4R 4 Foto ATAU 10Rs 1 Foto",
     "softFilesIncluded": true,
-    "price": 255000,
+    "price": 250000,
     "originalPrice": 300000,
     "description": "Unlimited Foto Maks 25 Menit, 2 Background Edit 6 Foto, Allfile Via google Drive, Maks 2 Outfit (+ 6 Menit untuk ganti kostum), Cetak Uk 4R 4 Foto Atau 10Rs 1 Foto.",
     "highlights": [
@@ -691,7 +691,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak Uk 4R 4 Foto / 10Rs 1 Foto",
     "softFilesIncluded": true,
-    "price": 255000,
+    "price": 250000,
     "originalPrice": 310000,
     "description": "Unlimited foto Maks 30 menit, 1 background, 6 Edit foto, all file google drive, Maks 1 outfit, Cetak Uk 4r 4 foto / 10Rs 1 Foto.",
     "highlights": [
@@ -715,7 +715,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak Uk 4R 4 Foto / 10Rs 1 Foto",
     "softFilesIncluded": true,
-    "price": 305000,
+    "price": 350000,
     "originalPrice": 370000,
     "description": "Unlimited foto Maks 40 menit, 2 background, 8 Edit foto, all file google drive, Maks 1 outfit, Cetak Uk 4r 4 foto / 10Rs 1 Foto.",
     "highlights": [
@@ -739,7 +739,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "2 Foto Cetak Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 199000,
+    "price": 350000,
     "originalPrice": 240000,
     "description": "Foto 25 Menit, 1 background foto, 1 Person, All file via Google Drive, 6 foto Edit | 2 Foto Cetak Uk 10Rs, Properti birthday Dari Klien.",
     "highlights": [
@@ -763,7 +763,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 3,
     "includedPrints": "2 Foto Cetak Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 275000,
+    "price": 450000,
     "originalPrice": 320000,
     "description": "Foto 30 Menit, 1 Background Foto, 2 - 3 Person, All file Google Drive, 6 Foto Edit | 2 Foto cetak Uk 10Rs, Properti birthday dari klien.",
     "highlights": [
@@ -787,7 +787,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "2 Foto Cetak Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 250000,
+    "price": 600000,
     "originalPrice": 300000,
     "description": "Foto 30 Menit, 1 Background foto, 1 Person, All file via Google Drive, 8 Foto edit | 2 Foto cetak Uk 10Rs, Include Properti: tulisan birthday, 12 Balon Latex, balon angka, 1 Balon Angka 80cm.",
     "highlights": [
@@ -811,7 +811,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 3,
     "includedPrints": "2 Cetak Foto Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 325000,
+    "price": 850000,
     "originalPrice": 380000,
     "description": "Foto 30 menit, 1 background, 2-3 person, ALL file via Google Drive, 8 Edit foto | 2 Cetak foto, Include Properti: tulisan birthday, balon 12 pas, balon angka bebas pilihan warna, 1 Balon Angka 80cm.",
     "highlights": [
@@ -835,7 +835,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "File Siap Pakai Undangan",
     "softFilesIncluded": true,
-    "price": 95000,
+    "price": 150000,
     "originalPrice": 130000,
     "description": "Maks 2 Orang, maks 5 gaya, Allfile Via Googledrive.",
     "highlights": [
@@ -857,7 +857,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 4,
     "includedPrints": "File Siap Pakai Undangan",
     "softFilesIncluded": true,
-    "price": 155000,
+    "price": 250000,
     "originalPrice": 195000,
     "description": "Maks 4 Orang, maks 5 gaya, Allfile Via Googledrive.",
     "highlights": [
@@ -879,7 +879,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak 12Rs + Bingkai",
     "softFilesIncluded": true,
-    "price": 550000,
+    "price": 650000,
     "originalPrice": 680000,
     "description": "Maks 50 Menit, 1 background, Edit 10 foto, allfile google drive, Maks 2 kostum, Cetak 12Rs + Bingkai.",
     "highlights": [
@@ -903,7 +903,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak 12Rs + Bingkai",
     "softFilesIncluded": true,
-    "price": 600000,
+    "price": 850000,
     "originalPrice": 750000,
     "description": "Maks 60 Menit, 2 background, Edit 13 foto, allfile via google drive, Maks 2 kostum, Cetak 12 + Bingkai.",
     "highlights": [
@@ -950,7 +950,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak 12Rs + Bingkai",
     "softFilesIncluded": true,
-    "price": 1500000,
+    "price": 1800000,
     "originalPrice": 1900000,
     "description": "Paket Velvet Romance + Make Up, Hijab Do, Softlens, Sepasang Kostum (Bisa Memilih).",
     "highlights": [
@@ -973,7 +973,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "Cetak 1 Ukuran Pass Foto",
     "softFilesIncluded": true,
-    "price": 50000,
+    "price": 35000,
     "originalPrice": 65000,
     "description": "3 Warna Background Edit, Maks 1 Outfit, 1 Edit foto (Setengah badan), File Edit via WA Dokumen, Cetak 1 Ukuran Pass Foto.",
     "highlights": [
@@ -996,7 +996,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "Cetak 1 Ukuran Pass Foto",
     "softFilesIncluded": true,
-    "price": 90000,
+    "price": 50000,
     "originalPrice": 110000,
     "description": "3 Background Edit Setengah badan, Edit 1 full badan, Setengah badan & full Badan, File Edit Via Wa Dokumen, Maks 1 Outfit, Cetak 1 ukuran Pass Foto.",
     "highlights": [
@@ -1020,7 +1020,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Masing-masing Cetak 1 Ukuran Pass Foto",
     "softFilesIncluded": true,
-    "price": 98000,
+    "price": 65000,
     "originalPrice": 125000,
     "description": "Paket Nikah Untuk 2 Orang, 3 Warna Background Edit, masing Masing 1 Edit Foto, File edit via dokumen WA, masing masing Cetak 1 Ukuran Pass Foto.",
     "highlights": [
@@ -1043,7 +1043,7 @@ export const PACKAGES: PackageItem[] = [
     "includedPeople": 6,
     "includedPrints": "Tanpa Cetak (Khusus Sewa Ruangan & Lighting)",
     "softFilesIncluded": true,
-    "price": 175000,
+    "price": 100000,
     "originalPrice": 220000,
     "description": "2 Background, maks 60 Menit, 2 Lighting | 1 Trigger | 2 Stand light.",
     "highlights": [
@@ -1221,6 +1221,51 @@ export const PACKAGES: PackageItem[] = [
     "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
   }
 ];
+
+
+// Dynamic merge: Pastikan PACKAGES selalu membaca data harga & nama terupdate dari studioConfig.json
+function parseConfigPrice(raw: any): number | null {
+  if (typeof raw === 'number') {
+    return (raw > 0 && raw < 100000000) ? raw : null;
+  }
+  if (!raw || typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const firstOption = trimmed.split('/')[0].trim();
+  const kMatch = firstOption.match(/([0-9.,]+)\s*k/i);
+  if (kMatch) {
+    const cleanDigits = kMatch[1].replace(/[.,]/g, '');
+    const num = parseInt(cleanDigits, 10);
+    if (!isNaN(num) && num > 0) return num * 1000;
+  }
+  const cleanDigits = firstOption.replace(/[^\d]/g, '');
+  if (cleanDigits) {
+    const num = parseInt(cleanDigits, 10);
+    if (!isNaN(num) && num > 0 && num < 100000000) return num;
+  }
+  return null;
+}
+
+const DYNAMIC_STUDIO_PACKAGES = (studioConfig as any).studioPackages || (studioConfig as any).indoorPackages || [];
+
+export const PACKAGES: PackageItem[] = DEFAULT_PACKAGES.map((bp) => {
+  if (!Array.isArray(DYNAMIC_STUDIO_PACKAGES) || DYNAMIC_STUDIO_PACKAGES.length === 0) return bp;
+  const cp = DYNAMIC_STUDIO_PACKAGES.find((p: any) => p && p.id === bp.id);
+  if (!cp) return bp;
+
+  const numPrice = parseConfigPrice(cp.price);
+  const numOrigPrice = parseConfigPrice(cp.originalPrice);
+
+  return {
+    ...bp,
+    name: cp.name || bp.name,
+    tag: cp.subtitle || cp.tag || bp.tag,
+    price: (numPrice !== null && numPrice > 0) ? numPrice : bp.price,
+    originalPrice: (numOrigPrice !== null && numOrigPrice > 0) ? numOrigPrice : bp.originalPrice,
+    includedPrints: cp.print || bp.includedPrints,
+    description: cp.note || bp.description
+  };
+});
 
 export const OPERATIONAL_HOURS = studioConfig.operationalHours || "Buka Setiap Hari: 08:00 - 21:00 WIB";
 
