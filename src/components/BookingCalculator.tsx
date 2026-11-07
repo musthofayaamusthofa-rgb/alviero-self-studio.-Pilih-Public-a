@@ -1911,9 +1911,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     return 0;
   };
 
-  // Aturan Kapasitas per Slot: Jam 06.00 s.d 11.00 maksimal 2 klien, Jam 11.30 s.d 20.30 maksimal 3 klien
+  // Aturan Kapasitas per Slot: Dinamis membaca konfigurasi timeSlots dashboard (fallback: Jam < 11:30 maks 2 klien, >= 11:30 maks 3 klien)
   const getSlotMaxCapacity = (slotTimeStr: string): number => {
     const sNorm = normalizeSlotTime(slotTimeStr);
+    const configuredSlot = ((studioConfig as any).timeSlots || []).find((s: any) => {
+      const matchTime = normalizeSlotTime(s.time) === sNorm;
+      if (!matchTime) return false;
+      if (s.applicableBranches && Array.isArray(s.applicableBranches)) {
+        return s.applicableBranches.includes(selectedBranch);
+      }
+      return true;
+    });
+    if (configuredSlot && typeof configuredSlot.maxCapacity === 'number') {
+      return configuredSlot.maxCapacity;
+    }
     const [h, m] = sNorm.split(':').map(Number);
     const totalMinutes = (h || 0) * 60 + (m || 0);
     if (totalMinutes < 11 * 60 + 30) {
