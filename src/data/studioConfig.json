@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T15:21:20.902Z",
+  "lastUpdated": "2026-11-07T15:21:25.597Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1432,10 +1432,10 @@
       "subtitle": "Graduation Indoor 1",
       "badge": "Favorit",
       "name": "Elegant Scholar",
-      "originalPrice": "Rp 400.000",
-      "price": "310K",
+      "originalPrice": "Rp 350.000",
+      "price": "295K",
       "priceUnit": "per sesi • all-in",
-      "duration": "unlimited foto 25 Menit",
+      "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Editing 6 Foto High-Res",
@@ -1455,7 +1455,7 @@
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "unlimited foto 25 Menit"
+          "text": "unlimited foto 20 Menit"
         },
         {
           "icon": "✨",
@@ -1627,10 +1627,10 @@
       "subtitle": "Graduation Indoor 1",
       "badge": "Favorit",
       "name": "Elegant Scholar",
-      "originalPrice": "Rp 400.000",
-      "price": "310K",
+      "originalPrice": "Rp 350.000",
+      "price": "295K",
       "priceUnit": "per sesi • all-in",
-      "duration": "unlimited foto 25 Menit",
+      "duration": "unlimited foto 20 Menit",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Editing 6 Foto High-Res",
@@ -1650,7 +1650,7 @@
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "unlimited foto 25 Menit"
+          "text": "unlimited foto 20 Menit"
         },
         {
           "icon": "✨",
@@ -4303,16 +4303,51 @@
       "active": true
     },
     {
-      "id": "showcase-1794064263854",
+      "id": "showcase-2-1",
       "branchId": "cabang-2",
-      "src": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
-      "imageUrl": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
-      "image": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
-      "title": "Hitam",
-      "subtitle": "",
-      "caption": "Hitam",
-      "tag": "STUDIO SHOWCASE",
-      "badge": "STUDIO SHOWCASE",
+      "src": "/images/backdrops/backdrop-5.jpg",
+      "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
+      "tag": "ROYAL FIREPLACE",
+      "active": true
+    },
+    {
+      "id": "showcase-2-2",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-2.jpg",
+      "caption": "Bohemian Rustic Texture Wall — Natural & Warm Aesthetic",
+      "tag": "BOHEMIAN RUSTIC",
+      "active": true
+    },
+    {
+      "id": "showcase-2-3",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-3.jpg",
+      "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
+      "tag": "ARCH WINDOW",
+      "active": true
+    },
+    {
+      "id": "showcase-2-4",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-7.jpg",
+      "caption": "White Arch Windows & Grey Minimalist Set",
+      "tag": "MINIMALIST BRIGHT",
+      "active": true
+    },
+    {
+      "id": "showcase-2-5",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-4.jpg",
+      "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
+      "tag": "TIMELESS LUXURY",
+      "active": true
+    },
+    {
+      "id": "showcase-2-6",
+      "branchId": "cabang-2",
+      "src": "/images/backdrops/backdrop-1.jpg",
+      "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
+      "tag": "MINT AESTHETIC",
       "active": true
     }
   ],
