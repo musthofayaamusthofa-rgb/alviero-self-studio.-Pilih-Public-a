@@ -1812,6 +1812,74 @@
           </div>
         </div>
 
+        <!-- Fitur Manajemen Bagian 'Siap Berekspresi? Jelajahi Pricelist & Booking!' -->
+        <div class="preset-box" style="margin-bottom: 1.5rem; background: #262626; color: #FFFFFF; border: 1px solid #3F3F46; border-radius: 16px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+            <div style="flex: 1; min-width: 280px;">
+              <div style="font-size: 0.95rem; font-weight: 800; color: #A9BCA7; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span>✨</span> <span>Bagian Layanan & Booking Cepat Halaman Depan ("Siap Berekspresi?")</span>
+                <span id="quickServicesStatusBadge" style="font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #166534; color: #DCFCE7;">AKTIF</span>
+              </div>
+              <div style="font-size: 0.76rem; color: #D4D4D8; margin-top: 0.25rem; line-height: 1.45;">
+                Atur aktif/tidaknya kotak hitam besar "Siap Berekspresi? Jelajahi Pricelist & Booking!" beserta 6 kartu dropdown layanan studio di halaman depan (Landing Page).
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <label class="toggle-label-wrap" style="background: #3A3A3A; padding: 0.4rem 0.75rem; border-radius: 10px; border: 1px solid #52525B;">
+                <div class="switch">
+                  <input type="checkbox" id="quickServicesActiveToggle" onchange="saveQuickServicesConfig()">
+                  <span class="slider"></span>
+                </div>
+                <span class="toggle-text" id="quickServicesActiveLabel" style="color: #FDFBF7; font-weight: 700;">Tampilkan Bagian Ini</span>
+              </label>
+              <button type="button" class="btn btn-save-local" onclick="saveQuickServicesConfig()">💾 Simpan Pengaturan</button>
+            </div>
+          </div>
+
+          <!-- Kustomisasi Judul & Subtitle -->
+          <div id="quickServicesSettingsDetail" style="display: flex; flex-direction: column; gap: 0.85rem; border-top: 1px solid #3F3F46; padding-top: 0.85rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.85rem;">
+              <div>
+                <label style="display: block; font-size: 0.74rem; font-weight: 700; color: #A1A1AA; margin-bottom: 0.3rem;">Judul Utama Kotak</label>
+                <input type="text" id="quickServicesTitleInput" class="form-control" style="background: #18181B; color: #FFFFFF; border-color: #52525B;" placeholder="Siap Berekspresi? Jelajahi Pricelist & Booking!" onchange="saveQuickServicesConfig()">
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.74rem; font-weight: 700; color: #A1A1AA; margin-bottom: 0.3rem;">Teks Petunjuk (Sub-judul)</label>
+                <input type="text" id="quickServicesSubtitleInput" class="form-control" style="background: #18181B; color: #FFFFFF; border-color: #52525B;" placeholder="Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:" onchange="saveQuickServicesConfig()">
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.74rem; font-weight: 700; color: #A1A1AA; margin-bottom: 0.3rem;">Teks Badge Label</label>
+                <input type="text" id="quickServicesBadgeInput" class="form-control" style="background: #18181B; color: #FFFFFF; border-color: #52525B;" placeholder="RESERVASI JADWAL ONLINE" onchange="saveQuickServicesConfig()">
+              </div>
+            </div>
+
+            <!-- Toggle 6 Kartu Layanan -->
+            <div>
+              <div style="font-size: 0.76rem; font-weight: 700; color: #A1A1AA; margin-bottom: 0.45rem;">Pilih Kartu Layanan yang Ditampilkan:</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <label class="toggle-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; background: #333333; padding: 0.3rem 0.65rem; border-radius: 8px; border: 1px solid #52525B; font-size: 0.75rem; color: #FFFFFF; cursor: pointer;">
+                  <input type="checkbox" id="qsCardStudioFoto" onchange="saveQuickServicesConfig()"> 📷 Studio Foto
+                </label>
+                <label class="toggle-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; background: #333333; padding: 0.3rem 0.65rem; border-radius: 8px; border: 1px solid #52525B; font-size: 0.75rem; color: #FFFFFF; cursor: pointer;">
+                  <input type="checkbox" id="qsCardSelfStudio" onchange="saveQuickServicesConfig()"> ✨ SelfStudio
+                </label>
+                <label class="toggle-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; background: #333333; padding: 0.3rem 0.65rem; border-radius: 8px; border: 1px solid #52525B; font-size: 0.75rem; color: #FFFFFF; cursor: pointer;">
+                  <input type="checkbox" id="qsCardCetakBingkai" onchange="saveQuickServicesConfig()"> 🖼️ Cetak & Bingkai
+                </label>
+                <label class="toggle-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; background: #333333; padding: 0.3rem 0.65rem; border-radius: 8px; border: 1px solid #52525B; font-size: 0.75rem; color: #FFFFFF; cursor: pointer;">
+                  <input type="checkbox" id="qsCardWedding" onchange="saveQuickServicesConfig()"> 💍 Wedding & Prewed
+                </label>
+                <label class="toggle-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; background: #333333; padding: 0.3rem 0.65rem; border-radius: 8px; border: 1px solid #52525B; font-size: 0.75rem; color: #FFFFFF; cursor: pointer;">
+                  <input type="checkbox" id="qsCardEvent" onchange="saveQuickServicesConfig()"> 📅 Event Dokumentasi
+                </label>
+                <label class="toggle-pill" style="display: inline-flex; align-items: center; gap: 0.4rem; background: #333333; padding: 0.3rem 0.65rem; border-radius: 8px; border: 1px solid #52525B; font-size: 0.75rem; color: #FFFFFF; cursor: pointer;">
+                  <input type="checkbox" id="qsCardMua" onchange="saveQuickServicesConfig()"> 💄 MUA, Kebaya & Hairdo
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Section Title & Subtitle Customizer -->
         <div class="preset-box" style="margin-bottom: 1.25rem;">
           <div style="flex: 1; max-width: 480px;">
@@ -7047,6 +7115,7 @@
       
       renderPromos();
       renderAnnouncementConfig();
+      renderQuickServicesConfig();
       renderClientReviews();
       renderHistory();
       renderIndoorPackages();
@@ -11992,6 +12061,98 @@
       appConfig.announcement = isEnabled ? rawTxt : '';
       saveConfigLocally();
       showToast(appConfig.announcement ? '✅ Teks pengumuman header berhasil diaktifkan!' : '⚪ Pengumuman header disembunyikan.', '📢');
+    }
+
+    // 1B. Bagian Layanan & Booking Cepat Halaman Depan ("Siap Berekspresi? Jelajahi Pricelist & Booking!")
+    function renderQuickServicesConfig() {
+      if (!appConfig) return;
+      if (!appConfig.landingQuickServices) {
+        appConfig.landingQuickServices = {
+          active: true,
+          title: "Siap Berekspresi? Jelajahi Pricelist & Booking!",
+          subtitle: "Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:",
+          badgeText: "RESERVASI JADWAL ONLINE",
+          visibleCards: {
+            studioFoto: true,
+            selfStudio: true,
+            cetakBingkai: true,
+            wedding: true,
+            event: true,
+            mua: true
+          }
+        };
+      }
+
+      const qs = appConfig.landingQuickServices;
+      const isActive = qs.active !== false;
+
+      const toggle = document.getElementById('quickServicesActiveToggle');
+      if (toggle) toggle.checked = isActive;
+
+      const badge = document.getElementById('quickServicesStatusBadge');
+      if (badge) {
+        badge.textContent = isActive ? 'AKTIF' : 'NONAKTIF';
+        badge.style.background = isActive ? '#166534' : '#991B1B';
+        badge.style.color = isActive ? '#DCFCE7' : '#FEE2E2';
+      }
+
+      const activeLabel = document.getElementById('quickServicesActiveLabel');
+      if (activeLabel) {
+        activeLabel.textContent = isActive ? 'Tampilkan Bagian Ini' : 'Sembunyikan dari Web';
+      }
+
+      const titleInput = document.getElementById('quickServicesTitleInput');
+      if (titleInput) titleInput.value = qs.title || 'Siap Berekspresi? Jelajahi Pricelist & Booking!';
+
+      const subtitleInput = document.getElementById('quickServicesSubtitleInput');
+      if (subtitleInput) subtitleInput.value = qs.subtitle || 'Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:';
+
+      const badgeInput = document.getElementById('quickServicesBadgeInput');
+      if (badgeInput) badgeInput.value = qs.badgeText || 'RESERVASI JADWAL ONLINE';
+
+      const vc = qs.visibleCards || {};
+      const setCardCheck = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = val !== false;
+      };
+      setCardCheck('qsCardStudioFoto', vc.studioFoto);
+      setCardCheck('qsCardSelfStudio', vc.selfStudio);
+      setCardCheck('qsCardCetakBingkai', vc.cetakBingkai);
+      setCardCheck('qsCardWedding', vc.wedding);
+      setCardCheck('qsCardEvent', vc.event);
+      setCardCheck('qsCardMua', vc.mua);
+
+      const detail = document.getElementById('quickServicesSettingsDetail');
+      if (detail) {
+        detail.style.opacity = isActive ? '1' : '0.45';
+        detail.style.pointerEvents = isActive ? 'auto' : 'none';
+      }
+    }
+
+    function saveQuickServicesConfig() {
+      if (!appConfig) return;
+      if (!appConfig.landingQuickServices) appConfig.landingQuickServices = {};
+
+      const toggle = document.getElementById('quickServicesActiveToggle');
+      const isEnabled = toggle ? toggle.checked : true;
+
+      appConfig.landingQuickServices.active = isEnabled;
+      appConfig.landingQuickServices.title = document.getElementById('quickServicesTitleInput')?.value?.trim() || 'Siap Berekspresi? Jelajahi Pricelist & Booking!';
+      appConfig.landingQuickServices.subtitle = document.getElementById('quickServicesSubtitleInput')?.value?.trim() || 'Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:';
+      appConfig.landingQuickServices.badgeText = document.getElementById('quickServicesBadgeInput')?.value?.trim() || 'RESERVASI JADWAL ONLINE';
+
+      appConfig.landingQuickServices.visibleCards = {
+        studioFoto: document.getElementById('qsCardStudioFoto') ? document.getElementById('qsCardStudioFoto').checked : true,
+        selfStudio: document.getElementById('qsCardSelfStudio') ? document.getElementById('qsCardSelfStudio').checked : true,
+        cetakBingkai: document.getElementById('qsCardCetakBingkai') ? document.getElementById('qsCardCetakBingkai').checked : true,
+        wedding: document.getElementById('qsCardWedding') ? document.getElementById('qsCardWedding').checked : true,
+        event: document.getElementById('qsCardEvent') ? document.getElementById('qsCardEvent').checked : true,
+        mua: document.getElementById('qsCardMua') ? document.getElementById('qsCardMua').checked : true
+      };
+
+      renderQuickServicesConfig();
+      saveConfigLocally();
+      showToast(isEnabled ? '✅ Bagian "Siap Berekspresi?" berhasil diaktifkan di web!' : '⚪ Bagian "Siap Berekspresi?" dinonaktifkan dari web.', '🗂️');
     }
 
     // 2. Ulasan Klien Google Maps (Client Reviews Carousel)

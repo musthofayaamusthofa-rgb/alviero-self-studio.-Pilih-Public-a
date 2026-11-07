@@ -1,8 +1,22 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T07:29:50.914Z",
+  "lastUpdated": "2026-11-07T07:41:08.227Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
+  "landingQuickServices": {
+    "active": true,
+    "title": "Siap Berekspresi? Jelajahi Pricelist & Booking!",
+    "subtitle": "Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:",
+    "badgeText": "RESERVASI JADWAL ONLINE",
+    "visibleCards": {
+      "studioFoto": true,
+      "selfStudio": true,
+      "cetakBingkai": true,
+      "wedding": true,
+      "event": true,
+      "mua": true
+    }
+  },
   "branches": [
     {
       "id": "cabang-1",

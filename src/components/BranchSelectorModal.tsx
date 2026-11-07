@@ -2231,6 +2231,16 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
     waUrl: string;
   } | null>(null);
 
+  const quickServicesConfig = (studioConfig as any)?.landingQuickServices;
+  const isQuickServicesActive = quickServicesConfig ? (quickServicesConfig.active !== false) : true;
+  const qsVisibleCards = quickServicesConfig?.visibleCards || {};
+  const isStudioFotoVisible = qsVisibleCards.studioFoto !== false;
+  const isSelfStudioVisible = qsVisibleCards.selfStudio !== false;
+  const isCetakBingkaiVisible = qsVisibleCards.cetakBingkai !== false;
+  const isWeddingVisible = qsVisibleCards.wedding !== false;
+  const isEventVisible = qsVisibleCards.event !== false;
+  const isMuaVisible = qsVisibleCards.mua !== false;
+
   const toggleStudioFoto = () => {
     setIsStudioFotoExpanded((prev) => {
       const next = !prev;
@@ -2423,6 +2433,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
           </div>
 
           {/* 4. Lokasi Studio Aktif & Layanan Wedding / Cetak */}
+          {isQuickServicesActive && (
           <div id="section-services" className="pt-6 sm:pt-8 pb-1 border-t border-[#E8DDD6]">
 
             {/* BIG EYE-CATCHING GRAND CALLOUT BOX & SPECIALIST SERVICES (Kontainer Border Hitam Sampai Bawah) */}
@@ -2436,7 +2447,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                   <span className="inline-flex items-center gap-1.5 bg-[#3A3A3A] text-[#A9BCA7] border border-[#A9BCA7]/40 px-3 py-1 rounded-full text-[9.5px] sm:text-[10.5px] font-mono font-bold uppercase tracking-widest">
                     <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-[#A9BCA7] shrink-0" />
-                    RESERVASI JADWAL ONLINE
+                    {quickServicesConfig?.badgeText || 'RESERVASI JADWAL ONLINE'}
                   </span>
                   {isOpen ? (
                     <span className="text-[9.5px] sm:text-[10.5px] font-sans font-bold uppercase tracking-wider text-[#A9BCA7] bg-[#1E2E1D]/80 px-3 py-1 rounded-full border border-[#A9BCA7]/40 flex items-center gap-1.5 shadow-sm">
@@ -2452,10 +2463,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                 </div>
 
                 <h3 className="font-serif font-black text-lg sm:text-2xl md:text-3xl text-white uppercase tracking-wide leading-snug">
-                  Siap Berekspresi? Jelajahi Pricelist & Booking!
+                  {quickServicesConfig?.title || 'Siap Berekspresi? Jelajahi Pricelist & Booking!'}
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-300 font-sans">
-                  Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:
+                  {quickServicesConfig?.subtitle || 'Pilih layanan di bawah untuk melihat rincian paket, tema foto & estimasi biaya:'}
                 </p>
               </div>
 
@@ -2463,6 +2474,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
               <div className="pt-2 border-t border-[#3A3A3A] relative z-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 items-start">
                   {/* 1. Studio Foto - (#f3f2ed) */}
+                  {isStudioFotoVisible && (
                   <div
                     className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isStudioFotoExpanded
                       ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
@@ -2573,8 +2585,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       )}
                     </div>
                   </div>
+                  )}
 
                   {/* 2. SelfStudio - (#ab8a77) */}
+                  {isSelfStudioVisible && (
                   <div
                     className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md text-white ${isSelfStudioExpanded
                       ? 'ring-2 ring-white/40 shadow-md'
@@ -2693,8 +2707,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       )}
                     </div>
                   </div>
+                  )}
 
                   {/* 3. Cetak & Bingkai - (#f3f2ed) */}
+                  {isCetakBingkaiVisible && (
                   <div
                     className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isCetakCardExpanded
                       ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
@@ -2813,8 +2829,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       )}
                     </div>
                   </div>
+                  )}
 
                   {/* 4. Wedding & Prewedding - (#ab8a77) */}
+                  {isWeddingVisible && (
                   <div
                     className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md text-white ${isWeddingCardExpanded
                       ? 'ring-2 ring-white/40 shadow-md'
@@ -2939,8 +2957,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       )}
                     </div>
                   </div>
+                  )}
 
                   {/* 5. Event - (#f3f2ed) */}
+                  {isEventVisible && (
                   <div
                     className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#f3f2ed] hover:bg-[#e8e7e1] border border-[#e2ddd5] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md ${isEventCardExpanded
                       ? 'ring-2 ring-[#3A3A3A]/20 shadow-md'
@@ -3065,8 +3085,10 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       )}
                     </div>
                   </div>
+                  )}
 
                   {/* 6. MUA, Kebaya, Hairdo & Hijabdo - (#ab8a77) */}
+                  {isMuaVisible && (
                   <div
                     className={`flex w-full flex-col justify-between rounded-xl sm:rounded-2xl p-3 sm:p-3.5 bg-[#ab8a77] hover:bg-[#9c7b69] border border-[#9c7b69] transition-all duration-300 text-left relative overflow-hidden shadow-xs hover:shadow-md text-white ${isMuaCardExpanded
                       ? 'ring-2 ring-white/40 shadow-md'
@@ -3179,6 +3201,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
                       )}
                     </div>
                   </div>
+                  )}
 
                 </div>
               </div>
@@ -3186,6 +3209,7 @@ export const BranchSelectorLanding: React.FC<BranchSelectorViewProps> = ({
             </div>
 
           </div>
+          )}
 
         </div>
 
