@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T15:21:30.842Z",
+  "lastUpdated": "2026-11-07T15:22:09.391Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -4311,6 +4311,19 @@
       "title": "Hitam",
       "subtitle": "",
       "caption": "Hitam",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
+      "active": true
+    },
+    {
+      "id": "showcase-1794064924185",
+      "branchId": "cabang-2",
+      "src": "/images/gallery/dscf0829_jpg_1794064920919.jpg",
+      "imageUrl": "/images/gallery/dscf0829_jpg_1794064920919.jpg",
+      "image": "/images/gallery/dscf0829_jpg_1794064920919.jpg",
+      "title": "Putih",
+      "subtitle": "",
+      "caption": "Putih",
       "tag": "STUDIO SHOWCASE",
       "badge": "STUDIO SHOWCASE",
       "active": true
