@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T12:57:25.203Z",
+  "lastUpdated": "2026-11-07T13:38:31.528Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1968,10 +1968,11 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "note": "",
+      "imageUrl": "/images/packages/smart_outdoor_30_menit_foto1_1794058706007.jpg",
       "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
+        "/images/packages/smart_outdoor_30_menit_foto1_1794058706007.jpg",
+        "/images/packages/smart_outdoor_30_menit_foto2_1794058691868.jpg"
       ],
       "_origIndex": 5
     },
@@ -4100,10 +4101,11 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
+      "note": "",
+      "imageUrl": "/images/packages/smart_outdoor_30_menit_foto1_1794058706007.jpg",
       "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
+        "/images/packages/smart_outdoor_30_menit_foto1_1794058706007.jpg",
+        "/images/packages/smart_outdoor_30_menit_foto2_1794058691868.jpg"
       ],
       "_origIndex": 5
     },
