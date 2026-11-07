@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T15:22:09.391Z",
+  "lastUpdated": "2026-11-07T15:34:06.651Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -229,8 +229,7 @@
       "active": true,
       "_origIndex": 9,
       "previewImages": [
-        "/images/gallery/dscf0842_jpg_1794064261854.jpg",
-        "/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg"
+        "/images/gallery/dscf0842_jpg_1794064261854.jpg"
       ]
     },
     {
@@ -249,8 +248,7 @@
       "active": true,
       "_origIndex": 10,
       "previewImages": [
-        "/images/gallery/dscf0829_jpg_1794064920919.jpg",
-        "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg"
+        "/images/gallery/dscf0829_jpg_1794064920919.jpg"
       ]
     },
     {
