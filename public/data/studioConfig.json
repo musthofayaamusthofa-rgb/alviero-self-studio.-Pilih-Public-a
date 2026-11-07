@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T06:40:35.072Z",
+  "lastUpdated": "2026-11-07T06:54:21.777Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "branches": [
@@ -139,7 +139,7 @@
     },
     {
       "id": "c1-self-polos-putih",
-      "name": "Polos Putih",
+      "name": "Putih Self",
       "category": "solid-color",
       "hex": "#F8FAFC",
       "colorClass": "bg-slate-50",
@@ -152,11 +152,14 @@
         "cabang-1"
       ],
       "active": true,
-      "_origIndex": 6
+      "_origIndex": 6,
+      "previewImages": [
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+      ]
     },
     {
       "id": "c1-self-polos-abu",
-      "name": "Polos Abu",
+      "name": "Abu Self",
       "category": "solid-color",
       "hex": "#9CA3AF",
       "colorClass": "bg-gray-400",
@@ -169,11 +172,14 @@
         "cabang-1"
       ],
       "active": true,
-      "_origIndex": 7
+      "_origIndex": 7,
+      "previewImages": [
+        "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80"
+      ]
     },
     {
       "id": "c1-self-polos-coklat",
-      "name": "Polos Coklat",
+      "name": "Coklat Self",
       "category": "solid-color",
       "hex": "#92400E",
       "colorClass": "bg-amber-800",
@@ -186,24 +192,10 @@
         "cabang-1"
       ],
       "active": true,
-      "_origIndex": 8
-    },
-    {
-      "id": "c1-self-tirai-coklat",
-      "name": "Tirai Coklat",
-      "category": "solid-color",
-      "hex": "#78350F",
-      "colorClass": "bg-amber-900",
-      "description": "Latar tirai coklat dengan nuansa hangat dan intim.",
-      "previewImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80",
-      "applicableTo": [
-        "self-studio"
-      ],
-      "applicableBranches": [
-        "cabang-1"
-      ],
-      "active": true,
-      "_origIndex": 9
+      "_origIndex": 8,
+      "previewImages": [
+        "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=400&q=80"
+      ]
     },
     {
       "id": "c2-hitam",
@@ -219,7 +211,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 10,
+      "_origIndex": 9,
       "previewImages": [
         "/images/backgrounds/bg_hitam_foto1_1792378000731_1792378002613.jpg"
       ]
@@ -238,7 +230,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 11,
+      "_origIndex": 10,
       "previewImages": [
         "/images/backgrounds/bg_putih_foto1_1792378028025_1792378029653.jpg"
       ]
@@ -257,7 +249,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 12,
+      "_origIndex": 11,
       "previewImages": [
         "/images/backgrounds/bg_abu_abu_foto1_1792378066983_1792378070070.jpg"
       ]
@@ -276,7 +268,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 13,
+      "_origIndex": 12,
       "previewImages": [
         "/images/backgrounds/bg_coklat_jendela_foto1_1792378113604_1792378115069.jpg"
       ]
@@ -295,7 +287,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 14,
+      "_origIndex": 13,
       "previewImages": [
         "/images/backgrounds/bg_tematik_cream_foto1_1792378159993_1792378162037.jpg"
       ]
@@ -314,7 +306,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 15,
+      "_origIndex": 14,
       "previewImages": [
         "/images/backgrounds/bg_coklat_foto1_1793236954499_1793236956127.jpg"
       ]
@@ -333,7 +325,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 16,
+      "_origIndex": 15,
       "previewImages": [
         "/images/backgrounds/bg_biru_foto1_1793236920387_1793236921945.jpg"
       ]
@@ -352,7 +344,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 17,
+      "_origIndex": 16,
       "previewImages": [
         "/images/backgrounds/bg_putih_foto1_1793236907380_1793236909409.jpg"
       ]
@@ -371,7 +363,7 @@
         "cabang-2"
       ],
       "active": true,
-      "_origIndex": 18,
+      "_origIndex": 17,
       "previewImages": [
         "/images/backgrounds/bg_tematik_cream_foto1_1793236980282_1793236982003.jpg"
       ]
