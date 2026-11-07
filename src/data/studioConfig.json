@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T16:18:56.517Z",
+  "lastUpdated": "2026-11-07T16:25:34.841Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1435,7 +1435,7 @@
       "originalPrice": "Rp 400.000",
       "price": "310K",
       "priceUnit": "per sesi • all-in",
-      "duration": "unlimited foto 20 Menit",
+      "duration": "unlimited foto 25 Menit",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Editing 6 Foto High-Res",
@@ -1455,7 +1455,7 @@
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "unlimited foto 20 Menit"
+          "text": "unlimited foto 25 Menit"
         },
         {
           "icon": "✨",
@@ -1630,7 +1630,7 @@
       "originalPrice": "Rp 400.000",
       "price": "310K",
       "priceUnit": "per sesi • all-in",
-      "duration": "unlimited foto 20 Menit",
+      "duration": "unlimited foto 25 Menit",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Editing 6 Foto High-Res",
@@ -1650,7 +1650,7 @@
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "unlimited foto 20 Menit"
+          "text": "unlimited foto 25 Menit"
         },
         {
           "icon": "✨",
@@ -7721,7 +7721,7 @@
       "price": 17000,
       "priceDisplay": "17K",
       "type": "Bingkai Meja / Minimalis",
-      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+      "image": "/images/frames/frame_1_1794068602368_1794068602586.jpg",
       "desc": "Cocok untuk meja belajar, nakas kamar tidur, dan kado wisuda",
       "active": true
     },
@@ -7731,7 +7731,7 @@
       "price": 35000,
       "priceDisplay": "35K",
       "type": "Bingkai Dinding Sedang",
-      "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80",
+      "image": "/images/frames/frame_2_1794068627932_1794068628170.jpg",
       "desc": "Ukuran paling diminati untuk foto wisuda keluarga & portrait",
       "active": true
     },
@@ -7741,7 +7741,7 @@
       "price": 50000,
       "priceDisplay": "50K",
       "type": "Bingkai Dinding Populer",
-      "image": "https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=600&q=80",
+      "image": "/images/frames/frame_3_1794068655488_1794068655708.jpg",
       "desc": "Sangat pas untuk foto wisuda sarjana & foto couple ruang tamu",
       "active": true
     },
@@ -7751,7 +7751,7 @@
       "price": 145000,
       "priceDisplay": "145K",
       "type": "Bingkai Dinding Eksklusif",
-      "image": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=600&q=80",
+      "image": "/images/frames/frame_4_1794068673767_1794068673998.jpg",
       "desc": "Tampilan megah dengan list linen ganda untuk foto keluarga",
       "active": true
     },
@@ -7761,7 +7761,7 @@
       "price": 175000,
       "priceDisplay": "175K",
       "type": "Bingkai Dinding Jumbo",
-      "image": "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=600&q=80",
+      "image": "/images/frames/frame_5_1794068682464_1794068682697.jpg",
       "desc": "Sempurna untuk foto prewedding utama & foto keluarga besar",
       "active": true
     },
@@ -7771,8 +7771,19 @@
       "price": 230000,
       "priceDisplay": "230K",
       "type": "Bingkai Dinding Masterpiece",
-      "image": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+      "image": "/images/frames/frame_6_1794068695166_1794068695435.jpg",
       "desc": "Ukuran kanvas/pigura terbesar untuk background ruang utama",
+      "active": true
+    },
+    {
+      "code": "10Rs Press",
+      "size": "00 X 00 CM",
+      "dim": "00 X 00 CM",
+      "price": 35000,
+      "priceDisplay": "35K",
+      "type": "Bingkai Minimalis",
+      "image": "/images/frames/frame_7_1794068728068_1794068728300.jpg",
+      "desc": "Bingkai minimalis elegan dengan kaca pelindung bening",
       "active": true
     }
   ],
