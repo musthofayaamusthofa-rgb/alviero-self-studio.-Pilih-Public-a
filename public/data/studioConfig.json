@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-07T15:21:25.597Z",
+  "lastUpdated": "2026-11-07T15:21:30.842Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -4303,51 +4303,16 @@
       "active": true
     },
     {
-      "id": "showcase-2-1",
+      "id": "showcase-1794064263854",
       "branchId": "cabang-2",
-      "src": "/images/backdrops/backdrop-5.jpg",
-      "caption": "European Royal Fireplace & Frame — Set Mewah Formal",
-      "tag": "ROYAL FIREPLACE",
-      "active": true
-    },
-    {
-      "id": "showcase-2-2",
-      "branchId": "cabang-2",
-      "src": "/images/backdrops/backdrop-2.jpg",
-      "caption": "Bohemian Rustic Texture Wall — Natural & Warm Aesthetic",
-      "tag": "BOHEMIAN RUSTIC",
-      "active": true
-    },
-    {
-      "id": "showcase-2-3",
-      "branchId": "cabang-2",
-      "src": "/images/backdrops/backdrop-3.jpg",
-      "caption": "Black Arch Window Bar Stool Theme — Bold & Editorial",
-      "tag": "ARCH WINDOW",
-      "active": true
-    },
-    {
-      "id": "showcase-2-4",
-      "branchId": "cabang-2",
-      "src": "/images/backdrops/backdrop-7.jpg",
-      "caption": "White Arch Windows & Grey Minimalist Set",
-      "tag": "MINIMALIST BRIGHT",
-      "active": true
-    },
-    {
-      "id": "showcase-2-5",
-      "branchId": "cabang-2",
-      "src": "/images/backdrops/backdrop-4.jpg",
-      "caption": "Charcoal Deep Classic Sofa — Elegan & Timeless",
-      "tag": "TIMELESS LUXURY",
-      "active": true
-    },
-    {
-      "id": "showcase-2-6",
-      "branchId": "cabang-2",
-      "src": "/images/backdrops/backdrop-1.jpg",
-      "caption": "Mint Modern Aesthetic Sofa Theme — Wisuda & Keluarga",
-      "tag": "MINT AESTHETIC",
+      "src": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
+      "imageUrl": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
+      "image": "/images/gallery/dscf0842_jpg_1794064261854.jpg",
+      "title": "Hitam",
+      "subtitle": "",
+      "caption": "Hitam",
+      "tag": "STUDIO SHOWCASE",
+      "badge": "STUDIO SHOWCASE",
       "active": true
     }
   ],
