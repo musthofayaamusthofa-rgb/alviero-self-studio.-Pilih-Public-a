@@ -1529,7 +1529,7 @@
         📸 Seluruh Paket Studio <span class="tab-badge" id="indoorCountBadge">0</span>
       </button>
       <button class="tab-btn" id="topTabPhotoStripBtn" onclick="openPhotoStripManagerTab(this)">
-        🎞️ Photo Strip <span class="tab-badge" id="stripStatusTopBadge" style="background:#DCFCE7; color:#166534;">AKTIF</span>
+        🎞️ Photo Strip & Grid Cetak <span class="tab-badge" id="stripStatusTopBadge" style="background:#DCFCE7; color:#166534;">AKTIF</span>
       </button>
       <button class="tab-btn" onclick="switchTab('tab-gallery-sections', this)">
         🖼️ Foto & Galeri Web <span class="tab-badge" id="galleryCountBadge">0</span>
@@ -2365,7 +2365,7 @@
 
             
             <!-- 7. MANAJEMEN DESAIN GRID CETAK SELF STUDIO (KATALOG PRICELIST) -->
-            <div style="background: #FFFFFF; border: 1.5px solid #E4D8CD; border-radius: 16px; padding: 1.5rem; margin-top: 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
+            <div id="printLayoutsWrapper" style="background: #FFFFFF; border: 1.5px solid #E4D8CD; border-radius: 16px; padding: 1.5rem; margin-top: 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.03);">
               <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem; border-bottom: 1.5px solid #F1EAE2; padding-bottom: 1rem;">
                 <div>
                   <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
@@ -5389,6 +5389,27 @@
       const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
 
       container.innerHTML = '';
+
+      if (currentPkgCategoryFilter === 'self-studio') {
+        const gridBanner = document.createElement('div');
+        gridBanner.style = "grid-column: 1 / -1; background: linear-gradient(135deg, #FDFBF7, #F5EFEB); border: 1.5px solid #A9BCA7; border-radius: 14px; padding: 1.1rem 1.4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 0.5rem;";
+        gridBanner.innerHTML = `
+          <div>
+            <div style="font-size: 0.96rem; font-weight: 800; color: #262626; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 1.3rem;">🎨</span>
+              <span>Katalog Pilihan Desain Grid Cetak Self Studio</span>
+              <span style="font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: #DCFCE7; color: #166534; border: 1px solid #86EFAC;">GRID 1, 3, 4, 6</span>
+            </div>
+            <p style="font-size: 0.8rem; color: #52525B; margin: 0.35rem 0 0 0; line-height: 1.4;">
+              Ingin mengganti foto mockup desain strip/polaroid, menambah kartu desain, atau mengatur warna poster katalog grid?
+            </p>
+          </div>
+          <button type="button" class="btn btn-save-local" style="font-size: 0.82rem; padding: 0.5rem 1.1rem; background: #5C725A; color: #FFF; font-weight: 700; cursor: pointer; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: 0 2px 8px rgba(92,114,90,0.25);" onclick="openPrintLayoutsManagerTab()">
+            🎨 Buka Pengaturan Desain Grid Cetak ➔
+          </button>
+        `;
+        container.appendChild(gridBanner);
+      }
 
       const filtered = pkgs.filter((pkg, idx) => {
         pkg._origIndex = idx;
@@ -13195,6 +13216,27 @@
       ]
     };
 
+    
+    function openPrintLayoutsManagerTab() {
+      openPhotoStripManagerTab();
+      setTimeout(() => {
+        scrollToPhotoStripSection('printLayoutsWrapper');
+      }, 150);
+    }
+
+    function scrollToPhotoStripSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.style.transition = 'box-shadow 0.4s ease, border-color 0.4s ease';
+        el.style.boxShadow = '0 0 0 3px #5C725A, 0 10px 30px rgba(92,114,90,0.25)';
+        el.style.borderColor = '#5C725A';
+        setTimeout(() => {
+          el.style.boxShadow = '';
+          el.style.borderColor = '#E4D8CD';
+        }, 2500);
+      }
+    }
     function openPhotoStripManagerTab(btn) {
       switchTab('tab-photostrip', btn || document.getElementById('topTabPhotoStripBtn'));
       renderPhotoStripConfig();
