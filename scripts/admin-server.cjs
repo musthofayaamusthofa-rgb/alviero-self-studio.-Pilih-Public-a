@@ -34,6 +34,131 @@ function parsePackagePrice(raw) {
 }
 
 
+function formatPriceShort(num) {
+  if (typeof num !== 'number' || isNaN(num) || num <= 0) return '';
+  if (num % 1000 === 0) {
+    const k = num / 1000;
+    if (k >= 1000) {
+      return (k / 1000).toLocaleString('id-ID') + 'K';
+    }
+    return k + 'K';
+  }
+  const k = (num / 1000).toFixed(1).replace('.', ',');
+  return k.endsWith(',0') ? k.slice(0, -2) + 'K' : k + 'K';
+}
+
+// SINKRONISASI DUA ARAH: FOTO 3 (ADD-ONS) -> FOTO 2 (CETAK LAB & BINGKAI)
+function syncAddOnsToLabAndFrame(config, removedItem, isDelete) {
+  if (!config || !Array.isArray(config.addOns)) return;
+  if (!Array.isArray(config.labPrintPrices)) config.labPrintPrices = [];
+  if (!Array.isArray(config.framePrices)) config.framePrices = [];
+
+  if (isDelete && removedItem) {
+    const rId = (removedItem.id || '').toLowerCase();
+    if (rId.startsWith('global-print-')) {
+      const code = rId.replace('global-print-', '');
+      config.labPrintPrices = config.labPrintPrices.filter(l => (l.code || '').toLowerCase().replace(/[^a-z0-9]/g, '') !== code);
+    } else if (rId.startsWith('global-frame-')) {
+      const code = rId.replace('global-frame-', '');
+      config.framePrices = config.framePrices.filter(f => (f.code || '').toLowerCase().replace(/[^a-z0-9]/g, '') !== code);
+    }
+    return;
+  }
+
+  config.addOns.forEach(addOn => {
+    if (!addOn || !addOn.id) return;
+    const idLower = addOn.id.toLowerCase();
+    const nameLower = (addOn.name || '').toLowerCase();
+    const isFrameCat = addOn.category === 'frame';
+
+    // A. Cetak Lab
+    const isPrint = idLower.startsWith('global-print-') || (isFrameCat && nameLower.includes('cetak lab') && !nameLower.includes('paket'));
+    if (isPrint) {
+      let code = '';
+      if (idLower.startsWith('global-print-')) {
+        code = idLower.replace('global-print-', '').toUpperCase();
+        code = code.replace(/RS$/, 'Rs');
+      } else {
+        const m = addOn.name.match(/uk\s+([0-9a-z\s]+)/i);
+        if (m) code = m[1].trim();
+      }
+
+      if (code) {
+        let lab = config.labPrintPrices.find(l => (l.code || '').toLowerCase().replace(/[^a-z0-9]/g, '') === code.toLowerCase().replace(/[^a-z0-9]/g, ''));
+        const numPrice = typeof addOn.price === 'number' ? addOn.price : (parsePackagePrice(addOn.price) || 0);
+        if (lab) {
+          if (numPrice > 0) {
+            lab.price = numPrice;
+            lab.priceDisplay = formatPriceShort(numPrice);
+          }
+          lab.active = addOn.active !== false;
+        } else if (numPrice > 0) {
+          config.labPrintPrices.push({
+            code,
+            size: '',
+            cm: '',
+            price: numPrice,
+            priceDisplay: formatPriceShort(numPrice),
+            note: addOn.description || '',
+            active: addOn.active !== false
+          });
+        }
+      }
+      return;
+    }
+
+    // B. Bingkai Foto
+    const isFrame = idLower.startsWith('global-frame-') || (isFrameCat && (nameLower.includes('bingkai') || nameLower.includes('frame')) && !nameLower.includes('paket'));
+    if (isFrame) {
+      let code = '';
+      if (idLower.startsWith('global-frame-')) {
+        code = idLower.replace('global-frame-', '').toUpperCase();
+        code = code.replace(/RS$/, 'Rs').replace(/RSPRESS$/, 'Rs Press');
+      } else {
+        const m = addOn.name.match(/uk\s+([0-9a-z\s]+)/i);
+        if (m) code = m[1].trim();
+      }
+
+      if (code) {
+        let fr = config.framePrices.find(f => (f.code || '').toLowerCase().replace(/[^a-z0-9]/g, '') === code.toLowerCase().replace(/[^a-z0-9]/g, ''));
+        const numPrice = typeof addOn.price === 'number' ? addOn.price : (parsePackagePrice(addOn.price) || 0);
+        if (fr) {
+          if (numPrice > 0) {
+            fr.price = numPrice;
+            fr.priceDisplay = formatPriceShort(numPrice);
+          }
+          fr.active = addOn.active !== false;
+        } else if (numPrice > 0) {
+          config.framePrices.push({
+            code,
+            size: '',
+            dim: '',
+            price: numPrice,
+            priceDisplay: formatPriceShort(numPrice),
+            type: 'Bingkai Minimalis',
+            image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80',
+            desc: addOn.description || '',
+            active: addOn.active !== false
+          });
+        }
+      }
+      return;
+    }
+
+    // C. Pass Foto Print
+    if (idLower.startsWith('passfoto-print-')) {
+      const codePart = idLower.replace('passfoto-print-', '');
+      const lab = config.labPrintPrices.find(l => (l.code || '').toLowerCase().includes(codePart));
+      const numPrice = typeof addOn.price === 'number' ? addOn.price : (parsePackagePrice(addOn.price) || 0);
+      if (lab && numPrice > 0) {
+        lab.price = numPrice;
+        lab.priceDisplay = formatPriceShort(numPrice);
+        lab.active = addOn.active !== false;
+      }
+    }
+  });
+}
+
 function syncLabAndFrameToAddOns(config) {
   if (!config) return;
   if (!Array.isArray(config.addOns)) config.addOns = [];
@@ -311,6 +436,7 @@ app.post('/api/config', async (req, res) => {
     }
 
     newConfig.lastUpdated = new Date().toISOString();
+    syncAddOnsToLabAndFrame(newConfig);
     syncLabAndFrameToAddOns(newConfig);
 
     // Create timestamped backup
