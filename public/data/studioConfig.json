@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-08T12:50:22.080Z",
+  "lastUpdated": "2026-11-08T12:55:34.477Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2124,8 +2124,10 @@
         }
       ],
       "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ],
       "_origIndex": 8
     },
     {
