@@ -1666,7 +1666,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'passfoto-print-3x3',
     name: 'Cetak 3×3 (6 Foto)',
-    price: 9000,
+    price: 8000,
     unit: 'paket (6 foto)',
     description: 'Cetak fisik pass foto 3x3 sebanyak 6 lembar kertas Glossy Lab.',
     category: 'pass-foto',
@@ -1675,7 +1675,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'passfoto-print-2x3',
     name: 'Cetak 2×3 (6 Foto)',
-    price: 9000,
+    price: 8000,
     unit: 'paket (6 foto)',
     description: 'Cetak fisik pass foto 2x3 sebanyak 6 lembar kertas Glossy Lab.',
     category: 'pass-foto',
@@ -1684,7 +1684,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'passfoto-print-3x4',
     name: 'Cetak 3×4 (6 Foto)',
-    price: 9000,
+    price: 8000,
     unit: 'paket (6 foto)',
     description: 'Cetak fisik pass foto 3x4 sebanyak 6 lembar kertas Glossy Lab.',
     category: 'pass-foto',
@@ -1693,7 +1693,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'passfoto-print-4x6',
     name: 'Cetak 4×6 (4 Foto)',
-    price: 9000,
+    price: 8000,
     unit: 'paket (4 foto)',
     description: 'Cetak fisik pass foto 4x6 sebanyak 4 lembar kertas Glossy Lab.',
     category: 'pass-foto',

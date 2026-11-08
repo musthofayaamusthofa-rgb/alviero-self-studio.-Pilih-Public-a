@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-08T09:09:09.859Z",
+  "lastUpdated": "2026-11-08T12:25:17.164Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1976,21 +1976,19 @@
     {
       "id": "grad-outdoor-smart-60",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Populer",
       "name": "Smart Outdoor 60 Menit",
       "originalPrice": "",
       "price": "355K",
       "priceUnit": "60 Menit Sesi Foto",
-      "duration": "60 Menit Sesi",
-      "background": "Unlimited Around Campus",
+      "duration": "60 Menit Unlimited Shoots",
+      "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "1 Wisudawan + Keluarga / Teman",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Only",
+      "edit": "Edit 10 Foto High-Res Pilihan",
+      "print": "",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 6,
       "facilities": [
         {
           "icon": "🌳",
@@ -2018,16 +2016,15 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 6
     },
     {
       "id": "grad-outdoor-cumlaude",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 2",
       "badge": "Include Video",
       "name": "Cumlaude (Foto + Video)",
@@ -2035,13 +2032,11 @@
       "price": "710K",
       "priceUnit": "75 Menit • Full Package",
       "duration": "75 Menit Sesi Foto & Video",
-      "background": "Unlimited Shoots Kampus",
-      "people": "Wisudawan + Pendamping",
-      "edit": "Edit 10 Foto High-Res + Video Cinematic",
-      "print": "Softfile & Video 9:16",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "_origIndex": 7,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "1 Wisudawan + Keluarga / Pendamping",
+      "edit": "Edit 12 Foto High-Res + Video HD",
+      "print": "",
+      "fileDelivery": "All File Foto & Video via Google Drive",
       "facilities": [
         {
           "icon": "🌳",
@@ -2074,11 +2069,10 @@
           "text": "All File Foto & Video via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 7
     },
     {
       "id": "grad-outdoor-group-2",
@@ -2090,14 +2084,12 @@
       "originalPrice": "",
       "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
       "priceUnit": "Berdasarkan Jumlah Wisudawan",
-      "duration": "60 - 90 Menit Unlimited",
-      "background": "Area Kampus Malang & Sekitarnya",
-      "people": "Group Wisudawan + Keluarga",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Google Drive",
+      "duration": "60-90 Menit Unlimited Shoots",
+      "background": "Area Kampus Universitas",
+      "people": "Group Wisudawan (2-5 Wisudawan)",
+      "edit": "Edit 10-15 Foto High-Res Pilihan",
+      "print": "",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
-      "_origIndex": 8,
       "facilities": [
         {
           "icon": "👥",
@@ -2125,11 +2117,10 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/group.jpg",
-      "imageUrls": [
-        "/images/categories/group.jpg",
-        "/images/categories/group.jpg"
-      ]
+      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 8
     },
     {
       "id": "self-normal-narsis",
@@ -2261,14 +2252,12 @@
       "originalPrice": "",
       "price": "35K",
       "priceUnit": "per orang",
-      "duration": "10-15 Menit",
-      "background": "Merah / Biru / Putih",
+      "duration": "10 - 15 Menit Sesi Cepat",
+      "background": "Merah / Biru / Putih (3 Warna)",
       "people": "1 Orang",
-      "edit": "Basic Retouch & Ganti Background",
-      "print": "Cetak 4 Lembar (3x4 atau 4x6)",
-      "fileDelivery": "File Master via WA / Email",
-      "note": "*Cocok untuk berkas lamaran kerja, buku nikah, dan ijazah",
-      "_origIndex": 15,
+      "edit": "1 Edit Foto (Basic Retouch Wajah)",
+      "print": "Cetak 1 Ukuran (Pilihan 3x4 / 4x6 / 2x3)",
+      "fileDelivery": "Kirim File Edit via WhatsApp Dokumen",
       "facilities": [
         {
           "icon": "🪪",
@@ -2306,11 +2295,10 @@
           "text": "Maksimal 1 Outfit Formal / Bebas"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "*Cocok untuk berkas lamaran kerja, buku nikah, dan ijazah",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 15
     },
     {
       "id": "passfoto-2",
@@ -2322,14 +2310,12 @@
       "originalPrice": "",
       "price": "50K",
       "priceUnit": "per orang",
-      "duration": "15 Menit",
-      "background": "Merah / Biru / Putih",
+      "duration": "15 Menit Sesi Studio",
+      "background": "Setengah Badan & Full Badan",
       "people": "1 Orang",
-      "edit": "Advanced Retouch Kulit & Wajah",
-      "print": "Cetak 8 Lembar (Pilihan Ukuran)",
-      "fileDelivery": "File Master High-Res",
-      "note": "*Hasil foto halus natural berstandar kedutaan & visa",
-      "_origIndex": 16,
+      "edit": "Advanced Skin Retouch & Beauty Light",
+      "print": "Cetak 2 Ukuran Pas Foto Lengkap",
+      "fileDelivery": "Kirim File Edit via WhatsApp Dokumen",
       "facilities": [
         {
           "icon": "🪪",
@@ -2367,11 +2353,10 @@
           "text": "Maksimal 1 Outfit"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "*Hasil foto halus natural berstandar kedutaan & visa",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 16
     },
     {
       "id": "passfoto-3",
@@ -2383,14 +2368,12 @@
       "originalPrice": "",
       "price": "65K",
       "priceUnit": "per orang",
-      "duration": "20 Menit",
-      "background": "Multibackground",
-      "people": "1 Orang",
-      "edit": "Full Retouch + Edit Jas/Kemeja Digital",
-      "print": "Cetak 12 Lembar Lengkap",
-      "fileDelivery": "File Master High-Res",
-      "note": "*Termasuk opsi edit pakaian formal digital jika diperlukan",
-      "_origIndex": 17,
+      "duration": "20 Menit Sesi Foto",
+      "background": "Sesuai Regulasi Paspor / Kedutaan / Visa",
+      "people": "1 Orang (Lengkap Paspor & Visa)",
+      "edit": "Full Retouch + Opsi Ganti Jas/Dasi Digital",
+      "print": "Cetak 12 Lembar Multi Ukuran",
+      "fileDelivery": "Kirim File Resolusi Tinggi via WA & Email",
       "facilities": [
         {
           "icon": "🪪",
@@ -2428,11 +2411,10 @@
           "text": "Disediakan Jas Digital jika diperlukan"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "*Termasuk opsi edit pakaian formal digital jika diperlukan",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 17
     },
     {
       "id": "family-sweet-together",
@@ -2558,7 +2540,7 @@
     {
       "id": "group-friendly-frame",
       "category": "group",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Group",
       "subtitle": "Group 1",
       "badge": "Sahabat",
       "name": "Friendly Frame",
@@ -2567,12 +2549,10 @@
       "priceUnit": "per sesi",
       "duration": "25 Menit Sesi Foto",
       "background": "1 Background Studio",
-      "people": "Maksimal 6 Orang",
-      "edit": "Edit 5 Foto Pilihan",
-      "print": "Cetak 1 Uk 10R",
+      "people": "3 - 10 Orang (Additional 15K/org)",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Bebas berganti gaya & properti foto studio",
-      "_origIndex": 20,
       "facilities": [
         {
           "icon": "👥",
@@ -2610,16 +2590,15 @@
           "text": "Maksimal 1 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/group.jpg",
-      "imageUrls": [
-        "/images/categories/group.jpg",
-        "/images/categories/group.jpg"
-      ]
+      "note": "*Bebas berganti gaya & properti foto studio",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 20
     },
     {
       "id": "group-signature-squad",
       "category": "group",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Group",
       "subtitle": "Group 2",
       "badge": "Squad",
       "name": "Signature Squad",
@@ -2628,12 +2607,10 @@
       "priceUnit": "per sesi",
       "duration": "35 Menit Sesi Foto",
       "background": "2 Background Studio",
-      "people": "Maksimal 10 Orang",
+      "people": "11 - 20 Orang",
       "edit": "Edit 8 Foto Pilihan",
       "print": "Cetak 2 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat",
-      "_origIndex": 21,
       "facilities": [
         {
           "icon": "👥",
@@ -2671,16 +2648,15 @@
           "text": "Maksimal 2 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/group.jpg",
-      "imageUrls": [
-        "/images/categories/group.jpg",
-        "/images/categories/group.jpg"
-      ]
+      "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 21
     },
     {
       "id": "group-royal-ensemble",
       "category": "group",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Group",
       "subtitle": "Group 3",
       "badge": "Besar",
       "name": "Royal Ensemble",
@@ -2689,12 +2665,10 @@
       "priceUnit": "per sesi",
       "duration": "45 Menit Sesi Foto",
       "background": "2 Background Studio",
-      "people": "Maksimal 15 Orang",
+      "people": "21 - 30 Orang",
       "edit": "Edit 12 Foto Pilihan",
       "print": "Cetak 3 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok",
-      "_origIndex": 22,
       "facilities": [
         {
           "icon": "👥",
@@ -2732,16 +2706,15 @@
           "text": "Maksimal 2 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/group.jpg",
-      "imageUrls": [
-        "/images/categories/group.jpg",
-        "/images/categories/group.jpg"
-      ]
+      "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 22
     },
     {
       "id": "group-imperial-union",
       "category": "group",
-      "categoryLabel": "Family & Group",
+      "categoryLabel": "Group",
       "subtitle": "Group 4",
       "badge": "Maksimal",
       "name": "Imperial Union",
@@ -2750,12 +2723,10 @@
       "priceUnit": "per sesi",
       "duration": "60 Menit Sesi Foto",
       "background": "2 Background Studio",
-      "people": "Maksimal 25 Orang",
+      "people": "25 - 35 Orang (Full Angkatan)",
       "edit": "Edit 15 Foto Pilihan",
       "print": "Cetak 4 Uk 10R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Kapasitas besar dengan arahan fotografer profesional",
-      "_origIndex": 23,
       "facilities": [
         {
           "icon": "👥",
@@ -2793,11 +2764,10 @@
           "text": "Maksimal 2 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/group.jpg",
-      "imageUrls": [
-        "/images/categories/group.jpg",
-        "/images/categories/group.jpg"
-      ]
+      "note": "*Kapasitas besar dengan arahan fotografer profesional",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 23
     },
     {
       "id": "couple-eternal-love",
@@ -2811,17 +2781,10 @@
       "priceUnit": "per sesi (2 Orang)",
       "duration": "25 Menit Sesi Foto",
       "background": "1 Background Studio",
-      "people": "2 Orang (Pasangan)",
-      "edit": "Edit 5 Foto Pilihan",
-      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "people": "2 Orang (Pasangan Romantis)",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 1 Uk 10Rs / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
-      "imageUrl": "/images/categories/couple.jpg",
-      "imageUrls": [
-        "/images/categories/couple.jpg",
-        "/images/categories/couple.jpg"
-      ],
-      "_origIndex": 24,
       "facilities": [
         {
           "icon": "💑",
@@ -2858,12 +2821,18 @@
           "label": "Ganti Kostum",
           "text": "Maksimal 1 Kostum"
         }
-      ]
+      ],
+      "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
+      "imageUrl": "/images/categories/couple.jpg",
+      "imageUrls": [
+        "/images/categories/couple.jpg"
+      ],
+      "_origIndex": 24
     },
     {
       "id": "couple-sweet-memories",
       "category": "couple",
-      "categoryLabel": "Prewedding & Couple",
+      "categoryLabel": "Couple",
       "subtitle": "Couple 2",
       "badge": "Favorit Pasangan",
       "name": "Sweet Memories",
@@ -2872,12 +2841,10 @@
       "priceUnit": "per sesi (2 Orang)",
       "duration": "40 Menit Sesi Foto",
       "background": "2 Background Studio",
-      "people": "2 Orang (Pasangan)",
+      "people": "2 Orang (Pasangan Romantis)",
       "edit": "Edit 8 Foto Pilihan",
-      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "print": "Cetak 2 Uk 10Rs / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi",
-      "_origIndex": 25,
       "facilities": [
         {
           "icon": "💑",
@@ -2915,11 +2882,10 @@
           "text": "Maksimal 2 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/couple.jpg",
-      "imageUrls": [
-        "/images/categories/couple.jpg",
-        "/images/categories/couple.jpg"
-      ]
+      "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 25
     },
     {
       "id": "prewed-sweet-promise",
@@ -2985,21 +2951,19 @@
     {
       "id": "prewed-velvet-romance",
       "category": "prewed",
-      "categoryLabel": "Prewedding & Couple",
+      "categoryLabel": "Prewedding",
       "subtitle": "Prewedding Studio 2",
       "badge": "Lengkap",
       "name": "Velvet Romance",
       "originalPrice": "",
       "price": "850K",
       "priceUnit": "per sesi",
-      "duration": "90 Menit Sesi Foto",
-      "background": "3 Background Studio",
-      "people": "Pasangan (2 Orang)",
-      "edit": "Edit 15 Foto High-Res",
+      "duration": "90 Menit Sesi Studio",
+      "background": "3 Background Studio Bebas Pilih",
+      "people": "Pasangan (2 Orang Pengantin)",
+      "edit": "Edit 15 Foto High-Res Cinematic",
       "print": "Cetak 2 Uk 12R + Frame Minimalis",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Bebas ganti 3 konsep baju dengan hasil cinematic",
-      "_origIndex": 27,
       "facilities": [
         {
           "icon": "💍",
@@ -3037,30 +3001,29 @@
           "text": "Maksimal 3 Kostum Berbeda"
         }
       ],
+      "note": "*Bebas ganti 3 konsep baju dengan hasil cinematic",
       "imageUrl": "/images/categories/prewedding.jpg",
       "imageUrls": [
-        "/images/categories/prewedding.jpg",
-        "/images/categories/couple.jpg"
-      ]
+        "/images/categories/prewedding.jpg"
+      ],
+      "_origIndex": 27
     },
     {
       "id": "prewed-bundling-1",
       "category": "prewed",
-      "categoryLabel": "Prewedding & Couple",
+      "categoryLabel": "Prewedding",
       "subtitle": "Prewedding + MUA 1",
       "badge": "Paket Make Up",
       "name": "Prewed Bundling 1",
       "originalPrice": "",
       "price": "1.400K",
       "priceUnit": "Paket All-in Studio & MUA",
-      "duration": "60 Menit Foto + Make Up",
+      "duration": "60 Menit Sesi Studio",
       "background": "2 Background Studio",
-      "people": "Pasangan (2 Orang)",
-      "edit": "Edit 10 Foto High-Res",
-      "print": "Cetak 1 Uk 12R + Frame",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum",
-      "_origIndex": 28,
+      "people": "Pasangan (2 Orang Pengantin)",
+      "edit": "Edit 10 Foto High-Res Cinematic",
+      "print": "Cetak 1 Uk 12R + Frame Minimalis",
+      "fileDelivery": "",
       "facilities": [
         {
           "icon": "💍",
@@ -3098,30 +3061,27 @@
           "text": "Free Peminjaman 1 Pasang Gaun / Jas"
         }
       ],
-      "imageUrl": "/images/categories/prewedding.jpg",
-      "imageUrls": [
-        "/images/categories/prewedding.jpg",
-        "/images/categories/couple.jpg"
-      ]
+      "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 28
     },
     {
       "id": "prewed-bundling-2",
       "category": "prewed",
-      "categoryLabel": "Prewedding & Couple",
+      "categoryLabel": "Prewedding",
       "subtitle": "Prewedding + MUA 2",
       "badge": "Super Komplit",
       "name": "Prewed Bundling 2",
       "originalPrice": "",
       "price": "1.800K",
       "priceUnit": "Paket All-in Studio & MUA",
-      "duration": "90 Menit Foto + Make Up",
+      "duration": "90 Menit Sesi Studio",
       "background": "3 Background Studio",
-      "people": "Pasangan (2 Orang)",
-      "edit": "Edit 15 Foto High-Res",
-      "print": "Cetak 2 Uk 12R + Frame",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar",
-      "_origIndex": 29,
+      "people": "Pasangan (2 Orang Pengantin)",
+      "edit": "Edit 15 Foto High-Res Cinematic",
+      "print": "Cetak 2 Uk 12R + Frame Minimalis Eksklusif",
+      "fileDelivery": "",
       "facilities": [
         {
           "icon": "💍",
@@ -3159,16 +3119,15 @@
           "text": "Free Peminjaman 2 Pasang Kostum Lengkap"
         }
       ],
-      "imageUrl": "/images/categories/prewedding.jpg",
-      "imageUrls": [
-        "/images/categories/prewedding.jpg",
-        "/images/categories/couple.jpg"
-      ]
+      "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 29
     },
     {
       "id": "personal-bold-statement",
       "category": "personal",
-      "categoryLabel": "Personal & Maternity",
+      "categoryLabel": "Personal",
       "subtitle": "Personal 1",
       "badge": "Portofolio",
       "name": "Bold Statement",
@@ -3177,12 +3136,10 @@
       "priceUnit": "per orang",
       "duration": "20 Menit Sesi Foto",
       "background": "1 Background Studio",
-      "people": "1 Orang",
-      "edit": "Edit 4 Foto High-Res",
-      "print": "Cetak 1 Uk 10R",
+      "people": "1 Orang (Personal Portrait)",
+      "edit": "Edit 5 Foto High-Res",
+      "print": "Cetak 1 Uk 10Rs / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos",
-      "_origIndex": 30,
       "facilities": [
         {
           "icon": "👤",
@@ -3220,16 +3177,17 @@
           "text": "Maksimal 1 Kostum"
         }
       ],
+      "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos",
       "imageUrl": "/images/categories/personal.jpg",
       "imageUrls": [
-        "/images/categories/personal.jpg",
         "/images/categories/personal.jpg"
-      ]
+      ],
+      "_origIndex": 30
     },
     {
       "id": "personal-opulent-shot",
       "category": "personal",
-      "categoryLabel": "Personal & Maternity",
+      "categoryLabel": "Personal",
       "subtitle": "Personal 2",
       "badge": "Premium",
       "name": "Opulent Shot",
@@ -3238,12 +3196,10 @@
       "priceUnit": "per orang",
       "duration": "35 Menit Sesi Foto",
       "background": "2 Background Studio",
-      "people": "1 Orang",
+      "people": "1 Orang (Personal Studio)",
       "edit": "Edit 8 Foto High-Res",
-      "print": "Cetak 2 Uk 10R",
+      "print": "Cetak 2 Uk 10Rs / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional",
-      "_origIndex": 31,
       "facilities": [
         {
           "icon": "👤",
@@ -3281,30 +3237,27 @@
           "text": "Maksimal 2 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/personal.jpg",
-      "imageUrls": [
-        "/images/categories/personal.jpg",
-        "/images/categories/personal.jpg"
-      ]
+      "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 31
     },
     {
       "id": "maternity-warm-embrace",
       "category": "maternity",
-      "categoryLabel": "Personal & Maternity",
+      "categoryLabel": "Maternity",
       "subtitle": "Maternity 1",
       "badge": "Kehamilan",
       "name": "Warm Embrace",
       "originalPrice": "",
       "price": "350K",
       "priceUnit": "per sesi",
-      "duration": "30 Menit Sesi Foto",
+      "duration": "30 Menit Unlimited Foto",
       "background": "1 Background Studio",
-      "people": "Bumil + Suami",
+      "people": "Bumil + Suami (2 Orang)",
       "edit": "Edit 6 Foto High-Res",
-      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "print": "Cetak 2 Uk 10Rs / 4 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
-      "_origIndex": 32,
       "facilities": [
         {
           "icon": "👥",
@@ -3342,30 +3295,29 @@
           "text": "Maksimal 1 Kostum"
         }
       ],
+      "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
       "imageUrl": "/images/categories/maternity.jpg",
       "imageUrls": [
-        "/images/categories/maternity.jpg",
         "/images/categories/maternity.jpg"
-      ]
+      ],
+      "_origIndex": 32
     },
     {
       "id": "maternity-golden-motherhood",
       "category": "maternity",
-      "categoryLabel": "Personal & Maternity",
+      "categoryLabel": "Maternity",
       "subtitle": "Maternity 2",
       "badge": "Lengkap",
       "name": "Golden Motherhood",
       "originalPrice": "",
       "price": "500K",
       "priceUnit": "per sesi",
-      "duration": "45 Menit Sesi Foto",
+      "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
       "people": "Bumil + Suami + Anak",
-      "edit": "Edit 10 Foto High-Res",
-      "print": "Cetak 2 Uk 10R / 4 Uk 4R",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs + 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum",
-      "_origIndex": 33,
       "facilities": [
         {
           "icon": "👥",
@@ -3403,11 +3355,10 @@
           "text": "Maksimal 2 Kostum"
         }
       ],
-      "imageUrl": "/images/categories/maternity.jpg",
-      "imageUrls": [
-        "/images/categories/maternity.jpg",
-        "/images/categories/maternity.jpg"
-      ]
+      "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 33
     },
     {
       "id": "birthday-sweet-celebration",
@@ -3419,14 +3370,12 @@
       "originalPrice": "",
       "price": "350K",
       "priceUnit": "per sesi",
-      "duration": "30 Menit Sesi Foto",
+      "duration": "25 Menit Sesi Foto",
       "background": "1 Background Studio",
-      "people": "Maksimal 6 Orang",
-      "edit": "Edit 6 Foto Pilihan",
-      "print": "Cetak 1 Uk 10R",
+      "people": "1 Person (Properti Birthday dari Klien)",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
-      "_origIndex": 34,
       "facilities": [
         {
           "icon": "🎂",
@@ -3464,11 +3413,12 @@
           "text": "Boleh bawa kue tart & balon sendiri"
         }
       ],
+      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
       "imageUrl": "/images/categories/birthday.jpg",
       "imageUrls": [
-        "/images/categories/birthday.jpg",
         "/images/categories/birthday.jpg"
-      ]
+      ],
+      "_origIndex": 34
     },
     {
       "id": "birthday-glow-sweet",
@@ -3480,14 +3430,12 @@
       "originalPrice": "",
       "price": "450K",
       "priceUnit": "per sesi",
-      "duration": "40 Menit Sesi Foto",
-      "background": "2 Background Studio",
-      "people": "Maksimal 10 Orang",
-      "edit": "Edit 8 Foto Pilihan",
-      "print": "Cetak 2 Uk 10R",
+      "duration": "30 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "2 - 3 Person",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman",
-      "_origIndex": 35,
       "facilities": [
         {
           "icon": "🎂",
@@ -3525,11 +3473,10 @@
           "text": "Bebas bawa properti dekorasi"
         }
       ],
-      "imageUrl": "/images/categories/birthday.jpg",
-      "imageUrls": [
-        "/images/categories/birthday.jpg",
-        "/images/categories/birthday.jpg"
-      ]
+      "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 35
     },
     {
       "id": "birthday-sweet-light",
@@ -3541,14 +3488,12 @@
       "originalPrice": "",
       "price": "600K",
       "priceUnit": "per sesi",
-      "duration": "50 Menit Sesi Foto",
-      "background": "Spotlight + Background",
-      "people": "Maksimal 12 Orang",
-      "edit": "Edit 12 Foto Pilihan",
-      "print": "Cetak 3 Uk 10R",
+      "duration": "40 Menit Sesi Foto",
+      "background": "2 Background Studio",
+      "people": "Maksimal 6 Orang",
+      "edit": "Edit 8 Foto High-Res",
+      "print": "Cetak 2 Uk 10Rs + 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik",
-      "_origIndex": 36,
       "facilities": [
         {
           "icon": "🎂",
@@ -3586,11 +3531,10 @@
           "text": "Pencahayaan Spotlight / Artistic"
         }
       ],
-      "imageUrl": "/images/categories/birthday.jpg",
-      "imageUrls": [
-        "/images/categories/birthday.jpg",
-        "/images/categories/birthday.jpg"
-      ]
+      "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 36
     },
     {
       "id": "birthday-ultimate-sweet-light",
@@ -3602,14 +3546,12 @@
       "originalPrice": "",
       "price": "850K",
       "priceUnit": "per sesi",
-      "duration": "60 Menit Sesi Foto",
-      "background": "2 Background + Spotlight",
-      "people": "Maksimal 18 Orang",
-      "edit": "Edit 16 Foto Pilihan",
-      "print": "Cetak 4 Uk 10R + Frame",
+      "duration": "50 Menit Sesi Foto",
+      "background": "2 Background + Spotlight Art",
+      "people": "Maksimal 12 Orang",
+      "edit": "Edit 12 Foto High-Res",
+      "print": "Cetak 3 Uk 10Rs + Bingkai Minimalis",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar",
-      "_origIndex": 37,
       "facilities": [
         {
           "icon": "🎂",
@@ -3647,16 +3589,15 @@
           "text": "Konsep Penuh & Bebas Properti"
         }
       ],
-      "imageUrl": "/images/categories/birthday.jpg",
-      "imageUrls": [
-        "/images/categories/birthday.jpg",
-        "/images/categories/birthday.jpg"
-      ]
+      "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 37
     },
     {
       "id": "sewa-studio-hourly",
       "category": "sewa-studio",
-      "categoryLabel": "Sewa Studio & Event",
+      "categoryLabel": "Sewa Studio",
       "subtitle": "Sewa Studio",
       "badge": "Studio Only",
       "name": "Sewa Studio Hourly",
@@ -3664,13 +3605,11 @@
       "price": "100K",
       "priceUnit": "per jam (Studio & Lighting)",
       "duration": "60 Menit per Jam Sewa",
-      "background": "Bebas Pakai Seluruh Background",
-      "people": "Maksimal 8 Orang Tim",
-      "edit": "Tanpa Edit (Bawa fotografer sendiri)",
-      "print": "Tanpa Cetak",
-      "fileDelivery": "Hasil foto di memori sendiri",
-      "note": "*Termasuk penggunaan lighting studio Godox, trigger, dan ruang ganti",
-      "_origIndex": 38,
+      "background": "Bebas Pakai Seluruh Pilihan Background",
+      "people": "Maksimal 8 Orang Tim / Model",
+      "edit": "",
+      "print": "",
+      "fileDelivery": "Langsung masuk memori kamera fotografer",
       "facilities": [
         {
           "icon": "⏰",
@@ -3708,30 +3647,29 @@
           "text": "Langsung masuk memori kamera fotografer"
         }
       ],
+      "note": "*Termasuk penggunaan lighting studio Godox, trigger, dan ruang ganti",
       "imageUrl": "/images/categories/sewa-studio.jpg",
       "imageUrls": [
-        "/images/categories/sewa-studio.jpg",
         "/images/categories/sewa-studio.jpg"
-      ]
+      ],
+      "_origIndex": 38
     },
     {
       "id": "undangan-paket-1",
       "category": "undangan",
-      "categoryLabel": "Sewa Studio & Event",
+      "categoryLabel": "Undangan Digital",
       "subtitle": "Undangan Digital 1",
       "badge": "Web Undangan",
       "name": "Paket Undangan 1",
       "originalPrice": "",
       "price": "150K",
       "priceUnit": "Web Undangan Siap Sebar",
-      "duration": "Aktif Hingga Hari H",
-      "background": "Pilihan Desain Elegan",
-      "people": "Calon Pengantin",
-      "edit": "Musik, RSVP, Maps, Countdown",
-      "print": "Digital Link Website",
-      "fileDelivery": "Link Website Undangan Online",
-      "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas",
-      "_origIndex": 39,
+      "duration": "Desain Elegan Responsif Mobile & Desktop",
+      "background": "Google Maps Terintegrasi",
+      "people": "Background Music Bebas Pilih Lagu",
+      "edit": "",
+      "print": "",
+      "fileDelivery": "",
       "facilities": [
         {
           "icon": "📱",
@@ -3764,30 +3702,27 @@
           "text": "RSVP Konfirmasi Kehadiran & Countdown"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 39
     },
     {
       "id": "undangan-paket-2",
       "category": "undangan",
-      "categoryLabel": "Sewa Studio & Event",
+      "categoryLabel": "Undangan Digital",
       "subtitle": "Undangan Digital 2",
       "badge": "Custom Tema",
       "name": "Paket Undangan 2",
       "originalPrice": "",
       "price": "250K",
       "priceUnit": "Web Undangan Premium Custom",
-      "duration": "Aktif Selamanya",
-      "background": "Desain Eksklusif Custom",
-      "people": "Calon Pengantin",
-      "edit": "Kisah Cinta, Galeri Video, Live Wishes",
-      "print": "Digital Link + QR Code",
-      "fileDelivery": "Link Website Undangan Online",
-      "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift",
-      "_origIndex": 40,
+      "duration": "Desain Eksklusif Custom Premium",
+      "background": "Aktif Selamanya (Masa Aktif Abadi)",
+      "people": "Galeri Foto & Video Sinematik Prewed",
+      "edit": "",
+      "print": "",
+      "fileDelivery": "",
       "facilities": [
         {
           "icon": "📱",
@@ -3820,11 +3755,10 @@
           "text": "Live Wishes & Doa Tamu Undangan"
         }
       ],
-      "imageUrl": "/images/categories/graduation.jpg",
-      "imageUrls": [
-        "/images/categories/graduation.jpg",
-        "/images/categories/grad-outdoor.jpg"
-      ]
+      "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 40
     },
     {
       "id": "family-1793957045916",
@@ -4099,21 +4033,19 @@
     {
       "id": "grad-outdoor-smart-60",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Populer",
       "name": "Smart Outdoor 60 Menit",
       "originalPrice": "",
       "price": "355K",
       "priceUnit": "60 Menit Sesi Foto",
-      "duration": "60 Menit Sesi",
-      "background": "Unlimited Around Campus",
+      "duration": "60 Menit Unlimited Shoots",
+      "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "1 Wisudawan + Keluarga / Teman",
-      "edit": "Edit Foto High-Res",
-      "print": "Softfile Only",
+      "edit": "Edit 10 Foto High-Res Pilihan",
+      "print": "",
       "fileDelivery": "All File via Google Drive",
-      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "_origIndex": 6,
       "facilities": [
         {
           "icon": "🌳",
@@ -4141,16 +4073,15 @@
           "text": "All File via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 6
     },
     {
       "id": "grad-outdoor-cumlaude",
       "category": "grad-outdoor",
-      "categoryLabel": "Foto Studio - Outdoor",
+      "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 2",
       "badge": "Include Video",
       "name": "Cumlaude (Foto + Video)",
@@ -4158,13 +4089,11 @@
       "price": "710K",
       "priceUnit": "75 Menit • Full Package",
       "duration": "75 Menit Sesi Foto & Video",
-      "background": "Unlimited Shoots Kampus",
-      "people": "Wisudawan + Pendamping",
-      "edit": "Edit 10 Foto High-Res + Video Cinematic",
-      "print": "Softfile & Video 9:16",
-      "fileDelivery": "All File via Google Drive",
-      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
-      "_origIndex": 7,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "1 Wisudawan + Keluarga / Pendamping",
+      "edit": "Edit 12 Foto High-Res + Video HD",
+      "print": "",
+      "fileDelivery": "All File Foto & Video via Google Drive",
       "facilities": [
         {
           "icon": "🌳",
@@ -4197,11 +4126,10 @@
           "text": "All File Foto & Video via Google Drive"
         }
       ],
-      "imageUrl": "/images/categories/grad-outdoor.jpg",
-      "imageUrls": [
-        "/images/categories/grad-outdoor.jpg",
-        "/images/categories/graduation.jpg"
-      ]
+      "note": "*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok",
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 7
     }
   ],
   "operationalHoursByBranch": {
@@ -7765,7 +7693,7 @@
       "code": "Pass 2x3",
       "size": "Paket 6 foto",
       "price": 8000,
-      "priceDisplay": "9K",
+      "priceDisplay": "8K",
       "note": "",
       "active": true
     },
@@ -7773,7 +7701,7 @@
       "code": "Pass 3x3",
       "size": "Paket 6 foto",
       "price": 8000,
-      "priceDisplay": "9K",
+      "priceDisplay": "8K",
       "note": "",
       "active": true
     },
@@ -7781,7 +7709,7 @@
       "code": "Pass 3x4",
       "size": "Paket 6 foto",
       "price": 8000,
-      "priceDisplay": "9K",
+      "priceDisplay": "8K",
       "note": "",
       "active": true
     },
@@ -7789,7 +7717,7 @@
       "code": "Pass 4x6",
       "size": "Paket 4 foto",
       "price": 8000,
-      "priceDisplay": "9K",
+      "priceDisplay": "8K",
       "note": "",
       "active": true
     }
