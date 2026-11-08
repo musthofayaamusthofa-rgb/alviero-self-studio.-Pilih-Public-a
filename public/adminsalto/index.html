@@ -8588,8 +8588,13 @@
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-pane').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
+      const targetPane = document.getElementById(tabId);
+      if (targetPane) targetPane.classList.add('active');
       if (btn) btn.classList.add('active');
+      if (tabId === 'tab-addons') {
+        syncLabAndFrameToAddOns(appConfig);
+        renderAddOns();
+      }
     }
 
     function showToast(msg, icon = '✅') {
@@ -11448,8 +11453,132 @@
       'sewa-studio': 'Sewa Studio'
     };
 
+    
+    // --- SINKRONISASI OTOMATIS CETAK LAB & BINGKAI KE ADD-ONS (FOTO 2 <-> FOTO 3 <-> FOTO 1) ---
+    function syncLabAndFrameToAddOns(config) {
+      if (!config) return;
+      if (!Array.isArray(config.addOns)) config.addOns = [];
+
+      const labPrices = config.labPrintPrices || [];
+      const framePrices = config.framePrices || [];
+
+      const printPriceMap = {};
+      const framePriceMap = {};
+
+      // 1. Sinkronisasi Cetak Lab -> AddOns
+      labPrices.forEach(lab => {
+        if (!lab.code) return;
+        const cleanCode = String(lab.code).toLowerCase().replace(/[^a-z0-9]/g, '');
+        const numPrice = (typeof lab.price === 'number' && lab.price > 0)
+          ? lab.price
+          : (parsePackagePrice(lab.priceDisplay) || parsePackagePrice(lab.price) || 0);
+
+        printPriceMap[cleanCode] = numPrice;
+
+        const isPassFoto = String(lab.code).toLowerCase().includes('pass');
+        if (isPassFoto) {
+          const passId = `passfoto-print-${cleanCode.replace('pass', '')}`;
+          let addOn = config.addOns.find(a => a.id === passId);
+          if (addOn && numPrice > 0) {
+            addOn.price = numPrice;
+            addOn.active = lab.active !== false;
+          }
+          return;
+        }
+
+        const targetId = `global-print-${cleanCode}`;
+        let addOn = config.addOns.find(a => a.id === targetId || (a.category === 'frame' && a.id.toLowerCase() === targetId));
+        if (!addOn) {
+          addOn = config.addOns.find(a => a.category === 'frame' && (a.name || '').toLowerCase() === `cetak lab uk ${lab.code.toLowerCase()}`);
+        }
+
+        const desc = lab.size
+          ? `Cetak foto lab ukuran ${lab.code} (${lab.size}) kertas Glossy Lab premium.`
+          : (lab.note || `Cetak foto lab ukuran ${lab.code} kertas Glossy Lab premium.`);
+
+        if (addOn) {
+          if (numPrice > 0) addOn.price = numPrice;
+          addOn.name = `Cetak Lab Uk ${lab.code}`;
+          addOn.description = desc;
+          addOn.active = lab.active !== false;
+          addOn.category = 'frame';
+          addOn.unit = 'foto';
+        } else {
+          config.addOns.push({
+            id: targetId,
+            name: `Cetak Lab Uk ${lab.code}`,
+            price: numPrice,
+            unit: 'foto',
+            description: desc,
+            category: 'frame',
+            isSelfStudioOnly: false,
+            applicableCategories: ['all'],
+            applicableBranches: ['all'],
+            active: lab.active !== false
+          });
+        }
+      });
+
+      // 2. Sinkronisasi Bingkai Foto -> AddOns
+      framePrices.forEach(fr => {
+        if (!fr.code) return;
+        const cleanCode = String(fr.code).toLowerCase().replace(/[^a-z0-9]/g, '');
+        const numPrice = (typeof fr.price === 'number' && fr.price > 0)
+          ? fr.price
+          : (parsePackagePrice(fr.priceDisplay) || parsePackagePrice(fr.price) || 0);
+
+        framePriceMap[cleanCode] = numPrice;
+
+        const targetId = `global-frame-${cleanCode}`;
+        let addOn = config.addOns.find(a => a.id === targetId);
+        if (!addOn) {
+          addOn = config.addOns.find(a => a.category === 'frame' && (a.name || '').toLowerCase() === `bingkai uk ${fr.code.toLowerCase()}`);
+        }
+
+        const sizeStr = fr.size || fr.dim || '';
+        const typeStr = fr.type ? fr.type.toLowerCase() : 'minimalis modern';
+        const desc = sizeStr
+          ? `Bingkai pigura ${typeStr} ukuran ${fr.code} (${sizeStr}).`
+          : (fr.desc || `Bingkai pigura ${typeStr} ukuran ${fr.code}.`);
+
+        if (addOn) {
+          if (numPrice > 0) addOn.price = numPrice;
+          addOn.name = `Bingkai Uk ${fr.code}`;
+          addOn.description = desc;
+          addOn.active = fr.active !== false;
+          addOn.category = 'frame';
+          addOn.unit = 'bingkai';
+        } else {
+          config.addOns.push({
+            id: targetId,
+            name: `Bingkai Uk ${fr.code}`,
+            price: numPrice,
+            unit: 'bingkai',
+            description: desc,
+            category: 'frame',
+            isSelfStudioOnly: false,
+            applicableCategories: ['all'],
+            applicableBranches: ['all'],
+            active: fr.active !== false
+          });
+        }
+      });
+
+      // 3. Sinkronisasi Bundles (Paket Hemat Cetak + Bingkai)
+      const bundle10 = config.addOns.find(a => a.id === 'global-bundle-10rs');
+      if (bundle10) {
+        bundle10.description = `Paket hemat lengkap: 1x Cetak Lab 10Rs + 1x Bingkai Minimalis 10Rs siap pajang.`;
+      }
+
+      const bundle12 = config.addOns.find(a => a.id === 'global-bundle-12rs');
+      if (bundle12) {
+        bundle12.description = `Paket hemat lengkap: 1x Cetak Lab 12Rs + 1x Bingkai Minimalis 12Rs siap pajang.`;
+      }
+    }
+
     function renderAddOns() {
       if (!appConfig) return;
+      syncLabAndFrameToAddOns(appConfig);
       if (!appConfig.addOns) appConfig.addOns = [];
 
       const addOns = appConfig.addOns;
@@ -13596,8 +13725,12 @@
     }
 
     function saveLabFramePrices() {
+      syncLabAndFrameToAddOns(appConfig);
       saveConfigLocally();
-      showToast('✅ Pengaturan Cetak Lab, Bingkai & Album Foto berhasil disimpan!', '🖼️');
+      if (document.getElementById('tab-addons') && document.getElementById('tab-addons').classList.contains('active')) {
+        renderAddOns();
+      }
+      showToast('✅ Pengaturan Cetak Lab & Bingkai berhasil disimpan & disinkronkan ke Add-Ons!', '🖼️');
     }
     const saveLabPrintPrices = saveLabFramePrices;
     const saveFramePrices = saveLabFramePrices;

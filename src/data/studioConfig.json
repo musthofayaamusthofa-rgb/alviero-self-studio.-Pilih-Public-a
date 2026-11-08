@@ -6175,7 +6175,7 @@
       "name": "Cetak Lab Uk 4R",
       "price": 5000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 4R (10.2 x 15.2 cm) kertas Glossy Lab premium.",
+      "description": "Cetak foto lab ukuran 4R (10.2 cm x 15.2 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6191,7 +6191,7 @@
       "name": "Cetak Lab Uk 5R",
       "price": 8000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 5R (12.7 x 17.8 cm) kertas Glossy Lab premium.",
+      "description": "Cetak foto lab ukuran 5R (12.7 cm x 17.8 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6207,7 +6207,7 @@
       "name": "Cetak Lab Uk 6R",
       "price": 9000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 6R (15.2 x 20.3 cm) meja kantor/kamar.",
+      "description": "Cetak foto lab ukuran 6R (15.2 cm x 20.3 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6221,9 +6221,9 @@
     {
       "id": "global-print-10rs",
       "name": "Cetak Lab Uk 10Rs",
-      "price": 15000,
+      "price": 16000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm) resolusi tinggi tahan pudar.",
+      "description": "Cetak foto lab ukuran 10Rs (20.3 cm x 30.5 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6237,9 +6237,9 @@
     {
       "id": "global-print-12rs",
       "name": "Cetak Lab Uk 12Rs",
-      "price": 50000,
+      "price": 52000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 12Rs (30.5 x 45 cm) pigura dinding.",
+      "description": "Cetak foto lab ukuran 12Rs (30.5 cm x 45 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6253,9 +6253,9 @@
     {
       "id": "global-print-16rs",
       "name": "Cetak Lab Uk 16Rs",
-      "price": 100000,
+      "price": 102000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 16Rs (40 x 60 cm) pajangan dinding besar.",
+      "description": "Cetak foto lab ukuran 16Rs (40 cm x 60 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6271,7 +6271,7 @@
       "name": "Cetak Lab Uk 20Rs",
       "price": 137000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 20Rs (50 x 75 cm) pajangan ruang tamu.",
+      "description": "Cetak foto lab ukuran 20Rs (50 cm x 75 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6287,7 +6287,7 @@
       "name": "Cetak Lab Uk 24Rs",
       "price": 172000,
       "unit": "foto",
-      "description": "Cetak foto lab ukuran 24Rs (60 x 90 cm) ukuran kanvas jumbo.",
+      "description": "Cetak foto lab ukuran 24Rs (60 cm x 90 cm) kertas Glossy Lab premium.",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6303,7 +6303,7 @@
       "name": "Bingkai Uk 4R",
       "price": 17000,
       "unit": "bingkai",
-      "description": "Bingkai pigura minimalis modern ukuran 4R (15 x 20 cm) dengan penyangga meja.",
+      "description": "Bingkai pigura minimalis modern ukuran 4R (13 X 18 CM).",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6319,7 +6319,7 @@
       "name": "Bingkai Uk 10Rs",
       "price": 35000,
       "unit": "bingkai",
-      "description": "Bingkai pigura minimalis elegan ukuran 10Rs (20 x 30 cm) untuk meja & dinding.",
+      "description": "Bingkai pigura minimalis modern ukuran 10Rs (29,2 X 39,2 CM).",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6335,7 +6335,7 @@
       "name": "Bingkai Uk 12Rs",
       "price": 50000,
       "unit": "bingkai",
-      "description": "Bingkai pigura dinding minimalis modern ukuran 12Rs (30 x 45 cm).",
+      "description": "Bingkai pigura minimalis modern ukuran 12Rs (38 X 53 CM).",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6351,7 +6351,7 @@
       "name": "Bingkai Uk 16Rs",
       "price": 145000,
       "unit": "bingkai",
-      "description": "Bingkai eksklusif mewah ukuran 16Rs (40 x 60 cm) list linen ganda.",
+      "description": "Bingkai pigura bingkai dinding eksklusif ukuran 16Rs (52 X 72 CM).",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6367,7 +6367,7 @@
       "name": "Bingkai Uk 20Rs",
       "price": 175000,
       "unit": "bingkai",
-      "description": "Bingkai pigura dinding jumbo ukuran 20Rs (50 x 75 cm) sangat megah.",
+      "description": "Bingkai pigura bingkai dinding jumbo ukuran 20Rs (63 X 88 CM).",
       "category": "frame",
       "isSelfStudioOnly": false,
       "applicableCategories": [
@@ -6557,7 +6557,7 @@
     {
       "id": "passfoto-print-3x3",
       "name": "Cetak 3×3 (6 Foto)",
-      "price": 9000,
+      "price": 8000,
       "unit": "paket (6 foto)",
       "description": "Cetak fisik pass foto 3x3 sebanyak 6 lembar kertas Glossy Lab.",
       "category": "pass-foto",
@@ -6573,7 +6573,7 @@
     {
       "id": "passfoto-print-2x3",
       "name": "Cetak 2×3 (6 Foto)",
-      "price": 9000,
+      "price": 8000,
       "unit": "paket (6 foto)",
       "description": "Cetak fisik pass foto 2x3 sebanyak 6 lembar kertas Glossy Lab.",
       "category": "pass-foto",
@@ -6589,7 +6589,7 @@
     {
       "id": "passfoto-print-3x4",
       "name": "Cetak 3×4 (6 Foto)",
-      "price": 9000,
+      "price": 8000,
       "unit": "paket (6 foto)",
       "description": "Cetak fisik pass foto 3x4 sebanyak 6 lembar kertas Glossy Lab.",
       "category": "pass-foto",
@@ -6605,7 +6605,7 @@
     {
       "id": "passfoto-print-4x6",
       "name": "Cetak 4×6 (4 Foto)",
-      "price": 9000,
+      "price": 8000,
       "unit": "paket (4 foto)",
       "description": "Cetak fisik pass foto 4x6 sebanyak 4 lembar kertas Glossy Lab.",
       "category": "pass-foto",
@@ -7398,6 +7398,86 @@
       "applicableCategories": [
         "undangan",
         "sewa-studio"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-24rs",
+      "name": "Bingkai Uk 24Rs",
+      "price": 230000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura bingkai dinding masterpiece ukuran 24Rs (90 X 120 CM).",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-12rspress",
+      "name": "Bingkai Uk 12Rs Press",
+      "price": 35000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura minimalis modern ukuran 12Rs Press (33,5 X 48,5 CM).",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-10rspress",
+      "name": "Bingkai Uk 10Rs Press",
+      "price": 35000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura minimalis modern ukuran 10Rs Press (23,7 X 33,7 CM).",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-6r",
+      "name": "Bingkai Uk 6R",
+      "price": 35000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura minimalis modern ukuran 6R (19 X 24 CM).",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
+      ],
+      "applicableBranches": [
+        "all"
+      ],
+      "active": true
+    },
+    {
+      "id": "global-frame-5r",
+      "name": "Bingkai Uk 5R",
+      "price": 35000,
+      "unit": "bingkai",
+      "description": "Bingkai pigura minimalis modern ukuran 5R (22 X 17 CM).",
+      "category": "frame",
+      "isSelfStudioOnly": false,
+      "applicableCategories": [
+        "all"
       ],
       "applicableBranches": [
         "all"

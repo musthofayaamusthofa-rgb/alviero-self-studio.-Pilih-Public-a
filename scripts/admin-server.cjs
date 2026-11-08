@@ -33,6 +33,121 @@ function parsePackagePrice(raw) {
   return null;
 }
 
+
+function syncLabAndFrameToAddOns(config) {
+  if (!config) return;
+  if (!Array.isArray(config.addOns)) config.addOns = [];
+
+  const labPrices = config.labPrintPrices || [];
+  const framePrices = config.framePrices || [];
+
+  // 1. Sync Lab Print Prices
+  labPrices.forEach(lab => {
+    if (!lab.code) return;
+    const cleanCode = String(lab.code).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const numPrice = (typeof lab.price === 'number' && lab.price > 0)
+      ? lab.price
+      : (parsePackagePrice(lab.priceDisplay) || parsePackagePrice(lab.price) || 0);
+
+    const isPassFoto = String(lab.code).toLowerCase().includes('pass');
+    if (isPassFoto) {
+      const passId = `passfoto-print-${cleanCode.replace('pass', '')}`;
+      let addOn = config.addOns.find(a => a.id === passId);
+      if (addOn && numPrice > 0) {
+        addOn.price = numPrice;
+        addOn.active = lab.active !== false;
+      }
+      return;
+    }
+
+    const targetId = `global-print-${cleanCode}`;
+    let addOn = config.addOns.find(a => a.id === targetId || (a.category === 'frame' && a.id.toLowerCase() === targetId));
+    if (!addOn) {
+      addOn = config.addOns.find(a => a.category === 'frame' && (a.name || '').toLowerCase() === `cetak lab uk ${lab.code.toLowerCase()}`);
+    }
+
+    const desc = lab.size
+      ? `Cetak foto lab ukuran ${lab.code} (${lab.size}) kertas Glossy Lab premium.`
+      : (lab.note || `Cetak foto lab ukuran ${lab.code} kertas Glossy Lab premium.`);
+
+    if (addOn) {
+      if (numPrice > 0) addOn.price = numPrice;
+      addOn.name = `Cetak Lab Uk ${lab.code}`;
+      addOn.description = desc;
+      addOn.active = lab.active !== false;
+      addOn.category = 'frame';
+      addOn.unit = 'foto';
+    } else {
+      config.addOns.push({
+        id: targetId,
+        name: `Cetak Lab Uk ${lab.code}`,
+        price: numPrice,
+        unit: 'foto',
+        description: desc,
+        category: 'frame',
+        isSelfStudioOnly: false,
+        applicableCategories: ['all'],
+        applicableBranches: ['all'],
+        active: lab.active !== false
+      });
+    }
+  });
+
+  // 2. Sync Frame Prices
+  framePrices.forEach(fr => {
+    if (!fr.code) return;
+    const cleanCode = String(fr.code).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const numPrice = (typeof fr.price === 'number' && fr.price > 0)
+      ? fr.price
+      : (parsePackagePrice(fr.priceDisplay) || parsePackagePrice(fr.price) || 0);
+
+    const targetId = `global-frame-${cleanCode}`;
+    let addOn = config.addOns.find(a => a.id === targetId);
+    if (!addOn) {
+      addOn = config.addOns.find(a => a.category === 'frame' && (a.name || '').toLowerCase() === `bingkai uk ${fr.code.toLowerCase()}`);
+    }
+
+    const sizeStr = fr.size || fr.dim || '';
+    const typeStr = fr.type ? fr.type.toLowerCase() : 'minimalis modern';
+    const desc = sizeStr
+      ? `Bingkai pigura ${typeStr} ukuran ${fr.code} (${sizeStr}).`
+      : (fr.desc || `Bingkai pigura ${typeStr} ukuran ${fr.code}.`);
+
+    if (addOn) {
+      if (numPrice > 0) addOn.price = numPrice;
+      addOn.name = `Bingkai Uk ${fr.code}`;
+      addOn.description = desc;
+      addOn.active = fr.active !== false;
+      addOn.category = 'frame';
+      addOn.unit = 'bingkai';
+    } else {
+      config.addOns.push({
+        id: targetId,
+        name: `Bingkai Uk ${fr.code}`,
+        price: numPrice,
+        unit: 'bingkai',
+        description: desc,
+        category: 'frame',
+        isSelfStudioOnly: false,
+        applicableCategories: ['all'],
+        applicableBranches: ['all'],
+        active: fr.active !== false
+      });
+    }
+  });
+
+  // 3. Sync Bundles
+  const bundle10 = config.addOns.find(a => a.id === 'global-bundle-10rs');
+  if (bundle10) {
+    bundle10.description = `Paket hemat lengkap: 1x Cetak Lab 10Rs + 1x Bingkai Minimalis 10Rs siap pajang.`;
+  }
+
+  const bundle12 = config.addOns.find(a => a.id === 'global-bundle-12rs');
+  if (bundle12) {
+    bundle12.description = `Paket hemat lengkap: 1x Cetak Lab 12Rs + 1x Bingkai Minimalis 12Rs siap pajang.`;
+  }
+}
+
 function syncPricelistDataCodeFile(newConfig) {
   try {
     if (!fs.existsSync(PRICELIST_PATH)) return;
@@ -60,6 +175,24 @@ function syncPricelistDataCodeFile(newConfig) {
         }
       }
     });
+
+    
+    // Sinkronisasi DEFAULT_ADD_ONS untuk cetak & bingkai
+    if (Array.isArray(newConfig.addOns)) {
+      newConfig.addOns.forEach(addOn => {
+        if (!addOn.id || typeof addOn.price !== 'number') return;
+        const idSearch = "id: '" + addOn.id + "'";
+        const pos = pData.indexOf(idSearch);
+        if (pos !== -1) {
+          const chunkEnd = pData.indexOf('}', pos);
+          if (chunkEnd !== -1) {
+            let chunk = pData.substring(pos, chunkEnd);
+            chunk = chunk.replace(/price:\s*\d+/, `price: ${addOn.price}`);
+            pData = pData.substring(0, pos) + chunk + pData.substring(chunkEnd);
+          }
+        }
+      });
+    }
 
     fs.writeFileSync(PRICELIST_PATH, pData, 'utf-8');
     console.log('[Admin Server] ✅ pricelistData.ts berhasil disinkronkan dengan perubahan dashboard!');
@@ -178,6 +311,7 @@ app.post('/api/config', async (req, res) => {
     }
 
     newConfig.lastUpdated = new Date().toISOString();
+    syncLabAndFrameToAddOns(newConfig);
 
     // Create timestamped backup
     const backupName = `config-backup-${Date.now()}.json`;

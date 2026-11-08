@@ -428,13 +428,124 @@ export function getActiveSelfStudioSubPackages(cfg?: any, baseGroups: any[] = []
 /**
  * Mengambil daftar add-ons aktif dari konfigurasi dashboard
  */
+function parseAddOnPrice(raw: any): number | null {
+  if (typeof raw === 'number') {
+    return (raw > 0 && raw < 100000000) ? raw : null;
+  }
+  if (!raw || typeof raw !== 'string') return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const firstOption = trimmed.split('/')[0].trim();
+  const kMatch = firstOption.match(/([0-9.,]+)\s*k/i);
+  if (kMatch) {
+    const cleanDigits = kMatch[1].replace(/[.,]/g, '');
+    const num = parseInt(cleanDigits, 10);
+    if (!isNaN(num) && num > 0) return num * 1000;
+  }
+  const cleanDigits = firstOption.replace(/[^\d]/g, '');
+  if (cleanDigits) {
+    const num = parseInt(cleanDigits, 10);
+    if (!isNaN(num) && num > 0 && num < 100000000) return num;
+  }
+  return null;
+}
+
 export function getActiveAddOns(cfg?: any, baseAddOns: any[] = []): any[] {
   const activeCfg = cfg || currentConfig;
   const configured = activeCfg?.addOns;
-  if (configured && Array.isArray(configured) && configured.length > 0) {
-    return configured.filter((a: any) => a.active !== false);
+  const rawList: any[] = (configured && Array.isArray(configured) && configured.length > 0)
+    ? configured.map((item: any) => ({ ...item }))
+    : baseAddOns.map((item: any) => ({ ...item }));
+
+  const labPrices = activeCfg?.labPrintPrices;
+  const framePrices = activeCfg?.framePrices;
+
+  // Sinkronisasi otomatis dengan Cetak Foto Lab
+  if (Array.isArray(labPrices)) {
+    labPrices.forEach((lab: any) => {
+      if (!lab || !lab.code) return;
+      const cleanCode = String(lab.code).toLowerCase().replace(/[^a-z0-9]/g, '');
+      const numPrice = (typeof lab.price === 'number' && lab.price > 0)
+        ? lab.price
+        : (parseAddOnPrice(lab.priceDisplay) || parseAddOnPrice(lab.price) || 0);
+
+      const isPassFoto = String(lab.code).toLowerCase().includes('pass');
+      const targetId = isPassFoto ? `passfoto-print-${cleanCode.replace('pass', '')}` : `global-print-${cleanCode}`;
+
+      const existingIdx = rawList.findIndex((a: any) => a.id === targetId || (a.category === 'frame' && a.id.toLowerCase() === targetId));
+      const desc = lab.size
+        ? `Cetak foto lab ukuran ${lab.code} (${lab.size}) kertas Glossy Lab premium.`
+        : (lab.note || `Cetak foto lab ukuran ${lab.code} kertas Glossy Lab premium.`);
+
+      if (existingIdx !== -1) {
+        rawList[existingIdx] = {
+          ...rawList[existingIdx],
+          price: numPrice > 0 ? numPrice : rawList[existingIdx].price,
+          name: `Cetak Lab Uk ${lab.code}`,
+          description: desc,
+          active: lab.active !== false
+        };
+      } else if (!isPassFoto) {
+        rawList.push({
+          id: targetId,
+          name: `Cetak Lab Uk ${lab.code}`,
+          price: numPrice,
+          unit: 'foto',
+          description: desc,
+          category: 'frame',
+          isSelfStudioOnly: false,
+          applicableCategories: ['all'],
+          applicableBranches: ['all'],
+          active: lab.active !== false
+        });
+      }
+    });
   }
-  return baseAddOns;
+
+  // Sinkronisasi otomatis dengan Bingkai Foto
+  if (Array.isArray(framePrices)) {
+    framePrices.forEach((fr: any) => {
+      if (!fr || !fr.code) return;
+      const cleanCode = String(fr.code).toLowerCase().replace(/[^a-z0-9]/g, '');
+      const numPrice = (typeof fr.price === 'number' && fr.price > 0)
+        ? fr.price
+        : (parseAddOnPrice(fr.priceDisplay) || parseAddOnPrice(fr.price) || 0);
+
+      const targetId = `global-frame-${cleanCode}`;
+      const existingIdx = rawList.findIndex((a: any) => a.id === targetId || (a.category === 'frame' && a.id.toLowerCase() === targetId));
+
+      const sizeStr = fr.size || fr.dim || '';
+      const typeStr = fr.type ? fr.type.toLowerCase() : 'minimalis modern';
+      const desc = sizeStr
+        ? `Bingkai pigura ${typeStr} ukuran ${fr.code} (${sizeStr}).`
+        : (fr.desc || `Bingkai pigura ${typeStr} ukuran ${fr.code}.`);
+
+      if (existingIdx !== -1) {
+        rawList[existingIdx] = {
+          ...rawList[existingIdx],
+          price: numPrice > 0 ? numPrice : rawList[existingIdx].price,
+          name: `Bingkai Uk ${fr.code}`,
+          description: desc,
+          active: fr.active !== false
+        };
+      } else {
+        rawList.push({
+          id: targetId,
+          name: `Bingkai Uk ${fr.code}`,
+          price: numPrice,
+          unit: 'bingkai',
+          description: desc,
+          category: 'frame',
+          isSelfStudioOnly: false,
+          applicableCategories: ['all'],
+          applicableBranches: ['all'],
+          active: fr.active !== false
+        });
+      }
+    });
+  }
+
+  return rawList.filter((a: any) => a.active !== false);
 }
 
 /**

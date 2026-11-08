@@ -1474,7 +1474,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'global-print-10rs',
     name: 'Cetak Lab Uk 10Rs',
-    price: 15000,
+    price: 16000,
     unit: 'foto',
     description: 'Cetak foto lab ukuran 10Rs (20.3 x 30.5 cm) resolusi tinggi tahan pudar.',
     category: 'frame'
@@ -1482,7 +1482,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'global-print-12rs',
     name: 'Cetak Lab Uk 12Rs',
-    price: 50000,
+    price: 52000,
     unit: 'foto',
     description: 'Cetak foto lab ukuran 12Rs (30.5 x 45 cm) pigura dinding.',
     category: 'frame'
@@ -1490,7 +1490,7 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
   {
     id: 'global-print-16rs',
     name: 'Cetak Lab Uk 16Rs',
-    price: 100000,
+    price: 102000,
     unit: 'foto',
     description: 'Cetak foto lab ukuran 16Rs (40 x 60 cm) pajangan dinding besar.',
     category: 'frame'
@@ -1549,6 +1549,14 @@ export const DEFAULT_ADD_ONS: AddOnOption[] = [
     price: 175000,
     unit: 'bingkai',
     description: 'Bingkai pigura dinding jumbo ukuran 20Rs (50 x 75 cm) sangat megah.',
+    category: 'frame'
+  },
+  {
+    id: 'global-frame-24rs',
+    name: 'Bingkai Uk 24Rs',
+    price: 230000,
+    unit: 'bingkai',
+    description: 'Bingkai pigura bingkai dinding masterpiece ukuran 24Rs (90 X 120 CM).',
     category: 'frame'
   },
   {
