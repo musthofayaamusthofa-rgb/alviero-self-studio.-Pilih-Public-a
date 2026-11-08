@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-08T12:43:11.381Z",
+  "lastUpdated": "2026-11-08T12:50:22.080Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2597,8 +2597,11 @@
         }
       ],
       "note": "*Bebas berganti gaya & properti foto studio",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/friendly_frame_foto1_1794142010126.jpg",
+      "imageUrls": [
+        "/images/packages/friendly_frame_foto1_1794142010126.jpg",
+        "/images/packages/friendly_frame_foto2_1794142028271.jpg"
+      ],
       "_origIndex": 20
     },
     {
@@ -2655,8 +2658,11 @@
         }
       ],
       "note": "*Cocok untuk foto perpisahan kelas, organisasi, atau geng sahabat",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/signature_squad_foto1_1794142049116.jpg",
+      "imageUrls": [
+        "/images/packages/signature_squad_foto1_1794142049116.jpg",
+        "/images/packages/signature_squad_foto2_1794142094010.jpg"
+      ],
       "_origIndex": 21
     },
     {
@@ -2713,8 +2719,11 @@
         }
       ],
       "note": "*Termasuk sesi foto gabungan dan foto per sub-kelompok",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/royal_ensemble_foto1_1794142193621.jpg",
+      "imageUrls": [
+        "/images/packages/royal_ensemble_foto1_1794142193621.jpg",
+        "/images/packages/royal_ensemble_foto2_1794142212428.jpg"
+      ],
       "_origIndex": 22
     },
     {
