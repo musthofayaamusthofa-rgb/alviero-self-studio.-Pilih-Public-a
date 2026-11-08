@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-08T12:25:17.164Z",
+  "lastUpdated": "2026-11-08T12:36:58.910Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1969,8 +1969,11 @@
         }
       ],
       "note": "",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/smart_outdoor_30_menit_foto1_1794141163331.jpg",
+      "imageUrls": [
+        "/images/packages/smart_outdoor_30_menit_foto1_1794141163331.jpg",
+        "/images/packages/smart_outdoor_30_menit_foto2_1794141247088.jpg"
+      ],
       "_origIndex": 5
     },
     {
@@ -2017,8 +2020,11 @@
         }
       ],
       "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/smart_outdoor_60_menit_foto1_1794141363474.jpg",
+      "imageUrls": [
+        "/images/packages/smart_outdoor_60_menit_foto1_1794141363474.jpg",
+        "/images/packages/smart_outdoor_60_menit_foto2_1794141406611.jpg"
+      ],
       "_origIndex": 6
     },
     {
@@ -4026,8 +4032,11 @@
         }
       ],
       "note": "",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/smart_outdoor_30_menit_foto1_1794141163331.jpg",
+      "imageUrls": [
+        "/images/packages/smart_outdoor_30_menit_foto1_1794141163331.jpg",
+        "/images/packages/smart_outdoor_30_menit_foto2_1794141247088.jpg"
+      ],
       "_origIndex": 5
     },
     {
@@ -4074,8 +4083,11 @@
         }
       ],
       "note": "*Fotografer siap datang langsung ke kampus pilihan Anda di Malang",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/smart_outdoor_60_menit_foto1_1794141363474.jpg",
+      "imageUrls": [
+        "/images/packages/smart_outdoor_60_menit_foto1_1794141363474.jpg",
+        "/images/packages/smart_outdoor_60_menit_foto2_1794141406611.jpg"
+      ],
       "_origIndex": 6
     },
     {
