@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-09T09:54:35.913Z",
+  "lastUpdated": "2026-11-09T09:58:46.239Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -3198,7 +3198,8 @@
       "note": "*Cocok untuk foto profile, CV profesional, dan konten medsos",
       "imageUrl": "/images/packages/bold_statement_foto1_1794218066896.jpg",
       "imageUrls": [
-        "/images/packages/bold_statement_foto1_1794218066896.jpg"
+        "/images/packages/bold_statement_foto1_1794218066896.jpg",
+        "/images/packages/bold_statement_foto2_1794218186801.jpg"
       ],
       "_origIndex": 30
     },
@@ -3256,8 +3257,11 @@
         }
       ],
       "note": "*Dua konsep gaya berbeda dengan arahan lighting profesional",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/opulent_shot_foto1_1794218316793.jpg",
+      "imageUrls": [
+        "/images/packages/opulent_shot_foto1_1794218316793.jpg",
+        "/images/packages/opulent_shot_foto2_1794218250066.jpg"
+      ],
       "_origIndex": 31
     },
     {
