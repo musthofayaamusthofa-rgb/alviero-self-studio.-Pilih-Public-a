@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-09T09:58:46.239Z",
+  "lastUpdated": "2026-11-09T10:37:31.452Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2841,9 +2841,10 @@
         }
       ],
       "note": "*Pose romantis & intim diarahkan langsung oleh fotografer",
-      "imageUrl": "/images/categories/couple.jpg",
+      "imageUrl": "/images/packages/eternal_love_foto1_1794218498417.jpg",
       "imageUrls": [
-        "/images/categories/couple.jpg"
+        "/images/packages/eternal_love_foto1_1794218498417.jpg",
+        "/images/packages/eternal_love_foto2_1794218651534.jpg"
       ],
       "_origIndex": 24
     },
@@ -2901,8 +2902,11 @@
         }
       ],
       "note": "*Bisa berganti 2 kostum berbeda selama durasi sesi",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/sweet_memories_foto1_1794218883186.jpg",
+      "imageUrls": [
+        "/images/packages/sweet_memories_foto1_1794218883186.jpg",
+        "/images/packages/sweet_memories_foto2_1794220647489.jpg"
+      ],
       "_origIndex": 25
     },
     {
