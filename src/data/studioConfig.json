@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-09T09:48:21.290Z",
+  "lastUpdated": "2026-11-09T09:51:36.232Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -3316,7 +3316,8 @@
       "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
       "imageUrl": "/images/packages/warm_embrace_foto1_1794145971419.jpg",
       "imageUrls": [
-        "/images/packages/warm_embrace_foto1_1794145971419.jpg"
+        "/images/packages/warm_embrace_foto1_1794145971419.jpg",
+        "/images/packages/warm_embrace_foto2_1794217804512.jpg"
       ],
       "_origIndex": 32
     },
@@ -3374,8 +3375,11 @@
         }
       ],
       "note": "*Termasuk sesi foto bersama anak dan ganti 2 kostum",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/golden_motherhood_foto1_1794217835320.jpg",
+      "imageUrls": [
+        "/images/packages/golden_motherhood_foto1_1794217835320.jpg",
+        "/images/packages/golden_motherhood_foto2_1794217888133.jpg"
+      ],
       "_origIndex": 33
     },
     {
