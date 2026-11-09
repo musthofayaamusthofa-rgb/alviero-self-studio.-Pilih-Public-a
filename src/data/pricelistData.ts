@@ -595,7 +595,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "Cetak Uk 10Rs 2 Foto",
     "softFilesIncluded": true,
-    "price": 350000,
+    "price": 285000,
     "originalPrice": 310000,
     "description": "Unlimited foto Maks 30 Menit, 1 Background, Edit 6 Foto, Cetak Uk 10Rs 2 Foto, Maks 1 kostum, Allfile via GoogleDrive.",
     "highlights": [

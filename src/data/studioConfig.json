@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-08T13:48:44.897Z",
+  "lastUpdated": "2026-11-09T09:48:21.290Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -3268,24 +3268,24 @@
       "badge": "Kehamilan",
       "name": "Warm Embrace",
       "originalPrice": "",
-      "price": "350K",
+      "price": "285K",
       "priceUnit": "per sesi",
-      "duration": "30 Menit Unlimited Foto",
+      "duration": "25 Menit Unlimited Foto",
       "background": "1 Background Studio",
-      "people": "Bumil + Suami (2 Orang)",
+      "people": "Bumil + Suami, Max 4 Orang  (additional orang 15K/org)",
       "edit": "Edit 6 Foto High-Res",
-      "print": "Cetak 2 Uk 10Rs / 4 Uk 4R",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "Bumil + Suami (2 Orang)"
+          "text": "Bumil + Suami, Max 4 Orang  (additional orang 15K/org)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "30 Menit Unlimited Foto"
+          "text": "25 Menit Unlimited Foto"
         },
         {
           "icon": "✨",
@@ -3300,7 +3300,7 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs / 4 Uk 4R"
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -3314,9 +3314,9 @@
         }
       ],
       "note": "*Mengabadikan momen kehamilan yang hangat & berkesan",
-      "imageUrl": "/images/categories/maternity.jpg",
+      "imageUrl": "/images/packages/warm_embrace_foto1_1794145971419.jpg",
       "imageUrls": [
-        "/images/categories/maternity.jpg"
+        "/images/packages/warm_embrace_foto1_1794145971419.jpg"
       ],
       "_origIndex": 32
     },
@@ -3837,8 +3837,11 @@
         }
       ],
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
-      "imageUrl": "",
-      "imageUrls": [],
+      "imageUrl": "/images/packages/family_group_1_foto1_1794217665449.jpg",
+      "imageUrls": [
+        "/images/packages/family_group_1_foto1_1794217665449.jpg",
+        "/images/packages/family_group_1_foto2_1794217692437.jpg"
+      ],
       "_origIndex": 41
     },
     {
@@ -3853,7 +3856,7 @@
       "priceUnit": "per sesi foto",
       "duration": "55 Menit Sesi Foto",
       "background": "2 Background Studio",
-      "people": "Min 21-30 Orang/Family (additional orang 15K/org)",
+      "people": "Bisa foto perkeluarga kecil",
       "edit": "Edit 10 Foto High-Res",
       "print": "Cetak Foto 12Rs",
       "fileDelivery": "All File via Google Drive",
@@ -3862,6 +3865,11 @@
           "icon": "👥",
           "label": "Kapasitas Orang",
           "text": "Min 21-30 Orang/Family (additional orang 15K/org)"
+        },
+        {
+          "icon": "👥",
+          "label": "Ketentuan Orang",
+          "text": "Bisa foto perkeluarga kecil"
         },
         {
           "icon": "⏰",
@@ -3887,6 +3895,11 @@
           "icon": "✏️",
           "label": "Jatah Edit Foto",
           "text": "Edit 10 Foto High-Res"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum"
         }
       ],
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
