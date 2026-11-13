@@ -324,7 +324,11 @@ export function formatPriceDisplay(val: any, fallback = ''): string {
  */
 export function getActivePackages(cfg?: any, basePackages: any[] = []): any[] {
   const activeCfg = cfg || currentConfig;
-  const configuredPackages: any[] = activeCfg?.studioPackages || activeCfg?.indoorPackages || [];
+  const configuredPackages: any[] = [
+    ...(activeCfg?.studioPackages || activeCfg?.indoorPackages || []),
+    ...(activeCfg?.bundlingPackages || []),
+    ...(activeCfg?.outdoorPackages || [])
+  ];
 
   if (!configuredPackages || configuredPackages.length === 0) {
     return basePackages;

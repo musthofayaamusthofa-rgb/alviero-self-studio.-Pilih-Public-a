@@ -99,8 +99,62 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
   const studioConfig = useStudioConfig();
   const studioPackagesList = useMemo(() => {
-    return ((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[];
+    const sp = ((studioConfig as any)?.studioPackages || (studioConfig as any)?.indoorPackages || []) as any[];
+    const bp = ((studioConfig as any)?.bundlingPackages || []) as any[];
+    const op = ((studioConfig as any)?.outdoorPackages || []) as any[];
+
+    const map = new Map<string, any>();
+    PACKAGES.forEach((p) => {
+      if (p && p.id) map.set(p.id, p);
+    });
+    [...sp, ...bp, ...op].forEach((p: any) => {
+      if (p && p.id) {
+        const existing = map.get(p.id) || {};
+        map.set(p.id, { ...existing, ...p });
+      }
+    });
+    return Array.from(map.values());
   }, [studioConfig]);
+
+  const renderPackageFacilityIcon = (iconStr?: string, labelOrText?: string) => {
+    const lbl = (labelOrText || '').toLowerCase();
+    const ic = (iconStr || '').trim();
+
+    if (lbl.includes('waktu') || lbl.includes('durasi') || lbl.includes('menit') || ic.includes('⏰') || ic.includes('⏱️')) {
+      return <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('background') || lbl.includes('latar') || ic.includes('✨') || ic.includes('🌟')) {
+      return <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />;
+    }
+    if (lbl.includes('outdoor') || lbl.includes('kampus') || lbl.includes('lokasi') || ic.includes('🌳') || ic.includes('🌲')) {
+      return <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('indoor') || lbl.includes('studio') || ic.includes('🏛️') || ic.includes('🏢')) {
+      return <Building2 className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('transport') || ic.includes('🚗') || ic.includes('🚕')) {
+      return <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('cetak') || lbl.includes('print') || lbl.includes('bingkai') || ic.includes('🖼️') || ic.includes('📸')) {
+      return <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('kapasitas') || lbl.includes('orang') || lbl.includes('wisudawan') || ic.includes('👥') || ic.includes('👤')) {
+      return <Users className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('edit') || ic.includes('✏️') || ic.includes('🖊️')) {
+      return <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (lbl.includes('video') || lbl.includes('reels') || ic.includes('🎬') || ic.includes('📹') || ic.includes('🎥')) {
+      return <Video className="w-4 h-4 text-[#8A5A36] shrink-0" />;
+    }
+    if (lbl.includes('file') || lbl.includes('softfile') || lbl.includes('drive') || ic.includes('📁') || ic.includes('💾')) {
+      return <Check className="w-4 h-4 text-[#5C725A] shrink-0" />;
+    }
+    if (ic && /[p{Emoji} -㌀]/u.test(ic)) {
+      return <span className="text-sm shrink-0 leading-none">{ic}</span>;
+    }
+    return <Check className="w-4 h-4 text-[#5C725A] shrink-0" />;
+  };
 
   const getPkg = (pkgId: string, fallback?: any) => {
     const found = studioPackagesList.find((p: any) => p.id === pkgId);
@@ -3502,167 +3556,194 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               Bundling Packages (Indoor + Outdoor)
                             </h4>
                           </div>
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#EAD5C3]">
-                            <Sparkles className="w-3 h-3" />
-                            Hemat Rp 75.000
-                          </span>
+                          {(() => {
+                            const bList = studioPackagesList.filter((p: any) => (p.category === 'grad-bundling' || p.category === 'bundling' || (typeof p.id === 'string' && p.id.includes('bundling'))) && p.active !== false);
+                            const firstPkg = bList[0];
+                            const savingsText = (() => {
+                              if (!firstPkg) return 'Hemat Rp 75.000';
+                              const op = parseInt(String(firstPkg.originalPrice || '').replace(/[^0-9]/g, ''), 10);
+                              const pr = parseInt(String(firstPkg.price || '').replace(/[^0-9]/g, ''), 10) * (String(firstPkg.price || '').toLowerCase().includes('k') ? 1000 : 1);
+                              if (op && pr && op > pr) {
+                                return `Hemat Rp ${(op - pr).toLocaleString('id-ID')}`;
+                              }
+                              return 'Hemat Rp 75.000';
+                            })();
+                            return (
+                              <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8A5A36] bg-[#FAF0E6] px-2.5 py-0.5 rounded-full border border-[#EAD5C3]">
+                                <Sparkles className="w-3 h-3" />
+                                {savingsText}
+                              </span>
+                            );
+                          })()}
                         </div>
 
-                        {/* Bundling 1 */}
-                        <div className="bg-gradient-to-br from-[#FAF8F5] via-[#FFFDF9] to-[#F5ECE5] rounded-2xl sm:rounded-3xl border-2 border-[#D8C7B9] p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.06)] hover:shadow-lg transition-all duration-200 space-y-4 relative overflow-hidden">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-[#8A5A36] uppercase tracking-wider font-century">
-                                  Bundling 1 • Best Seller
-                                </span>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EBF2EA] text-[#3D6345] border border-[#CDE0CB]">
-                                  ⭐ Rekomendasi
-                                </span>
+                        {(() => {
+                          const fromStudio = studioPackagesList.filter((p: any) => (p.category === 'grad-bundling' || p.category === 'bundling' || (typeof p.id === 'string' && p.id.includes('bundling'))) && p.active !== false);
+                          const list = fromStudio.length > 0 ? fromStudio : [
+                            {
+                              id: 'grad-bundling-ultimate-1',
+                              subtitle: 'Bundling 1 • Best Seller',
+                              badge: 'Rekomendasi',
+                              name: 'Bundling Smart 1',
+                              originalPrice: 'Rp 700.000',
+                              price: '625K',
+                              priceUnit: 'Paket Bundling Hemat',
+                              duration: '25 Menit Studio Indoor (1 Background)',
+                              background: '60 Menit Sesi Kampus Malang',
+                              people: '1 Wisudawan + Maks 10 Org',
+                              edit: 'Edit 10 Foto High-Res Pilihan',
+                              print: 'Cetak 2 Uk 10Rs / 3 Uk 4R',
+                              fileDelivery: 'All File via Google Drive',
+                              facilities: [
+                                { icon: '🏛️', label: 'Sesi Indoor', text: '25 Menit Studio Indoor (1 Background)' },
+                                { icon: '🌳', label: 'Sesi Outdoor', text: '60 Menit Sesi Kampus Malang' },
+                                { icon: '👥', label: 'Kapasitas', text: '1 Wisudawan + Maks 10 Org' },
+                                { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 10 Foto High-Res Pilihan' },
+                                { icon: '🖼️', label: 'Jatah Cetak', text: 'Cetak 2 Uk 10Rs / 3 Uk 4R' },
+                                { icon: '📁', label: 'Pengiriman Softfile', text: 'All File via Google Drive' },
+                                { icon: '🚗', label: 'Transportasi', text: 'Free Transport Fotografer' }
+                              ],
+                              note: '✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)'
+                            },
+                            {
+                              id: 'grad-bundling-ultimate-2',
+                              subtitle: 'Bundling 2 • Supreme',
+                              badge: 'Paling Lengkap',
+                              name: 'Bundling Smart 2',
+                              originalPrice: 'Rp 820.000',
+                              price: '745K',
+                              priceUnit: 'Paket Bundling Hemat',
+                              duration: '40 Menit Studio Indoor (2 Background)',
+                              background: '30 Menit Sesi Kampus Malang',
+                              people: '1 Wisudawan + Maks 10 Org',
+                              edit: 'Edit 14 Foto High-Res Pilihan',
+                              print: 'Cetak 2 Uk 10Rs / 6 Uk 4R',
+                              fileDelivery: 'All File via Google Drive',
+                              facilities: [
+                                { icon: '🏛️', label: 'Sesi Indoor', text: '40 Menit Studio Indoor (2 Background)' },
+                                { icon: '🌳', label: 'Sesi Outdoor', text: '30 Menit Sesi Kampus Malang' },
+                                { icon: '👥', label: 'Kapasitas', text: '1 Wisudawan + Maks 10 Org' },
+                                { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 14 Foto High-Res Pilihan' },
+                                { icon: '🖼️', label: 'Jatah Cetak', text: 'Cetak 2 Uk 10Rs / 6 Uk 4R' },
+                                { icon: '📁', label: 'Pengiriman Softfile', text: 'All File via Google Drive' }
+                              ],
+                              note: '✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)'
+                            }
+                          ];
+
+                          return list.map((pkg: any, idx: number) => {
+                            const indoorFac = Array.isArray(pkg.facilities) ? pkg.facilities.find((f: any) => f.label?.toLowerCase().includes('indoor') || f.text?.toLowerCase().includes('indoor')) : null;
+                            const outdoorFac = Array.isArray(pkg.facilities) ? pkg.facilities.find((f: any) => f.label?.toLowerCase().includes('outdoor') || f.text?.toLowerCase().includes('outdoor') || f.label?.toLowerCase().includes('kampus')) : null;
+
+                            const indoorText = indoorFac?.text?.replace(/^Sesi\s*Indoor\s*:?\s*/i, '') || pkg.duration || (idx === 0 ? 'Elegant Scholar (1 Background)' : 'Supreme Scholar (2 Background)');
+                            const outdoorText = outdoorFac?.text?.replace(/^Sesi\s*Outdoor\s*:?\s*/i, '') || pkg.background || (idx === 0 ? 'Smart Kampus (60 Menit)' : 'Smart Kampus (30 Menit)');
+
+                            const originalPriceDisplay = pkg.originalPrice ? formatPriceDisplay(pkg.originalPrice) : (idx === 0 ? 'Rp 700.000' : 'Rp 820.000');
+                            const promoPriceDisplay = pkg.price ? formatPriceDisplay(pkg.price) : (idx === 0 ? '625K' : '745K');
+                            const badgeLabel = pkg.badge ? pkg.badge.replace(/^[⭐👑🔥✨\s]+/, '') : (idx === 0 ? 'Rekomendasi' : 'Paling Lengkap');
+
+                            return (
+                              <div
+                                key={pkg.id || idx}
+                                className="bg-gradient-to-br from-[#FAF8F5] via-[#FFFDF9] to-[#F5ECE5] rounded-2xl sm:rounded-3xl border-2 border-[#D8C7B9] p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.06)] hover:shadow-lg transition-all duration-200 space-y-4 relative overflow-hidden"
+                              >
+                                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                                  <div>
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-[11px] font-bold text-[#8A5A36] uppercase tracking-wider font-century">
+                                        {pkg.subtitle || (idx === 0 ? 'Bundling 1 • Best Seller' : 'Bundling 2 • Supreme')}
+                                      </span>
+                                      <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${idx === 0 ? 'bg-[#EBF2EA] text-[#3D6345] border-[#CDE0CB]' : 'bg-[#FAF0E6] text-[#8A5A36] border-[#EAD5C3]'}`}>
+                                        {idx === 0 ? '⭐' : '👑'} {badgeLabel}
+                                      </span>
+                                    </div>
+                                    <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                      {pkg.name || `Bundling Smart ${idx + 1}`}
+                                    </h4>
+                                  </div>
+                                  <div className="sm:text-right">
+                                    {originalPriceDisplay && (
+                                      <span className="text-[11px] text-slate-400 line-through font-century block">
+                                        {originalPriceDisplay}
+                                      </span>
+                                    )}
+                                    <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                      {promoPriceDisplay}
+                                    </div>
+                                    <span className="text-[10px] text-[#8A5A36] font-bold font-century">
+                                      {pkg.priceUnit || 'Paket Bundling Hemat'}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {/* Combination Pill */}
+                                <div className="bg-white/80 backdrop-blur-xs border border-[#E2D2C6] rounded-xl p-3 flex flex-wrap items-center gap-2 text-xs font-century">
+                                  <span className="font-bold text-[#2A2A2A] flex items-center gap-1.5">
+                                    <span>🏛️</span> Sesi Indoor: {indoorText}
+                                  </span>
+                                  <span className="text-slate-400 font-bold">+</span>
+                                  <span className="font-bold text-[#3D6345] flex items-center gap-1.5">
+                                    <span>🌳</span> Sesi Outdoor: {outdoorText}
+                                  </span>
+                                </div>
+
+                                {/* Specification Badges */}
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                                  {Array.isArray(pkg.facilities) && pkg.facilities.length > 0 ? (
+                                    pkg.facilities.map((fac: any, fIdx: number) => (
+                                      <div key={fIdx} className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        {renderPackageFacilityIcon(fac.icon, fac.label || fac.text)}
+                                        <span className="text-[#3A3A3A] font-medium leading-snug">
+                                          {fac.text}
+                                        </span>
+                                      </div>
+                                    ))
+                                  ) : (
+                                    <>
+                                      <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Total 60M</strong> Indoor & Outdoor</span>
+                                      </div>
+                                      <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">{idx === 0 ? '1' : '2'} Background</strong> Studio</span>
+                                      </div>
+                                      <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Free Transport</strong> Fotografer</span>
+                                      </div>
+                                      <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">{idx === 0 ? '2 Uk 10Rs / 3 Uk 4R' : '2 Uk 10Rs / 6 Uk 4R'}</strong></span>
+                                      </div>
+                                      <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
+                                      </div>
+                                      <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
+                                        <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
+                                      </div>
+                                    </>
+                                  )}
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DDD6]">
+                                  <span className="text-[11px] text-[#5C725A] font-bold font-century">
+                                    {pkg.note || '✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)'}
+                                  </span>
+                                  <button
+                                    onClick={() => onSelectPackageForBooking(pkg.id || (idx === 0 ? 'grad-bundling-ultimate-1' : 'grad-bundling-ultimate-2'))}
+                                    className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black active:bg-slate-900 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                                  >
+                                    <span>Pesan {pkg.name ? (pkg.name.toLowerCase().includes('bundling') ? pkg.name : `Bundling ${pkg.name}`) : `Bundling ${idx + 1}`}</span>
+                                    <ArrowRight className="w-3.5 h-3.5" />
+                                  </button>
+                                </div>
                               </div>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Bundling Smart 1
-                              </h4>
-                            </div>
-                            <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">{getPkg('grad-bundling-ultimate-1')?.originalPrice || 'Rp 700.000'}</span>
-                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                {getPkgPrice('grad-bundling-ultimate-1', '625K')}
-                              </div>
-                              <span className="text-[10px] text-[#8A5A36] font-bold font-century">Paket Bundling Hemat</span>
-                            </div>
-                          </div>
-
-                          {/* Combination Pill */}
-                          <div className="bg-white/80 backdrop-blur-xs border border-[#E2D2C6] rounded-xl p-3 flex flex-wrap items-center gap-2 text-xs font-century">
-                            <span className="font-bold text-[#2A2A2A] flex items-center gap-1.5">
-                              <span>🏛️</span> Sesi Indoor: Elegant Scholar (1 Background)
-                            </span>
-                            <span className="text-slate-400 font-bold">+</span>
-                            <span className="font-bold text-[#3D6345] flex items-center gap-1.5">
-                              <span>🌳</span> Sesi Outdoor: Smart Kampus (60 Menit)
-                            </span>
-                          </div>
-
-                          {/* Specification Badges */}
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Total 60M</strong> Indoor & Outdoor</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Background</strong> Studio</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Free Transport</strong> Fotografer</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 3 Uk 4R</strong></span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DDD6]">
-                            <span className="text-[11px] text-[#5C725A] font-bold font-century">
-                              ✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)
-                            </span>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-1')}
-                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black active:bg-slate-900 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
-                            >
-                              <span>Pesan Bundling 1</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Bundling 2 */}
-                        <div className="bg-gradient-to-br from-[#FAF8F5] via-[#FFFDF9] to-[#F5ECE5] rounded-2xl sm:rounded-3xl border-2 border-[#D8C7B9] p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.06)] hover:shadow-lg transition-all duration-200 space-y-4 relative overflow-hidden">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-[#8A5A36] uppercase tracking-wider font-century">
-                                  Bundling 2 • Supreme
-                                </span>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
-                                  👑 Paling Lengkap
-                                </span>
-                              </div>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Bundling Smart 2
-                              </h4>
-                            </div>
-                            <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">{getPkg('grad-bundling-ultimate-2')?.originalPrice || 'Rp 820.000'}</span>
-                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                {getPkgPrice('grad-bundling-ultimate-2', '745K')}
-                              </div>
-                              <span className="text-[10px] text-[#8A5A36] font-bold font-century">Paket Bundling Hemat</span>
-                            </div>
-                          </div>
-
-                          {/* Combination Pill */}
-                          <div className="bg-white/80 backdrop-blur-xs border border-[#E2D2C6] rounded-xl p-3 flex flex-wrap items-center gap-2 text-xs font-century">
-                            <span className="font-bold text-[#2A2A2A] flex items-center gap-1.5">
-                              <span>🏛️</span> Sesi Indoor: Supreme Scholar (2 Background)
-                            </span>
-                            <span className="text-slate-400 font-bold">+</span>
-                            <span className="font-bold text-[#3D6345] flex items-center gap-1.5">
-                              <span>🌳</span> Sesi Outdoor: Smart Kampus (60 Menit)
-                            </span>
-                          </div>
-
-                          {/* Specification Badges */}
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Total 60M</strong> Indoor & Outdoor</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Sparkles className="w-4 h-4 text-[#8A5A36] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">2 Background</strong> Studio</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Free Transport</strong> Fotografer</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <ImageIcon className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Cetak <strong className="text-[#2A2A2A]">2 Uk 10Rs / 6 Uk 4R</strong></span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Maks 10 Org</span>
-                            </div>
-                            <div className="bg-white/90 border border-[#E8DDD6] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#E8DDD6]">
-                            <span className="text-[11px] text-[#5C725A] font-bold font-century">
-                              ✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)
-                            </span>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-bundling-ultimate-2')}
-                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black active:bg-slate-900 text-white font-bold text-xs tracking-wider uppercase shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
-                            >
-                              <span>Pesan Bundling 2</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
+                            );
+                          });
+                        })()}
                       </div>
                     )}
 
@@ -3682,134 +3763,142 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </div>
 
                         {/* Outdoor 1: Smart Outdoor */}
-                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
-                                Graduation Outdoor 1
-                              </span>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Smart Outdoor
-                              </h4>
-                            </div>
-                            <div className="sm:text-right">
-                              <span className="text-xs text-slate-500 font-century">Pilihan Durasi Sesi:</span>
-                              <div className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
-                                {getPkgPrice('grad-outdoor-smart-30', '280K')} <span className="text-xs font-normal text-slate-400 font-century">(30m)</span> / {getPkgPrice('grad-outdoor-smart-60', '355K')} <span className="text-xs font-normal text-slate-400 font-century">(60m)</span>
+                        {(() => {
+                          const pkgSmart30 = getPkg('grad-outdoor-smart-30');
+                          const pkgSmart60 = getPkg('grad-outdoor-smart-60');
+                          const price30 = getPkgPrice('grad-outdoor-smart-30', '295K');
+                          const price60 = getPkgPrice('grad-outdoor-smart-60', '375K');
+                          const smartSubtitle = pkgSmart30?.subtitle ? pkgSmart30.subtitle.replace(/\s*\([^)]*\)/, '') : 'Graduation Outdoor 1';
+
+                          const facilities = Array.isArray(pkgSmart60?.facilities) && pkgSmart60.facilities.length > 0 ? pkgSmart60.facilities : [
+                            { icon: '👥', label: 'Kapasitas', text: '1 Wisudawan + Keluarga / Teman' },
+                            { icon: '🌳', label: 'Lokasi Sesi', text: 'Unlimited Around Campus' },
+                            { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 10 Foto High-Res' },
+                            { icon: '🚗', label: 'Transportasi', text: 'Free Transport Fotografer' },
+                            { icon: '📁', label: 'Pengiriman File', text: 'All File via Google Drive' }
+                          ];
+
+                          return (
+                            <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                                <div>
+                                  <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                    {smartSubtitle}
+                                  </span>
+                                  <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                    Smart Outdoor
+                                  </h4>
+                                </div>
+                                <div className="sm:text-right">
+                                  <span className="text-xs text-slate-500 font-century">Pilihan Durasi Sesi:</span>
+                                  <div className="text-xl sm:text-2xl font-serif font-black text-[#2A2A2A] tracking-tight">
+                                    {price30} <span className="text-xs font-normal text-slate-400 font-century">(30m)</span> / {price60} <span className="text-xs font-normal text-slate-400 font-century">(60m)</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                                {facilities.map((fac: any, fIdx: number) => (
+                                  <div key={fIdx} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    {renderPackageFacilityIcon(fac.icon, fac.label || fac.text)}
+                                    <span className="text-[#3A3A3A] font-medium leading-snug">{fac.text}</span>
+                                  </div>
+                                ))}
+                              </div>
+
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                                <span className="text-[11px] text-slate-500 font-century italic">
+                                  {pkgSmart60?.note || pkgSmart30?.note || '*Fotografer siap datang langsung ke kampus pilihan Anda di Malang'}
+                                </span>
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    onClick={() => onSelectPackageForBooking('grad-outdoor-smart-30')}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-[#EBF2EA] hover:bg-[#DEE9DD] text-[#3D6345] border border-[#CDE0CB] font-bold text-xs cursor-pointer active:scale-95 transition-all"
+                                  >
+                                    Pesan 30M ({price30})
+                                  </button>
+                                  <button
+                                    onClick={() => onSelectPackageForBooking('grad-outdoor-smart-60')}
+                                    className="flex-1 sm:flex-none px-5 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white font-bold text-xs cursor-pointer active:scale-95 shadow-sm transition-all"
+                                  >
+                                    Pesan 60M ({price60})
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </div>
-
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Users className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">1 Wisudawan</strong> + Keluarga / Teman</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Unlimited Around Campus</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 10 Foto</strong> High-Res</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Free Transport Fotografer</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
-                            <span className="text-[11px] text-slate-500 font-century italic">
-                              *Fotografer siap datang langsung ke kampus pilihan Anda di Malang
-                            </span>
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() => onSelectPackageForBooking('grad-outdoor-smart-30')}
-                                className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-[#EBF2EA] hover:bg-[#DEE9DD] text-[#3D6345] border border-[#CDE0CB] font-bold text-xs cursor-pointer active:scale-95 transition-all"
-                              >
-                                Pesan 30M ({getPkgPrice('grad-outdoor-smart-30', '280K')})
-                              </button>
-                              <button
-                                onClick={() => onSelectPackageForBooking('grad-outdoor-smart-60')}
-                                className="flex-1 sm:flex-none px-5 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white font-bold text-xs cursor-pointer active:scale-95 shadow-sm transition-all"
-                              >
-                                Pesan 60M ({getPkgPrice('grad-outdoor-smart-60', '355K')})
-                              </button>
-                            </div>
-                          </div>
-                        </div>
+                          );
+                        })()}
 
                         {/* Outdoor 2: Cumlaude Foto + Video */}
-                        <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
-                                  Graduation Outdoor 2
-                                </span>
-                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
-                                  <Video className="w-3 h-3 text-[#8A5A36]" />
-                                  Include Video Cinematic
-                                </span>
-                              </div>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Cumlaude (Foto + Video)
-                              </h4>
-                            </div>
-                            <div className="sm:text-right">
-                              <span className="text-[11px] text-slate-400 line-through font-century block">{getPkg('grad-outdoor-cumlaude')?.originalPrice || 'Rp 850.000'}</span>
-                              <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
-                                {getPkgPrice('grad-outdoor-cumlaude', '710K')}
-                              </div>
-                              <span className="text-[10px] text-slate-500 font-century">75 Menit • Full Package</span>
-                            </div>
-                          </div>
+                        {(() => {
+                          const pkgCumlaude = getPkg('grad-outdoor-cumlaude');
+                          const cumlaudePrice = getPkgPrice('grad-outdoor-cumlaude', '750K');
+                          const cumlaudeOrigPrice = pkgCumlaude?.originalPrice ? formatPriceDisplay(pkgCumlaude.originalPrice) : 'Rp 850.000';
+                          const facilities = Array.isArray(pkgCumlaude?.facilities) && pkgCumlaude.facilities.length > 0 ? pkgCumlaude.facilities : [
+                            { icon: '⏰', label: 'Durasi Sesi', text: '75 Menit Sesi Foto & Video' },
+                            { icon: '🎬', label: 'Video Sinematik', text: 'Include Video Reels Cinematic 9:16' },
+                            { icon: '✏️', label: 'Jatah Edit Foto', text: 'Edit 12 Foto High-Res + Video HD' },
+                            { icon: '🌳', label: 'Lokasi Sesi', text: 'Area Kampus Universitas (Spot Ikonik)' },
+                            { icon: '👥', label: 'Kapasitas', text: '1 Wisudawan + Keluarga / Pendamping' },
+                            { icon: '📁', label: 'Pengiriman File', text: 'All File Foto & Video via Google Drive' }
+                          ];
 
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">75 Menit</strong> Sesi Foto & Video</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Video className="w-4 h-4 text-[#8A5A36] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#8A5A36]">1 Video Cinematic</strong> (30-60s)</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">Edit 10 Foto</strong> High-Res</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Trees className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Unlimited Shoots Kampus</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium">Free Transport Fotografer</span>
-                            </div>
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
-                              <Check className="w-4 h-4 text-[#5C725A] shrink-0" />
-                              <span className="text-[#3A3A3A] font-medium"><strong className="text-[#2A2A2A]">All File</strong> via Google Drive</span>
-                            </div>
-                          </div>
+                          return (
+                            <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
+                              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                      {pkgCumlaude?.subtitle || 'Graduation Outdoor 2'}
+                                    </span>
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF0E6] text-[#8A5A36] border border-[#EAD5C3]">
+                                      <Video className="w-3 h-3 text-[#8A5A36]" />
+                                      {pkgCumlaude?.badge || 'Include Video'}
+                                    </span>
+                                  </div>
+                                  <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                    {pkgCumlaude?.name || 'Cumlaude (Foto + Video)'}
+                                  </h4>
+                                </div>
+                                <div className="sm:text-right">
+                                  {cumlaudeOrigPrice && (
+                                    <span className="text-[11px] text-slate-400 line-through font-century block">
+                                      {cumlaudeOrigPrice}
+                                    </span>
+                                  )}
+                                  <div className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight leading-none">
+                                    {cumlaudePrice}
+                                  </div>
+                                  <span className="text-[10px] text-slate-500 font-century">
+                                    {pkgCumlaude?.priceUnit || '75 Menit • Full Package'}
+                                  </span>
+                                </div>
+                              </div>
 
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
-                            <span className="text-[11px] text-slate-500 font-century italic">
-                              *Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok
-                            </span>
-                            <button
-                              onClick={() => onSelectPackageForBooking('grad-outdoor-cumlaude')}
-                              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
-                            >
-                              <span>Pilih Paket Cumlaude</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </div>
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 font-century text-xs">
+                                {facilities.map((fac: any, fIdx: number) => (
+                                  <div key={fIdx} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-xl p-2.5 flex items-center gap-2">
+                                    {renderPackageFacilityIcon(fac.icon, fac.label || fac.text)}
+                                    <span className="text-[#3A3A3A] font-medium leading-snug">{fac.text}</span>
+                                  </div>
+                                ))}
+                              </div>
+
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-[#F2E9E4]">
+                                <span className="text-[11px] text-slate-500 font-century italic">
+                                  {pkgCumlaude?.note || '*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok'}
+                                </span>
+                                <button
+                                  onClick={() => onSelectPackageForBooking('grad-outdoor-cumlaude')}
+                                  className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                                >
+                                  <span>Pilih Paket {pkgCumlaude?.name ? (pkgCumlaude.name.includes('Cumlaude') ? 'Cumlaude' : pkgCumlaude.name) : 'Cumlaude'}</span>
+                                  <ArrowRight className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })()}
 
                         {/* Outdoor 3: Group Wisuda Outdoor */}
                         <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
