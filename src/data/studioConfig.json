@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-13T11:55:32.551Z",
+  "lastUpdated": "2026-11-13T12:23:50.869Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1941,10 +1941,10 @@
       "_origIndex": 4
     },
     {
-      "id": "grad-outdoor-smart-30",
+      "id": "grad-outdoor-smart-1-60",
       "category": "grad-outdoor",
       "categoryLabel": "Outdoor Kampus",
-      "subtitle": "Graduation Outdoor 1 (30M)",
+      "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Fleksibel",
       "name": "Smart Outdoor 1 60 Menit",
       "originalPrice": "",
@@ -4056,10 +4056,10 @@
   ],
   "outdoorPackages": [
     {
-      "id": "grad-outdoor-smart-30",
+      "id": "grad-outdoor-smart-1-60",
       "category": "grad-outdoor",
       "categoryLabel": "Outdoor Kampus",
-      "subtitle": "Graduation Outdoor 1 (30M)",
+      "subtitle": "Graduation Outdoor 1 (60M)",
       "badge": "Fleksibel",
       "name": "Smart Outdoor 1 60 Menit",
       "originalPrice": "",
