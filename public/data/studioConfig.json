@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-13T05:21:58.177Z",
+  "lastUpdated": "2026-11-13T06:24:14.616Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1505,7 +1505,7 @@
       "background": "2 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 8 Foto High-Res",
-      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
@@ -1541,7 +1541,7 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "👗",
@@ -1569,15 +1569,20 @@
       "priceUnit": "per sesi • all-in",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "2 Wisudawan + Family (Maks 10 Org)",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 12 Foto High-Res",
-      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "2 Wisudawan + Family (Maks 10 Org)"
+          "text": "2 Wisudawan + Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
         },
         {
           "icon": "⏰",
@@ -1597,7 +1602,7 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 4 Uk 10Rs / 6 Uk 4R"
+          "text": "Cetak 4 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -1607,7 +1612,7 @@
         {
           "icon": "👗",
           "label": "Kostum & Toga",
-          "text": "Maksimal 2 Kostum Wisudawan"
+          "text": "Maksimal 1 Kostum Wisudawan"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
@@ -1700,7 +1705,7 @@
       "background": "2 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 8 Foto High-Res",
-      "print": "Cetak 2 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
@@ -1736,7 +1741,7 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs / 6 Uk 4R"
+          "text": "Cetak 2 Uk 10Rs"
         },
         {
           "icon": "👗",
@@ -1764,15 +1769,20 @@
       "priceUnit": "per sesi • all-in",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "2 Wisudawan + Family (Maks 10 Org)",
+      "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 12 Foto High-Res",
-      "print": "Cetak 4 Uk 10Rs / 6 Uk 4R",
+      "print": "Cetak 4 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "2 Wisudawan + Family (Maks 10 Org)"
+          "text": "2 Wisudawan + Family"
+        },
+        {
+          "icon": "👥",
+          "label": "Batas Orang",
+          "text": "Maximal 10 Orang/Frame (additional orang 15K/org)"
         },
         {
           "icon": "⏰",
@@ -1792,7 +1802,7 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 4 Uk 10Rs / 6 Uk 4R"
+          "text": "Cetak 4 Uk 10Rs"
         },
         {
           "icon": "📁",
@@ -1802,7 +1812,7 @@
         {
           "icon": "👗",
           "label": "Kostum & Toga",
-          "text": "Maksimal 2 Kostum Wisudawan"
+          "text": "Maksimal 1 Kostum Wisudawan"
         }
       ],
       "note": "*Maksimal 1 kostum wisuda (disediakan oleh klien)",
@@ -3341,7 +3351,7 @@
       "priceUnit": "per sesi",
       "duration": "45 Menit Unlimited Foto",
       "background": "2 Background Studio",
-      "people": "Bumil + Suami + Anak",
+      "people": "Maximal 4 orang",
       "edit": "Edit 8 Foto High-Res",
       "print": "Cetak 2 Uk 10Rs + 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
@@ -3349,7 +3359,7 @@
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "Bumil + Suami + Anak"
+          "text": "Maximal 4 orang"
         },
         {
           "icon": "⏰",
