@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-13T06:32:33.430Z",
+  "lastUpdated": "2026-11-13T07:16:39.719Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1869,6 +1869,11 @@
           "icon": "📁",
           "label": "Pengiriman Softfile",
           "text": "All File via Google Drive"
+        },
+        {
+          "icon": "🚗",
+          "label": "Transportasi",
+          "text": "Free Transport Fotografer"
         }
       ],
       "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
@@ -1889,7 +1894,7 @@
       "originalPrice": "Rp 820.000",
       "price": "745K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "30 Menit Studio Indoor (2 Background)",
+      "duration": "40 Menit Studio Indoor (2 Background)",
       "background": "30 Menit Sesi Kampus Malang",
       "people": "1 Wisudawan + Keluarga / Sahabat",
       "edit": "Edit 14 Foto High-Res Pilihan",
@@ -1899,7 +1904,7 @@
         {
           "icon": "🏛️",
           "label": "Sesi Indoor",
-          "text": "30 Menit Studio Indoor (2 Background)"
+          "text": "40 Menit Studio Indoor (2 Background)"
         },
         {
           "icon": "🌳",
@@ -3977,6 +3982,11 @@
           "icon": "📁",
           "label": "Pengiriman Softfile",
           "text": "All File via Google Drive"
+        },
+        {
+          "icon": "🚗",
+          "label": "Transportasi",
+          "text": "Free Transport Fotografer"
         }
       ],
       "note": "✓ Jadwal sesi indoor & outdoor dapat diatur berurutan atau berbeda jam (min. selisih 90m)",
@@ -3997,7 +4007,7 @@
       "originalPrice": "Rp 820.000",
       "price": "745K",
       "priceUnit": "Paket Bundling Hemat",
-      "duration": "30 Menit Studio Indoor (2 Background)",
+      "duration": "40 Menit Studio Indoor (2 Background)",
       "background": "30 Menit Sesi Kampus Malang",
       "people": "1 Wisudawan + Keluarga / Sahabat",
       "edit": "Edit 14 Foto High-Res Pilihan",
@@ -4007,7 +4017,7 @@
         {
           "icon": "🏛️",
           "label": "Sesi Indoor",
-          "text": "30 Menit Studio Indoor (2 Background)"
+          "text": "40 Menit Studio Indoor (2 Background)"
         },
         {
           "icon": "🌳",
