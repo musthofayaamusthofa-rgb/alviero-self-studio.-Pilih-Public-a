@@ -295,7 +295,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "All File via Link Google Drive",
     "softFilesIncluded": true,
-    "price": 280000,
+    "price": 295000,
     "originalPrice": 320000,
     "description": "30 Menit sesi wisuda outdoor, unlimited foto, edit 10 foto, around campus, free transport, & all file via Google Drive.",
     "highlights": [
@@ -322,7 +322,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "All File via Link Google Drive",
     "softFilesIncluded": true,
-    "price": 355000,
+    "price": 375000,
     "originalPrice": 420000,
     "description": "60 Menit sesi wisuda outdoor, unlimited foto, edit 10 foto, around campus, free transport, & all file via Google Drive.",
     "highlights": [
@@ -349,7 +349,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "All File via Link Google Drive + Video",
     "softFilesIncluded": true,
-    "price": 710000,
+    "price": 750000,
     "originalPrice": 850000,
     "description": "75 menit sesi wisuda outdoor premium, unlimited foto, VIDEO cinematic maks 1 menit, edit 10 foto, around campus, free transport, & all file via Google Drive.",
     "highlights": [
