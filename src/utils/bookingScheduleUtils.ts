@@ -1,4 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
+import { getStudioConfig } from './studioConfigManager';
 /**
  * Alviero Studio — Scheduling & Pricing Logic Utility
  * 
@@ -101,6 +102,13 @@ export const TIME_SLOTS: TimeSlotConfig[] = (studioConfig.timeSlots.filter(s => 
  */
 export function getTimeSlotConfig(timeStr: string): TimeSlotConfig | undefined {
   const norm = normalizeTime(timeStr);
+  try {
+    const cfg = getStudioConfig();
+    if (cfg && Array.isArray(cfg.timeSlots)) {
+      const found = cfg.timeSlots.find((s: any) => s.active !== false && normalizeTime(s.time) === norm);
+      if (found) return found as unknown as TimeSlotConfig;
+    }
+  } catch {}
   return TIME_SLOTS.find(slot => slot.time === norm);
 }
 

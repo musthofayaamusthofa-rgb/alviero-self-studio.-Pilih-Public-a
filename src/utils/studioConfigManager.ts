@@ -874,3 +874,118 @@ export function getActiveCategories(cfg?: any, fallback: any[] = []): any[] {
 
   return configuredList.filter((c: any) => c && c.active !== false);
 }
+
+export interface TimeSlotItemConfig {
+  time: string;
+  maxCapacity?: number;
+  allowedServices?: string[];
+  shiftName?: string;
+  earlyCharge?: number;
+  active?: boolean;
+  applicableBranches?: string[];
+  activeByBranch?: Record<string, boolean>;
+}
+
+/**
+ * Mengambil daftar konfigurasi slot waktu aktif secara dinamis dari dashboard / studioConfig
+ */
+export function getActiveTimeSlotObjects(
+  cfg?: any,
+  branch: string = 'cabang-1',
+  serviceType: 'indoor' | 'outdoor' | 'both' = 'indoor'
+): TimeSlotItemConfig[] {
+  const activeCfg = cfg || currentConfig;
+  const rawSlots: any[] = activeCfg?.timeSlots;
+  if (!Array.isArray(rawSlots)) return [];
+
+  return rawSlots
+    .filter((slot: any) => {
+      if (!slot || !slot.time) return false;
+
+      // 1. Filter Cabang Studio
+      const branches = slot.applicableBranches || ['cabang-1', 'cabang-2'];
+      if (!branches.includes(branch)) return false;
+
+      // 2. Status Aktif (Mendukung toggle aktif per cabang maupun global)
+      if (slot.activeByBranch && slot.activeByBranch[branch] !== undefined) {
+        if (!slot.activeByBranch[branch]) return false;
+      } else if (slot.active === false) {
+        return false;
+      }
+
+      // 3. Layanan Diizinkan (indoor vs outdoor)
+      const allowed = Array.isArray(slot.allowedServices) ? slot.allowedServices : ['indoor'];
+      if (serviceType === 'indoor') {
+        return allowed.includes('indoor');
+      } else if (serviceType === 'outdoor') {
+        return allowed.includes('outdoor');
+      }
+      return allowed.includes('indoor') || allowed.includes('outdoor');
+    })
+    .sort((a, b) => a.time.localeCompare(b.time));
+}
+
+/**
+ * Mengambil array string jam slot aktif (contoh: ['07:00', '08:00', '08:30', ...])
+ */
+export function getActiveTimeSlots(
+  cfg?: any,
+  branch: string = 'cabang-1',
+  serviceType: 'indoor' | 'outdoor' | 'both' = 'indoor',
+  isSelfStudio: boolean = false
+): string[] {
+  const slotObjs = getActiveTimeSlotObjects(cfg, branch, serviceType);
+  return slotObjs
+    .filter(slot => {
+      if (isSelfStudio && slot.time < '08:00') {
+        return false;
+      }
+      return true;
+    })
+    .map(slot => slot.time);
+}
+
+/**
+ * Mengambil informasi biaya tambahan jam (ekstra pagi / overtime) dari konfigurasi slot dinamis
+ */
+export function getSlotExtraChargeInfo(
+  slotTime: string,
+  cfg?: any,
+  branch: string = 'cabang-1',
+  is60MinSession: boolean = false
+): { fee: number; shiftName: string; isExtra: boolean } {
+  if (!slotTime) return { fee: 0, shiftName: '', isExtra: false };
+
+  const norm = slotTime.length === 4 ? '0' + slotTime : slotTime;
+  const activeCfg = cfg || currentConfig;
+  const rawSlots: any[] = activeCfg?.timeSlots;
+
+  const slot = Array.isArray(rawSlots)
+    ? rawSlots.find((s: any) => {
+        if (!s || !s.time) return false;
+        const sTime = s.time.length === 4 ? '0' + s.time : s.time;
+        if (sTime !== norm) return false;
+        const branches = s.applicableBranches || ['cabang-1', 'cabang-2'];
+        return branches.includes(branch);
+      })
+    : null;
+
+  let fee = slot && typeof slot.earlyCharge === 'number' ? slot.earlyCharge : 0;
+  let shiftName = slot?.shiftName || '';
+
+  // Kasus khusus sesi 60 menit di slot 20:30 (melebihi jam tutup 21:00)
+  if (is60MinSession && norm === '20:30') {
+    if (fee === 0) {
+      fee = 35000;
+    }
+    if (!shiftName) {
+      shiftName = 'Overtime Melebihi Jam Tutup Studio';
+    }
+  }
+
+  return {
+    fee,
+    shiftName,
+    isExtra: fee > 0
+  };
+}

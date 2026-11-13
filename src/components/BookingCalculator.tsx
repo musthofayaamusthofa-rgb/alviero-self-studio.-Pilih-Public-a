@@ -1,5 +1,14 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig, getPaymentConfig, getActivePackages, getActiveSelfStudioSubPackages, getActiveAddOns, parsePriceToNumber } from '../utils/studioConfigManager';
+import {
+  useStudioConfig,
+  getPaymentConfig,
+  getActivePackages,
+  getActiveSelfStudioSubPackages,
+  getActiveAddOns,
+  parsePriceToNumber,
+  getActiveTimeSlots,
+  getSlotExtraChargeInfo
+} from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import {
@@ -1677,13 +1686,25 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     (currentPackage.description || '').toLowerCase().includes('outdoor')
   );
   const isOutdoorOnly = hasOutdoorSession && currentPackage.category === 'graduation-outdoor';
-  const outdoorTimeSlots = useMemo(() => generateOutdoorTimeSlots(), []);
+  const outdoorTimeSlots = useMemo(() => {
+    const configuredOutdoor = getActiveTimeSlots(studioConfig, selectedBranch, 'outdoor', false);
+    return configuredOutdoor.length > 0 ? configuredOutdoor : generateOutdoorTimeSlots();
+  }, [studioConfig, selectedBranch]);
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const baseTimeSlots = useMemo(() => {
+    const configured = getActiveTimeSlots(
+      studioConfig,
+      selectedBranch,
+      isOutdoorOnly ? 'outdoor' : 'indoor',
+      isSelfStudio
+    );
+    if (configured && configured.length > 0) {
+      return configured;
+    }
     return isSelfStudio
-      ? getSelfStudioTimeSlots(selectedBranch)
-      : getProStudioTimeSlots(selectedBranch);
-  }, [isSelfStudio, selectedBranch]);
+      ? getSelfStudioTimeSlots(selectedBranch, studioConfig)
+      : getProStudioTimeSlots(selectedBranch, studioConfig);
+  }, [studioConfig, selectedBranch, isOutdoorOnly, isSelfStudio]);
 
   // Durasi Self Studio mengikuti sub-paket, tetapi tetap memakai satu slot reguler.
   const sessionDurationMinutes = isSelfStudio || isOutdoorOnly
@@ -1701,6 +1722,55 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const activeTimeSlots = maxBackdrops > 1
     ? baseTimeSlots.filter(s => s.endsWith(':00') || s === '20:30')
     : baseTimeSlots;
+
+  // Daftar slot yang memiliki biaya tambahan dari konfigurasi aktif timeSlots dashboard
+  const extraChargeSlotsInfo = useMemo(() => {
+    if (isSelfStudio || isOutdoorOnly) return [];
+    const activeSlots = (studioConfig?.timeSlots || [])
+      .filter((s: any) => {
+        if (!s || !s.time) return false;
+        const branches = s.applicableBranches || ['cabang-1', 'cabang-2'];
+        if (!branches.includes(selectedBranch)) return false;
+        if (s.activeByBranch && s.activeByBranch[selectedBranch] !== undefined) {
+          if (!s.activeByBranch[selectedBranch]) return false;
+        } else if (s.active === false) {
+          return false;
+        }
+        return (s.allowedServices || []).includes('indoor');
+      });
+
+    const list: Array<{ time: string; fee: number; shiftName: string; label: string }> = [];
+
+    activeSlots.forEach((s: any) => {
+      const charge = typeof s.earlyCharge === 'number' ? s.earlyCharge : 0;
+      if (charge > 0) {
+        list.push({
+          time: s.time,
+          fee: charge,
+          shiftName: s.shiftName || 'Biaya Tambahan Jam',
+          label: `${s.time} WIB`
+        });
+      }
+    });
+
+    // Tambahkan info 20:30 untuk paket 2 background (durasi 60m) jika sesi melebihi jam tutup
+    if (maxBackdrops > 1) {
+      const has2030 = list.find(item => item.time === '20:30');
+      if (!has2030) {
+        const slot2030 = activeSlots.find((s: any) => s.time === '20:30');
+        const slot2100 = activeSlots.find((s: any) => s.time === '21:00');
+        const fee2030 = slot2030?.earlyCharge || slot2100?.earlyCharge || 35000;
+        list.push({
+          time: '20:30',
+          fee: fee2030,
+          shiftName: slot2030?.shiftName || 'Overtime Melebihi Jam Tutup (+Rp 35.000)',
+          label: '20:30 WIB (Paket 2 Bg)'
+        });
+      }
+    }
+
+    return list;
+  }, [studioConfig, selectedBranch, isSelfStudio, isOutdoorOnly, maxBackdrops]);
 
   // Filter paket berdasarkan tipe ruangan yang aktif (SelfStudio vs Studio Foto)
   const filteredPackages = useMemo(() => {
@@ -1940,6 +2010,25 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
     for (let i = 0; i < neededSlots.length; i++) {
       const s = neededSlots[i];
+
+      // Validasi status aktif slot langsung dari konfigurasi dashboard studioConfig
+      const configuredSlot = ((studioConfig as any).timeSlots || []).find((slot: any) => {
+        return normalizeSlotTime(slot.time) === normalizeSlotTime(s);
+      });
+      if (configuredSlot) {
+        const branches = configuredSlot.applicableBranches || ['cabang-1', 'cabang-2'];
+        if (!branches.includes(selectedBranch)) {
+          return { isAvailable: false, reason: `Slot jam ${s} tidak tersedia untuk studio terpilih` };
+        }
+        if (configuredSlot.activeByBranch && configuredSlot.activeByBranch[selectedBranch] !== undefined) {
+          if (!configuredSlot.activeByBranch[selectedBranch]) {
+            return { isAvailable: false, reason: `Slot jam ${s} sedang dinonaktifkan oleh studio` };
+          }
+        } else if (configuredSlot.active === false) {
+          return { isAvailable: false, reason: `Slot jam ${s} sedang dinonaktifkan oleh studio` };
+        }
+      }
+
       const count = getSlotClientCount(s);
       const maxCapacity = getSlotMaxCapacity(s);
       if (count >= maxCapacity) {
@@ -2266,19 +2355,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   const muaCartSummary = muaCartDetails.map(item => `${item.serviceName} (${item.quantity}x)`).join(', ') || '-';
 
-  // Biaya tambahan jam ekstra pagi (07:00 WIB) untuk Foto Studio (Indoor): Rp 35.000
-  const isEarlyMorningStudio = !isSelfStudio && !isOutdoorOnly && normalizeSlotTime(timeSlot) === '07:00';
-  const earlyMorningFee = isEarlyMorningStudio ? 35000 : 0;
-
-  // Biaya tambahan jika sesi melebihi jam operasional tutup studio (21:00 WIB):
-  // 1. Paket 60 menit di slot jam 20:30 (selesai 21:30 WIB)
-  // 2. Semua paket di slot jam 21:00 (selesai 21:30 atau 22:00 WIB)
-  const isLateNightOvertime = !isSelfStudio && !isOutdoorOnly && (
-    (sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30') ||
-    normalizeSlotTime(timeSlot) === '21:00'
+  // Biaya tambahan jam (ekstra pagi / shift berbayar / overtime tutup studio)
+  // Dinamis membaca konfigurasi timeSlots dari dashboard studioConfig
+  const currentSlotChargeInfo = getSlotExtraChargeInfo(
+    timeSlot,
+    studioConfig,
+    selectedBranch,
+    sessionSlotsCount === 2
   );
-  const lateNightOvertimeFee = isLateNightOvertime ? 35000 : 0;
-  const overtimeFee = earlyMorningFee + lateNightOvertimeFee;
+  const overtimeFee = (!isSelfStudio && !isOutdoorOnly) ? currentSlotChargeInfo.fee : 0;
+  const isEarlyMorningStudio = !isSelfStudio && !isOutdoorOnly && normalizeSlotTime(timeSlot) === '07:00';
+  const earlyMorningFee = 0;
+  const lateNightOvertimeFee = 0;
 
   const subtotal = packagePrice + addOnsTotalPrice + muaCartTotal + overtimeFee;
 
@@ -2399,14 +2487,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
       });
     }
 
-    if (earlyMorningFee > 0) {
+    if (overtimeFee > 0) {
       lines.push('');
-      lines.push('*BIAYA TAMBAHAN EKSTRA PAGI:* +Rp 35.000 (Sesi Khusus Studio Foto Pagi 07:00 WIB)');
-    }
-
-    if (lateNightOvertimeFee > 0) {
-      lines.push('');
-      lines.push(`*BIAYA TAMBAHAN OVERTIME MALAM:* +Rp 35.000 (Sesi ${timeSlot} WIB Melebihi Jam Tutup Studio 21.00 WIB)`);
+      const feeLabel = currentSlotChargeInfo.shiftName
+        ? `*BIAYA TAMBAHAN JAM (${normalizeSlotTime(timeSlot)} WIB):* +Rp ${overtimeFee.toLocaleString('id-ID')} (${currentSlotChargeInfo.shiftName})`
+        : `*BIAYA TAMBAHAN JAM:* +Rp ${overtimeFee.toLocaleString('id-ID')} (Sesi ${normalizeSlotTime(timeSlot)} WIB)`;
+      lines.push(feeLabel);
     }
 
     if (appliedPromo) {
@@ -3285,17 +3371,18 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </span>
                   </div>
 
-                  {/* Keterangan Slot Jam Tambahan Biaya */}
-                  {!isSelfStudio && !isOutdoorOnly && (
+                  {/* Keterangan Slot Jam Tambahan Biaya (Dinamis dari Dashboard Admin) */}
+                  {!isSelfStudio && !isOutdoorOnly && extraChargeSlotsInfo.length > 0 && (
                     <div className="mb-2 flex flex-wrap items-center gap-1.5 text-[10px] sm:text-[11px]">
-                      <span className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
-                        <strong>07:00 WIB:</strong> Jam Ekstra Pagi (+Rp 35.000)
-                      </span>
-                      <span className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-medium">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
-                        <strong>{maxBackdrops > 1 ? '20:30 & 21:00 WIB:' : '21:00 WIB:'}</strong> Overtime Melebihi Jam Tutup (+Rp 35.000)
-                      </span>
+                      {extraChargeSlotsInfo.map((info) => (
+                        <span
+                          key={info.time}
+                          className="inline-flex items-center gap-1 text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full font-medium shadow-2xs"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                          <strong>{info.label}:</strong> {info.shiftName} (+Rp {info.fee.toLocaleString('id-ID')})
+                        </span>
+                      ))}
                     </div>
                   )}
 
@@ -3308,9 +3395,17 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       const isDisabled = !availability.isAvailable;
                       const isTooClose = Boolean(availability.reason?.includes('90 menit'));
 
-                      const isEarlySlot = !isSelfStudio && !isOutdoorOnly && slot === '07:00';
-                      const isLateSlot = !isSelfStudio && !isOutdoorOnly && ((sessionSlotsCount === 2 && slot === '20:30') || slot === '21:00');
-                      const isExtraChargeSlot = isEarlySlot || isLateSlot;
+                      const chargeInfo = getSlotExtraChargeInfo(
+                        slot,
+                        studioConfig,
+                        selectedBranch,
+                        sessionSlotsCount === 2
+                      );
+                      const isExtraChargeSlot = !isSelfStudio && !isOutdoorOnly && chargeInfo.isExtra;
+                      const extraFeeVal = chargeInfo.fee;
+                      const shortFeeLabel = extraFeeVal >= 1000
+                        ? `+${Math.round(extraFeeVal / 1000)}k`
+                        : `+${extraFeeVal}`;
 
                       return (
                         <button
@@ -3327,7 +3422,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                                 ? 'bg-amber-50/70 hover:bg-amber-100/70 text-stone-900 border-amber-300 shadow-2xs'
                                 : 'bg-white hover:bg-[#FDFBF7] text-stone-800 border-[#E8DDD6]'
                             }`}
-                          title={!availability.isAvailable ? availability.reason : isExtraChargeSlot ? `Jam ${slot} WIB (+Rp 35.000 biaya tambahan)` : `Mulai sesi foto jam ${slot} WIB`}
+                          title={!availability.isAvailable ? availability.reason : isExtraChargeSlot ? `Jam ${slot} WIB (${chargeInfo.shiftName || 'Biaya Tambahan'} - +Rp ${extraFeeVal.toLocaleString('id-ID')})` : `Mulai sesi foto jam ${slot} WIB`}
                         >
                           <span className="leading-tight">{slot}</span>
                           {isDisabled ? (
@@ -3336,11 +3431,11 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             </span>
                           ) : isStartSlot ? (
                             <span className="text-[8px] font-bold text-[#A9BCA7] uppercase mt-0.5 no-underline">
-                              {isExtraChargeSlot ? 'Terpilih • +35k' : (sessionSlotsCount === 2 ? 'Terpilih (1 Jam)' : 'Terpilih')}
+                              {isExtraChargeSlot ? `Terpilih • ${shortFeeLabel}` : (sessionSlotsCount === 2 ? 'Terpilih (1 Jam)' : 'Terpilih')}
                             </span>
                           ) : isExtraChargeSlot ? (
                             <span className="text-[7.5px] font-bold text-amber-800 bg-amber-200/90 px-1 py-0.2 rounded uppercase mt-0.5 no-underline border border-amber-300">
-                              +35k
+                              {shortFeeLabel}
                             </span>
                           ) : clientCount > 0 ? (
                             <span className="text-[8.5px] font-bold text-amber-700 uppercase mt-0.5 no-underline">
@@ -3353,20 +3448,20 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </div>
 
                   {/* Banner Info Slot Biaya Tambahan saat Terpilih */}
-                  {(isEarlyMorningStudio || isLateNightOvertime) && (
+                  {overtimeFee > 0 && !isOutdoorOnly && (
                     <div className="mt-3 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 text-xs flex items-start gap-2.5 shadow-2xs animate-in fade-in duration-200">
                       <Clock className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                       <div>
                         <div className="font-bold flex items-center gap-1.5 flex-wrap">
-                          <span>Jam {timeSlot} WIB Dikenakan Biaya Tambahan (+Rp 35.000)</span>
+                          <span>Jam {timeSlot} WIB Dikenakan Biaya Tambahan (+Rp {overtimeFee.toLocaleString('id-ID')})</span>
                           <span className="text-[9.5px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-mono font-bold">
-                            +Rp 35.000 Otomatis Masuk Total
+                            +Rp {overtimeFee.toLocaleString('id-ID')} Otomatis Masuk Total
                           </span>
                         </div>
                         <p className="text-[11px] text-amber-900/90 mt-0.5 leading-relaxed">
-                          {isEarlyMorningStudio
-                            ? `Slot jam 07:00 WIB merupakan Sesi Khusus Ekstra Pagi Studio Foto sebelum jam operasional reguler.`
-                            : `Slot jam ${timeSlot} WIB (selesai ${calculateEndTime(timeSlot, sessionDurationMinutes)} WIB) melebihi jam operasional tutup studio (21:00 WIB).`}
+                          {currentSlotChargeInfo.shiftName
+                            ? `Slot jam ${timeSlot} WIB: ${currentSlotChargeInfo.shiftName}.`
+                            : `Slot jam ${timeSlot} WIB (selesai ${calculateEndTime(timeSlot, sessionDurationMinutes)} WIB) memiliki biaya tambahan operasional.`}
                         </p>
                       </div>
                     </div>
@@ -4833,17 +4928,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                     </>
                   )}
 
-                  {earlyMorningFee > 0 && (
+                  {overtimeFee > 0 && (
                     <div className="flex justify-between text-amber-300 font-medium">
-                      <span>Tambahan Sesi Ekstra Pagi (07:00 WIB)</span>
-                      <span>+ Rp {earlyMorningFee.toLocaleString('id-ID')}</span>
-                    </div>
-                  )}
-
-                  {lateNightOvertimeFee > 0 && (
-                    <div className="flex justify-between text-amber-300 font-medium">
-                      <span>Tambahan Melebihi Jam 21.00 WIB (Overtime {timeSlot} WIB)</span>
-                      <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
+                      <span>{currentSlotChargeInfo.shiftName || `Biaya Tambahan Jam (${timeSlot} WIB)`}</span>
+                      <span>+ Rp {overtimeFee.toLocaleString('id-ID')}</span>
                     </div>
                   )}
 
@@ -5154,10 +5242,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                   </>
                 )}
 
-                {lateNightOvertimeFee > 0 && (
+                {overtimeFee > 0 && (
                   <div className="flex justify-between text-amber-300 font-medium">
-                    <span>Tambahan Melebihi Jam 21.00 WIB (Overtime)</span>
-                    <span>+ Rp {lateNightOvertimeFee.toLocaleString('id-ID')}</span>
+                    <span>{currentSlotChargeInfo.shiftName || `Biaya Tambahan Jam (${timeSlot} WIB)`}</span>
+                    <span>+ Rp {overtimeFee.toLocaleString('id-ID')}</span>
                   </div>
                 )}
 

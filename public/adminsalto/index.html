@@ -7967,6 +7967,7 @@
         showToast(`Slot jam ${slot.time} ${activeState ? 'diaktifkan' : 'dinonaktifkan'} untuk ${bName}.`);
       }
       renderSlots();
+      saveConfigLocally();
     }
 
     function applyPreset(presetType) {
@@ -8013,6 +8014,7 @@
       else if (presetType === 'early-on') showToast(`Slot pagi 07:00 telah diaktifkan (${branchName}).`);
 
       renderSlots();
+      saveConfigLocally();
     }
 
     function openAddSlotModal() {
@@ -8138,6 +8140,7 @@
 
       closeModal('slotModal');
       renderSlots();
+      saveConfigLocally();
     }
 
     function deleteSlot(idx) {
@@ -8146,6 +8149,7 @@
       if (confirm(`Yakin ingin menghapus slot jam ${slot.time}?`)) {
         appConfig.timeSlots.splice(idx, 1);
         renderSlots();
+        saveConfigLocally();
         showToast(`Slot jam ${slot.time} telah dihapus.`);
       }
     }
@@ -8173,6 +8177,7 @@
         appConfig.operationalHoursByBranch['cabang-2'] = val;
         showToast('Label jam operasional Semua Cabang diperbarui.');
       }
+      saveConfigLocally();
     }
 
     function renderBranches() {
