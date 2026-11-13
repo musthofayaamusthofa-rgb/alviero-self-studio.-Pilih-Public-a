@@ -3478,8 +3478,12 @@
             </select>
           </div>
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">ID Paket (Sistem)</label>
-            <input type="text" id="indoorIdInput" class="form-control" readonly style="background: #F4F4F5; cursor: not-allowed;">
+            <label class="form-label" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>ID Paket (Sistem)</span>
+              <button type="button" class="btn-icon-subtle" onclick="generateAutoPackageId()" title="Buat ID Otomatis dari Nama" style="font-size: 0.68rem; padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border); background: #FFF; font-weight: 600; cursor: pointer;">🔄 Auto ID</button>
+            </label>
+            <input type="text" id="indoorIdInput" class="form-control" placeholder="Contoh: grad-outdoor-smart-30" style="background: #FFFFFF; font-family: monospace; font-size: 0.85rem;">
+            <div style="font-size: 0.68rem; color: #78716C; margin-top: 3px;">ID pengenal sistem (huruf kecil &amp; tanda strip). <strong>Bebas Anda ubah!</strong></div>
           </div>
         </div>
 
@@ -3489,8 +3493,9 @@
             <input type="text" id="indoorNameInput" class="form-control" placeholder="Contoh: Elegant Scholar">
           </div>
           <div class="form-group" style="flex: 1;">
-            <label class="form-label">Sub-Judul Atas (Label)</label>
-            <input type="text" id="indoorSubtitleInput" class="form-control" placeholder="Contoh: Graduation Indoor 1">
+            <label class="form-label">Sub-Judul Atas / Label Pill (Contoh: GRADUATION OUTDOOR 1)</label>
+            <input type="text" id="indoorSubtitleInput" class="form-control" placeholder="Contoh: Graduation Outdoor 1 (30M)">
+            <div style="font-size: 0.68rem; color: #78716C; margin-top: 3px;">Teks pill di bagian atas kartu paket (Gambar 1). <strong>Bebas Anda ubah!</strong></div>
           </div>
         </div>
 
@@ -5990,6 +5995,15 @@
       showToast('Preset 6 fasilitas standar Alviero dimuat!', '📋');
     }
 
+        function generateAutoPackageId() {
+      const cat = document.getElementById('indoorCategoryInput').value || 'pkg';
+      const name = document.getElementById('indoorNameInput').value.trim();
+      const sub = document.getElementById('indoorSubtitleInput').value.trim();
+      let base = (cat + '-' + (name || sub || Date.now()));
+      base = base.toLowerCase().replace(/[^a-z0-9_-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      document.getElementById('indoorIdInput').value = base;
+    }
+
     function openAddIndoorPackageModal() {
       document.getElementById('indoorEditIndex').value = '-1';
       document.getElementById('indoorModalTitle').textContent = 'Tambah Paket Studio Baru';
@@ -6090,7 +6104,7 @@
 
       const meta = getCategoryBadgeMeta(cat);
       const itemData = {
-        id: document.getElementById('indoorIdInput').value.trim() || (cat + '-' + Date.now()),
+        id: (document.getElementById('indoorIdInput').value.trim() ? document.getElementById('indoorIdInput').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') : (cat + '-' + Date.now())),
         category: cat,
         categoryLabel: meta.label,
         subtitle: document.getElementById('indoorSubtitleInput').value.trim(),

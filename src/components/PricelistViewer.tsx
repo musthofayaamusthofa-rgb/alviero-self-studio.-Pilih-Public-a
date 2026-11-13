@@ -3764,10 +3764,14 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         {/* Outdoor 1: Smart Outdoor */}
                         {(() => {
-                          const pkgSmart30 = getPkg('grad-outdoor-smart-30');
-                          const pkgSmart60 = getPkg('grad-outdoor-smart-60');
-                          const price30 = getPkgPrice('grad-outdoor-smart-30', '295K');
-                          const price60 = getPkgPrice('grad-outdoor-smart-60', '375K');
+                          const pkgSmart30 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-smart-30') ||
+                            studioPackagesList.find((p: any) => (p.category === 'grad-outdoor' || p.category === 'graduation-outdoor') && (p.duration?.includes('30') || p.name?.includes('30') || p.subtitle?.includes('30'))) ||
+                            getPkg('grad-outdoor-smart-30');
+                          const pkgSmart60 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-smart-60') ||
+                            studioPackagesList.find((p: any) => (p.category === 'grad-outdoor' || p.category === 'graduation-outdoor') && (p.duration?.includes('60') || p.name?.includes('60') || p.subtitle?.includes('60'))) ||
+                            getPkg('grad-outdoor-smart-60');
+                          const price30 = pkgSmart30?.price ? formatPriceDisplay(pkgSmart30.price) : getPkgPrice('grad-outdoor-smart-30', '295K');
+                          const price60 = pkgSmart60?.price ? formatPriceDisplay(pkgSmart60.price) : getPkgPrice('grad-outdoor-smart-60', '375K');
                           const smartSubtitle = pkgSmart30?.subtitle ? pkgSmart30.subtitle.replace(/\s*\([^)]*\)/, '') : 'Graduation Outdoor 1';
 
                           const facilities = Array.isArray(pkgSmart60?.facilities) && pkgSmart60.facilities.length > 0 ? pkgSmart60.facilities : [
@@ -3812,13 +3816,13 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                 </span>
                                 <div className="flex items-center gap-2">
                                   <button
-                                    onClick={() => onSelectPackageForBooking('grad-outdoor-smart-30')}
+                                    onClick={() => onSelectPackageForBooking(pkgSmart30?.id || 'grad-outdoor-smart-30')}
                                     className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-[#EBF2EA] hover:bg-[#DEE9DD] text-[#3D6345] border border-[#CDE0CB] font-bold text-xs cursor-pointer active:scale-95 transition-all"
                                   >
                                     Pesan 30M ({price30})
                                   </button>
                                   <button
-                                    onClick={() => onSelectPackageForBooking('grad-outdoor-smart-60')}
+                                    onClick={() => onSelectPackageForBooking(pkgSmart60?.id || 'grad-outdoor-smart-60')}
                                     className="flex-1 sm:flex-none px-5 py-2 rounded-full bg-[#2A2A2A] hover:bg-black text-white font-bold text-xs cursor-pointer active:scale-95 shadow-sm transition-all"
                                   >
                                     Pesan 60M ({price60})
@@ -3831,8 +3835,10 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         {/* Outdoor 2: Cumlaude Foto + Video */}
                         {(() => {
-                          const pkgCumlaude = getPkg('grad-outdoor-cumlaude');
-                          const cumlaudePrice = getPkgPrice('grad-outdoor-cumlaude', '750K');
+                          const pkgCumlaude = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-cumlaude') ||
+                            studioPackagesList.find((p: any) => (p.category === 'grad-outdoor' || p.category === 'graduation-outdoor') && (p.name?.toLowerCase().includes('cumlaude') || p.subtitle?.toLowerCase().includes('cumlaude') || p.name?.toLowerCase().includes('video'))) ||
+                            getPkg('grad-outdoor-cumlaude');
+                          const cumlaudePrice = pkgCumlaude?.price ? formatPriceDisplay(pkgCumlaude.price) : getPkgPrice('grad-outdoor-cumlaude', '750K');
                           const cumlaudeOrigPrice = pkgCumlaude?.originalPrice ? formatPriceDisplay(pkgCumlaude.originalPrice) : 'Rp 850.000';
                           const facilities = Array.isArray(pkgCumlaude?.facilities) && pkgCumlaude.facilities.length > 0 ? pkgCumlaude.facilities : [
                             { icon: '⏰', label: 'Durasi Sesi', text: '75 Menit Sesi Foto & Video' },
@@ -3889,7 +3895,7 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                                   {pkgCumlaude?.note || '*Format video vertikal 9:16 siap posting ke Instagram Reels & TikTok'}
                                 </span>
                                 <button
-                                  onClick={() => onSelectPackageForBooking('grad-outdoor-cumlaude')}
+                                  onClick={() => onSelectPackageForBooking(pkgCumlaude?.id || 'grad-outdoor-cumlaude')}
                                   className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#2A2A2A] hover:bg-black text-[#FDFBF7] font-bold text-xs tracking-wider uppercase shadow-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
                                 >
                                   <span>Pilih Paket {pkgCumlaude?.name ? (pkgCumlaude.name.includes('Cumlaude') ? 'Cumlaude' : pkgCumlaude.name) : 'Cumlaude'}</span>

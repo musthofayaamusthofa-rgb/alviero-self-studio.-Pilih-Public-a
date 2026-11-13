@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-13T07:16:39.719Z",
+  "lastUpdated": "2026-11-13T11:55:32.551Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1946,7 +1946,7 @@
       "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 1 (30M)",
       "badge": "Fleksibel",
-      "name": "Smart Outdoor 30 Menit",
+      "name": "Smart Outdoor 1 60 Menit",
       "originalPrice": "",
       "price": "295K",
       "priceUnit": "30 Menit Sesi Foto",
@@ -4061,7 +4061,7 @@
       "categoryLabel": "Outdoor Kampus",
       "subtitle": "Graduation Outdoor 1 (30M)",
       "badge": "Fleksibel",
-      "name": "Smart Outdoor 30 Menit",
+      "name": "Smart Outdoor 1 60 Menit",
       "originalPrice": "",
       "price": "295K",
       "priceUnit": "30 Menit Sesi Foto",
@@ -7586,11 +7586,15 @@
       "id": "grad-outdoor",
       "name": "Grad Outdoor",
       "title": "PRICELIST WISUDA OUTDOOR",
-      "subtitle": "Smart Outdoor 30M/60M, Cumlaude Video & Group",
+      "subtitle": "Smart Outdoor",
       "badgeText": "Outdoor Kampus",
       "icon": "🌳",
       "thumbnailImage": "/images/categories/grad-outdoor.jpg",
-      "active": true
+      "active": true,
+      "label": "Grad Outdoor",
+      "badge": "Outdoor Kampus",
+      "tagline": "Smart Outdoor",
+      "image": "/images/categories/grad-outdoor.jpg"
     },
     {
       "id": "group-paket",
