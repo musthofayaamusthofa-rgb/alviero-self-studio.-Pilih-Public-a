@@ -2366,7 +2366,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const overtimeFee = (!isSelfStudio && !isOutdoorOnly) ? currentSlotChargeInfo.fee : 0;
   const isEarlyMorningStudio = !isSelfStudio && !isOutdoorOnly && normalizeSlotTime(timeSlot) === '07:00';
   const earlyMorningFee = 0;
-  const lateNightOvertimeFee = 0;
+  const isLateNightOvertime = !isSelfStudio && !isOutdoorOnly && (
+    (sessionSlotsCount === 2 && normalizeSlotTime(timeSlot) === '20:30') ||
+    Boolean((currentSlotChargeInfo as any)?.isOvertime) ||
+    Boolean(currentSlotChargeInfo?.shiftName?.toLowerCase().includes('overtime'))
+  );
+  const lateNightOvertimeFee = isLateNightOvertime ? overtimeFee : 0;
 
   const subtotal = packagePrice + addOnsTotalPrice + muaCartTotal + overtimeFee;
 
@@ -4326,7 +4331,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                             return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
                           })
                           .map(([groupKey, groupItems]) => {
-                            const meta = addOnGroupMeta[groupKey] || { label: groupKey, description: 'Layanan tambahan', className: 'bg-stone-50 border-stone-200 text-stone-950' };
+                            const meta = addOnGroupMeta[groupKey] || { label: groupKey, icon: '', description: 'Layanan tambahan', className: 'bg-stone-50 border-stone-200 text-stone-950' };
                             const selectedCount = groupItems.reduce((total, addOn) => total + (selectedAddOns[addOn.id] || 0), 0);
                             return (
                               <button
@@ -4340,7 +4345,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               >
                                 <div className="flex items-start justify-between gap-2">
                                   <div>
-                                    <span className="block font-serif font-bold text-sm uppercase tracking-wide flex items-center gap-1.5">{meta.icon && <span>{meta.icon}</span>}<span>{meta.label}</span></span>
+                                    <span className="block font-serif font-bold text-sm uppercase tracking-wide flex items-center gap-1.5">{(meta as any).icon ? <span>{(meta as any).icon}</span> : null}<span>{meta.label}</span></span>
                                     <span className="mt-1 block text-[11px] opacity-75">{meta.description}</span>
                                   </div>
                                   <span className="rounded-full bg-white/70 px-2 py-0.5 text-[10px] font-bold">
