@@ -5503,7 +5503,7 @@
         return;
       }
 
-      filtered.forEach((pkg) => {
+      filtered.forEach((pkg, fIdx) => {
         const idx = pkg._origIndex;
         const meta = getCategoryBadgeMeta(pkg.category);
         const card = document.createElement('div');
@@ -5580,8 +5580,8 @@
                 ${badgeHtml}
               </div>
               <div style="display: flex; gap: 0.25rem;">
-                <button class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''} title="Geser ke Atas">⬆️</button>
-                <button class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, 1)" ${idx === pkgs.length - 1 ? 'disabled style="opacity: 0.3; cursor: not-allowed;"' : ''} title="Geser ke Bawah">⬇️</button>
+                <button type="button" class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, -1)" ${fIdx === 0 ? 'disabled style="opacity: 0.25; cursor: not-allowed;"' : 'style="cursor: pointer;"'} title="${fIdx === 0 ? 'Sudah paling atas' : 'Geser ke Atas'}">⬆️</button>
+                <button type="button" class="btn-icon-subtle" onclick="moveIndoorPackage(${idx}, 1)" ${fIdx === filtered.length - 1 ? 'disabled style="opacity: 0.25; cursor: not-allowed;"' : 'style="cursor: pointer;"'} title="${fIdx === filtered.length - 1 ? 'Sudah paling bawah' : 'Geser ke Bawah'}">⬇️</button>
               </div>
             </div>
 
@@ -6168,16 +6168,50 @@
       }
     }
 
-    function moveIndoorPackage(idx, dir) {
+    function moveIndoorPackage(origIdx, dir) {
       if (!appConfig || !appConfig.studioPackages) return;
-      const targetIdx = idx + dir;
-      if (targetIdx < 0 || targetIdx >= appConfig.studioPackages.length) return;
-      const temp = appConfig.studioPackages[idx];
-      appConfig.studioPackages[idx] = appConfig.studioPackages[targetIdx];
-      appConfig.studioPackages[targetIdx] = temp;
+      const pkgs = appConfig.studioPackages;
+
+      // Filter yang sedang aktif di antarmuka
+      const searchInput = document.getElementById('pkgSearchInput');
+      const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+      // Dapatkan semua index di pkgs yang saat ini tampil di layar sesuai filter & pencarian
+      const visibleIndices = [];
+      pkgs.forEach((p, i) => {
+        if (typeof currentPkgCategoryFilter !== 'undefined' && currentPkgCategoryFilter !== 'all' && p.category !== currentPkgCategoryFilter) return;
+        if (query) {
+          const match = (p.name || '').toLowerCase().includes(query) ||
+                        (p.subtitle || '').toLowerCase().includes(query) ||
+                        (p.price || '').toLowerCase().includes(query) ||
+                        (p.duration || '').toLowerCase().includes(query) ||
+                        (p.categoryLabel || '').toLowerCase().includes(query) ||
+                        (p.note || '').toLowerCase().includes(query);
+          if (!match) return;
+        }
+        visibleIndices.push(i);
+      });
+
+      const posInVisible = visibleIndices.indexOf(origIdx);
+      if (posInVisible === -1) return;
+
+      const targetPos = posInVisible + dir;
+      if (targetPos < 0 || targetPos >= visibleIndices.length) return;
+
+      const targetOrigIdx = visibleIndices[targetPos];
+
+      // Tukar posisi elemen dengan tetangga yang tampil di layar
+      const temp = pkgs[origIdx];
+      pkgs[origIdx] = pkgs[targetOrigIdx];
+      pkgs[targetOrigIdx] = temp;
+
+      // Sinkronkan kembali properti _origIndex
+      pkgs.forEach((p, i) => { p._origIndex = i; });
+
       syncPackagesSubArrays();
       renderIndoorPackages();
       saveConfigLocally(true);
+      showToast(`Urutan paket '${temp.name}' berhasil dipindahkan!`, '↕️');
     }
 
     function saveIndoorPackagesConfig() {
@@ -7394,7 +7428,7 @@
         return;
       }
 
-      items.forEach(bg => {
+      items.forEach((bg, bIdx) => {
         const isInactive = bg.active === false;
         const card = document.createElement('div');
         card.className = 'bg-card' + (isInactive ? ' inactive' : '');
@@ -7471,10 +7505,10 @@
 
               <div class="card-actions-group">
                 <div style="display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #FFFFFF; margin-right: 0.2rem;">
-                  <button type="button" class="btn-action order-btn" ${bg._origIndex === 0 ? 'disabled' : ''} onclick="moveBackground(${bg._origIndex}, -1)" title="${bg._origIndex === 0 ? 'Sudah di posisi pertama' : 'Geser background ke kiri / urutan sebelumnya'}" style="${bg._origIndex === 0 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
+                  <button type="button" class="btn-action order-btn" ${bIdx === 0 ? 'disabled' : ''} onclick="moveBackground(${bg._origIndex}, -1)" title="${bIdx === 0 ? 'Sudah di posisi pertama' : 'Geser background ke kiri / urutan sebelumnya'}" style="${bIdx === 0 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
                     ◀
                   </button>
-                  <button type="button" class="btn-action order-btn" ${bg._origIndex === appConfig.backgrounds.length - 1 ? 'disabled' : ''} onclick="moveBackground(${bg._origIndex}, 1)" title="${bg._origIndex === appConfig.backgrounds.length - 1 ? 'Sudah di posisi terakhir' : 'Geser background ke kanan / urutan berikutnya'}" style="${bg._origIndex === appConfig.backgrounds.length - 1 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
+                  <button type="button" class="btn-action order-btn" ${bIdx === items.length - 1 ? 'disabled' : ''} onclick="moveBackground(${bg._origIndex}, 1)" title="${bIdx === items.length - 1 ? 'Sudah di posisi terakhir' : 'Geser background ke kanan / urutan berikutnya'}" style="${bIdx === items.length - 1 ? 'opacity: 0.35; cursor: not-allowed; background: #F3F4F6;' : 'cursor: pointer;'}">
                     ▶
                   </button>
                 </div>
@@ -9274,16 +9308,43 @@
     // --- REORDER BACKGROUNDS & KEBAYAS ---
     function moveBackground(origIdx, direction) {
       if (!appConfig || !appConfig.backgrounds || appConfig.backgrounds.length <= 1) return;
-      const targetIdx = origIdx + direction;
-      if (targetIdx < 0 || targetIdx >= appConfig.backgrounds.length) return;
+      const bgs = appConfig.backgrounds;
 
-      const temp = appConfig.backgrounds[origIdx];
-      appConfig.backgrounds[origIdx] = appConfig.backgrounds[targetIdx];
-      appConfig.backgrounds[targetIdx] = temp;
+      const bgSearchInput = document.getElementById('bgSearchInput');
+      const searchQuery = (bgSearchInput ? bgSearchInput.value : '').toLowerCase().trim();
+
+      const visibleIndices = [];
+      bgs.forEach((bg, idx) => {
+        if (typeof currentBranchFilter !== 'undefined' && currentBranchFilter !== 'all') {
+          if (!bg.applicableBranches || !bg.applicableBranches.includes(currentBranchFilter)) return;
+        }
+        if (typeof currentServiceFilter !== 'undefined' && currentServiceFilter !== 'all') {
+          if (!bg.applicableTo || !bg.applicableTo.includes(currentServiceFilter)) return;
+        }
+        if (searchQuery) {
+          const match = (bg.name || '').toLowerCase().includes(searchQuery) || (bg.description || '').toLowerCase().includes(searchQuery);
+          if (!match) return;
+        }
+        visibleIndices.push(idx);
+      });
+
+      const posInVisible = visibleIndices.indexOf(origIdx);
+      if (posInVisible === -1) return;
+
+      const targetPos = posInVisible + direction;
+      if (targetPos < 0 || targetPos >= visibleIndices.length) return;
+
+      const targetOrigIdx = visibleIndices[targetPos];
+
+      const temp = bgs[origIdx];
+      bgs[origIdx] = bgs[targetOrigIdx];
+      bgs[targetOrigIdx] = temp;
+
+      bgs.forEach((b, i) => { b._origIndex = i; });
 
       saveConfigLocally();
       renderBackgrounds();
-      showToast(`Urutan background '${temp.name}' dipindahkan ke posisi #${targetIdx + 1}!`, '↕️');
+      showToast(`Urutan background '${temp.name}' berhasil dipindahkan!`, '↕️');
     }
 
     function promptChangeBackgroundOrder(origIdx) {
