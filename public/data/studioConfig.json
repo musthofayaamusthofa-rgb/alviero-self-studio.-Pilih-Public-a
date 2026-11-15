@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-13T12:23:50.869Z",
+  "lastUpdated": "2026-11-15T12:01:21.358Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -3406,18 +3406,84 @@
       "_origIndex": 33
     },
     {
-      "id": "birthday-sweet-celebration",
+      "id": "birthday-sweet-light",
       "category": "birthday",
       "categoryLabel": "Birthday",
       "subtitle": "Birthday 1",
       "badge": "Ulang Tahun",
+      "name": "Sweet Light",
+      "originalPrice": "300K",
+      "price": "195K",
+      "priceUnit": "per sesi",
+      "duration": "20 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "1 Person  (additional orang 20K/org)",
+      "edit": "Edit 6 Foto High-Res",
+      "print": "Cetak 1 Uk 10Rs",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "🎂",
+          "label": "Kapasitas Orang",
+          "text": "1 Person  (additional orang 20K/org)"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Foto",
+          "text": "20 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 10Rs"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman Softfile",
+          "text": "All File via Google Drive"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
+        },
+        {
+          "icon": "🎈",
+          "label": "Properti Ulang Tahun",
+          "text": "Properti Birthday dari Klien"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (dari client)"
+        }
+      ],
+      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
+      "imageUrl": "/images/packages/sweet_celebration_foto1_1794734112668.jpg",
+      "imageUrls": [
+        "/images/packages/sweet_celebration_foto1_1794734112668.jpg",
+        "/images/packages/sweet_celebration_foto2_1794734247926.jpg"
+      ],
+      "_origIndex": 34
+    },
+    {
+      "id": "birthday-sweet-celebration",
+      "category": "birthday",
+      "categoryLabel": "Birthday",
+      "subtitle": "Birthday 2",
+      "badge": "Seru",
       "name": "Sweet Celebration",
-      "originalPrice": "",
-      "price": "350K",
+      "originalPrice": "350K",
+      "price": "295K",
       "priceUnit": "per sesi",
       "duration": "25 Menit Sesi Foto",
       "background": "1 Background Studio",
-      "people": "1 Person (Properti Birthday dari Klien)",
+      "people": "1 Person  (additional orang 20K/org)",
       "edit": "Edit 6 Foto High-Res",
       "print": "Cetak 2 Uk 10Rs",
       "fileDelivery": "All File via Google Drive",
@@ -3425,7 +3491,7 @@
         {
           "icon": "🎂",
           "label": "Kapasitas Orang",
-          "text": "1 Person (Properti Birthday dari Klien)"
+          "text": "1 Person  (additional orang 20K/org)"
         },
         {
           "icon": "⏰",
@@ -3438,11 +3504,6 @@
           "text": "1 Background Studio"
         },
         {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 6 Foto High-Res"
-        },
-        {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
           "text": "Cetak 2 Uk 10Rs"
@@ -3453,85 +3514,38 @@
           "text": "All File via Google Drive"
         },
         {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 6 Foto High-Res"
+        },
+        {
           "icon": "🎈",
           "label": "Properti Ulang Tahun",
-          "text": "Boleh bawa kue tart & balon sendiri"
+          "text": "Free Birthday Decoration:  Tulisan Birthday, 12 Balon, 1 Balon Angka 80 cm"
+        },
+        {
+          "icon": "👗",
+          "label": "Kostum & Toga",
+          "text": "Maksimal 1 kostum (dari client)"
         }
       ],
       "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
-      "imageUrl": "/images/packages/sweet_celebration_foto1_1794220870970.jpg",
+      "imageUrl": "/images/packages/glow_sweet_celebration_foto1_1794734187849.jpg",
       "imageUrls": [
-        "/images/packages/sweet_celebration_foto1_1794220870970.jpg"
+        "/images/packages/glow_sweet_celebration_foto1_1794734187849.jpg",
+        "/images/packages/glow_sweet_celebration_foto2_1794734210836.jpg"
       ],
-      "_origIndex": 34
-    },
-    {
-      "id": "birthday-glow-sweet",
-      "category": "birthday",
-      "categoryLabel": "Birthday",
-      "subtitle": "Birthday 2",
-      "badge": "Seru",
-      "name": "Glow Sweet Celebration",
-      "originalPrice": "",
-      "price": "450K",
-      "priceUnit": "per sesi",
-      "duration": "30 Menit Sesi Foto",
-      "background": "1 Background Studio",
-      "people": "2 - 3 Person",
-      "edit": "Edit 6 Foto High-Res",
-      "print": "Cetak 2 Uk 10Rs",
-      "fileDelivery": "All File via Google Drive",
-      "facilities": [
-        {
-          "icon": "🎂",
-          "label": "Kapasitas Orang",
-          "text": "2 - 3 Person"
-        },
-        {
-          "icon": "⏰",
-          "label": "Durasi Foto",
-          "text": "30 Menit Sesi Foto"
-        },
-        {
-          "icon": "✨",
-          "label": "Background Studio",
-          "text": "1 Background Studio"
-        },
-        {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 6 Foto High-Res"
-        },
-        {
-          "icon": "🖼️",
-          "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10Rs"
-        },
-        {
-          "icon": "📁",
-          "label": "Pengiriman Softfile",
-          "text": "All File via Google Drive"
-        },
-        {
-          "icon": "🎈",
-          "label": "Properti Ulang Tahun",
-          "text": "Bebas bawa properti dekorasi"
-        }
-      ],
-      "note": "*Kombinasi foto potret personal dan foto seru bersama keluarga/teman",
-      "imageUrl": "",
-      "imageUrls": [],
       "_origIndex": 35
     },
     {
-      "id": "birthday-sweet-light",
+      "id": "birthday-sweet-luxe",
       "category": "birthday",
       "categoryLabel": "Birthday",
       "subtitle": "Birthday 3",
       "badge": "Spotlight",
-      "name": "Sweet Light Birthday",
-      "originalPrice": "",
-      "price": "600K",
+      "name": "Sweet Luxe",
+      "originalPrice": "495K",
+      "price": "395K",
       "priceUnit": "per sesi",
       "duration": "40 Menit Sesi Foto",
       "background": "2 Background Studio",
@@ -3576,20 +3590,23 @@
           "text": "Pencahayaan Spotlight / Artistic"
         }
       ],
-      "note": "*Pencahayaan warna artistik spotlight untuk pesta ulang tahun estetik",
-      "imageUrl": "",
-      "imageUrls": [],
+      "note": "*Boleh membawa kue tart, balon, dan dekorasi ulang tahun sendiri",
+      "imageUrl": "/images/packages/sweet_light_birthday_foto1_1794734351163.jpg",
+      "imageUrls": [
+        "/images/packages/sweet_light_birthday_foto1_1794734351163.jpg",
+        "/images/packages/sweet_light_birthday_foto2_1794734360676.jpg"
+      ],
       "_origIndex": 36
     },
     {
-      "id": "birthday-ultimate-sweet-light",
+      "id": "birthday-sweet-exclusive",
       "category": "birthday",
       "categoryLabel": "Birthday",
       "subtitle": "Birthday 4",
       "badge": "Super Lengkap",
-      "name": "Ultimate Sweet Light",
+      "name": "Sweet Exclusive",
       "originalPrice": "",
-      "price": "850K",
+      "price": "Hubungi Admin",
       "priceUnit": "per sesi",
       "duration": "50 Menit Sesi Foto",
       "background": "2 Background + Spotlight Art",
@@ -3634,7 +3651,7 @@
           "text": "Konsep Penuh & Bebas Properti"
         }
       ],
-      "note": "*Paket terlengkap untuk perayaan Sweet 17 / ultah keluarga besar",
+      "note": "Untuk harga & konsep sesuai kebutuhan, silakan hubungi Admin melalui WhatsApp.",
       "imageUrl": "",
       "imageUrls": [],
       "_origIndex": 37

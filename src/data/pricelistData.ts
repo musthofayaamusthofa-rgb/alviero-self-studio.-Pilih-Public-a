@@ -739,8 +739,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "2 Foto Cetak Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 350000,
-    "originalPrice": 240000,
+    "price": 295000,
+    "originalPrice": 350000,
     "description": "Foto 25 Menit, 1 background foto, 1 Person, All file via Google Drive, 6 foto Edit | 2 Foto Cetak Uk 10Rs, Properti birthday Dari Klien.",
     "highlights": [
       "Foto 25 Menit Sesi Ulang Tahun",
@@ -763,8 +763,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 3,
     "includedPrints": "2 Foto Cetak Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 450000,
-    "originalPrice": 320000,
+    "price": 295000,
+    "originalPrice": 350000,
     "description": "Foto 30 Menit, 1 Background Foto, 2 - 3 Person, All file Google Drive, 6 Foto Edit | 2 Foto cetak Uk 10Rs, Properti birthday dari klien.",
     "highlights": [
       "Foto 30 Menit Sesi Ulang Tahun",
@@ -787,7 +787,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 1,
     "includedPrints": "2 Foto Cetak Uk 10Rs",
     "softFilesIncluded": true,
-    "price": 600000,
+    "price": 195000,
     "originalPrice": 300000,
     "description": "Foto 30 Menit, 1 Background foto, 1 Person, All file via Google Drive, 8 Foto edit | 2 Foto cetak Uk 10Rs, Include Properti: tulisan birthday, 12 Balon Latex, balon angka, 1 Balon Angka 80cm.",
     "highlights": [
