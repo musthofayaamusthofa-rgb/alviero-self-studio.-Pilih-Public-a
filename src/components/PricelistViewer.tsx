@@ -3922,79 +3922,76 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                            {/* Group 2 */}
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                              <div>
-                                <span className="text-[10px] font-bold text-[#5C725A] bg-[#EBF2EA] px-2 py-0.5 rounded-full uppercase">
-                                  2 Wisudawan
-                                </span>
-                                <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">Group 2 Orang</div>
-                                <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
-                                  <p>⏱️ 75 Menit Sesi Foto</p>
-                                  <p>✨ Edit 20 Foto High-Res</p>
-                                  <p className="text-[11px] text-slate-500 font-semibold pt-1">Rp 255.000 / wisudawan</p>
-                                </div>
-                              </div>
-                              <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                <span className="text-xl font-serif font-black text-[#2A2A2A]">{getPkgPrice('grad-outdoor-group-2', '510K')}</span>
-                                <button
-                                  onClick={() => onSelectPackageForBooking('grad-outdoor-group-2')}
-                                  className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
-                                >
-                                  Pesan
-                                </button>
-                              </div>
-                            </div>
+                          {(() => {
+                            const pkgGroup2 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-group-2') || getPkg('grad-outdoor-group-2');
+                            const pkgGroup3 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-group-3') || getPkg('grad-outdoor-group-3');
+                            const pkgGroup45 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-group-4-5') || getPkg('grad-outdoor-group-4-5');
 
-                            {/* Group 3 */}
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                              <div>
-                                <span className="text-[10px] font-bold text-[#5C725A] bg-[#EBF2EA] px-2 py-0.5 rounded-full uppercase">
-                                  3 Wisudawan
-                                </span>
-                                <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">Group 3 Orang</div>
-                                <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
-                                  <p>⏱️ 90 Menit Sesi Foto</p>
-                                  <p>✨ Edit 30 Foto High-Res</p>
-                                  <p className="text-[11px] text-slate-500 font-semibold pt-1">Rp 210.000 / wisudawan</p>
-                                </div>
-                              </div>
-                              <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                <span className="text-xl font-serif font-black text-[#2A2A2A]">{getPkgPrice('grad-outdoor-group-3', '630K')}</span>
-                                <button
-                                  onClick={() => onSelectPackageForBooking('grad-outdoor-group-3')}
-                                  className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
-                                >
-                                  Pesan
-                                </button>
-                              </div>
-                            </div>
+                            const groups = [
+                              {
+                                id: 'grad-outdoor-group-2',
+                                pkg: pkgGroup2,
+                                tag: pkgGroup2?.subtitle || '2 Wisudawan',
+                                name: pkgGroup2?.name || 'Group 2 Orang',
+                                duration: pkgGroup2?.duration || '75 Menit Sesi Foto',
+                                edit: pkgGroup2?.edit || 'Edit 20 Foto High-Res',
+                                note: pkgGroup2?.note || 'Rp 255.000 / wisudawan',
+                                price: pkgGroup2?.price ? formatPriceDisplay(pkgGroup2.price) : getPkgPrice('grad-outdoor-group-2', '510K'),
+                                tagBg: 'bg-[#EBF2EA] text-[#5C725A]'
+                              },
+                              {
+                                id: 'grad-outdoor-group-3',
+                                pkg: pkgGroup3,
+                                tag: pkgGroup3?.subtitle || '3 Wisudawan',
+                                name: pkgGroup3?.name || 'Group 3 Orang',
+                                duration: pkgGroup3?.duration || '90 Menit Sesi Foto',
+                                edit: pkgGroup3?.edit || 'Edit 30 Foto High-Res',
+                                note: pkgGroup3?.note || 'Rp 210.000 / wisudawan',
+                                price: pkgGroup3?.price ? formatPriceDisplay(pkgGroup3.price) : getPkgPrice('grad-outdoor-group-3', '630K'),
+                                tagBg: 'bg-[#EBF2EA] text-[#5C725A]'
+                              },
+                              {
+                                id: 'grad-outdoor-group-4-5',
+                                pkg: pkgGroup45,
+                                tag: pkgGroup45?.subtitle || '4-5 Wisudawan',
+                                name: pkgGroup45?.name || 'Group 4-5 Orang',
+                                duration: pkgGroup45?.duration || '120 Menit Sesi Foto',
+                                edit: pkgGroup45?.edit || 'Edit 40 Foto High-Res',
+                                note: pkgGroup45?.note || 'Rp 180.000 / wisudawan',
+                                price: pkgGroup45?.price ? formatPriceDisplay(pkgGroup45.price) : getPkgPrice('grad-outdoor-group-4-5', '900K'),
+                                tagBg: 'bg-[#FAF0E6] text-[#8A5A36]'
+                              }
+                            ];
 
-                            {/* Group 4-5 */}
-                            <div className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                              <div>
-                                <span className="text-[10px] font-bold text-[#8A5A36] bg-[#FAF0E6] px-2 py-0.5 rounded-full uppercase">
-                                  4-5 Wisudawan
-                                </span>
-                                <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">Group 4-5 Orang</div>
-                                <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
-                                  <p>⏱️ 120 Menit Sesi Foto</p>
-                                  <p>✨ Edit 40 Foto High-Res</p>
-                                  <p className="text-[11px] text-slate-500 font-semibold pt-1">Rp 180.000 / wisudawan</p>
-                                </div>
+                            return (
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                                {groups.map(grp => (
+                                  <div key={grp.id} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                                    <div>
+                                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${grp.tagBg}`}>
+                                        {grp.tag}
+                                      </span>
+                                      <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">{grp.name}</div>
+                                      <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
+                                        <p>⏱️ {grp.duration.replace(/^⏱️\s*/, '')}</p>
+                                        <p>✨ {grp.edit.replace(/^✨\s*/, '')}</p>
+                                        {grp.note && <p className="text-[11px] text-slate-500 font-semibold pt-1">{grp.note}</p>}
+                                      </div>
+                                    </div>
+                                    <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
+                                      <span className="text-xl font-serif font-black text-[#2A2A2A]">{grp.price}</span>
+                                      <button
+                                        onClick={() => onSelectPackageForBooking(grp.pkg?.id || grp.id)}
+                                        className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95 transition-all"
+                                      >
+                                        Pesan
+                                      </button>
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
-                              <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                <span className="text-xl font-serif font-black text-[#2A2A2A]">{getPkgPrice('grad-outdoor-group-4-5', '900K')}</span>
-                                <button
-                                  onClick={() => onSelectPackageForBooking('grad-outdoor-group-4-5')}
-                                  className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95"
-                                >
-                                  Pesan
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+                            );
+                          })()}
 
                           {/* Paket Outdoor Tambahan dari Dashboard Studio */}
                           {(() => {

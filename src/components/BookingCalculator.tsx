@@ -1684,6 +1684,9 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const isGraduationPackage = (
     currentPackage?.category === 'graduation-indoor' ||
     currentPackage?.category === 'graduation-outdoor' ||
+    currentPackage?.category === 'grad-indoor' ||
+    currentPackage?.category === 'grad-outdoor' ||
+    currentPackage?.category === 'grad-bundling' ||
     (currentPackage?.category || '').includes('grad') ||
     (currentPackage?.id || '').toLowerCase().includes('grad') ||
     (currentPackage?.name || '').toLowerCase().includes('scholar') ||
@@ -1693,11 +1696,16 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   const hasOutdoorSession = Boolean(
     currentPackage?.hasOutdoorSession ||
     currentPackage?.category === 'graduation-outdoor' ||
+    currentPackage?.category === 'grad-outdoor' ||
     (currentPackage?.name || '').toLowerCase().includes('outdoor') ||
     (currentPackage.name || '').toLowerCase().includes('bundling') ||
     (currentPackage.description || '').toLowerCase().includes('outdoor')
   );
-  const isOutdoorOnly = hasOutdoorSession && currentPackage.category === 'graduation-outdoor';
+  const isOutdoorOnly = hasOutdoorSession && (
+    currentPackage?.category === 'graduation-outdoor' ||
+    currentPackage?.category === 'grad-outdoor' ||
+    ((currentPackage?.name || '').toLowerCase().includes('outdoor') && !(currentPackage?.name || '').toLowerCase().includes('bundling') && !(currentPackage?.id || '').toLowerCase().includes('bundling'))
+  );
   const outdoorTimeSlots = useMemo(() => {
     const configuredOutdoor = getActiveTimeSlots(
       studioConfig,
@@ -3371,7 +3379,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                 )}
 
                 {/* 60 Minutes Duration Badge Notice for 2 Background Packages (Hanya untuk Paket Studio Indoor non-Outdoor) */}
-                {!isOutdoorOnly && currentPackage.category !== 'graduation-outdoor' && maxBackdrops > 1 && (
+                {!isOutdoorOnly && currentPackage.category !== 'graduation-outdoor' && currentPackage.category !== 'grad-outdoor' && maxBackdrops > 1 && (
                   <div className="p-3 bg-[#F2E9E4]/60 border border-[#E8DDD6] rounded-xl flex items-center justify-between gap-2 text-xs font-sans shadow-2xs">
                     <div className="flex items-center gap-2">
                       <span className="w-5 h-5 rounded-md bg-[#3A3A3A] text-[#A9BCA7] text-[10px] font-mono font-bold flex items-center justify-center shrink-0">
