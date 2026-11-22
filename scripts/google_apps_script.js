@@ -1049,8 +1049,9 @@ function normalizeTime(val) {
   return str;
 }
 
-// 26 Slot Jadwal Interval 30 Menit (08:00 - 20:30 WIB)
+// Slot Jadwal Indoor (termasuk Ekstra Pagi 07:00 dan Malam 21:00 WIB)
 var ALL_30M_SLOTS = [
+  '07:00',
   '08:00', '08:30',
   '09:00', '09:30',
   '10:00', '10:30',
@@ -1063,7 +1064,8 @@ var ALL_30M_SLOTS = [
   '17:00', '17:30',
   '18:00', '18:30',
   '19:00', '19:30',
-  '20:00', '20:30'
+  '20:00', '20:30',
+  '21:00'
 ];
 
 // Helper: Menghitung slot apa saja yang terpakai oleh 1 baris booking (1 slot vs 2 slot)
