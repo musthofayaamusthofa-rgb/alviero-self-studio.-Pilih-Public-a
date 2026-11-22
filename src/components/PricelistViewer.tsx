@@ -3923,31 +3923,18 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
 
                         {/* Outdoor 3: Group Wisuda Outdoor */}
                         <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E8DDD6] hover:border-[#A9BCA7] p-5 sm:p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.04)] hover:shadow-md transition-all duration-200 space-y-4">
-                          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
-                            <div>
-                              <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
-                                Graduation Outdoor 3
-                              </span>
-                              <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
-                                Group Wisuda Outdoor
-                              </h4>
-                              <p className="text-xs text-slate-600 font-century mt-0.5">
-                                Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga).
-                              </p>
-                            </div>
-                          </div>
-
                           {(() => {
                             const pkgGroup2 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-group-2') || getPkg('grad-outdoor-group-2');
                             const pkgGroup3 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-group-3') || getPkg('grad-outdoor-group-3');
                             const pkgGroup45 = studioPackagesList.find((p: any) => p.id === 'grad-outdoor-group-4-5') || getPkg('grad-outdoor-group-4-5');
+                            const groupPhoto = pkgGroup2?.imageUrl || (Array.isArray(pkgGroup2?.imageUrls) && pkgGroup2.imageUrls[0]) || '/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg';
 
                             const groups = [
                               {
                                 id: 'grad-outdoor-group-2',
                                 pkg: pkgGroup2,
-                                tag: pkgGroup2?.subtitle || '2 Wisudawan',
-                                name: pkgGroup2?.name || 'Group 2 Orang',
+                                tag: pkgGroup2?.badge || pkgGroup2?.subtitle || '2 Wisudawan',
+                                name: pkgGroup2?.name || 'Group Outdoor 2 Wisudawan',
                                 duration: pkgGroup2?.duration || '75 Menit Sesi Foto',
                                 edit: pkgGroup2?.edit || 'Edit 20 Foto High-Res',
                                 note: pkgGroup2?.note || 'Rp 255.000 / wisudawan',
@@ -3957,8 +3944,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               {
                                 id: 'grad-outdoor-group-3',
                                 pkg: pkgGroup3,
-                                tag: pkgGroup3?.subtitle || '3 Wisudawan',
-                                name: pkgGroup3?.name || 'Group 3 Orang',
+                                tag: pkgGroup3?.badge || pkgGroup3?.subtitle || '3 Wisudawan',
+                                name: pkgGroup3?.name || 'Group Outdoor 3 Wisudawan',
                                 duration: pkgGroup3?.duration || '90 Menit Sesi Foto',
                                 edit: pkgGroup3?.edit || 'Edit 30 Foto High-Res',
                                 note: pkgGroup3?.note || 'Rp 210.000 / wisudawan',
@@ -3968,8 +3955,8 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                               {
                                 id: 'grad-outdoor-group-4-5',
                                 pkg: pkgGroup45,
-                                tag: pkgGroup45?.subtitle || '4-5 Wisudawan',
-                                name: pkgGroup45?.name || 'Group 4-5 Orang',
+                                tag: pkgGroup45?.badge || pkgGroup45?.subtitle || '4-5 Wisudawan',
+                                name: pkgGroup45?.name || 'Group Outdoor 4-5 Wisudawan',
                                 duration: pkgGroup45?.duration || '120 Menit Sesi Foto',
                                 edit: pkgGroup45?.edit || 'Edit 40 Foto High-Res',
                                 note: pkgGroup45?.note || 'Rp 180.000 / wisudawan',
@@ -3979,32 +3966,57 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             ];
 
                             return (
-                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                                {groups.map(grp => (
-                                  <div key={grp.id} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
-                                    <div>
-                                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${grp.tagBg}`}>
-                                        {grp.tag}
-                                      </span>
-                                      <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">{grp.name}</div>
-                                      <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
-                                        <p>⏱️ {grp.duration.replace(/^⏱️\s*/, '')}</p>
-                                        <p>✨ {grp.edit.replace(/^✨\s*/, '')}</p>
-                                        {grp.note && <p className="text-[11px] text-slate-500 font-semibold pt-1">{grp.note}</p>}
+                              <>
+                                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                  <div className="flex-1">
+                                    <span className="text-[11px] font-bold text-[#8A7D71] uppercase tracking-wider font-century">
+                                      Graduation Outdoor 3
+                                    </span>
+                                    <h4 className="text-2xl sm:text-3xl font-serif font-black text-[#2A2A2A] tracking-tight mt-0.5">
+                                      Group Wisuda Outdoor
+                                    </h4>
+                                    <p className="text-xs text-slate-600 font-century mt-0.5">
+                                      Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga).
+                                    </p>
+                                  </div>
+                                  {groupPhoto && (
+                                    <div className="w-full sm:w-36 h-20 rounded-xl overflow-hidden shrink-0 border border-[#E8DDD6] shadow-2xs bg-[#FAF8F5]">
+                                      <img
+                                        src={groupPhoto}
+                                        alt="Group Wisuda Outdoor"
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                                  {groups.map(grp => (
+                                    <div key={grp.id} className="bg-[#FAF8F5] border border-[#EFE5DC] rounded-2xl p-4 flex flex-col justify-between space-y-3">
+                                      <div>
+                                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${grp.tagBg}`}>
+                                          {grp.tag}
+                                        </span>
+                                        <div className="text-lg font-serif font-bold text-[#2A2A2A] mt-1.5">{grp.name}</div>
+                                        <div className="text-xs text-slate-600 font-century space-y-0.5 mt-1">
+                                          <p>⏱️ {grp.duration.replace(/^⏱️\s*/, '')}</p>
+                                          <p>✨ {grp.edit.replace(/^✨\s*/, '')}</p>
+                                          {grp.note && <p className="text-[11px] text-slate-500 font-semibold pt-1">{grp.note}</p>}
+                                        </div>
+                                      </div>
+                                      <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
+                                        <span className="text-xl font-serif font-black text-[#2A2A2A]">{grp.price}</span>
+                                        <button
+                                          onClick={() => onSelectPackageForBooking(grp.pkg?.id || grp.id)}
+                                          className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95 transition-all"
+                                        >
+                                          Pesan
+                                        </button>
                                       </div>
                                     </div>
-                                    <div className="pt-2 border-t border-[#E8DDD6] flex items-center justify-between">
-                                      <span className="text-xl font-serif font-black text-[#2A2A2A]">{grp.price}</span>
-                                      <button
-                                        onClick={() => onSelectPackageForBooking(grp.pkg?.id || grp.id)}
-                                        className="px-4 py-1.5 rounded-full bg-[#2A2A2A] hover:bg-black text-white text-xs font-bold font-century cursor-pointer active:scale-95 transition-all"
-                                      >
-                                        Pesan
-                                      </button>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
+                                  ))}
+                                </div>
+                              </>
                             );
                           })()}
 

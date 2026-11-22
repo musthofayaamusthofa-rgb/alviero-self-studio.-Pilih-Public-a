@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-22T12:43:36.698Z",
+  "lastUpdated": "2026-11-22T14:59:20.940Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2753,44 +2753,172 @@
       "_origIndex": 22
     },
     {
-      "id": "group-wisuda-outdoor",
-      "category": "group",
-      "categoryLabel": "Group",
-      "subtitle": "Group Graduation Outdoor",
-      "badge": "Geng Wisuda",
-      "name": "Group Wisuda Outdoor",
+      "id": "grad-outdoor-group-2",
+      "category": "grad-outdoor",
+      "categoryLabel": "Outdoor Kampus",
+      "subtitle": "Graduation Outdoor 3 (2 Wisudawan)",
+      "badge": "2 Wisudawan",
+      "name": "Group Outdoor 2 Wisudawan",
       "originalPrice": "",
-      "price": "510K (2 Wis) / 630K (3 Wis) / 900K (4-5 Wis)",
-      "priceUnit": "Berdasarkan Jumlah Wisudawan",
-      "duration": "2 Wisudawan - 75 Menit",
-      "background": "3 Wisudawan - 90 Menit",
-      "people": "4-5 Wisudawan - 120 Menit",
-      "edit": "",
+      "price": "510K",
+      "priceUnit": "75 Menit • Rp 255.000 / wisudawan",
+      "duration": "75 Menit Sesi Foto",
+      "durationMinutes": 75,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "2 Wisudawan + Keluarga / Teman",
+      "includedPeople": 2,
+      "edit": "Edit 20 Foto High-Res Pilihan",
       "print": "",
-      "fileDelivery": "",
+      "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
-          "icon": "🎓",
-          "label": "Wisudawan",
-          "text": "2 Wisudawan - 75 Menit"
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "2 Wisudawan + Keluarga / Teman"
         },
         {
-          "icon": "🎓",
-          "label": "Wisudawan",
-          "text": "3 Wisudawan - 90 Menit"
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "75 Menit Sesi Foto"
         },
         {
-          "icon": "🎓",
-          "label": "Wisudawan",
-          "text": "4-5 Wisudawan - 120 Menit"
+          "icon": "✏️",
+          "label": "Jatah Edit",
+          "text": "Edit 20 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "💰",
+          "label": "Biaya Satuan",
+          "text": "Rp 255.000 / wisudawan"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
         }
       ],
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
       "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
       "imageUrls": [
         "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ]
+    },
+    {
+      "id": "grad-outdoor-group-3",
+      "category": "grad-outdoor",
+      "categoryLabel": "Outdoor Kampus",
+      "subtitle": "Graduation Outdoor 3 (3 Wisudawan)",
+      "badge": "3 Wisudawan",
+      "name": "Group Outdoor 3 Wisudawan",
+      "originalPrice": "",
+      "price": "630K",
+      "priceUnit": "90 Menit • Rp 210.000 / wisudawan",
+      "duration": "90 Menit Sesi Foto",
+      "durationMinutes": 90,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "3 Wisudawan + Keluarga / Teman",
+      "includedPeople": 3,
+      "edit": "Edit 30 Foto High-Res Pilihan",
+      "print": "",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "3 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "90 Menit Sesi Foto"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit",
+          "text": "Edit 30 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "💰",
+          "label": "Biaya Satuan",
+          "text": "Rp 210.000 / wisudawan"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
       ],
-      "_origIndex": 23
+      "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ]
+    },
+    {
+      "id": "grad-outdoor-group-4-5",
+      "category": "grad-outdoor",
+      "categoryLabel": "Outdoor Kampus",
+      "subtitle": "Graduation Outdoor 3 (4-5 Wisudawan)",
+      "badge": "4-5 Wisudawan",
+      "name": "Group Outdoor 4-5 Wisudawan",
+      "originalPrice": "",
+      "price": "900K",
+      "priceUnit": "120 Menit • Rp 180.000 / wisudawan",
+      "duration": "120 Menit Sesi Foto",
+      "durationMinutes": 120,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "4-5 Wisudawan + Keluarga / Teman",
+      "includedPeople": 5,
+      "edit": "Edit 40 Foto High-Res Pilihan",
+      "print": "",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "4-5 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "120 Menit Sesi Foto"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit",
+          "text": "Edit 40 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "💰",
+          "label": "Biaya Satuan",
+          "text": "Rp 180.000 / wisudawan"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ]
     },
     {
       "id": "couple-eternal-love",
@@ -4216,6 +4344,174 @@
       "imageUrl": "",
       "imageUrls": [],
       "_origIndex": 7
+    },
+    {
+      "id": "grad-outdoor-group-2",
+      "category": "grad-outdoor",
+      "categoryLabel": "Outdoor Kampus",
+      "subtitle": "Graduation Outdoor 3 (2 Wisudawan)",
+      "badge": "2 Wisudawan",
+      "name": "Group Outdoor 2 Wisudawan",
+      "originalPrice": "",
+      "price": "510K",
+      "priceUnit": "75 Menit • Rp 255.000 / wisudawan",
+      "duration": "75 Menit Sesi Foto",
+      "durationMinutes": 75,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "2 Wisudawan + Keluarga / Teman",
+      "includedPeople": 2,
+      "edit": "Edit 20 Foto High-Res Pilihan",
+      "print": "",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "2 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "75 Menit Sesi Foto"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit",
+          "text": "Edit 20 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "💰",
+          "label": "Biaya Satuan",
+          "text": "Rp 255.000 / wisudawan"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ]
+    },
+    {
+      "id": "grad-outdoor-group-3",
+      "category": "grad-outdoor",
+      "categoryLabel": "Outdoor Kampus",
+      "subtitle": "Graduation Outdoor 3 (3 Wisudawan)",
+      "badge": "3 Wisudawan",
+      "name": "Group Outdoor 3 Wisudawan",
+      "originalPrice": "",
+      "price": "630K",
+      "priceUnit": "90 Menit • Rp 210.000 / wisudawan",
+      "duration": "90 Menit Sesi Foto",
+      "durationMinutes": 90,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "3 Wisudawan + Keluarga / Teman",
+      "includedPeople": 3,
+      "edit": "Edit 30 Foto High-Res Pilihan",
+      "print": "",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "3 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "90 Menit Sesi Foto"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit",
+          "text": "Edit 30 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "💰",
+          "label": "Biaya Satuan",
+          "text": "Rp 210.000 / wisudawan"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ]
+    },
+    {
+      "id": "grad-outdoor-group-4-5",
+      "category": "grad-outdoor",
+      "categoryLabel": "Outdoor Kampus",
+      "subtitle": "Graduation Outdoor 3 (4-5 Wisudawan)",
+      "badge": "4-5 Wisudawan",
+      "name": "Group Outdoor 4-5 Wisudawan",
+      "originalPrice": "",
+      "price": "900K",
+      "priceUnit": "120 Menit • Rp 180.000 / wisudawan",
+      "duration": "120 Menit Sesi Foto",
+      "durationMinutes": 120,
+      "background": "Area Kampus Universitas (Spot Ikonik)",
+      "people": "4-5 Wisudawan + Keluarga / Teman",
+      "includedPeople": 5,
+      "edit": "Edit 40 Foto High-Res Pilihan",
+      "print": "",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas",
+          "text": "4-5 Wisudawan + Keluarga / Teman"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "120 Menit Sesi Foto"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit",
+          "text": "Edit 40 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "💰",
+          "label": "Biaya Satuan",
+          "text": "Rp 180.000 / wisudawan"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas (Spot Ikonik)"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ]
     }
   ],
   "operationalHoursByBranch": {

@@ -1668,7 +1668,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   // Deteksi Tipe Ruangan / Studio (Self Studio vs Studio Foto)
-  const currentPackage = activePackages.find(p => p.id === selectedPackageId) || PACKAGES.find(p => p.id === selectedPackageId) || PACKAGES[0];
+  const currentPackage = activePackages.find(p => p.id === selectedPackageId) || PACKAGES.find(p => p.id === selectedPackageId) || (selectedPackageId === 'group-wisuda-outdoor' ? (activePackages.find(p => p.id === 'grad-outdoor-group-2') || PACKAGES.find(p => p.id === 'grad-outdoor-group-2')) : null) || PACKAGES[0];
   const isPassFoto = (
     currentPackage?.category === 'pass-foto' ||
     (currentPackage?.id || '').toLowerCase().includes('passfoto') ||
@@ -1739,10 +1739,10 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
 
   // Durasi Self Studio mengikuti sub-paket, tetapi tetap memakai satu slot reguler.
   const sessionDurationMinutes = isSelfStudio || isOutdoorOnly
-    ? currentPackage.durationMinutes
+    ? (currentPackage?.durationMinutes || (parseInt(String(currentPackage?.duration || '').replace(/[^0-9]/g, ''), 10) || 60))
     : (maxBackdrops > 1 ? 60 : 30);
   const outdoorSessionDurationMinutes = hasOutdoorSession
-    ? (isOutdoorOnly ? currentPackage.durationMinutes : 60)
+    ? (isOutdoorOnly ? (currentPackage?.durationMinutes || (parseInt(String(currentPackage?.duration || '').replace(/[^0-9]/g, ''), 10) || 60)) : 60)
     : 0;
   const sessionSlotsCount = isSelfStudio ? 1 : (maxBackdrops > 1 ? 2 : 1);
   const isOutdoorOvertime = false;

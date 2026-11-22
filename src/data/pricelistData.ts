@@ -376,8 +376,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 2,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 550000,
-    "originalPrice": 300000,
+    "price": 510000,
+    "originalPrice": 0,
     "description": "Paket outdoor wisuda 2 wisudawan (Rp 255.000 / wisudawan). 75 menit sesi, edit 20 foto + bisa foto bareng keluarga, all file Google Drive.",
     "highlights": [
       "Harga Rp 255.000 / Wisudawan (2 Wisudawan)",
@@ -387,7 +387,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
       "Semua Termasuk All File via Google Drive"
     ],
     "popular": false,
-    "image": "https://images.unsplash.com/photo-1627556592933-ffe99c1cd9eb?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
     "hasOutdoorSession": true,
     "serviceGroup": "graduation"
   },
@@ -401,8 +401,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 3,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 210000,
-    "originalPrice": 250000,
+    "price": 630000,
+    "originalPrice": 0,
     "description": "Paket outdoor wisuda 3 wisudawan (Rp 210.000 / wisudawan). 90 menit sesi, edit 30 foto + bisa foto bareng keluarga, all file Google Drive.",
     "highlights": [
       "Harga Rp 210.000 / Wisudawan (3 Wisudawan)",
@@ -412,7 +412,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
       "Semua Termasuk All File via Google Drive"
     ],
     "popular": false,
-    "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
     "hasOutdoorSession": true,
     "serviceGroup": "graduation"
   },
@@ -426,8 +426,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 5,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 180000,
-    "originalPrice": 220000,
+    "price": 900000,
+    "originalPrice": 0,
     "description": "Paket outdoor wisuda 4-5 wisudawan (Rp 180.000 / wisudawan). 120 menit sesi, edit 40 foto + bisa foto bareng keluarga, all file Google Drive.",
     "highlights": [
       "Harga Rp 180.000 / Wisudawan (4-5 Wisudawan)",
@@ -437,7 +437,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
       "Semua Termasuk All File via Google Drive"
     ],
     "popular": true,
-    "image": "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
     "hasOutdoorSession": true,
     "serviceGroup": "graduation"
   },
