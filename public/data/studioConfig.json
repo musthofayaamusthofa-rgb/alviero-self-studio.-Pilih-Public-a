@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-22T14:59:20.940Z",
+  "lastUpdated": "2026-11-22T15:28:13.820Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2806,7 +2806,8 @@
       "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
       "imageUrls": [
         "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
-      ]
+      ],
+      "_origIndex": 23
     },
     {
       "id": "grad-outdoor-group-3",
@@ -2819,10 +2820,8 @@
       "price": "630K",
       "priceUnit": "90 Menit • Rp 210.000 / wisudawan",
       "duration": "90 Menit Sesi Foto",
-      "durationMinutes": 90,
       "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "3 Wisudawan + Keluarga / Teman",
-      "includedPeople": 3,
       "edit": "Edit 30 Foto High-Res Pilihan",
       "print": "",
       "fileDelivery": "All File via Google Drive",
@@ -2859,10 +2858,9 @@
         }
       ],
       "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
-      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
-      "imageUrls": [
-        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
-      ]
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 24
     },
     {
       "id": "grad-outdoor-group-4-5",
@@ -2875,10 +2873,8 @@
       "price": "900K",
       "priceUnit": "120 Menit • Rp 180.000 / wisudawan",
       "duration": "120 Menit Sesi Foto",
-      "durationMinutes": 120,
       "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "4-5 Wisudawan + Keluarga / Teman",
-      "includedPeople": 5,
       "edit": "Edit 40 Foto High-Res Pilihan",
       "print": "",
       "fileDelivery": "All File via Google Drive",
@@ -2915,10 +2911,9 @@
         }
       ],
       "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
-      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
-      "imageUrls": [
-        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
-      ]
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 25
     },
     {
       "id": "couple-eternal-love",
@@ -2979,7 +2974,7 @@
         "/images/packages/eternal_love_foto1_1794218498417.jpg",
         "/images/packages/eternal_love_foto2_1794218651534.jpg"
       ],
-      "_origIndex": 24
+      "_origIndex": 26
     },
     {
       "id": "couple-sweet-memories",
@@ -3040,7 +3035,7 @@
         "/images/packages/sweet_memories_foto1_1794218883186.jpg",
         "/images/packages/sweet_memories_foto2_1794220647489.jpg"
       ],
-      "_origIndex": 25
+      "_origIndex": 27
     },
     {
       "id": "prewed-sweet-promise",
@@ -3064,7 +3059,7 @@
         "/images/packages/sweet_promise_foto1_1791967530403.jpg",
         "/images/packages/sweet_promise_foto2_1791967534228.jpg"
       ],
-      "_origIndex": 26,
+      "_origIndex": 28,
       "facilities": [
         {
           "icon": "💍",
@@ -3161,7 +3156,7 @@
       "imageUrls": [
         "/images/packages/velvet_romance_foto1_1794230216825.jpg"
       ],
-      "_origIndex": 27
+      "_origIndex": 29
     },
     {
       "id": "prewed-bundling-1",
@@ -3219,7 +3214,7 @@
       "note": "*Termasuk Make Up, Hijab Do / Hair Do, Softlens & Sepasang Kostum",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 28
+      "_origIndex": 30
     },
     {
       "id": "prewed-bundling-2",
@@ -3277,7 +3272,7 @@
       "note": "*Termasuk Make Up premium, 2 pasang kostum & cetak frame besar",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 29
+      "_origIndex": 31
     },
     {
       "id": "personal-bold-statement",
@@ -3338,7 +3333,7 @@
         "/images/packages/bold_statement_foto1_1794218066896.jpg",
         "/images/packages/bold_statement_foto2_1794218186801.jpg"
       ],
-      "_origIndex": 30
+      "_origIndex": 32
     },
     {
       "id": "personal-opulent-shot",
@@ -3399,7 +3394,7 @@
         "/images/packages/opulent_shot_foto1_1794218316793.jpg",
         "/images/packages/opulent_shot_foto2_1794218250066.jpg"
       ],
-      "_origIndex": 31
+      "_origIndex": 33
     },
     {
       "id": "maternity-warm-embrace",
@@ -3460,7 +3455,7 @@
         "/images/packages/warm_embrace_foto1_1794145971419.jpg",
         "/images/packages/warm_embrace_foto2_1794217804512.jpg"
       ],
-      "_origIndex": 32
+      "_origIndex": 34
     },
     {
       "id": "maternity-golden-motherhood",
@@ -3521,7 +3516,7 @@
         "/images/packages/golden_motherhood_foto1_1794217835320.jpg",
         "/images/packages/golden_motherhood_foto2_1794217888133.jpg"
       ],
-      "_origIndex": 33
+      "_origIndex": 35
     },
     {
       "id": "birthday-sweet-light",
@@ -3587,7 +3582,7 @@
         "/images/packages/sweet_celebration_foto1_1794734112668.jpg",
         "/images/packages/sweet_celebration_foto2_1794734247926.jpg"
       ],
-      "_origIndex": 34
+      "_origIndex": 36
     },
     {
       "id": "birthday-sweet-celebration",
@@ -3653,7 +3648,7 @@
         "/images/packages/glow_sweet_celebration_foto1_1794734187849.jpg",
         "/images/packages/glow_sweet_celebration_foto2_1794734210836.jpg"
       ],
-      "_origIndex": 35
+      "_origIndex": 37
     },
     {
       "id": "birthday-sweet-luxe",
@@ -3714,7 +3709,7 @@
         "/images/packages/sweet_light_birthday_foto1_1794734351163.jpg",
         "/images/packages/sweet_light_birthday_foto2_1794734360676.jpg"
       ],
-      "_origIndex": 36
+      "_origIndex": 38
     },
     {
       "id": "birthday-sweet-exclusive",
@@ -3772,7 +3767,7 @@
       "note": "Untuk harga & konsep sesuai kebutuhan, silakan hubungi Admin melalui WhatsApp.",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 37
+      "_origIndex": 39
     },
     {
       "id": "sewa-studio-hourly",
@@ -3832,7 +3827,7 @@
       "imageUrls": [
         "/images/categories/sewa-studio.jpg"
       ],
-      "_origIndex": 38
+      "_origIndex": 40
     },
     {
       "id": "undangan-paket-1",
@@ -3885,7 +3880,7 @@
       "note": "*Undangan digital responsif mobile dengan nama tamu tak terbatas",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 39
+      "_origIndex": 41
     },
     {
       "id": "undangan-paket-2",
@@ -3938,7 +3933,7 @@
       "note": "*Fitur interaktif terlengkap dengan amplop digital / cashless gift",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 40
+      "_origIndex": 42
     },
     {
       "id": "family-1793957045916",
@@ -4004,7 +3999,7 @@
         "/images/packages/family_group_1_foto1_1794217665449.jpg",
         "/images/packages/family_group_1_foto2_1794217692437.jpg"
       ],
-      "_origIndex": 41
+      "_origIndex": 43
     },
     {
       "id": "family-1793957134052",
@@ -4067,7 +4062,7 @@
       "note": "*Potongan Rp 50.000 jika hanya 3 orang keluarga",
       "imageUrl": "",
       "imageUrls": [],
-      "_origIndex": 42
+      "_origIndex": 44
     }
   ],
   "bundlingPackages": [
@@ -4399,7 +4394,8 @@
       "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
       "imageUrls": [
         "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
-      ]
+      ],
+      "_origIndex": 23
     },
     {
       "id": "grad-outdoor-group-3",
@@ -4412,10 +4408,8 @@
       "price": "630K",
       "priceUnit": "90 Menit • Rp 210.000 / wisudawan",
       "duration": "90 Menit Sesi Foto",
-      "durationMinutes": 90,
       "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "3 Wisudawan + Keluarga / Teman",
-      "includedPeople": 3,
       "edit": "Edit 30 Foto High-Res Pilihan",
       "print": "",
       "fileDelivery": "All File via Google Drive",
@@ -4452,10 +4446,9 @@
         }
       ],
       "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
-      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
-      "imageUrls": [
-        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
-      ]
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 24
     },
     {
       "id": "grad-outdoor-group-4-5",
@@ -4468,10 +4461,8 @@
       "price": "900K",
       "priceUnit": "120 Menit • Rp 180.000 / wisudawan",
       "duration": "120 Menit Sesi Foto",
-      "durationMinutes": 120,
       "background": "Area Kampus Universitas (Spot Ikonik)",
       "people": "4-5 Wisudawan + Keluarga / Teman",
-      "includedPeople": 5,
       "edit": "Edit 40 Foto High-Res Pilihan",
       "print": "",
       "fileDelivery": "All File via Google Drive",
@@ -4508,10 +4499,9 @@
         }
       ],
       "note": "*Sesi wisuda bersama sahabat satu jurusan/geng di area kampus (termasuk foto bersama keluarga)",
-      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
-      "imageUrls": [
-        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
-      ]
+      "imageUrl": "",
+      "imageUrls": [],
+      "_origIndex": 25
     }
   ],
   "operationalHoursByBranch": {
