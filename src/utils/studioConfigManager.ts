@@ -7,6 +7,10 @@ export interface PaymentConfig {
   bcaAccountName: string;
   bcaBankName: string;
   qrisImageUrl: string;
+  bankName?: string;
+  accountNumber?: string;
+  accountHolder?: string;
+  qrisFeePercent?: number;
 }
 
 const DEFAULT_PAYMENT_CONFIG: PaymentConfig = {
@@ -14,6 +18,10 @@ const DEFAULT_PAYMENT_CONFIG: PaymentConfig = {
   bcaAccountName: 'Muhammad Azzam Fakhri',
   bcaBankName: 'Bank Central Asia (BCA)',
   qrisImageUrl: '/images/qris-alviero.png',
+  bankName: 'Bank Central Asia (BCA)',
+  accountNumber: '0113324021',
+  accountHolder: 'Muhammad Azzam Fakhri',
+  qrisFeePercent: 0,
 };
 
 // In-memory active configuration
@@ -208,9 +216,14 @@ export function useStudioConfig(): any {
  */
 export function getPaymentConfig(cfg?: any): PaymentConfig {
   const activeCfg = cfg || currentConfig;
+  const p = activeCfg?.paymentConfig || {};
   return {
     ...DEFAULT_PAYMENT_CONFIG,
-    ...(activeCfg?.paymentConfig || {}),
+    ...p,
+    bankName: p.bankName || p.bcaBankName || DEFAULT_PAYMENT_CONFIG.bcaBankName,
+    accountNumber: p.accountNumber || p.bcaAccountNumber || DEFAULT_PAYMENT_CONFIG.bcaAccountNumber,
+    accountHolder: p.accountHolder || p.bcaAccountName || DEFAULT_PAYMENT_CONFIG.bcaAccountName,
+    qrisFeePercent: typeof p.qrisFeePercent === 'number' ? p.qrisFeePercent : 0,
   };
 }
 
