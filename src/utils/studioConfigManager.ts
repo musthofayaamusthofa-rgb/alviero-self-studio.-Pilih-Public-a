@@ -912,6 +912,13 @@ export interface TimeSlotItemConfig {
   active?: boolean;
   applicableBranches?: string[];
   activeByBranch?: Record<string, boolean>;
+  applicablePackages?: string[];
+  applicableCategories?: string[];
+}
+
+export interface SlotFilterOptions {
+  packageId?: string;
+  category?: string;
 }
 
 /**
@@ -920,7 +927,8 @@ export interface TimeSlotItemConfig {
 export function getActiveTimeSlotObjects(
   cfg?: any,
   branch: string = 'cabang-1',
-  serviceType: 'indoor' | 'outdoor' | 'both' = 'indoor'
+  serviceType: 'indoor' | 'outdoor' | 'both' = 'indoor',
+  filterOptions?: SlotFilterOptions
 ): TimeSlotItemConfig[] {
   const activeCfg = cfg || currentConfig;
   const rawSlots: any[] = activeCfg?.timeSlots;
@@ -944,11 +952,37 @@ export function getActiveTimeSlotObjects(
       // 3. Layanan Diizinkan (indoor vs outdoor)
       const allowed = Array.isArray(slot.allowedServices) ? slot.allowedServices : ['indoor'];
       if (serviceType === 'indoor') {
-        return allowed.includes('indoor');
+        if (!allowed.includes('indoor')) return false;
       } else if (serviceType === 'outdoor') {
-        return allowed.includes('outdoor');
+        if (!allowed.includes('outdoor')) return false;
+      } else {
+        if (!allowed.includes('indoor') && !allowed.includes('outdoor')) return false;
       }
-      return allowed.includes('indoor') || allowed.includes('outdoor');
+
+      // 4. Filter Paket & Kategori Tertentu (jika dikonfigurasi di dashboard admin)
+      if (filterOptions) {
+        if (
+          filterOptions.packageId &&
+          Array.isArray(slot.applicablePackages) &&
+          slot.applicablePackages.length > 0 &&
+          !slot.applicablePackages.includes('all') &&
+          !slot.applicablePackages.includes(filterOptions.packageId)
+        ) {
+          return false;
+        }
+
+        if (
+          filterOptions.category &&
+          Array.isArray(slot.applicableCategories) &&
+          slot.applicableCategories.length > 0 &&
+          !slot.applicableCategories.includes('all') &&
+          !slot.applicableCategories.includes(filterOptions.category)
+        ) {
+          return false;
+        }
+      }
+
+      return true;
     })
     .sort((a, b) => a.time.localeCompare(b.time));
 }
@@ -960,9 +994,10 @@ export function getActiveTimeSlots(
   cfg?: any,
   branch: string = 'cabang-1',
   serviceType: 'indoor' | 'outdoor' | 'both' = 'indoor',
-  isSelfStudio: boolean = false
+  isSelfStudio: boolean = false,
+  filterOptions?: SlotFilterOptions
 ): string[] {
-  const slotObjs = getActiveTimeSlotObjects(cfg, branch, serviceType);
+  const slotObjs = getActiveTimeSlotObjects(cfg, branch, serviceType, filterOptions);
   return slotObjs
     .filter(slot => {
       if (isSelfStudio && slot.time < '08:00') {

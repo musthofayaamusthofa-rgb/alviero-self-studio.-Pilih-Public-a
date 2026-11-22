@@ -844,13 +844,13 @@ function validateRequestedBackdrops(slotBackdrops, requestedSlots, backdrop, stu
 }
 
 function generateOutdoorTimeSlots() {
-  var slots = ['05:00', '06:00'];
-  for (var minutes = 12 * 60; minutes <= 20 * 60 + 40; minutes += 65) {
-    var hours = Math.floor(minutes / 60);
-    var remainder = minutes % 60;
-    slots.push(('0' + hours).slice(-2) + ':' + ('0' + remainder).slice(-2));
-  }
-  return slots;
+  return [
+    '05:00', '05:30', '06:00', '06:30', '07:00',
+    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+    '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+    '20:00', '20:30', '21:00'
+  ];
 }
 
 function extractOutdoorTime(notes) {

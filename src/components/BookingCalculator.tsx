@@ -1161,25 +1161,31 @@ export const getUpcomingDaysList = (count: number = 14) => {
 };
 
 /**
- * Slot mulai sesi outdoor: dua slot pagi khusus lalu rangkaian 65 menit dari
- * tengah hari. Slot terakhir tetap boleh dipilih karena dapat dikenai overtime.
+ * Slot mulai sesi outdoor:
+ * Mengambil daftar slot outdoor aktif dari studioConfig dinamis atau fallback default.
  */
-export const generateOutdoorTimeSlots = (): string[] => {
-  const slots = ['05:00', '06:00'];
-  const startMinutes = 12 * 60;
-  const lastStartMinutes = 20 * 60 + 40;
-
-  for (let minutes = startMinutes; minutes <= lastStartMinutes; minutes += 65) {
-    const hours = Math.floor(minutes / 60);
-    const remainder = minutes % 60;
-    slots.push(`${String(hours).padStart(2, '0')}:${String(remainder).padStart(2, '0')}`);
+export const generateOutdoorTimeSlots = (cfg?: any, branch: string = 'cabang-1'): string[] => {
+  const configured = getActiveTimeSlots(cfg, branch, 'outdoor', false);
+  if (configured && configured.length > 0) {
+    return configured;
   }
-
-  return slots;
+  return [
+    '05:00', '05:30', '06:00', '06:30', '07:00',
+    '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+    '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+    '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+    '20:00', '20:30', '21:00'
+  ];
 };
 
-export const getOutdoorSlotCapacity = (slotTime: string): number => {
+export const getOutdoorSlotCapacity = (slotTime: string, cfg?: any, branch: string = 'cabang-1'): number => {
   const normalizedSlot = normalizeSlotTime(slotTime);
+  const slotObj = getActiveTimeSlotObjects(cfg, branch, 'outdoor').find(
+    s => normalizeSlotTime(s.time) === normalizedSlot
+  );
+  if (slotObj && typeof slotObj.maxCapacity === 'number') {
+    return slotObj.maxCapacity;
+  }
   if (normalizedSlot === '05:00' || normalizedSlot === '06:00') return 2;
   return 1;
 };
@@ -1187,17 +1193,23 @@ export const getOutdoorSlotCapacity = (slotTime: string): number => {
 export const checkOutdoorSlotAvailability = (
   slotTime: string,
   existingBookings: { [slot: string]: number } = {},
-  allowIndoorOverlap: boolean = false
+  allowIndoorOverlap: boolean = false,
+  validOutdoorSlots?: string[],
+  maxCapacityParam?: number
 ): { isAvailable: boolean; reason?: string } => {
   const normalizedSlot = normalizeSlotTime(slotTime);
-  if (!generateOutdoorTimeSlots().includes(normalizedSlot)) {
-    return { isAvailable: false, reason: 'Slot outdoor tidak valid' };
+  const allowedSlots = validOutdoorSlots && validOutdoorSlots.length > 0
+    ? validOutdoorSlots.map(normalizeSlotTime)
+    : generateOutdoorTimeSlots();
+
+  if (allowedSlots.length > 0 && !allowedSlots.includes(normalizedSlot)) {
+    return { isAvailable: false, reason: 'Slot outdoor tidak tersedia pada jam ini' };
   }
 
   const outdoorBookingsCount = Number(
     existingBookings[normalizedSlot] ?? existingBookings[slotTime] ?? 0
   );
-  const maxCapacity = getOutdoorSlotCapacity(normalizedSlot);
+  const maxCapacity = maxCapacityParam ?? getOutdoorSlotCapacity(normalizedSlot);
 
   if (outdoorBookingsCount >= maxCapacity) {
     return {
@@ -1687,9 +1699,15 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   );
   const isOutdoorOnly = hasOutdoorSession && currentPackage.category === 'graduation-outdoor';
   const outdoorTimeSlots = useMemo(() => {
-    const configuredOutdoor = getActiveTimeSlots(studioConfig, selectedBranch, 'outdoor', false);
-    return configuredOutdoor.length > 0 ? configuredOutdoor : generateOutdoorTimeSlots();
-  }, [studioConfig, selectedBranch]);
+    const configuredOutdoor = getActiveTimeSlots(
+      studioConfig,
+      selectedBranch,
+      'outdoor',
+      false,
+      { packageId: currentPackage?.id, category: currentPackage?.category }
+    );
+    return configuredOutdoor.length > 0 ? configuredOutdoor : generateOutdoorTimeSlots(studioConfig, selectedBranch);
+  }, [studioConfig, selectedBranch, currentPackage?.id, currentPackage?.category]);
   const maxBackdrops = getPackageMaxBackdrops(currentPackage);
   const baseTimeSlots = useMemo(() => {
     const configured = getActiveTimeSlots(
@@ -2112,7 +2130,12 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
   };
 
   const isOutdoorTimeSlotAvailable = (startSlot: string): { isAvailable: boolean; reason?: string } => {
-    const outdoorAvailability = checkOutdoorSlotAvailability(startSlot, outdoorSlotClientCounts);
+    const outdoorAvailability = checkOutdoorSlotAvailability(
+      startSlot,
+      outdoorSlotClientCounts,
+      false,
+      outdoorTimeSlots
+    );
     if (!outdoorAvailability.isAvailable) {
       return outdoorAvailability;
     }
@@ -3485,8 +3508,8 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                       </div>
                       <p className="text-[11px] text-emerald-900">
                         {isOutdoorOnly
-                          ? 'Pilih waktu sesi outdoor Anda. Slot pagi 05:00 dan 06:00 tersedia khusus, lalu berlanjut setiap 65 menit mulai 12:00.'
-                          : 'Sesi outdoor wajib memiliki jarak minimal 1 jam 30 menit (90 menit) dari sesi indoor. Slot pagi 05:00 dan 06:00 tersedia khusus.'}
+                          ? 'Pilih waktu sesi outdoor Anda sesuai jadwal yang tersedia.'
+                          : 'Sesi outdoor wajib memiliki jarak minimal 1 jam 30 menit (90 menit) dari sesi indoor.'}
                       </p>
                       <div className="space-y-1.5">
                         <label htmlFor="outdoor-location" className="block text-[11px] font-sans font-bold text-emerald-950">
@@ -3524,7 +3547,7 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
                               <span className="leading-tight">{slot}</span>
                               {!availability.isAvailable ? (
                                 <span className="text-[7.5px] font-bold text-amber-700 uppercase no-underline">
-                                  {isTooClose ? '< 90m' : 'Penuh'}
+                                  {isTooClose ? '< 90m' : (availability.reason?.toLowerCase().includes('penuh') ? 'Penuh' : 'Tutup')}
                                 </span>
                               ) : null}
                             </button>
