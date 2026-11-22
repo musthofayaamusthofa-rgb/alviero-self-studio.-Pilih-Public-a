@@ -1693,18 +1693,23 @@ export const BookingCalculator: React.FC<BookingCalculatorProps> = ({
     (currentPackage?.name || '').toLowerCase().includes('cumlaude') ||
     (currentPackage?.name || '').toLowerCase().includes('wisuda')
   );
+  const isGradBundling = Boolean(
+    currentPackage?.category === 'grad-bundling' ||
+    String(currentPackage?.id || '').startsWith('grad-bundling') ||
+    ((currentPackage?.name || '').toLowerCase().includes('bundling') && currentPackage?.category !== 'prewed' && !String(currentPackage?.id || '').startsWith('prewed'))
+  );
   const hasOutdoorSession = Boolean(
     currentPackage?.hasOutdoorSession ||
     currentPackage?.category === 'graduation-outdoor' ||
     currentPackage?.category === 'grad-outdoor' ||
-    (currentPackage?.name || '').toLowerCase().includes('outdoor') ||
-    (currentPackage.name || '').toLowerCase().includes('bundling') ||
-    (currentPackage.description || '').toLowerCase().includes('outdoor')
+    isGradBundling ||
+    ((currentPackage?.name || '').toLowerCase().includes('outdoor') && currentPackage?.category !== 'prewed' && !String(currentPackage?.id || '').startsWith('prewed')) ||
+    ((currentPackage?.description || '').toLowerCase().includes('outdoor') && currentPackage?.category !== 'prewed' && !String(currentPackage?.id || '').startsWith('prewed'))
   );
-  const isOutdoorOnly = hasOutdoorSession && (
+  const isOutdoorOnly = hasOutdoorSession && !isGradBundling && (
     currentPackage?.category === 'graduation-outdoor' ||
     currentPackage?.category === 'grad-outdoor' ||
-    ((currentPackage?.name || '').toLowerCase().includes('outdoor') && !(currentPackage?.name || '').toLowerCase().includes('bundling') && !(currentPackage?.id || '').toLowerCase().includes('bundling'))
+    ((currentPackage?.name || '').toLowerCase().includes('outdoor') && !isGradBundling)
   );
   const outdoorTimeSlots = useMemo(() => {
     const configuredOutdoor = getActiveTimeSlots(

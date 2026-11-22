@@ -3179,6 +3179,11 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                       {(() => {
                         const allGroup = getPackagesForCategory(['group', 'group-paket']);
                         const filtered = allGroup.filter((pkg: any) => {
+                          const pId = String(pkg.id || '').toLowerCase();
+                          const pName = String(pkg.name || '').toLowerCase();
+                          if (pId.includes('outdoor') || pId.includes('wisuda') || pName.includes('outdoor')) {
+                            return false;
+                          }
                           if (selectedGroupSubTab === 'small') {
                             return pkg.id.includes('friendly') || pkg.id.includes('signature');
                           }
@@ -3557,7 +3562,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                             </h4>
                           </div>
                           {(() => {
-                            const bList = studioPackagesList.filter((p: any) => (p.category === 'grad-bundling' || p.category === 'bundling' || (typeof p.id === 'string' && p.id.includes('bundling'))) && p.active !== false);
+                            const bList = studioPackagesList.filter((p: any) =>
+                              (p.category === 'grad-bundling' || (typeof p.id === 'string' && p.id.startsWith('grad-bundling'))) &&
+                              p.category !== 'prewed' &&
+                              !String(p.id || '').startsWith('prewed') &&
+                              p.active !== false
+                            );
                             const firstPkg = bList[0];
                             const savingsText = (() => {
                               if (!firstPkg) return 'Hemat Rp 75.000';
@@ -3578,7 +3588,12 @@ export const PricelistViewer: React.FC<PricelistViewerProps> = ({
                         </div>
 
                         {(() => {
-                          const fromStudio = studioPackagesList.filter((p: any) => (p.category === 'grad-bundling' || p.category === 'bundling' || (typeof p.id === 'string' && p.id.includes('bundling'))) && p.active !== false);
+                          const fromStudio = studioPackagesList.filter((p: any) =>
+                            (p.category === 'grad-bundling' || (typeof p.id === 'string' && p.id.startsWith('grad-bundling'))) &&
+                            p.category !== 'prewed' &&
+                            !String(p.id || '').startsWith('prewed') &&
+                            p.active !== false
+                          );
                           const list = fromStudio.length > 0 ? fromStudio : [
                             {
                               id: 'grad-bundling-ultimate-1',
