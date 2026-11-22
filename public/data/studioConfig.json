@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-15T12:01:21.358Z",
+  "lastUpdated": "2026-11-15T12:57:48.043Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2096,52 +2096,63 @@
       "_origIndex": 7
     },
     {
-      "id": "grad-outdoor-group-2",
+      "id": "group-friendly-frame",
       "category": "group",
       "categoryLabel": "Group",
-      "subtitle": "Graduation Outdoor 3",
-      "badge": "Geng Wisuda",
-      "name": "Group Wisuda Outdoor",
+      "subtitle": "Group 1",
+      "badge": "Sahabat",
+      "name": "Friendly Frame",
       "originalPrice": "",
-      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
-      "priceUnit": "Berdasarkan Jumlah Wisudawan",
-      "duration": "60-90 Menit Unlimited Shoots",
-      "background": "Area Kampus Universitas",
-      "people": "Group Wisudawan (2-5 Wisudawan)",
-      "edit": "Edit 10-15 Foto High-Res Pilihan",
-      "print": "",
+      "price": "250K",
+      "priceUnit": "per sesi",
+      "duration": "25 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "3 - 10 Orang (Additional 15K/org)",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
-          "label": "Kapasitas Group",
-          "text": "Group Wisudawan (2-5 Wisudawan)"
-        },
-        {
-          "icon": "🌳",
-          "label": "Lokasi Sesi",
-          "text": "Area Kampus Universitas"
+          "label": "Kapasitas Orang",
+          "text": "3 - 10 Orang (Additional 15K/org)"
         },
         {
           "icon": "⏰",
-          "label": "Durasi Sesi",
-          "text": "60-90 Menit Unlimited Shoots"
+          "label": "Durasi Foto",
+          "text": "25 Menit Sesi Foto"
+        },
+        {
+          "icon": "✨",
+          "label": "Background Studio",
+          "text": "1 Background Studio"
         },
         {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
-          "text": "Edit 10-15 Foto High-Res Pilihan"
+          "text": "Edit 6 Foto Pilihan"
+        },
+        {
+          "icon": "🖼️",
+          "label": "Jatah Cetak Foto",
+          "text": "Cetak 1 Uk 10R / 2 Uk 4R"
         },
         {
           "icon": "📁",
-          "label": "Pengiriman File",
+          "label": "Pengiriman Softfile",
           "text": "All File via Google Drive"
+        },
+        {
+          "icon": "👗",
+          "label": "Ganti Kostum",
+          "text": "Maksimal 1 Kostum"
         }
       ],
-      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
-      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "note": "*Bebas berganti gaya & properti foto studio",
+      "imageUrl": "/images/packages/friendly_frame_foto1_1794142010126.jpg",
       "imageUrls": [
-        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+        "/images/packages/friendly_frame_foto1_1794142010126.jpg",
+        "/images/packages/friendly_frame_foto2_1794142028271.jpg"
       ],
       "_origIndex": 8
     },
@@ -2562,67 +2573,6 @@
       "_origIndex": 19
     },
     {
-      "id": "group-friendly-frame",
-      "category": "group",
-      "categoryLabel": "Group",
-      "subtitle": "Group 1",
-      "badge": "Sahabat",
-      "name": "Friendly Frame",
-      "originalPrice": "",
-      "price": "250K",
-      "priceUnit": "per sesi",
-      "duration": "25 Menit Sesi Foto",
-      "background": "1 Background Studio",
-      "people": "3 - 10 Orang (Additional 15K/org)",
-      "edit": "Edit 6 Foto Pilihan",
-      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
-      "fileDelivery": "All File via Google Drive",
-      "facilities": [
-        {
-          "icon": "👥",
-          "label": "Kapasitas Orang",
-          "text": "3 - 10 Orang (Additional 15K/org)"
-        },
-        {
-          "icon": "⏰",
-          "label": "Durasi Foto",
-          "text": "25 Menit Sesi Foto"
-        },
-        {
-          "icon": "✨",
-          "label": "Background Studio",
-          "text": "1 Background Studio"
-        },
-        {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 6 Foto Pilihan"
-        },
-        {
-          "icon": "🖼️",
-          "label": "Jatah Cetak Foto",
-          "text": "Cetak 1 Uk 10R / 2 Uk 4R"
-        },
-        {
-          "icon": "📁",
-          "label": "Pengiriman Softfile",
-          "text": "All File via Google Drive"
-        },
-        {
-          "icon": "👗",
-          "label": "Ganti Kostum",
-          "text": "Maksimal 1 Kostum"
-        }
-      ],
-      "note": "*Bebas berganti gaya & properti foto studio",
-      "imageUrl": "/images/packages/friendly_frame_foto1_1794142010126.jpg",
-      "imageUrls": [
-        "/images/packages/friendly_frame_foto1_1794142010126.jpg",
-        "/images/packages/friendly_frame_foto2_1794142028271.jpg"
-      ],
-      "_origIndex": 20
-    },
-    {
       "id": "group-signature-squad",
       "category": "group",
       "categoryLabel": "Group",
@@ -2681,7 +2631,7 @@
         "/images/packages/signature_squad_foto1_1794142049116.jpg",
         "/images/packages/signature_squad_foto2_1794142094010.jpg"
       ],
-      "_origIndex": 21
+      "_origIndex": 20
     },
     {
       "id": "group-royal-ensemble",
@@ -2742,7 +2692,7 @@
         "/images/packages/royal_ensemble_foto1_1794142193621.jpg",
         "/images/packages/royal_ensemble_foto2_1794142212428.jpg"
       ],
-      "_origIndex": 22
+      "_origIndex": 21
     },
     {
       "id": "group-imperial-union",
@@ -2800,6 +2750,56 @@
       "note": "*Kapasitas besar dengan arahan fotografer profesional",
       "imageUrl": "",
       "imageUrls": [],
+      "_origIndex": 22
+    },
+    {
+      "id": "group-wisuda-outdoor",
+      "category": "group",
+      "categoryLabel": "Group",
+      "subtitle": "Group Graduation Outdoor",
+      "badge": "Geng Wisuda",
+      "name": "Group Wisuda Outdoor",
+      "originalPrice": "",
+      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
+      "priceUnit": "Berdasarkan Jumlah Wisudawan",
+      "duration": "60-90 Menit Unlimited Shoots",
+      "background": "Area Kampus Universitas",
+      "people": "Group Wisudawan (2-5 Wisudawan)",
+      "edit": "Edit 10-15 Foto High-Res Pilihan",
+      "print": "",
+      "fileDelivery": "All File via Google Drive",
+      "facilities": [
+        {
+          "icon": "👥",
+          "label": "Kapasitas Group",
+          "text": "Group Wisudawan (2-5 Wisudawan)"
+        },
+        {
+          "icon": "🌳",
+          "label": "Lokasi Sesi",
+          "text": "Area Kampus Universitas"
+        },
+        {
+          "icon": "⏰",
+          "label": "Durasi Sesi",
+          "text": "60-90 Menit Unlimited Shoots"
+        },
+        {
+          "icon": "✏️",
+          "label": "Jatah Edit Foto",
+          "text": "Edit 10-15 Foto High-Res Pilihan"
+        },
+        {
+          "icon": "📁",
+          "label": "Pengiriman File",
+          "text": "All File via Google Drive"
+        }
+      ],
+      "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",
+      "imageUrl": "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg",
+      "imageUrls": [
+        "/images/packages/group_wisuda_outdoor_foto1_1794142529157.jpg"
+      ],
       "_origIndex": 23
     },
     {
@@ -7948,7 +7948,7 @@
     {
       "id": "rev-1",
       "name": "Nadia Putri",
-      "avatar": "/images/reviews/nadia-putri.jpg",
+      "avatar": "",
       "reviewerMeta": "Local Guide · 24 ulasan",
       "date": "2 bulan lalu",
       "package": "Paket Wisuda Studio",
@@ -7961,7 +7961,7 @@
     {
       "id": "rev-2",
       "name": "Rizky Pratama",
-      "avatar": "/images/reviews/rizky-pratama.jpg",
+      "avatar": "",
       "reviewerMeta": "8 ulasan · 3 foto",
       "date": "3 bulan lalu",
       "package": "Self Photo Studio",
