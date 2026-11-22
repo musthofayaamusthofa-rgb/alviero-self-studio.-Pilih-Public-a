@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-15T12:57:48.043Z",
+  "lastUpdated": "2026-11-22T12:38:34.723Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -2103,24 +2103,24 @@
       "badge": "Sahabat",
       "name": "Friendly Frame",
       "originalPrice": "",
-      "price": "250K",
+      "price": "310K",
       "priceUnit": "per sesi",
-      "duration": "25 Menit Sesi Foto",
+      "duration": "28 Menit Sesi Foto",
       "background": "1 Background Studio",
-      "people": "3 - 10 Orang (Additional 15K/org)",
+      "people": "Max. 3 - 5 Orang (6-10 People Additional 20K/org)",
       "edit": "Edit 6 Foto Pilihan",
-      "print": "Cetak 1 Uk 10R / 2 Uk 4R",
+      "print": "Cetak 4R Per Orang",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "3 - 10 Orang (Additional 15K/org)"
+          "text": "Max. 3 - 5 Orang (6-10 People Additional 20K/org)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "25 Menit Sesi Foto"
+          "text": "28 Menit Sesi Foto"
         },
         {
           "icon": "✨",
@@ -2135,7 +2135,7 @@
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 1 Uk 10R / 2 Uk 4R"
+          "text": "Cetak 4R Per Orang"
         },
         {
           "icon": "📁",
@@ -2145,7 +2145,7 @@
         {
           "icon": "👗",
           "label": "Ganti Kostum",
-          "text": "Maksimal 1 Kostum"
+          "text": "Maksimal 2 Kostum"
         }
       ],
       "note": "*Bebas berganti gaya & properti foto studio",
@@ -2460,7 +2460,7 @@
       "originalPrice": "Rp 400.000",
       "price": "295K",
       "priceUnit": "per sesi",
-      "duration": "20 Menit Unlimited Foto",
+      "duration": "25Menit Unlimited Foto",
       "background": "1 Background Studio",
       "people": "Maximal 10 Orang/Frame (additional orang 15K/org)",
       "edit": "Edit 6 Foto High-Res",
@@ -2475,7 +2475,7 @@
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "20 Menit Unlimited Foto"
+          "text": "25Menit Unlimited Foto"
         },
         {
           "icon": "✨",
@@ -2579,40 +2579,40 @@
       "subtitle": "Group 2",
       "badge": "Squad",
       "name": "Signature Squad",
-      "originalPrice": "",
-      "price": "350K",
+      "originalPrice": "500K",
+      "price": "435K",
       "priceUnit": "per sesi",
-      "duration": "35 Menit Sesi Foto",
-      "background": "2 Background Studio",
-      "people": "11 - 20 Orang",
-      "edit": "Edit 8 Foto Pilihan",
-      "print": "Cetak 2 Uk 10R",
+      "duration": "45 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Max. 11 - 15 Orang (16-20 People Additional 20K/org)",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 4R Per Orang",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "11 - 20 Orang"
+          "text": "Max. 11 - 15 Orang (16-20 People Additional 20K/org)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "35 Menit Sesi Foto"
+          "text": "45 Menit Sesi Foto"
         },
         {
           "icon": "✨",
           "label": "Background Studio",
-          "text": "2 Background Studio"
+          "text": "1 Background Studio"
         },
         {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
-          "text": "Edit 8 Foto Pilihan"
+          "text": "Edit 6 Foto Pilihan"
         },
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 2 Uk 10R"
+          "text": "Cetak 4R Per Orang"
         },
         {
           "icon": "📁",
@@ -2640,40 +2640,40 @@
       "subtitle": "Group 3",
       "badge": "Besar",
       "name": "Royal Ensemble",
-      "originalPrice": "",
-      "price": "500K",
+      "originalPrice": "600K",
+      "price": "593K",
       "priceUnit": "per sesi",
-      "duration": "45 Menit Sesi Foto",
-      "background": "2 Background Studio",
-      "people": "21 - 30 Orang",
-      "edit": "Edit 12 Foto Pilihan",
-      "print": "Cetak 3 Uk 10R",
+      "duration": "55Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Max. 21 - 30 Orang (31-35 People Additional 20K/org)",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 4R Per Orang",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "21 - 30 Orang"
+          "text": "Max. 21 - 30 Orang (31-35 People Additional 20K/org)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "45 Menit Sesi Foto"
+          "text": "55Menit Sesi Foto"
         },
         {
           "icon": "✨",
           "label": "Background Studio",
-          "text": "2 Background Studio"
+          "text": "1 Background Studio"
         },
         {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
-          "text": "Edit 12 Foto Pilihan"
+          "text": "Edit 6 Foto Pilihan"
         },
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 3 Uk 10R"
+          "text": "Cetak 4R Per Orang"
         },
         {
           "icon": "📁",
@@ -2701,40 +2701,40 @@
       "subtitle": "Group 4",
       "badge": "Maksimal",
       "name": "Imperial Union",
-      "originalPrice": "",
-      "price": "700K",
+      "originalPrice": "800K",
+      "price": "735K",
       "priceUnit": "per sesi",
-      "duration": "60 Menit Sesi Foto",
-      "background": "2 Background Studio",
-      "people": "25 - 35 Orang (Full Angkatan)",
-      "edit": "Edit 15 Foto Pilihan",
-      "print": "Cetak 4 Uk 10R",
+      "duration": "55 Menit Sesi Foto",
+      "background": "1 Background Studio",
+      "people": "Max. 36 - 40 Orang (41-75 People Additional 20K/org)",
+      "edit": "Edit 6 Foto Pilihan",
+      "print": "Cetak 4R Per Orang",
       "fileDelivery": "All File via Google Drive",
       "facilities": [
         {
           "icon": "👥",
           "label": "Kapasitas Orang",
-          "text": "25 - 35 Orang (Full Angkatan)"
+          "text": "Max. 36 - 40 Orang (41-75 People Additional 20K/org)"
         },
         {
           "icon": "⏰",
           "label": "Durasi Foto",
-          "text": "60 Menit Sesi Foto"
+          "text": "55 Menit Sesi Foto"
         },
         {
           "icon": "✨",
           "label": "Background Studio",
-          "text": "2 Background Studio"
+          "text": "1 Background Studio"
         },
         {
           "icon": "✏️",
           "label": "Jatah Edit Foto",
-          "text": "Edit 15 Foto Pilihan"
+          "text": "Edit 6 Foto Pilihan"
         },
         {
           "icon": "🖼️",
           "label": "Jatah Cetak Foto",
-          "text": "Cetak 4 Uk 10R"
+          "text": "Cetak 4R Per Orang"
         },
         {
           "icon": "📁",
@@ -2760,39 +2760,29 @@
       "badge": "Geng Wisuda",
       "name": "Group Wisuda Outdoor",
       "originalPrice": "",
-      "price": "550K (2 Wis) / 650K (3 Wis) / 750K (4-5 Wis)",
+      "price": "255K (2 Wis) / 630K (3 Wis) / 900K (4-5 Wis)",
       "priceUnit": "Berdasarkan Jumlah Wisudawan",
-      "duration": "60-90 Menit Unlimited Shoots",
-      "background": "Area Kampus Universitas",
-      "people": "Group Wisudawan (2-5 Wisudawan)",
-      "edit": "Edit 10-15 Foto High-Res Pilihan",
+      "duration": "2 Wisudawan - 75 Menit",
+      "background": "3 Wisudawan - 90 Menit",
+      "people": "4-5 Wisudawan - 120 Menit",
+      "edit": "",
       "print": "",
-      "fileDelivery": "All File via Google Drive",
+      "fileDelivery": "",
       "facilities": [
         {
-          "icon": "👥",
-          "label": "Kapasitas Group",
-          "text": "Group Wisudawan (2-5 Wisudawan)"
+          "icon": "🎓",
+          "label": "Wisudawan",
+          "text": "2 Wisudawan - 75 Menit"
         },
         {
-          "icon": "🌳",
-          "label": "Lokasi Sesi",
-          "text": "Area Kampus Universitas"
+          "icon": "🎓",
+          "label": "Wisudawan",
+          "text": "3 Wisudawan - 90 Menit"
         },
         {
-          "icon": "⏰",
-          "label": "Durasi Sesi",
-          "text": "60-90 Menit Unlimited Shoots"
-        },
-        {
-          "icon": "✏️",
-          "label": "Jatah Edit Foto",
-          "text": "Edit 10-15 Foto High-Res Pilihan"
-        },
-        {
-          "icon": "📁",
-          "label": "Pengiriman File",
-          "text": "All File via Google Drive"
+          "icon": "🎓",
+          "label": "Wisudawan",
+          "text": "4-5 Wisudawan - 120 Menit"
         }
       ],
       "note": "*Foto bersama keluarga & sahabat satu almamater di area kampus",

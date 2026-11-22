@@ -451,7 +451,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 10,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 250000,
+    "price": 310000,
     "originalPrice": 380000,
     "description": "Jumlah 3-10 Orang, Maks 30 Menit, 1 background, Edit 6 foto, maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
@@ -475,7 +475,7 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 20,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 350000,
+    "price": 435000,
     "originalPrice": 500000,
     "description": "Jumlah 11 - 20 Orang, Maks 45 Menit, 1 Background, edit 6 foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
@@ -499,8 +499,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 30,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 500000,
-    "originalPrice": 580000,
+    "price": 593000,
+    "originalPrice": 600000,
     "description": "Jumlah 21-30 Orang, Maks 50 Menit, 1 background, edit 6 foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
       "Jumlah 21 - 30 Orang",
@@ -523,8 +523,8 @@ const DEFAULT_PACKAGES: PackageItem[] = [
     "includedPeople": 40,
     "includedPrints": "All File via Google Drive",
     "softFilesIncluded": true,
-    "price": 700000,
-    "originalPrice": 720000,
+    "price": 735000,
+    "originalPrice": 800000,
     "description": "Jumlah 31-40 Orang (diatas 40 +10K/Org Maks 75 Org)*, Maks 55 menit, 1 background, edit 6 foto, Maks 2 kostum (+ 6 Menit untuk ganti kostum), Allfile via google drive.",
     "highlights": [
       "Jumlah 31 - 40 Orang (Diatas 40 +10K/Org Maks 75 Org)",
