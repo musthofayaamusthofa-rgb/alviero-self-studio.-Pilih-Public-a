@@ -1,5 +1,5 @@
 import studioConfig from '../data/studioConfig.json';
-import { useStudioConfig, getActiveReviews } from '../utils/studioConfigManager';
+import { useStudioConfig, getActiveReviews, getGoogleReviewSummary } from '../utils/studioConfigManager';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { StudioBranch } from '../types';
 import { STUDIO_BRANCHES } from '../data/pricelistData';
@@ -423,6 +423,7 @@ export const CLIENT_REVIEWS: ClientReview[] = [
 export const ClientReviewCarousel: React.FC = () => {
   const studioConfig = useStudioConfig();
   const allReviews = useMemo(() => getActiveReviews(studioConfig, CLIENT_REVIEWS), [studioConfig]);
+  const reviewSummary = useMemo(() => getGoogleReviewSummary(studioConfig), [studioConfig]);
   const [currentReviewIdx, setCurrentReviewIdx] = useState<number>(0);
   const [activeBranchFilter, setActiveBranchFilter] = useState<'all' | 'cabang-1' | 'cabang-2'>('all');
   const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -501,11 +502,11 @@ export const ClientReviewCarousel: React.FC = () => {
         <div className="pt-1.5 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
           {/* Studio 1 (Junrejo) Google Review Link */}
           <a
-            href={(studioConfig as any)?.branches?.[0]?.reviewUrl || GOOGLE_MAPS_STUDIO_1_URL}
+            href={reviewSummary.branch1ReviewUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
-            title="Buka ulasan resmi Alviero Studio 1 (Junrejo) di Google Maps (4.9 Rating & 775+ Ulasan)"
+            title={`Buka ulasan resmi Alviero Studio 1 (Junrejo) di Google Maps (${reviewSummary.branch1Rating} Rating & ${reviewSummary.branch1ReviewCount})`}
           >
             {/* Google G SVG */}
             <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
@@ -515,20 +516,20 @@ export const ClientReviewCarousel: React.FC = () => {
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
             </svg>
             <span className="font-bold text-[#3A3A3A]">Studio 1 (Junrejo):</span>
-            <span className="font-bold text-[#3A3A3A]">4.9</span>
+            <span className="font-bold text-[#3A3A3A]">{reviewSummary.branch1Rating}</span>
             <span className="text-amber-500 font-bold tracking-tight text-xs">★★★★★</span>
             <span className="text-stone-300">•</span>
-            <span className="font-bold text-[#2A2A2A]">775+ Ulasan</span>
+            <span className="font-bold text-[#2A2A2A]">{reviewSummary.branch1ReviewCount}</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-[#6E856C] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
           </a>
 
           {/* Studio 2 (Dinoyo) Google Review Link */}
           <a
-            href={(studioConfig as any)?.branches?.[1]?.reviewUrl || GOOGLE_MAPS_STUDIO_2_URL}
+            href={reviewSummary.branch2ReviewUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white hover:bg-[#FAF7F2] text-[#3A3A3A] border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-xs hover:shadow-sm text-[11px] sm:text-xs font-sans transition-all group cursor-pointer"
-            title="Buka ulasan resmi Alviero Studio 2 (Dinoyo) di Google Maps"
+            title={`Buka ulasan resmi Alviero Studio 2 (Dinoyo) di Google Maps (${reviewSummary.branch2Rating} Rating & ${reviewSummary.branch2ReviewCount})`}
           >
             {/* Google G SVG */}
             <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
@@ -538,12 +539,10 @@ export const ClientReviewCarousel: React.FC = () => {
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
             </svg>
             <span className="font-bold text-[#3A3A3A]">Studio 2 (Dinoyo):</span>
-            <span className="font-bold text-[#3A3A3A]">5.0</span>
+            <span className="font-bold text-[#3A3A3A]">{reviewSummary.branch2Rating}</span>
             <span className="text-amber-500 font-bold tracking-tight text-xs">★★★★★</span>
             <span className="text-stone-300">•</span>
-            <span className="text-[#3A3A3A] group-hover:text-black font-medium underline decoration-stone-300 underline-offset-2">
-              Google Review
-            </span>
+            <span className="font-bold text-[#2A2A2A]">{reviewSummary.branch2ReviewCount}</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-[#6E856C] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
           </a>
         </div>
@@ -611,61 +610,69 @@ export const ClientReviewCarousel: React.FC = () => {
 
         {/* Review Cards (Grid 2 Kolom di Desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 px-2 sm:px-4">
-          {visibleReviews.map((review) => (
-            <a
-              key={review.id}
-              href={review.reviewUrl || GOOGLE_MAPS_REVIEW_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-sm hover:shadow-md animate-in fade-in duration-300 flex flex-col justify-between group/card transition-all cursor-pointer text-left block"
-              title={`Klik untuk membuka ulasan langsung di Google Maps (${review.studioBadge})`}
-            >
-              {/* Watermark Tanda Kutip (Quote) */}
-              <div className="absolute top-1.5 left-3 sm:left-4 text-2xl sm:text-3xl font-serif text-[#DFCFC5] select-none leading-none opacity-40">
-                “
-              </div>
+          {visibleReviews.map((review) => {
+            const cardReviewUrl = review.reviewUrl ||
+              (review.branch === 'cabang-2'
+                ? (reviewSummary.branch2ReviewUrl || GOOGLE_MAPS_STUDIO_2_URL)
+                : (reviewSummary.branch1ReviewUrl || GOOGLE_MAPS_STUDIO_1_URL));
+            const starCount = Math.max(1, Math.min(5, Math.round(Number(review.stars) || 5)));
+            const studioBadgeText = review.studioBadge || (review.branch === 'cabang-2' ? 'Studio 2 (Dinoyo)' : 'Studio 1 (Junrejo)');
+            return (
+              <a
+                key={review.id}
+                href={cardReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative bg-white p-4 sm:p-5 rounded-2xl border border-[#E8DDD6] hover:border-[#3A3A3A] shadow-sm hover:shadow-md animate-in fade-in duration-300 flex flex-col justify-between group/card transition-all cursor-pointer text-left block"
+                title={`Klik untuk membuka ulasan langsung di Google Maps (${studioBadgeText})`}
+              >
+                {/* Watermark Tanda Kutip (Quote) */}
+                <div className="absolute top-1.5 left-3 sm:left-4 text-2xl sm:text-3xl font-serif text-[#DFCFC5] select-none leading-none opacity-40">
+                  “
+                </div>
 
-              {/* Konten Review */}
-              <div className="space-y-1 text-left">
-                <div className="flex items-center justify-between gap-1.5 flex-wrap">
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] group-hover/card:text-black uppercase tracking-wider leading-tight">
-                        {review.name}
-                      </h4>
-                      <span className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded-full border ${review.branch === 'cabang-2'
-                          ? 'bg-[#F4EBE2] text-[#8C6D58] border-[#E5D7CA]'
-                          : 'bg-[#EBF2EA] text-[#6E856C] border-[#D5E5D3]'
-                        }`}>
-                        {review.studioBadge}
-                      </span>
+                {/* Konten Review */}
+                <div className="space-y-1 text-left">
+                  <div className="flex items-center justify-between gap-1.5 flex-wrap">
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#3A3A3A] group-hover/card:text-black uppercase tracking-wider leading-tight">
+                          {review.name}
+                        </h4>
+                        <span className={`text-[8.5px] font-sans font-bold px-2 py-0.5 rounded-full border ${review.branch === 'cabang-2'
+                            ? 'bg-[#F4EBE2] text-[#8C6D58] border-[#E5D7CA]'
+                            : 'bg-[#EBF2EA] text-[#6E856C] border-[#D5E5D3]'
+                          }`}>
+                          {studioBadgeText}
+                        </span>
+                      </div>
+                      {review.reviewerMeta && (
+                        <span className="text-[9.5px] font-sans text-stone-500 mt-0.5">
+                          {review.reviewerMeta} {review.date && `• ${review.date}`}
+                        </span>
+                      )}
                     </div>
-                    {review.reviewerMeta && (
-                      <span className="text-[9.5px] font-sans text-stone-500 mt-0.5">
-                        {review.reviewerMeta} {review.date && `• ${review.date}`}
-                      </span>
-                    )}
+                    <span className="inline-flex items-center gap-1 text-[9px] font-sans font-semibold text-[#6E856C] bg-[#F2F7F2] px-2 py-0.5 rounded-full border border-[#D5E5D3] shrink-0">
+                      <span>Google Maps</span>
+                      <ArrowUpRight className="w-2.5 h-2.5 text-[#6E856C] group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
+                    </span>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-[9px] font-sans font-semibold text-[#6E856C] bg-[#F2F7F2] px-2 py-0.5 rounded-full border border-[#D5E5D3] shrink-0">
-                    <span>Google Maps</span>
-                    <ArrowUpRight className="w-2.5 h-2.5 text-[#6E856C] group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5 transition-transform" />
-                  </span>
+
+                  {/* Bintang Rating (Dynamic Stars) */}
+                  <div className="flex items-center gap-0.5 text-amber-500 text-xs leading-none pt-0.5">
+                    {'★'.repeat(starCount) + '☆'.repeat(5 - starCount)}
+                  </div>
+
+                  <div className="h-px bg-[#F2E9E4] my-1" />
+
+                  {/* Teks Testimonial */}
+                  <p className="text-[10.5px] sm:text-[11px] font-sans text-[#5A5A5A] group-hover/card:text-[#333333] leading-relaxed line-clamp-4">
+                    {review.text}
+                  </p>
                 </div>
-
-                {/* Bintang Rating (5 Stars) */}
-                <div className="flex items-center gap-0.5 text-amber-500 text-xs leading-none pt-0.5">
-                  {'★★★★★'}
-                </div>
-
-                <div className="h-px bg-[#F2E9E4] my-1" />
-
-                {/* Teks Testimonial */}
-                <p className="text-[10.5px] sm:text-[11px] font-sans text-[#5A5A5A] group-hover/card:text-[#333333] leading-relaxed line-clamp-4">
-                  {review.text}
-                </p>
-              </div>
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
 
         {/* Bar Indikator Pagination */}

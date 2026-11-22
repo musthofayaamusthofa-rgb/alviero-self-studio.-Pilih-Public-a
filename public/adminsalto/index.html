@@ -3155,25 +3155,141 @@
 
         <!-- MANAJEMEN ULASAN & TESTIMONI KLIEN GOOGLE MAPS (Tahap 2C) -->
         <div style="margin-top: 2.25rem; padding-top: 1.75rem; border-top: 2px dashed var(--border);">
-          <div
-            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.15rem;">
+          <!-- 1. KOTAK PENGATURAN RINGKASAN GOOGLE REVIEW (RATING & BADGE PILL) -->
+          <div style="background: linear-gradient(135deg, #FCFAF8 0%, #FFFFFF 100%); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; margin-bottom: 1.75rem; box-shadow: var(--shadow-sm);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
+              <div>
+                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.45rem;">
+                  <span>🌐</span> <span>Ringkasan Rating &amp; Badge Google Review (Header Website)</span>
+                </h4>
+                <p style="font-size: 0.76rem; color: #71717A; margin: 0.25rem 0 0 0;">
+                  Atur nilai rating bintang, teks jumlah ulasan, dan tautan resmi Google Maps untuk kedua cabang studio yang tampil di atas carousel ulasan.
+                </p>
+              </div>
+              <button type="button" class="btn btn-save-local" onclick="saveGoogleReviewSummary()" style="padding: 0.45rem 1rem; font-size: 0.78rem;">
+                💾 Simpan Ringkasan Rating
+              </button>
+            </div>
+
+            <!-- Grid 2 Cabang Studio -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+              <!-- Cabang 1: Junrejo -->
+              <div style="background: #FFFFFF; border: 1px solid #E8DDD6; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-weight: 800; font-size: 0.85rem; color: #3A3A3A; display: flex; align-items: center; gap: 0.35rem;">
+                    <span style="background: #EBF2EA; color: #5C725A; padding: 2px 7px; border-radius: 6px; font-size: 0.7rem; font-weight: 700;">Studio 1</span>
+                    Junrejo (Kota Batu)
+                  </span>
+                  <a id="gReviewBranch1LinkTest" href="https://maps.app.goo.gl/Jk52HH9ZxmBads9q6" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: #6E856C; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+                    ↗ Buka Maps
+                  </a>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem;">
+                  <div>
+                    <label class="form-label" style="font-size: 0.72rem;">Rating Bintang</label>
+                    <input type="text" id="gReviewBranch1Rating" class="form-control" style="font-weight: 700; text-align: center;" placeholder="4.9" oninput="updateGoogleReviewLivePreview()">
+                  </div>
+                  <div>
+                    <label class="form-label" style="font-size: 0.72rem;">Teks Jumlah Ulasan</label>
+                    <input type="text" id="gReviewBranch1Count" class="form-control" placeholder="775+ Ulasan" oninput="updateGoogleReviewLivePreview()">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="form-label" style="font-size: 0.72rem;">URL Link Google Maps Review</label>
+                  <input type="url" id="gReviewBranch1Url" class="form-control" style="font-size: 0.74rem;" placeholder="https://maps.app.goo.gl/..." oninput="updateGoogleReviewLivePreview()">
+                </div>
+
+                <!-- Preview Pill Mini -->
+                <div style="background: #FDFBF7; border: 1px dashed #E8DDD6; border-radius: 8px; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem;">
+                  <span style="color: #71717A; font-size: 0.68rem; font-weight: 600;">Pratinjau Badge:</span>
+                  <div id="previewPillBranch1" style="display: inline-flex; align-items: center; gap: 5px; font-weight: 700; color: #3A3A3A;">
+                    <span style="color: #4285F4;">G</span>
+                    <span>Studio 1:</span>
+                    <span id="previewRating1">4.9</span>
+                    <span style="color: #F59E0B;">★★★★★</span>
+                    <span style="color: #D1D5DB;">•</span>
+                    <span id="previewCount1">775+ Ulasan</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cabang 2: Dinoyo -->
+              <div style="background: #FFFFFF; border: 1px solid #E8DDD6; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.65rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-weight: 800; font-size: 0.85rem; color: #3A3A3A; display: flex; align-items: center; gap: 0.35rem;">
+                    <span style="background: #F4EBE2; color: #8C6D58; padding: 2px 7px; border-radius: 6px; font-size: 0.7rem; font-weight: 700;">Studio 2</span>
+                    Dinoyo (Kota Malang)
+                  </span>
+                  <a id="gReviewBranch2LinkTest" href="https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9" target="_blank" rel="noopener noreferrer" style="font-size: 0.72rem; color: #8C6D58; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+                    ↗ Buka Maps
+                  </a>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem;">
+                  <div>
+                    <label class="form-label" style="font-size: 0.72rem;">Rating Bintang</label>
+                    <input type="text" id="gReviewBranch2Rating" class="form-control" style="font-weight: 700; text-align: center;" placeholder="5.0" oninput="updateGoogleReviewLivePreview()">
+                  </div>
+                  <div>
+                    <label class="form-label" style="font-size: 0.72rem;">Teks Jumlah Ulasan</label>
+                    <input type="text" id="gReviewBranch2Count" class="form-control" placeholder="Google Review" oninput="updateGoogleReviewLivePreview()">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="form-label" style="font-size: 0.72rem;">URL Link Google Maps Review</label>
+                  <input type="url" id="gReviewBranch2Url" class="form-control" style="font-size: 0.74rem;" placeholder="https://maps.app.goo.gl/..." oninput="updateGoogleReviewLivePreview()">
+                </div>
+
+                <!-- Preview Pill Mini -->
+                <div style="background: #FDFBF7; border: 1px dashed #E8DDD6; border-radius: 8px; padding: 0.5rem 0.75rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.72rem;">
+                  <span style="color: #71717A; font-size: 0.68rem; font-weight: 600;">Pratinjau Badge:</span>
+                  <div id="previewPillBranch2" style="display: inline-flex; align-items: center; gap: 5px; font-weight: 700; color: #3A3A3A;">
+                    <span style="color: #4285F4;">G</span>
+                    <span>Studio 2:</span>
+                    <span id="previewRating2">5.0</span>
+                    <span style="color: #F59E0B;">★★★★★</span>
+                    <span style="color: #D1D5DB;">•</span>
+                    <span id="previewCount2">Google Review</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. DAFTAR KARTU ULASAN KLIEN -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.15rem;">
             <div>
-              <h3
-                style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.45rem;">
-                <span>⭐</span> <span>Manajemen Ulasan & Testimoni Klien (Google Review Carousel)</span>
+              <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--charcoal); margin: 0; display: flex; align-items: center; gap: 0.45rem;">
+                <span>⭐</span> <span>Manajemen Kartu Ulasan Klien (Google Review Cards)</span>
+                <span id="clientReviewTotalBadge" style="font-size: 0.72rem; font-weight: 700; background: #F2E9E4; color: #6E856C; padding: 2px 8px; border-radius: 999px; border: 1px solid #E8DDD6;">0 Ulasan</span>
               </h3>
               <p style="font-size: 0.78rem; color: #71717A; margin: 0.2rem 0 0 0;">
-                Tambah, edit, atau sembunyikan ulasan bintang 5 pelanggan Studio 1 (Junrejo) & Studio 2 (Dinoyo) yang
-                tampil di halaman depan.
+                Tambah ulasan terbaru dari Google Maps (bisa tempel otomatis), atur urutan tampil (panah ⬆️/⬇️), dan pilih yang ingin ditampilkan di slider depan.
               </p>
             </div>
-            <button class="btn btn-add" onclick="openAddClientReviewModal()">
-              + Tambah Ulasan Klien Baru
-            </button>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn" onclick="openAddClientReviewModal('paste')" style="background: #F2E9E4; color: #3A3A3A; border: 1px solid #E8DDD6; font-weight: 700;">
+                ⚡ Tempel Cepat dari Google Maps
+              </button>
+              <button type="button" class="btn btn-add" onclick="openAddClientReviewModal('manual')">
+                + Tambah Ulasan Manual
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Tab Cabang Studio untuk Daftar Ulasan -->
+          <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem; align-items: center;">
+            <span style="font-size: 0.75rem; color: #71717A; font-weight: 600; margin-right: 0.25rem;">Filter Cabang:</span>
+            <button type="button" id="crFilterAll" class="pill-btn active" onclick="filterClientReviewsByBranch('all', this)" style="padding: 0.25rem 0.75rem; font-size: 0.74rem;">Semua Cabang</button>
+            <button type="button" id="crFilterC1" class="pill-btn" onclick="filterClientReviewsByBranch('cabang-1', this)" style="padding: 0.25rem 0.75rem; font-size: 0.74rem;">Studio 1 (Junrejo)</button>
+            <button type="button" id="crFilterC2" class="pill-btn" onclick="filterClientReviewsByBranch('cabang-2', this)" style="padding: 0.25rem 0.75rem; font-size: 0.74rem;">Studio 2 (Dinoyo)</button>
           </div>
 
           <div class="bg-grid" id="clientReviewsGrid"
-            style="grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));">
+            style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem;">
             <!-- Rendered dynamically by renderClientReviews() -->
           </div>
         </div>
@@ -4938,7 +5054,133 @@
   </div>
 
 
-  <!-- MODAL: ADD / EDIT MILESTONE -->
+    <!-- MODAL: ADD / EDIT / SMART IMPORT CLIENT REVIEW -->
+  <div class="modal-overlay" id="clientReviewModal">
+    <div class="modal-card" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="clientReviewModalTitle">Tambah / Edit Ulasan Google Maps</h3>
+        <button class="btn-close" onclick="closeModal('clientReviewModal')">&times;</button>
+      </div>
+
+      <!-- Tab Switcher Modal: Tempel Cepat vs Form Manual -->
+      <div style="display: flex; border-bottom: 1px solid var(--border); background: #FAF9F6; padding: 0.5rem 1.25rem 0 1.25rem; gap: 0.5rem;">
+        <button type="button" id="crModalTabBtnPaste" class="pill-btn active" onclick="switchClientReviewModalTab('paste')" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; font-size: 0.78rem;">
+          ⚡ Tempel dari Google Maps (Otomatis)
+        </button>
+        <button type="button" id="crModalTabBtnManual" class="pill-btn" onclick="switchClientReviewModalTab('manual')" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; font-size: 0.78rem;">
+          📝 Form Lengkap Manual
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem;">
+        <input type="hidden" id="crModalEditIndex" value="-1">
+
+        <!-- TAB 1: TEMPEL CEPAT DARI GOOGLE MAPS -->
+        <div id="crModalPanePaste" style="display: block;">
+          <div style="background: #FDFBF7; border: 1px solid #E8DDD6; border-radius: 10px; padding: 0.85rem; margin-bottom: 1rem; font-size: 0.78rem; line-height: 1.45; color: #52525B;">
+            <div style="font-weight: 700; color: #3A3A3A; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 4px;">
+              <span>💡</span> <span>Cara Tempel Cepat (Auto-Parse):</span>
+            </div>
+            1. Buka ulasan Alviero Studio di Google Maps.<br>
+            2. Blok (copy) teks ulasan pengunjung (bisa mencakup nama, local guide, bintang, dan ulasan).<br>
+            3. Tempel di kotak bawah, pilih cabang studio tujuan, lalu klik <strong>"✨ Ekstrak Otomatis"</strong>.
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="font-weight: 700;">Cabang Studio untuk Ulasan Ini *</label>
+            <div style="display: flex; gap: 1rem; margin-top: 0.35rem;">
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem;">
+                <input type="radio" name="crPasteBranchRadio" value="cabang-1" checked>
+                <span><strong>Studio 1</strong> (Junrejo, Batu)</span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem;">
+                <input type="radio" name="crPasteBranchRadio" value="cabang-2">
+                <span><strong>Studio 2</strong> (Dinoyo, Malang)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 0.85rem;">
+            <label class="form-label" style="font-weight: 700;">Tempel Teks Ulasan dari Google Maps di Sini *</label>
+            <textarea id="crPasteRawInput" class="form-control" rows="6" placeholder="Contoh teks yang disalin dari Google Maps:&#10;&#10;Nadia Putri&#10;Local Guide · 24 ulasan&#10;2 bulan lalu&#10;★★★★★&#10;Hasil foto wisuda di Alviero Studio bagus banget! Fotografernya ramah dan hasilnya tajam..." style="font-family: inherit; font-size: 0.82rem; line-height: 1.45;"></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.85rem;">
+            <button type="button" class="btn btn-save-local" onclick="handleParseGoogleReviewPastedText()" style="font-size: 0.82rem; padding: 0.55rem 1.25rem;">
+              ✨ Ekstrak Otomatis &amp; Buka Form
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: FORM LENGKAP MANUAL -->
+        <div id="crModalPaneManual" style="display: none;">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nama Pengulas / Klien *</label>
+              <input type="text" id="crModalName" class="form-control" placeholder="Contoh: Nadia Putri">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cabang Studio *</label>
+              <select id="crModalBranch" class="form-control">
+                <option value="cabang-1">Studio 1 (Junrejo)</option>
+                <option value="cabang-2">Studio 2 (Dinoyo)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Status Pengulas (Meta Profil)</label>
+              <input type="text" id="crModalMeta" class="form-control" placeholder="Contoh: Local Guide · 24 ulasan atau 5 ulasan · 3 foto">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Waktu Ulasan</label>
+              <input type="text" id="crModalDate" class="form-control" placeholder="Contoh: 2 bulan lalu, 1 minggu lalu, dll">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Rating Bintang *</label>
+              <select id="crModalStars" class="form-control" style="font-weight: 700;">
+                <option value="5">⭐⭐⭐⭐⭐ (5 Bintang - Sangat Puas)</option>
+                <option value="4">⭐⭐⭐⭐☆ (4 Bintang - Puas)</option>
+                <option value="3">⭐⭐⭐☆☆ (3 Bintang)</option>
+                <option value="2">⭐⭐☆☆☆ (2 Bintang)</option>
+                <option value="1">⭐☆☆☆☆ (1 Bintang)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kategori / Paket Foto (Opsional)</label>
+              <input type="text" id="crModalPackage" class="form-control" placeholder="Contoh: Paket Wisuda Studio / Self Studio">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">URL Langsung Ulasan Google Maps (Opsional)</label>
+            <input type="url" id="crModalUrl" class="form-control" placeholder="https://maps.app.goo.gl/... (kosongkan jika pakai link cabang)">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Isi Testimoni / Ulasan Klien *</label>
+            <textarea id="crModalText" class="form-control" rows="4" placeholder="Tulis atau tempel teks ulasan pengunjung secara lengkap di sini..."></textarea>
+          </div>
+
+          <div class="form-group" style="padding-top: 0.35rem;">
+            <label class="checkbox-item" style="font-weight: 700; color: var(--charcoal); cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="crModalActive" checked>
+              <span>Tampilkan ulasan ini di Website (Aktif di Carousel)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('clientReviewModal')">Batal</button>
+        <button type="button" class="btn btn-save-local" onclick="saveClientReviewModal()">💾 Simpan Ulasan</button>
+      </div>
+    </div>
+  </div>\n\n  <!-- MODAL: ADD / EDIT MILESTONE -->
   <div class="modal-overlay" id="milestoneModal">
     <div class="modal-card">
       <div class="modal-header">
@@ -9078,6 +9320,7 @@
       renderPromos();
       renderAnnouncementConfig();
       renderQuickServicesConfig();
+      renderGoogleReviewSummary();
       renderClientReviews();
       renderHistory();
       renderIndoorPackages();
@@ -14519,40 +14762,214 @@
       showToast(isEnabled ? '✅ Bagian "Siap Berekspresi?" berhasil diaktifkan di web!' : '⚪ Bagian "Siap Berekspresi?" dinonaktifkan dari web.', '🗂️');
     }
 
-    // 2. Ulasan Klien Google Maps (Client Reviews Carousel)
+        // ==========================================
+    // 2. ULASAN KLIEN GOOGLE MAPS (GOOGLE REVIEW)
+    // ==========================================
+
+    let currentClientReviewBranchFilter = 'all';
+
+    // A. Render Ringkasan Rating & Badge Google Review
+    function renderGoogleReviewSummary() {
+      if (!appConfig) return;
+      if (!appConfig.googleReviewSummary) {
+        appConfig.googleReviewSummary = {
+          branch1Rating: '4.9',
+          branch1ReviewCount: '775+ Ulasan',
+          branch1ReviewUrl: 'https://maps.app.goo.gl/Jk52HH9ZxmBads9q6',
+          branch2Rating: '5.0',
+          branch2ReviewCount: 'Google Review',
+          branch2ReviewUrl: 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9'
+        };
+      }
+
+      const s = appConfig.googleReviewSummary;
+      const b1RatingInput = document.getElementById('gReviewBranch1Rating');
+      const b1CountInput = document.getElementById('gReviewBranch1Count');
+      const b1UrlInput = document.getElementById('gReviewBranch1Url');
+      const b1LinkTest = document.getElementById('gReviewBranch1LinkTest');
+
+      const b2RatingInput = document.getElementById('gReviewBranch2Rating');
+      const b2CountInput = document.getElementById('gReviewBranch2Count');
+      const b2UrlInput = document.getElementById('gReviewBranch2Url');
+      const b2LinkTest = document.getElementById('gReviewBranch2LinkTest');
+
+      if (b1RatingInput) b1RatingInput.value = s.branch1Rating || '4.9';
+      if (b1CountInput) b1CountInput.value = s.branch1ReviewCount || '775+ Ulasan';
+      if (b1UrlInput) b1UrlInput.value = s.branch1ReviewUrl || 'https://maps.app.goo.gl/Jk52HH9ZxmBads9q6';
+      if (b1LinkTest) b1LinkTest.href = s.branch1ReviewUrl || 'https://maps.app.goo.gl/Jk52HH9ZxmBads9q6';
+
+      if (b2RatingInput) b2RatingInput.value = s.branch2Rating || '5.0';
+      if (b2CountInput) b2CountInput.value = s.branch2ReviewCount || 'Google Review';
+      if (b2UrlInput) b2UrlInput.value = s.branch2ReviewUrl || 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9';
+      if (b2LinkTest) b2LinkTest.href = s.branch2ReviewUrl || 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9';
+
+      updateGoogleReviewLivePreview();
+    }
+
+    function updateGoogleReviewLivePreview() {
+      const r1 = document.getElementById('gReviewBranch1Rating')?.value?.trim() || '4.9';
+      const c1 = document.getElementById('gReviewBranch1Count')?.value?.trim() || '775+ Ulasan';
+      const u1 = document.getElementById('gReviewBranch1Url')?.value?.trim();
+
+      const r2 = document.getElementById('gReviewBranch2Rating')?.value?.trim() || '5.0';
+      const c2 = document.getElementById('gReviewBranch2Count')?.value?.trim() || 'Google Review';
+      const u2 = document.getElementById('gReviewBranch2Url')?.value?.trim();
+
+      const pR1 = document.getElementById('previewRating1');
+      const pC1 = document.getElementById('previewCount1');
+      const b1Test = document.getElementById('gReviewBranch1LinkTest');
+
+      const pR2 = document.getElementById('previewRating2');
+      const pC2 = document.getElementById('previewCount2');
+      const b2Test = document.getElementById('gReviewBranch2LinkTest');
+
+      if (pR1) pR1.textContent = r1;
+      if (pC1) pC1.textContent = c1;
+      if (b1Test && u1) b1Test.href = u1;
+
+      if (pR2) pR2.textContent = r2;
+      if (pC2) pC2.textContent = c2;
+      if (b2Test && u2) b2Test.href = u2;
+    }
+
+    function saveGoogleReviewSummary() {
+      if (!appConfig) return;
+      if (!appConfig.googleReviewSummary) appConfig.googleReviewSummary = {};
+
+      const b1Rating = document.getElementById('gReviewBranch1Rating')?.value?.trim() || '4.9';
+      const b1Count = document.getElementById('gReviewBranch1Count')?.value?.trim() || '775+ Ulasan';
+      const b1Url = document.getElementById('gReviewBranch1Url')?.value?.trim() || 'https://maps.app.goo.gl/Jk52HH9ZxmBads9q6';
+
+      const b2Rating = document.getElementById('gReviewBranch2Rating')?.value?.trim() || '5.0';
+      const b2Count = document.getElementById('gReviewBranch2Count')?.value?.trim() || 'Google Review';
+      const b2Url = document.getElementById('gReviewBranch2Url')?.value?.trim() || 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9';
+
+      appConfig.googleReviewSummary.branch1Rating = b1Rating;
+      appConfig.googleReviewSummary.branch1ReviewCount = b1Count;
+      appConfig.googleReviewSummary.branch1ReviewUrl = b1Url;
+
+      appConfig.googleReviewSummary.branch2Rating = b2Rating;
+      appConfig.googleReviewSummary.branch2ReviewCount = b2Count;
+      appConfig.googleReviewSummary.branch2ReviewUrl = b2Url;
+
+      renderGoogleReviewSummary();
+      saveConfigLocally();
+      showToast('✅ Ringkasan Rating & Link Google Review berhasil disimpan!', '🌐');
+    }
+
+    // B. Filter Cabang Ulasan
+    function filterClientReviewsByBranch(branch, btn) {
+      currentClientReviewBranchFilter = branch;
+      document.querySelectorAll('#crFilterAll, #crFilterC1, #crFilterC2').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderClientReviews();
+    }
+
+    // C. Render Kartu Ulasan Klien
     function renderClientReviews() {
       if (!appConfig) return;
       if (!Array.isArray(appConfig.clientReviews)) appConfig.clientReviews = [];
       const container = document.getElementById('clientReviewsGrid');
+      const badgeTotal = document.getElementById('clientReviewTotalBadge');
       if (!container) return;
       container.innerHTML = '';
 
-      if (appConfig.clientReviews.length === 0) {
-        container.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding: 2rem; color:#71717A; background:#FAF9F6; border:1px dashed var(--border); border-radius:12px;">Belum ada ulasan klien. Klik "+ Tambah Ulasan Baru" untuk menambahkan.</div>';
+      const totalCount = appConfig.clientReviews.length;
+      const c1Count = appConfig.clientReviews.filter(r => r.branch === 'cabang-1').length;
+      const c2Count = appConfig.clientReviews.filter(r => r.branch === 'cabang-2').length;
+      if (badgeTotal) {
+        badgeTotal.textContent = `${totalCount} Ulasan (${c1Count} Junrejo, ${c2Count} Dinoyo)`;
+      }
+
+      const filtered = appConfig.clientReviews
+        .map((rev, originalIdx) => ({ rev, originalIdx }))
+        .filter(({ rev }) => {
+          if (currentClientReviewBranchFilter === 'all') return true;
+          return rev.branch === currentClientReviewBranchFilter;
+        });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1/-1; text-align:center; padding: 2.5rem 1.5rem; color:#71717A; background:#FAF9F6; border:1px dashed var(--border); border-radius:14px;">
+            <div style="font-size: 1.75rem; margin-bottom: 0.5rem;">💬</div>
+            <div style="font-weight: 700; color: var(--charcoal); font-size: 0.95rem;">Tidak ada ulasan klien untuk kategori ini.</div>
+            <div style="font-size: 0.78rem; margin-top: 0.25rem;">Klik tombol <strong>"⚡ Tempel Cepat"</strong> atau <strong>"+ Tambah Ulasan Manual"</strong> untuk menambahkan ulasan dari Google Maps.</div>
+          </div>
+        `;
         return;
       }
 
-      appConfig.clientReviews.forEach((rev, idx) => {
+      filtered.forEach(({ rev, originalIdx }) => {
         const isActive = rev.active !== false;
+        const isBranch2 = rev.branch === 'cabang-2';
+        const badgeText = rev.studioBadge || (isBranch2 ? 'Studio 2 (Dinoyo)' : 'Studio 1 (Junrejo)');
+        const starVal = Math.max(1, Math.min(5, Math.round(Number(rev.stars) || Number(rev.rating) || 5)));
+        const starDisplay = '★'.repeat(starVal) + '☆'.repeat(5 - starVal);
+        const reviewText = rev.text || rev.review || '';
+        const metaText = rev.reviewerMeta || rev.role || 'Klien Alviero Studio';
+        const dateText = rev.date ? ` • ${rev.date}` : '';
+
         const card = document.createElement('div');
-        card.style.cssText = 'background:#FAFAFA; border:1px solid var(--border); border-radius:12px; padding:1rem; display:flex; flex-direction:column; gap:0.5rem;' + (isActive ? '' : 'opacity:0.55;');
+        card.style.cssText = `
+          background: #FFFFFF;
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          padding: 1rem 1.15rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+          box-shadow: var(--shadow-xs);
+          transition: all 0.2s ease;
+          position: relative;
+          ${isActive ? '' : 'opacity: 0.55; background: #FBFBFA;'}
+        `;
+
         card.innerHTML = `
           <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
-            <div>
-              <div style="font-weight:800; font-size:0.9rem; color:var(--charcoal);">${escapeHtml(rev.name || 'Klien')}</div>
-              <div style="font-size:0.73rem; color:#5C725A; font-weight:700;">${escapeHtml(rev.role || 'Klien Alviero')} • ${escapeHtml(rev.branch || 'Studio 1')}</div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+                <span style="font-weight: 800; font-size: 0.9rem; color: var(--charcoal);">${escapeHtml(rev.name || 'Klien')}</span>
+                <span style="font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; ${isBranch2 ? 'background:#F4EBE2; color:#8C6D58; border:1px solid #E5D7CA;' : 'background:#EBF2EA; color:#6E856C; border:1px solid #D5E5D3;'}">
+                  ${escapeHtml(badgeText)}
+                </span>
+              </div>
+              <div style="font-size: 0.72rem; color: #71717A; margin-top: 2px;">
+                ${escapeHtml(metaText)}${escapeHtml(dateText)}
+              </div>
             </div>
-            <span style="font-size:0.72rem; background:#FEF3C7; color:#92400E; padding:2px 7px; border-radius:999px; font-weight:700;">⭐ ${rev.rating || 5}.0</span>
+
+            <!-- Stars Badge -->
+            <div style="display: flex; flex-direction: column; align-items: flex-end; shrink-0;">
+              <span style="color: #F59E0B; font-size: 0.82rem; letter-spacing: 1px; font-weight: 700;">${starDisplay}</span>
+              <span style="font-size: 0.68rem; font-weight: 800; color: #B45309;">${starVal}.0</span>
+            </div>
           </div>
-          <p style="font-size:0.78rem; color:#52525B; line-height:1.45; margin:0.2rem 0; flex:1;">"${escapeHtml(rev.review || '')}"</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; padding-top:0.5rem; border-top:1px solid var(--border); font-size:0.72rem; color:#71717A;">
-            <label style="display:inline-flex; align-items:center; gap:5px; cursor:pointer;">
-              <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleClientReviewActive(${idx}, this.checked)">
-              <span>${isActive ? 'Tampil' : 'Sembunyi'}</span>
-            </label>
-            <div style="display:flex; gap:0.35rem;">
-              <button type="button" class="btn-action" onclick="editClientReviewPrompt(${idx})">✏️ Edit</button>
-              <button type="button" class="btn-action delete" onclick="deleteClientReview(${idx})">🗑️</button>
+
+          <!-- Review Text -->
+          <div style="position: relative; padding-left: 0.75rem; border-left: 2px solid #E8DDD6; margin: 0.2rem 0; flex: 1;">
+            <p style="font-size: 0.78rem; color: #3A3A3A; line-height: 1.45; margin: 0; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">
+              "${escapeHtml(reviewText)}"
+            </p>
+          </div>
+
+          <!-- Bottom Action Bar: Reorder ⬆️ ⬇️, Active Toggle, Edit, Delete -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.65rem; border-top: 1px solid #F4F4F5; font-size: 0.72rem; color: #71717A;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <label style="display: inline-flex; align-items: center; gap: 5px; cursor: pointer; font-weight: 600;">
+                <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleClientReviewActive(${originalIdx}, this.checked)">
+                <span style="color: ${isActive ? '#15803D' : '#9CA3AF'};">${isActive ? 'Tampil di Web' : 'Sembunyi'}</span>
+              </label>
+
+              <!-- Tombol Pindah Urutan (Reorder) -->
+              <div style="display: inline-flex; align-items: center; gap: 2px; margin-left: 4px; background: #F4F4F5; border-radius: 6px; padding: 1px 3px;">
+                <button type="button" onclick="moveClientReview(${originalIdx}, -1)" ${originalIdx === 0 ? 'disabled' : ''} style="border:none; background:transparent; cursor:${originalIdx === 0 ? 'not-allowed' : 'pointer'}; font-size:0.75rem; padding: 2px 4px; opacity: ${originalIdx === 0 ? '0.3' : '1'};" title="Geser ke Atas (Prioritaskan)">⬆️</button>
+                <button type="button" onclick="moveClientReview(${originalIdx}, 1)" ${originalIdx === appConfig.clientReviews.length - 1 ? 'disabled' : ''} style="border:none; background:transparent; cursor:${originalIdx === appConfig.clientReviews.length - 1 ? 'not-allowed' : 'pointer'}; font-size:0.75rem; padding: 2px 4px; opacity: ${originalIdx === appConfig.clientReviews.length - 1 ? '0.3' : '1'};" title="Geser ke Bawah">⬇️</button>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 0.35rem; align-items: center;">
+              <button type="button" class="btn-action" onclick="openEditClientReviewModal(${originalIdx})" title="Edit ulasan ini">✏️ Edit</button>
+              <button type="button" class="btn-action delete" onclick="deleteClientReview(${originalIdx})" title="Hapus ulasan">🗑️</button>
             </div>
           </div>
         `;
@@ -14560,65 +14977,30 @@
       });
     }
 
+    // D. Pindah Urutan Ulasan (Move Up / Down)
+    function moveClientReview(idx, direction) {
+      if (!appConfig?.clientReviews) return;
+      const targetIdx = idx + direction;
+      if (targetIdx < 0 || targetIdx >= appConfig.clientReviews.length) return;
+
+      const item = appConfig.clientReviews.splice(idx, 1)[0];
+      appConfig.clientReviews.splice(targetIdx, 0, item);
+
+      renderClientReviews();
+      saveConfigLocally();
+      showToast('✅ Urutan ulasan berhasil diubah!', '⬆️');
+    }
+
+    // E. Toggle Tampil / Sembunyi
     function toggleClientReviewActive(idx, checked) {
       if (!appConfig?.clientReviews?.[idx]) return;
       appConfig.clientReviews[idx].active = checked;
       renderClientReviews();
       saveConfigLocally();
+      showToast(checked ? '✅ Ulasan diaktifkan di web' : '⚪ Ulasan disembunyikan dari web', '👁️');
     }
 
-    function openAddClientReviewModal() {
-      const name = prompt('Nama Klien (contoh: Nabila Putri A.):');
-      if (!name || !name.trim()) return;
-      const role = prompt('Kategori / Paket Klien (contoh: Wisuda Universitas Brawijaya):', 'Klien Studio Foto') || 'Klien Studio Foto';
-      const branch = prompt('Cabang Studio (contoh: Studio 2 — Dinoyo atau Studio 1 — Junrejo):', 'Studio 1 — Junrejo') || 'Studio 1 — Junrejo';
-      const date = prompt('Keterangan Waktu (contoh: Minggu lalu):', 'Baru saja') || 'Baru saja';
-      const review = prompt('Isi Testimoni / Ulasan Klien:');
-      if (!review || !review.trim()) return;
-
-      const trimmedName = name.trim();
-      const parts = trimmedName.split(/\s+/);
-      const avatarInitials = (parts[0]?.[0] || 'A') + (parts[1]?.[0] || '');
-
-      if (!Array.isArray(appConfig.clientReviews)) appConfig.clientReviews = [];
-      appConfig.clientReviews.push({
-        id: 'rev-' + Date.now(),
-        name: trimmedName,
-        role: role.trim(),
-        branch: branch.trim(),
-        rating: 5,
-        date: date.trim(),
-        review: review.trim(),
-        avatarInitials: avatarInitials.toUpperCase(),
-        verified: true,
-        active: true
-      });
-      renderClientReviews();
-      saveConfigLocally();
-      showToast('✅ Ulasan klien baru berhasil ditambahkan!', '⭐');
-    }
-
-    function editClientReviewPrompt(idx) {
-      const rev = appConfig?.clientReviews?.[idx];
-      if (!rev) return;
-      const name = prompt('Edit Nama Klien:', rev.name || '');
-      if (name === null) return;
-      const role = prompt('Edit Kategori / Paket Klien:', rev.role || '');
-      if (role === null) return;
-      const branch = prompt('Edit Cabang Studio:', rev.branch || '');
-      if (branch === null) return;
-      const review = prompt('Edit Isi Ulasan Klien:', rev.review || '');
-      if (review === null) return;
-
-      rev.name = name.trim() || rev.name;
-      rev.role = role.trim() || rev.role;
-      rev.branch = branch.trim() || rev.branch;
-      rev.review = review.trim() || rev.review;
-      renderClientReviews();
-      saveConfigLocally();
-      showToast('✅ Ulasan klien berhasil diperbarui!', '⭐');
-    }
-
+    // F. Hapus Ulasan
     function deleteClientReview(idx) {
       const rev = appConfig?.clientReviews?.[idx];
       if (!rev) return;
@@ -14626,8 +15008,274 @@
       appConfig.clientReviews.splice(idx, 1);
       renderClientReviews();
       saveConfigLocally();
-      showToast('Ulasan klien dihapus.', '🗑️');
+      showToast('Ulasan klien telah dihapus.', '🗑️');
     }
+
+    // G. Switch Tab di Dalam Modal Ulasan
+    function switchClientReviewModalTab(tab) {
+      const btnPaste = document.getElementById('crModalTabBtnPaste');
+      const btnManual = document.getElementById('crModalTabBtnManual');
+      const panePaste = document.getElementById('crModalPanePaste');
+      const paneManual = document.getElementById('crModalPaneManual');
+
+      if (tab === 'paste') {
+        if (btnPaste) btnPaste.classList.add('active');
+        if (btnManual) btnManual.classList.remove('active');
+        if (panePaste) panePaste.style.display = 'block';
+        if (paneManual) paneManual.style.display = 'none';
+      } else {
+        if (btnPaste) btnPaste.classList.remove('active');
+        if (btnManual) btnManual.classList.add('active');
+        if (panePaste) panePaste.style.display = 'none';
+        if (paneManual) paneManual.style.display = 'block';
+      }
+    }
+
+    // H. Smart Parser Ulasan Google Maps
+    function parseGoogleReviewText(rawText) {
+      if (!rawText || !rawText.trim()) return null;
+      const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+      if (lines.length === 0) return null;
+
+      let name = '';
+      let meta = '';
+      let date = '';
+      let stars = 5;
+      let textLines = [];
+
+      // Single line text (e.g. pasted only the quote)
+      if (lines.length === 1 && lines[0].length > 40) {
+        return {
+          name: '',
+          reviewerMeta: 'Ulasan Google Maps',
+          date: 'Baru saja',
+          stars: 5,
+          text: lines[0]
+        };
+      }
+
+      const starRegex = /^[★☆\s]+$/;
+      const starNumRegex = /(\d)\s*(?:bintang|star|stars)/i;
+      const metaRegex = /(?:Local\s+Guide|\d+\s*ulasan|\d+\s*foto|\d+\s*reviews|\d+\s*photos)/i;
+      const dateRegex = /(?:\d+\s*(?:menit|jam|hari|minggu|bulan|tahun)\s*lalu|baru\s+saja|\d+\s*(?:minute|hour|day|week|month|year)s?\s*ago)/i;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        // 1. Deteksi baris bintang (contoh: ★★★★★)
+        if (starRegex.test(line)) {
+          const count = (line.match(/★/g) || []).length;
+          if (count > 0) stars = count;
+          continue;
+        }
+        const starMatch = line.match(starNumRegex);
+        if (starMatch) {
+          stars = parseInt(starMatch[1], 10) || 5;
+          continue;
+        }
+
+        // 2. Deteksi baris meta profil pengulas (Local Guide / X ulasan)
+        if (!meta && metaRegex.test(line)) {
+          meta = line;
+          continue;
+        }
+
+        // 3. Deteksi baris tanggal/waktu (2 bulan lalu, dll)
+        if (!date && dateRegex.test(line)) {
+          date = line;
+          continue;
+        }
+
+        // 4. Baris pertama diasumsikan sebagai nama jika belum terisi
+        if (!name) {
+          name = line;
+          continue;
+        }
+
+        // 5. Sisanya adalah teks ulasan
+        textLines.push(line);
+      }
+
+      return {
+        name: name,
+        reviewerMeta: meta || 'Ulasan Google Maps',
+        date: date || 'Baru saja',
+        stars: Math.max(1, Math.min(5, stars)),
+        text: textLines.join('\n').trim()
+      };
+    }
+
+    function handleParseGoogleReviewPastedText() {
+      const rawText = document.getElementById('crPasteRawInput')?.value || '';
+      if (!rawText.trim()) {
+        alert('Silakan tempel teks ulasan dari Google Maps terlebih dahulu!');
+        return;
+      }
+
+      const parsed = parseGoogleReviewText(rawText);
+      if (!parsed) {
+        alert('Teks ulasan tidak valid atau kosong.');
+        return;
+      }
+
+      // Ambil cabang yang dipilih di tab tempel
+      const selectedBranch = document.querySelector('input[name="crPasteBranchRadio"]:checked')?.value || 'cabang-1';
+
+      // Isi ke form manual
+      const nameInput = document.getElementById('crModalName');
+      const branchInput = document.getElementById('crModalBranch');
+      const metaInput = document.getElementById('crModalMeta');
+      const dateInput = document.getElementById('crModalDate');
+      const starsInput = document.getElementById('crModalStars');
+      const textInput = document.getElementById('crModalText');
+
+      if (nameInput) nameInput.value = parsed.name || '';
+      if (branchInput) branchInput.value = selectedBranch;
+      if (metaInput) metaInput.value = parsed.reviewerMeta || '';
+      if (dateInput) dateInput.value = parsed.date || '';
+      if (starsInput) starsInput.value = String(parsed.stars || 5);
+      if (textInput) textInput.value = parsed.text || '';
+
+      // Beralih ke Tab 2 (Manual) agar pengguna bisa melihat dan mengoreksi hasil ekstraksi
+      switchClientReviewModalTab('manual');
+      showToast('✨ Ulasan berhasil diekstrak otomatis! Silakan periksa & simpan.', '⚡');
+    }
+
+    // I. Buka Modal Tambah Ulasan Baru
+    function openAddClientReviewModal(defaultTab = 'manual') {
+      const editIdxInput = document.getElementById('crModalEditIndex');
+      const title = document.getElementById('clientReviewModalTitle');
+      const rawInput = document.getElementById('crPasteRawInput');
+      const nameInput = document.getElementById('crModalName');
+      const branchInput = document.getElementById('crModalBranch');
+      const metaInput = document.getElementById('crModalMeta');
+      const dateInput = document.getElementById('crModalDate');
+      const starsInput = document.getElementById('crModalStars');
+      const pkgInput = document.getElementById('crModalPackage');
+      const urlInput = document.getElementById('crModalUrl');
+      const textInput = document.getElementById('crModalText');
+      const activeInput = document.getElementById('crModalActive');
+
+      if (editIdxInput) editIdxInput.value = '-1';
+      if (title) title.textContent = 'Tambah Ulasan Google Maps Baru';
+      if (rawInput) rawInput.value = '';
+      if (nameInput) nameInput.value = '';
+      if (branchInput) branchInput.value = currentClientReviewBranchFilter !== 'all' ? currentClientReviewBranchFilter : 'cabang-1';
+      if (metaInput) metaInput.value = 'Local Guide · 15 ulasan';
+      if (dateInput) dateInput.value = 'Baru saja';
+      if (starsInput) starsInput.value = '5';
+      if (pkgInput) pkgInput.value = '';
+      if (urlInput) urlInput.value = '';
+      if (textInput) textInput.value = '';
+      if (activeInput) activeInput.checked = true;
+
+      switchClientReviewModalTab(defaultTab);
+      openModal('clientReviewModal');
+    }
+
+    // J. Buka Modal Edit Ulasan
+    function openEditClientReviewModal(idx) {
+      const rev = appConfig?.clientReviews?.[idx];
+      if (!rev) return;
+
+      const editIdxInput = document.getElementById('crModalEditIndex');
+      const title = document.getElementById('clientReviewModalTitle');
+      const nameInput = document.getElementById('crModalName');
+      const branchInput = document.getElementById('crModalBranch');
+      const metaInput = document.getElementById('crModalMeta');
+      const dateInput = document.getElementById('crModalDate');
+      const starsInput = document.getElementById('crModalStars');
+      const pkgInput = document.getElementById('crModalPackage');
+      const urlInput = document.getElementById('crModalUrl');
+      const textInput = document.getElementById('crModalText');
+      const activeInput = document.getElementById('crModalActive');
+
+      if (editIdxInput) editIdxInput.value = String(idx);
+      if (title) title.textContent = `Edit Ulasan: ${rev.name || 'Klien'}`;
+      if (nameInput) nameInput.value = rev.name || '';
+      if (branchInput) branchInput.value = rev.branch || 'cabang-1';
+      if (metaInput) metaInput.value = rev.reviewerMeta || rev.role || '';
+      if (dateInput) dateInput.value = rev.date || '';
+      if (starsInput) starsInput.value = String(rev.stars || rev.rating || 5);
+      if (pkgInput) pkgInput.value = rev.package || '';
+      if (urlInput) urlInput.value = rev.reviewUrl || '';
+      if (textInput) textInput.value = rev.text || rev.review || '';
+      if (activeInput) activeInput.checked = rev.active !== false;
+
+      switchClientReviewModalTab('manual');
+      openModal('clientReviewModal');
+    }
+
+    // K. Simpan Ulasan dari Modal
+    function saveClientReviewModal() {
+      if (!appConfig) return;
+      if (!Array.isArray(appConfig.clientReviews)) appConfig.clientReviews = [];
+
+      const editIdx = parseInt(document.getElementById('crModalEditIndex')?.value || '-1', 10);
+      const name = document.getElementById('crModalName')?.value?.trim();
+      const branch = document.getElementById('crModalBranch')?.value || 'cabang-1';
+      const meta = document.getElementById('crModalMeta')?.value?.trim() || 'Ulasan Google Maps';
+      const date = document.getElementById('crModalDate')?.value?.trim() || 'Baru saja';
+      const stars = parseInt(document.getElementById('crModalStars')?.value || '5', 10);
+      const pkg = document.getElementById('crModalPackage')?.value?.trim() || '';
+      const url = document.getElementById('crModalUrl')?.value?.trim() || '';
+      const text = document.getElementById('crModalText')?.value?.trim();
+      const isActive = document.getElementById('crModalActive')?.checked !== false;
+
+      if (!name) {
+        alert('Nama pengulas / klien wajib diisi!');
+        document.getElementById('crModalName')?.focus();
+        return;
+      }
+      if (!text) {
+        alert('Isi teks ulasan atau testimoni klien wajib diisi!');
+        document.getElementById('crModalText')?.focus();
+        return;
+      }
+
+      const studioBadge = branch === 'cabang-2' ? 'Studio 2 (Dinoyo)' : 'Studio 1 (Junrejo)';
+
+      if (editIdx >= 0 && editIdx < appConfig.clientReviews.length) {
+        // Edit existing
+        const target = appConfig.clientReviews[editIdx];
+        target.name = name;
+        target.branch = branch;
+        target.studioBadge = studioBadge;
+        target.reviewerMeta = meta;
+        target.date = date;
+        target.stars = stars;
+        target.rating = stars;
+        target.package = pkg;
+        target.reviewUrl = url;
+        target.text = text;
+        target.review = text;
+        target.active = isActive;
+      } else {
+        // Tambah baru di urutan paling atas agar ulasan terbaru langsung muncul pertama!
+        appConfig.clientReviews.unshift({
+          id: 'rev-' + Date.now(),
+          name: name,
+          avatar: '',
+          branch: branch,
+          studioBadge: studioBadge,
+          reviewerMeta: meta,
+          date: date,
+          stars: stars,
+          rating: stars,
+          package: pkg,
+          reviewUrl: url,
+          text: text,
+          review: text,
+          active: isActive
+        });
+      }
+
+      renderClientReviews();
+      saveConfigLocally();
+      closeModal('clientReviewModal');
+      showToast(editIdx >= 0 ? '✅ Ulasan klien berhasil diperbarui!' : '✅ Ulasan baru berhasil ditambahkan di urutan teratas!', '⭐');
+    }
+
 
     // 3. Sub-Menu Switcher pada Tab Paket & Katalog Harga (Indoor)
     function switchIndoorSubView(subView, btn) {

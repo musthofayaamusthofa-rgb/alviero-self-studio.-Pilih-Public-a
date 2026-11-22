@@ -8759,5 +8759,13 @@
         }
       ]
     }
-  ]
+  ],
+  "googleReviewSummary": {
+    "branch1Rating": "4.9",
+    "branch1ReviewCount": "775+ Ulasan",
+    "branch1ReviewUrl": "https://maps.app.goo.gl/Jk52HH9ZxmBads9q6",
+    "branch2Rating": "5.0",
+    "branch2ReviewCount": "Google Review",
+    "branch2ReviewUrl": "https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9"
+  }
 }

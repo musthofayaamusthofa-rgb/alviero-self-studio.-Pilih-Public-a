@@ -626,6 +626,30 @@ export function getActiveReviews(cfg?: any, fallback: any[] = []): any[] {
   return fallback;
 }
 
+export interface GoogleReviewSummaryConfig {
+  branch1Rating: string;
+  branch1ReviewCount: string;
+  branch1ReviewUrl: string;
+  branch2Rating: string;
+  branch2ReviewCount: string;
+  branch2ReviewUrl: string;
+}
+
+/**
+ * Mengambil ringkasan ulasan Google Maps (Rating bintang & Jumlah ulasan per cabang)
+ */
+export function getGoogleReviewSummary(cfg?: any): GoogleReviewSummaryConfig {
+  const activeCfg = cfg || currentConfig;
+  return {
+    branch1Rating: activeCfg?.googleReviewSummary?.branch1Rating || '4.9',
+    branch1ReviewCount: activeCfg?.googleReviewSummary?.branch1ReviewCount || '775+ Ulasan',
+    branch1ReviewUrl: activeCfg?.googleReviewSummary?.branch1ReviewUrl || activeCfg?.branches?.[0]?.reviewUrl || 'https://maps.app.goo.gl/Jk52HH9ZxmBads9q6',
+    branch2Rating: activeCfg?.googleReviewSummary?.branch2Rating || '5.0',
+    branch2ReviewCount: activeCfg?.googleReviewSummary?.branch2ReviewCount || 'Google Review',
+    branch2ReviewUrl: activeCfg?.googleReviewSummary?.branch2ReviewUrl || activeCfg?.branches?.[1]?.reviewUrl || 'https://maps.app.goo.gl/W4Jojd1B9TBZxWWP9',
+  };
+}
+
 /**
  * Mengambil seksi aturan studio & disclaimer resmi
  */
