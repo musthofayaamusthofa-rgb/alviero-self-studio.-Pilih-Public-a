@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-22T15:28:13.820Z",
+  "lastUpdated": "2026-11-22T16:09:07.948Z",
   "operationalHours": "Buka Setiap Hari: 08:00 - 21:00 WIB",
   "announcement": "",
   "landingQuickServices": {
@@ -1149,9 +1149,7 @@
       "imageUrl": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
       "images": [
         "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto1_1792673190560_1792673190990.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
-        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg"
+        "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg"
       ],
       "terms": [
         "Komposisi tim menyesuaikan jenis layanan dan jadwal.",
@@ -1179,7 +1177,7 @@
           "division": "Fotografi & Editor",
           "role": "Kepala Fotografer & Kepala Cabang 2",
           "name": "Ricky",
-          "description": "",
+          "description": "Berpengalaman mengarahkan ekspresi, pose natural yang elegan, dan menangkap momen sakral maupun kasual secara presisi.",
           "badge": "Creative Lead",
           "photo": "/images/promos/team_kepala_fotografer_ricky_1792773347828_1792773347835.jpg"
         },
@@ -1188,7 +1186,7 @@
           "division": "Pelayanan & Reservasi",
           "role": "Kepala Admin Reservasi & Front Office",
           "name": "Sheila",
-          "description": "",
+          "description": "Menyambut klien dengan ramah, memandu pemilihan hasil foto cetak, dan mengoordinasikan jadwal sesi agar tepat waktu tanpa antre panjang.",
           "badge": "Guest Care",
           "photo": "/images/promos/team_kepala_admin_sheila_1792773484908_1792773484916.jpg"
         },
@@ -1197,7 +1195,7 @@
           "division": "Editing & Post-Production",
           "role": "Lead Editor Visual & Print Lab",
           "name": "Dewa Hasan Musthofa",
-          "description": "",
+          "description": "Memproses pewarnaan foto (color grading) berkarakter natural, retouching kulit halus alami, dan memastikan kualitas cetakan foto prima.",
           "badge": "Post-Prod",
           "photo": "/images/promos/team_editor_dewa_hasan_musthofa_1792773442191_1792773442198.jpg"
         },
@@ -1206,7 +1204,7 @@
           "division": "Tata Cahaya & Kru Studio",
           "role": "Lighting Specialist & Studio Assistant",
           "name": "Dimas",
-          "description": "",
+          "description": "Menata tata cahaya studio (flash, softbox, spotlight), penyesuaian latar background, serta mendampingi kelengkapan properti foto.",
           "badge": "Studio Crew",
           "photo": "/images/promos/team_crew_dimas_1792773538202_1792773538206.jpg"
         }
@@ -1220,19 +1218,7 @@
         },
         {
           "id": "gal-2",
-          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto2_1792843703942_1792843704524.jpg",
-          "category": "BEHIND THE SCENES",
-          "caption": ""
-        },
-        {
-          "id": "gal-3",
           "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto6_1793101520460_1793101521124.jpg",
-          "category": "BEHIND THE SCENES",
-          "caption": ""
-        },
-        {
-          "id": "gal-4",
-          "url": "/images/promos/promo_kenali_tim_yang_menemani_sesi_foto_anda_foto7_1793101526111_1793101526527.jpg",
           "category": "BEHIND THE SCENES",
           "caption": ""
         }
